@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UofSC Course Scheduler</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>UOFSC COURSE SCHEDULER</h1>
+        <div class="header-controls">
+            <label for="term-select">TERM:</label>
+            <select id="term-select">
+                <option value="202608">Fall 2026</option>
+                <option value="202605">Summer 2026</option>
+                <option value="202601">Spring 2026</option>
+            </select>
+            <div class="plan-controls">
+                <select id="plan-select">
+                    <option value="Plan A">Plan A</option>
+                    <option value="Plan B">Plan B</option>
+                    <option value="Plan C">Plan C</option>
+                </select>
+                <button id="btn-save-plan">SAVE</button>
+                <button id="btn-load-plan">LOAD</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- LEFT: Step-by-step panel -->
+        <aside id="search-panel">
+
+            <!-- STEP 1: Courses you've taken -->
+            <div class="step-section">
+                <div class="step-label"><span class="step-number">1</span> COURSES YOU'VE TAKEN</div>
+                <input type="text" id="add-completed-input" placeholder="Type a course (e.g. MATH 242) and press Enter">
+                <div id="completed-chips" class="completed-list"></div>
+            </div>
+
+            <!-- STEP 2: What subject/major? -->
+            <div class="step-section">
+                <div class="step-label"><span class="step-number">2</span> FIND COURSES</div>
+                <div class="search-form">
+                    <select id="subject-select"><option value="">-- Pick a Subject --</option></select>
+                    <input type="text" id="keyword-input" placeholder="Course # or keyword (optional)">
+                    <div class="search-filters">
+                        <label><input type="checkbox" id="filter-open"> Open only</label>
+                        <label><input type="checkbox" id="filter-grad"> Graduate</label>
+                        <label><input type="checkbox" id="filter-eligible"> I can take (prereqs met)</label>
+                    </div>
+                    <button id="btn-search" class="btn-garnet" style="margin-top:4px">SEARCH COURSES</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Results — pick your courses -->
+            <div class="step-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0">
+                <div class="step-label"><span class="step-number">3</span> PICK YOUR COURSES <span id="pick-count" style="font-weight:400;color:#333;font-size:0.75rem"></span></div>
+                <div id="search-results" class="results-list">
+                    <p class="hint">Search a subject above to see available courses.</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="sidebar-actions">
+                <button id="btn-solve" class="btn-primary" style="flex:1">GENERATE SCHEDULES</button>
+                <button id="btn-export" class="btn-black">EXPORT .ICS</button>
+            </div>
+        </aside>
+
+        <!-- RIGHT: Calendar + Tabs -->
+        <section id="right-panel">
+            <div id="calendar-container">
+                <div id="calendar-grid">
+                    <div class="cal-header">
+                        <div class="cal-time-label"></div>
+                        <div class="cal-day-label">MON</div>
+                        <div class="cal-day-label">TUE</div>
+                        <div class="cal-day-label">WED</div>
+                        <div class="cal-day-label">THU</div>
+                        <div class="cal-day-label">FRI</div>
+                    </div>
+                    <div id="cal-body"></div>
+                </div>
+            </div>
+
+            <!-- Tabs below calendar -->
+            <div id="info-tabs">
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="details">COURSE INFO</button>
+                    <button class="tab-btn" data-tab="preferences">PREFERENCES</button>
+                    <button class="tab-btn" data-tab="prereqs">PREREQUISITES</button>
+                    <button class="tab-btn" data-tab="history">OFFERING HISTORY</button>
+                    <button class="tab-btn" data-tab="solver">SCHEDULE OPTIONS</button>
+                </div>
+                <div class="tab-content active" id="tab-details">
+                    <p class="hint">Click a course on the calendar or in the list to see its details here.</p>
+                </div>
+                <div class="tab-content" id="tab-preferences">
+                    <div style="display:flex;gap:20px;flex-wrap:wrap">
+                        <div class="pref-section" style="flex:1;min-width:200px">
+                            <h3>Block Out Times</h3>
+                            <p style="font-size:0.75rem;color:#555;margin-bottom:4px">Click or drag to block times you are NOT available.</p>
+                            <div id="block-calendar"></div>
+                        </div>
+                        <div style="flex:1;min-width:200px">
+                            <div class="pref-section">
+                                <h3>Earliest / Latest Class</h3>
+                                <label>Earliest start: <input type="time" id="pref-start" value="08:00"></label>
+                                <label>Latest end: <input type="time" id="pref-end" value="21:00"></label>
+                            </div>
+                            <div class="pref-section">
+                                <h3>Professor Preferences</h3>
+                                <div id="prof-prefs-list"></div>
+                                <div class="prof-pref-add">
+                                    <input type="text" id="prof-name-input" placeholder="Last name" style="flex:1">
+                                    <select id="prof-pref-type" style="width:auto">
+                                        <option value="prefer">Prefer</option>
+                                        <option value="avoid">Avoid</option>
+                                    </select>
+                                    <button id="btn-add-prof-pref">ADD</button>
+                                </div>
+                            </div>
+                            <div class="pref-section">
+                                <h3>Scoring Weights</h3>
+                                <label>Gap penalty: <input type="range" id="weight-gap" min="0" max="10" value="2" step="0.5"><span id="weight-gap-val">2</span></label>
+                                <label>Fewer days: <input type="range" id="weight-compact" min="0" max="10" value="3" step="0.5"><span id="weight-compact-val">3</span></label>
+                                <label>Back-to-back: <input type="range" id="weight-consec" min="0" max="10" value="2" step="0.5"><span id="weight-consec-val">2</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="tab-prereqs">
+                    <div id="prereq-container">
+                        <p class="hint">Click a course to see what you need to take it.</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="tab-history">
+                    <div id="history-container">
+                        <p class="hint">Click a course to see how often it has been offered.</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="tab-solver">
+                    <div id="solver-container">
+                        <p class="hint">Click "GENERATE SCHEDULES" to find the best conflict-free schedules for your selected courses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="hidden">
+        <div id="modal">
+            <button id="modal-close">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/state.js"></script>
+    <script src="/static/js/calendar.js"></script>
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/preferences.js"></script>
+    <script src="/static/js/prereqs.js"></script>
+    <script src="/static/js/history.js"></script>
+    <script src="/static/js/scheduler.js"></script>
+    <script src="/static/js/export.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Calendar.init();
+        Search.init();
+        Preferences.init();
+        Scheduler.init();
+        Export.init();
+
+        // Completed courses input (Step 1)
+        const addInput = document.getElementById('add-completed-input');
+        addInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = addInput.value.trim().toUpperCase();
+                if (val && !State.completedCourses.includes(val)) {
+                    State.completedCourses.push(val);
+                    renderCompletedChips();
+                    addInput.value = '';
+                }
+            }
+        });
+        // Also support comma-separated paste
+        addInput.addEventListener('paste', (e) => {
+            setTimeout(() => {
+                const vals = addInput.value.split(',').map(s => s.trim().toUpperCase()).filter(s => s);
+                vals.forEach(v => {
+                    if (!State.completedCourses.includes(v)) State.completedCourses.push(v);
+                });
+                renderCompletedChips();
+                addInput.value = '';
+            }, 50);
+        });
+
+        function renderCompletedChips() {
+            const container = document.getElementById('completed-chips');
+            container.innerHTML = '';
+            State.completedCourses.forEach(course => {
+                const chip = document.createElement('span');
+                chip.className = 'completed-chip';
+                chip.innerHTML = `${course} <span class="remove">&times;</span>`;
+                chip.querySelector('.remove').addEventListener('click', () => {
+                    State.completedCourses = State.completedCourses.filter(c => c !== course);
+                    renderCompletedChips();
+                });
+                container.appendChild(chip);
+            });
+        }
+
+        // Track picked courses count
+        State.on('sections-changed', () => {
+            const count = Object.keys(State.selectedSections).length;
+            document.getElementById('pick-count').textContent = count > 0 ? `(${count} selected)` : '';
+        });
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Term change
+        document.getElementById('term-select').addEventListener('change', (e) => {
+            State.term = e.target.value;
+        });
+
+        // Plan save/load
+        document.getElementById('btn-save-plan').addEventListener('click', () => {
+            State.currentPlan = document.getElementById('plan-select').value;
+            State.savePlan();
+        });
+        document.getElementById('btn-load-plan').addEventListener('click', () => {
+            const name = document.getElementById('plan-select').value;
+            if (!State.loadPlan(name)) {
+                alert('No saved data for ' + name);
+            }
+        });
+
+        // Modal
+        document.getElementById('modal-close').addEventListener('click', () => {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        });
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+        });
+    });
+    </script>
+</body>
+</html>
