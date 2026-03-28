@@ -471,56 +471,58 @@ const Search = {
     },
 
     abbreviateBuilding(fullName) {
-        // Common UofSC building abbreviations
+        // UofSC registrar building codes mapped to API building names
+        // Keys match the actual strings returned by the classes.sc.edu API
         const abbrevs = {
-            'Swearingen Engineering Center': 'SWGN',
+            'Swearingen Engr Ctr': 'SWGN',
             'Sumwalt College': 'SUMW',
             'Close-Hipp Building': 'CLHO',
-            'Gambrell Hall': 'GAMB',
+            'Close-Hipp': 'CLHO',
+            'Gambrell': 'GAMB',
             'Hamilton College': 'HAMI',
-            'Humanities Classroom Building': 'HCB',
-            'Jones Physical Science Center': 'JPSN',
+            'Humanities Classroom': 'HCB',
+            'Jones Physical Sci Ctr': 'JPSN',
+            'Jones Physical Sci': 'JPSN',
+            'Leconte College': 'LECO',
             'LeConte College': 'LECO',
-            'Coker Life Sciences Building': 'COLS',
-            'Callcott Social Sciences Center': 'CALC',
-            'Byrnes Building': 'BYRN',
+            'Coker Life Science': 'COLS',
+            'Coker Life Sciences': 'COLS',
+            'Callcot Soc Sci Ctr': 'CALC',
+            'Callcott Social Sci': 'CALC',
+            'Byrnes': 'BYRN',
             'Currell College': 'CURR',
             'Wardlaw College': 'WARD',
             'Welsh Humanities': 'WELH',
             'Barnwell College': 'BARN',
             'Petigru College': 'PETI',
             'Sloan College': 'SLOA',
-            'School of Music': 'MUS',
-            'Booker T. Washington Building': 'BTW',
-            'Bull Street Garage Classroom': 'BSGC',
+            'McMaster College': 'MCMA',
+            'Carolina Coliseum': 'COL',
+            'Blatt PE Center': 'BLAT',
+            'Darla Moore Sch of Bus': 'DMSB',
+            'Moore School of Bus': 'DMSB',
             'Columbia Hall': 'COLH',
-            'Darla Moore School of Business': 'DMSB',
-            'Discovery I': 'DISC1',
-            'Public Health Research Center': 'PHRC',
-            'Horizon I': 'HRZN',
+            'Science and Technology Bldg': 'STBG',
+            'Science and Technology': 'STBG',
+            'WMBB Nursing': 'NURS',
             'Nursing Building': 'NURS',
-            'Science and Technology Building': 'STBG',
+            'Bull Street': 'BULL',
+            'Horizon': 'HRZN',
+            'Discovery': 'DISC',
+            'Public Health Research': 'PHRC',
+            'School of Music': 'MUS',
+            'Booker T Washington': 'BTW',
         };
 
-        // Try to match known building names (building name may include room number)
-        for (const [full, abbr] of Object.entries(abbrevs)) {
-            if (fullName.startsWith(full)) {
-                const room = fullName.slice(full.length).trim();
-                return room ? `${abbr} ${room} (${full})` : `${abbr} (${full})`;
+        // Try to match known building names (API returns "Building Room")
+        for (const [apiName, code] of Object.entries(abbrevs)) {
+            if (fullName.startsWith(apiName)) {
+                const room = fullName.slice(apiName.length).trim();
+                return room ? `${code} ${room} (${apiName})` : `${code} (${apiName})`;
             }
         }
 
-        // Fallback: shorten by taking first letters of each word + room number
-        const parts = fullName.match(/^(.+?)\s+(\d+\w*)$/);
-        if (parts) {
-            const buildingName = parts[1];
-            const words = buildingName.split(/\s+/);
-            if (words.length >= 2 && buildingName.length > 15) {
-                const abbr = words.map(w => w[0]).join('').toUpperCase();
-                return `${abbr} ${parts[2]} (${buildingName})`;
-            }
-        }
-
+        // Fallback: just return what the API gave us (already fairly short)
         return fullName;
     },
 
