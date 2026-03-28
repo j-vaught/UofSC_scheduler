@@ -967,6 +967,8 @@ button:hover { background: #f0f0f0; }
 .btn-garnet:hover { background: #5a0008; }
 .btn-black { background: #000000; color: #ffffff; border-color: #000000; }
 .btn-black:hover { background: #363636; }
+.btn-green { background: #2e7d32; color: #ffffff; border-color: #2e7d32; }
+.btn-green:hover { background: #1b5e20; }
 
 /* === Scrollbar === */
 ::-webkit-scrollbar { width: 8px; }

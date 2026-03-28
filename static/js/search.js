@@ -249,7 +249,7 @@ const Search = {
 
         const isAdded = State.isSelected(sec.crn);
         const btnLabel = isAdded ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
-        const btnClass = isAdded ? 'btn-danger' : 'btn-garnet';
+        const btnClass = isAdded ? 'btn-danger' : 'btn-green';
 
         detailsTab.innerHTML = `
             <h3>${sec.code} - ${sec.title}</h3>
@@ -260,7 +260,7 @@ const Search = {
             <p><strong>Status:</strong> ${sec.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
             <div class="section-actions">
                 <button id="btn-section-toggle" class="${btnClass}" style="margin-top:10px">${btnLabel}</button>
-                <button id="btn-view-schedule" class="btn-black" style="margin-top:10px">VIEW SCHEDULE</button>
+                <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
             </div>
             <p class="loading">Loading details</p>
         `;
@@ -291,7 +291,7 @@ const Search = {
 
             const isAdded2 = State.isSelected(sec.crn);
             const btnLabel2 = isAdded2 ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
-            const btnClass2 = isAdded2 ? 'btn-danger' : 'btn-garnet';
+            const btnClass2 = isAdded2 ? 'btn-danger' : 'btn-green';
 
             detailsTab.innerHTML = `
                 <h3>${sec.code} - ${sec.title}</h3>
@@ -301,12 +301,11 @@ const Search = {
                 <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
                 <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>
                 <p><strong>Method:</strong> ${data.inst_mthd || sec.inst_mthd || 'N/A'}</p>
-                <p><strong>Campus:</strong> ${data.campus || 'N/A'}</p>
                 ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
                 ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}
                 <div class="section-actions">
                     <button id="btn-section-toggle" class="${btnClass2}" style="margin-top:10px">${btnLabel2}</button>
-                    <button id="btn-view-schedule" class="btn-black" style="margin-top:10px">VIEW SCHEDULE</button>
+                    <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
                 </div>
             `;
 
