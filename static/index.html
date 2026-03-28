@@ -200,12 +200,56 @@
                         <div class="search-form">
                             <select id="subject-select"><option value="">-- Pick a Subject --</option></select>
                             <input type="text" id="keyword-input" placeholder="Course # or keyword (optional)">
-                            <div class="search-filters">
-                                <label><input type="checkbox" id="filter-open"> Open only</label>
-                                <label><input type="checkbox" id="filter-grad"> Graduate</label>
+                            <button id="btn-search" class="btn-garnet">SEARCH COURSES</button>
+                        </div>
+                        <div class="filter-toggle" id="filter-toggle">Filters <span id="filter-arrow">&#9660;</span></div>
+                        <div class="filter-panel hidden" id="filter-panel">
+                            <div class="filter-group">
+                                <label class="filter-label">Semester</label>
+                                <label><input type="checkbox" id="filter-current-term" checked> Offered in <span id="filter-term-label">Fall 2026</span></label>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Availability</label>
+                                <label><input type="checkbox" id="filter-open"> Open sections only</label>
                                 <label><input type="checkbox" id="filter-eligible"> I can take (prereqs met)</label>
                             </div>
-                            <button id="btn-search" class="btn-garnet">SEARCH COURSES</button>
+                            <div class="filter-group">
+                                <label class="filter-label">Course Level</label>
+                                <div class="filter-row">
+                                    <select id="filter-level-mode" style="width:auto;flex:1">
+                                        <option value="">Any level</option>
+                                        <option value="exact">Exactly</option>
+                                        <option value="above">Above</option>
+                                        <option value="below">Below</option>
+                                    </select>
+                                    <input type="number" id="filter-level-value" placeholder="e.g. 500" min="100" max="900" step="100" style="width:70px">
+                                    <span style="font-size:0.75rem;color:#5C5C5C">level</span>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Class Size</label>
+                                <div class="filter-row">
+                                    <select id="filter-size-mode" style="width:auto;flex:1">
+                                        <option value="">Any size</option>
+                                        <option value="above">More than</option>
+                                        <option value="below">Less than</option>
+                                    </select>
+                                    <input type="number" id="filter-size-value" placeholder="e.g. 100" min="1" style="width:70px">
+                                    <span style="font-size:0.75rem;color:#5C5C5C">seats</span>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label class="filter-label">Seats Available</label>
+                                <div class="filter-row">
+                                    <select id="filter-avail-mode" style="width:auto;flex:1">
+                                        <option value="">Any</option>
+                                        <option value="above">At least</option>
+                                        <option value="below">Fewer than</option>
+                                    </select>
+                                    <input type="number" id="filter-avail-value" placeholder="e.g. 10" min="0" style="width:70px">
+                                    <span style="font-size:0.75rem;color:#5C5C5C">left</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">

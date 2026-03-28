@@ -8,6 +8,29 @@ const Search = {
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
         });
+
+        // Filter toggle
+        const filterToggle = document.getElementById('filter-toggle');
+        const filterPanel = document.getElementById('filter-panel');
+        const filterArrow = document.getElementById('filter-arrow');
+        if (filterToggle && filterPanel) {
+            filterToggle.addEventListener('click', () => {
+                filterPanel.classList.toggle('hidden');
+                filterArrow.classList.toggle('open');
+            });
+        }
+
+        // Update term label when term changes
+        const termSelect = document.getElementById('term-select');
+        if (termSelect) {
+            const updateTermLabel = () => {
+                const opt = termSelect.options[termSelect.selectedIndex];
+                const label = document.getElementById('filter-term-label');
+                if (label && opt) label.textContent = opt.textContent;
+            };
+            termSelect.addEventListener('change', updateTermLabel);
+            updateTermLabel();
+        }
     },
 
     populateSubjects() {
@@ -35,8 +58,20 @@ const Search = {
         const subject = document.getElementById('subject-select').value;
         const keyword = document.getElementById('keyword-input').value.trim();
         const openOnly = document.getElementById('filter-open').checked;
-        const gradOnly = document.getElementById('filter-grad').checked;
         const eligibleOnly = document.getElementById('filter-eligible').checked;
+        const currentTermOnly = document.getElementById('filter-current-term').checked;
+
+        // Level filter
+        const levelMode = document.getElementById('filter-level-mode').value;
+        const levelValue = parseInt(document.getElementById('filter-level-value').value) || 0;
+
+        // Size filter
+        const sizeMode = document.getElementById('filter-size-mode').value;
+        const sizeValue = parseInt(document.getElementById('filter-size-value').value) || 0;
+
+        // Availability filter
+        const availMode = document.getElementById('filter-avail-mode').value;
+        const availValue = parseInt(document.getElementById('filter-avail-value').value) || 0;
 
         if (!subject && !keyword) {
             this.showHint('Pick a subject or enter a course number.');
@@ -55,13 +90,44 @@ const Search = {
             }
         }
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
-        if (gradOnly) criteria.push({ field: 'course_level', value: 'course_level_A5' });
 
+        const term = currentTermOnly ? State.term : State.term;
         this.showLoading();
 
         try {
-            const data = await API.searchCourses(State.term, criteria);
+            const data = await API.searchCourses(term, criteria);
             let results = data.results || [];
+
+            // Client-side filters
+
+            // Level filter
+            if (levelMode && levelValue) {
+                results = results.filter(r => {
+                    const num = parseInt((r.code || '').replace(/[A-Z\s]+/g, ''));
+                    if (!num) return true;
+                    const level = Math.floor(num / 100) * 100;
+                    if (levelMode === 'exact') return level === levelValue;
+                    if (levelMode === 'above') return num >= levelValue;
+                    if (levelMode === 'below') return num < levelValue;
+                    return true;
+                });
+            }
+
+            // Size filter (total seats)
+            if (sizeMode && sizeValue) {
+                results = results.filter(r => {
+                    const total = parseInt(r.total) || 0;
+                    if (sizeMode === 'above') return total >= sizeValue;
+                    if (sizeMode === 'below') return total < sizeValue;
+                    return true;
+                });
+            }
+
+            // Availability filter (seats remaining)
+            // The API gives 'stat' (A=open) and 'total' but not remaining directly.
+            // We'll need to fetch details for this. For now, filter on total and stat.
+            // We store a flag to do detailed seat filtering after render.
+            this._pendingAvailFilter = (availMode && availValue) ? { mode: availMode, value: availValue } : null;
 
             // Fetch prereq data for eligibility check
             let prereqData = {};
