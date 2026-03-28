@@ -67,6 +67,115 @@ main {
 }
 .main-tab.active { display: flex; }
 
+/* === HOME TAB === */
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+.home-welcome {
+    text-align: center;
+    margin-bottom: 32px;
+}
+.home-welcome h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #73000A;
+    margin-bottom: 6px;
+}
+.home-welcome p {
+    font-size: 0.95rem;
+    color: #5C5C5C;
+}
+.home-paths {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+.home-card {
+    border: 3px solid #000000;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    display: flex;
+    flex-direction: column;
+}
+.home-card:hover {
+    border-color: #73000A;
+    background: #fef5f5;
+}
+.home-card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+.home-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 8px;
+}
+.home-card p {
+    font-size: 0.85rem;
+    color: #5C5C5C;
+    flex: 1;
+    margin-bottom: 12px;
+}
+.home-card-action {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #73000A;
+}
+.home-quickstart {
+    border: 2px solid #ECECEC;
+    padding: 24px;
+}
+.home-quickstart h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #73000A;
+    margin-bottom: 6px;
+}
+.home-quickstart > p {
+    font-size: 0.85rem;
+    color: #5C5C5C;
+    margin-bottom: 16px;
+}
+.quickstart-form {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+.quickstart-row {
+    flex: 1;
+    min-width: 180px;
+}
+.quickstart-row label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #363636;
+    margin-bottom: 4px;
+}
+.quickstart-summary {
+    margin-top: 16px;
+    padding: 16px;
+    border: 2px solid #73000A;
+    background: #fef5f5;
+}
+.quickstart-summary h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #73000A;
+    margin-bottom: 8px;
+}
+.quickstart-summary p {
+    font-size: 0.85rem;
+    color: #363636;
+    margin-bottom: 4px;
+}
+
 /* === PROFILE TAB === */
 .profile-grid {
     display: flex;

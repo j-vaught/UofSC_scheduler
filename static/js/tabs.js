@@ -1,7 +1,7 @@
 /* Tab navigation system */
 const Tabs = {
     _listeners: [],
-    _current: 'profile',
+    _current: 'home',
 
     init() {
         const nav = document.getElementById('main-tabs');
@@ -15,7 +15,7 @@ const Tabs = {
 
         // Restore last tab or default to profile
         const saved = localStorage.getItem('uosc-active-tab');
-        this.switchTo(saved || 'profile');
+        this.switchTo(saved || 'home');
     },
 
     switchTo(tabName) {

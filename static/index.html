@@ -27,16 +27,68 @@
 
     <!-- Main Tab Navigation -->
     <nav id="main-tabs">
-        <button data-tab="profile" class="main-tab-btn active">PROFILE</button>
+        <button data-tab="home" class="main-tab-btn active">HOME</button>
         <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
         <button data-tab="semester" class="main-tab-btn">BROWSE</button>
         <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
+        <button data-tab="profile" class="main-tab-btn">SETTINGS</button>
         <button data-tab="export" class="main-tab-btn">EXPORT</button>
     </nav>
 
     <main>
-        <!-- ===== PROFILE TAB ===== -->
-        <div id="tab-profile" class="main-tab active">
+        <!-- ===== HOME TAB ===== -->
+        <div id="tab-home" class="main-tab active">
+            <div class="home-container">
+                <div class="home-welcome">
+                    <h2>Welcome to the UofSC Course Scheduler</h2>
+                    <p>Plan your degree or build your semester schedule.</p>
+                </div>
+
+                <div class="home-paths">
+                    <div class="home-card" id="home-degree-btn">
+                        <div class="home-card-icon">&#127891;</div>
+                        <h3>Plan My Degree</h3>
+                        <p>I want to see what classes I will take each semester through graduation.</p>
+                        <span class="home-card-action">Get Started &rarr;</span>
+                    </div>
+
+                    <div class="home-card" id="home-schedule-btn">
+                        <div class="home-card-icon">&#128197;</div>
+                        <h3>Build a Schedule</h3>
+                        <p>I know what courses I want to take. I just need to find sections, times, and professors.</p>
+                        <span class="home-card-action">Get Started &rarr;</span>
+                    </div>
+                </div>
+
+                <div class="home-quickstart">
+                    <h3>Quick Start</h3>
+                    <p>Select your major to estimate your course completion based on the major map.</p>
+                    <div class="quickstart-form">
+                        <div class="quickstart-row">
+                            <label for="home-major-select">Major</label>
+                            <select id="home-major-select">
+                                <option value="">-- Select Your Major --</option>
+                            </select>
+                        </div>
+                        <div class="quickstart-row">
+                            <label for="home-year-select">Year</label>
+                            <select id="home-year-select">
+                                <option value="">-- How far along? --</option>
+                                <option value="freshman">Freshman (0-29 credits)</option>
+                                <option value="sophomore">Sophomore (30-59 credits)</option>
+                                <option value="junior">Junior (60-89 credits)</option>
+                                <option value="senior">Senior (90+ credits)</option>
+                            </select>
+                        </div>
+                        <button id="btn-quickstart" class="btn-garnet">ESTIMATE MY PLAN</button>
+                    </div>
+                    <div id="quickstart-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SETTINGS TAB (was PROFILE) ===== -->
+        <div id="tab-profile" class="main-tab">
             <div class="profile-grid">
                 <!-- Major Selection -->
                 <section class="profile-section">
@@ -418,6 +470,108 @@
         // Term change
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
+        });
+
+        // Home tab: path cards
+        document.getElementById('home-degree-btn').addEventListener('click', () => {
+            Tabs.switchTo('degree');
+        });
+        document.getElementById('home-schedule-btn').addEventListener('click', () => {
+            Tabs.switchTo('semester');
+        });
+
+        // Home tab: quick start major dropdown
+        fetch('/api/major-maps').then(r => r.json()).then(maps => {
+            const sel = document.getElementById('home-major-select');
+            maps.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.id;
+                opt.textContent = `${m.major} — ${m.program} (${m.catalog_year})`;
+                sel.appendChild(opt);
+            });
+        });
+
+        // Home tab: quick start estimate
+        document.getElementById('btn-quickstart').addEventListener('click', async () => {
+            const mapId = document.getElementById('home-major-select').value;
+            const year = document.getElementById('home-year-select').value;
+            const resultEl = document.getElementById('quickstart-result');
+
+            if (!mapId) {
+                resultEl.innerHTML = '<p class="hint">Please select a major.</p>';
+                return;
+            }
+            if (!year) {
+                resultEl.innerHTML = '<p class="hint">Please select your year.</p>';
+                return;
+            }
+
+            // Estimate completed credits from year
+            const creditEstimates = { freshman: 0, sophomore: 30, junior: 60, senior: 90 };
+            const estCredits = creditEstimates[year] || 0;
+
+            // Set profile
+            State.profile.major = mapId;
+            State.profile.planMode = 'full_time';
+            document.getElementById('major-select').value = mapId;
+
+            resultEl.innerHTML = '<p class="loading">Generating estimate</p>';
+
+            try {
+                // Load the major map
+                const mapResp = await fetch('/api/major-map', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: mapId })
+                });
+                const majorData = await mapResp.json();
+                State.profile.majorData = majorData;
+
+                // Generate a plan with no completed courses (estimate based on year)
+                const planResp = await fetch('/api/degree-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        map_id: mapId,
+                        completed: State.completedCourses,
+                        mode: 'full_time',
+                        start_term: State.term,
+                        concentration: 'general',
+                    })
+                });
+                const plan = await planResp.json();
+
+                const totalRequired = majorData.total_credits_required;
+                const remaining = totalRequired - estCredits;
+                const semestersLeft = plan.semesters ? plan.semesters.length : Math.ceil(remaining / 15);
+                const yearLabel = year.charAt(0).toUpperCase() + year.slice(1);
+
+                resultEl.innerHTML = `
+                    <div class="quickstart-summary">
+                        <h4>${majorData.major} — ${majorData.program}</h4>
+                        <p><strong>Standing:</strong> ${yearLabel} (~${estCredits} credits completed)</p>
+                        <p><strong>Total required:</strong> ${totalRequired} credits</p>
+                        <p><strong>Estimated remaining:</strong> ~${Math.max(0, remaining)} credits</p>
+                        <p><strong>Semesters to graduation:</strong> ~${semestersLeft}</p>
+                        <p style="margin-top:10px">For a detailed semester-by-semester plan, enter your completed courses in
+                        <a href="#" id="quickstart-to-settings" style="color:#73000A;font-weight:700">Settings</a>
+                        then go to <a href="#" id="quickstart-to-degree" style="color:#73000A;font-weight:700">Degree Plan</a>.</p>
+                    </div>
+                `;
+
+                document.getElementById('quickstart-to-settings').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    Tabs.switchTo('profile');
+                });
+                document.getElementById('quickstart-to-degree').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    Tabs.switchTo('degree');
+                });
+
+                State.emit('profile-updated');
+            } catch (e) {
+                resultEl.innerHTML = '<p class="hint">Failed to generate estimate. Is the server running?</p>';
+            }
         });
 
         // Resizable search sidebar
