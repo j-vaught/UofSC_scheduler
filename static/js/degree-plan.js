@@ -97,13 +97,24 @@ const DegreePlan = {
             sem.courses.forEach(c => { existingAssignments[c.code] = sem.term; });
         });
 
+        // Build a mapping of typical_year + semester -> past term code
+        // Work backwards from the current term
+        const currentTerm = State.term || '202608';
+        const currentYear = parseInt(currentTerm.slice(0, 4));
+        const pastTermMap = {}; // { '1_Fall': '202308', '1_Spring': '202401', ... }
+        for (let yr = 1; yr <= 4; yr++) {
+            const pastYear = currentYear - (4 - yr) - 1; // e.g. for yr=1 with current 2026: 2022
+            pastTermMap[`${yr}_Fall`] = `${pastYear}08`;
+            pastTermMap[`${yr}_Spring`] = `${pastYear + 1}01`;
+        }
+        const termNames = { '01': 'Spring', '05': 'Summer', '08': 'Fall' };
+
         completed.forEach(code => {
             const mapCourse = majorData.required_courses.find(c => c.code === code);
             const detail = State.completedDetails.find(d => d.code === code);
 
             let termKey, termLabel, semType;
             if (existingAssignments[code]) {
-                // Keep existing assignment
                 termKey = existingAssignments[code];
                 const existing = (State.degreePlan.completedSemesters || []).find(s => s.term === termKey);
                 termLabel = existing ? existing.label : termKey;
@@ -112,8 +123,20 @@ const DegreePlan = {
                 termKey = detail.semester;
                 termLabel = detail.semester;
                 semType = 'completed';
+            } else if (mapCourse && mapCourse.typical_year) {
+                // Spread across past semesters based on typical year/semester
+                const sem = mapCourse.typical_semester || 'Fall';
+                const key = `${mapCourse.typical_year}_${sem}`;
+                termKey = pastTermMap[key] || 'prior';
+                if (termKey !== 'prior') {
+                    const yr = termKey.slice(0, 4);
+                    const semCode = termKey.slice(4);
+                    termLabel = `${termNames[semCode] || ''} ${yr}`;
+                } else {
+                    termLabel = 'Prior Courses';
+                }
+                semType = 'completed';
             } else {
-                // Put unassigned courses in a generic "Prior Courses" bucket
                 termKey = 'prior';
                 termLabel = 'Prior Courses';
                 semType = 'completed';
