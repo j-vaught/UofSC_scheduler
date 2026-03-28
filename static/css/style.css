@@ -747,6 +747,8 @@ main {
 .section-row .sec-instr { color: #000000; flex: 1; }
 .section-row .sec-time { color: #333333; white-space: nowrap; font-weight: 500; }
 .section-row .sec-status { min-width: 18px; text-align: center; }
+.section-row.viewing { background: #e3f2fd; border-left: 4px solid #466A9F; }
+.section-add-btn { white-space: nowrap; flex-shrink: 0; }
 
 /* === Solver Results === */
 .schedule-card {

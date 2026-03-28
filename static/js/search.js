@@ -214,36 +214,58 @@ const Search = {
 
             group.sections.forEach(sec => {
                 const row = document.createElement('div');
-                row.className = 'section-row' + (State.isSelected(sec.crn) ? ' selected' : '');
+                const isAdded = State.isSelected(sec.crn);
+                row.className = 'section-row' + (isAdded ? ' selected' : '');
                 const statusDot = sec.stat === 'A'
                     ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
+                const addBtnLabel = isAdded ? 'REMOVE' : 'ADD TO SCHEDULE';
+                const addBtnClass = isAdded ? 'btn-small btn-danger' : 'btn-small btn-garnet';
                 row.innerHTML = `
                     <span class="sec-id">${sec.section}</span>
                     <span class="sec-instr">${sec.instr || 'Staff'}</span>
                     <span class="sec-time">${sec.meets || 'TBA'}</span>
                     <span class="sec-status">${statusDot}</span>
+                    <button class="section-add-btn ${addBtnClass}" data-crn="${sec.crn}">${addBtnLabel}</button>
                 `;
 
+                // Clicking the row shows details (does NOT add to schedule)
                 row.addEventListener('click', (e) => {
+                    if (e.target.closest('.section-add-btn')) return; // let button handle itself
                     e.stopPropagation();
-                    State.toggleSection(sec);
-                    row.classList.toggle('selected', State.isSelected(sec.crn));
-                    // Deselect sibling rows for same course
-                    sectionsDiv.querySelectorAll('.section-row').forEach(r => {
-                        if (r !== row && r.dataset.crn) {
-                            r.classList.toggle('selected', State.isSelected(r.dataset.crn));
-                        }
-                    });
-                    // Load course info in Semester tab
+                    // Highlight this row
+                    sectionsDiv.querySelectorAll('.section-row').forEach(r => r.classList.remove('viewing'));
+                    row.classList.add('viewing');
+                    // Load section details
                     if (typeof Calendar !== 'undefined' && Calendar.showCourseDetail) {
                         Calendar.showCourseDetail(sec);
                     }
-                    if (typeof Prereqs !== 'undefined' && Prereqs.loadForCourse) {
-                        Prereqs.loadForCourse(sec.code);
-                    }
-                    if (typeof History !== 'undefined' && History.loadForCourse) {
-                        History.loadForCourse(sec.code);
+                });
+
+                // Add/Remove button
+                const addBtn = row.querySelector('.section-add-btn');
+                addBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    State.toggleSection(sec);
+                    const nowSelected = State.isSelected(sec.crn);
+                    row.classList.toggle('selected', nowSelected);
+                    addBtn.textContent = nowSelected ? 'REMOVE' : 'ADD TO SCHEDULE';
+                    addBtn.className = 'section-add-btn btn-small ' + (nowSelected ? 'btn-danger' : 'btn-garnet');
+                    // Deselect sibling rows for same course
+                    sectionsDiv.querySelectorAll('.section-row').forEach(r => {
+                        if (r !== row && r.dataset.crn) {
+                            const sibSelected = State.isSelected(r.dataset.crn);
+                            r.classList.toggle('selected', sibSelected);
+                            const sibBtn = r.querySelector('.section-add-btn');
+                            if (sibBtn) {
+                                sibBtn.textContent = sibSelected ? 'REMOVE' : 'ADD TO SCHEDULE';
+                                sibBtn.className = 'section-add-btn btn-small ' + (sibSelected ? 'btn-danger' : 'btn-garnet');
+                            }
+                        }
+                    });
+                    if (nowSelected) {
+                        // Switch to Schedule tab to see calendar
+                        // (optional: user can click the "View Schedule" link instead)
                     }
                 });
                 row.dataset.crn = sec.crn;
