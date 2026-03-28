@@ -326,10 +326,10 @@ const Search = {
                     badgeText = this.shortTermLabel(State.term);
                 } else if (offeredThisTerm) {
                     badgeClass = 'badge-full';
-                    badgeText = 'FULL ' + this.shortTermLabel(State.term);
+                    badgeText = 'FULL';
                 } else {
                     badgeClass = 'badge-na';
-                    badgeText = 'NOT THIS TERM';
+                    badgeText = 'N/A';
                 }
             } else {
                 const hasOpen = group.sections.some(s => s.stat === 'A');
