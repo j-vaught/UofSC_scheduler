@@ -147,20 +147,41 @@ const Search = {
                 }
                 const bulletinData = await API.bulletinSearch(subject);
                 const bulletinCourses = bulletinData.results || [];
-                // Convert bulletin results to a format matching the live search results
-                results = bulletinCourses.map(c => ({
-                    code: c.code,
-                    title: c.title || c.name || '',
-                    crn: '',
-                    section: 'CAT',
-                    stat: '',
-                    instr: '',
-                    meets: 'See current term for sections',
-                    meetingTimes: null,
-                    total: '',
-                    key: c.key,
-                    _isCatalog: true,
-                }));
+
+                // Also fetch live term data to cross-reference availability
+                const liveCriteria = [{ field: 'subject', value: subject }];
+                const liveData = await API.searchCourses(State.term, liveCriteria);
+                const liveResults = liveData.results || [];
+
+                // Build a set of course codes offered this term + their open status
+                const liveByCode = {};
+                liveResults.forEach(r => {
+                    if (!liveByCode[r.code]) {
+                        liveByCode[r.code] = { hasOpen: false, sections: 0 };
+                    }
+                    liveByCode[r.code].sections++;
+                    if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
+                });
+
+                // Convert bulletin results, merging live availability info
+                results = bulletinCourses.map(c => {
+                    const live = liveByCode[c.code];
+                    return {
+                        code: c.code,
+                        title: c.title || c.name || '',
+                        crn: '',
+                        section: 'CAT',
+                        stat: live ? (live.hasOpen ? 'A' : 'F') : '',
+                        instr: '',
+                        meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
+                        meetingTimes: null,
+                        total: '',
+                        key: c.key,
+                        _isCatalog: true,
+                        _offeredThisTerm: !!live,
+                        _hasOpen: live ? live.hasOpen : false,
+                    };
+                });
                 totalCount = results.length;
 
                 // Apply keyword course number filter to catalog results
@@ -298,14 +319,23 @@ const Search = {
             const isCatalog = group.sections.some(s => s._isCatalog);
             let badgeClass, badgeText;
             if (isCatalog) {
-                badgeClass = 'badge-na';
-                badgeText = 'CATALOG';
+                const offeredThisTerm = group.sections.some(s => s._offeredThisTerm);
+                const hasOpen = group.sections.some(s => s._hasOpen);
+                if (offeredThisTerm && hasOpen) {
+                    badgeClass = 'badge-open';
+                    badgeText = this.shortTermLabel(State.term);
+                } else if (offeredThisTerm) {
+                    badgeClass = 'badge-full';
+                    badgeText = 'FULL ' + this.shortTermLabel(State.term);
+                } else {
+                    badgeClass = 'badge-na';
+                    badgeText = 'NOT THIS TERM';
+                }
             } else {
                 const hasOpen = group.sections.some(s => s.stat === 'A');
                 if (hasOpen) {
-                    const termShort = this.shortTermLabel(State.term);
                     badgeClass = 'badge-open';
-                    badgeText = termShort;
+                    badgeText = this.shortTermLabel(State.term);
                 } else {
                     badgeClass = 'badge-full';
                     badgeText = 'FULL';
