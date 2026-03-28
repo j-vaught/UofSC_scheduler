@@ -219,60 +219,109 @@ const Search = {
                 const statusDot = sec.stat === 'A'
                     ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
-                const addBtnLabel = isAdded ? 'REMOVE' : 'ADD TO SCHEDULE';
-                const addBtnClass = isAdded ? 'btn-small btn-danger' : 'btn-small btn-garnet';
                 row.innerHTML = `
                     <span class="sec-id">${sec.section}</span>
                     <span class="sec-instr">${sec.instr || 'Staff'}</span>
                     <span class="sec-time">${sec.meets || 'TBA'}</span>
                     <span class="sec-status">${statusDot}</span>
-                    <button class="section-add-btn ${addBtnClass}" data-crn="${sec.crn}">${addBtnLabel}</button>
                 `;
 
-                // Clicking the row shows details (does NOT add to schedule)
+                // Clicking the row shows details in the main content panel
                 row.addEventListener('click', (e) => {
-                    if (e.target.closest('.section-add-btn')) return; // let button handle itself
                     e.stopPropagation();
                     // Highlight this row
                     sectionsDiv.querySelectorAll('.section-row').forEach(r => r.classList.remove('viewing'));
                     row.classList.add('viewing');
-                    // Load section details
-                    if (typeof Calendar !== 'undefined' && Calendar.showCourseDetail) {
-                        Calendar.showCourseDetail(sec);
-                    }
-                });
-
-                // Add/Remove button
-                const addBtn = row.querySelector('.section-add-btn');
-                addBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    State.toggleSection(sec);
-                    const nowSelected = State.isSelected(sec.crn);
-                    row.classList.toggle('selected', nowSelected);
-                    addBtn.textContent = nowSelected ? 'REMOVE' : 'ADD TO SCHEDULE';
-                    addBtn.className = 'section-add-btn btn-small ' + (nowSelected ? 'btn-danger' : 'btn-garnet');
-                    // Deselect sibling rows for same course
-                    sectionsDiv.querySelectorAll('.section-row').forEach(r => {
-                        if (r !== row && r.dataset.crn) {
-                            const sibSelected = State.isSelected(r.dataset.crn);
-                            r.classList.toggle('selected', sibSelected);
-                            const sibBtn = r.querySelector('.section-add-btn');
-                            if (sibBtn) {
-                                sibBtn.textContent = sibSelected ? 'REMOVE' : 'ADD TO SCHEDULE';
-                                sibBtn.className = 'section-add-btn btn-small ' + (sibSelected ? 'btn-danger' : 'btn-garnet');
-                            }
-                        }
-                    });
-                    if (nowSelected) {
-                        // Switch to Schedule tab to see calendar
-                        // (optional: user can click the "View Schedule" link instead)
-                    }
+                    // Show section details with Add to Schedule button in main panel
+                    Search.showSectionDetail(sec);
                 });
                 row.dataset.crn = sec.crn;
                 sectionsDiv.appendChild(row);
             });
 
             container.appendChild(div);
+        });
+    },
+
+    showSectionDetail(sec) {
+        const detailsTab = document.getElementById('tab-details');
+        if (!detailsTab) return;
+
+        const isAdded = State.isSelected(sec.crn);
+        const btnLabel = isAdded ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
+        const btnClass = isAdded ? 'btn-danger' : 'btn-garnet';
+
+        detailsTab.innerHTML = `
+            <h3>${sec.code} - ${sec.title}</h3>
+            <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
+            <p><strong>Instructor:</strong> ${sec.instr || 'Staff'}</p>
+            <p><strong>Meets:</strong> ${sec.meets || 'TBA'}</p>
+            <p><strong>Method:</strong> ${sec.inst_mthd || 'N/A'}</p>
+            <p><strong>Status:</strong> ${sec.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
+            <div class="section-actions">
+                <button id="btn-section-toggle" class="${btnClass}" style="margin-top:10px">${btnLabel}</button>
+                <button id="btn-view-schedule" class="btn-black" style="margin-top:10px">VIEW SCHEDULE</button>
+            </div>
+            <p class="loading">Loading details</p>
+        `;
+
+        // Bind Add/Remove button
+        document.getElementById('btn-section-toggle').addEventListener('click', () => {
+            State.toggleSection(sec);
+            // Re-render to update button state
+            this.showSectionDetail(sec);
+            // Update the search results row styling
+            const row = document.querySelector(`.section-row[data-crn="${sec.crn}"]`);
+            if (row) row.classList.toggle('selected', State.isSelected(sec.crn));
+        });
+
+        // Bind View Schedule button
+        document.getElementById('btn-view-schedule').addEventListener('click', () => {
+            if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
+        });
+
+        // Fetch full details
+        API.getDetails(sec.crn, State.term).then(data => {
+            const seatsMatch = (data.seats || '').match(/seats_avail[^>]*>(\d+)/);
+            const maxMatch = (data.seats || '').match(/seats_max[^>]*>(\d+)/);
+            const seats = seatsMatch ? seatsMatch[1] : '?';
+            const max = maxMatch ? maxMatch[1] : '?';
+            const desc = (data.description || '').replace(/<[^>]+>/g, ' ').trim();
+            const room = (data.meeting_html || '').replace(/<[^>]+>/g, ' ').trim();
+
+            const isAdded2 = State.isSelected(sec.crn);
+            const btnLabel2 = isAdded2 ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
+            const btnClass2 = isAdded2 ? 'btn-danger' : 'btn-garnet';
+
+            detailsTab.innerHTML = `
+                <h3>${sec.code} - ${sec.title}</h3>
+                <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
+                <p><strong>Instructor:</strong> ${sec.instr || 'Staff'}</p>
+                <p><strong>Meets:</strong> ${room || sec.meets || 'TBA'}</p>
+                <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
+                <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>
+                <p><strong>Method:</strong> ${data.inst_mthd || sec.inst_mthd || 'N/A'}</p>
+                <p><strong>Campus:</strong> ${data.campus || 'N/A'}</p>
+                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
+                ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}
+                <div class="section-actions">
+                    <button id="btn-section-toggle" class="${btnClass2}" style="margin-top:10px">${btnLabel2}</button>
+                    <button id="btn-view-schedule" class="btn-black" style="margin-top:10px">VIEW SCHEDULE</button>
+                </div>
+            `;
+
+            document.getElementById('btn-section-toggle').addEventListener('click', () => {
+                State.toggleSection(sec);
+                this.showSectionDetail(sec);
+                const row = document.querySelector(`.section-row[data-crn="${sec.crn}"]`);
+                if (row) row.classList.toggle('selected', State.isSelected(sec.crn));
+            });
+
+            document.getElementById('btn-view-schedule').addEventListener('click', () => {
+                if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
+            });
+        }).catch(() => {
+            detailsTab.querySelector('.loading')?.remove();
         });
     },
 
