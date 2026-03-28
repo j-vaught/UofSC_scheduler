@@ -12,11 +12,8 @@ const Scheduler = {
             return;
         }
 
-        // Switch to solver tab
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector('[data-tab="solver"]').classList.add('active');
-        document.getElementById('tab-solver').classList.add('active');
+        // Ensure we're on the Schedule tab
+        if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
 
         const container = document.getElementById('solver-container');
         container.innerHTML = '<p class="loading">Generating optimal schedules</p>';
