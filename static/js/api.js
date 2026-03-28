@@ -44,4 +44,29 @@ const API = {
     async solve(courses, preferences, maxResults = 10) {
         return this.post('/api/solve', { courses, preferences, max_results: maxResults });
     },
+
+    async parseTranscript(text) {
+        return this.post('/api/parse-transcript', { text });
+    },
+
+    async parseTranscriptCSV(csvText) {
+        return this.post('/api/parse-transcript', { csv: csvText });
+    },
+
+    async getMajorMaps() {
+        const resp = await fetch('/api/major-maps');
+        return resp.json();
+    },
+
+    async getMajorMap(id) {
+        return this.post('/api/major-map', { id });
+    },
+
+    async getDegreePlan(params) {
+        return this.post('/api/degree-plan', params);
+    },
+
+    async getOfferingAnalysis(code, currentTerm) {
+        return this.post('/api/offering-analysis', { code, current_term: currentTerm });
+    },
 };
