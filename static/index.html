@@ -506,16 +506,7 @@
                 return;
             }
 
-            // Estimate completed credits from year
-            const creditEstimates = { freshman: 0, sophomore: 30, junior: 60, senior: 90 };
-            const estCredits = creditEstimates[year] || 0;
-
-            // Set profile
-            State.profile.major = mapId;
-            State.profile.planMode = 'full_time';
-            document.getElementById('major-select').value = mapId;
-
-            resultEl.innerHTML = '<p class="loading">Generating estimate</p>';
+            resultEl.innerHTML = '<p class="loading">Generating your degree plan</p>';
 
             try {
                 // Load the major map
@@ -525,9 +516,42 @@
                     body: JSON.stringify({ id: mapId })
                 });
                 const majorData = await mapResp.json();
-                State.profile.majorData = majorData;
 
-                // Generate a plan with no completed courses (estimate based on year)
+                // Estimate completed courses based on year using the major map's typical_year
+                const yearNum = { freshman: 1, sophomore: 2, junior: 3, senior: 4 }[year] || 0;
+                const estimatedCompleted = [];
+                if (yearNum > 0 && majorData.required_courses) {
+                    majorData.required_courses.forEach(c => {
+                        if (c.typical_year && c.typical_year < yearNum) {
+                            estimatedCompleted.push(c.code);
+                        }
+                        // For same year, include fall courses if they're a sophomore+ starting in spring, etc.
+                        if (c.typical_year === yearNum && c.typical_semester === 'Fall' && yearNum > 1) {
+                            estimatedCompleted.push(c.code);
+                        }
+                    });
+                }
+
+                // Set state
+                State.profile.major = mapId;
+                State.profile.majorData = majorData;
+                State.profile.planMode = 'full_time';
+                State.profile.concentration = 'general';
+                State.completedCourses = [...estimatedCompleted];
+                State.completedDetails = estimatedCompleted.map(code => {
+                    const mc = majorData.required_courses.find(c => c.code === code);
+                    return { code, grade: null, credits: mc ? mc.credits : 3, semester: null };
+                });
+
+                // Sync profile tab UI
+                document.getElementById('major-select').value = mapId;
+                if (typeof Profile !== 'undefined') {
+                    Profile.onMajorChange(mapId);
+                    Profile.renderCompletedChips();
+                    Profile.renderCreditSummary();
+                }
+
+                // Generate the degree plan
                 const planResp = await fetch('/api/degree-plan', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -541,36 +565,22 @@
                 });
                 const plan = await planResp.json();
 
-                const totalRequired = majorData.total_credits_required;
-                const remaining = totalRequired - estCredits;
-                const semestersLeft = plan.semesters ? plan.semesters.length : Math.ceil(remaining / 15);
-                const yearLabel = year.charAt(0).toUpperCase() + year.slice(1);
-
-                resultEl.innerHTML = `
-                    <div class="quickstart-summary">
-                        <h4>${majorData.major} — ${majorData.program}</h4>
-                        <p><strong>Standing:</strong> ${yearLabel} (~${estCredits} credits completed)</p>
-                        <p><strong>Total required:</strong> ${totalRequired} credits</p>
-                        <p><strong>Estimated remaining:</strong> ~${Math.max(0, remaining)} credits</p>
-                        <p><strong>Semesters to graduation:</strong> ~${semestersLeft}</p>
-                        <p style="margin-top:10px">For a detailed semester-by-semester plan, enter your completed courses in
-                        <a href="#" id="quickstart-to-settings" style="color:#73000A;font-weight:700">Profile</a>
-                        then go to <a href="#" id="quickstart-to-degree" style="color:#73000A;font-weight:700">Degree Plan</a>.</p>
-                    </div>
-                `;
-
-                document.getElementById('quickstart-to-settings').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Tabs.switchTo('profile');
-                });
-                document.getElementById('quickstart-to-degree').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    Tabs.switchTo('degree');
-                });
+                // Store plan in state
+                State.degreePlan.semesters = plan.semesters || [];
+                State.degreePlan.warnings = plan.warnings || [];
+                State.degreePlan.totalRemaining = plan.total_credits_remaining || 0;
+                State.degreePlan.completedCredits = plan.completed_credits || 0;
+                State.degreePlan.estimatedGraduation = plan.estimated_graduation || '';
+                State.degreePlan.categories = plan.categories || {};
 
                 State.emit('profile-updated');
+                State.emit('degree-plan-updated');
+
+                // Switch to degree plan tab
+                Tabs.switchTo('degree');
+                resultEl.innerHTML = '';
             } catch (e) {
-                resultEl.innerHTML = '<p class="hint">Failed to generate estimate. Is the server running?</p>';
+                resultEl.innerHTML = '<p class="hint">Failed to generate plan. Is the server running?</p>';
             }
         });
 
