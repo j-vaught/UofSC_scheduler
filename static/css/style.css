@@ -474,7 +474,9 @@ main {
     padding: 4px 8px;
 }
 .add-semester-btn {
-    min-width: 60px;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -529,8 +531,9 @@ main {
     padding-bottom: 16px;
 }
 .semester-column {
-    min-width: 200px;
-    max-width: 240px;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
     border: 2px solid #000000;
     background: #ffffff;
     flex-shrink: 0;
@@ -613,8 +616,9 @@ main {
 
 /* Graduation Column */
 .graduation-column {
-    min-width: 140px;
-    max-width: 160px;
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
     border: 3px solid #73000A;
     text-align: center;
 }
