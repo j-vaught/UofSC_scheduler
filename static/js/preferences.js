@@ -1,15 +1,16 @@
-/* Preferences UI: time blocking, professor prefs, completed courses */
+/* Preferences UI: time blocking, professor prefs, day toggles */
 const Preferences = {
     init() {
         this.buildBlockCalendar();
         this.bindProfPrefs();
         this.bindWeights();
-        this.bindCompletedCourses();
         this.bindTimeWindow();
+        this.bindDayToggles();
     },
 
     buildBlockCalendar() {
         const cal = document.getElementById('block-calendar');
+        if (!cal) return;
         cal.innerHTML = '';
 
         // Header row
@@ -47,7 +48,6 @@ const Preferences = {
                     cell.dataset.start = timeVal;
                     cell.dataset.end = endVal;
 
-                    // Check if already blocked
                     if (this.isBlocked(day, timeVal, endVal)) {
                         cell.classList.add('blocked');
                     }
@@ -57,7 +57,6 @@ const Preferences = {
                         this.updateBlockedTimes();
                     });
 
-                    // Support click-drag
                     cell.addEventListener('mousedown', () => { this._dragging = true; this._dragState = !cell.classList.contains('blocked'); });
                     cell.addEventListener('mouseenter', () => {
                         if (this._dragging) {
@@ -94,6 +93,7 @@ const Preferences = {
 
     bindProfPrefs() {
         const btn = document.getElementById('btn-add-prof-pref');
+        if (!btn) return;
         btn.addEventListener('click', () => {
             const name = document.getElementById('prof-name-input').value.trim();
             const type = document.getElementById('prof-pref-type').value;
@@ -115,6 +115,7 @@ const Preferences = {
 
     renderProfPrefs() {
         const list = document.getElementById('prof-prefs-list');
+        if (!list) return;
         list.innerHTML = '';
 
         const all = [
@@ -127,7 +128,7 @@ const Preferences = {
             item.className = 'prof-pref-item';
             item.innerHTML = `
                 <span>${name}</span>
-                <span style="color:${type === 'prefer' ? '#4caf50' : '#f44336'}">${type}</span>
+                <span style="color:${type === 'prefer' ? '#2e7d32' : '#c62828'}">${type}</span>
                 <span class="remove" title="Remove">&times;</span>
             `;
             item.querySelector('.remove').addEventListener('click', () => {
@@ -144,6 +145,7 @@ const Preferences = {
         ['gap', 'compact', 'consec'].forEach(w => {
             const slider = document.getElementById(`weight-${w}`);
             const valSpan = document.getElementById(`weight-${w}-val`);
+            if (!slider || !valSpan) return;
             slider.addEventListener('input', () => {
                 valSpan.textContent = slider.value;
                 if (w === 'gap') State.gapWeight = parseFloat(slider.value);
@@ -153,24 +155,69 @@ const Preferences = {
         });
     },
 
-    bindCompletedCourses() {
-        const textarea = document.getElementById('completed-courses');
-        textarea.addEventListener('change', () => {
-            State.completedCourses = textarea.value
-                .split(',')
-                .map(s => s.trim().toUpperCase())
-                .filter(s => s.length > 0);
-        });
+    bindTimeWindow() {
+        const startEl = document.getElementById('pref-start');
+        const endEl = document.getElementById('pref-end');
+        if (startEl) {
+            startEl.addEventListener('change', (e) => {
+                const [h, m] = e.target.value.split(':').map(Number);
+                State.preferredStart = h * 100 + m;
+            });
+        }
+        if (endEl) {
+            endEl.addEventListener('change', (e) => {
+                const [h, m] = e.target.value.split(':').map(Number);
+                State.preferredEnd = h * 100 + m;
+            });
+        }
     },
 
-    bindTimeWindow() {
-        document.getElementById('pref-start').addEventListener('change', (e) => {
-            const [h, m] = e.target.value.split(':').map(Number);
-            State.preferredStart = h * 100 + m;
+    bindDayToggles() {
+        const mwfToggle = document.getElementById('pref-mwf');
+        const trToggle = document.getElementById('pref-tr');
+
+        if (mwfToggle) {
+            mwfToggle.addEventListener('change', () => {
+                if (mwfToggle.checked) {
+                    if (trToggle) trToggle.checked = false;
+                    // Block Tu (1) and Th (3)
+                    this.blockEntireDays([1, 3]);
+                } else {
+                    this.unblockEntireDays([1, 3]);
+                }
+            });
+        }
+
+        if (trToggle) {
+            trToggle.addEventListener('change', () => {
+                if (trToggle.checked) {
+                    if (mwfToggle) mwfToggle.checked = false;
+                    // Block Mon (0), Wed (2), Fri (4)
+                    this.blockEntireDays([0, 2, 4]);
+                } else {
+                    this.unblockEntireDays([0, 2, 4]);
+                }
+            });
+        }
+    },
+
+    blockEntireDays(days) {
+        document.querySelectorAll('#block-calendar .block-cell').forEach(cell => {
+            const day = parseInt(cell.dataset.day);
+            if (days.includes(day)) {
+                cell.classList.add('blocked');
+            }
         });
-        document.getElementById('pref-end').addEventListener('change', (e) => {
-            const [h, m] = e.target.value.split(':').map(Number);
-            State.preferredEnd = h * 100 + m;
+        this.updateBlockedTimes();
+    },
+
+    unblockEntireDays(days) {
+        document.querySelectorAll('#block-calendar .block-cell').forEach(cell => {
+            const day = parseInt(cell.dataset.day);
+            if (days.includes(day)) {
+                cell.classList.remove('blocked');
+            }
         });
+        this.updateBlockedTimes();
     },
 };
