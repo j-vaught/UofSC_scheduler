@@ -1,0 +1,471 @@
+{
+  "id": "cs_bscs_2026",
+  "program": "B.S.C.S.",
+  "major": "Computer Science",
+  "department": "Computer Science and Engineering",
+  "college": "Molinaroli College of Engineering and Computing",
+  "catalog_year": "2026-2027",
+  "total_credits_required": 120,
+  "min_grade": "C",
+  "scholarship_credits_per_year": 30,
+
+  "concentrations": {
+    "general": {
+      "label": "General (no concentration)",
+      "elective_credits": 9,
+      "elective_pick": 3,
+      "extra_required": []
+    },
+    "ai": {
+      "label": "Artificial Intelligence",
+      "elective_credits": 12,
+      "elective_pick": 4,
+      "extra_required": ["CSCE 580"],
+      "extra_options": ["CSCE 555", "CSCE 567", "CSCE 574", "CSCE 578", "CSCE 582", "CSCE 585", "CSCE 587"],
+      "extra_pick": 3
+    },
+    "cybersecurity": {
+      "label": "Cybersecurity",
+      "elective_credits": 12,
+      "elective_pick": 4,
+      "extra_required": ["CSCE 201", "CSCE 522", "CSCE 548"],
+      "extra_options": ["CSCE 520", "CSCE 557"],
+      "extra_pick": 1
+    }
+  },
+
+  "required_courses": [
+    {
+      "code": "CSCE 145",
+      "title": "Algorithmic Design I",
+      "credits": 4,
+      "typical_year": 1,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": ["MATH 111"],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 146",
+      "title": "Algorithmic Design II",
+      "credits": 4,
+      "typical_year": 1,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 145"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 190",
+      "title": "Computing in the Modern World",
+      "credits": 1,
+      "typical_year": 1,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": ["CSCE 145"],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 211",
+      "title": "Digital Logic Design",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Fall",
+      "prerequisites": ["MATH 141"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 212",
+      "title": "Introduction to Computer Architecture",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 211", "CSCE 145"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 215",
+      "title": "UNIX/Linux Fundamentals",
+      "credits": 1,
+      "typical_year": 1,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 145"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 240",
+      "title": "Advanced Programming Techniques",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 215", "CSCE 146"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 247",
+      "title": "Software Engineering",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 146"],
+      "corequisites": [],
+      "category": "lower_division_computing"
+    },
+    {
+      "code": "CSCE 311",
+      "title": "Operating Systems",
+      "credits": 3,
+      "typical_year": 3,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 240", "CSCE 212"],
+      "corequisites": [],
+      "category": "major_courses"
+    },
+    {
+      "code": "CSCE 330",
+      "title": "Programming Language Structures",
+      "credits": 3,
+      "typical_year": 3,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 240", "MATH 374"],
+      "corequisites": [],
+      "category": "major_courses",
+      "offering_restriction": "fall_only"
+    },
+    {
+      "code": "CSCE 350",
+      "title": "Data Structures and Algorithms",
+      "credits": 3,
+      "typical_year": 3,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 240", "MATH 374"],
+      "corequisites": [],
+      "category": "major_courses"
+    },
+    {
+      "code": "CSCE 355",
+      "title": "Foundations of Computation",
+      "credits": 3,
+      "typical_year": 4,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 211", "CSCE 212", "CSCE 350"],
+      "corequisites": [],
+      "category": "major_courses"
+    },
+    {
+      "code": "CSCE 390",
+      "title": "Professional Issues in Computer Science and Engineering",
+      "credits": 1,
+      "typical_year": 3,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": [],
+      "category": "major_courses",
+      "carolina_core": "VSR"
+    },
+    {
+      "code": "CSCE 416",
+      "title": "Introduction to Computer Networks",
+      "credits": 3,
+      "typical_year": 3,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 146"],
+      "corequisites": [],
+      "category": "major_courses"
+    },
+    {
+      "code": "CSCE 490",
+      "title": "Capstone Computing Project I",
+      "credits": 3,
+      "typical_year": 4,
+      "typical_semester": "Fall",
+      "prerequisites": ["CSCE 240", "CSCE 350"],
+      "corequisites": [],
+      "category": "major_courses",
+      "offering_restriction": "fall_only",
+      "carolina_core": "INT"
+    },
+    {
+      "code": "CSCE 492",
+      "title": "Capstone Computing Project II",
+      "credits": 3,
+      "typical_year": 4,
+      "typical_semester": "Spring",
+      "prerequisites": ["CSCE 240", "CSCE 350", "CSCE 490"],
+      "corequisites": [],
+      "category": "major_courses",
+      "offering_restriction": "spring_only"
+    },
+    {
+      "code": "MATH 141",
+      "title": "Calculus I",
+      "credits": 4,
+      "typical_year": 1,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": [],
+      "category": "math",
+      "carolina_core": "ARP"
+    },
+    {
+      "code": "MATH 142",
+      "title": "Calculus II",
+      "credits": 4,
+      "typical_year": 1,
+      "typical_semester": "Spring",
+      "prerequisites": ["MATH 141"],
+      "corequisites": [],
+      "category": "math",
+      "carolina_core": "ARP"
+    },
+    {
+      "code": "MATH 241",
+      "title": "Vector Calculus",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Spring",
+      "prerequisites": ["MATH 142"],
+      "corequisites": [],
+      "category": "math"
+    },
+    {
+      "code": "MATH 344",
+      "title": "Applied Linear Algebra",
+      "credits": 3,
+      "typical_year": 4,
+      "typical_semester": "Fall",
+      "prerequisites": ["MATH 142"],
+      "corequisites": [],
+      "category": "math"
+    },
+    {
+      "code": "MATH 344L",
+      "title": "Applied Linear Algebra Lab",
+      "credits": 1,
+      "typical_year": 4,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": ["MATH 344"],
+      "category": "math"
+    },
+    {
+      "code": "MATH 374",
+      "title": "Discrete Structures",
+      "credits": 3,
+      "typical_year": 2,
+      "typical_semester": "Fall",
+      "prerequisites": ["MATH 142", "CSCE 146"],
+      "corequisites": [],
+      "category": "math"
+    },
+    {
+      "code": "STAT 509",
+      "title": "Statistics for Engineers",
+      "credits": 3,
+      "typical_year": 3,
+      "typical_semester": "Spring",
+      "prerequisites": ["MATH 142"],
+      "corequisites": [],
+      "category": "statistics"
+    },
+    {
+      "code": "ENGL 101",
+      "title": "Critical Reading and Composition",
+      "credits": 3,
+      "typical_year": 1,
+      "typical_semester": "Fall",
+      "prerequisites": [],
+      "corequisites": [],
+      "category": "carolina_core",
+      "carolina_core": "CMW"
+    },
+    {
+      "code": "ENGL 102",
+      "title": "Composition and Rhetoric",
+      "credits": 3,
+      "typical_year": 1,
+      "typical_semester": "Spring",
+      "prerequisites": ["ENGL 101"],
+      "corequisites": [],
+      "category": "carolina_core",
+      "carolina_core": "CMW"
+    }
+  ],
+
+  "elective_groups": [
+    {
+      "id": "csce_electives",
+      "label": "CSCE Major Electives (500+ level)",
+      "pick": 3,
+      "credits_each": 3,
+      "credits_required": 9,
+      "category": "major_electives",
+      "options": [
+        "CSCE 510", "CSCE 513", "CSCE 515", "CSCE 516", "CSCE 517",
+        "CSCE 520", "CSCE 522", "CSCE 531", "CSCE 546", "CSCE 548",
+        "CSCE 550", "CSCE 551", "CSCE 552", "CSCE 555", "CSCE 557",
+        "CSCE 560", "CSCE 564", "CSCE 565", "CSCE 567", "CSCE 569",
+        "CSCE 574", "CSCE 578", "CSCE 580", "CSCE 582", "CSCE 585",
+        "CSCE 587", "CSCE 590"
+      ]
+    },
+    {
+      "id": "technical_writing",
+      "label": "Technical Writing",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "college_requirements",
+      "options": ["ENGL 462", "ENGL 463"]
+    },
+    {
+      "id": "lab_science_1",
+      "label": "Lab Science I (CC-SCI)",
+      "pick": 1,
+      "credits_each": 4,
+      "credits_required": 4,
+      "category": "science",
+      "carolina_core": "SCI",
+      "options": [
+        "BIOL 101", "BIOL 101L", "BIOL 110", "BIOL 110L",
+        "CHEM 111", "CHEM 111L", "CHEM 112", "CHEM 112L",
+        "PHYS 211", "PHYS 211L", "PHYS 212", "PHYS 212L",
+        "GEOL 101", "GEOL 101L", "ASTR 101", "ASTR 101L"
+      ],
+      "note": "Must be a 4-credit lab science course satisfying CC-SCI"
+    },
+    {
+      "id": "lab_science_2",
+      "label": "Lab Science II (CC-SCI)",
+      "pick": 1,
+      "credits_each": 4,
+      "credits_required": 4,
+      "category": "science",
+      "carolina_core": "SCI",
+      "options": [
+        "BIOL 101", "BIOL 101L", "BIOL 110", "BIOL 110L",
+        "CHEM 111", "CHEM 111L", "CHEM 112", "CHEM 112L",
+        "PHYS 211", "PHYS 211L", "PHYS 212", "PHYS 212L",
+        "GEOL 101", "GEOL 101L", "ASTR 101", "ASTR 101L"
+      ],
+      "note": "Second 4-credit lab science, different from Lab Science I"
+    },
+    {
+      "id": "lab_science_3",
+      "label": "Additional Lab Science",
+      "pick": 1,
+      "credits_each": 4,
+      "credits_required": 4,
+      "category": "science",
+      "options": [
+        "BIOL 101", "BIOL 101L", "BIOL 110", "BIOL 110L",
+        "CHEM 111", "CHEM 111L", "CHEM 112", "CHEM 112L",
+        "PHYS 211", "PHYS 211L", "PHYS 212", "PHYS 212L",
+        "GEOL 101", "GEOL 101L", "ASTR 101", "ASTR 101L"
+      ],
+      "note": "Third 4-credit lab science, program requirement"
+    },
+    {
+      "id": "cc_cms",
+      "label": "Spoken Communication (CC-CMS)",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "carolina_core": "CMS",
+      "options": ["SPCH 140", "SPCH 145", "COMM 201"]
+    },
+    {
+      "id": "cc_aiu",
+      "label": "Aesthetic and Interpretive Understanding (CC-AIU)",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "carolina_core": "AIU",
+      "options": []
+    },
+    {
+      "id": "cc_gss",
+      "label": "Global Citizenship and Multicultural Understanding: Social Sciences (CC-GSS)",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "carolina_core": "GSS",
+      "options": []
+    },
+    {
+      "id": "cc_ghs",
+      "label": "Global Citizenship and Multicultural Understanding: Historical Thinking (CC-GHS)",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "carolina_core": "GHS",
+      "options": []
+    },
+    {
+      "id": "cc_gfl",
+      "label": "Foreign Language (CC-GFL)",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "carolina_core": "GFL",
+      "options": [],
+      "note": "Satisfied by placement score of 2+ or completing 109+110 sequence"
+    },
+    {
+      "id": "founding_documents",
+      "label": "Founding Documents and the American Political Tradition",
+      "pick": 1,
+      "credits_each": 3,
+      "credits_required": 3,
+      "category": "carolina_core",
+      "options": ["POLI 201", "HIST 201", "HIST 202"],
+      "note": "May double-count with another Carolina Core area"
+    },
+    {
+      "id": "free_electives",
+      "label": "Free Electives",
+      "pick_credits": 9,
+      "credits_required": 9,
+      "category": "free_electives",
+      "options": [],
+      "note": "Any university courses to reach 120 total credits"
+    }
+  ],
+
+  "category_labels": {
+    "lower_division_computing": "Lower Division Computing",
+    "major_courses": "Major Courses",
+    "major_electives": "Major Electives",
+    "math": "Mathematics",
+    "statistics": "Statistics",
+    "science": "Laboratory Science",
+    "college_requirements": "College Requirements",
+    "carolina_core": "Carolina Core",
+    "free_electives": "Free Electives"
+  },
+
+  "offering_hints": {
+    "CSCE 330": "fall_only",
+    "CSCE 490": "fall_only",
+    "CSCE 492": "spring_only"
+  },
+
+  "notes": [
+    "All Lower Division Computing, Major, and Major Elective courses require a C or better.",
+    "CSCE 330 and CSCE 490 are offered Fall only. CSCE 492 is offered Spring only. Missing these delays graduation by one full year.",
+    "Students cannot repeat a College of Engineering and Computing course in which they earned C or better.",
+    "Maximum 4 course repeats total; failing a required course twice forces a major change.",
+    "The last 25% of the degree must be completed in residence.",
+    "At least half of major hours must be taken at UofSC.",
+    "ABET accredited by the Computing Accreditation Commission."
+  ]
+}
