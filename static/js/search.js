@@ -421,8 +421,8 @@ const Search = {
                 // Clicking the row shows details in the main content panel
                 row.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Highlight this row
-                    sectionsDiv.querySelectorAll('.section-row').forEach(r => r.classList.remove('viewing'));
+                    // Clear all viewing highlights across all course groups
+                    document.querySelectorAll('#search-results .section-row.viewing').forEach(r => r.classList.remove('viewing'));
                     row.classList.add('viewing');
                     // Show section details with Add to Schedule button in main panel
                     Search.showSectionDetail(sec);
