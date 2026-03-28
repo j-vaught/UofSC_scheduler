@@ -25,9 +25,10 @@ const Prereqs = {
             const prereqHtml = details.prereq || '';
             const coreqHtml = details.corequisite || details.prerequisite_or_corequisite || '';
 
-            // Parse course codes from prereq HTML
-            const prereqCodes = this.parseCourseCodes(prereqHtml);
+            // Parse prerequisite groups (AND groups separated by ;, OR options within each)
+            const prereqGroups = this.parsePrereqGroups(prereqHtml);
             const coreqCodes = this.parseCourseCodes(coreqHtml);
+            const allPrereqCodes = prereqGroups.flatMap(g => g.courses);
 
             // Build display
             const completed = new Set(State.completedCourses);
@@ -47,17 +48,42 @@ const Prereqs = {
                 html += `<p><strong>Corequisites:</strong> ${cleanCoreq}</p>`;
             }
 
-            if (prereqCodes.length > 0) {
+            if (prereqGroups.length > 0) {
                 html += '<div style="margin-top:12px">';
                 html += '<h4 style="margin-bottom:6px;color:#466A9F">Prerequisite Status</h4>';
-                prereqCodes.forEach(code => {
-                    const met = completed.has(code);
-                    const icon = met ? '<span class="offered">&#10003;</span>' : '<span class="not-offered">&#10007;</span>';
-                    html += `<div style="margin-bottom:3px;font-size:0.85rem">${icon} <a href="#" class="prereq-link" data-code="${code}">${code}</a> ${met ? '(completed)' : '(not completed)'}</div>`;
+
+                let allGroupsMet = true;
+
+                prereqGroups.forEach((group, gi) => {
+                    const isOr = group.courses.length > 1;
+                    const anyMet = group.courses.some(c => completed.has(c));
+                    const groupMet = isOr ? anyMet : group.courses.every(c => completed.has(c));
+
+                    if (!groupMet) allGroupsMet = false;
+
+                    if (isOr) {
+                        // OR group: need any one
+                        const groupIcon = groupMet
+                            ? '<span class="offered">&#10003;</span>'
+                            : '<span class="not-offered">&#10007;</span>';
+                        html += `<div class="prereq-group-or" style="margin-bottom:8px;padding:6px 8px;border:1px solid ${groupMet ? '#2e7d32' : '#CC2E40'};background:${groupMet ? '#e8f5e9' : '#ffebee'}">`;
+                        html += `<div style="font-size:0.75rem;font-weight:700;color:#5C5C5C;margin-bottom:3px">${groupIcon} One of the following:</div>`;
+                        group.courses.forEach(code => {
+                            const met = completed.has(code);
+                            const icon = met ? '<span class="offered">&#10003;</span>' : '<span style="color:#A2A2A2">&#9675;</span>';
+                            html += `<div style="margin-left:12px;margin-bottom:2px;font-size:0.85rem">${icon} <a href="#" class="prereq-link" data-code="${code}">${code}</a> ${met ? '(completed)' : ''}</div>`;
+                        });
+                        html += '</div>';
+                    } else {
+                        // Single required course
+                        const code = group.courses[0];
+                        const met = completed.has(code);
+                        const icon = met ? '<span class="offered">&#10003;</span>' : '<span class="not-offered">&#10007;</span>';
+                        html += `<div style="margin-bottom:3px;font-size:0.85rem">${icon} <a href="#" class="prereq-link" data-code="${code}">${code}</a> ${met ? '(completed)' : '(not completed)'}</div>`;
+                    }
                 });
 
-                const allMet = prereqCodes.every(c => completed.has(c));
-                if (allMet) {
+                if (allGroupsMet) {
                     html += '<p style="color:#2e7d32;margin-top:8px;font-weight:600">All prerequisites met!</p>';
                 } else {
                     html += '<p style="color:#c62828;margin-top:8px;font-weight:600">Some prerequisites are missing.</p>';
@@ -67,7 +93,7 @@ const Prereqs = {
 
             // Render SVG graph
             html += '<div style="margin-top:12px">';
-            html += this.renderGraph(courseCode, prereqCodes, coreqCodes, completed);
+            html += this.renderGraph(courseCode, allPrereqCodes, coreqCodes, completed);
             html += '</div>';
 
             container.innerHTML = html;
@@ -129,6 +155,54 @@ const Prereqs = {
         if (!html) return [];
         const matches = html.match(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g) || [];
         return [...new Set(matches)];
+    },
+
+    parsePrereqGroups(html) {
+        // Parse prerequisite text into AND groups of OR options.
+        // Semicolons separate AND groups (all must be satisfied).
+        // Commas and "or" within a group separate OR options (any one suffices).
+        //
+        // Example: "D or better in ENCP 200, ECIV 200, EMCH 200, or ECHE 300; D or better in PHYS 211"
+        // Result: [
+        //   { courses: ['ENCP 200', 'ECIV 200', 'EMCH 200', 'ECHE 300'], type: 'or' },
+        //   { courses: ['PHYS 211'], type: 'and' }
+        // ]
+
+        if (!html) return [];
+
+        // Strip HTML tags
+        const clean = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        if (!clean) return [];
+
+        // Split on semicolons to get AND groups
+        const andParts = clean.split(/;/);
+        const groups = [];
+
+        andParts.forEach(part => {
+            const codes = part.match(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g);
+            if (!codes || codes.length === 0) return;
+
+            const uniqueCodes = [...new Set(codes)];
+
+            if (uniqueCodes.length === 1) {
+                // Single course required
+                groups.push({ courses: uniqueCodes, type: 'and' });
+            } else {
+                // Multiple courses — check if they're OR options
+                // Look for "or", commas, or slash patterns indicating alternatives
+                const hasOr = /\bor\b/i.test(part) || part.includes(',');
+                if (hasOr) {
+                    groups.push({ courses: uniqueCodes, type: 'or' });
+                } else {
+                    // Multiple courses with "and" — each is required
+                    uniqueCodes.forEach(code => {
+                        groups.push({ courses: [code], type: 'and' });
+                    });
+                }
+            }
+        });
+
+        return groups;
     },
 
     renderGraph(target, prereqs, coreqs, completed) {
