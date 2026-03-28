@@ -128,12 +128,50 @@ const Search = {
         }
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
 
-        const term = currentTermOnly ? State.term : State.term;
         this.showLoading();
 
         try {
-            const data = await API.searchCourses(term, criteria);
-            let results = data.results || [];
+            let results = [];
+            let totalCount = 0;
+
+            if (currentTermOnly) {
+                // Search live class offerings for the selected term
+                const data = await API.searchCourses(State.term, criteria);
+                results = data.results || [];
+                totalCount = data.count || 0;
+            } else {
+                // Search the bulletin catalog (all courses, not term-specific)
+                if (!subject) {
+                    this.showHint('Pick a subject to browse the full catalog.');
+                    return;
+                }
+                const bulletinData = await API.bulletinSearch(subject);
+                const bulletinCourses = bulletinData.results || [];
+                // Convert bulletin results to a format matching the live search results
+                results = bulletinCourses.map(c => ({
+                    code: c.code,
+                    title: c.title || c.name || '',
+                    crn: '',
+                    section: 'CAT',
+                    stat: '',
+                    instr: '',
+                    meets: 'See current term for sections',
+                    meetingTimes: null,
+                    total: '',
+                    key: c.key,
+                    _isCatalog: true,
+                }));
+                totalCount = results.length;
+
+                // Apply keyword course number filter to catalog results
+                if (courseNumberFilter) {
+                    results = results.filter(r => {
+                        const codeNum = (r.code || '').replace(/^[A-Z]+\s*/i, '').toUpperCase();
+                        return codeNum === courseNumberFilter;
+                    });
+                    courseNumberFilter = null; // already applied
+                }
+            }
 
             // Client-side filters
 
