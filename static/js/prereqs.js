@@ -3,13 +3,8 @@ const Prereqs = {
     _cache: {},
 
     async loadForCourse(courseCode) {
-        // Switch to prereqs tab
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector('[data-tab="prereqs"]').classList.add('active');
-        document.getElementById('tab-prereqs').classList.add('active');
-
         const container = document.getElementById('prereq-container');
+        if (!container) return;
         container.innerHTML = '<p class="loading">Loading prerequisites</p>';
 
         const subject = courseCode.split(' ')[0];

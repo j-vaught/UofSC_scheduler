@@ -1,13 +1,8 @@
 /* Historical offering frequency display */
 const History = {
     async loadForCourse(courseCode) {
-        // Switch to history tab
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector('[data-tab="history"]').classList.add('active');
-        document.getElementById('tab-history').classList.add('active');
-
         const container = document.getElementById('history-container');
+        if (!container) return;
         container.innerHTML = `<p class="loading">Loading history for ${courseCode} (checking 10 terms)</p>`;
 
         try {
