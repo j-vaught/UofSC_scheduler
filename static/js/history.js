@@ -159,19 +159,6 @@ const History = {
 
         html += '</tbody></table>';
 
-        // Mini bar chart
-        html += '<div style="margin-top:12px;display:flex;gap:3px;align-items:flex-end;height:60px">';
-        terms.forEach(t => {
-            const h = t.offered ? (30 + (t.sections || 1) * 10) : 4;
-            const color = t.offered ? '#73000A' : '#e0e0e0';
-            const shortLabel = t.label.replace('Spring ', 'Sp').replace('Summer ', 'Su').replace('Fall ', 'Fa');
-            html += `<div style="display:flex;flex-direction:column;align-items:center;flex:1">
-                <div style="width:100%;height:${h}px;background:${color}" title="${t.label}"></div>
-                <div style="font-size:0.55rem;color:#666;margin-top:2px">${shortLabel}</div>
-            </div>`;
-        });
-        html += '</div>';
-
         container.innerHTML = html;
     },
 };
