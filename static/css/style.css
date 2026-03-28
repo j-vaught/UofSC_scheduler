@@ -762,6 +762,44 @@ main {
 .schedule-card .sched-courses { font-size: 0.8rem; color: #333333; margin-top: 4px; }
 
 /* === History === */
+.history-progress-bar {
+    height: 16px;
+    background: #ECECEC;
+    border: 2px solid #000000;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+.history-progress-fill {
+    height: 100%;
+    background: #73000A;
+    transition: width 0.2s;
+}
+.history-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #363636;
+    margin-bottom: 10px;
+}
+.history-results-live {
+    max-height: 260px;
+    overflow-y: auto;
+    border: 2px solid #C7C7C7;
+}
+.history-live-row {
+    display: flex;
+    gap: 12px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #ECECEC;
+    align-items: center;
+}
+.history-live-row.found { background: #e8f5e9; }
+.history-live-row.not-found { background: #ffffff; }
+.history-live-term {
+    font-weight: 700;
+    color: #363636;
+    min-width: 90px;
+}
 .history-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .history-table th, .history-table td { padding: 6px 8px; text-align: left; border: 1px solid #cccccc; }
 .history-table th { background: #73000A; color: #ffffff; font-weight: 700; }
