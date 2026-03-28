@@ -12,105 +12,132 @@
         <div class="header-controls">
             <label for="term-select">TERM:</label>
             <select id="term-select">
-                <option value="202608">Fall 2026</option>
+                <option value="202908">Fall 2029</option>
+                <option value="202901">Spring 2029</option>
+                <option value="202808">Fall 2028</option>
+                <option value="202801">Spring 2028</option>
+                <option value="202708">Fall 2027</option>
+                <option value="202701">Spring 2027</option>
+                <option value="202608" selected>Fall 2026</option>
                 <option value="202605">Summer 2026</option>
                 <option value="202601">Spring 2026</option>
             </select>
-            <div class="plan-controls">
-                <select id="plan-select">
-                    <option value="Plan A">Plan A</option>
-                    <option value="Plan B">Plan B</option>
-                    <option value="Plan C">Plan C</option>
-                </select>
-                <button id="btn-save-plan">SAVE</button>
-                <button id="btn-load-plan">LOAD</button>
-            </div>
         </div>
     </header>
 
+    <!-- Main Tab Navigation -->
+    <nav id="main-tabs">
+        <button data-tab="profile" class="main-tab-btn active">PROFILE</button>
+        <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
+        <button data-tab="semester" class="main-tab-btn">SEMESTER</button>
+        <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
+        <button data-tab="export" class="main-tab-btn">EXPORT</button>
+    </nav>
+
     <main>
-        <!-- LEFT: Step-by-step panel -->
-        <aside id="search-panel">
-
-            <!-- STEP 1: Courses you've taken -->
-            <div class="step-section">
-                <div class="step-label"><span class="step-number">1</span> COURSES YOU'VE TAKEN</div>
-                <input type="text" id="add-completed-input" placeholder="Type a course (e.g. MATH 242) and press Enter">
-                <div id="completed-chips" class="completed-list"></div>
-            </div>
-
-            <!-- STEP 2: What subject/major? -->
-            <div class="step-section">
-                <div class="step-label"><span class="step-number">2</span> FIND COURSES</div>
-                <div class="search-form">
-                    <select id="subject-select"><option value="">-- Pick a Subject --</option></select>
-                    <input type="text" id="keyword-input" placeholder="Course # or keyword (optional)">
-                    <div class="search-filters">
-                        <label><input type="checkbox" id="filter-open"> Open only</label>
-                        <label><input type="checkbox" id="filter-grad"> Graduate</label>
-                        <label><input type="checkbox" id="filter-eligible"> I can take (prereqs met)</label>
+        <!-- ===== PROFILE TAB ===== -->
+        <div id="tab-profile" class="main-tab active">
+            <div class="profile-grid">
+                <!-- Major Selection -->
+                <section class="profile-section">
+                    <h2>Major & Concentration</h2>
+                    <div class="form-row">
+                        <label for="major-select">Major</label>
+                        <select id="major-select">
+                            <option value="">-- Select Your Major --</option>
+                        </select>
                     </div>
-                    <button id="btn-search" class="btn-garnet" style="margin-top:4px">SEARCH COURSES</button>
-                </div>
-            </div>
-
-            <!-- STEP 3: Results — pick your courses -->
-            <div class="step-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden;padding-bottom:0">
-                <div class="step-label"><span class="step-number">3</span> PICK YOUR COURSES <span id="pick-count" style="font-weight:400;color:#333;font-size:0.75rem"></span></div>
-                <div id="search-results" class="results-list">
-                    <p class="hint">Search a subject above to see available courses.</p>
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="sidebar-actions">
-                <button id="btn-solve" class="btn-primary" style="flex:1">GENERATE SCHEDULES</button>
-                <button id="btn-export" class="btn-black">EXPORT .ICS</button>
-            </div>
-        </aside>
-
-        <!-- RIGHT: Calendar + Tabs -->
-        <section id="right-panel">
-            <div id="calendar-container">
-                <div id="calendar-grid">
-                    <div class="cal-header">
-                        <div class="cal-time-label"></div>
-                        <div class="cal-day-label">MON</div>
-                        <div class="cal-day-label">TUE</div>
-                        <div class="cal-day-label">WED</div>
-                        <div class="cal-day-label">THU</div>
-                        <div class="cal-day-label">FRI</div>
+                    <div class="form-row">
+                        <label for="concentration-select">Concentration</label>
+                        <select id="concentration-select">
+                            <option value="general">General (no concentration)</option>
+                        </select>
                     </div>
-                    <div id="cal-body"></div>
-                </div>
-            </div>
+                    <div id="major-summary" class="major-summary"></div>
+                </section>
 
-            <!-- Tabs below calendar -->
-            <div id="info-tabs">
-                <div class="tab-bar">
-                    <button class="tab-btn active" data-tab="details">COURSE INFO</button>
-                    <button class="tab-btn" data-tab="preferences">PREFERENCES</button>
-                    <button class="tab-btn" data-tab="prereqs">PREREQUISITES</button>
-                    <button class="tab-btn" data-tab="history">OFFERING HISTORY</button>
-                    <button class="tab-btn" data-tab="solver">SCHEDULE OPTIONS</button>
-                </div>
-                <div class="tab-content active" id="tab-details">
-                    <p class="hint">Click a course on the calendar or in the list to see its details here.</p>
-                </div>
-                <div class="tab-content" id="tab-preferences">
-                    <div style="display:flex;gap:20px;flex-wrap:wrap">
-                        <div class="pref-section" style="flex:1;min-width:200px">
+                <!-- Transcript Entry -->
+                <section class="profile-section">
+                    <h2>Completed Courses</h2>
+                    <p class="section-hint">Enter courses separated by commas, semicolons, periods, or one per line. Case-insensitive, space optional (e.g., csce145, MATH 141; engl101).</p>
+                    <textarea id="transcript-input" rows="4" placeholder="CSCE 145, CSCE 146, MATH 141, ENGL 101..."></textarea>
+                    <div class="transcript-actions">
+                        <button id="btn-parse-transcript" class="btn-garnet">ADD COURSES</button>
+                        <label class="file-upload-label">
+                            UPLOAD CSV
+                            <input type="file" id="csv-upload" accept=".csv,.txt" style="display:none">
+                        </label>
+                    </div>
+                    <div id="completed-chips" class="completed-list"></div>
+                    <div id="credit-summary" class="credit-summary"></div>
+                </section>
+
+                <!-- Planning Mode -->
+                <section class="profile-section">
+                    <h2>Planning Mode</h2>
+                    <div class="mode-options">
+                        <label class="mode-option">
+                            <input type="radio" name="plan-mode" value="full_time" checked>
+                            <div>
+                                <strong>Full-Time</strong>
+                                <span>~15 credits/semester, no summer</span>
+                            </div>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="plan-mode" value="scholarship">
+                            <div>
+                                <strong>Scholarship</strong>
+                                <span>30 credits/year minimum, flags summer needs</span>
+                            </div>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="plan-mode" value="part_time">
+                            <div>
+                                <strong>Part-Time</strong>
+                                <span>6-9 credits/semester</span>
+                            </div>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="plan-mode" value="custom">
+                            <div>
+                                <strong>Custom</strong>
+                                <span>Set your own credit limits</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div id="custom-credits-panel" class="custom-credits hidden">
+                        <label>Min credits: <input type="number" id="custom-min" value="12" min="1" max="21"></label>
+                        <label>Max credits: <input type="number" id="custom-max" value="18" min="1" max="21"></label>
+                        <label>Target: <input type="number" id="custom-target" value="15" min="1" max="21"></label>
+                    </div>
+                    <div id="scholarship-warning" class="warning-banner hidden">
+                        At 12 + 12 credits/year, you will need 6 summer credits to maintain most scholarship eligibility (30 credits/year minimum).
+                    </div>
+                </section>
+
+                <!-- Scheduling Preferences -->
+                <section class="profile-section">
+                    <h2>Scheduling Preferences</h2>
+                    <div class="prefs-grid">
+                        <div class="pref-column">
                             <h3>Block Out Times</h3>
-                            <p style="font-size:0.75rem;color:#555;margin-bottom:4px">Click or drag to block times you are NOT available.</p>
+                            <p class="section-hint">Click or drag to block times you are NOT available.</p>
                             <div id="block-calendar"></div>
                         </div>
-                        <div style="flex:1;min-width:200px">
-                            <div class="pref-section">
+                        <div class="pref-column">
+                            <div class="pref-group">
                                 <h3>Earliest / Latest Class</h3>
                                 <label>Earliest start: <input type="time" id="pref-start" value="08:00"></label>
                                 <label>Latest end: <input type="time" id="pref-end" value="21:00"></label>
                             </div>
-                            <div class="pref-section">
+                            <div class="pref-group">
+                                <h3>Day Preferences</h3>
+                                <div class="day-toggles">
+                                    <label><input type="checkbox" data-day="MWF" id="pref-mwf"> Prefer MWF only</label>
+                                    <label><input type="checkbox" data-day="TR" id="pref-tr"> Prefer TR only</label>
+                                </div>
+                            </div>
+                            <div class="pref-group">
                                 <h3>Professor Preferences</h3>
                                 <div id="prof-prefs-list"></div>
                                 <div class="prof-pref-add">
@@ -122,7 +149,7 @@
                                     <button id="btn-add-prof-pref">ADD</button>
                                 </div>
                             </div>
-                            <div class="pref-section">
+                            <div class="pref-group">
                                 <h3>Scoring Weights</h3>
                                 <label>Gap penalty: <input type="range" id="weight-gap" min="0" max="10" value="2" step="0.5"><span id="weight-gap-val">2</span></label>
                                 <label>Fewer days: <input type="range" id="weight-compact" min="0" max="10" value="3" step="0.5"><span id="weight-compact-val">3</span></label>
@@ -130,24 +157,171 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="tab-content" id="tab-prereqs">
-                    <div id="prereq-container">
-                        <p class="hint">Click a course to see what you need to take it.</p>
-                    </div>
-                </div>
-                <div class="tab-content" id="tab-history">
-                    <div id="history-container">
-                        <p class="hint">Click a course to see how often it has been offered.</p>
-                    </div>
-                </div>
-                <div class="tab-content" id="tab-solver">
-                    <div id="solver-container">
-                        <p class="hint">Click "GENERATE SCHEDULES" to find the best conflict-free schedules for your selected courses.</p>
-                    </div>
-                </div>
+                </section>
             </div>
-        </section>
+        </div>
+
+        <!-- ===== DEGREE PLAN TAB ===== -->
+        <div id="tab-degree" class="main-tab">
+            <div class="degree-layout">
+                <!-- Left: Requirements Sidebar -->
+                <aside id="degree-sidebar">
+                    <h2>Requirements</h2>
+                    <div id="degree-progress-overall" class="progress-section">
+                        <div class="progress-label">Overall Progress</div>
+                        <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
+                        <div class="progress-text" id="progress-overall-text">0 / 120 credits</div>
+                    </div>
+                    <div id="degree-requirements-list" class="requirements-list">
+                        <p class="hint">Select a major in the Profile tab to see requirements.</p>
+                    </div>
+                    <button id="btn-generate-plan" class="btn-garnet" style="width:100%;margin-top:12px">GENERATE DEGREE PLAN</button>
+                    <div id="plan-mode-label" class="plan-mode-label"></div>
+                </aside>
+
+                <!-- Right: Semester Columns -->
+                <section id="degree-content">
+                    <div id="degree-warnings" class="warnings-container"></div>
+                    <div id="semester-columns" class="semester-columns">
+                        <p class="hint" style="padding:20px">Set up your profile and click "Generate Degree Plan" to see your semester-by-semester course plan.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ===== SEMESTER TAB ===== -->
+        <div id="tab-semester" class="main-tab">
+            <div class="semester-layout">
+                <!-- Left: Search Panel -->
+                <aside id="semester-search">
+                    <div class="search-section">
+                        <h2>Find Courses</h2>
+                        <div class="search-form">
+                            <select id="subject-select"><option value="">-- Pick a Subject --</option></select>
+                            <input type="text" id="keyword-input" placeholder="Course # or keyword (optional)">
+                            <div class="search-filters">
+                                <label><input type="checkbox" id="filter-open"> Open only</label>
+                                <label><input type="checkbox" id="filter-grad"> Graduate</label>
+                                <label><input type="checkbox" id="filter-eligible"> I can take (prereqs met)</label>
+                            </div>
+                            <button id="btn-search" class="btn-garnet">SEARCH COURSES</button>
+                        </div>
+                    </div>
+                    <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+                        <div class="results-header">
+                            <span>Results</span>
+                            <span id="pick-count" class="pick-count"></span>
+                        </div>
+                        <div id="search-results" class="results-list">
+                            <p class="hint">Search a subject above to see available courses.</p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right: Course Details + Mini Calendar -->
+                <section id="semester-content">
+                    <div id="semester-course-info">
+                        <h2>Course Details</h2>
+                        <div id="tab-details">
+                            <p class="hint">Click a course in the search results to see its details, prerequisites, and offering history.</p>
+                        </div>
+                    </div>
+                    <div id="semester-prereqs">
+                        <h3>Prerequisites</h3>
+                        <div id="prereq-container">
+                            <p class="hint">Select a course to view its prerequisite chain.</p>
+                        </div>
+                    </div>
+                    <div id="semester-history">
+                        <h3>Offering History</h3>
+                        <div id="history-container">
+                            <p class="hint">Select a course to see how often it is offered.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ===== SCHEDULE TAB ===== -->
+        <div id="tab-schedule" class="main-tab">
+            <div class="schedule-layout">
+                <!-- Left: Selected Courses -->
+                <aside id="schedule-sidebar">
+                    <h2>Selected Courses</h2>
+                    <div id="selected-courses-list" class="selected-courses-list">
+                        <p class="hint">Add courses from the Semester tab to build your schedule.</p>
+                    </div>
+                    <div id="selected-credits" class="selected-credits"></div>
+                    <button id="btn-solve" class="btn-garnet" style="width:100%">GENERATE SCHEDULES</button>
+                    <button id="btn-export-quick" class="btn-black" style="width:100%;margin-top:6px">EXPORT .ICS</button>
+                </aside>
+
+                <!-- Right: Calendar + Solver Results -->
+                <section id="schedule-content">
+                    <div id="calendar-container">
+                        <div id="calendar-grid">
+                            <div class="cal-header">
+                                <div class="cal-time-label"></div>
+                                <div class="cal-day-label">MON</div>
+                                <div class="cal-day-label">TUE</div>
+                                <div class="cal-day-label">WED</div>
+                                <div class="cal-day-label">THU</div>
+                                <div class="cal-day-label">FRI</div>
+                            </div>
+                            <div id="cal-body"></div>
+                        </div>
+                    </div>
+                    <div id="solver-section">
+                        <h3>Schedule Options</h3>
+                        <div id="solver-container">
+                            <p class="hint">Click "Generate Schedules" to find conflict-free schedules for your selected courses.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- ===== EXPORT TAB ===== -->
+        <div id="tab-export" class="main-tab">
+            <div class="export-grid">
+                <section class="export-section">
+                    <h2>Export Calendar</h2>
+                    <p>Download your current schedule as an .ICS file compatible with Google Calendar, Apple Calendar, and Outlook.</p>
+                    <button id="btn-export" class="btn-garnet">DOWNLOAD .ICS FILE</button>
+                </section>
+
+                <section class="export-section">
+                    <h2>Save / Load Plans</h2>
+                    <div class="plan-management">
+                        <div class="form-row">
+                            <label for="plan-name-input">Plan Name</label>
+                            <input type="text" id="plan-name-input" placeholder="My Plan" value="Plan A">
+                        </div>
+                        <div class="plan-buttons">
+                            <button id="btn-save-plan" class="btn-garnet">SAVE PLAN</button>
+                            <button id="btn-load-plan" class="btn-black">LOAD PLAN</button>
+                            <button id="btn-delete-plan" class="btn-danger">DELETE PLAN</button>
+                        </div>
+                        <div id="saved-plans-list" class="saved-plans-list">
+                            <h3>Saved Plans</h3>
+                            <div id="plans-container"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="export-section">
+                    <h2>Export / Import Plan Data</h2>
+                    <p>Save your entire degree plan and schedule as a JSON file, or import a previously saved plan.</p>
+                    <div class="plan-buttons">
+                        <button id="btn-export-json" class="btn-garnet">EXPORT AS JSON</button>
+                        <label class="file-upload-label">
+                            IMPORT JSON
+                            <input type="file" id="json-import" accept=".json" style="display:none">
+                        </label>
+                    </div>
+                </section>
+            </div>
+        </div>
     </main>
 
     <!-- Modal -->
@@ -160,6 +334,7 @@
 
     <script src="/static/js/api.js"></script>
     <script src="/static/js/state.js"></script>
+    <script src="/static/js/tabs.js"></script>
     <script src="/static/js/calendar.js"></script>
     <script src="/static/js/search.js"></script>
     <script src="/static/js/preferences.js"></script>
@@ -167,84 +342,30 @@
     <script src="/static/js/history.js"></script>
     <script src="/static/js/scheduler.js"></script>
     <script src="/static/js/export.js"></script>
+    <script src="/static/js/profile.js"></script>
+    <script src="/static/js/degree-plan.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        Tabs.init();
+        Profile.init();
         Calendar.init();
         Search.init();
         Preferences.init();
         Scheduler.init();
         Export.init();
-
-        // Completed courses input (Step 1)
-        const addInput = document.getElementById('add-completed-input');
-        addInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const val = addInput.value.trim().toUpperCase();
-                if (val && !State.completedCourses.includes(val)) {
-                    State.completedCourses.push(val);
-                    renderCompletedChips();
-                    addInput.value = '';
-                }
-            }
-        });
-        // Also support comma-separated paste
-        addInput.addEventListener('paste', (e) => {
-            setTimeout(() => {
-                const vals = addInput.value.split(',').map(s => s.trim().toUpperCase()).filter(s => s);
-                vals.forEach(v => {
-                    if (!State.completedCourses.includes(v)) State.completedCourses.push(v);
-                });
-                renderCompletedChips();
-                addInput.value = '';
-            }, 50);
-        });
-
-        function renderCompletedChips() {
-            const container = document.getElementById('completed-chips');
-            container.innerHTML = '';
-            State.completedCourses.forEach(course => {
-                const chip = document.createElement('span');
-                chip.className = 'completed-chip';
-                chip.innerHTML = `${course} <span class="remove">&times;</span>`;
-                chip.querySelector('.remove').addEventListener('click', () => {
-                    State.completedCourses = State.completedCourses.filter(c => c !== course);
-                    renderCompletedChips();
-                });
-                container.appendChild(chip);
-            });
-        }
+        DegreePlan.init();
 
         // Track picked courses count
         State.on('sections-changed', () => {
             const count = Object.keys(State.selectedSections).length;
-            document.getElementById('pick-count').textContent = count > 0 ? `(${count} selected)` : '';
-        });
-
-        // Tab switching
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-            });
+            const el = document.getElementById('pick-count');
+            if (el) el.textContent = count > 0 ? `(${count} selected)` : '';
+            ScheduleSidebar.render();
         });
 
         // Term change
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
-        });
-
-        // Plan save/load
-        document.getElementById('btn-save-plan').addEventListener('click', () => {
-            State.currentPlan = document.getElementById('plan-select').value;
-            State.savePlan();
-        });
-        document.getElementById('btn-load-plan').addEventListener('click', () => {
-            const name = document.getElementById('plan-select').value;
-            if (!State.loadPlan(name)) {
-                alert('No saved data for ' + name);
-            }
         });
 
         // Modal
