@@ -218,12 +218,21 @@
                                 <div class="filter-row">
                                     <select id="filter-level-mode" style="width:auto;flex:1">
                                         <option value="">Any level</option>
-                                        <option value="exact">Exactly</option>
+                                        <option value="exact">Only</option>
                                         <option value="above">Above</option>
                                         <option value="below">Below</option>
                                     </select>
-                                    <input type="number" id="filter-level-value" placeholder="e.g. 500" min="100" max="900" step="100" style="width:70px">
-                                    <span style="font-size:0.75rem;color:#5C5C5C">level</span>
+                                    <select id="filter-level-value" style="width:auto">
+                                        <option value="">--</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="300">300</option>
+                                        <option value="400">400</option>
+                                        <option value="500">500</option>
+                                        <option value="600">600</option>
+                                        <option value="700">700</option>
+                                        <option value="800">800</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="filter-group">
@@ -234,8 +243,7 @@
                                         <option value="above">More than</option>
                                         <option value="below">Less than</option>
                                     </select>
-                                    <input type="number" id="filter-size-value" placeholder="e.g. 100" min="1" style="width:70px">
-                                    <span style="font-size:0.75rem;color:#5C5C5C">seats</span>
+                                    <input type="number" id="filter-size-value" placeholder="total seats" min="1" style="width:80px">
                                 </div>
                             </div>
                             <div class="filter-group">
@@ -246,8 +254,7 @@
                                         <option value="above">At least</option>
                                         <option value="below">Fewer than</option>
                                     </select>
-                                    <input type="number" id="filter-avail-value" placeholder="e.g. 10" min="0" style="width:70px">
-                                    <span style="font-size:0.75rem;color:#5C5C5C">left</span>
+                                    <input type="number" id="filter-avail-value" placeholder="seats left" min="0" style="width:80px">
                                 </div>
                             </div>
                         </div>

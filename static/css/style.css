@@ -761,7 +761,15 @@ main {
     font-size: 0.8rem;
     border: 1px solid #C7C7C7;
 }
-.filter-row input[type="number"] { border: 2px solid #000000; }
+.filter-row input[type="number"] {
+    border: 2px solid #000000;
+    width: 80px;
+    flex-shrink: 0;
+}
+.filter-row input[type="number"]::placeholder {
+    color: #A2A2A2;
+    font-size: 0.75rem;
+}
 
 /* === Results === */
 .results-list {

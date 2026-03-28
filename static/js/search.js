@@ -61,7 +61,7 @@ const Search = {
         const eligibleOnly = document.getElementById('filter-eligible').checked;
         const currentTermOnly = document.getElementById('filter-current-term').checked;
 
-        // Level filter
+        // Level filter (dropdown, values are 100/200/.../800)
         const levelMode = document.getElementById('filter-level-mode').value;
         const levelValue = parseInt(document.getElementById('filter-level-value').value) || 0;
 
