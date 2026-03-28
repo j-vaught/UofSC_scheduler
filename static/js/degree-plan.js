@@ -88,27 +88,30 @@ const DegreePlan = {
         const semMap = {};
         const completed = State.completedCourses;
 
+        // If there are existing completed semesters with courses, preserve their assignment
+        const existingAssignments = {};
+        (State.degreePlan.completedSemesters || []).forEach(sem => {
+            sem.courses.forEach(c => { existingAssignments[c.code] = sem.term; });
+        });
+
         completed.forEach(code => {
             const mapCourse = majorData.required_courses.find(c => c.code === code);
             const detail = State.completedDetails.find(d => d.code === code);
 
             let termKey, termLabel, semType;
-            if (detail && detail.semester) {
+            if (existingAssignments[code]) {
+                // Keep existing assignment
+                termKey = existingAssignments[code];
+                const existing = (State.degreePlan.completedSemesters || []).find(s => s.term === termKey);
+                termLabel = existing ? existing.label : termKey;
+                semType = 'completed';
+            } else if (detail && detail.semester) {
                 termKey = detail.semester;
                 termLabel = detail.semester;
                 semType = 'completed';
-            } else if (mapCourse) {
-                // Estimate based on typical year/semester
-                const yr = mapCourse.typical_year || 1;
-                const sem = mapCourse.typical_semester || 'Fall';
-                const baseYear = 2024; // Rough estimate
-                const actualYear = baseYear + yr - 1;
-                const semCode = sem === 'Fall' ? '08' : sem === 'Spring' ? '01' : '05';
-                termKey = `${actualYear}${semCode}`;
-                termLabel = `${sem} ${actualYear}`;
-                semType = 'completed';
             } else {
-                termKey = 'unknown';
+                // Put unassigned courses in a generic "Prior Courses" bucket
+                termKey = 'prior';
                 termLabel = 'Prior Courses';
                 semType = 'completed';
             }
@@ -308,19 +311,22 @@ const DegreePlan = {
                 <div class="course-card completed-card" data-code="${course.code}" data-semester="${sem.term}" data-section="completed" draggable="true">
                     <div class="course-card-header">
                         <span class="course-card-code">${course.code}</span>
-                        <span class="course-card-credits">${course.credits} cr</span>
+                        <span class="card-remove-badge" data-code="${course.code}">REMOVE</span>
                     </div>
-                    <div class="course-card-title">${course.title}</div>
-                    <button class="card-remove" data-code="${course.code}" title="Remove">&times;</button>
+                    <div class="course-card-title">${course.title} <span class="course-card-credits">${course.credits} cr</span></div>
                 </div>
             `;
         });
+
+        const deleteBtn = sem.courses.length === 0
+            ? `<span class="sem-delete-btn" data-term="${sem.term}" title="Delete semester">&times;</span>`
+            : '';
 
         return `
             <div class="semester-column completed-column ${isCurrent ? 'current' : ''}" data-term="${sem.term}" data-index="${idx}" data-section="completed">
                 <div class="${headerClass}">
                     <span class="semester-label">${sem.label}</span>
-                    <span class="semester-credits">${sem.total_credits} cr</span>
+                    <span class="semester-credits">${sem.total_credits} cr ${deleteBtn}</span>
                 </div>
                 <div class="semester-courses" data-term="${sem.term}" data-section="completed">
                     ${coursesHtml}
@@ -440,8 +446,8 @@ const DegreePlan = {
             addSemBtn.addEventListener('click', () => this.showAddSemesterModal());
         }
 
-        // Remove buttons on completed cards
-        document.querySelectorAll('.completed-card .card-remove').forEach(btn => {
+        // Remove badges on completed cards
+        document.querySelectorAll('.completed-card .card-remove-badge').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const code = btn.dataset.code;
@@ -453,6 +459,16 @@ const DegreePlan = {
                     Profile.renderCompletedChips();
                     Profile.renderCreditSummary();
                 }
+            });
+        });
+
+        // Delete empty completed semesters
+        document.querySelectorAll('.sem-delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const term = btn.dataset.term;
+                State.degreePlan.completedSemesters = (State.degreePlan.completedSemesters || []).filter(s => s.term !== term);
+                this.render();
             });
         });
     },
