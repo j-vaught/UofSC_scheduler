@@ -801,6 +801,7 @@ main {
 }
 .badge-open { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
 .badge-full { background: #ffebee; color: #c62828; border-color: #c62828; }
+.badge-na { background: #ECECEC; color: #5C5C5C; border-color: #C7C7C7; }
 .badge-eligible { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; font-size: 0.65rem; }
 .badge-prereq-missing { background: #fff3e0; color: #e65100; border-color: #e65100; font-size: 0.65rem; }
 .course-sections { display: none; padding: 0; }

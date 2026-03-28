@@ -295,9 +295,22 @@ const Search = {
             const div = document.createElement('div');
             div.className = 'course-group';
 
-            const hasOpen = group.sections.some(s => s.stat === 'A');
-            const badgeClass = hasOpen ? 'badge-open' : 'badge-full';
-            const badgeText = hasOpen ? 'OPEN' : 'FULL';
+            const isCatalog = group.sections.some(s => s._isCatalog);
+            let badgeClass, badgeText;
+            if (isCatalog) {
+                badgeClass = 'badge-na';
+                badgeText = 'CATALOG';
+            } else {
+                const hasOpen = group.sections.some(s => s.stat === 'A');
+                if (hasOpen) {
+                    const termShort = this.shortTermLabel(State.term);
+                    badgeClass = 'badge-open';
+                    badgeText = termShort;
+                } else {
+                    badgeClass = 'badge-full';
+                    badgeText = 'FULL';
+                }
+            }
 
             // Eligibility badge
             const elig = this.checkEligibility(group.code, prereqData);
@@ -570,6 +583,13 @@ const Search = {
 
         // Fallback: just return what the API gave us (already fairly short)
         return fullName;
+    },
+
+    shortTermLabel(termCode) {
+        const year = termCode.slice(2, 4);
+        const sem = termCode.slice(4);
+        const semLabel = { '01': 'Sp', '05': 'Su', '08': 'Fa' }[sem] || sem;
+        return `${semLabel}${year}`;
     },
 
     showLoading() {
