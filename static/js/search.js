@@ -4,7 +4,6 @@ const Search = {
     _searchId: 0,
 
     init() {
-        this.populateSubjects();
         document.getElementById('btn-search').addEventListener('click', () => this.doSearch());
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
@@ -34,30 +33,9 @@ const Search = {
         }
     },
 
-    populateSubjects() {
-        const sel = document.getElementById('subject-select');
-        const subjects = [
-            "ACCT","AESP","AFAM","ANTH","ARAB","ARTE","ARTH","ARTS","ASTR",
-            "BADM","BIOL","BMEN","BMSC","CHEM","CHIN","COMD","COMM","CPLT",
-            "CRJU","CSCE","CYBR","DANC","ECHE","ECIV","ECON","EDUC","ELCT",
-            "EMCH","ENCP","ENGL","ENTR","ENVR","EXSC","FINA","FREN","GEOG",
-            "GEOL","GERM","HIST","HRSM","HRTM","ITAL","JAPA","JOUR","KORE",
-            "LATN","LAWS","LING","MART","MATH","MGMT","MGSC","MKTG","MSCI",
-            "MUED","MUSC","NURS","PHAR","PHIL","PHYS","POLI","PORT","PSYC",
-            "PUBH","RELG","RETL","RUSS","SCHC","SOCY","SOWK","SPAN","SPCH",
-            "SPTE","STAT","THEA","UNIV","WGST",
-        ];
-        subjects.forEach(s => {
-            const opt = document.createElement('option');
-            opt.value = s;
-            opt.textContent = s;
-            sel.appendChild(opt);
-        });
-    },
 
     async doSearch() {
-        const subject = document.getElementById('subject-select').value;
-        const keyword = document.getElementById('keyword-input').value.trim();
+        const rawInput = document.getElementById('keyword-input').value.trim();
         const openOnly = document.getElementById('filter-open').checked;
         const eligibleOnly = document.getElementById('filter-eligible').checked;
         const currentTermOnly = document.getElementById('filter-current-term').checked;
@@ -74,59 +52,58 @@ const Search = {
         const availMode = document.getElementById('filter-avail-mode').value;
         const availValue = parseInt(document.getElementById('filter-avail-value').value) || 0;
 
-        if (!subject && !keyword) {
-            this.showHint('Pick a subject or enter a course number.');
+        if (!rawInput) {
+            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), or keyword.');
             return;
         }
 
+        const kw = rawInput.trim();
         const criteria = [];
-        if (subject) criteria.push({ field: 'subject', value: subject });
-
-        // Keyword parsing
+        let subject = '';
         let courseNumberFilter = null;
-        if (keyword) {
-            const kw = keyword.trim();
 
-            // "CSCE 145" or "CSCE145" — full course code
-            if (/^[A-Z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
-                const normalized = kw.replace(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i, (_, s, n) => s.toUpperCase() + ' ' + n.toUpperCase());
-                criteria.push({ field: 'alias', value: normalized });
+        // Parse the input to determine what the user wants
 
-            // 5-digit CRN
-            } else if (/^\d{5}$/.test(kw)) {
-                criteria.push({ field: 'crn', value: kw });
+        // 3-4 letter subject code only (e.g. "CSCE", "MATH")
+        if (/^[A-Za-z]{3,4}$/i.test(kw)) {
+            subject = kw.toUpperCase();
+            criteria.push({ field: 'subject', value: subject });
 
-            // Exactly 4 digits — invalid, too ambiguous
-            } else if (/^\d{4}$/.test(kw)) {
-                this.showHint('4-digit numbers are not valid. Enter a 3-digit course number (e.g. 101) or a 5-digit CRN.');
-                return;
+        // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
+            const normalized = kw.replace(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i, (_, s, n) => s.toUpperCase() + ' ' + n.toUpperCase());
+            subject = normalized.split(' ')[0];
+            criteria.push({ field: 'alias', value: normalized });
 
-            // 3 digits optionally followed by a single letter (e.g. 101, 101L, 344l)
-            } else if (/^\d{3}\s?[A-Za-z]?$/.test(kw)) {
-                // Don't send as keyword — search the subject and filter client-side by course number
-                const numPart = kw.replace(/\s/g, '').toUpperCase();
-                courseNumberFilter = numPart;
-                // Need a subject to search
-                if (!subject) {
-                    this.showHint('Pick a subject when searching by course number.');
-                    return;
-                }
+        // 5-digit CRN
+        } else if (/^\d{5}$/.test(kw)) {
+            criteria.push({ field: 'crn', value: kw });
 
-            // 1-2 digits — too short, ignore
-            } else if (/^\d{1,2}$/.test(kw)) {
-                this.showHint('Enter at least a 3-digit course number or a keyword with 5+ characters.');
-                return;
+        // 4 digits — invalid
+        } else if (/^\d{4}$/.test(kw)) {
+            this.showHint('4-digit numbers are not valid. Enter a 3-digit course number (e.g. CSCE 101) or a 5-digit CRN.');
+            return;
 
-            // Text keyword — require 5+ characters to avoid overloading API
-            } else if (kw.length < 5) {
-                this.showHint('Keywords must be at least 5 characters. For course numbers, enter 3 digits (e.g. 101).');
-                return;
+        // 3 digits + optional letter — need subject prefix
+        } else if (/^\d{3}\s?[A-Za-z]?$/.test(kw)) {
+            this.showHint('Include the subject code (e.g. CSCE 101, not just 101).');
+            return;
 
-            // Valid text keyword
-            } else {
-                criteria.push({ field: 'keyword', value: kw });
-            }
+        // 1-2 digits
+        } else if (/^\d{1,2}$/.test(kw)) {
+            this.showHint('Enter a subject code (e.g. CSCE) or full course number (e.g. CSCE 101).');
+            return;
+
+        // Text keyword — require 5+ characters
+        } else if (kw.length < 5) {
+            this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
+            return;
+
+        // Valid text keyword
+        } else {
+            criteria.push({ field: 'keyword', value: kw });
         }
+
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
 
         this.showLoading();
