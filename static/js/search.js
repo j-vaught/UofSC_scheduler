@@ -199,6 +199,16 @@ const Search = {
                             r.classList.toggle('selected', State.isSelected(r.dataset.crn));
                         }
                     });
+                    // Load course info in Semester tab
+                    if (typeof Calendar !== 'undefined' && Calendar.showCourseDetail) {
+                        Calendar.showCourseDetail(sec);
+                    }
+                    if (typeof Prereqs !== 'undefined' && Prereqs.loadForCourse) {
+                        Prereqs.loadForCourse(sec.code);
+                    }
+                    if (typeof History !== 'undefined' && History.loadForCourse) {
+                        History.loadForCourse(sec.code);
+                    }
                 });
                 row.dataset.crn = sec.crn;
                 sectionsDiv.appendChild(row);
