@@ -287,7 +287,10 @@ const Search = {
             const seats = seatsMatch ? seatsMatch[1] : '?';
             const max = maxMatch ? maxMatch[1] : '?';
             const desc = (data.description || '').replace(/<[^>]+>/g, ' ').trim();
-            const room = (data.meeting_html || '').replace(/<[^>]+>/g, ' ').trim();
+            const meeting = this.parseMeetingHtml(data.meeting_html);
+            const timesStr = meeting.times.length > 0 ? meeting.times.join('; ') : (sec.meets || 'TBA');
+            const locsStr = meeting.locations.length > 0 ? meeting.locations.join('; ') : 'TBA';
+            const locLabel = meeting.locations.length > 1 ? 'Locations' : 'Location';
 
             const isAdded2 = State.isSelected(sec.crn);
             const btnLabel2 = isAdded2 ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
@@ -297,7 +300,8 @@ const Search = {
                 <h3>${sec.code} - ${sec.title}</h3>
                 <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
                 <p><strong>Instructor:</strong> ${sec.instr || 'Staff'}</p>
-                <p><strong>Meets:</strong> ${room || sec.meets || 'TBA'}</p>
+                <p><strong>Class Times:</strong> ${timesStr}</p>
+                <p><strong>${locLabel}:</strong> ${locsStr}</p>
                 <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
                 <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>
                 <p><strong>Method:</strong> ${data.inst_mthd || sec.inst_mthd || 'N/A'}</p>
@@ -322,6 +326,90 @@ const Search = {
         }).catch(() => {
             detailsTab.querySelector('.loading')?.remove();
         });
+    },
+
+    parseMeetingHtml(meetingHtml) {
+        // Parse meeting_html to extract separate times and locations
+        // Format: <div class="meet">MW 10:50am-11:40am<span ...> in <a ...>Sumwalt College 305</a></span></div>
+        if (!meetingHtml) return { times: [], locations: [] };
+
+        const times = [];
+        const locationSet = new Set();
+
+        // Match each <div class="meet"> block
+        const meetBlocks = meetingHtml.match(/<div class="meet">[^]*?<\/div>/gi) || [meetingHtml];
+
+        meetBlocks.forEach(block => {
+            // Extract time: text before the <span
+            const timeMatch = block.match(/<div class="meet">\s*([^<]+)/i);
+            if (timeMatch) {
+                times.push(timeMatch[1].trim());
+            }
+
+            // Extract location from <a> tag
+            const locMatch = block.match(/<a[^>]*>([^<]+)<\/a>/i);
+            if (locMatch) {
+                locationSet.add(this.abbreviateBuilding(locMatch[1].trim()));
+            }
+        });
+
+        return {
+            times: times,
+            locations: [...locationSet],
+        };
+    },
+
+    abbreviateBuilding(fullName) {
+        // Common UofSC building abbreviations
+        const abbrevs = {
+            'Swearingen Engineering Center': 'SWGN',
+            'Sumwalt College': 'SUMW',
+            'Close-Hipp Building': 'CLHO',
+            'Gambrell Hall': 'GAMB',
+            'Hamilton College': 'HAMI',
+            'Humanities Classroom Building': 'HCB',
+            'Jones Physical Science Center': 'JPSN',
+            'LeConte College': 'LECO',
+            'Coker Life Sciences Building': 'COLS',
+            'Callcott Social Sciences Center': 'CALC',
+            'Byrnes Building': 'BYRN',
+            'Currell College': 'CURR',
+            'Wardlaw College': 'WARD',
+            'Welsh Humanities': 'WELH',
+            'Barnwell College': 'BARN',
+            'Petigru College': 'PETI',
+            'Sloan College': 'SLOA',
+            'School of Music': 'MUS',
+            'Booker T. Washington Building': 'BTW',
+            'Bull Street Garage Classroom': 'BSGC',
+            'Columbia Hall': 'COLH',
+            'Darla Moore School of Business': 'DMSB',
+            'Discovery I': 'DISC1',
+            'Public Health Research Center': 'PHRC',
+            'Horizon I': 'HRZN',
+            'Nursing Building': 'NURS',
+            'Science and Technology Building': 'STBG',
+        };
+
+        // Try to match known building names (building name may include room number)
+        for (const [full, abbr] of Object.entries(abbrevs)) {
+            if (fullName.startsWith(full)) {
+                const room = fullName.slice(full.length).trim();
+                return room ? `${abbr} ${room}` : abbr;
+            }
+        }
+
+        // Fallback: shorten by taking first letters of each word + room number
+        const parts = fullName.match(/^(.+?)\s+(\d+\w*)$/);
+        if (parts) {
+            const words = parts[1].split(/\s+/);
+            if (words.length >= 2 && parts[1].length > 15) {
+                const abbr = words.map(w => w[0]).join('').toUpperCase();
+                return `${abbr} ${parts[2]}`;
+            }
+        }
+
+        return fullName;
     },
 
     showLoading() {
