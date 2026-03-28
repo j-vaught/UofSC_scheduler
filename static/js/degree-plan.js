@@ -5,9 +5,11 @@ const DegreePlan = {
         this.bindDragDrop();
 
         State.on('profile-updated', () => this.updateSidebar());
-        State.on('degree-plan-updated', () => this.render());
+        State.on('degree-plan-updated', () => {
+            this.buildCompletedSemesters();
+            this.render();
+        });
 
-        // Initial render if data exists
         if (State.degreePlan.semesters.length > 0) {
             this.render();
         }
@@ -77,6 +79,70 @@ const DegreePlan = {
         }
     },
 
+    // Build completed semester columns from State.completedCourses + completedDetails
+    buildCompletedSemesters() {
+        const majorData = State.profile.majorData;
+        if (!majorData) return;
+
+        // Group completed courses by their typical semester
+        const semMap = {};
+        const completed = State.completedCourses;
+
+        completed.forEach(code => {
+            const mapCourse = majorData.required_courses.find(c => c.code === code);
+            const detail = State.completedDetails.find(d => d.code === code);
+
+            let termKey, termLabel, semType;
+            if (detail && detail.semester) {
+                termKey = detail.semester;
+                termLabel = detail.semester;
+                semType = 'completed';
+            } else if (mapCourse) {
+                // Estimate based on typical year/semester
+                const yr = mapCourse.typical_year || 1;
+                const sem = mapCourse.typical_semester || 'Fall';
+                const baseYear = 2024; // Rough estimate
+                const actualYear = baseYear + yr - 1;
+                const semCode = sem === 'Fall' ? '08' : sem === 'Spring' ? '01' : '05';
+                termKey = `${actualYear}${semCode}`;
+                termLabel = `${sem} ${actualYear}`;
+                semType = 'completed';
+            } else {
+                termKey = 'unknown';
+                termLabel = 'Prior Courses';
+                semType = 'completed';
+            }
+
+            if (!semMap[termKey]) {
+                semMap[termKey] = {
+                    term: termKey,
+                    label: termLabel,
+                    courses: [],
+                    total_credits: 0,
+                    type: semType,
+                };
+            }
+
+            const credits = (mapCourse && mapCourse.credits) || (detail && detail.credits) || 3;
+            semMap[termKey].courses.push({
+                code: code,
+                title: mapCourse ? mapCourse.title : code,
+                credits: credits,
+                category: mapCourse ? mapCourse.category : '',
+            });
+            semMap[termKey].total_credits += credits;
+        });
+
+        // Sort by term key
+        const sorted = Object.values(semMap).sort((a, b) => {
+            if (a.term === 'unknown') return -1;
+            if (b.term === 'unknown') return 1;
+            return a.term.localeCompare(b.term);
+        });
+
+        State.degreePlan.completedSemesters = sorted;
+    },
+
     updateSidebar() {
         const majorData = State.profile.majorData;
         const list = document.getElementById('degree-requirements-list');
@@ -87,7 +153,6 @@ const DegreePlan = {
             return;
         }
 
-        // Mode label
         const modeNames = {
             'full_time': 'Full-Time (~15 cr/sem)',
             'scholarship': 'Scholarship (30 cr/yr)',
@@ -98,7 +163,6 @@ const DegreePlan = {
             modeLabel.textContent = `Mode: ${modeNames[State.profile.planMode] || State.profile.planMode}`;
         }
 
-        // Overall progress
         const totalRequired = majorData.total_credits_required;
         const completed = State.degreePlan.completedCredits || this.estimateCompletedCredits();
         const pct = Math.min(100, Math.round((completed / totalRequired) * 100));
@@ -106,7 +170,6 @@ const DegreePlan = {
         document.getElementById('progress-overall-fill').style.width = pct + '%';
         document.getElementById('progress-overall-text').textContent = `${completed} / ${totalRequired} credits (${pct}%)`;
 
-        // Requirements by category
         const categories = majorData.category_labels || {};
         const catData = State.degreePlan.categories || {};
 
@@ -147,24 +210,74 @@ const DegreePlan = {
     render() {
         const container = document.getElementById('semester-columns');
         const warningsEl = document.getElementById('degree-warnings');
-        const semesters = State.degreePlan.semesters;
+        const plannedSemesters = State.degreePlan.semesters;
+        const completedSemesters = State.degreePlan.completedSemesters || [];
 
-        if (!semesters || semesters.length === 0) {
+        if (plannedSemesters.length === 0 && completedSemesters.length === 0) {
             container.innerHTML = '<p class="hint" style="padding:20px">Set up your profile and click "Generate Degree Plan" to see your semester-by-semester course plan.</p>';
             warningsEl.innerHTML = '';
             return;
         }
 
-        // Render warnings
         this.renderWarnings(warningsEl);
 
-        // Render semester columns
         let html = '';
-        semesters.forEach((sem, idx) => {
+
+        // Completed section
+        if (completedSemesters.length > 0) {
+            const collapsed = State.degreePlan.completedCollapsed;
+            const totalCompCredits = completedSemesters.reduce((sum, s) => sum + s.total_credits, 0);
+            const totalCompCourses = completedSemesters.reduce((sum, s) => sum + s.courses.length, 0);
+
+            html += `<div class="completed-section ${collapsed ? 'collapsed' : ''}">`;
+
+            // Collapse bar
+            html += `
+                <div class="completed-collapse-bar" id="completed-toggle">
+                    <span class="completed-collapse-arrow">${collapsed ? '&#9654;' : '&#9660;'}</span>
+                    <span class="completed-collapse-label">COMPLETED: ${totalCompCredits} credits (${totalCompCourses} courses) across ${completedSemesters.length} semester${completedSemesters.length !== 1 ? 's' : ''}</span>
+                </div>
+            `;
+
+            if (!collapsed) {
+                html += '<div class="completed-columns">';
+
+                // Add Semester button
+                html += `
+                    <div class="add-semester-btn" id="btn-add-completed-sem">
+                        <span>+</span>
+                        <span style="font-size:0.7rem">ADD<br>SEMESTER</span>
+                    </div>
+                `;
+
+                completedSemesters.forEach((sem, idx) => {
+                    html += this.renderCompletedColumn(sem, idx);
+                });
+
+                html += '</div>';
+
+                // Add course input
+                html += `
+                    <div class="completed-add-course">
+                        <input type="text" id="completed-add-input" placeholder="Add courses: CSCE 145, MATH 141, ...">
+                        <button id="btn-add-completed" class="btn-garnet">ADD</button>
+                    </div>
+                `;
+            }
+
+            html += '</div>';
+
+            // Divider
+            html += '<div class="plan-divider"><span class="plan-divider-label">PLANNED</span></div>';
+        }
+
+        // Planned semesters
+        html += '<div class="planned-columns">';
+        plannedSemesters.forEach((sem, idx) => {
             html += this.renderSemesterColumn(sem, idx);
         });
 
-        // Add graduation marker
+        // Graduation marker
         if (State.degreePlan.estimatedGraduation) {
             html += `
                 <div class="semester-column graduation-column">
@@ -176,12 +289,44 @@ const DegreePlan = {
                 </div>
             `;
         }
+        html += '</div>';
 
         container.innerHTML = html;
 
-        // Bind course card interactions
         this.bindCourseCards();
+        this.bindCompletedControls();
         this.updateSidebar();
+    },
+
+    renderCompletedColumn(sem, idx) {
+        const isCurrent = sem.type === 'current';
+        const headerClass = isCurrent ? 'semester-header current-header' : 'semester-header completed-header';
+
+        let coursesHtml = '';
+        sem.courses.forEach(course => {
+            coursesHtml += `
+                <div class="course-card completed-card" data-code="${course.code}" data-semester="${sem.term}" data-section="completed" draggable="true">
+                    <div class="course-card-header">
+                        <span class="course-card-code">${course.code}</span>
+                        <span class="course-card-credits">${course.credits} cr</span>
+                    </div>
+                    <div class="course-card-title">${course.title}</div>
+                    <button class="card-remove" data-code="${course.code}" title="Remove">&times;</button>
+                </div>
+            `;
+        });
+
+        return `
+            <div class="semester-column completed-column ${isCurrent ? 'current' : ''}" data-term="${sem.term}" data-index="${idx}" data-section="completed">
+                <div class="${headerClass}">
+                    <span class="semester-label">${sem.label}</span>
+                    <span class="semester-credits">${sem.total_credits} cr</span>
+                </div>
+                <div class="semester-courses" data-term="${sem.term}" data-section="completed">
+                    ${coursesHtml}
+                </div>
+            </div>
+        `;
     },
 
     renderSemesterColumn(sem, idx) {
@@ -204,7 +349,7 @@ const DegreePlan = {
             const cardClass = isElective ? 'course-card elective-slot' : 'course-card';
 
             coursesHtml += `
-                <div class="${cardClass}" data-code="${course.code}" data-semester="${sem.term}" draggable="${!isElective}">
+                <div class="${cardClass}" data-code="${course.code}" data-semester="${sem.term}" data-section="planned" draggable="true">
                     <div class="course-card-header">
                         <span class="course-card-code">${course.code}</span>
                         <span class="course-card-credits">${course.credits} cr</span>
@@ -216,12 +361,12 @@ const DegreePlan = {
         });
 
         return `
-            <div class="${semClass}${creditWarning}" data-term="${sem.term}" data-index="${idx}">
+            <div class="${semClass}${creditWarning}" data-term="${sem.term}" data-index="${idx}" data-section="planned">
                 <div class="semester-header">
                     <span class="semester-label">${sem.label}</span>
                     <span class="semester-credits">${sem.total_credits} cr</span>
                 </div>
-                <div class="semester-courses" data-term="${sem.term}">
+                <div class="semester-courses" data-term="${sem.term}" data-section="planned">
                     ${coursesHtml}
                 </div>
             </div>
@@ -243,9 +388,135 @@ const DegreePlan = {
         container.innerHTML = html;
     },
 
+    bindCompletedControls() {
+        // Collapse toggle
+        const toggle = document.getElementById('completed-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                State.degreePlan.completedCollapsed = !State.degreePlan.completedCollapsed;
+                this.render();
+            });
+        }
+
+        // Add completed course input
+        const addBtn = document.getElementById('btn-add-completed');
+        const addInput = document.getElementById('completed-add-input');
+        if (addBtn && addInput) {
+            const doAdd = () => {
+                const text = addInput.value.trim();
+                if (!text) return;
+                // Parse with same flexible format
+                const codes = text.split(/[,;.\n]+/).map(s => {
+                    const m = s.trim().match(/([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)/);
+                    return m ? m[1].toUpperCase() + ' ' + m[2].toUpperCase() : null;
+                }).filter(Boolean);
+
+                codes.forEach(code => {
+                    if (!State.completedCourses.includes(code)) {
+                        State.completedCourses.push(code);
+                        const majorData = State.profile.majorData;
+                        const mc = majorData ? majorData.required_courses.find(c => c.code === code) : null;
+                        State.completedDetails.push({ code, grade: null, credits: mc ? mc.credits : 3, semester: null });
+                    }
+                });
+
+                addInput.value = '';
+                this.buildCompletedSemesters();
+                this.render();
+                if (typeof Profile !== 'undefined') {
+                    Profile.renderCompletedChips();
+                    Profile.renderCreditSummary();
+                }
+            };
+            addBtn.addEventListener('click', doAdd);
+            addInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') doAdd();
+            });
+        }
+
+        // Add semester button
+        const addSemBtn = document.getElementById('btn-add-completed-sem');
+        if (addSemBtn) {
+            addSemBtn.addEventListener('click', () => this.showAddSemesterModal());
+        }
+
+        // Remove buttons on completed cards
+        document.querySelectorAll('.completed-card .card-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const code = btn.dataset.code;
+                State.completedCourses = State.completedCourses.filter(c => c !== code);
+                State.completedDetails = State.completedDetails.filter(c => c.code !== code);
+                this.buildCompletedSemesters();
+                this.render();
+                if (typeof Profile !== 'undefined') {
+                    Profile.renderCompletedChips();
+                    Profile.renderCreditSummary();
+                }
+            });
+        });
+    },
+
+    showAddSemesterModal() {
+        const modal = document.getElementById('modal-overlay');
+        const content = document.getElementById('modal-content');
+
+        // Generate past/current term options
+        const currentYear = new Date().getFullYear();
+        let termsHtml = '';
+        for (let y = currentYear; y >= currentYear - 5; y--) {
+            termsHtml += `<option value="${y}08">Fall ${y}</option>`;
+            termsHtml += `<option value="${y}05">Summer ${y}</option>`;
+            termsHtml += `<option value="${y}01">Spring ${y}</option>`;
+        }
+
+        content.innerHTML = `
+            <h2>Add a Semester</h2>
+            <p>Add a past or current semester to track completed courses.</p>
+            <div class="form-row" style="margin-top:12px">
+                <label for="add-sem-term">Semester</label>
+                <select id="add-sem-term">${termsHtml}</select>
+            </div>
+            <div style="margin-top:12px">
+                <button id="btn-confirm-add-sem" class="btn-garnet">ADD SEMESTER</button>
+            </div>
+        `;
+        modal.classList.remove('hidden');
+
+        document.getElementById('btn-confirm-add-sem').addEventListener('click', () => {
+            const termCode = document.getElementById('add-sem-term').value;
+            const termNames = { '01': 'Spring', '05': 'Summer', '08': 'Fall' };
+            const year = termCode.slice(0, 4);
+            const sem = termNames[termCode.slice(4)] || '';
+            const label = `${sem} ${year}`;
+
+            // Check if already exists
+            if (!State.degreePlan.completedSemesters) State.degreePlan.completedSemesters = [];
+            const exists = State.degreePlan.completedSemesters.find(s => s.term === termCode);
+            if (exists) {
+                modal.classList.add('hidden');
+                return;
+            }
+
+            State.degreePlan.completedSemesters.push({
+                term: termCode,
+                label: label,
+                courses: [],
+                total_credits: 0,
+                type: 'completed',
+            });
+
+            // Sort
+            State.degreePlan.completedSemesters.sort((a, b) => a.term.localeCompare(b.term));
+
+            modal.classList.add('hidden');
+            this.render();
+        });
+    },
+
     bindCourseCards() {
-        // Click to view details / pin/unpin
-        document.querySelectorAll('#semester-columns .course-card').forEach(card => {
+        // Click to view details / pin/unpin (planned courses only)
+        document.querySelectorAll('#semester-columns .course-card[data-section="planned"]').forEach(card => {
             card.addEventListener('click', (e) => {
                 const code = card.dataset.code;
                 const term = card.dataset.semester;
@@ -255,7 +526,6 @@ const DegreePlan = {
                     return;
                 }
 
-                // Toggle pin
                 if (e.ctrlKey || e.metaKey) {
                     if (State.degreePlan.pins[code]) {
                         delete State.degreePlan.pins[code];
@@ -269,8 +539,7 @@ const DegreePlan = {
     },
 
     async openElectivePicker(card) {
-        const groupId = card.dataset.code; // The "[label]" placeholder
-        // Find the elective group data from the semester courses
+        const groupId = card.dataset.code;
         const term = card.dataset.semester;
         const sem = State.degreePlan.semesters.find(s => s.term === term);
         if (!sem) return;
@@ -281,14 +550,11 @@ const DegreePlan = {
             return;
         }
 
-        // Show modal with options
         const modal = document.getElementById('modal-overlay');
         const content = document.getElementById('modal-content');
 
         let optionsHtml = `<h2>Choose an Elective</h2><p>${course.title}</p><div class="elective-options">`;
-
         for (const opt of course.options.slice(0, 20)) {
-            // Fetch offering analysis
             optionsHtml += `
                 <div class="elective-option" data-code="${opt}">
                     <span class="elective-option-code">${opt}</span>
@@ -301,23 +567,19 @@ const DegreePlan = {
         content.innerHTML = optionsHtml;
         modal.classList.remove('hidden');
 
-        // Bind select buttons
         content.querySelectorAll('.elective-select-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const code = btn.dataset.code;
                 const targetTerm = btn.dataset.term;
-                // Replace the placeholder in the semester
                 const semData = State.degreePlan.semesters.find(s => s.term === targetTerm);
                 if (semData) {
                     const idx = semData.courses.findIndex(c => c.code === groupId);
                     if (idx >= 0) {
                         semData.courses[idx] = {
-                            code: code,
-                            title: code,
+                            code: code, title: code,
                             credits: semData.courses[idx].credits,
                             category: semData.courses[idx].category,
-                            pinned: true,
-                            is_elective_slot: false,
+                            pinned: true, is_elective_slot: false,
                         };
                         State.degreePlan.pins[code] = targetTerm;
                     }
@@ -327,7 +589,6 @@ const DegreePlan = {
             });
         });
 
-        // Bind history buttons
         content.querySelectorAll('.elective-history-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const code = btn.dataset.code;
@@ -359,19 +620,16 @@ const DegreePlan = {
     },
 
     bindDragDrop() {
-        // Use event delegation on the semester columns container
         const container = document.getElementById('semester-columns');
         if (!container) return;
 
         container.addEventListener('dragstart', (e) => {
             const card = e.target.closest('.course-card');
-            if (!card || card.classList.contains('elective-slot')) {
-                e.preventDefault();
-                return;
-            }
+            if (!card) { e.preventDefault(); return; }
             e.dataTransfer.setData('text/plain', JSON.stringify({
                 code: card.dataset.code,
                 fromTerm: card.dataset.semester,
+                fromSection: card.dataset.section || 'planned',
             }));
             card.classList.add('dragging');
         });
@@ -403,20 +661,31 @@ const DegreePlan = {
             try {
                 const data = JSON.parse(e.dataTransfer.getData('text/plain'));
                 const toTerm = zone.dataset.term;
+                const toSection = zone.dataset.section || 'planned';
 
                 if (data.fromTerm === toTerm) return;
 
-                this.moveCourse(data.code, data.fromTerm, toTerm);
+                // Enforce drag rules:
+                // completed/current -> completed/current: OK
+                // completed/current -> planned: NOT allowed (use delete instead)
+                // planned -> planned: OK
+                // planned -> completed/current: NOT allowed
+                if (data.fromSection === 'completed' && toSection === 'planned') return;
+                if (data.fromSection === 'planned' && toSection === 'completed') return;
+
+                this.moveCourse(data.code, data.fromTerm, toTerm, data.fromSection, toSection);
             } catch (err) {
                 console.error('Drop error:', err);
             }
         });
     },
 
-    moveCourse(code, fromTerm, toTerm) {
-        const semesters = State.degreePlan.semesters;
-        const fromSem = semesters.find(s => s.term === fromTerm);
-        const toSem = semesters.find(s => s.term === toTerm);
+    moveCourse(code, fromTerm, toTerm, fromSection, toSection) {
+        const fromList = fromSection === 'completed' ? State.degreePlan.completedSemesters : State.degreePlan.semesters;
+        const toList = toSection === 'completed' ? State.degreePlan.completedSemesters : State.degreePlan.semesters;
+
+        const fromSem = fromList.find(s => s.term === fromTerm);
+        const toSem = toList.find(s => s.term === toTerm);
 
         if (!fromSem || !toSem) return;
 
@@ -425,14 +694,14 @@ const DegreePlan = {
 
         const course = fromSem.courses[courseIdx];
 
-        // Move it
         fromSem.courses.splice(courseIdx, 1);
         fromSem.total_credits -= course.credits;
         toSem.courses.push(course);
         toSem.total_credits += course.credits;
 
-        // Pin it to the new semester
-        State.degreePlan.pins[code] = toTerm;
+        if (toSection === 'planned') {
+            State.degreePlan.pins[code] = toTerm;
+        }
 
         this.render();
     },
@@ -449,7 +718,7 @@ const ScheduleSidebar = {
         const codes = Object.keys(sections);
 
         if (codes.length === 0) {
-            list.innerHTML = '<p class="hint">Add courses from the Semester tab to build your schedule.</p>';
+            list.innerHTML = '<p class="hint">Add courses from the Browse tab to build your schedule.</p>';
             if (creditsEl) creditsEl.textContent = '';
             return;
         }
@@ -460,7 +729,7 @@ const ScheduleSidebar = {
         codes.forEach(code => {
             const sec = sections[code];
             const title = sec.title || code;
-            const instr = sec.instr || 'TBA';
+            const instr = (sec.instr && sec.instr !== 'Staff') ? sec.instr : 'Undecided';
             const meets = sec.meets || 'TBA';
 
             html += `
@@ -479,7 +748,6 @@ const ScheduleSidebar = {
         list.innerHTML = html;
         if (creditsEl) creditsEl.textContent = `${totalCredits} credits selected`;
 
-        // Bind remove buttons
         list.querySelectorAll('.btn-remove').forEach(btn => {
             btn.addEventListener('click', () => {
                 State.removeSection(btn.dataset.code);

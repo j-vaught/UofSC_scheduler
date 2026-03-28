@@ -32,6 +32,8 @@ const State = {
 
     // Degree plan state
     degreePlan: {
+        completedSemesters: [],  // [{term, label, courses: [{code, title, credits}], total_credits, type: 'completed'|'current'}]
+        completedCollapsed: false,
         semesters: [],
         warnings: [],
         totalRemaining: 0,

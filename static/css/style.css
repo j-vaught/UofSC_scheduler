@@ -413,15 +413,120 @@ main {
 .warning-warning { background: #FFF2E3; border-color: #A49137; color: #363636; }
 .warning-info { background: #e3f2fd; border-color: #466A9F; color: #363636; }
 
-/* Semester Columns */
-.semester-columns {
+/* Completed Section */
+.completed-section { margin-bottom: 0; }
+.completed-collapse-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #ECECEC;
+    border: 2px solid #C7C7C7;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+.completed-collapse-bar:hover { background: #e0e0e0; }
+.completed-collapse-arrow { font-size: 0.7rem; color: #5C5C5C; }
+.completed-collapse-label { font-size: 0.8rem; font-weight: 700; color: #5C5C5C; }
+.completed-columns {
     display: flex;
     gap: 12px;
     align-items: flex-start;
-    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+.completed-column { border-color: #C7C7C7; }
+.completed-column.current { border-color: #466A9F; }
+.completed-header {
+    background: #5C5C5C;
+    color: #ffffff;
+}
+.current-header {
+    background: #466A9F;
+    color: #ffffff;
+}
+.completed-card {
+    opacity: 0.85;
+    position: relative;
+}
+.card-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: none;
+    border: none;
+    color: #c62828;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0 3px;
+    line-height: 1;
+}
+.card-remove:hover { color: #73000A; }
+.completed-add-course {
+    display: flex;
+    gap: 6px;
+    padding: 8px 0;
+}
+.completed-add-course input {
+    flex: 1;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+.add-semester-btn {
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #C7C7C7;
+    padding: 12px 8px;
+    cursor: pointer;
+    color: #5C5C5C;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.add-semester-btn:hover { border-color: #73000A; color: #73000A; }
+.add-semester-btn span:first-child { font-size: 1.5rem; }
+
+/* Plan Divider */
+.plan-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    margin: 4px 0;
+}
+.plan-divider::before, .plan-divider::after {
+    content: '';
+    flex: 1;
+    height: 3px;
+    background: #73000A;
+}
+.plan-divider-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #73000A;
+    letter-spacing: 1px;
+}
+
+/* Planned Columns */
+.planned-columns {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
     overflow-x: auto;
     padding-bottom: 16px;
+}
+
+/* Semester Columns */
+.semester-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     flex: 1;
+    overflow-y: auto;
+    padding-bottom: 16px;
 }
 .semester-column {
     min-width: 200px;
