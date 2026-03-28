@@ -193,10 +193,6 @@ Calendar.showCourseDetail = function(section) {
             <p><strong>Campus:</strong> ${data.campus || 'N/A'}</p>
             ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 300)}${desc.length > 300 ? '...' : ''}</p>` : ''}
             ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}
-            <div style="margin-top:8px">
-                <button onclick="Prereqs.loadForCourse('${section.code}')">View Prerequisites</button>
-                <button onclick="History.loadForCourse('${section.code}')">View History</button>
-            </div>
         `;
     }).catch(() => {
         tab.querySelector('.loading')?.remove();
