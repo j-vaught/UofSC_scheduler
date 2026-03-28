@@ -892,9 +892,9 @@ main {
 .prereq-node rect { rx: 0; }
 .prereq-node text { font-size: 11px; fill: #000000; font-weight: 600; }
 .prereq-edge { stroke: #000000; stroke-width: 2; fill: none; }
-.prereq-met rect { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; }
-.prereq-unmet rect { fill: #ffebee; stroke: #c62828; stroke-width: 2; }
-.prereq-target rect { fill: #fce4ec; stroke: #73000A; stroke-width: 3; }
+.prereq-met rect { fill: #f5f5f5; stroke: #A2A2A2; stroke-width: 2; }
+.prereq-unmet rect { fill: #ffebee; stroke: #CC2E40; stroke-width: 2; }
+.prereq-target rect { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 3; }
 .prereq-node:not(.prereq-target):hover rect { filter: brightness(0.85); }
 .prereq-link {
     color: #73000A;
