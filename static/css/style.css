@@ -1011,6 +1011,7 @@ main {
 /* === Course Results === */
 .course-group { margin-bottom: 6px; border: 2px solid #000000; transition: border-color 0.15s; }
 .course-group.active { border-color: #466A9F; border-width: 3px; }
+.course-group.active .course-header { background: #e3edf7; }
 .course-header {
     display: flex;
     justify-content: space-between;
