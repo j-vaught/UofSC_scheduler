@@ -69,6 +69,9 @@ const DegreePlan = {
             State.degreePlan.estimatedGraduation = plan.estimated_graduation || '';
             State.degreePlan.categories = plan.categories || {};
 
+            // Auto-collapse completed section after generating
+            State.degreePlan.completedCollapsed = true;
+
             State.emit('degree-plan-updated');
         } catch (e) {
             console.error('Degree plan generation failed:', e);
