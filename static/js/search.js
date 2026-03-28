@@ -9,6 +9,15 @@ const Search = {
             if (e.key === 'Enter') this.doSearch();
         });
 
+        // Clear button
+        const clearBtn = document.getElementById('search-clear');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                document.getElementById('keyword-input').value = '';
+                document.getElementById('keyword-input').focus();
+            });
+        }
+
         // Filter toggle
         const filterToggle = document.getElementById('filter-toggle');
         const filterPanel = document.getElementById('filter-panel');

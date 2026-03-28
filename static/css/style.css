@@ -938,6 +938,24 @@ main {
     gap: 6px;
 }
 .search-form label { font-size: 0.8rem; color: #333; font-weight: 600; }
+.search-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.search-input-wrap input { padding-right: 24px; }
+.search-clear {
+    position: absolute;
+    right: 6px;
+    color: #A2A2A2;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1;
+    display: none;
+}
+.search-clear:hover { color: #363636; }
+.search-input-wrap input:not(:placeholder-shown) + .search-clear { display: block; }
 
 /* === Filter Panel === */
 .filter-toggle {
