@@ -795,9 +795,12 @@ main {
 .course-header .title { color: #333333; margin-left: 8px; font-size: 0.8rem; }
 .course-header .badge {
     font-size: 0.7rem;
-    padding: 2px 8px;
+    padding: 2px 0;
     font-weight: 700;
     border: 1px solid;
+    width: 48px;
+    text-align: center;
+    flex-shrink: 0;
 }
 .badge-open { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
 .badge-full { background: #ffebee; color: #c62828; border-color: #c62828; }
