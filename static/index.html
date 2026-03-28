@@ -194,6 +194,7 @@
             <div class="semester-layout">
                 <!-- Left: Search Panel -->
                 <aside id="semester-search">
+                    <div class="resize-handle" id="search-resize-handle"></div>
                     <div class="search-section">
                         <h2>Find Courses</h2>
                         <div class="search-form">
@@ -367,6 +368,36 @@
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
         });
+
+        // Resizable search sidebar
+        const resizeHandle = document.getElementById('search-resize-handle');
+        if (resizeHandle) {
+            const panel = document.getElementById('semester-search');
+            let startX, startW;
+            resizeHandle.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                startX = e.clientX;
+                startW = panel.offsetWidth;
+                resizeHandle.classList.add('active');
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+
+                const onMove = (e) => {
+                    const diff = e.clientX - startX;
+                    const newW = Math.max(200, Math.min(startW + diff, window.innerWidth * 0.7));
+                    panel.style.width = newW + 'px';
+                };
+                const onUp = () => {
+                    document.removeEventListener('mousemove', onMove);
+                    document.removeEventListener('mouseup', onUp);
+                    resizeHandle.classList.remove('active');
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                };
+                document.addEventListener('mousemove', onMove);
+                document.addEventListener('mouseup', onUp);
+            });
+        }
 
         // Modal
         document.getElementById('modal-close').addEventListener('click', () => {
