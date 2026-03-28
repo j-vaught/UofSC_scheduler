@@ -8,6 +8,7 @@ const State = {
     preferredInstructors: {},  // {name: weight}
     avoidedInstructors: {},    // {name: weight}
     completedCourses: [],
+    completedDetails: [],    // [{code, grade, credits, semester}]
     preferredStart: 800,
     preferredEnd: 2100,
     gapWeight: 2,
@@ -17,6 +18,29 @@ const State = {
     activeSolverSchedule: null,
     savedPlans: {},
     currentPlan: 'Plan A',
+
+    // Profile state
+    profile: {
+        major: null,           // major map ID
+        majorData: null,       // loaded major map object
+        concentration: 'general',
+        startTerm: '202608',
+        planMode: 'full_time',
+        customCredits: { min: 12, max: 18, target: 15 },
+        includeSummer: false,
+    },
+
+    // Degree plan state
+    degreePlan: {
+        semesters: [],
+        warnings: [],
+        totalRemaining: 0,
+        completedCredits: 0,
+        estimatedGraduation: '',
+        categories: {},
+        pins: {},             // {courseCode: termCode}
+    },
+
     _listeners: {},
 
     on(event, fn) {
@@ -73,6 +97,9 @@ const State = {
             preferredInstructors: { ...this.preferredInstructors },
             avoidedInstructors: { ...this.avoidedInstructors },
             completedCourses: [...this.completedCourses],
+            completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
+            profile: JSON.parse(JSON.stringify(this.profile)),
+            degreePlan: JSON.parse(JSON.stringify(this.degreePlan)),
         };
         this._persist();
     },
@@ -87,10 +114,29 @@ const State = {
         this.preferredInstructors = plan.preferredInstructors || {};
         this.avoidedInstructors = plan.avoidedInstructors || {};
         this.completedCourses = plan.completedCourses || [];
-        document.getElementById('term-select').value = this.term;
+        this.completedDetails = plan.completedDetails || [];
+        if (plan.profile) {
+            this.profile = JSON.parse(JSON.stringify(plan.profile));
+        }
+        if (plan.degreePlan) {
+            this.degreePlan = JSON.parse(JSON.stringify(plan.degreePlan));
+        }
+        const termSelect = document.getElementById('term-select');
+        if (termSelect) termSelect.value = this.term;
         this.emit('sections-changed', this.selectedSections);
         this.emit('preferences-changed');
+        this.emit('profile-updated');
+        this.emit('degree-plan-updated');
         return true;
+    },
+
+    deletePlan(name) {
+        delete this.savedPlans[name];
+        this._persist();
+    },
+
+    listPlans() {
+        return Object.keys(this.savedPlans);
     },
 
     _persist() {
@@ -104,6 +150,43 @@ const State = {
             const data = localStorage.getItem('uosc-scheduler-plans');
             if (data) this.savedPlans = JSON.parse(data);
         } catch (e) { /* ignore */ }
+    },
+
+    exportToJSON() {
+        return JSON.stringify({
+            version: 2,
+            term: this.term,
+            selectedSections: this.selectedSections,
+            blockedTimes: this.blockedTimes,
+            preferredInstructors: this.preferredInstructors,
+            avoidedInstructors: this.avoidedInstructors,
+            completedCourses: this.completedCourses,
+            completedDetails: this.completedDetails,
+            profile: this.profile,
+            degreePlan: this.degreePlan,
+        }, null, 2);
+    },
+
+    importFromJSON(jsonStr) {
+        try {
+            const data = JSON.parse(jsonStr);
+            if (data.term) this.term = data.term;
+            if (data.selectedSections) this.selectedSections = data.selectedSections;
+            if (data.blockedTimes) this.blockedTimes = data.blockedTimes;
+            if (data.preferredInstructors) this.preferredInstructors = data.preferredInstructors;
+            if (data.avoidedInstructors) this.avoidedInstructors = data.avoidedInstructors;
+            if (data.completedCourses) this.completedCourses = data.completedCourses;
+            if (data.completedDetails) this.completedDetails = data.completedDetails;
+            if (data.profile) this.profile = data.profile;
+            if (data.degreePlan) this.degreePlan = data.degreePlan;
+            this.emit('sections-changed', this.selectedSections);
+            this.emit('preferences-changed');
+            this.emit('profile-updated');
+            this.emit('degree-plan-updated');
+            return true;
+        } catch (e) {
+            return false;
+        }
     },
 
     applySolverSchedule(schedule) {
