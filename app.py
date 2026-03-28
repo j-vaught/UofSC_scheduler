@@ -12,6 +12,9 @@ import re
 from urllib.parse import urlparse
 
 import cache
+import transcript as transcript_mod
+import planner as planner_mod
+import offering_analyzer
 
 PORT = 8765
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
@@ -23,6 +26,9 @@ TERM_CODES = [
     '202308', '202401', '202405', '202408',
     '202501', '202505', '202508',
     '202601', '202605', '202608',
+    '202701', '202705', '202708',
+    '202801', '202805', '202808',
+    '202901', '202905', '202908',
 ]
 
 MIME_TYPES = {
@@ -160,6 +166,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self._send_file(os.path.join(STATIC_DIR, rel))
         elif path == '/api/subjects':
             self._send_json(json.dumps(SUBJECTS))
+        elif path == '/api/major-maps':
+            maps = planner_mod.list_major_maps()
+            self._send_json(json.dumps(maps))
         else:
             self.send_error(404)
 
@@ -192,6 +201,56 @@ class Handler(http.server.BaseHTTPRequestHandler):
             params = json.loads(body)
             result = solve(params)
             self._send_json(json.dumps(result))
+
+        elif path == '/api/parse-transcript':
+            params = json.loads(body)
+            if 'csv' in params:
+                courses = transcript_mod.parse_csv(params['csv'])
+            elif 'text' in params:
+                codes = transcript_mod.parse_text(params['text'])
+                courses = [{'code': c, 'grade': None, 'credits': None, 'semester': None} for c in codes]
+            else:
+                courses = []
+            self._send_json(json.dumps({'courses': courses}))
+
+        elif path == '/api/major-map':
+            params = json.loads(body)
+            map_id = params.get('id', '')
+            major_map = planner_mod.load_major_map(map_id)
+            if major_map:
+                self._send_json(json.dumps(major_map))
+            else:
+                self._send_json('{"error":"major map not found"}', 404)
+
+        elif path == '/api/degree-plan':
+            params = json.loads(body)
+            map_id = params.get('map_id', '')
+            major_map = planner_mod.load_major_map(map_id)
+            if not major_map:
+                self._send_json('{"error":"major map not found"}', 404)
+            else:
+                result = planner_mod.plan_degree(
+                    major_map=major_map,
+                    completed_codes=params.get('completed', []),
+                    mode=params.get('mode', 'full_time'),
+                    pins=params.get('pins', {}),
+                    start_term=params.get('start_term', '202608'),
+                    include_summer=params.get('include_summer', False),
+                    custom_credits=params.get('custom_credits'),
+                    concentration=params.get('concentration', 'general'),
+                    offering_history=params.get('offering_history'),
+                )
+                self._send_json(json.dumps(result))
+
+        elif path == '/api/offering-analysis':
+            params = json.loads(body)
+            course_code = params.get('code', '')
+            # Fetch history first, then analyze
+            history_body = json.dumps({'code': course_code}).encode()
+            history_data = json.loads(handle_history(history_body))
+            current_term = params.get('current_term', '202608')
+            summary = offering_analyzer.get_offering_summary(history_data, current_term)
+            self._send_json(json.dumps(summary))
 
         else:
             self._send_json('{"error":"unknown route"}', 404)
