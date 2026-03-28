@@ -218,7 +218,7 @@ const Search = {
                 prereqData = await this.fetchPrereqData(subject);
             }
 
-            this.renderResults(results, data.count || 0, prereqData, eligibleOnly);
+            this.renderResults(results, totalCount || results.length, prereqData, eligibleOnly);
         } catch (err) {
             this.showHint('Search failed. Try again.');
         }
