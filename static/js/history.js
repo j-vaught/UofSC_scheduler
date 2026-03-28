@@ -1,5 +1,6 @@
 /* Historical offering frequency display with per-term progress */
 const History = {
+    _loadId: 0,
     TERMS: [
         { code: '202308', label: 'Fall 2023' },
         { code: '202401', label: 'Spring 2024' },
@@ -23,6 +24,7 @@ const History = {
         const container = document.getElementById('history-container');
         if (!container) return;
 
+        const loadId = ++this._loadId;
         const subject = courseCode.split(' ')[0];
         const total = this.TERMS.length;
 
@@ -44,6 +46,9 @@ const History = {
         const results = [];
 
         for (let i = 0; i < total; i++) {
+            // Cancel if a newer load was started
+            if (loadId !== this._loadId) return;
+
             const term = this.TERMS[i];
             const pct = Math.round(((i + 1) / total) * 100);
 

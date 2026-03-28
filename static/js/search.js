@@ -1,6 +1,7 @@
 /* Course search UI */
 const Search = {
     _prereqCache: {},
+    _searchId: 0,
 
     init() {
         this.populateSubjects();
@@ -129,6 +130,7 @@ const Search = {
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
 
         this.showLoading();
+        const searchId = ++this._searchId;
 
         try {
             let results = [];
@@ -233,11 +235,11 @@ const Search = {
             // We store a flag to do detailed seat filtering after render.
             this._pendingAvailFilter = (availMode && availValue) ? { mode: availMode, value: availValue } : null;
 
-            // Fetch prereq data for eligibility check
-            let prereqData = {};
-            if (subject && (eligibleOnly || State.completedCourses.length > 0)) {
-                prereqData = await this.fetchPrereqData(subject);
-            }
+            // If a newer search was started, discard these results
+            if (searchId !== this._searchId) return;
+
+            // Skip bulk prereq fetch — prereqs load on-demand when a course is clicked
+            const prereqData = this._prereqCache[subject] || {};
 
             this.renderResults(results, totalCount || results.length, prereqData, eligibleOnly);
         } catch (err) {
@@ -245,32 +247,29 @@ const Search = {
         }
     },
 
-    async fetchPrereqData(subject) {
-        if (this._prereqCache[subject]) return this._prereqCache[subject];
+    async fetchPrereqForCourse(courseCode) {
+        // Fetch prereq data for a single course (on-demand, cached)
+        const subject = courseCode.split(' ')[0];
+        if (!this._prereqCache[subject]) this._prereqCache[subject] = {};
+        if (this._prereqCache[subject][courseCode]) return this._prereqCache[subject][courseCode];
 
         try {
             const search = await API.bulletinSearch(subject);
             const courses = search.results || [];
-            const prereqMap = {};
+            const target = courses.find(c => c.code === courseCode);
+            if (!target) return { prereqs: [], raw: '' };
 
-            for (const course of courses) {
-                try {
-                    const details = await API.bulletinDetails(course.key);
-                    const prereqHtml = details.prereq || '';
-                    const codes = (prereqHtml.match(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g) || []);
-                    prereqMap[course.code] = {
-                        prereqs: [...new Set(codes)],
-                        raw: prereqHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-                    };
-                } catch (e) {
-                    prereqMap[course.code] = { prereqs: [], raw: '' };
-                }
-            }
-
-            this._prereqCache[subject] = prereqMap;
-            return prereqMap;
+            const details = await API.bulletinDetails(target.key);
+            const prereqHtml = details.prereq || '';
+            const codes = (prereqHtml.match(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g) || []);
+            const result = {
+                prereqs: [...new Set(codes)],
+                raw: prereqHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+            };
+            this._prereqCache[subject][courseCode] = result;
+            return result;
         } catch (e) {
-            return {};
+            return { prereqs: [], raw: '' };
         }
     },
 
