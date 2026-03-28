@@ -56,7 +56,7 @@ const Scheduler = {
         schedules.forEach((sched, idx) => {
             const courses = Object.entries(sched.sections);
             const courseList = courses.map(([code, sec]) =>
-                `${code} (${sec.section || '?'}) - ${sec.instr || 'Staff'} ${sec.meets || ''}`
+                `${code} (${sec.section || '?'}) - ${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')} ${sec.meets || ''}`
             ).join('<br>');
 
             html += `

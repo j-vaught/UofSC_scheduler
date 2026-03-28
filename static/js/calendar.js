@@ -143,7 +143,7 @@ const Calendar = {
                 block.style.color = '#ffffff';
                 block.innerHTML = `
                     <div class="block-title">${sec.code}</div>
-                    <div class="block-info">${sec.instr || 'Staff'}</div>
+                    <div class="block-info">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</div>
                     ${height > 40 ? `<div class="block-info">${sec.meets || ''}</div>` : ''}
                 `;
 
@@ -165,7 +165,7 @@ Calendar.showCourseDetail = function(section) {
     tab.innerHTML = `
         <h3>${section.code} - ${section.title}</h3>
         <p><strong>Section:</strong> ${section.section} (CRN: ${section.crn})</p>
-        <p><strong>Instructor:</strong> ${section.instr || 'Staff'}</p>
+        <p><strong>Instructor:</strong> ${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</p>
         <p><strong>Meets:</strong> ${section.meets || 'TBA'}</p>
         <p><strong>Method:</strong> ${section.inst_mthd || 'N/A'}</p>
         <p><strong>Status:</strong> ${section.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
@@ -185,7 +185,7 @@ Calendar.showCourseDetail = function(section) {
         tab.innerHTML = `
             <h3>${section.code} - ${section.title}</h3>
             <p><strong>Section:</strong> ${section.section} (CRN: ${section.crn})</p>
-            <p><strong>Instructor:</strong> ${section.instr || 'Staff'}</p>
+            <p><strong>Instructor:</strong> ${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</p>
             <p><strong>Meets:</strong> ${room || section.meets || 'TBA'}</p>
             <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
             <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>

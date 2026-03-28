@@ -221,7 +221,7 @@ const Search = {
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
                 row.innerHTML = `
                     <span class="sec-id">${sec.section}</span>
-                    <span class="sec-instr">${sec.instr || 'Staff'}</span>
+                    <span class="sec-instr">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</span>
                     <span class="sec-time">${sec.meets || 'TBA'}</span>
                     <span class="sec-status">${statusDot}</span>
                 `;
@@ -254,7 +254,7 @@ const Search = {
         detailsTab.innerHTML = `
             <h3>${sec.code} - ${sec.title}</h3>
             <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
-            <p><strong>Instructor:</strong> ${sec.instr || 'Staff'}</p>
+            <p><strong>Instructor:</strong> ${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</p>
             <p><strong>Meets:</strong> ${sec.meets || 'TBA'}</p>
             <p><strong>Method:</strong> ${sec.inst_mthd || 'N/A'}</p>
             <p><strong>Status:</strong> ${sec.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
@@ -299,7 +299,7 @@ const Search = {
             detailsTab.innerHTML = `
                 <h3>${sec.code} - ${sec.title}</h3>
                 <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
-                <p><strong>Instructor:</strong> ${sec.instr || 'Staff'}</p>
+                <p><strong>Instructor:</strong> ${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</p>
                 <p><strong>Class Times:</strong> ${timesStr}</p>
                 <p><strong>${locLabel}:</strong> ${locsStr}</p>
                 <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
@@ -395,17 +395,18 @@ const Search = {
         for (const [full, abbr] of Object.entries(abbrevs)) {
             if (fullName.startsWith(full)) {
                 const room = fullName.slice(full.length).trim();
-                return room ? `${abbr} ${room}` : abbr;
+                return room ? `${abbr} ${room} (${full})` : `${abbr} (${full})`;
             }
         }
 
         // Fallback: shorten by taking first letters of each word + room number
         const parts = fullName.match(/^(.+?)\s+(\d+\w*)$/);
         if (parts) {
-            const words = parts[1].split(/\s+/);
-            if (words.length >= 2 && parts[1].length > 15) {
+            const buildingName = parts[1];
+            const words = buildingName.split(/\s+/);
+            if (words.length >= 2 && buildingName.length > 15) {
                 const abbr = words.map(w => w[0]).join('').toUpperCase();
-                return `${abbr} ${parts[2]}`;
+                return `${abbr} ${parts[2]} (${buildingName})`;
             }
         }
 
