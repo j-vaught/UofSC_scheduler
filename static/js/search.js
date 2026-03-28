@@ -174,6 +174,42 @@ const Search = {
 
             header.addEventListener('click', () => {
                 sectionsDiv.classList.toggle('expanded');
+                // Load course info using the first section's data
+                const firstSec = group.sections[0];
+                if (firstSec) {
+                    if (typeof Prereqs !== 'undefined' && Prereqs.loadForCourse) {
+                        Prereqs.loadForCourse(firstSec.code);
+                    }
+                    if (typeof History !== 'undefined' && History.loadForCourse) {
+                        History.loadForCourse(firstSec.code);
+                    }
+                    // Show course-level details (not section-specific)
+                    const detailsTab = document.getElementById('tab-details');
+                    if (detailsTab) {
+                        detailsTab.innerHTML = `
+                            <h3>${firstSec.code} - ${firstSec.title}</h3>
+                            <p><strong>Sections available:</strong> ${group.sections.length}</p>
+                            <p class="loading">Loading details</p>
+                        `;
+                        const subject = firstSec.code.split(' ')[0];
+                        API.bulletinSearch(subject).then(search => {
+                            const target = (search.results || []).find(c => c.code === firstSec.code);
+                            if (!target) return;
+                            return API.bulletinDetails(target.key);
+                        }).then(details => {
+                            if (!details) return;
+                            const desc = (details.description || '').replace(/<[^>]+>/g, ' ').trim();
+                            detailsTab.innerHTML = `
+                                <h3>${firstSec.code} - ${details.title || firstSec.title}</h3>
+                                <p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>
+                                <p><strong>Sections available:</strong> ${group.sections.length}</p>
+                                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
+                            `;
+                        }).catch(() => {
+                            detailsTab.querySelector('.loading')?.remove();
+                        });
+                    }
+                }
             });
 
             group.sections.forEach(sec => {
