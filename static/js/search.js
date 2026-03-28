@@ -341,12 +341,14 @@ const Search = {
             const sectionsDiv = div.querySelector('.course-sections');
 
             header.addEventListener('click', () => {
-                // Collapse all other course sections first
+                // Collapse all other course sections and remove active highlight
                 const isExpanding = !sectionsDiv.classList.contains('expanded');
+                document.querySelectorAll('#search-results .course-group.active').forEach(g => g.classList.remove('active'));
                 document.querySelectorAll('#search-results .course-sections.expanded').forEach(s => {
                     if (s !== sectionsDiv) s.classList.remove('expanded');
                 });
                 sectionsDiv.classList.toggle('expanded', isExpanding);
+                div.classList.toggle('active', isExpanding);
                 // Load course info using the first section's data
                 const firstSec = group.sections[0];
                 if (firstSec) {
