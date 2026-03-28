@@ -197,10 +197,6 @@ const Prereqs = {
             if (!e.to) return;
             const dash = e.type === 'coreq' ? 'stroke-dasharray="6,4"' : '';
             svg += `<line x1="${e.from.x}" y1="${e.from.y}" x2="${e.to.x}" y2="${e.to.y}" class="prereq-edge" ${dash}/>`;
-            // Arrow (only for prereq edges going down, not horizontal coreq edges)
-            if (e.type === 'prereq') {
-                svg += `<polygon points="${e.to.x},${e.to.y} ${e.to.x - 4},${e.to.y - 8} ${e.to.x + 4},${e.to.y - 8}" fill="#555"/>`;
-            }
         });
 
         // Nodes
