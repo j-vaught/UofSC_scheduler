@@ -291,6 +291,7 @@ const DegreePlan = {
                         <input type="text" id="completed-add-input" placeholder="Add courses: CSCE 145, MATH 141, ...">
                         <button id="btn-add-completed" class="btn-garnet">ADD</button>
                     </div>
+                    <div id="completed-add-errors" class="completed-add-errors"></div>
                 `;
             }
 
@@ -433,17 +434,45 @@ const DegreePlan = {
         // Add completed course input
         const addBtn = document.getElementById('btn-add-completed');
         const addInput = document.getElementById('completed-add-input');
+        const addError = document.getElementById('completed-add-errors');
         if (addBtn && addInput) {
-            const doAdd = () => {
+            const doAdd = async () => {
                 const text = addInput.value.trim();
                 if (!text) return;
-                // Parse with same flexible format
-                const codes = text.split(/[,;.\n]+/).map(s => {
-                    const m = s.trim().match(/([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)/);
-                    return m ? m[1].toUpperCase() + ' ' + m[2].toUpperCase() : null;
-                }).filter(Boolean);
 
-                codes.forEach(code => {
+                // Parse with same flexible format
+                const rawTokens = text.split(/[,;.\n]+/).map(s => s.trim()).filter(Boolean);
+                const parsed = rawTokens.map(s => {
+                    const m = s.match(/([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)/);
+                    return m ? { raw: s, code: m[1].toUpperCase() + ' ' + m[2].toUpperCase() } : { raw: s, code: null };
+                });
+
+                // Separate parseable from unparseable
+                const unparseable = parsed.filter(p => !p.code);
+                const candidates = parsed.filter(p => p.code);
+
+                // Validate against bulletin — group by subject for efficiency
+                const subjects = [...new Set(candidates.map(c => c.code.split(' ')[0]))];
+                const validCodes = new Set();
+
+                addBtn.textContent = 'CHECKING...';
+                addBtn.disabled = true;
+
+                for (const subj of subjects) {
+                    try {
+                        const data = await API.bulletinSearch(subj);
+                        (data.results || []).forEach(r => validCodes.add(r.code));
+                    } catch (e) {
+                        // If bulletin fails, accept all from this subject (don't block the user)
+                        candidates.filter(c => c.code.startsWith(subj)).forEach(c => validCodes.add(c.code));
+                    }
+                }
+
+                const valid = candidates.filter(c => validCodes.has(c.code));
+                const invalid = candidates.filter(c => !validCodes.has(c.code));
+
+                // Add valid courses
+                valid.forEach(({ code }) => {
                     if (!State.completedCourses.includes(code)) {
                         State.completedCourses.push(code);
                         const majorData = State.profile.majorData;
@@ -452,7 +481,31 @@ const DegreePlan = {
                     }
                 });
 
-                addInput.value = '';
+                // Show errors for invalid entries
+                const errors = [
+                    ...unparseable.map(p => `"${p.raw}" — could not parse`),
+                    ...invalid.map(p => `${p.code} — not found in catalog`),
+                ];
+
+                if (addError) {
+                    if (errors.length > 0) {
+                        addError.innerHTML = errors.map(e => `<div class="add-error-item">${e}</div>`).join('');
+                    } else {
+                        addError.innerHTML = '';
+                    }
+                }
+
+                // Keep invalid text in input so user can fix
+                if (errors.length > 0) {
+                    const invalidTexts = [...unparseable.map(p => p.raw), ...invalid.map(p => p.code)];
+                    addInput.value = invalidTexts.join(', ');
+                } else {
+                    addInput.value = '';
+                }
+
+                addBtn.textContent = 'ADD';
+                addBtn.disabled = false;
+
                 this.buildCompletedSemesters();
                 this.render();
                 if (typeof Profile !== 'undefined') {
@@ -462,7 +515,7 @@ const DegreePlan = {
             };
             addBtn.addEventListener('click', doAdd);
             addInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') doAdd();
+                if (e.key === 'Enter') { e.preventDefault(); doAdd(); }
             });
         }
 

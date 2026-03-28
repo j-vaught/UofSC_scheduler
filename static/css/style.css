@@ -478,6 +478,13 @@ main {
     font-size: 0.8rem;
     padding: 4px 8px;
 }
+.completed-add-errors { padding: 0 0 4px; }
+.add-error-item {
+    font-size: 0.75rem;
+    color: #c62828;
+    padding: 2px 0;
+    font-weight: 600;
+}
 .add-semester-btn {
     width: 280px;
     min-width: 280px;
