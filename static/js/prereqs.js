@@ -49,18 +49,18 @@ const Prereqs = {
 
             if (prereqCodes.length > 0) {
                 html += '<div style="margin-top:12px">';
-                html += '<h4 style="margin-bottom:6px;color:#73b7ff">Prerequisite Status</h4>';
+                html += '<h4 style="margin-bottom:6px;color:#466A9F">Prerequisite Status</h4>';
                 prereqCodes.forEach(code => {
                     const met = completed.has(code);
                     const icon = met ? '<span class="offered">&#10003;</span>' : '<span class="not-offered">&#10007;</span>';
-                    html += `<div style="margin-bottom:3px;font-size:0.85rem">${icon} ${code} ${met ? '(completed)' : '(not completed)'}</div>`;
+                    html += `<div style="margin-bottom:3px;font-size:0.85rem">${icon} <a href="#" class="prereq-link" data-code="${code}">${code}</a> ${met ? '(completed)' : '(not completed)'}</div>`;
                 });
 
                 const allMet = prereqCodes.every(c => completed.has(c));
                 if (allMet) {
-                    html += '<p style="color:#4caf50;margin-top:8px;font-weight:600">All prerequisites met!</p>';
+                    html += '<p style="color:#2e7d32;margin-top:8px;font-weight:600">All prerequisites met!</p>';
                 } else {
-                    html += '<p style="color:#f44336;margin-top:8px;font-weight:600">Some prerequisites are missing.</p>';
+                    html += '<p style="color:#c62828;margin-top:8px;font-weight:600">Some prerequisites are missing.</p>';
                 }
                 html += '</div>';
             }
@@ -72,9 +72,57 @@ const Prereqs = {
 
             container.innerHTML = html;
 
+            // Bind clickable prereq links
+            container.querySelectorAll('.prereq-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.navigateToCourse(link.dataset.code);
+                });
+            });
+
+            // Bind clickable SVG nodes (prereq/coreq, not the target)
+            container.querySelectorAll('.prereq-node:not(.prereq-target)').forEach(node => {
+                node.style.cursor = 'pointer';
+                node.addEventListener('click', () => {
+                    const text = node.querySelector('text');
+                    if (text) this.navigateToCourse(text.textContent.trim());
+                });
+            });
+
         } catch (err) {
             container.innerHTML = `<p class="hint">Error loading prerequisites: ${err.message}</p>`;
         }
+    },
+
+    navigateToCourse(courseCode) {
+        // Clear course details and reload for the clicked prereq course
+        const detailsTab = document.getElementById('tab-details');
+        if (detailsTab) {
+            detailsTab.innerHTML = `<p class="loading">Loading ${courseCode}</p>`;
+        }
+
+        // Load prereqs, history, and bulletin details for the new course
+        this.loadForCourse(courseCode);
+        if (typeof History !== 'undefined' && History.loadForCourse) {
+            History.loadForCourse(courseCode);
+        }
+
+        // Fetch bulletin details to populate the course info panel
+        const subject = courseCode.split(' ')[0];
+        API.bulletinSearch(subject).then(search => {
+            const courses = search.results || [];
+            const target = courses.find(c => c.code === courseCode);
+            if (!target || !detailsTab) return;
+            API.bulletinDetails(target.key).then(details => {
+                const desc = (details.description || '').replace(/<[^>]+>/g, ' ').trim();
+                detailsTab.innerHTML = `
+                    <h3>${courseCode} - ${details.title || ''}</h3>
+                    <p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>
+                    ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 300)}${desc.length > 300 ? '...' : ''}</p>` : ''}
+                    <p class="hint" style="margin-top:8px">Viewing from prerequisite chain. Search and select a section for full details.</p>
+                `;
+            });
+        }).catch(() => {});
     },
 
     parseCourseCodes(html) {

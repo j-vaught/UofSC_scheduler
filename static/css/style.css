@@ -815,6 +815,15 @@ main {
 .prereq-met rect { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2; }
 .prereq-unmet rect { fill: #ffebee; stroke: #c62828; stroke-width: 2; }
 .prereq-target rect { fill: #fce4ec; stroke: #73000A; stroke-width: 3; }
+.prereq-node:not(.prereq-target):hover rect { filter: brightness(0.85); }
+.prereq-link {
+    color: #73000A;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px dashed #73000A;
+    cursor: pointer;
+}
+.prereq-link:hover { color: #466A9F; border-bottom-color: #466A9F; }
 
 /* === Completed Courses Display === */
 .completed-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
