@@ -59,13 +59,17 @@ const History = {
                     r => r.code === courseCode && (r.section || '').startsWith('0')
                 );
 
+                // Deduplicate times by stripping room/location info and normalizing whitespace
+                const rawTimes = matches.map(m => (m.meets || 'TBA').replace(/\s+/g, ' ').trim());
+                const uniqueTimes = [...new Set(rawTimes)];
+
                 const result = {
                     term: term.code,
                     label: term.label,
                     offered: matches.length > 0,
                     sections: matches.length,
-                    instructors: [...new Set(matches.map(m => m.instr || 'Staff'))],
-                    times: [...new Set(matches.map(m => m.meets || 'TBA'))],
+                    instructors: [...new Set(matches.map(m => (m.instr || 'Staff').trim()))],
+                    times: uniqueTimes,
                 };
                 results.push(result);
 
