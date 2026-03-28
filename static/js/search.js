@@ -80,13 +80,50 @@ const Search = {
 
         const criteria = [];
         if (subject) criteria.push({ field: 'subject', value: subject });
+
+        // Keyword parsing
+        let courseNumberFilter = null;
         if (keyword) {
-            if (/^[A-Z]{3,4}\s+\d{2,5}$/i.test(keyword)) {
-                criteria.push({ field: 'alias', value: keyword.toUpperCase() });
-            } else if (/^\d{5}$/.test(keyword)) {
-                criteria.push({ field: 'crn', value: keyword });
+            const kw = keyword.trim();
+
+            // "CSCE 145" or "CSCE145" — full course code
+            if (/^[A-Z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
+                const normalized = kw.replace(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i, (_, s, n) => s.toUpperCase() + ' ' + n.toUpperCase());
+                criteria.push({ field: 'alias', value: normalized });
+
+            // 5-digit CRN
+            } else if (/^\d{5}$/.test(kw)) {
+                criteria.push({ field: 'crn', value: kw });
+
+            // Exactly 4 digits — invalid, too ambiguous
+            } else if (/^\d{4}$/.test(kw)) {
+                this.showHint('4-digit numbers are not valid. Enter a 3-digit course number (e.g. 101) or a 5-digit CRN.');
+                return;
+
+            // 3 digits optionally followed by a single letter (e.g. 101, 101L, 344l)
+            } else if (/^\d{3}\s?[A-Za-z]?$/.test(kw)) {
+                // Don't send as keyword — search the subject and filter client-side by course number
+                const numPart = kw.replace(/\s/g, '').toUpperCase();
+                courseNumberFilter = numPart;
+                // Need a subject to search
+                if (!subject) {
+                    this.showHint('Pick a subject when searching by course number.');
+                    return;
+                }
+
+            // 1-2 digits — too short, ignore
+            } else if (/^\d{1,2}$/.test(kw)) {
+                this.showHint('Enter at least a 3-digit course number or a keyword with 5+ characters.');
+                return;
+
+            // Text keyword — require 5+ characters to avoid overloading API
+            } else if (kw.length < 5) {
+                this.showHint('Keywords must be at least 5 characters. For course numbers, enter 3 digits (e.g. 101).');
+                return;
+
+            // Valid text keyword
             } else {
-                criteria.push({ field: 'keyword', value: keyword });
+                criteria.push({ field: 'keyword', value: kw });
             }
         }
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
@@ -99,6 +136,14 @@ const Search = {
             let results = data.results || [];
 
             // Client-side filters
+
+            // Course number filter (from 3-digit input like "101" or "101L")
+            if (courseNumberFilter) {
+                results = results.filter(r => {
+                    const codeNum = (r.code || '').replace(/^[A-Z]+\s*/i, '').toUpperCase();
+                    return codeNum === courseNumberFilter;
+                });
+            }
 
             // Level filter
             if (levelMode && levelValue) {
