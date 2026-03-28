@@ -286,12 +286,17 @@ const DegreePlan = {
                 html += '</div>';
 
                 // Add course input
+                const savedInput = this._addInputValue || '';
+                const savedErrors = this._addErrors || [];
+                const errorsHtml = savedErrors.length > 0
+                    ? savedErrors.map(e => `<div class="add-error-item">${e}</div>`).join('')
+                    : '';
                 html += `
                     <div class="completed-add-course">
-                        <input type="text" id="completed-add-input" placeholder="Add courses: CSCE 145, MATH 141, ...">
+                        <input type="text" id="completed-add-input" placeholder="Add courses: CSCE 145, MATH 141, ..." value="${savedInput.replace(/"/g, '&quot;')}">
                         <button id="btn-add-completed" class="btn-garnet">ADD</button>
                     </div>
-                    <div id="completed-add-errors" class="completed-add-errors"></div>
+                    <div id="completed-add-errors" class="completed-add-errors">${errorsHtml}</div>
                 `;
             }
 
@@ -481,30 +486,19 @@ const DegreePlan = {
                     }
                 });
 
-                // Show errors for invalid entries
+                // Store errors and invalid input text for re-render
                 const errors = [
                     ...unparseable.map(p => `"${p.raw}" — could not parse`),
                     ...invalid.map(p => `${p.code} — not found in catalog`),
                 ];
+                this._addErrors = errors;
 
-                if (addError) {
-                    if (errors.length > 0) {
-                        addError.innerHTML = errors.map(e => `<div class="add-error-item">${e}</div>`).join('');
-                    } else {
-                        addError.innerHTML = '';
-                    }
-                }
-
-                // Keep invalid text in input so user can fix
                 if (errors.length > 0) {
                     const invalidTexts = [...unparseable.map(p => p.raw), ...invalid.map(p => p.code)];
-                    addInput.value = invalidTexts.join(', ');
+                    this._addInputValue = invalidTexts.join(', ');
                 } else {
-                    addInput.value = '';
+                    this._addInputValue = '';
                 }
-
-                addBtn.textContent = 'ADD';
-                addBtn.disabled = false;
 
                 this.buildCompletedSemesters();
                 this.render();
@@ -516,6 +510,12 @@ const DegreePlan = {
             addBtn.addEventListener('click', doAdd);
             addInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') { e.preventDefault(); doAdd(); }
+            });
+            addInput.addEventListener('input', () => {
+                // Clear errors when user edits
+                this._addErrors = [];
+                const errEl = document.getElementById('completed-add-errors');
+                if (errEl) errEl.innerHTML = '';
             });
         }
 
