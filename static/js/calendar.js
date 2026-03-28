@@ -148,7 +148,7 @@ const Calendar = {
                 `;
 
                 block.addEventListener('click', () => {
-                    showCourseDetail(sec);
+                    Calendar.showCourseDetail(sec);
                 });
 
                 col.appendChild(block);
@@ -157,8 +157,11 @@ const Calendar = {
     },
 };
 
-function showCourseDetail(section) {
+// Attach showCourseDetail as a Calendar method for use by other modules
+Calendar.showCourseDetail = function(section) {
     const tab = document.getElementById('tab-details');
+    if (!tab) return;
+
     tab.innerHTML = `
         <h3>${section.code} - ${section.title}</h3>
         <p><strong>Section:</strong> ${section.section} (CRN: ${section.crn})</p>
@@ -169,12 +172,6 @@ function showCourseDetail(section) {
         <p class="loading">Loading details</p>
     `;
 
-    // Switch to details tab
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    document.querySelector('[data-tab="details"]').classList.add('active');
-    tab.classList.add('active');
-
     // Fetch full details
     API.getDetails(section.crn, State.term).then(data => {
         const seatsMatch = (data.seats || '').match(/seats_avail[^>]*>(\d+)/);
@@ -182,7 +179,6 @@ function showCourseDetail(section) {
         const seats = seatsMatch ? seatsMatch[1] : '?';
         const max = maxMatch ? maxMatch[1] : '?';
 
-        // Strip HTML tags from description for clean display
         const desc = (data.description || '').replace(/<[^>]+>/g, ' ').trim();
         const room = (data.meeting_html || '').replace(/<[^>]+>/g, ' ').trim();
 
@@ -205,4 +201,4 @@ function showCourseDetail(section) {
     }).catch(() => {
         tab.querySelector('.loading')?.remove();
     });
-}
+};
