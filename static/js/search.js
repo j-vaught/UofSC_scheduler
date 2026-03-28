@@ -331,10 +331,10 @@ const Search = {
                     ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
                 row.innerHTML = `
+                    <span class="sec-status">${statusDot}</span>
                     <span class="sec-id">${sec.section}</span>
                     <span class="sec-instr">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</span>
                     <span class="sec-time">${sec.meets || 'TBA'}</span>
-                    <span class="sec-status">${statusDot}</span>
                 `;
 
                 // Clicking the row shows details in the main content panel
