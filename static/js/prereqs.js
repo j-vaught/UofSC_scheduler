@@ -137,50 +137,70 @@ const Prereqs = {
         }
 
         const nodeW = 90, nodeH = 30, padX = 20, padY = 40;
-        const allNodes = [...prereqs, ...coreqs, target];
-        const cols = Math.min(allNodes.length, 4);
-        const svgW = Math.max(300, (cols + 1) * (nodeW + padX));
 
-        // Layout: prereqs on top row, target on bottom
+        // Layout:
+        //   Top row: prereqs
+        //   Bottom row: coreqs (dashed lines) — target — coreqs (dashed lines)
+        // Coreqs sit on same row as target, connected by horizontal dashed lines
+
         const nodes = [];
         const edges = [];
 
-        // Prereq row
+        // Top row: prerequisites
+        const prereqRowY = padY;
         prereqs.forEach((code, i) => {
             const x = padX + i * (nodeW + padX);
-            const y = padY;
             const cls = completed.has(code) ? 'prereq-met' : 'prereq-unmet';
-            nodes.push({ code, x, y, cls });
-            edges.push({ from: { x: x + nodeW / 2, y: y + nodeH }, to: null, type: 'prereq' });
+            nodes.push({ code, x, y: prereqRowY, cls });
+            edges.push({ from: { x: x + nodeW / 2, y: prereqRowY + nodeH }, to: null, type: 'prereq' });
         });
 
-        // Coreq row (offset)
-        coreqs.forEach((code, i) => {
-            const x = padX + (prereqs.length + i) * (nodeW + padX);
-            const y = padY;
-            const cls = completed.has(code) ? 'prereq-met' : 'prereq-unmet';
-            nodes.push({ code, x, y, cls });
-            edges.push({ from: { x: x + nodeW / 2, y: y + nodeH }, to: null, type: 'coreq' });
-        });
+        // Bottom row: target in center, coreqs beside it
+        const bottomRowY = prereqs.length > 0 ? prereqRowY + nodeH + padY : padY;
+        const bottomItems = coreqs.length + 1; // coreqs + target
+        const totalBottomWidth = bottomItems * nodeW + (bottomItems - 1) * padX;
 
-        // Target node
-        const targetX = padX + ((prereqs.length + coreqs.length - 1) / 2) * (nodeW + padX);
-        const targetY = padY + nodeH + padY;
-        nodes.push({ code: target, x: Math.max(padX, targetX), y: targetY, cls: 'prereq-target' });
+        // Center the bottom row under the prereqs (or just center it)
+        const prereqTotalWidth = prereqs.length > 0 ? prereqs.length * nodeW + (prereqs.length - 1) * padX : 0;
+        const prereqCenterX = prereqs.length > 0 ? padX + prereqTotalWidth / 2 : padX + totalBottomWidth / 2;
+        const bottomStartX = Math.max(padX, prereqCenterX - totalBottomWidth / 2);
 
-        const targetCenter = { x: Math.max(padX, targetX) + nodeW / 2, y: targetY };
+        // Place target first in the bottom row, then coreqs to the right
+        const targetX = bottomStartX;
+        nodes.push({ code: target, x: targetX, y: bottomRowY, cls: 'prereq-target' });
+
+        const targetCenter = { x: targetX + nodeW / 2, y: bottomRowY };
         edges.forEach(e => { e.to = targetCenter; });
 
-        const svgH = targetY + nodeH + padY;
+        // Place coreqs to the right of target with dashed horizontal lines
+        coreqs.forEach((code, i) => {
+            const x = targetX + (i + 1) * (nodeW + padX);
+            const cls = completed.has(code) ? 'prereq-met' : 'prereq-unmet';
+            nodes.push({ code, x, y: bottomRowY, cls });
+            // Horizontal dashed edge from target right edge to coreq left edge
+            edges.push({
+                from: { x: targetX + nodeW + (i * (nodeW + padX)), y: bottomRowY + nodeH / 2 },
+                to: { x: x, y: bottomRowY + nodeH / 2 },
+                type: 'coreq'
+            });
+        });
+
+        // Compute SVG dimensions
+        const allX = nodes.map(n => n.x + nodeW);
+        const svgW = Math.max(300, Math.max(...allX) + padX);
+        const svgH = bottomRowY + nodeH + padY;
 
         let svg = `<svg width="${svgW}" height="${svgH}" xmlns="http://www.w3.org/2000/svg">`;
 
         // Edges
         edges.forEach(e => {
-            const dash = e.type === 'coreq' ? 'stroke-dasharray="4,3"' : '';
+            if (!e.to) return;
+            const dash = e.type === 'coreq' ? 'stroke-dasharray="6,4"' : '';
             svg += `<line x1="${e.from.x}" y1="${e.from.y}" x2="${e.to.x}" y2="${e.to.y}" class="prereq-edge" ${dash}/>`;
-            // Arrow
-            svg += `<polygon points="${e.to.x},${e.to.y} ${e.to.x - 4},${e.to.y - 8} ${e.to.x + 4},${e.to.y - 8}" fill="#555"/>`;
+            // Arrow (only for prereq edges going down, not horizontal coreq edges)
+            if (e.type === 'prereq') {
+                svg += `<polygon points="${e.to.x},${e.to.y} ${e.to.x - 4},${e.to.y - 8} ${e.to.x + 4},${e.to.y - 8}" fill="#555"/>`;
+            }
         });
 
         // Nodes
