@@ -823,8 +823,8 @@ main {
 .section-row .sec-instr { color: #000000; flex: 1; }
 .section-row .sec-time { color: #333333; white-space: nowrap; font-weight: 500; }
 .section-row .sec-status { min-width: 14px; width: 14px; text-align: center; flex-shrink: 0; }
-.section-row .sec-instr { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.section-row .sec-time { overflow: hidden; text-overflow: ellipsis; }
+.section-row .sec-instr { white-space: nowrap; flex-shrink: 0; }
+.section-row .sec-time { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .section-row.viewing { background: #e3f2fd; border-left: 4px solid #466A9F; }
 .section-actions { display: flex; gap: 8px; }
 
