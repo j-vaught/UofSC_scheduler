@@ -1,4 +1,4 @@
-#set page(width: 14in, height: 36in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
+#set page(width: 14in, height: 24in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
 #set text(font: "New Computer Modern", size: 9pt)
 
 #let garnet = rgb("#73000A")
@@ -23,13 +23,6 @@
   )
 }
 
-#let note-at(x, y, w, body) = {
-  place(dx: x, dy: y,
-    rect(width: w, radius: 0pt, fill: rgb("#fffff0"), stroke: 0.5pt + warm-grey, inset: 5pt,
-      text(size: 6.5pt, fill: black90, body)
-    )
-  )
-}
 
 #let ln(x1, y1, x2, y2, color: black90) = {
   place(dx: 0pt, dy: 0pt, line(start: (x1, y1), end: (x2, y2), stroke: 1.2pt + color))
@@ -116,9 +109,6 @@
   Trained on 1B+ English pairs],
   fill: light-purple, stroke: congaree)
 
-// Notes for phrase extraction
-#note-at(0pt, r1 + 52pt, 370pt,
-  [*Phrase extraction details:* Tokenize each course's title + description. Remove stopwords ("the", "and", "is"...) and academic filler ("course", "student", "includes", "provides"...). Generate all consecutive bigrams and trigrams where all words are unique. Keep phrases appearing in 5--485 courses (0.05% cap). Result: *6,313 phrases* including "deep learning", "heat transfer", "financial markets", "cognitive neuroscience", "organic chemistry", etc.])
 
 // Row 2: Embed phrases and courses
 #let r2 = r1 + 115pt
@@ -146,9 +136,6 @@
 #arr(510pt, r2 + 28pt, 510pt, r2 + 58pt + 14pt)
 #arr(510pt, r2 + 58pt + 14pt, 410pt, r2 + 58pt + 14pt, color: atlantic)
 
-// Note
-#note-at(420pt, r2, 480pt,
-  [*Why embed with a sentence model instead of TF-IDF or word2vec?* Sentence-transformers capture the _meaning_ of multi-word phrases as a whole. "Heat transfer" gets an embedding that reflects thermodynamics, not just the average of "heat" and "transfer". The model was trained on 1B+ sentence pairs for semantic similarity, so it produces vectors where similar concepts are geometrically close --- even if they share no words.])
 
 // Row 3: PCA
 #let r3 = r2 + 125pt
@@ -163,10 +150,6 @@
   Quantize to int8: multiply by 127, clamp to \[-128, 127\], round to integer],
   fill: light-blue, stroke: atlantic)
 
-#note-at(500pt, r3, 400pt,
-  [*Why PCA from 384 → 128?* Reduces file sizes by ~3$times$ (128 bytes per vector vs 384) while retaining *81% of variance*. Cosine similarity rankings are nearly identical in the reduced space. PCA is fitted on _both_ phrase and course vectors together so they share the same coordinate system --- a query projected into this space can be compared against either.\
-  \
-  *Why int8 quantization?* A 128-dim float32 vector takes 512 bytes in JSON. An int8 vector takes ~128 bytes (plus JSON comma overhead). For 9,732 courses this saves ~3.7 MB. The quantization error is negligible for ranking purposes --- we only need relative ordering, not exact distances.])
 
 // Row 4: Output files
 #let r4 = r3 + 105pt
@@ -202,8 +185,6 @@
 #arr(305pt, r3 + 50pt, 305pt, r4, color: horseshoe)
 #arr-hv(305pt, r3 + 50pt, 505pt, r4, color: horseshoe)
 
-#note-at(620pt, r4, 280pt,
-  [*These three files are placed in `static/data/`* and served as static assets by the web server. They are loaded by the browser on first keyword search and cached. Combined with the Transformers.js model (~23 MB from CDN), the total first-time download is *~31 MB*. All subsequent searches use cached data only.])
 
 
 // ================================================================
@@ -223,8 +204,6 @@
   "transfer of heat", "money and investing"],
   fill: black10)
 
-#note-at(250pt, s1 + 22pt, 300pt,
-  [Input has already been classified by the regex cascade as a keyword search (not a subject code, course code, CRN, or range pattern). Minimum length: 5 characters. This triggers the semantic pipeline instead of a direct API query.])
 
 // --- Step 2 ---
 #let s2 = s1 + 80pt
@@ -265,17 +244,6 @@
   Components: 128$times$384],
   fill: light-tan, stroke: warm-grey)
 
-#note-at(700pt, s2 + 24pt, 200pt,
-  [All four resources load *in parallel*\
-  (concurrent fetch + parse).\
-  \
-  Total first-time: ~31 MB.\
-  \
-  *All cached by browser.* Subsequent\
-  keyword searches skip this step.\
-  \
-  Shows: "Loading AI search model\
-  (first time only)..."])
 
 #dln(0pt, s2 + 84pt, 675pt, s2 + 84pt, color: warm-grey)
 #lbl(0pt, s2 + 86pt, [All four load concurrently via `Promise.all()`])
@@ -311,11 +279,7 @@
   shared PCA space],
   fill: light-blue, stroke: atlantic)
 
-#note-at(0pt, s3 + 80pt, 420pt,
-  [*Why use the real model here instead of looking up pre-computed word vectors?* The model understands _any_ English input as a complete phrase --- colloquial terms ("car"), misspellings, slang, and concepts it never saw in course descriptions. A word-lookup approach would fail on out-of-vocabulary terms: "car" never appears in UofSC course descriptions, so it would have no vector. The sentence model knows "car" $approx$ automotive $approx$ vehicle $approx$ mechanical because it was trained on general English.])
 
-#note-at(450pt, s3 + 80pt, 450pt,
-  [*Performance:* The ONNX model runs in WASM/WebGPU entirely in the browser. Single query embedding takes *~50--100ms* on modern hardware. No server round-trip, no API call. The PCA projection and normalization are trivial matrix math (~1ms).])
 
 
 // --- Step 4 ---
@@ -353,29 +317,7 @@
   *= 9 search terms total*],
   fill: light-green, stroke: horseshoe)
 
-#note-at(0pt, s4 + 86pt, 450pt,
-  [*Example:* Query "machine learning" produces these 9 search terms:
 
-  #grid(columns: (auto, auto), column-gutter: 20pt,
-    text(size: 6.5pt)[1. "machine learning" _(original)_\
-    2. "deep learning" _(sim: 0.73)_\
-    3. "data mining" _(sim: 0.72)_\
-    4. "neural networks" _(sim: 0.71)_\
-    5. "artificial intelligence" _(sim: 0.66)_],
-    text(size: 6.5pt)[6. "deep neural networks" _(sim: 0.62)_\
-    7. "statistical programming" _(sim: 0.62)_\
-    8. "artificial intelligence ai" _(sim: 0.60)_\
-    9. "supervised training" _(sim: 0.60)_],
-  )])
-
-#note-at(480pt, s4 + 86pt, 420pt,
-  [*Example:* Query "car engineering" (colloquial) expands to:\
-  "mechanical engineering", "industrial engineering", "engineering projects",\
-  "electrical engineering", "science engineering", "engineering program",\
-  "engineering design", "engineering systems"\
-  \
-  The model bridged "car" → mechanical/industrial/electrical engineering\
-  despite "car" never appearing in any course description.])
 
 
 // --- Step 5 ---
@@ -408,14 +350,7 @@
 
 #arr(620pt, s5 + 24pt, 530pt, s5 + 24pt, color: atlantic)
 
-#note-at(0pt, s5 + 98pt, 420pt,
-  [*Why search the live API at all, if we have local embeddings?*\
-  The local embeddings are a snapshot from the last build. New courses added mid-semester or description changes won't be reflected. The live API always returns current data. The local database is a _supplement_, not a replacement --- it catches courses the API's keyword search misses (because API keyword matching is exact-substring, not semantic).])
 
-#note-at(450pt, s5 + 98pt, 450pt,
-  [*Why 0.30 threshold for local results?* The local course vectors encode rich text (title + full description), so cosine similarities are higher and more meaningful. A 0.30 threshold keeps precision high --- only courses with genuine topical overlap survive. This is higher than the 0.15 used later for title-only scoring because descriptions provide much stronger signal.\
-  \
-  *Why top 30?* Limits the number of additional candidates added beyond the API results. Typically only 5--15 of these 30 are genuinely new (the rest overlap with API results).])
 
 
 // --- Step 6 ---
@@ -435,8 +370,6 @@
 #arr-vh(150pt, s6 + 28pt, 200pt, s6 + 44pt, color: black90)
 #arr-vh(530pt, s6 + 28pt, 500pt, s6 + 44pt, color: black90)
 
-#note-at(540pt, s6 + 24pt, 360pt,
-  [The console logs how many courses came from the API vs how many were added from the local database. Example: `[Semantic] 87 total unique (12 added from local database)` --- meaning the API found 75 courses and the local search contributed 12 more that keyword matching missed.])
 
 
 // --- Step 7 ---
@@ -473,16 +406,7 @@
   *Keep top 50 results*],
   fill: light-blue, stroke: atlantic)
 
-#note-at(0pt, s7 + 88pt, 450pt,
-  [*Why embed titles with the model instead of using the local course vectors?*\
-  Two reasons: (1) Many results came from the live API and don't have pre-computed vectors --- only the local database courses have those. (2) The title embedding lets us score _what the user will actually see_ (the title) against their query. A course might have "machine learning" in its description but its title is "Advanced Statistical Methods" --- the title similarity tells us whether the result will _look_ relevant to the user.])
 
-#note-at(480pt, s7 + 88pt, 420pt,
-  [*Why 0.15 threshold (lower than the 0.30 for local search)?*\
-  Title-only text is much shorter than title+description, so embedding similarities are inherently lower. "Automotive System Fundamentals" scores 0.47 against "car engineering" despite sharing zero words --- a strong match. But many valid results score in the 0.15--0.30 range. The 0.15 threshold removes clear noise (courses about dance, music, etc.) while keeping borderline-relevant courses.\
-  \
-  *Example scores for "machine learning":*\
-  1.00 "Machine Learning" | 0.66 "Artificial Intelligence" | 0.53 "Neural Networks" | 0.23 "AI Ethics" | -0.13 "Global Dance Forms" (filtered)])
 
 
 // --- Step 8 ---
@@ -512,17 +436,6 @@
   #h(8pt) (term label / FULL / N/A)],
   fill: light-tan, stroke: warm-grey)
 
-#note-at(670pt, s8 + 24pt, 230pt,
-  [Typically *10--25 subject queries*, all\
-  fired concurrently. Total latency equals\
-  one API round-trip (~200ms).\
-  \
-  This is the *only step* where term\
-  filtering occurs. All prior steps\
-  search the full catalog. This means\
-  if the user unchecks "current term\
-  only", they see _all_ matching courses\
-  with availability badges.])
 
 
 // --- Step 9 ---
