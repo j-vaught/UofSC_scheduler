@@ -108,9 +108,9 @@ const Search = {
         const eligibleOnly = document.getElementById('filter-eligible').checked;
         const currentTermOnly = document.getElementById('filter-current-term').checked;
 
-        // Level filter (dropdown, values are 100/200/.../800)
-        const levelMode = document.getElementById('filter-level-mode').value;
-        const levelValue = parseInt(document.getElementById('filter-level-value').value) || 0;
+        // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
+        const levelMode = '';
+        const levelValue = 0;
 
         // Size filter
         const sizeMode = document.getElementById('filter-size-mode').value;
