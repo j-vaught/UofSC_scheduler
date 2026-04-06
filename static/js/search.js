@@ -8,6 +8,8 @@ const Search = {
     _phraseData: null,       // pre-computed phrase embeddings
     _phraseVecs: null,       // normalized float32 phrase vectors
     _pcaParams: null,        // PCA mean + components
+    _courseEmbeddings: null,  // pre-computed course embeddings (title+desc)
+    _courseVecs: null,        // normalized float32 course vectors
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -20,18 +22,21 @@ const Search = {
         return this._extractorLoading;
     },
 
-    // Lazy-load phrase embeddings + PCA params
+    // Lazy-load phrase embeddings, course embeddings, and PCA params
     async _loadPhraseData() {
         if (this._phraseData) return;
-        const [phraseResp, pcaResp] = await Promise.all([
+        const [phraseResp, courseResp, pcaResp] = await Promise.all([
             fetch('/static/data/phrase_embeddings.json').then(r => r.json()),
+            fetch('/static/data/course_embeddings.json').then(r => r.json()),
             fetch('/static/data/pca_params.json').then(r => r.json()),
         ]);
         this._phraseData = phraseResp;
+        this._courseEmbeddings = courseResp;
         this._pcaParams = pcaResp;
-        // Pre-build normalized float32 phrase vectors for fast cosine similarity
-        const phrases = Object.keys(phraseResp.phrases);
         const dims = phraseResp.dims;
+
+        // Pre-build normalized float32 phrase vectors
+        const phrases = Object.keys(phraseResp.phrases);
         this._phraseList = phrases;
         this._phraseVecs = phrases.map(p => {
             const raw = phraseResp.phrases[p];
@@ -42,7 +47,18 @@ const Search = {
             for (let i = 0; i < dims; i++) fv[i] /= norm;
             return fv;
         });
-        console.log(`[Semantic] Loaded ${phrases.length} phrase embeddings + PCA params.`);
+
+        // Pre-build normalized float32 course vectors
+        this._courseVecs = courseResp.courses.map(c => {
+            const fv = new Float32Array(dims);
+            let norm = 0;
+            for (let i = 0; i < dims; i++) { fv[i] = c.vec[i]; norm += c.vec[i] * c.vec[i]; }
+            norm = Math.sqrt(norm) || 1;
+            for (let i = 0; i < fv.length; i++) fv[i] /= norm;
+            return fv;
+        });
+
+        console.log(`[Semantic] Loaded ${phrases.length} phrases + ${courseResp.courses.length} courses + PCA params.`);
     },
 
     // Embed text using Transformers.js, then apply PCA to match phrase embedding space
@@ -135,9 +151,28 @@ const Search = {
         const allResults = await Promise.all(promises);
         if (searchId !== this._searchId) return null;
 
-        // Step 5: Dedupe by course code
+        // Step 5: Local course search — find top matches from pre-computed
+        // course embeddings (title+description). These catch courses the API
+        // keyword search might miss.
+        const LOCAL_SIM_THRESHOLD = 0.30;
+        const localMatches = [];
+        const coursesData = this._courseEmbeddings.courses;
+        for (let i = 0; i < coursesData.length; i++) {
+            let dot = 0;
+            const cv = this._courseVecs[i];
+            for (let j = 0; j < queryVec.length; j++) dot += queryVec[j] * cv[j];
+            if (dot >= LOCAL_SIM_THRESHOLD) {
+                localMatches.push({ idx: i, sim: dot });
+            }
+        }
+        localMatches.sort((a, b) => b.sim - a.sim);
+        const topLocal = localMatches.slice(0, 30);
+        console.log(`[Semantic] Local search: ${localMatches.length} above ${LOCAL_SIM_THRESHOLD}, using top ${topLocal.length}`);
+
+        // Step 6: Merge API results + local results, dedupe by course code
         const seen = {};
         const deduped = [];
+        // API results first
         for (const batch of allResults) {
             for (const r of batch) {
                 const code = r.code || '';
@@ -147,8 +182,24 @@ const Search = {
                 }
             }
         }
+        // Add local results that weren't already found via API
+        let localAdded = 0;
+        for (const { idx, sim } of topLocal) {
+            const c = coursesData[idx];
+            if (!seen[c.code]) {
+                seen[c.code] = true;
+                deduped.push({
+                    code: c.code,
+                    title: c.title,
+                    key: c.key,
+                    _fromLocal: true,
+                });
+                localAdded++;
+            }
+        }
+        console.log(`[Semantic] ${deduped.length} total unique (${localAdded} added from local database)`);
 
-        // Step 6: Score each result title by embedding similarity to query
+        // Step 7: Score each result title by embedding similarity to query
         // Batch-embed all titles at once for performance
         const extractor = await this._loadExtractor();
         const titles = deduped.map(r => r.title || r.name || '').filter(Boolean);
@@ -189,7 +240,7 @@ const Search = {
         scored.sort((a, b) => b._relevanceScore - a._relevanceScore);
         const top = scored.slice(0, 50);
 
-        console.log(`[Semantic] ${deduped.length} from API → ${scored.length} above threshold → top ${top.length}`);
+        console.log(`[Semantic] ${deduped.length} candidates → ${scored.length} above threshold → top ${top.length}`);
         return { results: top, expandedTerms };
     },
 

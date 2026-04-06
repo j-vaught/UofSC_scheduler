@@ -22,6 +22,7 @@ from collections import Counter
 
 INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'course_data.json')
 PHRASE_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'phrase_embeddings.json')
+COURSE_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'course_embeddings.json')
 PCA_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'pca_params.json')
 DIMS = 128
 
@@ -122,26 +123,39 @@ def main():
     phrase_vecs = model.encode(phrases, show_progress_bar=True, batch_size=256,
                                 normalize_embeddings=True)
 
-    # PCA: fit on phrase vectors
+    # Embed all courses (title + description) for local similarity search
+    print(f"\nEmbedding {len(texts)} courses (title + description)...")
+    course_vecs = model.encode(texts, show_progress_bar=True, batch_size=256,
+                                normalize_embeddings=True)
+    print(f"  Shape: {course_vecs.shape}")
+
+    # PCA: fit on BOTH phrase and course vectors together for a shared space
     print(f"\nApplying PCA ({phrase_vecs.shape[1]} → {DIMS} dims)...")
-    mean = phrase_vecs.mean(axis=0)
-    centered = phrase_vecs - mean
+    all_vecs = np.vstack([phrase_vecs, course_vecs])
+    mean = all_vecs.mean(axis=0)
+    centered = all_vecs - mean
     U, S, Vt = np.linalg.svd(centered, full_matrices=False)
     components = Vt[:DIMS]
 
-    phrase_pca = centered @ components.T
+    phrase_pca = (phrase_vecs - mean) @ components.T
+    course_pca = (course_vecs - mean) @ components.T
 
     # Normalize
     phrase_norms = np.linalg.norm(phrase_pca, axis=1, keepdims=True)
     phrase_norms[phrase_norms == 0] = 1
     phrase_pca = phrase_pca / phrase_norms
 
+    course_norms = np.linalg.norm(course_pca, axis=1, keepdims=True)
+    course_norms[course_norms == 0] = 1
+    course_pca = course_pca / course_norms
+
     total_var = (S ** 2).sum()
     explained_var = (S[:DIMS] ** 2).sum()
     print(f"  Variance explained: {explained_var/total_var:.1%}")
 
-    # Quantize phrase embeddings
+    # Quantize
     phrase_q = np.clip(np.round(phrase_pca * 127), -128, 127).astype(np.int8)
+    course_q = np.clip(np.round(course_pca * 127), -128, 127).astype(np.int8)
 
     # Save phrase embeddings
     print("\nSaving phrase embeddings...")
@@ -151,6 +165,21 @@ def main():
     with open(PHRASE_OUT, 'w') as f:
         json.dump(phrase_data, f, separators=(',', ':'))
     print(f"  {os.path.getsize(PHRASE_OUT) / 1024:.0f} KB")
+
+    # Save course embeddings (code, title, subject, key + vector)
+    print("Saving course embeddings...")
+    course_data = {'dims': DIMS, 'courses': []}
+    for i, c in enumerate(courses):
+        course_data['courses'].append({
+            'code': c['code'],
+            'title': c.get('title', ''),
+            'subject': c.get('subject', ''),
+            'key': c.get('key', ''),
+            'vec': course_q[i].tolist(),
+        })
+    with open(COURSE_OUT, 'w') as f:
+        json.dump(course_data, f, separators=(',', ':'))
+    print(f"  {os.path.getsize(COURSE_OUT) / 1024:.0f} KB")
 
     # Save PCA params (for applying the same transform to query vectors in the browser)
     print("Saving PCA params...")
