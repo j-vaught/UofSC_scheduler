@@ -206,8 +206,12 @@ const Search = {
 
         // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
         } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
-            const normalized = kw.replace(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i, (_, s, n) => s.toUpperCase() + ' ' + n.toUpperCase());
-            subject = normalized.split(' ')[0];
+            const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i);
+            subject = this._resolveSubject(m[1]);
+            if (!subject) return;
+            const num = m[2].toUpperCase();
+            const normalized = subject + ' ' + num;
+            document.getElementById('keyword-input').value = normalized;
             criteria.push({ field: 'alias', value: normalized });
 
         // 5-digit CRN
