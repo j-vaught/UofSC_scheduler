@@ -1315,6 +1315,7 @@ button:hover { background: #f0f0f0; }
 
 /* === Utility === */
 .hint { color: #777777; font-style: italic; font-size: 0.85rem; }
+.fuzzy-suggestion { color: #466A9F; font-weight: 600; text-decoration: underline; cursor: pointer; font-style: normal; }
 
 /* === Print Styles === */
 @media print {

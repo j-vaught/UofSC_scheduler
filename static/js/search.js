@@ -2,8 +2,67 @@
 const Search = {
     _prereqCache: {},
     _searchId: 0,
+    _subjects: [],
+
+    // Levenshtein edit distance between two strings
+    _editDistance(a, b) {
+        const m = a.length, n = b.length;
+        const dp = Array.from({ length: m + 1 }, () => new Array(n + 1));
+        for (let i = 0; i <= m; i++) dp[i][0] = i;
+        for (let j = 0; j <= n; j++) dp[0][j] = j;
+        for (let i = 1; i <= m; i++) {
+            for (let j = 1; j <= n; j++) {
+                dp[i][j] = a[i - 1] === b[j - 1]
+                    ? dp[i - 1][j - 1]
+                    : 1 + Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+        return dp[m][n];
+    },
+
+    // Find closest subject codes by edit distance. Returns [] if input is an exact match.
+    _fuzzyMatchSubject(input) {
+        const upper = input.toUpperCase();
+        if (this._subjects.includes(upper)) return [];  // exact match, no fuzzy needed
+        const scored = this._subjects
+            .map(s => ({ code: s, dist: this._editDistance(upper, s) }))
+            .filter(s => s.dist <= 2)
+            .sort((a, b) => a.dist - b.dist);
+        return scored.slice(0, 3);
+    },
+
+    // Validate/correct a subject code. Returns corrected code, or null if unresolvable (hint shown).
+    _resolveSubject(raw) {
+        const upper = raw.toUpperCase();
+        if (!this._subjects.length || this._subjects.includes(upper)) return upper;
+        const matches = this._fuzzyMatchSubject(upper);
+        if (matches.length === 1 && matches[0].dist === 1) {
+            // Auto-correct single close match
+            return matches[0].code;
+        }
+        if (matches.length > 0) {
+            const links = matches.map(m =>
+                `<a href="#" class="fuzzy-suggestion" data-code="${m.code}">${m.code}</a>`
+            ).join(', ');
+            this.showHint(`Unknown subject "${upper}". Did you mean: ${links}?`);
+            document.querySelectorAll('.fuzzy-suggestion').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const input = document.getElementById('keyword-input');
+                    input.value = input.value.replace(/^[A-Za-z]{3,4}/i, e.target.dataset.code);
+                    this.doSearch();
+                });
+            });
+        } else {
+            this.showHint(`Unknown subject "${upper}". Check the code and try again.`);
+        }
+        return null;
+    },
 
     init() {
+        // Load subject list for fuzzy matching
+        fetch('/api/subjects').then(r => r.json()).then(list => { this._subjects = list; });
+
         document.getElementById('btn-search').addEventListener('click', () => this.doSearch());
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
@@ -111,29 +170,31 @@ const Search = {
 
         // 3-4 letter subject code only (e.g. "CSCE", "MATH")
         if (/^[A-Za-z]{3,4}$/i.test(kw)) {
-            subject = kw.toUpperCase();
+            subject = this._resolveSubject(kw);
+            if (!subject) return;
+            document.getElementById('keyword-input').value = subject;
             criteria.push({ field: 'subject', value: subject });
 
         // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
         } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
                    (kw.includes('+') || hasWildcard(kw))) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/i);
-            subject = m[1].toUpperCase();
+            subject = this._resolveSubject(m[1]);
+            if (!subject) return;
             const numPart = m[2].toUpperCase();
             courseRangeFilter = buildRangeFilter(numPart);
             if (!courseRangeFilter) {
                 this.showHint('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
                 return;
             }
-            // Fetch all courses for this subject, filter client-side
             criteria.push({ field: 'subject', value: subject });
 
         // Partial course number: "CSCE 5" or "CSCE 55" → prefix match (implicit wildcards)
         } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/i);
-            subject = m[1].toUpperCase();
+            subject = this._resolveSubject(m[1]);
+            if (!subject) return;
             const partial = m[2];
-            // Pad with wildcards to make a 3-digit pattern
             const padded = (partial + 'xx').slice(0, 3);
             const reStr = padded.replace(/x/g, '\\d');
             const numRe = new RegExp('^' + reStr + '$');
