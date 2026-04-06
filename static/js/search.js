@@ -498,49 +498,49 @@ const Search = {
 
                 let results = semantic.results;
 
-                if (currentTermOnly) {
-                    // Current-term mode: results already came from the classes API
-                    // with full section data (CRN, instructor, times, etc.)
-                    if (openOnly) results = results.filter(r => r.stat === 'A');
-                } else {
-                    // Catalog mode: results came from bulletin API (code + title only)
-                    // Cross-reference with live term data for availability badges
-                    const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
-                    const liveByCode = {};
-                    const livePromises = subjects.map(s =>
-                        API.searchCourses(State.term, [{ field: 'subject', value: s }])
-                            .then(d => d.results || []).catch(() => [])
-                    );
-                    const liveAll = await Promise.all(livePromises);
-                    if (searchId !== this._searchId) return;
-                    for (const batch of liveAll) {
-                        for (const r of batch) {
-                            if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
-                            liveByCode[r.code].sections++;
-                            if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
-                        }
+                // Cross-reference ALL results with live term data
+                const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
+                const liveByCode = {};
+                const livePromises = subjects.map(s =>
+                    API.searchCourses(State.term, [{ field: 'subject', value: s }])
+                        .then(d => d.results || []).catch(() => [])
+                );
+                const liveAll = await Promise.all(livePromises);
+                if (searchId !== this._searchId) return;
+                for (const batch of liveAll) {
+                    for (const r of batch) {
+                        if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
+                        liveByCode[r.code].sections++;
+                        if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
                     }
-
-                    results = results.map(c => {
-                        const live = liveByCode[c.code];
-                        return {
-                            code: c.code,
-                            title: c.title || c.name || '',
-                            crn: '',
-                            section: 'CAT',
-                            stat: live ? (live.hasOpen ? 'A' : 'F') : '',
-                            instr: '',
-                            meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
-                            meetingTimes: null,
-                            total: '',
-                            key: c.key,
-                            _isCatalog: true,
-                            _offeredThisTerm: !!live,
-                            _hasOpen: live ? live.hasOpen : false,
-                            _relevanceScore: c._relevanceScore,
-                        };
-                    });
                 }
+
+                if (currentTermOnly) {
+                    // Only show courses offered this term
+                    results = results.filter(c => liveByCode[c.code]);
+                    if (openOnly) results = results.filter(c => liveByCode[c.code]?.hasOpen);
+                }
+
+                // Convert to catalog-style display with availability badges
+                results = results.map(c => {
+                    const live = liveByCode[c.code];
+                    return {
+                        code: c.code,
+                        title: c.title || c.name || '',
+                        crn: '',
+                        section: 'CAT',
+                        stat: live ? (live.hasOpen ? 'A' : 'F') : '',
+                        instr: '',
+                        meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
+                        meetingTimes: null,
+                        total: '',
+                        key: c.key,
+                        _isCatalog: true,
+                        _offeredThisTerm: !!live,
+                        _hasOpen: live ? live.hasOpen : false,
+                        _relevanceScore: c._relevanceScore,
+                    };
+                });
 
                 if (searchId !== this._searchId) return;
                 const prereqData = {};
