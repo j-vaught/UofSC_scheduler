@@ -1,4 +1,4 @@
-#set page(width: 14in, height: 22in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
+#set page(width: 14in, height: 36in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
 #set text(font: "New Computer Modern", size: 9pt)
 
 #let garnet = rgb("#73000A")
@@ -11,10 +11,9 @@
 #let light-blue = rgb("#e8f0fe")
 #let light-tan = rgb("#f5f0e6")
 #let light-green = rgb("#eef5e6")
-#let light-red = rgb("#fde8e8")
 #let light-purple = rgb("#f0e8fe")
 
-// === Drawing primitives ===
+// === Primitives ===
 
 #let box-at(x, y, w, h, body, fill: white, stroke: black90, text-color: black) = {
   place(dx: x, dy: y,
@@ -32,63 +31,47 @@
   )
 }
 
-#let hline(x1, y1, x2, y2, color: black90) = {
-  place(dx: 0pt, dy: 0pt,
-    line(start: (x1, y1), end: (x2, y2), stroke: 1.2pt + color)
-  )
+#let ln(x1, y1, x2, y2, color: black90) = {
+  place(dx: 0pt, dy: 0pt, line(start: (x1, y1), end: (x2, y2), stroke: 1.2pt + color))
 }
 
-#let dashed-line(x1, y1, x2, y2, color: warm-grey) = {
-  place(dx: 0pt, dy: 0pt,
-    line(start: (x1, y1), end: (x2, y2), stroke: (paint: color, thickness: 0.8pt, dash: "dashed"))
-  )
+#let dln(x1, y1, x2, y2, color: warm-grey) = {
+  place(dx: 0pt, dy: 0pt, line(start: (x1, y1), end: (x2, y2), stroke: (paint: color, thickness: 0.8pt, dash: "dashed")))
 }
 
-#let head(x, y, dx, dy, color: black90) = {
+#let hd(x, y, dx, dy, color: black90) = {
   let len = calc.sqrt(dx * dx + dy * dy)
   if len == 0 { return }
-  let ux = dx / len
-  let uy = dy / len
-  let px = -uy
-  let py = ux
-  let s = 4.0
-  place(dx: 0pt, dy: 0pt,
-    polygon(fill: color, stroke: none,
-      (x * 1pt, y * 1pt),
-      ((x - s * ux + s * 0.4 * px) * 1pt, (y - s * uy + s * 0.4 * py) * 1pt),
-      ((x - s * ux - s * 0.4 * px) * 1pt, (y - s * uy - s * 0.4 * py) * 1pt),
-    )
-  )
+  let ux = dx / len; let uy = dy / len
+  let px = -uy; let py = ux; let s = 4.0
+  place(dx: 0pt, dy: 0pt, polygon(fill: color, stroke: none,
+    (x * 1pt, y * 1pt),
+    ((x - s*ux + s*0.4*px)*1pt, (y - s*uy + s*0.4*py)*1pt),
+    ((x - s*ux - s*0.4*px)*1pt, (y - s*uy - s*0.4*py)*1pt)))
 }
 
 #let arr(x1, y1, x2, y2, color: black90) = {
-  hline(x1, y1, x2, y2, color: color)
-  head(x2.pt(), y2.pt(), (x2 - x1).pt(), (y2 - y1).pt(), color: color)
-}
-
-#let arr-vh(x1, y1, x2, y2, color: black90) = {
-  hline(x1, y1, x1, y2, color: color)
-  hline(x1, y2, x2, y2, color: color)
-  head(x2.pt(), y2.pt(), (x2 - x1).pt(), 0.0, color: color)
+  ln(x1, y1, x2, y2, color: color)
+  hd(x2.pt(), y2.pt(), (x2 - x1).pt(), (y2 - y1).pt(), color: color)
 }
 
 #let arr-hv(x1, y1, x2, y2, color: black90) = {
-  hline(x1, y1, x2, y1, color: color)
-  hline(x2, y1, x2, y2, color: color)
-  head(x2.pt(), y2.pt(), 0.0, (y2 - y1).pt(), color: color)
+  ln(x1, y1, x2, y1, color: color)
+  ln(x2, y1, x2, y2, color: color)
+  hd(x2.pt(), y2.pt(), 0.0, (y2 - y1).pt(), color: color)
 }
 
-#let lbl(x, y, body) = {
-  place(dx: x, dy: y, text(size: 6.5pt, fill: warm-grey, body))
+#let arr-vh(x1, y1, x2, y2, color: black90) = {
+  ln(x1, y1, x1, y2, color: color)
+  ln(x1, y2, x2, y2, color: color)
+  hd(x2.pt(), y2.pt(), (x2 - x1).pt(), 0.0, color: color)
 }
 
-#let section(x, y, body) = {
-  place(dx: x, dy: y, text(size: 12pt, weight: "bold", fill: garnet, body))
-}
+#let lbl(x, y, body) = { place(dx: x, dy: y, text(size: 6.5pt, fill: warm-grey, body)) }
 
-#let subsec(x, y, body) = {
-  place(dx: x, dy: y, text(size: 10pt, weight: "bold", fill: atlantic, body))
-}
+#let sec(x, y, body) = { place(dx: x, dy: y, text(size: 12pt, weight: "bold", fill: garnet, body)) }
+
+#let subsec(x, y, body) = { place(dx: x, dy: y, text(size: 10pt, weight: "bold", fill: atlantic, body)) }
 
 // ================================================================
 // TITLE
@@ -99,497 +82,521 @@
 #align(center, text(size: 9pt, fill: warm-grey)[UofSC Course Scheduler --- J.C. Vaught --- April 2026])
 
 // ================================================================
-// SECTION 1: BUILD-TIME (offline, one-time)
+// PHASE 1: BUILD-TIME
 // ================================================================
 
-#let by = 48pt
-#section(0pt, by, [PHASE 1: BUILD-TIME ARTIFACTS #text(size: 9pt, weight: "regular", fill: warm-grey)[(offline, run once per semester)]])
+#let P1 = 50pt
+#sec(0pt, P1, [PHASE 1: BUILD-TIME ARTIFACTS #text(size: 9pt, weight: "regular", fill: warm-grey)[(offline, run once per semester)]])
 
-#let b1y = by + 28pt
+// Row 1: Data → Extract → Model
+#let r1 = P1 + 30pt
 
-// Course data source
-#box-at(0pt, b1y, 150pt, 40pt,
-  [*Course Data*\
+#box-at(0pt, r1, 160pt, 42pt,
+  [*Course Data Source*\
   `course_data.json`\
   9,732 courses\
-  (code, title, description)],
+  code, title, description],
   fill: light-tan, stroke: warm-grey)
 
-#arr(150pt, b1y + 20pt, 180pt, b1y + 20pt)
+#arr(160pt, r1 + 21pt, 200pt, r1 + 21pt)
 
-// Extract phrases
-#box-at(180pt, b1y, 165pt, 40pt,
-  [*Extract Phrases*\
+#box-at(200pt, r1, 180pt, 42pt,
+  [*Extract Academic Phrases*\
   Bigrams + trigrams from\
-  titles and descriptions\
-  `min_count=5`, unique words],
+  all titles and descriptions\
+  `min_count >= 5`, all unique words],
   fill: light-blue, stroke: atlantic)
 
-#note-at(180pt, b1y + 44pt, 165pt,
-  [Filters: stopwords, academic filler\
-  ("course", "student", "includes"...)\
-  Keeps: "deep learning", "heat transfer",\
-  "financial markets", "neural networks"\
-  Result: *6,313 phrases*])
+#arr(380pt, r1 + 21pt, 420pt, r1 + 21pt)
 
-#arr(345pt, b1y + 20pt, 380pt, b1y + 20pt)
-
-// Load model
-#box-at(380pt, b1y, 160pt, 40pt,
+#box-at(420pt, r1, 170pt, 42pt,
   [*Load Embedding Model*\
   `all-MiniLM-L6-v2`\
   384-dim sentence embeddings\
   Trained on 1B+ English pairs],
   fill: light-purple, stroke: congaree)
 
-// Two outputs from model
-#arr(540pt, b1y + 12pt, 600pt, b1y + 12pt)
-#arr(540pt, b1y + 28pt, 600pt, b1y + 28pt)
+// Notes for phrase extraction
+#note-at(0pt, r1 + 52pt, 370pt,
+  [*Phrase extraction details:* Tokenize each course's title + description. Remove stopwords ("the", "and", "is"...) and academic filler ("course", "student", "includes", "provides"...). Generate all consecutive bigrams and trigrams where all words are unique. Keep phrases appearing in 5--485 courses (0.05% cap). Result: *6,313 phrases* including "deep learning", "heat transfer", "financial markets", "cognitive neuroscience", "organic chemistry", etc.])
+
+// Row 2: Embed phrases and courses
+#let r2 = r1 + 115pt
+
+#arr(510pt, r1 + 42pt, 510pt, r2)
 
 // Embed phrases
-#let ep_y = b1y - 12pt
-#box-at(600pt, ep_y, 170pt, 35pt,
-  [*Embed 6,313 Phrases*\
-  Each phrase → 384-dim vector\
-  "deep learning" → $arrow.r$ \[0.023, -0.118, ...\]],
+#box-at(200pt, r2, 210pt, 42pt,
+  [*Embed All 6,313 Phrases*\
+  Each phrase passed through model\
+  "deep learning" → \[0.023, -0.118, ...\]\
+  Output: 6313 $times$ 384 matrix],
   fill: light-blue, stroke: atlantic)
+
+#arr(510pt, r2 + 14pt, 410pt, r2 + 14pt, color: atlantic)
 
 // Embed courses
-#let ec_y = b1y + 30pt
-#box-at(600pt, ec_y, 170pt, 35pt,
-  [*Embed 9,732 Courses*\
-  title + ". " + description\
-  → 384-dim vector per course],
+#box-at(200pt, r2 + 58pt, 210pt, 42pt,
+  [*Embed All 9,732 Courses*\
+  Input: title + ". " + description\
+  Full semantic content per course\
+  Output: 9732 $times$ 384 matrix],
   fill: light-blue, stroke: atlantic)
 
-// PCA
-#let pca_y = b1y + 90pt
+#arr(510pt, r2 + 28pt, 510pt, r2 + 58pt + 14pt)
+#arr(510pt, r2 + 58pt + 14pt, 410pt, r2 + 58pt + 14pt, color: atlantic)
 
-#arr(685pt, ep_y + 35pt, 685pt, pca_y, color: atlantic)
-#arr(685pt, ec_y + 35pt, 685pt, pca_y, color: atlantic)
+// Note
+#note-at(420pt, r2, 480pt,
+  [*Why embed with a sentence model instead of TF-IDF or word2vec?* Sentence-transformers capture the _meaning_ of multi-word phrases as a whole. "Heat transfer" gets an embedding that reflects thermodynamics, not just the average of "heat" and "transfer". The model was trained on 1B+ sentence pairs for semantic similarity, so it produces vectors where similar concepts are geometrically close --- even if they share no words.])
 
-#box-at(580pt, pca_y, 210pt, 55pt,
+// Row 3: PCA
+#let r3 = r2 + 125pt
+
+#arr(305pt, r2 + 100pt, 305pt, r3)
+
+#box-at(130pt, r3, 350pt, 50pt,
   [*PCA Dimensionality Reduction*\
-  Fit on combined phrase + course vectors\
-  Project: 384-dim → *128-dim*\
-  L2 normalize each vector\
-  Quantize to *int8* ($-128$ to $127$)\
-  Variance retained: ~81%],
+  Fit SVD on combined matrix (6,313 + 9,732 = 16,045 vectors $times$ 384)\
+  Keep top 128 principal components → project all vectors to 128-dim\
+  L2 normalize each projected vector to unit length\
+  Quantize to int8: multiply by 127, clamp to \[-128, 127\], round to integer],
   fill: light-blue, stroke: atlantic)
 
-#note-at(580pt, pca_y + 59pt, 210pt,
-  [*Why PCA?* Reduces file sizes by 3$times$ while\
-  retaining 81% of similarity structure.\
-  *Why int8?* Each 128-dim vector = 128 bytes\
-  in JSON, vs 512 bytes for float32.])
+#note-at(500pt, r3, 400pt,
+  [*Why PCA from 384 → 128?* Reduces file sizes by ~3$times$ (128 bytes per vector vs 384) while retaining *81% of variance*. Cosine similarity rankings are nearly identical in the reduced space. PCA is fitted on _both_ phrase and course vectors together so they share the same coordinate system --- a query projected into this space can be compared against either.\
+  \
+  *Why int8 quantization?* A 128-dim float32 vector takes 512 bytes in JSON. An int8 vector takes ~128 bytes (plus JSON comma overhead). For 9,732 courses this saves ~3.7 MB. The quantization error is negligible for ranking purposes --- we only need relative ordering, not exact distances.])
 
-// Output files
-#let oy = pca_y + 115pt
+// Row 4: Output files
+#let r4 = r3 + 105pt
 
-#arr(685pt, pca_y + 55pt, 685pt, oy)
+#arr(305pt, r3 + 50pt, 305pt, r4)
 
-// Three output files
-#box-at(420pt, oy, 145pt, 50pt,
+// Three files fanning out
+#box-at(20pt, r4, 170pt, 50pt,
   [*phrase\_embeddings.json*\
   6,313 entries\
-  phrase → int8\[128\]\
-  *2.4 MB*],
+  `\{ "deep learning": [-42, 17, ...], ... \}`\
+  phrase string → int8\[128\]\
+  *File size: 2.4 MB*],
   fill: light-green, stroke: horseshoe)
 
-#box-at(580pt, oy, 145pt, 50pt,
+#box-at(220pt, r4, 170pt, 50pt,
   [*course\_embeddings.json*\
   9,732 entries\
-  code, title, subject,\
-  key, vec: int8\[128\]\
-  *4.4 MB*],
+  code, title, subject, key\
+  + vec: int8\[128\]\
+  *File size: 4.4 MB*],
   fill: light-green, stroke: horseshoe)
 
-#box-at(740pt, oy, 145pt, 50pt,
+#box-at(420pt, r4, 170pt, 50pt,
   [*pca\_params.json*\
-  mean: float\[384\]\
-  components: float\[128\]\[384\]\
-  *1.0 MB*],
+  mean: float32\[384\]\
+  components: float32\[128\]\[384\]\
+  (128 principal component vectors)\
+  *File size: 1.0 MB*],
   fill: light-green, stroke: horseshoe)
 
-// Fan out from PCA to three output files
-#arr-hv(685pt, pca_y + 55pt, 492pt, oy, color: horseshoe)
-#arr(685pt, pca_y + 55pt, 685pt, oy, color: horseshoe)
-#arr-hv(685pt, pca_y + 55pt, 812pt, oy, color: horseshoe)
+#arr-hv(305pt, r3 + 50pt, 105pt, r4, color: horseshoe)
+#arr(305pt, r3 + 50pt, 305pt, r4, color: horseshoe)
+#arr-hv(305pt, r3 + 50pt, 505pt, r4, color: horseshoe)
+
+#note-at(620pt, r4, 280pt,
+  [*These three files are placed in `static/data/`* and served as static assets by the web server. They are loaded by the browser on first keyword search and cached. Combined with the Transformers.js model (~23 MB from CDN), the total first-time download is *~31 MB*. All subsequent searches use cached data only.])
 
 
 // ================================================================
-// SECTION 2: RUNTIME (in browser)
+// PHASE 2: RUNTIME
 // ================================================================
 
-#let ry = oy + 80pt
-#section(0pt, ry, [PHASE 2: RUNTIME SEARCH #text(size: 9pt, weight: "regular", fill: warm-grey)[(in browser, every keyword search)]])
+#let P2 = r4 + 100pt
+#sec(0pt, P2, [PHASE 2: RUNTIME SEARCH #text(size: 9pt, weight: "regular", fill: warm-grey)[(in browser, every keyword search)]])
 
-// --- Step 1: User input ---
-#let r1y = ry + 28pt
-#subsec(0pt, r1y, [Step 1: User Input])
+// --- Step 1 ---
+#let s1 = P2 + 30pt
+#subsec(0pt, s1, [Step 1: User Input])
 
-#box-at(0pt, r1y + 18pt, 200pt, 30pt,
+#box-at(0pt, s1 + 22pt, 220pt, 32pt,
   [*User types keyword query*\
-  e.g. "car engineering", "brain science"],
-  fill: black10, stroke: black90)
+  Examples: "car engineering", "brain science",\
+  "transfer of heat", "money and investing"],
+  fill: black10)
 
-#note-at(210pt, r1y + 18pt, 190pt,
-  [Input already classified as keyword (not subject\
-  code, course code, CRN, or range pattern).\
-  Minimum 5 characters required.])
+#note-at(250pt, s1 + 22pt, 300pt,
+  [Input has already been classified by the regex cascade as a keyword search (not a subject code, course code, CRN, or range pattern). Minimum length: 5 characters. This triggers the semantic pipeline instead of a direct API query.])
 
-// --- Step 2: Load resources ---
-#let r2y = r1y + 65pt
-#subsec(0pt, r2y, [Step 2: Lazy-Load Resources (first search only)])
+// --- Step 2 ---
+#let s2 = s1 + 80pt
+#subsec(0pt, s2, [Step 2: Lazy-Load Resources #text(size: 8pt, weight: "regular", fill: warm-grey)[(first keyword search only, all in parallel)]])
 
-#arr(100pt, r1y + 48pt, 100pt, r2y + 18pt)
+#arr(110pt, s1 + 54pt, 110pt, s2 + 24pt)
 
-#box-at(0pt, r2y + 18pt, 200pt, 55pt,
+#box-at(0pt, s2 + 24pt, 175pt, 58pt,
   [*Load Transformers.js*\
-  ES module from CDN\
+  ES module import from CDN\
   `\@xenova/transformers\@2.17.2`\
   Initialize pipeline:\
   `feature-extraction`\
   Model: `Xenova/all-MiniLM-L6-v2`],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(220pt, r2y + 18pt, 155pt, 55pt,
-  [*Load phrase\_embeddings*\
-  2.4 MB JSON\
-  Parse + build normalized\
-  Float32 vectors for all\
-  6,313 phrases],
+#box-at(195pt, s2 + 24pt, 150pt, 58pt,
+  [*Load Phrase Embeddings*\
+  `phrase_embeddings.json`\
+  2.4 MB JSON → parse\
+  Build normalized Float32\
+  vectors for 6,313 phrases],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(395pt, r2y + 18pt, 155pt, 55pt,
-  [*Load course\_embeddings*\
-  4.4 MB JSON\
-  Parse + build normalized\
-  Float32 vectors for all\
-  9,732 courses],
+#box-at(365pt, s2 + 24pt, 155pt, 58pt,
+  [*Load Course Embeddings*\
+  `course_embeddings.json`\
+  4.4 MB JSON → parse\
+  Build normalized Float32\
+  vectors for 9,732 courses],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(570pt, r2y + 18pt, 130pt, 55pt,
-  [*Load pca\_params*\
-  1.0 MB JSON\
-  Mean vector (384)\
-  Components (128$times$384)],
+#box-at(540pt, s2 + 24pt, 135pt, 58pt,
+  [*Load PCA Params*\
+  `pca_params.json`\
+  1.0 MB JSON → parse\
+  Mean: 384 floats\
+  Components: 128$times$384],
   fill: light-tan, stroke: warm-grey)
 
-#note-at(720pt, r2y + 18pt, 190pt,
-  [All four loads fire in *parallel*.\
-  Total first-time download: ~31 MB.\
-  *All cached by browser* --- subsequent\
-  searches skip this step entirely.\
-  Model ONNX files: ~23 MB (quantized).])
+#note-at(700pt, s2 + 24pt, 200pt,
+  [All four resources load *in parallel*\
+  (concurrent fetch + parse).\
+  \
+  Total first-time: ~31 MB.\
+  \
+  *All cached by browser.* Subsequent\
+  keyword searches skip this step.\
+  \
+  Shows: "Loading AI search model\
+  (first time only)..."])
 
-#lbl(0pt, r2y + 76pt, [Concurrent])
-#hline(0pt, r2y + 73pt, 700pt, r2y + 73pt, color: warm-grey)
+#dln(0pt, s2 + 84pt, 675pt, s2 + 84pt, color: warm-grey)
+#lbl(0pt, s2 + 86pt, [All four load concurrently via `Promise.all()`])
 
-// --- Step 3: Embed query ---
-#let r3y = r2y + 100pt
-#subsec(0pt, r3y, [Step 3: Embed the Query])
+// --- Step 3 ---
+#let s3 = s2 + 120pt
+#subsec(0pt, s3, [Step 3: Embed the User's Query])
 
-#arr(100pt, r2y + 73pt, 100pt, r3y + 20pt)
+#arr(110pt, s2 + 86pt, 110pt, s3 + 24pt)
 
-#box-at(0pt, r3y + 20pt, 195pt, 42pt,
+#box-at(0pt, s3 + 24pt, 210pt, 45pt,
   [*Sentence Embedding*\
-  Pass full query text to model\
-  "car engineering" → 384 floats\
-  Captures semantic meaning],
+  Pass raw query text to MiniLM model\
+  "car engineering" → 384 float values\
+  Model understands full English],
   fill: light-blue, stroke: atlantic)
 
-#arr(195pt, r3y + 41pt, 230pt, r3y + 41pt)
+#arr(210pt, s3 + 46pt, 250pt, s3 + 46pt)
 
-#box-at(230pt, r3y + 20pt, 195pt, 42pt,
+#box-at(250pt, s3 + 24pt, 200pt, 45pt,
   [*PCA Projection*\
-  Subtract mean (384 floats)\
-  Multiply by components^T\
-  Result: 128-dim vector],
+  For each of 128 output dims:\
+  #h(4pt) $d_i = sum_(j=0)^(383) ("raw"_j - "mean"_j) dot C_(i,j)$\
+  Result: 128-dimensional vector],
   fill: light-blue, stroke: atlantic)
 
-#arr(425pt, r3y + 41pt, 460pt, r3y + 41pt)
+#arr(450pt, s3 + 46pt, 490pt, s3 + 46pt)
 
-#box-at(460pt, r3y + 20pt, 130pt, 42pt,
+#box-at(490pt, s3 + 24pt, 130pt, 45pt,
   [*L2 Normalize*\
-  $arrow.r.double$ unit vector\
-  in PCA space],
+  $v_i = v_i / ||v||$\
+  Unit vector in\
+  shared PCA space],
   fill: light-blue, stroke: atlantic)
 
-#note-at(620pt, r3y + 20pt, 280pt,
-  [*Why the real model instead of word lookup?*\
-  The model understands _any_ English --- colloquial terms,\
-  misspellings, phrases it never saw in training data.\
-  "car" → understands automotive/vehicle/mechanical.\
-  "brain science" → understands neuroscience/cognition.\
-  Word-averaging would fail on out-of-vocabulary terms.])
+#note-at(0pt, s3 + 80pt, 420pt,
+  [*Why use the real model here instead of looking up pre-computed word vectors?* The model understands _any_ English input as a complete phrase --- colloquial terms ("car"), misspellings, slang, and concepts it never saw in course descriptions. A word-lookup approach would fail on out-of-vocabulary terms: "car" never appears in UofSC course descriptions, so it would have no vector. The sentence model knows "car" $approx$ automotive $approx$ vehicle $approx$ mechanical because it was trained on general English.])
 
-#note-at(620pt, r3y + 73pt, 280pt,
-  [*Performance:* ~50--100ms per query on modern hardware.\
-  Model weights are in WASM/WebGPU --- runs entirely\
-  in browser, no server round-trip.])
+#note-at(450pt, s3 + 80pt, 450pt,
+  [*Performance:* The ONNX model runs in WASM/WebGPU entirely in the browser. Single query embedding takes *~50--100ms* on modern hardware. No server round-trip, no API call. The PCA projection and normalization are trivial matrix math (~1ms).])
 
-// --- Step 4: Phrase expansion ---
-#let r4y = r3y + 110pt
-#subsec(0pt, r4y, [Step 4: Expand Query into Academic Phrases])
 
-#arr(525pt, r3y + 62pt, 525pt, r4y + 20pt)
+// --- Step 4 ---
+#let s4 = s3 + 150pt
+#subsec(0pt, s4, [Step 4: Expand Query into Academic Phrases])
 
-#box-at(0pt, r4y + 20pt, 230pt, 52pt,
+#arr(555pt, s3 + 69pt, 555pt, s4 + 24pt)
+
+#box-at(0pt, s4 + 24pt, 255pt, 50pt,
   [*Cosine Similarity Search*\
   Query vector vs all 6,313 phrase vectors\
-  $"sim"(q, p) = q dot p$ (both unit vectors)\
-  ~6,313 dot products of 128 dims\
-  *< 1ms on any device*],
+  $"sim"(q, p) = q dot p$ #h(4pt) (both are unit vectors)\
+  6,313 dot products of 128 dimensions\
+  *Completes in < 1 ms* on any device],
   fill: light-blue, stroke: atlantic)
 
-#arr(230pt, r4y + 46pt, 270pt, r4y + 46pt)
+#arr(255pt, s4 + 49pt, 300pt, s4 + 49pt)
 
-#box-at(270pt, r4y + 20pt, 180pt, 52pt,
-  [*Filter + Select*\
+#box-at(300pt, s4 + 24pt, 195pt, 50pt,
+  [*Filter and Select*\
   Discard phrases with sim < 0.25\
-  Skip exact match of query\
-  Rank by similarity\
-  *Take top 8 phrases*],
+  Skip if phrase = exact query string\
+  (but keep rearrangements!)\
+  Rank remaining by similarity\
+  *Select top 8 phrases*],
   fill: light-blue, stroke: atlantic)
 
-#arr(450pt, r4y + 46pt, 490pt, r4y + 46pt)
+#arr(495pt, s4 + 49pt, 540pt, s4 + 49pt)
 
-#box-at(490pt, r4y + 20pt, 160pt, 52pt,
+#box-at(540pt, s4 + 24pt, 160pt, 50pt,
   [*Build Search List*\
-  \[original query\]\
-  + \[8 expanded phrases\]\
-  = *9 search terms*],
+  1. Original query\
+  2--9. Top 8 expanded phrases\
+  \
+  *= 9 search terms total*],
   fill: light-green, stroke: horseshoe)
 
-#note-at(680pt, r4y + 20pt, 220pt,
-  [*Example:* "machine learning" expands to:\
-  1. "machine learning" _(original)_\
-  2. "deep learning"\
-  3. "data mining"\
-  4. "neural networks"\
-  5. "artificial intelligence"\
-  6. "deep neural networks"\
-  7. "statistical programming"\
-  8. "artificial intelligence ai"\
-  9. "supervised training"])
+#note-at(0pt, s4 + 86pt, 450pt,
+  [*Example:* Query "machine learning" produces these 9 search terms:
 
-// --- Step 5: Dual search ---
-#let r5y = r4y + 100pt
-#subsec(0pt, r5y, [Step 5: Dual Search --- Live API + Local Database])
+  #grid(columns: (auto, auto), column-gutter: 20pt,
+    text(size: 6.5pt)[1. "machine learning" _(original)_\
+    2. "deep learning" _(sim: 0.73)_\
+    3. "data mining" _(sim: 0.72)_\
+    4. "neural networks" _(sim: 0.71)_\
+    5. "artificial intelligence" _(sim: 0.66)_],
+    text(size: 6.5pt)[6. "deep neural networks" _(sim: 0.62)_\
+    7. "statistical programming" _(sim: 0.62)_\
+    8. "artificial intelligence ai" _(sim: 0.60)_\
+    9. "supervised training" _(sim: 0.60)_],
+  )])
 
-#arr(570pt, r4y + 72pt, 570pt, r5y + 20pt)
+#note-at(480pt, s4 + 86pt, 420pt,
+  [*Example:* Query "car engineering" (colloquial) expands to:\
+  "mechanical engineering", "industrial engineering", "engineering projects",\
+  "electrical engineering", "science engineering", "engineering program",\
+  "engineering design", "engineering systems"\
+  \
+  The model bridged "car" → mechanical/industrial/electrical engineering\
+  despite "car" never appearing in any course description.])
 
-// API search (left)
-#box-at(0pt, r5y + 20pt, 250pt, 60pt,
+
+// --- Step 5 ---
+#let s5 = s4 + 195pt
+#subsec(0pt, s5, [Step 5: Dual Search --- Live API + Local Database #text(size: 8pt, weight: "regular", fill: warm-grey)[(parallel)]])
+
+#arr(620pt, s4 + 74pt, 620pt, s5 + 24pt)
+
+// Left: API search
+#box-at(0pt, s5 + 24pt, 300pt, 62pt,
   [*5a. Live API Keyword Search*\
-  Fire *9 concurrent* requests to\
-  USC bulletin API (catalog) or\
-  USC classes API (current term)\
-  Each: `\{ field: "keyword", value: term \}`\
-  Deduplicate results by course code],
+  Fire all *9 search terms concurrently* to\
+  USC bulletin API (catalog mode) or\
+  USC classes API (current-term mode)\
+  Each request: `\{ field: "keyword", value: "deep learning" \}`\
+  Collect all returned courses, deduplicate by course code],
   fill: light-blue, stroke: atlantic)
 
-#arr-hv(570pt, r5y + 20pt, 125pt, r5y + 20pt, color: atlantic)
+#arr-hv(620pt, s5 + 24pt, 150pt, s5 + 24pt, color: atlantic)
 
-// Local search (right)
-#box-at(380pt, r5y + 20pt, 250pt, 60pt,
+// Right: Local search
+#box-at(380pt, s5 + 24pt, 300pt, 62pt,
   [*5b. Local Embedding Search*\
-  Query vector vs 9,732 course vectors\
-  (pre-computed from title + description)\
-  Cosine similarity, threshold *> 0.30*\
-  *Top 30 matches*\
-  Catches courses API keywords missed],
+  Query vector vs all 9,732 pre-computed course vectors\
+  (these encode full title + description, not just title)\
+  Cosine similarity: $q dot c_i$ for each course\
+  Keep courses with similarity *> 0.30*\
+  *Take top 30 matches*],
   fill: light-blue, stroke: atlantic)
 
-#arr(570pt, r5y + 20pt, 505pt, r5y + 20pt, color: atlantic)
+#arr(620pt, s5 + 24pt, 530pt, s5 + 24pt, color: atlantic)
 
-#note-at(660pt, r5y + 20pt, 230pt,
-  [*Why both?*\
-  API search finds courses by keyword matching\
-  in titles and descriptions (USC's search).\
-  Local search finds courses by _semantic_\
-  similarity to the query concept.\
+#note-at(0pt, s5 + 98pt, 420pt,
+  [*Why search the live API at all, if we have local embeddings?*\
+  The local embeddings are a snapshot from the last build. New courses added mid-semester or description changes won't be reflected. The live API always returns current data. The local database is a _supplement_, not a replacement --- it catches courses the API's keyword search misses (because API keyword matching is exact-substring, not semantic).])
+
+#note-at(450pt, s5 + 98pt, 450pt,
+  [*Why 0.30 threshold for local results?* The local course vectors encode rich text (title + full description), so cosine similarities are higher and more meaningful. A 0.30 threshold keeps precision high --- only courses with genuine topical overlap survive. This is higher than the 0.15 used later for title-only scoring because descriptions provide much stronger signal.\
   \
-  A course about "Bayesian Networks" won't\
-  match the keyword "machine learning" but\
-  its description embedding is semantically\
-  close. The local search catches it.])
+  *Why top 30?* Limits the number of additional candidates added beyond the API results. Typically only 5--15 of these 30 are genuinely new (the rest overlap with API results).])
 
-#note-at(660pt, r5y + 100pt, 230pt,
-  [*Why 0.30 threshold for local?*\
-  Local vectors encode full title+description\
-  (richer text), so similarities are higher and\
-  more reliable than title-only comparisons.\
-  0.30 keeps precision high.])
 
-// --- Step 6: Merge ---
-#let r6y = r5y + 105pt
-#subsec(0pt, r6y, [Step 6: Merge and Deduplicate])
+// --- Step 6 ---
+#let s6 = s5 + 190pt
+#subsec(0pt, s6, [Step 6: Merge and Deduplicate])
 
-#arr(125pt, r5y + 80pt, 125pt, r6y + 20pt)
-#arr(505pt, r5y + 80pt, 505pt, r6y + 20pt)
+#arr(150pt, s5 + 86pt, 150pt, s6 + 28pt)
+#arr(530pt, s5 + 86pt, 530pt, s6 + 28pt)
 
-#box-at(170pt, r6y + 20pt, 280pt, 35pt,
+#box-at(200pt, s6 + 24pt, 300pt, 40pt,
   [*Merge by course code*\
-  API results + local results\
-  If same course found in both, keep one (API preferred)\
-  Typical: 60--120 unique candidates],
-  fill: black10, stroke: black90)
+  Combine all API results + all local results\
+  If same course found in both sources, keep one copy\
+  Typical result: *60--120 unique candidate courses*],
+  fill: black10)
 
-#arr-vh(125pt, r6y + 20pt, 170pt, r6y + 37pt, color: black90)
-#arr-vh(505pt, r6y + 20pt, 450pt, r6y + 37pt, color: black90)
+#arr-vh(150pt, s6 + 28pt, 200pt, s6 + 44pt, color: black90)
+#arr-vh(530pt, s6 + 28pt, 500pt, s6 + 44pt, color: black90)
 
-// --- Step 7: Score ---
-#let r7y = r6y + 75pt
-#subsec(0pt, r7y, [Step 7: Score and Filter Results])
+#note-at(540pt, s6 + 24pt, 360pt,
+  [The console logs how many courses came from the API vs how many were added from the local database. Example: `[Semantic] 87 total unique (12 added from local database)` --- meaning the API found 75 courses and the local search contributed 12 more that keyword matching missed.])
 
-#arr(310pt, r6y + 55pt, 310pt, r7y + 20pt)
 
-#box-at(0pt, r7y + 20pt, 220pt, 55pt,
-  [*Batch Embed All Titles*\
-  Collect all candidate titles\
-  Single model call: all titles at once\
-  Output: N $times$ 384-dim matrix\
-  (~100ms for 80 titles)],
+// --- Step 7 ---
+#let s7 = s6 + 100pt
+#subsec(0pt, s7, [Step 7: Score and Filter All Candidate Results])
+
+#arr(350pt, s6 + 64pt, 350pt, s7 + 24pt)
+
+#box-at(0pt, s7 + 24pt, 230pt, 52pt,
+  [*Batch-Embed All Titles*\
+  Collect all candidate course titles\
+  Single model call (batched):\
+  N titles → N $times$ 384-dim vectors\
+  *~100ms for 80 titles*],
   fill: light-blue, stroke: atlantic)
 
-#arr(220pt, r7y + 47pt, 260pt, r7y + 47pt)
+#arr(230pt, s7 + 50pt, 270pt, s7 + 50pt)
 
-#box-at(260pt, r7y + 20pt, 180pt, 55pt,
-  [*PCA + Normalize Each*\
-  For each title vector:\
-  Subtract mean, multiply\
-  by components^T → 128-dim\
-  L2 normalize],
+#box-at(270pt, s7 + 24pt, 200pt, 52pt,
+  [*PCA + Normalize Each Title*\
+  For each title's 384-dim vector:\
+  Subtract mean, multiply by C^T\
+  → 128-dim PCA vector\
+  L2 normalize to unit length],
   fill: light-blue, stroke: atlantic)
 
-#arr(440pt, r7y + 47pt, 480pt, r7y + 47pt)
+#arr(470pt, s7 + 50pt, 510pt, s7 + 50pt)
 
-#box-at(480pt, r7y + 20pt, 180pt, 55pt,
-  [*Cosine Sim vs Query*\
-  $"score" = q dot t_i$\
+#box-at(510pt, s7 + 24pt, 190pt, 52pt,
+  [*Cosine Similarity vs Query*\
+  $"score"_i = q dot t_i$\
   *Discard if score < 0.15*\
-  Sort descending\
-  *Keep top 50*],
+  Sort remaining by score desc.\
+  *Keep top 50 results*],
   fill: light-blue, stroke: atlantic)
 
-#note-at(690pt, r7y + 20pt, 210pt,
-  [*Why embed titles again here?*\
-  The API results only have titles (not\
-  descriptions). We need the _model's_\
-  understanding of each title vs the query,\
-  not just keyword overlap.\
+#note-at(0pt, s7 + 88pt, 450pt,
+  [*Why embed titles with the model instead of using the local course vectors?*\
+  Two reasons: (1) Many results came from the live API and don't have pre-computed vectors --- only the local database courses have those. (2) The title embedding lets us score _what the user will actually see_ (the title) against their query. A course might have "machine learning" in its description but its title is "Advanced Statistical Methods" --- the title similarity tells us whether the result will _look_ relevant to the user.])
+
+#note-at(480pt, s7 + 88pt, 420pt,
+  [*Why 0.15 threshold (lower than the 0.30 for local search)?*\
+  Title-only text is much shorter than title+description, so embedding similarities are inherently lower. "Automotive System Fundamentals" scores 0.47 against "car engineering" despite sharing zero words --- a strong match. But many valid results score in the 0.15--0.30 range. The 0.15 threshold removes clear noise (courses about dance, music, etc.) while keeping borderline-relevant courses.\
   \
-  "Automotive System Fundamentals" scores\
-  0.47 against "car engineering" despite\
-  sharing zero words.])
+  *Example scores for "machine learning":*\
+  1.00 "Machine Learning" | 0.66 "Artificial Intelligence" | 0.53 "Neural Networks" | 0.23 "AI Ethics" | -0.13 "Global Dance Forms" (filtered)])
 
-#note-at(690pt, r7y + 88pt, 210pt,
-  [*Why 0.15 threshold?*\
-  Lower than local search (0.30) because\
-  title-only embeddings are shorter text\
-  and produce lower but still meaningful\
-  similarity scores. 0.15 removes clear\
-  noise while keeping borderline-relevant\
-  courses.])
 
-// --- Step 8: Availability ---
-#let r8y = r7y + 110pt
-#subsec(0pt, r8y, [Step 8: Cross-Reference with Live Term Data])
+// --- Step 8 ---
+#let s8 = s7 + 195pt
+#subsec(0pt, s8, [Step 8: Cross-Reference with Live Term Data])
 
-#arr(570pt, r7y + 75pt, 570pt, r8y + 20pt)
+#arr(605pt, s7 + 76pt, 605pt, s8 + 24pt)
 
-#box-at(100pt, r8y + 20pt, 250pt, 55pt,
-  [*Fetch Live Sections*\
-  Extract unique subjects from results\
-  Fire *concurrent* subject queries to\
-  classes API for selected term\
-  Build map: code → \{sections, hasOpen\}],
+#box-at(50pt, s8 + 24pt, 280pt, 55pt,
+  [*Fetch Live Section Data*\
+  Extract unique subject codes from results\
+  (e.g., CSCE, MATH, STAT, BIOL, FINA...)\
+  Fire *concurrent* subject queries to classes API\
+  for the user's selected term\
+  Build map: course code → \{sections, hasOpen\}],
   fill: light-tan, stroke: warm-grey)
 
-#arr(350pt, r8y + 47pt, 400pt, r8y + 47pt)
+#arr(330pt, s8 + 51pt, 390pt, s8 + 51pt)
 
-#box-at(400pt, r8y + 20pt, 220pt, 55pt,
-  [*Apply Filters*\
-  If "current term only" checked:\
-  #h(6pt) remove courses not offered this term\
-  If "open sections only" checked:\
-  #h(6pt) remove courses with no open sections\
-  Add availability badges to all],
+#box-at(390pt, s8 + 24pt, 250pt, 55pt,
+  [*Apply User's Filters*\
+  If *"current term only"* is checked:\
+  #h(8pt) remove courses with no sections this term\
+  If *"open sections only"* is checked:\
+  #h(8pt) remove courses where all sections are full\
+  For remaining: add availability badge\
+  #h(8pt) (term label / FULL / N/A)],
   fill: light-tan, stroke: warm-grey)
 
-#note-at(650pt, r8y + 20pt, 240pt,
-  [*API calls here:* one per unique subject in\
-  results. Typically 10--25 subjects. All fire\
-  concurrently → latency = single round-trip.\
+#note-at(670pt, s8 + 24pt, 230pt,
+  [Typically *10--25 subject queries*, all\
+  fired concurrently. Total latency equals\
+  one API round-trip (~200ms).\
   \
-  This is the _only_ step where current-term\
-  filtering happens. All prior steps search\
-  the full catalog regardless of term.])
+  This is the *only step* where term\
+  filtering occurs. All prior steps\
+  search the full catalog. This means\
+  if the user unchecks "current term\
+  only", they see _all_ matching courses\
+  with availability badges.])
 
-// --- Step 9: Render ---
-#let r9y = r8y + 100pt
-#subsec(0pt, r9y, [Step 9: Render])
 
-#arr(510pt, r8y + 75pt, 510pt, r9y + 20pt)
+// --- Step 9 ---
+#let s9 = s8 + 115pt
+#subsec(0pt, s9, [Step 9: Render Results])
 
-#box-at(180pt, r9y + 20pt, 300pt, 50pt,
-  [*Display Results*\
-  Group by course code, sorted by similarity score\
-  Show "Also searched:" expanded phrase tags\
-  Each course: code, title, availability badge\
-  Expandable: sections, prerequisites, offering history],
+#arr(515pt, s8 + 79pt, 515pt, s9 + 24pt)
+
+#box-at(200pt, s9 + 24pt, 340pt, 52pt,
+  [*Display Ranked Results*\
+  Group by course code, sorted by cosine similarity score\
+  Header: "Also searched:" with expanded phrase tags\
+  Each course: code, title, similarity-based relevance, availability badge\
+  Expandable: individual sections, prerequisites, offering history],
   fill: garnet, stroke: garnet, text-color: white)
 
+
 // ================================================================
-// SUMMARY BOX
+// SUMMARY
 // ================================================================
 
-#let sy = r9y + 95pt
+#let SU = s9 + 105pt
 
-#place(dx: 0pt, dy: sy,
-  rect(width: 900pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 1pt + black10, inset: 12pt,
+#place(dx: 0pt, dy: SU,
+  rect(width: 900pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 1pt + black10, inset: 14pt,
     [
-      #text(size: 10pt, weight: "bold", fill: garnet)[Summary of Resources and Performance]\
-      #v(4pt)
+      #text(size: 11pt, weight: "bold", fill: garnet)[Summary of Resources and Performance]\
+      #v(6pt)
       #grid(columns: (220pt, 220pt, 220pt, 220pt), column-gutter: 8pt,
         [
-          #text(size: 8pt, weight: "bold")[Static Files (cached)]\
-          #text(size: 7pt)[
-          - Transformers.js + model: 23 MB
-          - phrase\_embeddings.json: 2.4 MB
-          - course\_embeddings.json: 4.4 MB
-          - pca\_params.json: 1.0 MB
+          #text(size: 8.5pt, weight: "bold")[Static Files (browser-cached)]\
+          #v(2pt)
+          #text(size: 7.5pt)[
+          - Transformers.js + ONNX model: *23 MB*
+          - phrase\_embeddings.json: *2.4 MB*
+          - course\_embeddings.json: *4.4 MB*
+          - pca\_params.json: *1.0 MB*
           - *Total first load: ~31 MB*
+          - Subsequent loads: 0 (all cached)
           ]
         ],
         [
-          #text(size: 8pt, weight: "bold")[API Calls per Search]\
-          #text(size: 7pt)[
-          - Phrase expansion: 0 (local math)
+          #text(size: 8.5pt, weight: "bold")[API Calls per Search]\
+          #v(2pt)
+          #text(size: 7.5pt)[
+          - Phrase expansion: *0* (local math)
           - Keyword searches: *9 concurrent*
-          - Local DB search: 0 (local math)
-          - Availability: 10--25 concurrent
+          - Local DB search: *0* (local math)
+          - Title scoring: *0* (local model)
+          - Availability: *10--25 concurrent*
           - *Total latency: ~1--2 seconds*
           ]
         ],
         [
-          #text(size: 8pt, weight: "bold")[Client Computation]\
-          #text(size: 7pt)[
-          - Query embedding: ~50--100ms
-          - Phrase similarity: < 1ms
-          - Local course similarity: ~5ms
-          - Title batch embedding: ~100ms
+          #text(size: 8.5pt, weight: "bold")[Client-Side Computation]\
+          #v(2pt)
+          #text(size: 7.5pt)[
+          - Query embedding: *50--100ms*
+          - Phrase similarity (6,313): *< 1ms*
+          - Local course similarity (9,732): *~5ms*
+          - Title batch embedding (~80): *~100ms*
+          - PCA projections: *< 1ms*
           - *Total compute: ~200ms*
           ]
         ],
         [
-          #text(size: 8pt, weight: "bold")[Build Step (once/semester)]\
-          #text(size: 7pt)[
-          - `scrape_courses.py`: ~12 min
-          - `build_embeddings.py`: ~30 sec
-          - Requires: sentence-transformers
+          #text(size: 8.5pt, weight: "bold")[Build Step (once per semester)]\
+          #v(2pt)
+          #text(size: 7.5pt)[
+          - `scrape_courses.py`: *~12 min*\
+            #h(8pt) (9,732 API calls, concurrent)
+          - `build_embeddings.py`: *~30 sec*\
+            #h(8pt) (requires sentence-transformers)
+          - Output: 3 JSON files (7.8 MB)
           - Re-run when catalog changes
           ]
         ],
@@ -602,25 +609,25 @@
 // LEGEND
 // ================================================================
 
-#let ly = sy + 115pt
-#place(dx: 0pt, dy: ly,
+#let LG = SU + 145pt
+#place(dx: 0pt, dy: LG,
   rect(width: 900pt, height: 35pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 8pt,
     grid(columns: (12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto),
       column-gutter: 4pt, align: horizon,
       rect(width: 12pt, height: 12pt, fill: light-blue, stroke: 1pt + atlantic),
-      text(size: 7pt)[Client-side computation],
+      text(size: 7.5pt)[Client-side computation],
       [],
       rect(width: 12pt, height: 12pt, fill: light-tan, stroke: 1pt + warm-grey),
-      text(size: 7pt)[Data loading / API calls],
+      text(size: 7.5pt)[Data loading / API calls],
       [],
       rect(width: 12pt, height: 12pt, fill: light-green, stroke: 1pt + horseshoe),
-      text(size: 7pt)[Static data artifacts],
+      text(size: 7.5pt)[Static data artifacts],
       [],
       rect(width: 12pt, height: 12pt, fill: light-purple, stroke: 1pt + congaree),
-      text(size: 7pt)[ML model],
+      text(size: 7.5pt)[ML model],
       [],
       rect(width: 12pt, height: 12pt, fill: garnet, stroke: 1pt + garnet),
-      text(size: 7pt)[Entry / exit],
+      text(size: 7.5pt)[Entry / exit points],
     )
   )
 )
