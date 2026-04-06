@@ -41,12 +41,6 @@
   hd(x2.pt(), y2.pt(), (x2 - x1).pt(), (y2 - y1).pt(), color: color)
 }
 
-#let arr-hv(x1, y1, x2, y2, color: black90) = {
-  ln(x1, y1, x2, y1, color: color)
-  ln(x2, y1, x2, y2, color: color)
-  hd(x2.pt(), y2.pt(), 0.0, (y2 - y1).pt(), color: color)
-}
-
 // ================================================================
 // TITLE
 // ================================================================
@@ -58,189 +52,215 @@
 #align(center, text(size: 8pt, fill: warm-grey)[Offline process, run once per semester via `build_embeddings.py`])
 
 // ================================================================
-// Layout: centered column, top to bottom
-// Page content width ~706pt (11in - 1.2in margins)
-// Center reference: 353pt
+// Layout following the editor sketch:
+//
+//   Row 1:  [Model/A02]              [Course Data/A01]
+//   Row 2:      [Extract Phrases/A03]    [Extract Descriptions/A04]
+//   Row 3:      [Embed Phrases/A05]      [Embed Courses/A06]
+//   Row 4:              [PCA/A07]
+//   Row 5:  [phrases.json/A08]  [courses.json/A09]  [pca.json/A10]
+//
+// Model feeds both embed steps (A05, A06) via elbowed arrows.
+// Course Data feeds both extract steps (A03, A04).
 // ================================================================
 
-#let cx = 353pt  // center x
+// Column positions
+#let col-l = 80pt    // left column center
+#let col-cl = 220pt  // center-left
+#let col-cr = 430pt  // center-right
+#let col-r = 570pt   // right column center
+
+// Box sizes
+#let bw = 200pt    // standard box width
+#let bh = 52pt     // standard box height
+#let bw-out = 185pt // output box width
+
+// Row Y positions
+#let y1 = 55pt
+#let y2 = 155pt
+#let y3 = 270pt
+#let y4 = 385pt
+#let y5 = 500pt
 
 // ================================================================
-// ROW 1: Course Data (input)
+// ROW 1: Course Data (right) + Model (left)
 // ================================================================
 
-#let r1 = 58pt
-#let r1w = 240pt
-
-#box-at(cx - r1w/2, r1, r1w, 48pt,
+// A01: Course Data Source
+#box-at(col-cr - 10pt, y1, bw + 10pt, bh,
   [*Course Data Source*\
   `course_data.json` --- 9,732 courses\
   Scraped from USC academic bulletin API\
   Fields: code, title, description],
   fill: light-tan, stroke: warm-grey)
 
-#arr(cx, r1 + 48pt, cx, r1 + 78pt)
+// A02: MiniLM Model
+#box-at(col-l - 50pt, y1, bw, bh,
+  [*Embedding Model*\
+  `all-MiniLM-L6-v2`\
+  384-dim sentence embeddings\
+  Trained on 1B+ English sentence pairs],
+  fill: light-purple, stroke: congaree)
 
 // ================================================================
-// ROW 2: Extract phrases + Load model (side by side)
+// ROW 2: Extract Phrases (center-left) + Extract Descriptions (center-right)
 // ================================================================
 
-#let r2 = r1 + 78pt
-#let r2w = 220pt
-#let r2gap = 60pt  // gap between the two boxes
-
-#box-at(cx - r2w - r2gap/2, r2, r2w, 55pt,
+// A03: Extract Academic Phrases
+#box-at(col-cl - 95pt, y2, bw + 10pt, bh + 5pt,
   [*Extract Academic Phrases*\
-  Generate all bigrams + trigrams\
-  from course titles and descriptions\
-  Filter: min 5 occurrences, all unique words\
+  Generate bigrams + trigrams\
+  from titles and descriptions\
+  Filter: min 5 occurrences, unique words\
   Remove stopwords + academic filler\
   *Result: 6,313 phrases*],
   fill: light-blue, stroke: atlantic)
 
-#box-at(cx + r2gap/2, r2, r2w, 55pt,
-  [*Load Embedding Model*\
-  `all-MiniLM-L6-v2`\
-  384-dim sentence embeddings\
-  Trained on 1B+ English sentence pairs\
-  General-purpose English model],
-  fill: light-purple, stroke: congaree)
-
-// Arrow from data down, then split left and right
-#let split-y = r1 + 63pt
-// Left branch
-#ln(cx, split-y, cx - r2gap/2 - r2w/2, split-y, color: black90)
-#arr(cx - r2gap/2 - r2w/2, split-y, cx - r2gap/2 - r2w/2, r2, color: black90)
-// Right branch
-#ln(cx, split-y, cx + r2gap/2 + r2w/2, split-y, color: black90)
-#arr(cx + r2gap/2 + r2w/2, split-y, cx + r2gap/2 + r2w/2, r2, color: black90)
+// A04: Extract Course Descriptions
+#box-at(col-cr - 10pt, y2, bw + 10pt, bh,
+  [*Prepare Course Texts*\
+  Concatenate: title + ". " + description\
+  for each of 9,732 courses\
+  Full semantic content per course],
+  fill: light-blue, stroke: atlantic)
 
 // ================================================================
-// ROW 3: Embed phrases + Embed courses (side by side)
-// Both receive input from row 2
+// ROW 3: Embed Phrases (center-left) + Embed Courses (center-right)
 // ================================================================
 
-#let r3 = r2 + 90pt
-#let r3w = 220pt
-
-#box-at(cx - r3w - r2gap/2, r3, r3w, 52pt,
-  [*Embed All 6,313 Phrases*\
-  Pass each phrase through MiniLM model\
+// A05: Embed Phrases
+#box-at(col-cl - 95pt, y3, bw + 10pt, bh,
+  [*Embed 6,313 Phrases*\
+  Each phrase → MiniLM model\
   "deep learning" → 384 float values\
-  "neural networks" → 384 float values\
   Output: 6,313 $times$ 384 matrix],
   fill: light-blue, stroke: atlantic)
 
-#box-at(cx + r2gap/2, r3, r3w, 52pt,
-  [*Embed All 9,732 Courses*\
-  Input per course: title + ". " + description\
-  Full semantic content captured\
+// A06: Embed Courses
+#box-at(col-cr - 10pt, y3, bw + 10pt, bh,
+  [*Embed 9,732 Courses*\
+  Each text → MiniLM model\
   Output: 9,732 $times$ 384 matrix\
   ~15 seconds on CPU],
   fill: light-blue, stroke: atlantic)
 
-// Arrows from row 2 to row 3
-// Left: Extract phrases → Embed phrases
-#arr(cx - r2gap/2 - r2w/2, r2 + 55pt, cx - r2gap/2 - r2w/2, r3, color: atlantic)
-// Right: Load model feeds both embed boxes
-// Model center → down, then split left and right
-#let model-cx = cx + r2gap/2 + r2w/2
-#let model-split-y = r2 + 70pt
-#arr(model-cx, r2 + 55pt, model-cx, model-split-y, color: congaree)
-// Right branch: straight down to embed courses
-#arr(model-cx, model-split-y, model-cx, r3, color: congaree)
-// Left branch: over to embed phrases
-#let phrase-cx = cx - r2gap/2 - r2w/2 + r2w  // right edge of embed phrases box
-#ln(model-cx, model-split-y, phrase-cx, model-split-y, color: congaree)
-#arr(phrase-cx, model-split-y, phrase-cx, r3, color: congaree)
-
 // ================================================================
-// ROW 4: PCA (full width, centered)
+// ROW 4: PCA (centered)
 // ================================================================
 
-#let r4 = r3 + 90pt
-#let r4w = 500pt
-
-// Arrows from both embed boxes down to PCA
-#let pca-top-y = r4
-#let merge-y = r3 + 68pt
-#arr(cx - r2gap/2 - r2w/2, r3 + 52pt, cx - r2gap/2 - r2w/2, merge-y, color: atlantic)
-#ln(cx - r2gap/2 - r2w/2, merge-y, cx, merge-y, color: atlantic)
-#arr(cx + r2gap/2 + r2w/2, r3 + 52pt, cx + r2gap/2 + r2w/2, merge-y, color: atlantic)
-#ln(cx + r2gap/2 + r2w/2, merge-y, cx, merge-y, color: atlantic)
-#arr(cx, merge-y, cx, r4, color: atlantic)
-
-#box-at(cx - r4w/2, r4, r4w, 62pt,
+// A07: PCA
+#box-at(col-cl - 30pt, y4, 350pt, 62pt,
   [*PCA Dimensionality Reduction*\
-  Concatenate phrase + course vectors into single matrix: 16,045 $times$ 384\
+  Concatenate phrase + course vectors: 16,045 $times$ 384\
   Compute SVD, keep top 128 principal components\
-  Project all vectors: 384-dim → *128-dim* (retains *81% of variance*)\
-  L2 normalize each projected vector to unit length\
-  Quantize to *int8*: multiply by 127, clamp to \[-128, 127\], round to nearest integer],
+  Project: 384-dim → *128-dim* (retains *81% of variance*)\
+  L2 normalize, quantize to *int8* \[-128, 127\]],
   fill: light-blue, stroke: atlantic)
 
 // ================================================================
-// ROW 5: Three output files (fanning out)
+// ROW 5: Three output files
 // ================================================================
 
-#let r5 = r4 + 100pt
-#let r5w = 190pt
-#let r5gap = 20pt
-#let total-r5 = 3 * r5w + 2 * r5gap  // 610pt
-#let r5-left = cx - total-r5/2
-
-// Fan-out arrow from PCA center
-#arr(cx, r4 + 62pt, cx, r5, color: horseshoe)
-// Left branch
-#arr-hv(cx, r4 + 75pt, r5-left + r5w/2, r5, color: horseshoe)
-// Right branch
-#arr-hv(cx, r4 + 75pt, r5-left + 2*r5w + 2*r5gap + r5w/2 - r5w, r5, color: horseshoe)
-
-#box-at(r5-left, r5, r5w, 60pt,
+// A08: phrase_embeddings.json
+#box-at(20pt, y5, bw-out, 55pt,
   [*phrase\_embeddings.json*\
-  6,313 entries\
-  phrase string → int8\[128\] vector\
-  Example: `"deep learning": [-42, 17, ...]`\
-  *File size: 2.4 MB*],
+  6,313 phrases → int8\[128\]\
+  `"deep learning": [-42, 17, ...]`\
+  *2.4 MB*],
   fill: light-green, stroke: horseshoe)
 
-#box-at(r5-left + r5w + r5gap, r5, r5w, 60pt,
+// A09: course_embeddings.json
+#box-at(col-cl + 10pt, y5, bw-out, 55pt,
   [*course\_embeddings.json*\
-  9,732 entries\
-  code, title, subject, key\
-  vec: int8\[128\]\
-  *File size: 4.4 MB*],
+  9,732 courses with metadata\
+  code, title, subject, key, vec\
+  *4.4 MB*],
   fill: light-green, stroke: horseshoe)
 
-#box-at(r5-left + 2*(r5w + r5gap), r5, r5w, 60pt,
+// A10: pca_params.json
+#box-at(col-cr + 20pt, y5, bw-out, 55pt,
   [*pca\_params.json*\
-  mean: float32\[384\] (centering)\
+  mean: float32\[384\]\
   components: float32\[128\]\[384\]\
-  (128 principal component vectors)\
-  *File size: 1.0 MB*],
+  *1.0 MB*],
   fill: light-green, stroke: horseshoe)
 
-// Served to browser label
-#place(dx: cx - 120pt, dy: r5 + 68pt,
-  text(size: 7.5pt, fill: warm-grey, style: "italic")[All three files placed in `static/data/` and served to browser as cached static assets])
+// ================================================================
+// ARROWS
+// ================================================================
+
+// A01 (Course Data) → A04 (Extract Descriptions) — straight down
+#arr(col-cr + 95pt, y1 + bh, col-cr + 95pt, y2)
+
+// A01 (Course Data) → A03 (Extract Phrases) — elbow: down then left
+#ln(col-cr + 50pt, y1 + bh, col-cr + 50pt, y1 + bh + 18pt, color: black90)
+#ln(col-cr + 50pt, y1 + bh + 18pt, col-cl - 5pt, y1 + bh + 18pt, color: black90)
+#arr(col-cl - 5pt, y1 + bh + 18pt, col-cl - 5pt, y2, color: black90)
+
+// A03 (Extract Phrases) → A05 (Embed Phrases) — straight down
+#arr(col-cl - 5pt, y2 + bh + 5pt, col-cl - 5pt, y3)
+
+// A04 (Extract Descriptions) → A06 (Embed Courses) — straight down
+#arr(col-cr + 95pt, y2 + bh, col-cr + 95pt, y3)
+
+// A02 (Model) → A05 (Embed Phrases) — elbow: down, right, down
+#ln(col-l, y1 + bh, col-l, y2 + 30pt, color: congaree)
+#ln(col-l, y2 + 30pt, col-cl - 50pt, y2 + 30pt, color: congaree)
+#ln(col-cl - 50pt, y2 + 30pt, col-cl - 50pt, y3 - 15pt, color: congaree)
+#arr(col-cl - 50pt, y3 - 15pt, col-cl - 50pt, y3, color: congaree)
+
+// A02 (Model) → A06 (Embed Courses) — elbow: down, right far, down
+#ln(col-l + 50pt, y1 + bh, col-l + 50pt, y2 + 15pt, color: congaree)
+#ln(col-l + 50pt, y2 + 15pt, col-cr + 50pt, y2 + 15pt, color: congaree)
+#ln(col-cr + 50pt, y2 + 15pt, col-cr + 50pt, y3 - 15pt, color: congaree)
+#arr(col-cr + 50pt, y3 - 15pt, col-cr + 50pt, y3, color: congaree)
+
+// A05 (Embed Phrases) → A07 (PCA) — elbow: down, right to PCA left
+#ln(col-cl - 5pt, y3 + bh, col-cl - 5pt, y3 + bh + 25pt, color: atlantic)
+#ln(col-cl - 5pt, y3 + bh + 25pt, col-cl + 70pt, y3 + bh + 25pt, color: atlantic)
+#ln(col-cl + 70pt, y3 + bh + 25pt, col-cl + 70pt, y4 - 12pt, color: atlantic)
+#arr(col-cl + 70pt, y4 - 12pt, col-cl + 70pt, y4, color: atlantic)
+
+// A06 (Embed Courses) → A07 (PCA) — elbow: down, left to PCA right
+#ln(col-cr + 50pt, y3 + bh, col-cr + 50pt, y3 + bh + 25pt, color: atlantic)
+#ln(col-cr + 50pt, y3 + bh + 25pt, col-cl + 220pt, y3 + bh + 25pt, color: atlantic)
+#ln(col-cl + 220pt, y3 + bh + 25pt, col-cl + 220pt, y4 - 12pt, color: atlantic)
+#arr(col-cl + 220pt, y4 - 12pt, col-cl + 220pt, y4, color: atlantic)
+
+// A07 (PCA) → A08 (phrase_embeddings.json)
+#ln(col-cl + 50pt, y4 + 62pt, col-cl + 50pt, y4 + 82pt, color: horseshoe)
+#ln(col-cl + 50pt, y4 + 82pt, 112pt, y4 + 82pt, color: horseshoe)
+#arr(112pt, y4 + 82pt, 112pt, y5, color: horseshoe)
+
+// A07 (PCA) → A09 (course_embeddings.json)
+#arr(col-cl + 145pt, y4 + 62pt, col-cl + 145pt, y5, color: horseshoe)
+
+// A07 (PCA) → A10 (pca_params.json)
+#ln(col-cl + 240pt, y4 + 62pt, col-cl + 240pt, y4 + 82pt, color: horseshoe)
+#ln(col-cl + 240pt, y4 + 82pt, col-cr + 112pt, y4 + 82pt, color: horseshoe)
+#arr(col-cr + 112pt, y4 + 82pt, col-cr + 112pt, y5, color: horseshoe)
 
 // ================================================================
+// Footer
+// ================================================================
+
+#place(dx: 130pt, dy: y5 + 63pt,
+  text(size: 7.5pt, fill: warm-grey, style: "italic")[All three files placed in `static/data/` and served to the browser as cached static assets])
+
 // Legend
-// ================================================================
-
-#let LG = r5 + 100pt
+#let LG = y5 + 85pt
 #place(dx: 0pt, dy: LG,
-  rect(width: 706pt, height: 30pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 6pt,
+  rect(width: 706pt, height: 28pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 5pt,
     grid(columns: (12pt, auto, 28pt, 12pt, auto, 28pt, 12pt, auto, 28pt, 12pt, auto),
       column-gutter: 4pt, align: horizon,
       rect(width: 12pt, height: 12pt, fill: light-blue, stroke: 1pt + atlantic),
-      text(size: 7pt)[Computation step],
+      text(size: 7pt)[Computation],
       [],
       rect(width: 12pt, height: 12pt, fill: light-tan, stroke: 1pt + warm-grey),
       text(size: 7pt)[Input data],
       [],
       rect(width: 12pt, height: 12pt, fill: light-green, stroke: 1pt + horseshoe),
-      text(size: 7pt)[Output artifacts (served to browser)],
+      text(size: 7pt)[Output artifacts],
       [],
       rect(width: 12pt, height: 12pt, fill: light-purple, stroke: 1pt + congaree),
       text(size: 7pt)[ML model],
