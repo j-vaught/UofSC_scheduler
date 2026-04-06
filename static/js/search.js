@@ -3,6 +3,138 @@ const Search = {
     _prereqCache: {},
     _searchId: 0,
     _subjects: [],
+    _termMap: null,
+    _termMapLoading: null,
+
+    // Lazy-load the term co-occurrence map for semantic search
+    async _loadTermMap() {
+        if (this._termMap) return this._termMap;
+        if (this._termMapLoading) return this._termMapLoading;
+        this._termMapLoading = fetch('/static/data/term_map.json')
+            .then(r => r.json())
+            .then(map => { this._termMap = map; return map; });
+        return this._termMapLoading;
+    },
+
+    // Tokenize a query into lowercase words (3+ chars, no stopwords)
+    _tokenize(text) {
+        const stops = new Set(['the','and','for','with','from','that','this','are','was',
+            'were','been','being','have','has','had','its','into','also','can','will',
+            'may','but','not','all','any','each','how','our','per','use','used','who',
+            'which','about','some','such','than','more','most','very','other','them',
+            'they','what','when','where','only','just','both','then','could','would',
+            'should','these','those','does','did','your','there']);
+        return text.toLowerCase().match(/[a-z]{3,}/g)?.filter(w => !stops.has(w)) || [];
+    },
+
+    // Expand a keyword query using the term map. Returns array of search strings.
+    _expandQuery(query, termMap) {
+        const tokens = this._tokenize(query);
+        if (!tokens.length) return [query];
+
+        // For each token, get related terms from the map
+        const relatedScores = {};  // term → count of how many query tokens it relates to
+        for (const tok of tokens) {
+            const related = termMap[tok] || [];
+            for (let i = 0; i < Math.min(related.length, 10); i++) {
+                const r = related[i];
+                if (!tokens.includes(r)) {
+                    relatedScores[r] = (relatedScores[r] || 0) + (10 - i) / 10;
+                }
+            }
+        }
+
+        // Sort by score (terms related to multiple query tokens rank higher)
+        const ranked = Object.entries(relatedScores)
+            .sort((a, b) => b[1] - a[1])
+            .map(e => e[0]);
+
+        // Build search queries: original query first, then top expanded terms
+        const searches = [query];
+        const maxExpanded = 8;
+        for (let i = 0; i < Math.min(ranked.length, maxExpanded); i++) {
+            searches.push(ranked[i]);
+        }
+        return searches;
+    },
+
+    // Score a result against the original query for relevance ranking
+    _scoreResult(result, queryTokens, allSearchTerms) {
+        const title = (result.title || '').toLowerCase();
+        const code = (result.code || '').toLowerCase();
+        let score = 0;
+
+        // Exact query phrase in title = highest signal
+        const queryStr = queryTokens.join(' ');
+        if (title.includes(queryStr)) score += 20;
+
+        // Each original query token in title
+        for (const tok of queryTokens) {
+            if (title.includes(tok)) score += 5;
+            if (code.includes(tok)) score += 2;
+        }
+
+        // Expanded terms in title (lower weight)
+        for (const term of allSearchTerms) {
+            if (!queryTokens.includes(term) && title.includes(term)) score += 2;
+        }
+
+        return score;
+    },
+
+    // Semantic keyword search: expand query, concurrent API calls, dedupe + rank
+    async _doSemanticSearch(query, currentTermOnly, openOnly, searchId) {
+        const termMap = await this._loadTermMap();
+        if (searchId !== this._searchId) return null;
+
+        const searches = this._expandQuery(query, termMap);
+        const queryTokens = this._tokenize(query);
+
+        console.log(`[Semantic] "${query}" → ${searches.length} searches:`, searches);
+
+        // Fire all searches concurrently
+        const promises = searches.map(term => {
+            const criteria = [{ field: 'keyword', value: term }];
+            if (openOnly) criteria.push({ field: 'stat', value: 'A' });
+
+            if (currentTermOnly) {
+                return API.searchCourses(State.term, criteria)
+                    .then(d => d.results || [])
+                    .catch(() => []);
+            } else {
+                return API.post('/api/bulletin/search', {
+                    other: { srcdb: '2026' },
+                    criteria: [{ field: 'keyword', value: term }],
+                }).then(d => d.results || []).catch(() => []);
+            }
+        });
+
+        const allResults = await Promise.all(promises);
+        if (searchId !== this._searchId) return null;
+
+        // Dedupe by course code, keeping the first occurrence
+        const seen = {};
+        const deduped = [];
+        for (const batch of allResults) {
+            for (const r of batch) {
+                const code = r.code || r.alias || '';
+                if (!seen[code]) {
+                    seen[code] = true;
+                    deduped.push(r);
+                }
+            }
+        }
+
+        // Score and sort
+        const allTerms = searches.flatMap(s => this._tokenize(s));
+        deduped.forEach(r => {
+            r._relevanceScore = this._scoreResult(r, queryTokens, allTerms);
+        });
+        deduped.sort((a, b) => b._relevanceScore - a._relevanceScore);
+
+        console.log(`[Semantic] ${deduped.length} unique courses from ${searches.length} API calls`);
+        return { results: deduped, searchTerms: searches };
+    },
 
     // Levenshtein edit distance between two strings
     _editDistance(a, b) {
@@ -238,9 +370,63 @@ const Search = {
             this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
             return;
 
-        // Valid text keyword
+        // Valid text keyword — semantic search
         } else {
-            criteria.push({ field: 'keyword', value: kw });
+            this.showLoading();
+            const searchId = ++this._searchId;
+            try {
+                const semantic = await this._doSemanticSearch(kw, currentTermOnly, openOnly, searchId);
+                if (!semantic || searchId !== this._searchId) return;
+
+                let results = semantic.results;
+
+                // For catalog mode, convert to catalog format with live availability
+                if (!currentTermOnly) {
+                    // Collect unique subjects to cross-reference live availability
+                    const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
+                    const liveByCode = {};
+                    const livePromises = subjects.map(s =>
+                        API.searchCourses(State.term, [{ field: 'subject', value: s }])
+                            .then(d => d.results || []).catch(() => [])
+                    );
+                    const liveAll = await Promise.all(livePromises);
+                    for (const batch of liveAll) {
+                        for (const r of batch) {
+                            if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
+                            liveByCode[r.code].sections++;
+                            if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
+                        }
+                    }
+
+                    results = results.map(c => {
+                        const live = liveByCode[c.code];
+                        return {
+                            code: c.code,
+                            title: c.title || c.name || '',
+                            crn: '',
+                            section: 'CAT',
+                            stat: live ? (live.hasOpen ? 'A' : 'F') : '',
+                            instr: '',
+                            meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
+                            meetingTimes: null,
+                            total: '',
+                            key: c.key,
+                            _isCatalog: true,
+                            _offeredThisTerm: !!live,
+                            _hasOpen: live ? live.hasOpen : false,
+                            _relevanceScore: c._relevanceScore,
+                        };
+                    });
+                }
+
+                if (searchId !== this._searchId) return;
+                const prereqData = {};
+                const eligibleOnly = document.getElementById('filter-eligible').checked;
+                this.renderResults(results, results.length, prereqData, eligibleOnly, semantic.searchTerms);
+            } catch (err) {
+                this.showHint('Search failed. Try again.');
+            }
+            return;
         }
 
         if (openOnly) criteria.push({ field: 'stat', value: 'A' });
@@ -402,7 +588,7 @@ const Search = {
         return { eligible: missing.length === 0, missing, noData: false };
     },
 
-    renderResults(results, count, prereqData, eligibleOnly) {
+    renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
 
         if (results.length === 0) {
@@ -410,15 +596,28 @@ const Search = {
             return;
         }
 
-        // Group by course code
+        // Group by course code, preserving relevance order
         const groups = {};
+        const groupOrder = [];
         results.forEach(r => {
             const code = r.code;
-            if (!groups[code]) groups[code] = { code, title: r.title, sections: [] };
+            if (!groups[code]) {
+                groups[code] = { code, title: r.title, sections: [], _relevanceScore: r._relevanceScore || 0 };
+                groupOrder.push(code);
+            }
             groups[code].sections.push(r);
+            // Keep the highest relevance score for the group
+            if ((r._relevanceScore || 0) > groups[code]._relevanceScore) {
+                groups[code]._relevanceScore = r._relevanceScore;
+            }
         });
 
-        let groupList = Object.values(groups);
+        let groupList = groupOrder.map(code => groups[code]);
+
+        // If semantic search, sort groups by relevance score
+        if (searchTerms) {
+            groupList.sort((a, b) => b._relevanceScore - a._relevanceScore);
+        }
 
         // Filter by eligibility if requested
         if (eligibleOnly) {
@@ -430,7 +629,15 @@ const Search = {
 
         State.courseGroups = groupList;
 
-        container.innerHTML = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
+        // Header with search info
+        let header = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
+        if (searchTerms && searchTerms.length > 1) {
+            const expandedTerms = searchTerms.slice(1).map(t =>
+                `<span style="background:#e8f0fe;color:#466A9F;padding:1px 6px;border-radius:2px;font-size:0.7rem">${t}</span>`
+            ).join(' ');
+            header += `<p style="font-size:0.7rem;color:#777;margin-bottom:8px">Also searched: ${expandedTerms}</p>`;
+        }
+        container.innerHTML = header;
 
         groupList.forEach(group => {
             const div = document.createElement('div');
