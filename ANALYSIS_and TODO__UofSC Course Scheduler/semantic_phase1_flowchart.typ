@@ -1,4 +1,4 @@
-#set page(width: 11in, height: 7.5in, margin: (x: 0.6in, top: 0.5in, bottom: 0.5in))
+#set page(width: 11in, height: 7in, margin: (x: 0.6in, top: 0.5in, bottom: 0.4in))
 #set text(font: "New Computer Modern", size: 9pt)
 
 #let garnet = rgb("#73000A")
@@ -52,184 +52,178 @@
 #align(center, text(size: 8pt, fill: warm-grey)[Offline process, run once per semester via `build_embeddings.py`])
 
 // ================================================================
-// Layout following the editor sketch:
+// Centered symmetric layout
 //
-//   Row 1:  [Model/A02]              [Course Data/A01]
-//   Row 2:      [Extract Phrases/A03]    [Extract Descriptions/A04]
-//   Row 3:      [Embed Phrases/A05]      [Embed Courses/A06]
-//   Row 4:              [PCA/A07]
-//   Row 5:  [phrases.json/A08]  [courses.json/A09]  [pca.json/A10]
+// Page content width: 706pt (11in - 1.2in margins)
+// Page center: 353pt
 //
-// Model feeds both embed steps (A05, A06) via elbowed arrows.
-// Course Data feeds both extract steps (A03, A04).
+// Two symmetric columns offset from center:
+//   Left column center:  353 - 130 = 223
+//   Right column center: 353 + 130 = 483
+//
+// Single centered items at 353
+// Three output items evenly spaced
 // ================================================================
 
-// Column positions
-#let col-l = 80pt    // left column center
-#let col-cl = 220pt  // center-left
-#let col-cr = 430pt  // center-right
-#let col-r = 570pt   // right column center
+#let cx = 353pt       // page center
+#let gap = 130pt      // half-gap between paired columns
+#let lc = cx - gap    // left column center = 223
+#let rc = cx + gap    // right column center = 483
 
-// Box sizes
-#let bw = 180pt    // standard box width
-#let bh = 32pt     // standard box height
-#let bw-out = 160pt // output box width
+#let bw = 185pt       // box width
+#let bh = 32pt        // box height
+#let bw-out = 155pt   // output box width
 
-// Row Y positions
-#let y1 = 55pt
-#let y2 = 140pt
-#let y3 = 225pt
-#let y4 = 310pt
-#let y5 = 400pt
+// Row Y positions (generous spacing)
+#let y1 = 55pt        // inputs
+#let y2 = 130pt       // extract/prepare
+#let y3 = 205pt       // embed
+#let y4 = 290pt       // compression
+#let y5 = 375pt       // outputs
 
 // ================================================================
-// ROW 1: Course Data (right) + Model (left)
+// ROW 1: Two inputs, symmetric
 // ================================================================
 
-// A01: Course Data
-#box-at(col-cr, y1, bw, bh,
-  [*Course Data from USC*],
-  fill: light-tan, stroke: warm-grey)
-
-// A02: Model
-#box-at(col-l - 50pt, y1, bw, bh,
+#box-at(lc - bw/2, y1, bw, bh,
   [*Embedding Model*\
   MiniLM-L6-v2],
   fill: light-purple, stroke: congaree)
 
+#box-at(rc - bw/2, y1, bw, bh,
+  [*Course Data from USC*],
+  fill: light-tan, stroke: warm-grey)
+
 // ================================================================
-// ROW 2: Extract Phrases (center-left) + Extract Descriptions (center-right)
+// ROW 2: Extract + Prepare, symmetric
 // ================================================================
 
-// A03: Extract Phrases
-#box-at(col-cl - 80pt, y2, bw, bh,
+#box-at(lc - bw/2, y2, bw, bh,
   [*Extract Academic Phrases*],
   fill: light-blue, stroke: atlantic)
 
-// A04: Prepare Course Info
-#box-at(col-cr, y2, bw, bh,
+#box-at(rc - bw/2, y2, bw, bh,
   [*Prepare Course Information*],
   fill: light-blue, stroke: atlantic)
 
 // ================================================================
-// ROW 3: Embed Phrases (center-left) + Embed Courses (center-right)
+// ROW 3: Embed, symmetric
 // ================================================================
 
-// A05: Embed Phrases
-#box-at(col-cl - 80pt, y3, bw, bh,
+#box-at(lc - bw/2, y3, bw, bh,
   [*Embed Phrase Information*],
   fill: light-blue, stroke: atlantic)
 
-// A06: Embed Courses
-#box-at(col-cr, y3, bw, bh,
+#box-at(rc - bw/2, y3, bw, bh,
   [*Embed Course Information*],
   fill: light-blue, stroke: atlantic)
 
 // ================================================================
-// ROW 4: PCA (centered)
+// ROW 4: Compression, centered
 // ================================================================
 
-// A07: Compression Layer
-#box-at(col-cl + 20pt, y4, bw, bh,
+#box-at(cx - bw/2, y4, bw, bh,
   [*Compression Layer*],
   fill: light-blue, stroke: atlantic)
 
 // ================================================================
-// ROW 5: Three output files
+// ROW 5: Three outputs, evenly spaced
 // ================================================================
 
-// A08: Phrase Embeddings
-#box-at(20pt, y5, bw-out, bh,
+#let out-gap = 185pt   // spacing between output box centers
+#let oc1 = cx - out-gap  // left output center
+#let oc2 = cx             // middle output center
+#let oc3 = cx + out-gap   // right output center
+
+#box-at(oc1 - bw-out/2, y5, bw-out, bh,
   [*Phrase Embeddings*],
   fill: light-green, stroke: horseshoe)
 
-// A09: Course Embeddings
-#box-at(col-cl + 10pt, y5, bw-out, bh,
+#box-at(oc2 - bw-out/2, y5, bw-out, bh,
   [*Course Embeddings*],
   fill: light-green, stroke: horseshoe)
 
-// A10: Compression Parameters
-#box-at(col-cr + 20pt, y5, bw-out, bh,
+#box-at(oc3 - bw-out/2, y5, bw-out, bh,
   [*Compression Parameters*],
   fill: light-green, stroke: horseshoe)
 
 // ================================================================
-// ARROWS
+// ARROWS — all enter/leave at box center-bottom or center-top
 // ================================================================
 
-// Centers of key boxes
-#let a01-cx = col-cr + bw/2   // 520
-#let a02-cx = col-l - 50pt + bw/2  // 120
-#let a03-cx = col-cl - 80pt + bw/2  // 230
-#let a04-cx = col-cr + bw/2   // 520
-#let a05-cx = col-cl - 80pt + bw/2  // 230
-#let a06-cx = col-cr + bw/2   // 520
-#let a07-cx = col-cl + 20pt + bw/2  // 330
-#let a08-cx = 20pt + bw-out/2  // 100
-#let a09-cx = col-cl + 10pt + bw-out/2  // 310
-#let a10-cx = col-cr + 20pt + bw-out/2  // 530
+// --- Data feeds down ---
 
-// A01 (Data) → A04 (Prepare Course) — straight down
-#arr(a04-cx, y1 + bh, a04-cx, y2)
+// Course Data → Prepare Course (straight down, center)
+#arr(rc, y1 + bh, rc, y2)
 
-// A01 (Data) → A03 (Extract Phrases) — elbow: down then left
-#ln(a01-cx - 40pt, y1 + bh, a01-cx - 40pt, y1 + bh + 16pt)
-#ln(a01-cx - 40pt, y1 + bh + 16pt, a03-cx, y1 + bh + 16pt)
-#arr(a03-cx, y1 + bh + 16pt, a03-cx, y2)
+// Course Data → Extract Phrases (elbow: down from center, left, down to center)
+#let bus1 = y1 + bh + 14pt
+#ln(rc, y1 + bh, rc, bus1)
+#ln(rc, bus1, lc, bus1)
+#arr(lc, bus1, lc, y2)
 
-// A03 → A05 (Embed Phrases) — straight down
-#arr(a03-cx, y2 + bh, a03-cx, y3)
+// Extract Phrases → Embed Phrases (straight down)
+#arr(lc, y2 + bh, lc, y3)
 
-// A04 → A06 (Embed Courses) — straight down
-#arr(a04-cx, y2 + bh, a04-cx, y3)
+// Prepare Course → Embed Courses (straight down)
+#arr(rc, y2 + bh, rc, y3)
 
-// A02 (Model) → A05 (Embed Phrases) — elbow: down, right, down
-#let m-bus-y = y2 + bh/2  // midway through row 2
-#ln(a02-cx - 20pt, y1 + bh, a02-cx - 20pt, m-bus-y, color: congaree)
-#ln(a02-cx - 20pt, m-bus-y, a05-cx - 40pt, m-bus-y, color: congaree)
-#arr(a05-cx - 40pt, m-bus-y, a05-cx - 40pt, y3, color: congaree)
+// --- Model feeds embed steps ---
 
-// A02 (Model) → A06 (Embed Courses) — elbow: down, right far, down
-#ln(a02-cx + 20pt, y1 + bh, a02-cx + 20pt, m-bus-y - 15pt, color: congaree)
-#ln(a02-cx + 20pt, m-bus-y - 15pt, a06-cx - 40pt, m-bus-y - 15pt, color: congaree)
-#arr(a06-cx - 40pt, m-bus-y - 15pt, a06-cx - 40pt, y3, color: congaree)
+// --- Model feeds embed steps (bypasses row 2 via outside edges) ---
 
-// A05 → A07 (Compression) — elbow: down, right
-#let merge-y = y3 + bh + 18pt
-#ln(a05-cx, y3 + bh, a05-cx, merge-y)
-#ln(a05-cx, merge-y, a07-cx - 30pt, merge-y)
-#arr(a07-cx - 30pt, merge-y, a07-cx - 30pt, y4)
+// Model → Embed Phrases: down left side, enter from left
+#let ml-x = lc - bw/2 - 15pt  // just outside left edge of left column
+#ln(ml-x + 15pt, y1 + bh, ml-x, y1 + bh, color: congaree)  // stub left
+#ln(ml-x, y1 + bh, ml-x, y3 + bh/2, color: congaree)       // down
+#arr(ml-x, y3 + bh/2, lc - bw/2, y3 + bh/2, color: congaree) // right into box
 
-// A06 → A07 (Compression) — elbow: down, left
-#ln(a06-cx, y3 + bh, a06-cx, merge-y)
-#ln(a06-cx, merge-y, a07-cx + 30pt, merge-y)
-#arr(a07-cx + 30pt, merge-y, a07-cx + 30pt, y4)
+// Model → Embed Courses: down right side far, enter from right
+#let mr-x = rc + bw/2 + 15pt  // just outside right edge of right column
+#ln(lc + 30pt, y1 + bh, lc + 30pt, y1 + bh + 5pt, color: congaree)  // stub down
+#ln(lc + 30pt, y1 + bh + 5pt, mr-x, y1 + bh + 5pt, color: congaree) // right
+#ln(mr-x, y1 + bh + 5pt, mr-x, y3 + bh/2, color: congaree)          // down
+#arr(mr-x, y3 + bh/2, rc + bw/2, y3 + bh/2, color: congaree)         // left into box
 
-// A07 → A08 (Phrase Embeddings) — elbow: down, left
-#let fan-y = y4 + bh + 20pt
-#ln(a07-cx - 30pt, y4 + bh, a07-cx - 30pt, fan-y, color: horseshoe)
-#ln(a07-cx - 30pt, fan-y, a08-cx, fan-y, color: horseshoe)
-#arr(a08-cx, fan-y, a08-cx, y5, color: horseshoe)
+// --- Embed steps feed compression ---
 
-// A07 → A09 (Course Embeddings) — straight down
-#arr(a07-cx, y4 + bh, a09-cx, y5, color: horseshoe)
+// Embed Phrases → Compression (elbow: down, right to center)
+#let merge-y2 = y3 + bh + 16pt
+#ln(lc, y3 + bh, lc, merge-y2)
+#ln(lc, merge-y2, cx, merge-y2)
+#arr(cx, merge-y2, cx, y4)
 
-// A07 → A10 (Compression Params) — elbow: down, right
-#ln(a07-cx + 30pt, y4 + bh, a07-cx + 30pt, fan-y, color: horseshoe)
-#ln(a07-cx + 30pt, fan-y, a10-cx, fan-y, color: horseshoe)
-#arr(a10-cx, fan-y, a10-cx, y5, color: horseshoe)
+// Embed Courses → Compression (elbow: down, left to center)
+#ln(rc, y3 + bh, rc, merge-y2)
+#ln(rc, merge-y2, cx, merge-y2)
+// (merges into the same center arrow above)
+
+// --- Compression fans out to three outputs ---
+
+#let fan-y2 = y4 + bh + 16pt
+
+// Compression → Phrase Embeddings (elbow: down, left)
+#ln(cx, y4 + bh, cx, fan-y2, color: horseshoe)
+#ln(cx, fan-y2, oc1, fan-y2, color: horseshoe)
+#arr(oc1, fan-y2, oc1, y5, color: horseshoe)
+
+// Compression → Course Embeddings (straight down center)
+#arr(cx, y4 + bh, oc2, y5, color: horseshoe)
+
+// Compression → Compression Parameters (elbow: down, right)
+#ln(cx, fan-y2, oc3, fan-y2, color: horseshoe)
+#arr(oc3, fan-y2, oc3, y5, color: horseshoe)
 
 // ================================================================
-// Footer
+// Footer + Legend
 // ================================================================
 
-#place(dx: 100pt, dy: y5 + bh + 10pt,
+#place(dx: cx - 200pt, dy: y5 + bh + 8pt,
   text(size: 7.5pt, fill: warm-grey, style: "italic")[All three files placed in `static/data/` and served to the browser as cached static assets])
 
-// Legend
-#let LG = y5 + bh + 30pt
+#let LG = y5 + bh + 26pt
 #place(dx: 0pt, dy: LG,
-  rect(width: 706pt, height: 28pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 5pt,
+  rect(width: 706pt, height: 26pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 5pt,
     grid(columns: (12pt, auto, 28pt, 12pt, auto, 28pt, 12pt, auto, 28pt, 12pt, auto),
       column-gutter: 4pt, align: horizon,
       rect(width: 12pt, height: 12pt, fill: light-blue, stroke: 1pt + atlantic),
