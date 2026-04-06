@@ -3,67 +3,71 @@ const Search = {
     _prereqCache: {},
     _searchId: 0,
     _subjects: [],
-    _wordVecs: null,
-    _wordVecsLoading: null,
-    _wordList: null,       // sorted array of [word, vec] for nearest-neighbor search
+    _extractor: null,       // Transformers.js pipeline (lazy-loaded)
+    _extractorLoading: null,
+    _phraseData: null,       // pre-computed phrase embeddings
+    _phraseVecs: null,       // normalized float32 phrase vectors
+    _pcaParams: null,        // PCA mean + components
 
-    // Lazy-load pre-computed word embeddings
-    async _loadWordVecs() {
-        if (this._wordVecs) return this._wordVecs;
-        if (this._wordVecsLoading) return this._wordVecsLoading;
-        this._wordVecsLoading = fetch('/static/data/word_embeddings.json')
-            .then(r => r.json())
-            .then(data => {
-                this._wordVecs = data;
-                // Pre-build word list with normalized float32 vectors for fast search
-                this._wordList = Object.entries(data.words).map(([word, vec]) => {
-                    const fv = new Float32Array(vec.length);
-                    let norm = 0;
-                    for (let i = 0; i < vec.length; i++) { fv[i] = vec[i]; norm += vec[i] * vec[i]; }
-                    norm = Math.sqrt(norm) || 1;
-                    for (let i = 0; i < fv.length; i++) fv[i] /= norm;
-                    return { word, vec: fv };
-                });
-                return data;
-            });
-        return this._wordVecsLoading;
+    // Lazy-load Transformers.js embedding model
+    async _loadExtractor() {
+        if (this._extractor) return this._extractor;
+        if (this._extractorLoading) return this._extractorLoading;
+        console.log('[Semantic] Loading Transformers.js model (first time only, ~23MB)...');
+        this._extractorLoading = import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2')
+            .then(({ pipeline }) => pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', { quantized: true }))
+            .then(ext => { this._extractor = ext; console.log('[Semantic] Model loaded.'); return ext; });
+        return this._extractorLoading;
     },
 
-    // Tokenize a query into lowercase words (3+ chars, no stopwords)
-    _tokenize(text) {
-        const stops = new Set(['the','and','for','with','from','that','this','are','was',
-            'were','been','being','have','has','had','its','into','also','can','will',
-            'may','but','not','all','any','each','how','our','per','use','used','who',
-            'which','about','some','such','than','more','most','very','other','them',
-            'they','what','when','where','only','just','both','then','could','would',
-            'should','these','those','does','did','your','there']);
-        return text.toLowerCase().match(/[a-z]{3,}/g)?.filter(w => !stops.has(w)) || [];
+    // Lazy-load phrase embeddings + PCA params
+    async _loadPhraseData() {
+        if (this._phraseData) return;
+        const [phraseResp, pcaResp] = await Promise.all([
+            fetch('/static/data/phrase_embeddings.json').then(r => r.json()),
+            fetch('/static/data/pca_params.json').then(r => r.json()),
+        ]);
+        this._phraseData = phraseResp;
+        this._pcaParams = pcaResp;
+        // Pre-build normalized float32 phrase vectors for fast cosine similarity
+        const phrases = Object.keys(phraseResp.phrases);
+        const dims = phraseResp.dims;
+        this._phraseList = phrases;
+        this._phraseVecs = phrases.map(p => {
+            const raw = phraseResp.phrases[p];
+            const fv = new Float32Array(dims);
+            let norm = 0;
+            for (let i = 0; i < dims; i++) { fv[i] = raw[i]; norm += raw[i] * raw[i]; }
+            norm = Math.sqrt(norm) || 1;
+            for (let i = 0; i < dims; i++) fv[i] /= norm;
+            return fv;
+        });
+        console.log(`[Semantic] Loaded ${phrases.length} phrase embeddings + PCA params.`);
     },
 
-    // Build a normalized vector by averaging word embeddings for given tokens
-    _buildVec(tokens, wordData) {
-        const dims = wordData.dims;
-        const vecs = [];
-        const matched = [];
-        for (const t of tokens) {
-            if (wordData.words[t]) {
-                vecs.push(wordData.words[t]);
-                matched.push(t);
+    // Embed text using Transformers.js, then apply PCA to match phrase embedding space
+    async _embedQuery(text) {
+        const extractor = await this._loadExtractor();
+        const output = await extractor(text, { pooling: 'mean', normalize: true });
+        const raw384 = Array.from(output.data);
+        // Apply PCA: (vec - mean) @ components.T
+        const mean = this._pcaParams.mean;
+        const components = this._pcaParams.components; // shape: [128][384]
+        const dims = this._pcaParams.dims;
+        const pca = new Float32Array(dims);
+        for (let i = 0; i < dims; i++) {
+            let sum = 0;
+            for (let j = 0; j < raw384.length; j++) {
+                sum += (raw384[j] - mean[j]) * components[i][j];
             }
+            pca[i] = sum;
         }
-        if (!vecs.length) return { vec: null, matched: [], missed: tokens };
-
-        const avg = new Float32Array(dims);
-        for (const v of vecs) {
-            for (let i = 0; i < dims; i++) avg[i] += v[i];
-        }
+        // Normalize
         let norm = 0;
-        for (let i = 0; i < dims; i++) norm += avg[i] * avg[i];
+        for (let i = 0; i < dims; i++) norm += pca[i] * pca[i];
         norm = Math.sqrt(norm) || 1;
-        for (let i = 0; i < dims; i++) avg[i] /= norm;
-
-        const missed = tokens.filter(t => !wordData.words[t]);
-        return { vec: avg, matched, missed };
+        for (let i = 0; i < dims; i++) pca[i] /= norm;
+        return pca;
     },
 
     // Cosine similarity between two float32 vectors
@@ -77,41 +81,46 @@ const Search = {
         return dot / ((Math.sqrt(normA) * Math.sqrt(normB)) || 1);
     },
 
-    // Find the N nearest vocabulary words to a query vector (embedding-based expansion)
-    _findNearestWords(queryVec, wordList, topN, excludeTokens) {
+    // Find nearest pre-computed phrases to a query vector
+    _findNearestPhrases(queryVec, topN, excludeQuery) {
+        const queryLower = excludeQuery.toLowerCase().trim();
         const scored = [];
-        const excludeSet = new Set(excludeTokens);
-        for (const { word, vec } of wordList) {
-            if (excludeSet.has(word)) continue;
+        for (let i = 0; i < this._phraseList.length; i++) {
+            const p = this._phraseList[i];
+            if (p.toLowerCase().trim() === queryLower) continue;
             let dot = 0;
-            for (let i = 0; i < queryVec.length; i++) dot += queryVec[i] * vec[i];
-            scored.push({ word, sim: dot });
+            const pv = this._phraseVecs[i];
+            for (let j = 0; j < queryVec.length; j++) dot += queryVec[j] * pv[j];
+            if (dot > 0.25) scored.push({ phrase: p, sim: dot });
         }
         scored.sort((a, b) => b.sim - a.sim);
         return scored.slice(0, topN);
     },
 
-    // Semantic search: expand query via embeddings → search live API → filter/rank via embeddings
+    // Full semantic search pipeline:
+    // 1. Embed query with Transformers.js (understands any colloquial input)
+    // 2. Find nearest academic phrases from pre-computed embeddings
+    // 3. Search live API with those phrases (concurrent)
+    // 4. Score results by embedding similarity to query
+    // 5. Filter noise, sort by relevance
     async _doSemanticSearch(query, currentTermOnly, openOnly, searchId) {
-        const wordData = await this._loadWordVecs();
+        // Load model + phrase data concurrently
+        await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
         if (searchId !== this._searchId) return null;
 
-        // Step 1: Build query vector
-        const queryTokens = this._tokenize(query);
-        const { vec: queryVec, matched, missed } = this._buildVec(queryTokens, wordData);
-        if (!queryVec) {
-            return { results: [], matched: [], missed: queryTokens };
-        }
+        // Step 1: Embed query
+        const queryVec = await this._embedQuery(query);
+        if (searchId !== this._searchId) return null;
 
-        // Step 2: Find nearest vocabulary words for query expansion
-        const nearest = this._findNearestWords(queryVec, this._wordList, 12, matched);
-        const expandedTerms = nearest.filter(n => n.sim > 0.3).slice(0, 8).map(n => n.word);
+        // Step 2: Find nearest academic phrases
+        const nearestPhrases = this._findNearestPhrases(queryVec, 8, query);
+        const expandedTerms = nearestPhrases.map(n => n.phrase);
 
-        // Step 3: Build search queries — original + expanded terms
+        // Step 3: Build search list — original query + expanded phrases
         const searches = [query, ...expandedTerms];
-        console.log(`[Semantic] "${query}" → tokens: [${matched}] → expanded: [${expandedTerms}] → ${searches.length} API calls`);
+        console.log(`[Semantic] "${query}" → ${searches.length} API calls:`, searches);
 
-        // Step 4: Fire all searches concurrently against the bulletin API
+        // Step 4: Fire all searches concurrently
         const promises = searches.map(term => {
             if (currentTermOnly) {
                 return API.searchCourses(State.term, [{ field: 'keyword', value: term }])
@@ -139,26 +148,49 @@ const Search = {
             }
         }
 
-        // Step 6: Score each result by cosine similarity of its title to the query
-        const SIM_THRESHOLD = 0.10;
+        // Step 6: Score each result title by embedding similarity to query
+        // Batch-embed all titles at once for performance
+        const extractor = await this._loadExtractor();
+        const titles = deduped.map(r => r.title || r.name || '').filter(Boolean);
+        const titleOutputs = await extractor(titles, { pooling: 'mean', normalize: true });
+
+        const mean = this._pcaParams.mean;
+        const components = this._pcaParams.components;
+        const dims = this._pcaParams.dims;
+        const embDim = mean.length; // 384
+
+        const SIM_THRESHOLD = 0.15;
         const scored = [];
-        for (const r of deduped) {
-            const titleTokens = this._tokenize(r.title || '');
-            if (!titleTokens.length) { scored.push({ ...r, _relevanceScore: 0 }); continue; }
-            const { vec: titleVec } = this._buildVec(titleTokens, wordData);
-            if (!titleVec) { scored.push({ ...r, _relevanceScore: 0 }); continue; }
-            const sim = this._cosineSim(queryVec, titleVec);
+        for (let i = 0; i < deduped.length; i++) {
+            const title = deduped[i].title || deduped[i].name || '';
+            if (!title) continue;
+            // Extract this title's 384-dim vector from batch output
+            const offset = i * embDim;
+            const raw384 = titleOutputs.data.slice(offset, offset + embDim);
+            // Apply PCA
+            const pca = new Float32Array(dims);
+            for (let d = 0; d < dims; d++) {
+                let sum = 0;
+                for (let j = 0; j < embDim; j++) sum += (raw384[j] - mean[j]) * components[d][j];
+                pca[d] = sum;
+            }
+            let norm = 0;
+            for (let d = 0; d < dims; d++) norm += pca[d] * pca[d];
+            norm = Math.sqrt(norm) || 1;
+            for (let d = 0; d < dims; d++) pca[d] /= norm;
+
+            const sim = this._cosineSim(queryVec, pca);
             if (sim >= SIM_THRESHOLD) {
-                scored.push({ ...r, _relevanceScore: sim });
+                scored.push({ ...deduped[i], _relevanceScore: sim });
             }
         }
 
-        // Sort by similarity
+        // Sort by similarity, take top 50
         scored.sort((a, b) => b._relevanceScore - a._relevanceScore);
         const top = scored.slice(0, 50);
 
-        console.log(`[Semantic] ${deduped.length} from API → ${scored.length} above threshold → showing top ${top.length}`);
-        return { results: top, matched, missed, expandedTerms };
+        console.log(`[Semantic] ${deduped.length} from API → ${scored.length} above threshold → top ${top.length}`);
+        return { results: top, expandedTerms };
     },
 
     // Levenshtein edit distance between two strings
@@ -395,19 +427,21 @@ const Search = {
             this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
             return;
 
-        // Valid text keyword — semantic search via pre-computed embeddings
+        // Valid text keyword — semantic search via Transformers.js
         } else {
-            this.showLoading();
+            if (!this._extractor) {
+                document.getElementById('search-results').innerHTML =
+                    '<p class="loading">Loading AI search model (first time only)...</p>';
+            } else {
+                this.showLoading();
+            }
             const searchId = ++this._searchId;
             try {
                 const semantic = await this._doSemanticSearch(kw, currentTermOnly, openOnly, searchId);
                 if (!semantic || searchId !== this._searchId) return;
 
                 if (semantic.results.length === 0) {
-                    const missedMsg = semantic.missed?.length
-                        ? ` (unknown words: ${semantic.missed.join(', ')})`
-                        : '';
-                    this.showHint(`No matching courses found for "${kw}".${missedMsg}`);
+                    this.showHint(`No matching courses found for "${kw}".`);
                     return;
                 }
 
