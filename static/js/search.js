@@ -3,20 +3,9 @@ const Search = {
     _prereqCache: {},
     _searchId: 0,
     _subjects: [],
-    _embeddings: null,
-    _embeddingsLoading: null,
     _wordVecs: null,
     _wordVecsLoading: null,
-
-    // Lazy-load pre-computed course embeddings
-    async _loadEmbeddings() {
-        if (this._embeddings) return this._embeddings;
-        if (this._embeddingsLoading) return this._embeddingsLoading;
-        this._embeddingsLoading = fetch('/static/data/course_embeddings.json')
-            .then(r => r.json())
-            .then(data => { this._embeddings = data; return data; });
-        return this._embeddingsLoading;
-    },
+    _wordList: null,       // sorted array of [word, vec] for nearest-neighbor search
 
     // Lazy-load pre-computed word embeddings
     async _loadWordVecs() {
@@ -24,7 +13,19 @@ const Search = {
         if (this._wordVecsLoading) return this._wordVecsLoading;
         this._wordVecsLoading = fetch('/static/data/word_embeddings.json')
             .then(r => r.json())
-            .then(data => { this._wordVecs = data; return data; });
+            .then(data => {
+                this._wordVecs = data;
+                // Pre-build word list with normalized float32 vectors for fast search
+                this._wordList = Object.entries(data.words).map(([word, vec]) => {
+                    const fv = new Float32Array(vec.length);
+                    let norm = 0;
+                    for (let i = 0; i < vec.length; i++) { fv[i] = vec[i]; norm += vec[i] * vec[i]; }
+                    norm = Math.sqrt(norm) || 1;
+                    for (let i = 0; i < fv.length; i++) fv[i] /= norm;
+                    return { word, vec: fv };
+                });
+                return data;
+            });
         return this._wordVecsLoading;
     },
 
@@ -39,9 +40,8 @@ const Search = {
         return text.toLowerCase().match(/[a-z]{3,}/g)?.filter(w => !stops.has(w)) || [];
     },
 
-    // Build a query vector by averaging word embeddings
-    _buildQueryVec(query, wordData) {
-        const tokens = this._tokenize(query);
+    // Build a normalized vector by averaging word embeddings for given tokens
+    _buildVec(tokens, wordData) {
         const dims = wordData.dims;
         const vecs = [];
         const matched = [];
@@ -53,12 +53,10 @@ const Search = {
         }
         if (!vecs.length) return { vec: null, matched: [], missed: tokens };
 
-        // Average the word vectors
         const avg = new Float32Array(dims);
         for (const v of vecs) {
             for (let i = 0; i < dims; i++) avg[i] += v[i];
         }
-        // Normalize
         let norm = 0;
         for (let i = 0; i < dims; i++) norm += avg[i] * avg[i];
         norm = Math.sqrt(norm) || 1;
@@ -68,51 +66,99 @@ const Search = {
         return { vec: avg, matched, missed };
     },
 
-    // Cosine similarity between query vector (float32) and course vector (int8)
-    _cosineSim(queryVec, courseVec) {
-        let dot = 0;
-        let normB = 0;
-        for (let i = 0; i < queryVec.length; i++) {
-            dot += queryVec[i] * courseVec[i];
-            normB += courseVec[i] * courseVec[i];
+    // Cosine similarity between two float32 vectors
+    _cosineSim(a, b) {
+        let dot = 0, normA = 0, normB = 0;
+        for (let i = 0; i < a.length; i++) {
+            dot += a[i] * b[i];
+            normA += a[i] * a[i];
+            normB += b[i] * b[i];
         }
-        normB = Math.sqrt(normB) || 1;
-        return dot / normB;  // queryVec is already normalized
+        return dot / ((Math.sqrt(normA) * Math.sqrt(normB)) || 1);
     },
 
-    // Embedding-based semantic search: no API calls for discovery, pure cosine similarity
+    // Find the N nearest vocabulary words to a query vector (embedding-based expansion)
+    _findNearestWords(queryVec, wordList, topN, excludeTokens) {
+        const scored = [];
+        const excludeSet = new Set(excludeTokens);
+        for (const { word, vec } of wordList) {
+            if (excludeSet.has(word)) continue;
+            let dot = 0;
+            for (let i = 0; i < queryVec.length; i++) dot += queryVec[i] * vec[i];
+            scored.push({ word, sim: dot });
+        }
+        scored.sort((a, b) => b.sim - a.sim);
+        return scored.slice(0, topN);
+    },
+
+    // Semantic search: expand query via embeddings → search live API → filter/rank via embeddings
     async _doSemanticSearch(query, currentTermOnly, openOnly, searchId) {
-        // Load embeddings concurrently
-        const [embData, wordData] = await Promise.all([
-            this._loadEmbeddings(),
-            this._loadWordVecs(),
-        ]);
+        const wordData = await this._loadWordVecs();
         if (searchId !== this._searchId) return null;
 
-        // Build query vector
-        const { vec: queryVec, matched, missed } = this._buildQueryVec(query, wordData);
+        // Step 1: Build query vector
+        const queryTokens = this._tokenize(query);
+        const { vec: queryVec, matched, missed } = this._buildVec(queryTokens, wordData);
         if (!queryVec) {
-            return { results: [], matched: [], missed: this._tokenize(query) };
+            return { results: [], matched: [], missed: queryTokens };
         }
 
-        console.log(`[Semantic] "${query}" → matched tokens: [${matched}], missed: [${missed}]`);
+        // Step 2: Find nearest vocabulary words for query expansion
+        const nearest = this._findNearestWords(queryVec, this._wordList, 12, matched);
+        const expandedTerms = nearest.filter(n => n.sim > 0.3).slice(0, 8).map(n => n.word);
 
-        // Score all courses by cosine similarity
-        const scored = [];
-        const SIM_THRESHOLD = 0.15;
-        for (const course of embData.courses) {
-            const sim = this._cosineSim(queryVec, course.vec);
-            if (sim >= SIM_THRESHOLD) {
-                scored.push({ ...course, _relevanceScore: sim });
+        // Step 3: Build search queries — original + expanded terms
+        const searches = [query, ...expandedTerms];
+        console.log(`[Semantic] "${query}" → tokens: [${matched}] → expanded: [${expandedTerms}] → ${searches.length} API calls`);
+
+        // Step 4: Fire all searches concurrently against the bulletin API
+        const promises = searches.map(term => {
+            if (currentTermOnly) {
+                return API.searchCourses(State.term, [{ field: 'keyword', value: term }])
+                    .then(d => d.results || []).catch(() => []);
+            } else {
+                return API.post('/api/bulletin/search', {
+                    other: { srcdb: '2026' },
+                    criteria: [{ field: 'keyword', value: term }],
+                }).then(d => d.results || []).catch(() => []);
+            }
+        });
+        const allResults = await Promise.all(promises);
+        if (searchId !== this._searchId) return null;
+
+        // Step 5: Dedupe by course code
+        const seen = {};
+        const deduped = [];
+        for (const batch of allResults) {
+            for (const r of batch) {
+                const code = r.code || '';
+                if (!seen[code]) {
+                    seen[code] = true;
+                    deduped.push(r);
+                }
             }
         }
 
-        // Sort by similarity descending, take top 50
+        // Step 6: Score each result by cosine similarity of its title to the query
+        const SIM_THRESHOLD = 0.10;
+        const scored = [];
+        for (const r of deduped) {
+            const titleTokens = this._tokenize(r.title || '');
+            if (!titleTokens.length) { scored.push({ ...r, _relevanceScore: 0 }); continue; }
+            const { vec: titleVec } = this._buildVec(titleTokens, wordData);
+            if (!titleVec) { scored.push({ ...r, _relevanceScore: 0 }); continue; }
+            const sim = this._cosineSim(queryVec, titleVec);
+            if (sim >= SIM_THRESHOLD) {
+                scored.push({ ...r, _relevanceScore: sim });
+            }
+        }
+
+        // Sort by similarity
         scored.sort((a, b) => b._relevanceScore - a._relevanceScore);
         const top = scored.slice(0, 50);
 
-        console.log(`[Semantic] ${scored.length} courses above threshold, showing top ${top.length}`);
-        return { results: top, matched, missed };
+        console.log(`[Semantic] ${deduped.length} from API → ${scored.length} above threshold → showing top ${top.length}`);
+        return { results: top, matched, missed, expandedTerms };
     },
 
     // Levenshtein edit distance between two strings
@@ -367,45 +413,34 @@ const Search = {
 
                 let results = semantic.results;
 
-                // Cross-reference with live term data for availability
-                const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
-                const liveByCode = {};
-                // Fetch live data for all relevant subjects concurrently
-                const livePromises = subjects.map(s =>
-                    API.searchCourses(State.term, [{ field: 'subject', value: s }])
-                        .then(d => d.results || []).catch(() => [])
-                );
-                const liveAll = await Promise.all(livePromises);
-                if (searchId !== this._searchId) return;
-                for (const batch of liveAll) {
-                    for (const r of batch) {
-                        if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
-                        liveByCode[r.code].sections++;
-                        if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
-                    }
-                }
-
                 if (currentTermOnly) {
-                    // In current-term mode, only show courses offered this term
-                    // Fetch actual sections for the top results
-                    const liveCourses = results.filter(c => liveByCode[c.code]);
-                    const sectionPromises = liveCourses.map(c => {
-                        const code = c.code;
-                        return API.searchCourses(State.term, [{ field: 'alias', value: code }])
-                            .then(d => (d.results || []).map(r => ({ ...r, _relevanceScore: c._relevanceScore })))
-                            .catch(() => []);
-                    });
-                    const sectionResults = await Promise.all(sectionPromises);
-                    if (searchId !== this._searchId) return;
-                    results = sectionResults.flat();
+                    // Current-term mode: results already came from the classes API
+                    // with full section data (CRN, instructor, times, etc.)
                     if (openOnly) results = results.filter(r => r.stat === 'A');
                 } else {
-                    // Catalog mode: show all matching courses with availability badges
+                    // Catalog mode: results came from bulletin API (code + title only)
+                    // Cross-reference with live term data for availability badges
+                    const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
+                    const liveByCode = {};
+                    const livePromises = subjects.map(s =>
+                        API.searchCourses(State.term, [{ field: 'subject', value: s }])
+                            .then(d => d.results || []).catch(() => [])
+                    );
+                    const liveAll = await Promise.all(livePromises);
+                    if (searchId !== this._searchId) return;
+                    for (const batch of liveAll) {
+                        for (const r of batch) {
+                            if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
+                            liveByCode[r.code].sections++;
+                            if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
+                        }
+                    }
+
                     results = results.map(c => {
                         const live = liveByCode[c.code];
                         return {
                             code: c.code,
-                            title: c.title || '',
+                            title: c.title || c.name || '',
                             crn: '',
                             section: 'CAT',
                             stat: live ? (live.hasOpen ? 'A' : 'F') : '',
@@ -425,7 +460,7 @@ const Search = {
                 if (searchId !== this._searchId) return;
                 const prereqData = {};
                 const eligibleOnly2 = document.getElementById('filter-eligible').checked;
-                const searchInfo = semantic.matched?.length ? semantic.matched : null;
+                const searchInfo = semantic.expandedTerms?.length ? semantic.expandedTerms : null;
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
             } catch (err) {
                 console.error('[Semantic] Error:', err);
@@ -637,10 +672,10 @@ const Search = {
         // Header with search info
         let header = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
         if (searchTerms && searchTerms.length) {
-            const matchedTerms = searchTerms.map(t =>
+            const expandedTags = searchTerms.map(t =>
                 `<span style="background:#e8f0fe;color:#466A9F;padding:1px 6px;border-radius:2px;font-size:0.7rem">${t}</span>`
             ).join(' ');
-            header += `<p style="font-size:0.7rem;color:#777;margin-bottom:8px">Semantic search on: ${matchedTerms}</p>`;
+            header += `<p style="font-size:0.7rem;color:#777;margin-bottom:8px">Also searched: ${expandedTags}</p>`;
         }
         container.innerHTML = header;
 
