@@ -769,9 +769,11 @@
   {
     "code": "AESP 361",
     "title": "Aerospace Laboratory I",
-    "description": "",
+    "description": "Aerospace component experiments: drag polar and Cm-alpha curve for an airfoil; fuselage and landing gear drag; compliance matrix of an isotropic and a laminated composite; mechanical and thermal properties of various aerospace materials; reporting.",
     "subject": "AESP",
-    "key": "91"
+    "key": "91",
+    "prereq": "Prerequisites: D or better in STAT 509 and AESP 265.",
+    "hours": "3 Credits"
   },
   {
     "code": "AESP 362",
@@ -863,9 +865,10 @@
   {
     "code": "AFAM 202",
     "title": "Introduction to African-American Studies",
-    "description": "",
+    "description": "Introduction to the analysis and discussion of creative works and traditions by and about African Americans through folklore, music, art, dance, and literature.",
     "subject": "AFAM",
-    "key": "102"
+    "key": "102",
+    "hours": "3 Credits"
   },
   {
     "code": "AFAM 207",
@@ -1312,9 +1315,10 @@
   {
     "code": "ANTH 204",
     "title": "Plagues Past and Present",
-    "description": "",
+    "description": "An overview of how plagues and epidemics have shaped human prehistory and history. How large-scale social transformations have produced forms of human/disease interactions. How infectious disease has been conceptualized at different times and by different cultural groups and treated as a threat to the social order.",
     "subject": "ANTH",
-    "key": "157"
+    "key": "157",
+    "hours": "3 Credits"
   },
   {
     "code": "ANTH 206",
@@ -1623,9 +1627,10 @@
   {
     "code": "ANTH 287",
     "title": "Special Topics in Archaeology",
-    "description": "",
+    "description": "Topics of special interest in archaeology. May be taken more than once as topics change.",
     "subject": "ANTH",
-    "key": "196"
+    "key": "196",
+    "hours": "3 Credits"
   },
   {
     "code": "ANTH 288",
@@ -2085,9 +2090,10 @@
   {
     "code": "ANTH 546",
     "title": "Forensic Archaeological Recovery (FAR)",
-    "description": "",
+    "description": "Introduction to Forensic Archaeological Recovery (FAR). Concepts, methods, and contemporary issues.",
     "subject": "ANTH",
-    "key": "253"
+    "key": "253",
+    "hours": "3 Credits"
   },
   {
     "code": "ANTH 550",
@@ -2421,9 +2427,10 @@
   {
     "code": "ANTH 733",
     "title": "Seminar in North American Prehistory",
-    "description": "",
+    "description": "Consideration and critique of current research in North American archaeology.",
     "subject": "ANTH",
-    "key": "295"
+    "key": "295",
+    "hours": "3 Credits"
   },
   {
     "code": "ANTH 740",
@@ -2669,9 +2676,10 @@
   {
     "code": "ARAB 122",
     "title": "Basic Proficiency in Arabic",
-    "description": "",
+    "description": "Practice and further development of essential listening, reading, speaking, and writing skills. Admission only by successful completion of Arabic 121. Offered only in spring.",
     "subject": "ARAB",
-    "key": "326"
+    "key": "326",
+    "hours": "4 Credits"
   },
   {
     "code": "ARAB 201",
@@ -3518,9 +3526,10 @@
   {
     "code": "ARTH 524",
     "title": "Topics in Renaissance Art",
-    "description": "",
+    "description": "Topic varies by title.",
     "subject": "ARTH",
-    "key": "430"
+    "key": "430",
+    "hours": "3 Credits"
   },
   {
     "code": "ARTH 525",
@@ -3651,9 +3660,10 @@
   {
     "code": "ARTH 547",
     "title": "Afrofuturist and Afrosurrealist Art",
-    "description": "",
+    "description": "Considers artworks from Africa and the African diaspora (including the United States) that use themes of future, sci-fi, and imaginary worlds, which have been central to Black creative expression.",
     "subject": "ARTH",
-    "key": "446"
+    "key": "446",
+    "hours": "3 Credits"
   },
   {
     "code": "ARTH 548",
@@ -3995,9 +4005,11 @@
   {
     "code": "ARTS 245",
     "title": "Typographic Design I",
-    "description": "",
+    "description": "Fundamental concepts in graphic design with a focus on formal issues, employing fundamental visual communication principles, image development, and traditional and modern relevant digital applications.",
     "subject": "ARTS",
-    "key": "488"
+    "key": "488",
+    "prereq": "Prerequisites: C or better in ARTS 102.",
+    "hours": "4 Credits"
   },
   {
     "code": "ARTS 246",
@@ -4138,9 +4150,11 @@
   {
     "code": "ARTS 335",
     "title": "Intermediate Fiber Arts I",
-    "description": "",
+    "description": "Exploration of fiber constructions such as weaving, spinning, and feltmaking.",
     "subject": "ARTS",
-    "key": "505"
+    "key": "505",
+    "prereq": "Prerequisites: C or better ARTS 235.",
+    "hours": "4 Credits"
   },
   {
     "code": "ARTS 336",
@@ -4181,9 +4195,11 @@
   {
     "code": "ARTS 355",
     "title": "Intermediate Jewelry and Metalsmithing: Fabrication",
-    "description": "",
+    "description": "Continuation of jewelry and metalsmithing concepts, fabrication, and findings using traditional and contemporary approaches.",
     "subject": "ARTS",
-    "key": "510"
+    "key": "510",
+    "prereq": "Prerequisites: C or better in ARTS 255.",
+    "hours": "4 Credits"
   },
   {
     "code": "ARTS 356",
@@ -4945,9 +4961,11 @@
   {
     "code": "ARTS 890",
     "title": "Special Topics in Art",
-    "description": "",
+    "description": "May be repeated up to a maximum of 9 hours.",
     "subject": "ARTS",
-    "key": "599"
+    "key": "599",
+    "prereq": "Prerequisites: MFA degree candidate status.",
+    "hours": "3 Credits"
   },
   {
     "code": "ARTS 896",
@@ -5021,9 +5039,10 @@
   {
     "code": "ASNR 704",
     "title": "Nurse Anesthesia Doctoral Student Development",
-    "description": "",
+    "description": "Guided development for the SRNA in the scholarly project, on-campus program requirements, and clinical preparation.",
     "subject": "ASNR",
-    "key": "608"
+    "key": "608",
+    "hours": "3 Credits"
   },
   {
     "code": "ASNR 710",
@@ -5308,9 +5327,11 @@
   {
     "code": "ASTR 302",
     "title": "Extragalactic Astronomy",
-    "description": "",
+    "description": "Properties of normal and active galaxies, galaxy structures, galaxies at high redshifts, galaxy evolution.",
     "subject": "ASTR",
-    "key": "642"
+    "key": "642",
+    "prereq": "Prerequisites: C or better in ASTR 101 or SCHC 115; C or better in ASTR 201.",
+    "hours": "3 Credits"
   },
   {
     "code": "ASTR 320",
@@ -5813,9 +5834,10 @@
   {
     "code": "BADM 799",
     "title": "Thesis Preparation",
-    "description": "",
+    "description": "To be arranged by candidates for the Master of Science degree with the instructor under whose direction the master\u2019s thesis is being written.",
     "subject": "BADM",
-    "key": "704"
+    "key": "704",
+    "hours": "1-9 Credits"
   },
   {
     "code": "BADM 880",
@@ -6015,9 +6037,11 @@
   {
     "code": "BIOL 242",
     "title": "Human Physiology",
-    "description": "",
+    "description": "Functional biology of organ systems in the maintenance of the whole organism; homeostatic relationships. Not available for biology major credit. Three lecture and three laboratory hours per week.",
     "subject": "BIOL",
-    "key": "729"
+    "key": "729",
+    "prereq": "Prerequisites: BIOL 232.",
+    "hours": "4 Credits"
   },
   {
     "code": "BIOL 243",
@@ -6097,9 +6121,11 @@
   {
     "code": "BIOL 301",
     "title": "Ecology and Evolution",
-    "description": "",
+    "description": "Concepts of evolution, populations, and population interactions; communities and ecosystems. Three lecture hours per week.",
     "subject": "BIOL",
-    "key": "739"
+    "key": "739",
+    "prereq": "Prerequisites: BIOL 102 or MSCI 311.",
+    "hours": "3 Credits"
   },
   {
     "code": "BIOL 301L",
@@ -6198,9 +6224,11 @@
   {
     "code": "BIOL 420",
     "title": "Survey of the Plant Kingdom",
-    "description": "",
+    "description": "Phylogenetic survey of the major plant divisions; consideration of the structure and development of flowering plants.",
     "subject": "BIOL",
-    "key": "751"
+    "key": "751",
+    "prereq": "Prerequisites: C or better in BIOL 301.",
+    "hours": "3 Credits"
   },
   {
     "code": "BIOL 420L",
@@ -6222,9 +6250,11 @@
   {
     "code": "BIOL 425",
     "title": "Plant Form and Function",
-    "description": "",
+    "description": "Basic introduction to plants, including cellular biology, energetics, structure-function relationships, development, nutrition, and diversity.",
     "subject": "BIOL",
-    "key": "754"
+    "key": "754",
+    "prereq": "Prerequisites: C or better in BIOL 302.",
+    "hours": "3 Credits"
   },
   {
     "code": "BIOL 425L",
@@ -6868,9 +6898,11 @@
   {
     "code": "BIOL 636",
     "title": "Sensory Biology",
-    "description": "",
+    "description": "An introduction to the integrative and comparative study of animal sensory systems.",
     "subject": "BIOL",
-    "key": "828"
+    "key": "828",
+    "prereq": "Prerequisites: C or higher in BIOL 301 and BIOL 302.",
+    "hours": "3 Credits"
   },
   {
     "code": "BIOL 640",
@@ -6983,9 +7015,11 @@
   {
     "code": "BIOL 667",
     "title": "Molecular and Genetic Mechanisms of Disease Pathogenesis",
-    "description": "",
+    "description": "An advanced examination of the molecular mechanisms underlying gene action in humans. Current literature illustrating the genotype-phenotype relationship in human disease pathogenesis will be discussed.",
     "subject": "BIOL",
-    "key": "841"
+    "key": "841",
+    "prereq": "Prerequisites: BIOL 302 and BIOL 303.",
+    "hours": "3 Credits"
   },
   {
     "code": "BIOL 668",
@@ -8129,9 +8163,11 @@
   {
     "code": "BMEN 537",
     "title": "Bio Nano/Micro Electro-Mechanical Systems",
-    "description": "",
+    "description": "Fundamentals of nano- and microfabrication, metrology and their applications in biomedical engineering and science. The fabrication covers photolithography, nano/microfabrication for nano/microstructures, etching and additive techniques, MEMS integration and packaging, etc. Metrology focuses on characterization of nanostructures with imaging technologies.",
     "subject": "BMEN",
-    "key": "975"
+    "key": "975",
+    "prereq": "Prerequisites: D or better in CHEM 112 and CHEM 112L or CHEM 142.",
+    "hours": "3 Credits"
   },
   {
     "code": "BMEN 546",
@@ -8154,9 +8190,11 @@
   {
     "code": "BMEN 548",
     "title": "Cardiovascular System: From Development to Disease",
-    "description": "",
+    "description": "Survey of cardiovascular development, anatomy, physiology and pathology. Recent advances in our understanding of the basic mechanisms of congenital cardiovascular defects and cardiovascular disease. Engineering principles, detection and treatment of cardiovascular defects.",
     "subject": "BMEN",
-    "key": "978"
+    "key": "978",
+    "prereq": "Prerequisites: D or better in BMEN 240.",
+    "hours": "3 Credits"
   },
   {
     "code": "BMEN 565",
@@ -9608,9 +9646,10 @@
   {
     "code": "CHIN 222",
     "title": "Intermediate Mandarin Chinese II",
-    "description": "",
+    "description": "Continued practice of basic sentence patterns used in modern speech with increased emphasis on reading and acquisition of additional characters.",
     "subject": "CHIN",
-    "key": "1152"
+    "key": "1152",
+    "hours": "3 Credits"
   },
   {
     "code": "CHIN 240",
@@ -10037,9 +10076,10 @@
   {
     "code": "COMD 507",
     "title": "Language Theory and Phonetics",
-    "description": "",
+    "description": "Study of language theory and international phonetics alphabet transcription.",
     "subject": "COMD",
-    "key": "1205"
+    "key": "1205",
+    "hours": "3 Credits"
   },
   {
     "code": "COMD 521",
@@ -10311,9 +10351,10 @@
   {
     "code": "COMD 735",
     "title": "Counseling in Speech-Language Pathology",
-    "description": "",
+    "description": "The use of counseling skills by speech-language pathologists regarding the impact of communication disorders on the family system, the importance of interpersonal communication in counseling, and the principles and processes of counseling in facilitating behavior change.",
     "subject": "COMD",
-    "key": "1239"
+    "key": "1239",
+    "hours": "2 Credits"
   },
   {
     "code": "COMD 738",
@@ -11480,9 +11521,10 @@
   {
     "code": "CRJU 761",
     "title": "Crime and Place",
-    "description": "",
+    "description": "Examination of the relationship between crime and place, ecological perspectives in criminology, and the spatial distribution of crime.",
     "subject": "CRJU",
-    "key": "1383"
+    "key": "1383",
+    "hours": "3 Credits"
   },
   {
     "code": "CRJU 771",
@@ -12074,9 +12116,11 @@
   {
     "code": "CSCE 555",
     "title": "Algorithms in Bioinformatics",
-    "description": "",
+    "description": "Concepts, algorithms and tools for important problems in Bioinformatics, including nucleotide and amino acid sequence alignment, DNA fragment assembly, phylogenetic reconstruction, and protein structure visualization and assessment.",
     "subject": "CSCE",
-    "key": "1452"
+    "key": "1452",
+    "prereq": "Prerequisites: CSCE 350.",
+    "hours": "3 Credits"
   },
   {
     "code": "CSCE 556",
@@ -12392,9 +12436,10 @@
   {
     "code": "CSCE 725",
     "title": "Information Retrieval: Algorithms and Models",
-    "description": "",
+    "description": "Structure, design, evaluation, and use of information retrieval systems; algorithms and mathematical models for information retrieval; storage and retrieval of textual data in information systems.",
     "subject": "CSCE",
-    "key": "1488"
+    "key": "1488",
+    "hours": "3 Credits"
   },
   {
     "code": "CSCE 727",
@@ -12969,9 +13014,10 @@
   {
     "code": "CYBR 393",
     "title": "Special Topics in Global Cyber Cultures",
-    "description": "",
+    "description": "This course explores the emergence of cybercultures around the world. In addition to touching each inhabited continent and the specific cybercultures that can be found in each of these places, the course introduces students to key issues in the emergence of cultures that are produced and/or mediated by digital infrastructure. May be repeated as content varies.",
     "subject": "CYBR",
-    "key": "1555"
+    "key": "1555",
+    "hours": "3 Credits"
   },
   {
     "code": "CYBR 399",
@@ -14942,9 +14988,10 @@
   {
     "code": "ECHE 797",
     "title": "Research",
-    "description": "",
+    "description": "Individual research to be arranged with instructor.",
     "subject": "ECHE",
-    "key": "1794"
+    "key": "1794",
+    "hours": "1-12 Credits"
   },
   {
     "code": "ECHE 798",
@@ -15246,9 +15293,11 @@
   {
     "code": "ECIV 502",
     "title": "Life Cycle Assessment of Engineered Systems",
-    "description": "",
+    "description": "The steps of conducting and interpreting an environmental life cycle assessment of engineered systems. Fundamentals associated with conducting a life cycle assessment, including goal and scope, inventory analysis, impact assessment and interpretation.",
     "subject": "ECIV",
-    "key": "1829"
+    "key": "1829",
+    "prereq": "Prerequisites: D or better in ECIV 350.",
+    "hours": "3 Credits"
   },
   {
     "code": "ECIV 503",
@@ -15554,9 +15603,11 @@
   {
     "code": "ECIV 724",
     "title": "Dynamics of Structures",
-    "description": "",
+    "description": "Lumped and continuous multidegree of freedom mechanical systems and structural assemblies. Steady-state, shock, and random excitation. Modal analysis, numerical methods. Introduction to wave propagation, earthquake engineering, and nonlinear vibrations.",
     "subject": "ECIV",
-    "key": "1864"
+    "key": "1864",
+    "prereq": "Prerequisites: ENCP 260, MATH 242.",
+    "hours": "3 Credits"
   },
   {
     "code": "ECIV 725",
@@ -16614,16 +16665,18 @@
   {
     "code": "ECON 840",
     "title": "Economic Growth",
-    "description": "",
+    "description": "Advanced theory of economic growth. Mathematical models of growth, including the neoclassical model, endogenous growth models, and models of imperfect competition and growth, will be examined. Techniques of dynamic optimization are used to solve models. Empirical methods will be applied to models of economic growth.",
     "subject": "ECON",
-    "key": "1985"
+    "key": "1985",
+    "hours": "3 Credits"
   },
   {
     "code": "ECON 841",
     "title": "Economic Development",
-    "description": "",
+    "description": "Application of economic principles to regional analysis and planning. Geographic areas covered range from cities and counties to major regions of the nation. Subject areas include economic measurement, analysis, and development planning.",
     "subject": "ECON",
-    "key": "1986"
+    "key": "1986",
+    "hours": "3 Credits"
   },
   {
     "code": "ECON 843",
@@ -16661,9 +16714,10 @@
   {
     "code": "ECON 862",
     "title": "International Monetary Economics",
-    "description": "",
+    "description": "Theories of exchange rate and balance of payments determination (spot and forward exchange markets, interest rate arbitage, purchasing power parity, and monetary approaches); adjustments under fixed and flexible exchange rates are analyzed.",
     "subject": "ECON",
-    "key": "1991"
+    "key": "1991",
+    "hours": "3 Credits"
   },
   {
     "code": "ECON 865",
@@ -18070,9 +18124,10 @@
   {
     "code": "EDEL 399",
     "title": "Independent Study",
-    "description": "",
+    "description": "Contract approved by instructor, advisor, and department chair is required for undergraduate students.",
     "subject": "EDEL",
-    "key": "2160"
+    "key": "2160",
+    "hours": "3-15 Credits"
   },
   {
     "code": "EDEL 405P",
@@ -19998,9 +20053,10 @@
   {
     "code": "EDHE 742",
     "title": "Higher Education Learning Environments",
-    "description": "",
+    "description": "Overview of how environments affect student learning in higher education institutions, including institutional types, environmental structures, and campus culture.",
     "subject": "EDHE",
-    "key": "2388"
+    "key": "2388",
+    "hours": "3 Credits"
   },
   {
     "code": "EDHE 743",
@@ -21495,9 +21551,10 @@
   {
     "code": "EDRM 842",
     "title": "Educational Biography",
-    "description": "",
+    "description": "Examination of biography as a form of educational research and scholarship.",
     "subject": "EDRM",
-    "key": "2569"
+    "key": "2569",
+    "hours": "3 Credits"
   },
   {
     "code": "EDRM 878",
@@ -21559,9 +21616,10 @@
   {
     "code": "EDSE 210",
     "title": "Practicum in Education",
-    "description": "",
+    "description": "A sequence of supervised practica in various educational settings. Seminars and group discussions included.",
     "subject": "EDSE",
-    "key": "2577"
+    "key": "2577",
+    "hours": "1 Credit"
   },
   {
     "code": "EDSE 211",
@@ -21922,9 +21980,10 @@
   {
     "code": "EDSE 764",
     "title": "Advanced Study of the Teaching of Mathematics in Secondary Schools",
-    "description": "",
+    "description": "A study of historical developments and recent innovations in curricula, resources, and techniques in the field of teaching mathematics in secondary schools. Students will be expected to investigate research as it relates to the improvement of instruction.",
     "subject": "EDSE",
-    "key": "2622"
+    "key": "2622",
+    "hours": "3 Credits"
   },
   {
     "code": "EDSE 766",
@@ -22422,9 +22481,11 @@
   {
     "code": "EDTE 741",
     "title": "Applications of Project-Based Learning",
-    "description": "",
+    "description": "Acquisition of experiences required to plan, create, facilitate, and integrate appropriate instructional methodologies and technology within a Project-based Learning unit of study.",
     "subject": "EDTE",
-    "key": "2682"
+    "key": "2682",
+    "prereq": "Prerequisites: EDTE 740.",
+    "hours": "3 Credits"
   },
   {
     "code": "EDTE 742",
@@ -22644,9 +22705,10 @@
   {
     "code": "EDTE 793",
     "title": "Development Education",
-    "description": "",
+    "description": "An examination of the parameters of development education in select areas of the world and its implications for educators and other development workers.",
     "subject": "EDTE",
-    "key": "2708"
+    "key": "2708",
+    "hours": "3 Credits"
   },
   {
     "code": "EDTE 799",
@@ -22806,9 +22868,10 @@
   {
     "code": "EDUC 634",
     "title": "Field Problems in Education III",
-    "description": "",
+    "description": "Selected educational problems will be identified and explored, and probable solutions developed. Emphasis will be on providing practicing school personnel an opportunity to work cooperatively, under supervision, toward solutions to those problems which are of immediate concern to them. Activities will include seminars, review of literature, observations, case studies, materials development, and other applicable approaches. Emphasis will be placed on the development of a comprehensive proposal designed to alleviate or solve the problems identified.",
     "subject": "EDUC",
-    "key": "2728"
+    "key": "2728",
+    "hours": "1-3 Credits"
   },
   {
     "code": "EDUC 635",
@@ -23076,9 +23139,11 @@
   {
     "code": "ELCT 541",
     "title": "Sensors for Biomedicine",
-    "description": "",
+    "description": "Operating principles and design of bioelectric sensors and sensor systems for medical applications.",
     "subject": "ELCT",
-    "key": "2759"
+    "key": "2759",
+    "prereq": "Prerequisites: C or better in ELCT 361, ELCT 363 and ELCT 371.",
+    "hours": "3 Credits"
   },
   {
     "code": "ELCT 551",
@@ -23695,9 +23760,11 @@
   {
     "code": "EMCH 508",
     "title": "Finite Element Analysis in Mechanical Engineering",
-    "description": "",
+    "description": "Development of the fundamental concepts of finite element modeling. Matrix equation assembly and reduction. Mechanical engineering applications in structures, stress analysis, ideal flow, and heat transfer problems.",
     "subject": "EMCH",
-    "key": "2830"
+    "key": "2830",
+    "prereq": "Prerequisites: D or better in EMCH 201 or ENCP 201; D or better in EMCH 327.",
+    "hours": "3 Credits"
   },
   {
     "code": "EMCH 509",
@@ -23729,9 +23796,11 @@
   {
     "code": "EMCH 516",
     "title": "Control Theory in Mechanical Engineering",
-    "description": "",
+    "description": "An introduction to closed-loop control systems; development of concepts, including transfer function, feedback, frequency response, and system stability by examples taken from mechanical engineering practice; control system design methods.",
     "subject": "EMCH",
-    "key": "2834"
+    "key": "2834",
+    "prereq": "Prerequisites: D or better in MATH 242; D or better in EMCH 330 or ENCP 330.",
+    "hours": "3 Credits"
   },
   {
     "code": "EMCH 520",
@@ -25605,9 +25674,11 @@
   {
     "code": "ENGL 425A",
     "title": "The American Novel to 1914",
-    "description": "",
+    "description": "Representative novels from the 18th century to World War I.",
     "subject": "ENGL",
-    "key": "3054"
+    "key": "3054",
+    "prereq": "Prerequisites: ENGL 101 and ENGL 102.",
+    "hours": "3 Credits"
   },
   {
     "code": "ENGL 425B",
@@ -26438,9 +26509,10 @@
   {
     "code": "ENGL 743",
     "title": "Special Topics in Women's Literature and Culture",
-    "description": "",
+    "description": "Selected topics in women's literature and culture. May be repeated up to five times for credit as topics vary.",
     "subject": "ENGL",
-    "key": "3150"
+    "key": "3150",
+    "hours": "3 Credits"
   },
   {
     "code": "ENGL 746",
@@ -27545,9 +27617,10 @@
   {
     "code": "ENVR 348",
     "title": "Environmental Racism and Justice",
-    "description": "",
+    "description": "History of the environmental justice movement and the unequal distribution of environmental harms on low income, minority, and historically marginalized groups.",
     "subject": "ENVR",
-    "key": "3285"
+    "key": "3285",
+    "hours": "3 Credits"
   },
   {
     "code": "ENVR 352",
@@ -29295,9 +29368,11 @@
   {
     "code": "FAME 371",
     "title": "The Moving Image",
-    "description": "",
+    "description": "Introduction to the theory and practice of motion picture production.",
     "subject": "FAME",
-    "key": "3492"
+    "key": "3492",
+    "prereq": "Prerequisites: C or better in FAME 201.",
+    "hours": "3 Credits"
   },
   {
     "code": "FAME 375",
@@ -29422,9 +29497,11 @@
   {
     "code": "FAME 571",
     "title": "Narrative Film",
-    "description": "",
+    "description": "Narrative for motion picture.",
     "subject": "FAME",
-    "key": "3507"
+    "key": "3507",
+    "prereq": "Prerequisites: C or better in FAME 371 or graduate student standing.",
+    "hours": "3 Credits"
   },
   {
     "code": "FAME 572",
@@ -31913,9 +31990,10 @@
   {
     "code": "GEOG 515",
     "title": "Political Geography",
-    "description": "",
+    "description": "Concepts of space and power and their relationship to polities, elections, geopolitics, identities, law, economics, populations, and civil society.",
     "subject": "GEOG",
-    "key": "3805"
+    "key": "3805",
+    "hours": "3 Credits"
   },
   {
     "code": "GEOG 516",
@@ -32028,9 +32106,10 @@
   {
     "code": "GEOG 547",
     "title": "Fluvial Geomorphology",
-    "description": "",
+    "description": "Introduction to landforms and processes associated with flowing water at the earth\u2019s surface. Hydrology, sedimentology, and theories of channel formation and drainage basin evolution.",
     "subject": "GEOG",
-    "key": "3819"
+    "key": "3819",
+    "hours": "3 Credits"
   },
   {
     "code": "GEOG 548",
@@ -32138,9 +32217,11 @@
   {
     "code": "GEOG 567",
     "title": "Long-Term Environmental Change",
-    "description": "",
+    "description": "Climatic changes of the past and their impact on the physical landscape, with an emphasis on the Quaternary period.",
     "subject": "GEOG",
-    "key": "3832"
+    "key": "3832",
+    "prereq": "Prerequisites: C or better in a 200-level course in physical geography or geology or equivalent.",
+    "hours": "3 Credits"
   },
   {
     "code": "GEOG 568",
@@ -32252,9 +32333,10 @@
   {
     "code": "GEOG 711",
     "title": "Seminar in Regional Geography",
-    "description": "",
+    "description": "An analysis of the total geographic complex of selected major world regions.",
     "subject": "GEOG",
-    "key": "3846"
+    "key": "3846",
+    "hours": "3 Credits"
   },
   {
     "code": "GEOG 712",
@@ -33290,9 +33372,11 @@
   {
     "code": "GEOL 765",
     "title": "Exploration Seismology",
-    "description": "",
+    "description": "Seismic refraction and reflection methods including sources, instrumentation, data processing, velocity analysis, seismic modeling, and interpretation.",
     "subject": "GEOL",
-    "key": "3970"
+    "key": "3970",
+    "prereq": "Prerequisites: GEOL 536 or equivalent.",
+    "hours": "3 Credits"
   },
   {
     "code": "GEOL 766",
@@ -34328,9 +34412,10 @@
   {
     "code": "GMED G636",
     "title": "Renal",
-    "description": "",
+    "description": "The Renal module encompasses organs and tissues of the kidney and lower urinary tract. By advancing students\u2019 detailed knowledge of the physiology and pathophysiology of renal disease, including evidence-based lifestyle-related behaviors affecting the renal system, this module will enable them to describe the major renal diseases, including their signs and symptoms, histopathologic and clinical laboratory characteristics, and rationale for prevention of chronic kidney disease as well as current therapeutic interventions.",
     "subject": "GMED",
-    "key": "4097"
+    "key": "4097",
+    "hours": "4 Credits"
   },
   {
     "code": "GMED G640",
@@ -34999,9 +35084,10 @@
   {
     "code": "HEBR 201",
     "title": "Intermediate Hebrew",
-    "description": "",
+    "description": "Review of the basic principles of grammar, with emphasis on reading, oral skills, and writing.",
     "subject": "HEBR",
-    "key": "4180"
+    "key": "4180",
+    "hours": "3 Credits"
   },
   {
     "code": "HEBR 202",
@@ -35770,9 +35856,10 @@
   {
     "code": "HIST 354",
     "title": "Modern East Asia",
-    "description": "",
+    "description": "Surveys modern development of East Asia from 1800 to the present.",
     "subject": "HIST",
-    "key": "4275"
+    "key": "4275",
+    "hours": "3 Credits"
   },
   {
     "code": "HIST 355",
@@ -36185,16 +36272,18 @@
   {
     "code": "HIST 408",
     "title": "The Making of Contemporary America: United States History, the 1960s to the Present",
-    "description": "",
+    "description": "This course is a survey of social, political, economic, and cultural developments since the 1960s. Students will develop a historical framework for exploring the rights revolution that began in the sixties and seventies, economic changes and transformations, trends in popular culture, the evolution of the media and communication technologies, America\u2019s place in the world.",
     "subject": "HIST",
-    "key": "4327"
+    "key": "4327",
+    "hours": "3 Credits"
   },
   {
     "code": "HIST 409",
     "title": "The History of South Carolina, 1670-1865",
-    "description": "",
+    "description": "A study of South Carolina origins and developments.",
     "subject": "HIST",
-    "key": "4328"
+    "key": "4328",
+    "hours": "3 Credits"
   },
   {
     "code": "HIST 410",
@@ -36882,9 +36971,10 @@
   {
     "code": "HIST 734",
     "title": "Empire and Nation in Modern Europe",
-    "description": "",
+    "description": "Comparative study of the concepts and dynamics of empire and nation in 19th- and 20th-century Europe.",
     "subject": "HIST",
-    "key": "4414"
+    "key": "4414",
+    "hours": "3 Credits"
   },
   {
     "code": "HIST 735",
@@ -37233,9 +37323,10 @@
   {
     "code": "HIST 795",
     "title": "Special Topics: Study Travel in History",
-    "description": "",
+    "description": "Class time will be spent preparing a project that can be completed by faculty-supervised travel in the United States or abroad. Designed to be offered during summer sessions.",
     "subject": "HIST",
-    "key": "4458"
+    "key": "4458",
+    "hours": "1-6 Credits"
   },
   {
     "code": "HIST 796",
@@ -37384,9 +37475,10 @@
   {
     "code": "HIST 816",
     "title": "Historical Research Methods",
-    "description": "",
+    "description": "The historical research process, including the definition of research, the determination, collection, and analysis of historical evidence.",
     "subject": "HIST",
-    "key": "4477"
+    "key": "4477",
+    "hours": "3 Credits"
   },
   {
     "code": "HIST 899",
@@ -37521,9 +37613,10 @@
   {
     "code": "HPEB 511",
     "title": "Health Promotion in a Changing Society",
-    "description": "",
+    "description": "Promoting individual and community health in an ever-changing society with a focus on prevention.",
     "subject": "HPEB",
-    "key": "4494"
+    "key": "4494",
+    "hours": "3 Credits"
   },
   {
     "code": "HPEB 512",
@@ -38771,9 +38864,10 @@
   {
     "code": "HSPM 820",
     "title": "Public Health Leadership",
-    "description": "",
+    "description": "The course is designed to give students knowledge and skills necessary to demonstrate leadership in a variety of public health venues. Course content will focus specifically on theories, skills, styles, and techniques used in providing leadership to public health and healthcare programs, services, and policy development, and research. Enrollment Restrictions: Students must be accepted into a PhD, DrPH, or MPH program.",
     "subject": "HSPM",
-    "key": "4646"
+    "key": "4646",
+    "hours": "3 Credits"
   },
   {
     "code": "HSPM 830",
@@ -38803,9 +38897,10 @@
   {
     "code": "HSPM 890",
     "title": "Independent Study",
-    "description": "",
+    "description": "Directed research on a topic to be developed by doctoral student and instructor. May be repeated for credit.",
     "subject": "HSPM",
-    "key": "4650"
+    "key": "4650",
+    "hours": "1-3 Credits"
   },
   {
     "code": "HSPM 898",
@@ -38994,9 +39089,11 @@
   {
     "code": "HTMT 328",
     "title": "Sustainability in the Hospitality Industry",
-    "description": "",
+    "description": "The basic fundamentals of sustainability throughout the hospitality industry will be explored. This includes the various segments ranging from hotels and resorts, foodservice, casinos, and cruise ships to the functional departments such as human resources or financial reporting.",
     "subject": "HTMT",
-    "key": "4674"
+    "key": "4674",
+    "prereq": "Prerequisites: C or better in HTMT 110.",
+    "hours": "3 Credits"
   },
   {
     "code": "HTMT 340",
@@ -39076,16 +39173,19 @@
   {
     "code": "HTMT 371",
     "title": "Creating Community Food Security",
-    "description": "",
+    "description": "This class explores the environmental, societal, and economic impacts of food waste. Students are exposed to these implications through quantitative findings and ethical considerations. The lab allows students to engage with food pantry operations and create meals for those in need.",
     "subject": "HTMT",
-    "key": "4684"
+    "key": "4684",
+    "hours": "3 Credits"
   },
   {
     "code": "HTMT 372",
     "title": "Catering Management",
-    "description": "",
+    "description": "Management techniques, including planning, production, and performance of off-premise catering.",
     "subject": "HTMT",
-    "key": "4685"
+    "key": "4685",
+    "prereq": "Prerequisites: HTMT 270.",
+    "hours": "3 Credits"
   },
   {
     "code": "HTMT 373",
@@ -39138,9 +39238,10 @@
   {
     "code": "HTMT 384",
     "title": "Cultural and Heritage Tourism",
-    "description": "",
+    "description": "The effective presentation, development, management, and marketing of cultural and heritage tourist attractions, including battlefields, plantations, and pilgrimage sites.",
     "subject": "HTMT",
-    "key": "4692"
+    "key": "4692",
+    "hours": "3 Credits"
   },
   {
     "code": "HTMT 386",
@@ -39243,9 +39344,11 @@
   {
     "code": "HTMT 470",
     "title": "Current Issues in Nutrition",
-    "description": "",
+    "description": "Basic nutrition concepts as a foundation to address nutrition, health trends, concerns, and current nutritional issues in the modern world.",
     "subject": "HTMT",
-    "key": "4705"
+    "key": "4705",
+    "prereq": "Prerequisites: C or better in HTMT 340.",
+    "hours": "1-3 Credits"
   },
   {
     "code": "HTMT 473",
@@ -39304,9 +39407,10 @@
   {
     "code": "HTMT 482",
     "title": "Sustainable Tourism Planning and Policy",
-    "description": "",
+    "description": "Principles and practice of tourism planning fostering sustainable tourism development at international, national, state, regional, local and site levels.",
     "subject": "HTMT",
-    "key": "4712"
+    "key": "4712",
+    "hours": "3 Credits"
   },
   {
     "code": "HTMT 483",
@@ -39783,9 +39887,11 @@
   {
     "code": "IBUS 422",
     "title": "Foreign Market Entry and Growth",
-    "description": "",
+    "description": "International market selection, global market entry, and growth and regional expansion strategies. Topics covered through readings, case studies, and an international marketing simulation game.",
     "subject": "IBUS",
-    "key": "4768"
+    "key": "4768",
+    "prereq": "Prerequisites: IBUS 310.",
+    "hours": "3 Credits"
   },
   {
     "code": "IBUS 423",
@@ -40149,9 +40255,10 @@
   {
     "code": "IBUS 710",
     "title": "Global Stakeholder Management",
-    "description": "",
+    "description": "Survey of the managerial, political, economic, sociological and psychological foundations of global stakeholder management and engagement through extant theory and case study examples of successful and failed stakeholder management strategies in various industries and multiple countries.",
     "subject": "IBUS",
-    "key": "4810"
+    "key": "4810",
+    "hours": "3 Credits"
   },
   {
     "code": "IBUS 711",
@@ -40730,9 +40837,10 @@
   {
     "code": "INTL 250",
     "title": "Global Perspectives for Impact",
-    "description": "",
+    "description": "Introduction to global perspectives in a disciplinary or interdisciplinary context through experiential learning abroad.",
     "subject": "INTL",
-    "key": "4879"
+    "key": "4879",
+    "hours": "1-3 Credits"
   },
   {
     "code": "INTL 501",
@@ -41220,9 +41328,10 @@
   {
     "code": "ISCI 720",
     "title": "School Library Media Program Development",
-    "description": "",
+    "description": "Roles, functions, and organization of school library media programs. Systematic planning and evaluation, leadership, advocacy, and integration of program into the curriculum.",
     "subject": "ISCI",
-    "key": "4939"
+    "key": "4939",
+    "hours": "3 Credits"
   },
   {
     "code": "ISCI 721",
@@ -41937,9 +42046,10 @@
   {
     "code": "ITAL 615",
     "title": "Intensive Readings in Italian",
-    "description": "",
+    "description": "Graduate students fulfill their foreign language reading requirement with successful completion of the course. Undergraduates may take the course as an elective only.",
     "subject": "ITAL",
-    "key": "5026"
+    "key": "5026",
+    "hours": "3 Credits"
   },
   {
     "code": "ITEC 101",
@@ -42407,9 +42517,11 @@
   {
     "code": "ITEC 766",
     "title": "IT Project Management",
-    "description": "",
+    "description": "Application of project management tools to document key components of the implementation of a real-world information technology projects.",
     "subject": "ITEC",
-    "key": "5081"
+    "key": "5081",
+    "prereq": "Prerequisites: B or better in ITEC 749 and ITEC 772.",
+    "hours": "3 Credits"
   },
   {
     "code": "ITEC 770",
@@ -42473,9 +42585,11 @@
   {
     "code": "ITEC 785",
     "title": "Enterprise Data Analytics",
-    "description": "",
+    "description": "Mathematical and software tools and quantitative reasoning to the analysis of enterprise data. Fundamental concepts and essential skills in data analytics. Critical and creative thinking about quantitative and qualitative problems involving enterprise data.",
     "subject": "ITEC",
-    "key": "5089"
+    "key": "5089",
+    "prereq": "Prerequisites: B or better in MATH 174; B or better in STAT 700 or STAT 701; B or better in ITEC 749; C or better in ITEC 264.",
+    "hours": "3 Credits"
   },
   {
     "code": "ITEC 786",
@@ -43144,9 +43258,11 @@
   {
     "code": "JOUR 384",
     "title": "Professional Perspectives in Business Communications",
-    "description": "",
+    "description": "These classes focus on specific areas of business communications to either deepen students\u2019 understanding of the subject or improve their ability with a particular skill (reporting, writing, editing, videography, social media, etc.). These topics may change from term to term.",
     "subject": "JOUR",
-    "key": "5170"
+    "key": "5170",
+    "prereq": "Prerequisites: C or better in JOUR 382.",
+    "hours": "1 Credit"
   },
   {
     "code": "JOUR 385",
@@ -44186,9 +44302,10 @@
   {
     "code": "JOUR 804",
     "title": "Seminar in Mass Communication Historical Research Methods",
-    "description": "",
+    "description": "Application of historical research methods to the study of mass communication.",
     "subject": "JOUR",
-    "key": "5293"
+    "key": "5293",
+    "hours": "3 Credits"
   },
   {
     "code": "JOUR 805",
@@ -44265,9 +44382,10 @@
   {
     "code": "JOUR 825",
     "title": "Communication Training and Consulting",
-    "description": "",
+    "description": "Examines communication training and consultation as a research and instructional focus for students interested in applied communication, with an emphasis on identifying and assessing communication competence and how to develop training programs to enhance communication competency.",
     "subject": "JOUR",
-    "key": "5303"
+    "key": "5303",
+    "hours": "3 Credits"
   },
   {
     "code": "JOUR 826",
@@ -44504,9 +44622,11 @@
   {
     "code": "LANU 209",
     "title": "Nursing Management III",
-    "description": "",
+    "description": "Focuses on the delivery of nursing care to an increasing number of individuals experiencing health problems emphasizing selected physiological systems.",
     "subject": "LANU",
-    "key": "5332"
+    "key": "5332",
+    "prereq": "Prerequisites: LANU 159, LANU 211",
+    "hours": "5 Credits"
   },
   {
     "code": "LANU 211",
@@ -45150,9 +45270,10 @@
   {
     "code": "LAWH 700",
     "title": "Introduction to the Legal System",
-    "description": "",
+    "description": "Introduction to structure of government, sources of federal, state, and local law, judicial and administrative processes, the role of the lawyer, legal reasoning and analysis, and sources of law that govern and regulate access to U.S. health care system.",
     "subject": "LAWH",
-    "key": "5410"
+    "key": "5410",
+    "hours": "3 Credits"
   },
   {
     "code": "LAWH 701",
@@ -46696,9 +46817,10 @@
   {
     "code": "LAWS 701",
     "title": "Advanced Family Law",
-    "description": "",
+    "description": "This course takes students beyond the issues covered in the basic Family Law course and offers an opportunity for in-depth study of contemporary issues in Family Law. The class will explore the legal, ethical, social and psychological aspects of the family. Topics covered may include parental rights and responsibilities in reproductive technology cases, medical decision-making, adoption, termination of parental rights, gender and sexuality, and special laws unique to Native Americans. Registration: Students who elect the 2 credit-hour option must either take the final examination or complete a paper of not less than 20 pages in length, which will not fulfill the graduation writing requirement. Graduation Requirement: A limited number of students may elect to fulfill the graduation writing requirement with the professor\u2019s prior permission by taking the course for 3 credit-hours and completing a paper of not less than 30 pages in length. Must earn a grade of C or better. Basis of Grade: Final examination or research paper. Form of Grade: Letter Grade.",
     "subject": "LAWS",
-    "key": "5590"
+    "key": "5590",
+    "hours": "2,3 Credits"
   },
   {
     "code": "LAWS 702",
@@ -46853,9 +46975,10 @@
   {
     "code": "LAWS 720",
     "title": "Criminal Law Externship",
-    "description": "",
+    "description": "Students will spend a significant amount of time (30 hours per week for 8 weeks during the summer) at their placement. Placements will include: the Solicitors Office of various counties, the Public Defenders office, the Attorney General\u2019s office, and federal criminal agencies. Students will assist in the preparation of materials for court and can observe office attorneys in trial. A specific attorney in each office will be responsible for overseeing student experience in the office. Graduation Requirement: This course satisfies the experiential course graduation requirement, must earn a grade of C or better Basis of Grade: Journal; Example of written product or a short reflective paper on professional experience; and a brief presentation to the class. The fieldwork supervisor will complete an evaluation of the student\u2019s performance. The final grade will be determined by the instructor, based upon the evaluation submitted by the fieldwork supervisor, the quality of the student\u2019s written submissions, participation in the class sessions, and a determination by the instructor that all requirements of the externship have been satisfactorily completed. Form of Grade: Letter.",
     "subject": "LAWS",
-    "key": "5609"
+    "key": "5609",
+    "hours": "4 Credits"
   },
   {
     "code": "LAWS 720A",
@@ -47472,9 +47595,10 @@
   {
     "code": "LAWS 791A",
     "title": "Judicial Externship",
-    "description": "",
+    "description": "Students are given the opportunity to enhance their professional legal skills by working in a professional setting under the supervision of a judge and the judges\u2019 support staff. Each student will be assigned to an individual judge for eight (8) hours per week which will expose the students to the functional aspects of the courts and the influences critical to judicial decision making. The students will observe how judges handle the ethical, substantive, and procedural issues with which they are confronted daily. Students should have the opportunity to strengthen analytical and research skills and legal writing ability. Beyond the practical knowledge that comes from this exposure, the externship will enable the students to gain a keener insight into the judicial thought process. This insight is critical to successful advocacy. The majority of the course work will be done outside of class; however, students will be actively supervised by a judge or law clerk and will attend a companion class taught by an instructor with experience in this area to reflect upon their fieldwork experience. Students will work a minimum of 8 hours per week for 13 weeks at their field placement. The work will consist of substantive legal work including legal research, drafting memoranda and court documents, and the observation of related legal proceedings. Students will also attend the companion class every other week (7 total classes) for 1.5 hours with an instructor and other students with similar fieldwork experiences to reflect upon their experience. Graduation Requirement: This course satisfies experiential course graduation requirement, must earn a grade of Low Pass or better. Basis of Grade: The grade will be based upon the attorney supervisor\u2019s final evaluation, classroom attendance and participation, fulfilling the work hour requirement (104 total hours), and weekly journal entries (12 total). Form of Grade: Expanded Pass/Fail.",
     "subject": "LAWS",
-    "key": "5683"
+    "key": "5683",
+    "hours": "3 Credits"
   },
   {
     "code": "LAWS 792",
@@ -47496,9 +47620,10 @@
   {
     "code": "LAWS 794",
     "title": "Intersection of Health Law and Technology",
-    "description": "",
+    "description": "Innovations in technology are continually reshaping the field of medicine - and the law, in turn, plays a significant role in shaping and enabling those innovations. Sometimes the role of the law is to fund or otherwise incentivize these technologies; other times, it is to regulate or even prohibit them. In each instance, the law plays an important role in shaping the future of medicine. This course will examine the many ways that the law intervenes in the development and implementation of medical technologies, with a particular focus on federal law. It will include an examination of how federal law regulates and interacts with medical technologies such as: health information technology, telemedicine, and the development of new drugs. Looking at these and other issues, we will examine the conflicting social goals and values that often emerge when a new medical technology becomes possible - and we will examine the ways, both successful and unsuccessful, that the law has attempted to manage these tensions. Basis of Grade: Class participation, final paper. As part of the class participation grade, students will be expected to briefly introduce and initiate class discussion on one topic during the semester. Form of Grade: Letter.",
     "subject": "LAWS",
-    "key": "5686"
+    "key": "5686",
+    "hours": "2 Credits"
   },
   {
     "code": "LAWS 795",
@@ -47813,9 +47938,10 @@
   {
     "code": "LAWS 834",
     "title": "Caretaking, the Family and the Law",
-    "description": "",
+    "description": "In this seminar, which will satisfy the perspective course requirement and the graduation writing requirement, students will explore how law, policy, and cultural norms shape conceptions of family and caretaking of those who cannot fully care for themselves and, conversely, how shifting cultural notions of family and caretaking affect law and policy. Throughout the course, students will also specifically consider how cultural and legal notions of privacy and gender affect the law and policy of family and caretaking. Students will analyze these ideas in a variety of legal contexts including how they impact the law of child welfare, public benefits and poverty law, public education, work, and disability. It is anticipated that the first half of the course will be spent on readings and class discussions analyzing these concepts. During this time student will also begin developing paper topics in close consultation with the professor. In the second half of the course, class time will be spent on presentations of student papers. Students will be required to read each others\u2019 papers and will prepare questions and critiques for the presenters. Following their paper presentations, students will have the opportunity to revise their papers and submit a final draft for grading at the end of the semester. Graduation Requirement: This course satisfies the graduation perspective course requirement. This course will satisfy the graduation writing requirement if taken for three credit hours. Must earn a grade of C or better if taken for the writing requirement. Basis of Grade: Students will be graded on a draft and final paper, class participation, a class presentation, and a critique of a colleague\u2019s paper and presentation. Form of Grade: Letter .",
     "subject": "LAWS",
-    "key": "5724"
+    "key": "5724",
+    "hours": "2,3 Credits"
   },
   {
     "code": "LAWS 835",
@@ -48609,9 +48735,11 @@
   {
     "code": "LING 720",
     "title": "Introduction to Syntax",
-    "description": "",
+    "description": "Foundations of generative grammar, focusing on the syntax of English; universal principles of basic clause structure and derived constructions; emphasis on syntactic argumentation and cross- linguistic generalization.",
     "subject": "LING",
-    "key": "5820"
+    "key": "5820",
+    "prereq": "Prerequisites: LING 600.",
+    "hours": "3 Credits"
   },
   {
     "code": "LING 721",
@@ -49908,9 +50036,10 @@
   {
     "code": "MATH 748",
     "title": "Selected Topics in Algebra",
-    "description": "",
+    "description": "Course content varies and will be announced in the schedule of classes by title. All non-degree students should request permission to register from the Graduate Director in the Mathematics Department.",
     "subject": "MATH",
-    "key": "5970"
+    "key": "5970",
+    "hours": "3 Credits"
   },
   {
     "code": "MATH 750",
@@ -50378,9 +50507,11 @@
   {
     "code": "MCBA 715",
     "title": "Cardiovascular Embryology",
-    "description": "",
+    "description": "Advanced study of the essential features of human development, clarifying the gross anatomical features and giving emphasis to recent advances in human embryology. The clinical importance of embryology and the etiology of congenital defects are noted.",
     "subject": "MCBA",
-    "key": "6026"
+    "key": "6026",
+    "prereq": "Prerequisites: ANAT 701.",
+    "hours": "1-3 Credits"
   },
   {
     "code": "MCBA 720",
@@ -50501,9 +50632,10 @@
   {
     "code": "MCBA D622",
     "title": "Clinical Anatomy",
-    "description": "",
+    "description": "This elective is designed to meet the specific needs or interests of individual students. A program is proposed by the student for faculty approval which normally includes the completion of a number of cadaver dissections. Normal gross anatomy is presented and integrated with relevant clinical material during oral presentations. Clinical faculty are involved whenever possible.",
     "subject": "MCBA",
-    "key": "6041"
+    "key": "6041",
+    "hours": "1-4 Credits"
   },
   {
     "code": "MEDI 700",
@@ -50620,9 +50752,10 @@
   {
     "code": "MEDI D635",
     "title": "Clinical Nephrology",
-    "description": "",
+    "description": "This course will provide clinical experience in the care of patients with acute and chronic renal failure, nephrotic syndrome, various fluid and electrolyte disorders and refractory hypertension. Hemodialysis and peritoneal dialysis will be discussed and utilized. The students will follow selected patients and will round daily with the attending faculty.",
     "subject": "MEDI",
-    "key": "6056"
+    "key": "6056",
+    "hours": "1-4 Credits"
   },
   {
     "code": "MEDI D636",
@@ -50747,9 +50880,10 @@
   {
     "code": "MEDI G725",
     "title": "Infectious Disease Elective",
-    "description": "",
+    "description": "This course is offered as a consultative rotation in clinical Infectious Disease. Students are assigned to work with the attendings and usually one PGYII or III Internal Medicine resident as related to hospitalized and ambulatory patients. The student will be responsible for first patient contact with patients referred to the Infectious Disease consult service. These patients will then be presented to the resident and the faculty. The student will be responsible for recording the history, physical and orders with countersignature by the resident and faculty. There is a biweekly Infectious Disease clinic which the student will also be expected to attend.",
     "subject": "MEDI",
-    "key": "6072"
+    "key": "6072",
+    "hours": "2 Credits"
   },
   {
     "code": "MEDI G730",
@@ -51816,9 +51950,11 @@
   {
     "code": "MGSC 520",
     "title": "Forecasting and Time Series",
-    "description": "",
+    "description": "Time series analysis and forecasting using the multiple regression and Box-Jenkins approaches.",
     "subject": "MGSC",
-    "key": "6199"
+    "key": "6199",
+    "prereq": "Prerequisites: C or better in STAT 516 or MGSC 391.",
+    "hours": "3 Credits"
   },
   {
     "code": "MGSC 525",
@@ -53265,9 +53401,10 @@
   {
     "code": "MSCI 624",
     "title": "Aquatic Chemistry",
-    "description": "",
+    "description": "Study of the chemical reactions and processes affecting the distribution of chemical species in natural systems. Three lecture hours per week.",
     "subject": "MSCI",
-    "key": "6368"
+    "key": "6368",
+    "hours": "3 Credits"
   },
   {
     "code": "MSCI 627",
@@ -53777,9 +53914,10 @@
   {
     "code": "MUED 461",
     "title": "Jazz/Pop Styles and Improvisation",
-    "description": "",
+    "description": "A study of the essential elements in jazz and popular music. Familiarization and practice with materials and methods of teaching improvisation and jazz performance.",
     "subject": "MUED",
-    "key": "6430"
+    "key": "6430",
+    "hours": "1 Credit"
   },
   {
     "code": "MUED 462",
@@ -54549,16 +54687,18 @@
   {
     "code": "MUSC 111T",
     "title": "Lower Division Applied Music/ Violoncello",
-    "description": "",
+    "description": "Course consists of individual instruction including individualized assignments and regular private instruction and review. Not Auditable.",
     "subject": "MUSC",
-    "key": "6525"
+    "key": "6525",
+    "hours": "1-3 Credits"
   },
   {
     "code": "MUSC 111U",
     "title": "Lower Division Applied Music/ Double Bass",
-    "description": "",
+    "description": "Course consists of individual instruction including individualized assignments and regular private instruction and review. Not Auditable.",
     "subject": "MUSC",
-    "key": "6526"
+    "key": "6526",
+    "hours": "1-3 Credits"
   },
   {
     "code": "MUSC 111V",
@@ -55278,9 +55418,10 @@
   {
     "code": "MUSC 311C",
     "title": "Upper Division Applied Music/ Clarinet",
-    "description": "",
+    "description": "Course consists of individual instruction including individualized assignments and regular private instruction and review. Not Auditable.",
     "subject": "MUSC",
-    "key": "6615"
+    "key": "6615",
+    "hours": "1-3 Credits"
   },
   {
     "code": "MUSC 311D",
@@ -55397,9 +55538,10 @@
   {
     "code": "MUSC 311S",
     "title": "Upper Division Applied Music/ Viola",
-    "description": "",
+    "description": "Course consists of individual instruction including individualized assignments and regular private instruction and review. Not Auditable.",
     "subject": "MUSC",
-    "key": "6630"
+    "key": "6630",
+    "hours": "1-3 Credits"
   },
   {
     "code": "MUSC 311T",
@@ -55576,9 +55718,11 @@
   {
     "code": "MUSC 354",
     "title": "History of Western Music II",
-    "description": "",
+    "description": "Western music from ca. 1800 through ca. 1970, considering musical styles, genre and forms, and the contributions of composers through historical, analytical, and musical perspectives. Subdiscipline, Music - History and Literature.",
     "subject": "MUSC",
-    "key": "6651"
+    "key": "6651",
+    "prereq": "Prerequisites: C or better in MUSC 353 or MUSC 340.",
+    "hours": "3 Credits"
   },
   {
     "code": "MUSC 365",
@@ -56145,9 +56289,10 @@
   {
     "code": "MUSC 501Z",
     "title": "Secondary Applied Music/ Jazz",
-    "description": "",
+    "description": "Course consists of individual instruction including individualized assignments and regular private instruction and review. Not auditable.",
     "subject": "MUSC",
-    "key": "6721"
+    "key": "6721",
+    "hours": "1-2 Credits"
   },
   {
     "code": "MUSC 505",
@@ -58726,9 +58871,10 @@
   {
     "code": "NPSY G710",
     "title": "Focus in Psychiatry Elective",
-    "description": "",
+    "description": "Inpatient and outpatient opportunities exist for electives in Psychiatry and subspecialties in child/adolescent and geropsychiatry. The content of this course is designed to provide the student a broader experience in comprehensive psychiatric patient evaluation and treatment. He/she will be assigned to a practicing psychiatrist within a variety of inpatient, outpatient, emergency and consultative fields. The presenting problems of patients include personality disorders, acute psychotic disorders, mood disorders, anxiety disorders, schizophrenia, psychosomatic illness, organic brain syndrome and substance abuse disorders. The student will be responsible for intake assessments, to include a mental status examination. He/she will also participate in the decision-making processes and in continuity of care. Additional assignments will be made to specialized treatment programs including individual and family psychotherapy. The student may see outpatients being treated at the Brownell Center collocated with Marshall I. Pickens Hospital. Additionally, rotations may occur at the Piedmont Mental Health Center located in Simpsonville, near Hillcrest Hospital. Additional inpatient rotations may be at Marshall I. Pickens Hospital or Harris Psychiatric Hospital in Anderson. Consultation and emergency services are located at Greenville Memorial Medical Center. The course is designed to provide the student with maximum patient contact. Reviews of interviewing techniques and the principles of general psychiatry with the introduction of individual and family psychotherapy techniques will complement the student's clinical contact with patients. The student will be evaluated by both his/her preceptors and the Clerkship Director for Psychiatry or his designee. Input will be obtained from the other health professionals with whom the student has worked. Additionally, successful completion of the stated objectives will be required to pass this course.",
     "subject": "NPSY",
-    "key": "7040"
+    "key": "7040",
+    "hours": "2 Credits"
   },
   {
     "code": "NPSY G800",
@@ -58943,9 +59089,11 @@
   {
     "code": "NURS 314",
     "title": "Clinical Reasoning in Nursing Practice",
-    "description": "",
+    "description": "The process of making clinical judgments.",
     "subject": "NURS",
-    "key": "7066"
+    "key": "7066",
+    "prereq": "Prerequisites: C or better in NURS 220.",
+    "hours": "2 Credits"
   },
   {
     "code": "NURS 318",
@@ -59074,9 +59222,11 @@
   {
     "code": "NURS 425",
     "title": "Nursing of Children and Families",
-    "description": "",
+    "description": "Nursing care of families throughout their childrearing years, focusing on health promotion, restoration, and support of their children. Practicum required.",
     "subject": "NURS",
-    "key": "7081"
+    "key": "7081",
+    "prereq": "Prerequisites: C or better in NURS 311, NURS 312, NURS 313, NURS 314, and NURS 324.",
+    "hours": "4 Credits"
   },
   {
     "code": "NURS 426",
@@ -59459,9 +59609,10 @@
   {
     "code": "NURS 735",
     "title": "Transition to Nursing Leadership, Ethics and Policy",
-    "description": "",
+    "description": "Concepts and principles of leadership, management, policy, and advocacy within health care systems and the implications related to advanced nursing practice, interprofessional collaboration, and patient outcomes.",
     "subject": "NURS",
-    "key": "7127"
+    "key": "7127",
+    "hours": "3 Credits"
   },
   {
     "code": "NURS 736",
@@ -61509,9 +61660,10 @@
   {
     "code": "PEDU 104",
     "title": "Personal Fitness and Weight Control",
-    "description": "",
+    "description": "Advanced techniques for controlling weight and improving fitness through exercise, lectures, and self-evaluation.",
     "subject": "PEDU",
-    "key": "7376"
+    "key": "7376",
+    "hours": "1 Credit"
   },
   {
     "code": "PEDU 105",
@@ -61558,9 +61710,10 @@
   {
     "code": "PEDU 110",
     "title": "Orientation to Physical Education",
-    "description": "",
+    "description": "Experiences in a variety of physical-activity areas.",
     "subject": "PEDU",
-    "key": "7382"
+    "key": "7382",
+    "hours": "1 Credit"
   },
   {
     "code": "PEDU 111",
@@ -62763,9 +62916,10 @@
   {
     "code": "PEDU 741",
     "title": "Readings in the Social History of Sport",
-    "description": "",
+    "description": "Reading and discussion of the critical and analytical literature on sport history.",
     "subject": "PEDU",
-    "key": "7528"
+    "key": "7528",
+    "hours": "3 Credits"
   },
   {
     "code": "PEDU 743",
@@ -63361,9 +63515,10 @@
   {
     "code": "PHAR 748",
     "title": "Principles of Pharmacoeconomics",
-    "description": "",
+    "description": "Analytical techniques and theoretical principles for evaluating costs and consequences of pharmaceutical agents and services for the health care system and society.",
     "subject": "PHAR",
-    "key": "7602"
+    "key": "7602",
+    "hours": "3 Credits"
   },
   {
     "code": "PHAR 749",
@@ -65616,9 +65771,10 @@
   {
     "code": "PHPH 752C",
     "title": "Neurobiology Basics Module: Neurochemistry\u2013Advanced Concepts",
-    "description": "",
+    "description": "In-depth analysis of neurochemical processes, signaling, and pathways in the nervous system. Each 5-week module provides fundamentals of particular aspects of neurobiology, including neuroanatomy, neurophysiology, neurochemistry, molecular neurobiology, and neuropharmacology, or skills necessary for research in neurobiology-related disciplines.",
     "subject": "PHPH",
-    "key": "7864"
+    "key": "7864",
+    "hours": "2 Credits"
   },
   {
     "code": "PHPH 752D",
@@ -65900,9 +66056,10 @@
   {
     "code": "PHYS 102L",
     "title": "The Physics of How Things Work II Lab",
-    "description": "",
+    "description": "Experiments, exercises, and demonstrations to accompany PHYS 102 .",
     "subject": "PHYS",
-    "key": "7899"
+    "key": "7899",
+    "hours": "1 Credit"
   },
   {
     "code": "PHYS 151",
@@ -66228,9 +66385,10 @@
   {
     "code": "PHYS 599",
     "title": "Topics in Physics",
-    "description": "",
+    "description": "Readings and research on selected topics in physics. Course content varies and will be announced in the schedule of classes by title.",
     "subject": "PHYS",
-    "key": "7937"
+    "key": "7937",
+    "hours": "1-3 Credits"
   },
   {
     "code": "PHYS 700",
@@ -66532,9 +66690,10 @@
   {
     "code": "PHYT 721",
     "title": "Health Promotion Wellness in Physical Therapy",
-    "description": "",
+    "description": "Presents the role of the physical therapist in health promotion and wellness for patients/clients and the community.",
     "subject": "PHYT",
-    "key": "7974"
+    "key": "7974",
+    "hours": "2 Credits"
   },
   {
     "code": "PHYT 731",
@@ -66957,9 +67116,10 @@
   {
     "code": "PMDR G899",
     "title": "Physical Medicine and Rehabilitation Away Rotation",
-    "description": "",
+    "description": "The student will complete an intensive study of Phsysical Medicine and Rehabilitation at another hospital or practice. This course must be approved through the VSAS application service or office of the M3/M4 Director.",
     "subject": "PMDR",
-    "key": "8027"
+    "key": "8027",
+    "hours": "4 Credits"
   },
   {
     "code": "PNDI 620",
@@ -67015,9 +67175,11 @@
   {
     "code": "PNDI 712",
     "title": "Performance Nutrition Dietetics Supervised Experience Level 2",
-    "description": "",
+    "description": "Preparatory supervised experience in the field of nutrition and dietetics that applies knowledge about public health nutrition, food service, food systems, and nutrition services in practice settings.",
     "subject": "PNDI",
-    "key": "8034"
+    "key": "8034",
+    "prereq": "Prerequisites: B or better in PNDI 752 or HPEB 752; B or better in PNDI 705; B or better in PNDI 710 .",
+    "hours": "1 Credit"
   },
   {
     "code": "PNDI 713",
@@ -67272,9 +67434,10 @@
   {
     "code": "POLI 304",
     "title": "Contemporary Political Theory",
-    "description": "",
+    "description": "Nineteenth and 20th century political theories.",
     "subject": "POLI",
-    "key": "8065"
+    "key": "8065",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 305",
@@ -67840,9 +68003,10 @@
   {
     "code": "POLI 476",
     "title": "Black Activism",
-    "description": "",
+    "description": "Critical review of theories of community organizing, grassroots activism, and social movements, and examination of contemporary forms of black activism.",
     "subject": "POLI",
-    "key": "8136"
+    "key": "8136",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 477",
@@ -68008,9 +68172,10 @@
   {
     "code": "POLI 567",
     "title": "American Local Government",
-    "description": "",
+    "description": "An introduction to the institutions, functions, policy-making processes, and politics of American local government.",
     "subject": "POLI",
-    "key": "8157"
+    "key": "8157",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 569",
@@ -68047,9 +68212,10 @@
   {
     "code": "POLI 701",
     "title": "Theories of Political Inquiry",
-    "description": "",
+    "description": "A brief overview of the growth of the social sciences and of the history of the American discipline of political science in the 20th century, including an examination of the rise of behavioralism. Study of the principles of neo-positivist political inquiry, including problems of empirical research and research design.",
     "subject": "POLI",
-    "key": "8162"
+    "key": "8162",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 702",
@@ -68096,9 +68262,10 @@
   {
     "code": "POLI 707",
     "title": "Classics of Political Theory",
-    "description": "",
+    "description": "Introduction to the nature and tradition of political theory; readings from selected political theorists.",
     "subject": "POLI",
-    "key": "8168"
+    "key": "8168",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 708",
@@ -68175,9 +68342,10 @@
   {
     "code": "POLI 721",
     "title": "Race and Public Policy|",
-    "description": "",
+    "description": "A survey of the most recent and state-of-the-art scholarship on race and American policy.",
     "subject": "POLI",
-    "key": "8178"
+    "key": "8178",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 724",
@@ -68458,9 +68626,10 @@
   {
     "code": "POLI 765",
     "title": "Political Parties and Interest Groups",
-    "description": "",
+    "description": "Intensive examination of contemporary development of political organizations in the United States.",
     "subject": "POLI",
-    "key": "8213"
+    "key": "8213",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 766",
@@ -68586,9 +68755,10 @@
   {
     "code": "POLI 781",
     "title": "Government and Politics of Japan",
-    "description": "",
+    "description": "Explores the key institutions, actors, and processes of contemporary Japanese domestic politics.",
     "subject": "POLI",
-    "key": "8229"
+    "key": "8229",
+    "hours": "3 Credits"
   },
   {
     "code": "POLI 782",
@@ -69145,9 +69315,11 @@
   {
     "code": "PSYC 401",
     "title": "Psychology of Physical Activity",
-    "description": "",
+    "description": "Introduction to psychosocial factors in physical activity. Topics include mental health effects of exercise, behavior change theories applied to physical activity, and physical activity determinants and interventions.",
     "subject": "PSYC",
-    "key": "8297"
+    "key": "8297",
+    "prereq": "Prerequisites: C or better in PSYC 101.",
+    "hours": "3 Credits"
   },
   {
     "code": "PSYC 405",
@@ -69169,9 +69341,11 @@
   {
     "code": "PSYC 420",
     "title": "Survey of Developmental Psychology",
-    "description": "",
+    "description": "Psychological development from conception to late adulthood. Topics include physical, cognitive, and social processes associated with development at each stage of the life cycle.",
     "subject": "PSYC",
-    "key": "8300"
+    "key": "8300",
+    "prereq": "Prerequisites: PSYC 101 or EDPY 335.",
+    "hours": "3 Credits"
   },
   {
     "code": "PSYC 430",
@@ -69254,9 +69428,10 @@
   {
     "code": "PSYC 475",
     "title": "Survey of Clinical Psychology",
-    "description": "",
+    "description": "The scientific basis of clinical psychology. Topics include history, theory, research, ethics, and best practices. For students interested in graduate school in psychology or other mental health professions.",
     "subject": "PSYC",
-    "key": "8310"
+    "key": "8310",
+    "hours": "3 Credits"
   },
   {
     "code": "PSYC 476",
@@ -69729,9 +69904,11 @@
   {
     "code": "PSYC 717",
     "title": "Survey of Personality Theories",
-    "description": "",
+    "description": "Issues, theories, and research on personality.",
     "subject": "PSYC",
-    "key": "8365"
+    "key": "8365",
+    "prereq": "Prerequisites: 18 hours in psychology.",
+    "hours": "3 Credits"
   },
   {
     "code": "PSYC 720",
@@ -70319,9 +70496,11 @@
   {
     "code": "PSYC 845",
     "title": "Topics in Community Psychology",
-    "description": "",
+    "description": "Theoretical and empirical issues in an area of current interest in community psychology. May be repeated with different topics.",
     "subject": "PSYC",
-    "key": "8435"
+    "key": "8435",
+    "prereq": "Prerequisites: PSYC 727.",
+    "hours": "3 Credits"
   },
   {
     "code": "PSYC 850",
@@ -70407,9 +70586,10 @@
   {
     "code": "PUBH 499",
     "title": "Foundations of Public Health Leadership",
-    "description": "",
+    "description": "An introduction to core principles in public health leadership. Areas included are ethics, public health issues, communication issues, leadership competencies, and leadership values.",
     "subject": "PUBH",
-    "key": "8446"
+    "key": "8446",
+    "hours": "3 Credits"
   },
   {
     "code": "PUBH 678",
@@ -71194,9 +71374,10 @@
   {
     "code": "RELG 362",
     "title": "Science, Magic and Religion",
-    "description": "",
+    "description": "Occultism as a link between science and religion and its central role in Western intellectual and cultural history; the historical development of the science-magic-religion continuum in the Islamo-Christian world from late antiquity to present.",
     "subject": "RELG",
-    "key": "8543"
+    "key": "8543",
+    "hours": "3 Credits"
   },
   {
     "code": "RELG 363",
@@ -71921,9 +72102,10 @@
   {
     "code": "RETL 592",
     "title": "Retailing/Fashion Merchandising Field Study",
-    "description": "",
+    "description": "Study of international/domestic fashion manufacturers, retailers, ancillary businesses, and selected resident buying offices. May be repeated once for credit. Must be in good standing with a 2.0 GPA or better; No pending or past judicial council infractions.",
     "subject": "RETL",
-    "key": "8632"
+    "key": "8632",
+    "hours": "3 Credits"
   },
   {
     "code": "RETL 600",
@@ -72088,9 +72270,10 @@
   {
     "code": "RHAB 703",
     "title": "Psychosocial Aspects of Disability",
-    "description": "",
+    "description": "Theory, research, and practice which contribute to an understanding of disability; attitudes, psychological, and social factors.",
     "subject": "RHAB",
-    "key": "8653"
+    "key": "8653",
+    "hours": "3 Credits"
   },
   {
     "code": "RHAB 704",
@@ -72341,9 +72524,10 @@
   {
     "code": "RUSS 340",
     "title": "Russian Shorts: Stories and Essays",
-    "description": "",
+    "description": "An examination of Russian short stories and essays by Russian writers from the nineteenth century to the twenty-first century.",
     "subject": "RUSS",
-    "key": "8683"
+    "key": "8683",
+    "hours": "3 Credits"
   },
   {
     "code": "RUSS 350",
@@ -72816,9 +73000,10 @@
   {
     "code": "SCHC 234",
     "title": "HNRS: Proseminar in International Relations",
-    "description": "",
+    "description": "The following courses are offered infrequently and should not be considered a regular part of the SCHC curriculum.",
     "subject": "SCHC",
-    "key": "8742"
+    "key": "8742",
+    "hours": "3 Credits"
   },
   {
     "code": "SCHC 235",
@@ -73687,9 +73872,10 @@
   {
     "code": "SCHC 398",
     "title": "HNRS: Proseminar",
-    "description": "",
+    "description": "South Carolina Honors College courses offered for variable credit. The following course is a proseminar, with specific topics to be selected as need and interests dictate. Generally limited to 18 students, it is either an extensive study of a broad area or an intensive examination of a specific problem.",
     "subject": "SCHC",
-    "key": "8851"
+    "key": "8851",
+    "hours": "1-3 Credits"
   },
   {
     "code": "SCHC 399",
@@ -73846,9 +74032,10 @@
   {
     "code": "SCHC 421",
     "title": "HNRS: Proseminar in American History",
-    "description": "",
+    "description": "The following courses are offered infrequently and should not be considered a regular part of the SCHC curriculum.",
     "subject": "SCHC",
-    "key": "8871"
+    "key": "8871",
+    "hours": "3 Credits"
   },
   {
     "code": "SCHC 422",
@@ -74475,9 +74662,10 @@
   {
     "code": "SOCY 311",
     "title": "Ecology of Human Social Systems",
-    "description": "",
+    "description": "Relationships among and changes in populations, social organization, technology, and the environment.",
     "subject": "SOCY",
-    "key": "8949"
+    "key": "8949",
+    "hours": "3 Credits"
   },
   {
     "code": "SOCY 312",
@@ -74627,9 +74815,10 @@
   {
     "code": "SOCY 355",
     "title": "Race and Ethnic Relations",
-    "description": "",
+    "description": "Theoretical and empirical approaches related to race/ethnicity and the current state of race relations in America, with some attention to global issues.",
     "subject": "SOCY",
-    "key": "8968"
+    "key": "8968",
+    "hours": "3 Credits"
   },
   {
     "code": "SOCY 356",
@@ -75013,9 +75202,10 @@
   {
     "code": "SOCY 734",
     "title": "Experimental Methods in Sociology",
-    "description": "",
+    "description": "Purposes, design and implementation of laboratory experiments in sociology.",
     "subject": "SOCY",
-    "key": "9015"
+    "key": "9015",
+    "hours": "3 Credits"
   },
   {
     "code": "SOCY 735",
@@ -76653,9 +76843,11 @@
   {
     "code": "SPAN 555",
     "title": "Spanish-American Literature from Modernism Through 1960",
-    "description": "",
+    "description": "Survey of the most significant works of this period.",
     "subject": "SPAN",
-    "key": "9211"
+    "key": "9211",
+    "prereq": "Prerequisites: C or better in SPAN 312 for undergraduates.",
+    "hours": "3 Credits"
   },
   {
     "code": "SPAN 557",
@@ -76701,9 +76893,10 @@
   {
     "code": "SPAN 715",
     "title": "History of the Spanish Language",
-    "description": "",
+    "description": "Development of the language from its origins to the present day.",
     "subject": "SPAN",
-    "key": "9217"
+    "key": "9217",
+    "hours": "3 Credits"
   },
   {
     "code": "SPAN 722",
@@ -77757,9 +77950,10 @@
   {
     "code": "SPTE 736",
     "title": "Sport and Entertainment Event Entrepreneurship",
-    "description": "",
+    "description": "Process of new venture creation with respect to sport and entertainment events.",
     "subject": "SPTE",
-    "key": "9346"
+    "key": "9346",
+    "hours": "3 Credits"
   },
   {
     "code": "SPTE 746",
@@ -77971,9 +78165,10 @@
   {
     "code": "STAT 399",
     "title": "Independent Study",
-    "description": "",
+    "description": "Contract approved by instructor, advisor, and department chair is required for undergraduate students.",
     "subject": "STAT",
-    "key": "9372"
+    "key": "9372",
+    "hours": "3-6 Credits"
   },
   {
     "code": "STAT 506",
