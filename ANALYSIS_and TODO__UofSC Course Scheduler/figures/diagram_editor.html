@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typst Diagram Editor</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "SF Mono", "Consolas", monospace; font-size: 12px; display: flex; height: 100vh; background: #f5f5f5; }
+
+/* Canvas area */
+#canvas-wrap { flex: 1; position: relative; overflow: hidden; cursor: crosshair; }
+#canvas { position: absolute; top: 0; left: 0; }
+
+/* Side panel */
+#panel { width: 280px; background: #fff; border-left: 1px solid #ccc; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+#panel h2 { font-size: 13px; color: #333; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+#panel h3 { font-size: 11px; color: #666; margin-top: 6px; }
+
+.panel-section { border: 1px solid #ddd; padding: 6px; font-size: 11px; }
+.panel-section label { display: inline-block; width: 90px; color: #555; }
+.panel-section input, .panel-section select { font-family: inherit; font-size: 11px; padding: 1px 4px; }
+.panel-section input[type="number"] { width: 50px; }
+
+.btn { padding: 4px 10px; font-family: inherit; font-size: 11px; cursor: pointer; border: 1px solid #999; background: #fff; }
+.btn:hover { background: #eee; }
+.btn.active { background: #333; color: #fff; }
+.btn.danger { border-color: #c00; color: #c00; }
+.btn.danger:hover { background: #fdd; }
+
+#toolbar { display: flex; gap: 6px; flex-wrap: wrap; }
+#arrow-list { font-size: 10px; }
+.arrow-item { padding: 4px; border: 1px solid #ddd; margin-bottom: 4px; cursor: pointer; }
+.arrow-item.selected { border-color: #333; background: #f0f0f0; }
+.arrow-item .arrow-label { font-weight: bold; }
+
+#export-area { width: 100%; height: 200px; font-family: "SF Mono", monospace; font-size: 9px; resize: vertical; }
+
+#status { position: fixed; bottom: 0; left: 0; right: 280px; background: #333; color: #ccc; padding: 3px 10px; font-size: 10px; z-index: 10; }
+</style>
+</head>
+<body>
+
+<div id="canvas-wrap">
+  <canvas id="canvas"></canvas>
+</div>
+
+<div id="panel">
+  <h2>Typst Diagram Editor</h2>
+
+  <div id="toolbar">
+    <button class="btn active" id="btn-select" onclick="setMode('select')">Select</button>
+    <button class="btn" id="btn-block" onclick="setMode('block')">+ Block</button>
+    <button class="btn" id="btn-arrow" onclick="setMode('arrow')">+ Arrow</button>
+    <button class="btn" id="btn-elbow" onclick="setMode('elbow')">+ Elbow</button>
+    <button class="btn danger" id="btn-delete" onclick="deleteSelected()">Delete</button>
+  </div>
+
+  <h3>Selected</h3>
+  <div id="selection-info" class="panel-section" style="min-height:40px;color:#999;">Nothing selected</div>
+
+  <div id="arrow-offset-panel" class="panel-section" style="display:none;">
+    <h3 style="margin-bottom:4px;">Arrow Offsets</h3>
+    <label>Src X offset:</label><input type="number" id="src-ox" value="0" step="5" onchange="updateArrowOffset()">%<br>
+    <label>Src Y offset:</label><input type="number" id="src-oy" value="0" step="5" onchange="updateArrowOffset()">%<br>
+    <label>Dst X offset:</label><input type="number" id="dst-ox" value="0" step="5" onchange="updateArrowOffset()">%<br>
+    <label>Dst Y offset:</label><input type="number" id="dst-oy" value="0" step="5" onchange="updateArrowOffset()">%<br>
+  </div>
+
+  <h3>Arrows</h3>
+  <div id="arrow-list"></div>
+
+  <h3>Export Typst</h3>
+  <button class="btn" onclick="exportTypst()">Generate</button>
+  <textarea id="export-area" readonly></textarea>
+
+  <h3>Actions</h3>
+  <button class="btn" onclick="clearAll()">Clear All</button>
+  <button class="btn" onclick="copyExport()">Copy Typst</button>
+</div>
+
+<div id="status">Click canvas to place blocks. Use toolbar to switch modes.</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+
+let W, H;
+function resize() {
+  W = wrap.clientWidth;
+  H = wrap.clientHeight;
+  canvas.width = W * devicePixelRatio;
+  canvas.height = H * devicePixelRatio;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  draw();
+}
+window.addEventListener('resize', resize);
+
+// State
+let blocks = [];
+let arrows = [];
+let mode = 'select'; // select, block, arrow, elbow
+let selected = null; // { type: 'block'|'arrow'|'elbow', idx, ... }
+let dragging = null;
+let arrowStart = null; // block index for arrow creation
+let nextLabel = 0;
+
+const BLOCK_W = 100;
+const BLOCK_H = 50;
+
+function genLabel() {
+  const i = nextLabel++;
+  const c1 = String.fromCharCode(65 + Math.floor(i / 26));
+  const c2 = String.fromCharCode(65 + (i % 26));
+  return c1 + c2 + (Math.floor(i / 676) || '').toString().padStart(1, '0');
+}
+
+// Actually, let's do 3-char: B01, B02, ... B99, C01, ...
+function genLabel() {
+  const i = nextLabel++;
+  const letter = String.fromCharCode(65 + Math.floor(i / 99));
+  const num = ((i % 99) + 1).toString().padStart(2, '0');
+  return letter + num;
+}
+
+function setMode(m) {
+  mode = m;
+  arrowStart = null;
+  document.querySelectorAll('#toolbar .btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + m).classList.add('active');
+  updateStatus();
+}
+
+function updateStatus() {
+  const msgs = {
+    select: 'Click to select blocks/arrows. Drag to move.',
+    block: 'Click canvas to place a block.',
+    arrow: 'Click source block, then destination block.',
+    elbow: 'Click on an arrow segment to add an elbow point.',
+  };
+  document.getElementById('status').textContent = msgs[mode] || '';
+}
+
+function blockAt(x, y) {
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    const b = blocks[i];
+    if (x >= b.x && x <= b.x + b.w && y >= b.y && y <= b.y + b.h) return i;
+  }
+  return -1;
+}
+
+function elbowAt(x, y) {
+  for (let ai = 0; ai < arrows.length; ai++) {
+    const a = arrows[ai];
+    for (let ei = 0; ei < a.elbows.length; ei++) {
+      const e = a.elbows[ei];
+      if (Math.abs(x - e.x) < 8 && Math.abs(y - e.y) < 8) return { ai, ei };
+    }
+  }
+  return null;
+}
+
+function arrowSegmentAt(x, y) {
+  for (let ai = 0; ai < arrows.length; ai++) {
+    const pts = getArrowPoints(ai);
+    for (let i = 0; i < pts.length - 1; i++) {
+      if (distToSegment(x, y, pts[i].x, pts[i].y, pts[i+1].x, pts[i+1].y) < 6) {
+        return { ai, segIdx: i };
+      }
+    }
+  }
+  return null;
+}
+
+function distToSegment(px, py, x1, y1, x2, y2) {
+  const dx = x2 - x1, dy = y2 - y1;
+  const len2 = dx*dx + dy*dy;
+  if (len2 === 0) return Math.hypot(px - x1, py - y1);
+  let t = ((px - x1)*dx + (py - y1)*dy) / len2;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(px - (x1 + t*dx), py - (y1 + t*dy));
+}
+
+function getAnchor(blockIdx, oxPct, oyPct) {
+  const b = blocks[blockIdx];
+  if (!b) return { x: 0, y: 0 };
+  return {
+    x: b.x + b.w/2 + (oxPct/100) * b.w,
+    y: b.y + b.h/2 + (oyPct/100) * b.h,
+  };
+}
+
+function getArrowPoints(ai) {
+  const a = arrows[ai];
+  const src = getAnchor(a.src, a.srcOx, a.srcOy);
+  const dst = getAnchor(a.dst, a.dstOx, a.dstOy);
+  return [src, ...a.elbows, dst];
+}
+
+// Drawing
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = '#e8e8e8';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x < W; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+  // Arrows
+  arrows.forEach((a, ai) => {
+    const pts = getArrowPoints(ai);
+    const isSel = selected && selected.type === 'arrow' && selected.idx === ai;
+
+    ctx.strokeStyle = isSel ? '#000' : '#555';
+    ctx.lineWidth = isSel ? 2 : 1.5;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.stroke();
+
+    // Arrowhead
+    const last = pts[pts.length - 1];
+    const prev = pts[pts.length - 2];
+    const angle = Math.atan2(last.y - prev.y, last.x - prev.x);
+    const hs = 8;
+    ctx.fillStyle = isSel ? '#000' : '#555';
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(last.x - hs*Math.cos(angle - 0.35), last.y - hs*Math.sin(angle - 0.35));
+    ctx.lineTo(last.x - hs*Math.cos(angle + 0.35), last.y - hs*Math.sin(angle + 0.35));
+    ctx.fill();
+
+    // Elbow dots
+    a.elbows.forEach((e, ei) => {
+      const isElbowSel = selected && selected.type === 'elbow' && selected.ai === ai && selected.ei === ei;
+      ctx.fillStyle = isElbowSel ? '#000' : '#888';
+      ctx.fillRect(e.x - 4, e.y - 4, 8, 8);
+    });
+
+    // Arrow label
+    const mid = pts[Math.floor(pts.length/2)];
+    ctx.fillStyle = '#999';
+    ctx.font = '9px monospace';
+    ctx.fillText('A' + (ai+1).toString().padStart(2,'0'), mid.x + 4, mid.y - 4);
+  });
+
+  // Blocks
+  blocks.forEach((b, i) => {
+    const isSel = selected && selected.type === 'block' && selected.idx === i;
+    ctx.strokeStyle = isSel ? '#000' : '#444';
+    ctx.lineWidth = isSel ? 2.5 : 1.5;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(b.x, b.y, b.w, b.h);
+    ctx.strokeRect(b.x, b.y, b.w, b.h);
+
+    // Label
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 14px monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(b.label, b.x + b.w/2, b.y + b.h/2);
+    ctx.textAlign = 'start';
+    ctx.textBaseline = 'alphabetic';
+  });
+
+  // Arrow-start preview
+  if (mode === 'arrow' && arrowStart !== null) {
+    const b = blocks[arrowStart];
+    ctx.strokeStyle = '#c00';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.strokeRect(b.x - 2, b.y - 2, b.w + 4, b.h + 4);
+    ctx.setLineDash([]);
+  }
+}
+
+function updateSelectionInfo() {
+  const info = document.getElementById('selection-info');
+  const offsetPanel = document.getElementById('arrow-offset-panel');
+  offsetPanel.style.display = 'none';
+
+  if (!selected) {
+    info.innerHTML = '<span style="color:#999">Nothing selected</span>';
+    return;
+  }
+
+  if (selected.type === 'block') {
+    const b = blocks[selected.idx];
+    info.innerHTML = `<b>${b.label}</b> (block)<br>x: ${Math.round(b.x)}  y: ${Math.round(b.y)}<br>w: ${b.w}  h: ${b.h}`;
+  } else if (selected.type === 'arrow') {
+    const a = arrows[selected.idx];
+    const src = blocks[a.src], dst = blocks[a.dst];
+    info.innerHTML = `<b>A${(selected.idx+1).toString().padStart(2,'0')}</b> (arrow)<br>${src.label} → ${dst.label}<br>Elbows: ${a.elbows.length}<br>Offsets: src(${a.srcOx}%, ${a.srcOy}%) dst(${a.dstOx}%, ${a.dstOy}%)`;
+    offsetPanel.style.display = 'block';
+    document.getElementById('src-ox').value = a.srcOx;
+    document.getElementById('src-oy').value = a.srcOy;
+    document.getElementById('dst-ox').value = a.dstOx;
+    document.getElementById('dst-oy').value = a.dstOy;
+  } else if (selected.type === 'elbow') {
+    const e = arrows[selected.ai].elbows[selected.ei];
+    info.innerHTML = `<b>Elbow</b> on A${(selected.ai+1).toString().padStart(2,'0')}<br>x: ${Math.round(e.x)}  y: ${Math.round(e.y)}`;
+  }
+}
+
+function updateArrowOffset() {
+  if (!selected || selected.type !== 'arrow') return;
+  const a = arrows[selected.idx];
+  a.srcOx = parseFloat(document.getElementById('src-ox').value) || 0;
+  a.srcOy = parseFloat(document.getElementById('src-oy').value) || 0;
+  a.dstOx = parseFloat(document.getElementById('dst-ox').value) || 0;
+  a.dstOy = parseFloat(document.getElementById('dst-oy').value) || 0;
+  updateSelectionInfo();
+  draw();
+}
+
+function updateArrowList() {
+  const list = document.getElementById('arrow-list');
+  list.innerHTML = arrows.map((a, i) => {
+    const src = blocks[a.src], dst = blocks[a.dst];
+    const isSel = selected && selected.type === 'arrow' && selected.idx === i;
+    return `<div class="arrow-item ${isSel ? 'selected' : ''}" onclick="selectArrow(${i})">
+      <span class="arrow-label">A${(i+1).toString().padStart(2,'0')}</span>
+      ${src.label} → ${dst.label}
+      ${a.elbows.length ? `(${a.elbows.length} elbows)` : ''}
+    </div>`;
+  }).join('');
+}
+
+function selectArrow(i) {
+  selected = { type: 'arrow', idx: i };
+  updateSelectionInfo();
+  updateArrowList();
+  draw();
+}
+
+function deleteSelected() {
+  if (!selected) return;
+  if (selected.type === 'block') {
+    const idx = selected.idx;
+    // Remove arrows connected to this block
+    arrows = arrows.filter(a => a.src !== idx && a.dst !== idx);
+    // Reindex arrows
+    arrows.forEach(a => {
+      if (a.src > idx) a.src--;
+      if (a.dst > idx) a.dst--;
+    });
+    blocks.splice(idx, 1);
+    selected = null;
+  } else if (selected.type === 'arrow') {
+    arrows.splice(selected.idx, 1);
+    selected = null;
+  } else if (selected.type === 'elbow') {
+    arrows[selected.ai].elbows.splice(selected.ei, 1);
+    selected = { type: 'arrow', idx: selected.ai };
+  }
+  updateSelectionInfo();
+  updateArrowList();
+  draw();
+}
+
+// Mouse handling
+let mouseDown = false;
+let dragOffset = { x: 0, y: 0 };
+
+canvas.addEventListener('mousedown', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  mouseDown = true;
+
+  if (mode === 'select') {
+    // Check elbows first
+    const eb = elbowAt(x, y);
+    if (eb) {
+      selected = { type: 'elbow', ai: eb.ai, ei: eb.ei };
+      dragging = { type: 'elbow', ai: eb.ai, ei: eb.ei };
+      updateSelectionInfo();
+      updateArrowList();
+      draw();
+      return;
+    }
+    // Check blocks
+    const bi = blockAt(x, y);
+    if (bi >= 0) {
+      selected = { type: 'block', idx: bi };
+      dragging = { type: 'block', idx: bi };
+      dragOffset = { x: x - blocks[bi].x, y: y - blocks[bi].y };
+      updateSelectionInfo();
+      updateArrowList();
+      draw();
+      return;
+    }
+    // Check arrows
+    const seg = arrowSegmentAt(x, y);
+    if (seg) {
+      selected = { type: 'arrow', idx: seg.ai };
+      updateSelectionInfo();
+      updateArrowList();
+      draw();
+      return;
+    }
+    selected = null;
+    updateSelectionInfo();
+    updateArrowList();
+    draw();
+  }
+
+  else if (mode === 'block') {
+    const b = {
+      x: x - BLOCK_W/2, y: y - BLOCK_H/2,
+      w: BLOCK_W, h: BLOCK_H,
+      label: genLabel(),
+    };
+    blocks.push(b);
+    selected = { type: 'block', idx: blocks.length - 1 };
+    updateSelectionInfo();
+    draw();
+  }
+
+  else if (mode === 'arrow') {
+    const bi = blockAt(x, y);
+    if (bi < 0) return;
+    if (arrowStart === null) {
+      arrowStart = bi;
+      draw();
+    } else {
+      if (bi !== arrowStart) {
+        arrows.push({
+          src: arrowStart, dst: bi,
+          srcOx: 0, srcOy: 0,
+          dstOx: 0, dstOy: 0,
+          elbows: [],
+        });
+        selected = { type: 'arrow', idx: arrows.length - 1 };
+        updateSelectionInfo();
+        updateArrowList();
+      }
+      arrowStart = null;
+      draw();
+    }
+  }
+
+  else if (mode === 'elbow') {
+    const seg = arrowSegmentAt(x, y);
+    if (seg) {
+      // Insert elbow at click position, after segIdx
+      // segIdx 0 = between src anchor and first elbow (or dst)
+      const insertIdx = seg.segIdx; // insert after this many elbows
+      arrows[seg.ai].elbows.splice(insertIdx, 0, { x, y });
+      selected = { type: 'elbow', ai: seg.ai, ei: insertIdx };
+      dragging = { type: 'elbow', ai: seg.ai, ei: insertIdx };
+      updateSelectionInfo();
+      updateArrowList();
+      draw();
+    }
+  }
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (!mouseDown || !dragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  if (dragging.type === 'block') {
+    const b = blocks[dragging.idx];
+    b.x = Math.round((x - dragOffset.x) / 10) * 10; // snap to 10px grid
+    b.y = Math.round((y - dragOffset.y) / 10) * 10;
+    updateSelectionInfo();
+    draw();
+  } else if (dragging.type === 'elbow') {
+    const e2 = arrows[dragging.ai].elbows[dragging.ei];
+    e2.x = Math.round(x / 10) * 10;
+    e2.y = Math.round(y / 10) * 10;
+    updateSelectionInfo();
+    draw();
+  }
+});
+
+canvas.addEventListener('mouseup', () => {
+  mouseDown = false;
+  dragging = null;
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 's' || e.key === 'Escape') setMode('select');
+  else if (e.key === 'b') setMode('block');
+  else if (e.key === 'a') setMode('arrow');
+  else if (e.key === 'e') setMode('elbow');
+  else if (e.key === 'Delete' || e.key === 'Backspace') deleteSelected();
+});
+
+function clearAll() {
+  if (!confirm('Clear everything?')) return;
+  blocks = [];
+  arrows = [];
+  selected = null;
+  nextLabel = 0;
+  updateSelectionInfo();
+  updateArrowList();
+  draw();
+}
+
+// Export to Typst
+function exportTypst() {
+  let out = '// Generated by Diagram Editor\n';
+  out += '// Paste into your .typ file after defining box-at, ln, hd, arr primitives\n\n';
+
+  // Blocks
+  blocks.forEach((b, i) => {
+    out += `// ${b.label}\n`;
+    out += `#box-at(${Math.round(b.x)}pt, ${Math.round(b.y)}pt, ${b.w}pt, ${b.h}pt,\n`;
+    out += `  [*${b.label}*],\n`;
+    out += `  fill: white, stroke: black90)\n\n`;
+  });
+
+  // Arrows
+  arrows.forEach((a, ai) => {
+    const src = blocks[a.src], dst = blocks[a.dst];
+    const pts = getArrowPoints(ai);
+    out += `// A${(ai+1).toString().padStart(2,'0')}: ${src.label} → ${dst.label}\n`;
+
+    if (a.elbows.length === 0) {
+      // Straight arrow
+      out += `#arr(${Math.round(pts[0].x)}pt, ${Math.round(pts[0].y)}pt, ${Math.round(pts[1].x)}pt, ${Math.round(pts[1].y)}pt)\n`;
+    } else {
+      // Segmented: lines + arrowhead on last segment
+      for (let i = 0; i < pts.length - 2; i++) {
+        out += `#ln(${Math.round(pts[i].x)}pt, ${Math.round(pts[i].y)}pt, ${Math.round(pts[i+1].x)}pt, ${Math.round(pts[i+1].y)}pt)\n`;
+      }
+      const last = pts.length - 1;
+      out += `#arr(${Math.round(pts[last-1].x)}pt, ${Math.round(pts[last-1].y)}pt, ${Math.round(pts[last].x)}pt, ${Math.round(pts[last].y)}pt)\n`;
+    }
+    out += '\n';
+  });
+
+  document.getElementById('export-area').value = out;
+}
+
+function copyExport() {
+  const area = document.getElementById('export-area');
+  if (!area.value) exportTypst();
+  navigator.clipboard.writeText(area.value);
+  document.getElementById('status').textContent = 'Copied to clipboard!';
+  setTimeout(updateStatus, 2000);
+}
+
+// Init
+resize();
+updateStatus();
+</script>
+</body>
+</html>
