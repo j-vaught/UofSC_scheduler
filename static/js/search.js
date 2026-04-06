@@ -62,20 +62,85 @@ const Search = {
         const availValue = parseInt(document.getElementById('filter-avail-value').value) || 0;
 
         if (!rawInput) {
-            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), or keyword.');
+            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 500+), or keyword.');
             return;
         }
 
         const kw = rawInput.trim();
         const criteria = [];
         let subject = '';
-        let courseNumberFilter = null;
+        let courseNumberFilter = null;   // exact match (e.g. "145" or "145L")
+        let courseRangeFilter = null;     // function(code) → boolean for +, wildcards, partial
+
+        // Wildcard characters that stand for "any digit"
+        const WILDCARD = /[xX*#_?%]/;
+        const hasWildcard = (s) => WILDCARD.test(s);
+
+        // Build a filter function from a number pattern with wildcards/+/partial
+        const buildRangeFilter = (numPart) => {
+            // Plus suffix: CSCE 500+ → >= 500, optional letter suffix on courses
+            if (/^\d{1,3}\+$/.test(numPart)) {
+                const floor = parseInt(numPart.slice(0, -1));
+                return (code) => {
+                    const m = code.match(/^[A-Z]+\s*(\d{3})/i);
+                    return m && parseInt(m[1]) >= floor;
+                };
+            }
+            // Wildcard pattern: digits + wildcards + optional trailing letter
+            // e.g. "5xx", "55x", "x77", "5x7", "3xxL"
+            const wcMatch = numPart.match(/^([\dxX*#_?%]{1,3})([A-Za-z]?)$/);
+            if (wcMatch && hasWildcard(wcMatch[1])) {
+                const digits = wcMatch[1];
+                const suffix = wcMatch[2].toUpperCase();
+                // Pad to 3 chars by appending wildcards (so "5" + wildcard = "5xx")
+                const padded = (digits + 'xx').slice(0, 3);
+                const reStr = padded.replace(/[xX*#_?%]/g, '\\d');
+                const numRe = new RegExp('^' + reStr + '$');
+                return (code) => {
+                    const m = code.match(/^[A-Z]+\s*(\d{3})([A-Za-z]?)$/i);
+                    if (!m) return false;
+                    if (!numRe.test(m[1])) return false;
+                    if (suffix && m[2].toUpperCase() !== suffix) return false;
+                    return true;
+                };
+            }
+            return null;
+        };
 
         // Parse the input to determine what the user wants
 
         // 3-4 letter subject code only (e.g. "CSCE", "MATH")
         if (/^[A-Za-z]{3,4}$/i.test(kw)) {
             subject = kw.toUpperCase();
+            criteria.push({ field: 'subject', value: subject });
+
+        // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
+        } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
+                   (kw.includes('+') || hasWildcard(kw))) {
+            const m = kw.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/i);
+            subject = m[1].toUpperCase();
+            const numPart = m[2].toUpperCase();
+            courseRangeFilter = buildRangeFilter(numPart);
+            if (!courseRangeFilter) {
+                this.showHint('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
+                return;
+            }
+            // Fetch all courses for this subject, filter client-side
+            criteria.push({ field: 'subject', value: subject });
+
+        // Partial course number: "CSCE 5" or "CSCE 55" → prefix match (implicit wildcards)
+        } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
+            const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/i);
+            subject = m[1].toUpperCase();
+            const partial = m[2];
+            // Pad with wildcards to make a 3-digit pattern
+            const padded = (partial + 'xx').slice(0, 3);
+            const reStr = padded.replace(/x/g, '\\d');
+            const numRe = new RegExp('^' + reStr + '$');
+            courseRangeFilter = (code) => {
+                const cm = code.match(/^[A-Z]+\s*(\d{3})/i);
+                return cm && numRe.test(cm[1]);
+            };
             criteria.push({ field: 'subject', value: subject });
 
         // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
@@ -183,6 +248,11 @@ const Search = {
             }
 
             // Client-side filters
+
+            // Range/wildcard filter (from patterns like "500+", "5xx", "55x", "x77", "3xxL")
+            if (courseRangeFilter) {
+                results = results.filter(r => courseRangeFilter(r.code || ''));
+            }
 
             // Course number filter (from 3-digit input like "101" or "101L")
             if (courseNumberFilter) {
