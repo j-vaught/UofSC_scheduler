@@ -1,4 +1,4 @@
-#set page(width: 11in, height: 14in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
+#set page(width: 11in, height: 11in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
 #set text(font: "New Computer Modern", size: 9pt)
 
 #let garnet = rgb("#73000A")
@@ -275,45 +275,10 @@
   fill: garnet, stroke: garnet, text-color: white)
 
 // ================================================================
-// KEY: What each step means
-// ================================================================
-
-#let ky = y9 + 55pt
-
-#place(dx: 0pt, dy: ky,
-  rect(width: 720pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 1pt + black10, inset: 10pt,
-    [
-      #text(size: 10pt, weight: "bold", fill: garnet)[Step Descriptions]\
-      #v(4pt)
-      #grid(columns: (60pt, 1fr), row-gutter: 4pt,
-        text(size: 7.5pt, weight: "bold")[Step 1],
-        text(size: 7.5pt)[*User Query* --- User types a keyword phrase (5+ chars) such as "machine learning" or "car engineering."],
-        text(size: 7.5pt, weight: "bold")[Step 2],
-        text(size: 7.5pt)[*Load Resources* --- On first keyword search only: download the AI model (~23 MB from CDN), phrase embeddings (2.4 MB), course embeddings (4.4 MB), and compression parameters (1 MB). All four load in parallel and are cached by the browser.],
-        text(size: 7.5pt, weight: "bold")[Step 3],
-        text(size: 7.5pt)[*Embed Query* --- Pass the raw query text through MiniLM-L6-v2 to produce a 384-dim vector, then compress to 128 dimensions via PCA projection and normalize to unit length. This captures the semantic meaning of any English input (~50--100ms).],
-        text(size: 7.5pt, weight: "bold")[Step 4],
-        text(size: 7.5pt)[*Phrase Expansion* --- Compare the query vector against 6,313 pre-computed academic phrase vectors by cosine similarity. Select the top 8 most similar phrases (sim > 0.25), producing 9 total search terms (original + 8 expanded).],
-        text(size: 7.5pt, weight: "bold")[Step 5],
-        text(size: 7.5pt)[*Dual Search* --- Fire all 9 search terms concurrently to the USC API (live, always fresh). Simultaneously search 9,732 pre-computed course embeddings locally (catches courses the API keyword search misses). Both run in parallel.],
-        text(size: 7.5pt, weight: "bold")[Step 6],
-        text(size: 7.5pt)[*Merge* --- Combine results from both sources, deduplicate by course code. Typically produces 60--120 unique candidate courses.],
-        text(size: 7.5pt, weight: "bold")[Step 7],
-        text(size: 7.5pt)[*Score and Rank* --- Batch-embed all candidate titles through the model, compress via PCA, then score each by cosine similarity to the query vector. Discard courses below 0.15 similarity. Sort descending, keep top 50.],
-        text(size: 7.5pt, weight: "bold")[Step 8],
-        text(size: 7.5pt)[*Availability* --- Fetch live section data from USC for the selected term (concurrent by subject). If "current term only" is checked, remove courses not offered. If "open only," remove full sections. Add availability badges.],
-        text(size: 7.5pt, weight: "bold")[Step 9],
-        text(size: 7.5pt)[*Display* --- Show results grouped by course code, sorted by similarity. Display "Also searched" phrase tags. Each course expandable for sections, prerequisites, and offering history.],
-      )
-    ]
-  )
-)
-
-// ================================================================
 // Legend
 // ================================================================
 
-#let LG = ky + 260pt
+#let LG = y9 + 50pt
 #place(dx: 0pt, dy: LG,
   rect(width: 720pt, height: 26pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 5pt,
     grid(columns: (12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto),
