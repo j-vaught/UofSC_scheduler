@@ -1,4 +1,4 @@
-#set page(width: 11in, height: 17in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
+#set page(width: 11in, height: 14in, margin: (x: 0.5in, top: 0.4in, bottom: 0.4in))
 #set text(font: "New Computer Modern", size: 9pt)
 
 #let garnet = rgb("#73000A")
@@ -44,21 +44,31 @@
   hd(x2.pt(), y2.pt(), (x2 - x1).pt(), (y2 - y1).pt(), color: color)
 }
 
-#let arr-hv(x1, y1, x2, y2, color: black90) = {
-  ln(x1, y1, x2, y1, color: color)
-  ln(x2, y1, x2, y2, color: color)
-  hd(x2.pt(), y2.pt(), 0.0, (y2 - y1).pt(), color: color)
-}
+#let subsec(x, y, body) = { place(dx: x, dy: y, text(size: 9pt, weight: "bold", fill: atlantic, body)) }
 
-#let arr-vh(x1, y1, x2, y2, color: black90) = {
-  ln(x1, y1, x1, y2, color: color)
-  ln(x1, y2, x2, y2, color: color)
-  hd(x2.pt(), y2.pt(), (x2 - x1).pt(), 0.0, color: color)
-}
+// ================================================================
+// Layout constants — centered symmetric
+// ================================================================
 
-#let lbl(x, y, body) = { place(dx: x, dy: y, text(size: 6.5pt, fill: warm-grey, body)) }
+#let cx = 360pt       // page center
+#let gap = 140pt      // half-gap between paired columns
+#let lc = cx - gap    // left center = 220
+#let rc = cx + gap    // right center = 500
 
-#let subsec(x, y, body) = { place(dx: x, dy: y, text(size: 10pt, weight: "bold", fill: atlantic, body)) }
+#let bw = 180pt       // standard box width
+#let bh = 30pt        // standard box height
+#let bw-s = 150pt     // small box width (for 3-across rows)
+
+// Row positions
+#let y1 = 50pt
+#let y2 = 110pt
+#let y3 = 205pt
+#let y4 = 290pt
+#let y5 = 375pt
+#let y6 = 460pt
+#let y7 = 535pt
+#let y8 = 625pt
+#let y9 = 710pt
 
 // ================================================================
 // TITLE
@@ -67,326 +77,233 @@
 #align(center, text(size: 16pt, weight: "bold", fill: garnet)[Semantic Search: Phase 2 --- Runtime Pipeline])
 #v(1pt)
 #align(center, text(size: 9pt, fill: warm-grey)[UofSC Course Scheduler --- J.C. Vaught --- April 2026])
-#v(2pt)
-#align(center, text(size: 8pt, fill: warm-grey)[Executes in the browser on every keyword search (5+ character non-code input)])
+#v(1pt)
+#align(center, text(size: 8pt, fill: warm-grey)[Executes in the browser on every keyword search])
 
 // ================================================================
-// Step 1: User Input
+// STEP 1: User Query
 // ================================================================
 
-#let s1 = 55pt
-#subsec(0pt, s1, [Step 1: User Input])
-
-#box-at(0pt, s1 + 22pt, 260pt, 32pt,
-  [*User types keyword query*\
-  Examples: "car engineering", "brain science",\
-  "transfer of heat", "money and investing"],
+#subsec(0pt, y1, [Step 1])
+#box-at(cx - bw/2, y1, bw, bh,
+  [*User Query*],
   fill: black10)
 
+#arr(cx, y1 + bh, cx, y2)
+
 // ================================================================
-// Step 2: Load Resources
+// STEP 2: Load Resources (4 boxes, first time only)
 // ================================================================
 
-#let s2 = s1 + 80pt
-#subsec(0pt, s2, [Step 2: Lazy-Load Resources #text(size: 8pt, weight: "regular", fill: warm-grey)[(first keyword search only)]])
+#subsec(0pt, y2, [Step 2])
 
-#arr(130pt, s1 + 54pt, 130pt, s2 + 24pt)
+#let r2w = 140pt
+#let r2-positions = (
+  cx - r2w*2 - 15pt,
+  cx - r2w/2 - 5pt,
+  cx + r2w/2 + 5pt,
+  cx + r2w*2 - r2w + 15pt,
+)
 
-#box-at(0pt, s2 + 24pt, 170pt, 55pt,
-  [*Transformers.js Model*\
-  ES module from CDN\
-  `Xenova/all-MiniLM-L6-v2`\
-  ONNX quantized: *~23 MB*\
-  Cached by browser],
+#box-at(r2-positions.at(0), y2, r2w, 40pt,
+  [*Load AI Model*\
+  MiniLM-L6-v2],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(190pt, s2 + 24pt, 140pt, 55pt,
-  [*Phrase Embeddings*\
-  6,313 phrases\
-  int8\[128\] vectors\
-  *2.4 MB*],
+#box-at(r2-positions.at(1), y2, r2w, 40pt,
+  [*Load Phrase Embeddings*],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(350pt, s2 + 24pt, 140pt, 55pt,
-  [*Course Embeddings*\
-  9,732 courses\
-  int8\[128\] vectors\
-  *4.4 MB*],
+#box-at(r2-positions.at(2), y2, r2w, 40pt,
+  [*Load Course Embeddings*],
   fill: light-tan, stroke: warm-grey)
 
-#box-at(510pt, s2 + 24pt, 130pt, 55pt,
-  [*PCA Params*\
-  Mean: float\[384\]\
-  Components:\
-  float\[128\]\[384\]\
-  *1.0 MB*],
+#box-at(r2-positions.at(3), y2, r2w, 40pt,
+  [*Load Compression Params*],
   fill: light-tan, stroke: warm-grey)
 
-#dln(0pt, s2 + 81pt, 640pt, s2 + 81pt, color: warm-grey)
-#lbl(0pt, s2 + 84pt, [All four load concurrently via `Promise.all()` --- total first-time: ~31 MB, cached thereafter])
+#dln(r2-positions.at(0), y2 + 44pt, r2-positions.at(3) + r2w, y2 + 44pt, color: warm-grey)
+#place(dx: r2-positions.at(0), dy: y2 + 46pt, text(size: 6.5pt, fill: warm-grey)[All four load concurrently --- ~31 MB first time, cached thereafter])
+
+// Arrow from step 2 to step 3
+#arr(cx, y2 + 56pt, cx, y3)
 
 // ================================================================
-// Step 3: Embed Query
+// STEP 3: Embed Query (3 boxes left to right)
 // ================================================================
 
-#let s3 = s2 + 120pt
-#subsec(0pt, s3, [Step 3: Embed the User's Query])
+#subsec(0pt, y3, [Step 3])
 
-#arr(130pt, s2 + 84pt, 130pt, s3 + 24pt)
+#let s3-gap = 165pt
+#let s3-l = cx - s3-gap
+#let s3-r = cx + s3-gap
 
-#box-at(0pt, s3 + 24pt, 200pt, 48pt,
-  [*Sentence Embedding*\
-  Pass raw query to MiniLM model\
-  "car engineering" → 384 floats\
-  Understands any English input\
-  *~50--100ms*],
+#box-at(s3-l - bw-s/2, y3, bw-s, bh,
+  [*Embed Query*],
   fill: light-blue, stroke: atlantic)
 
-#arr(200pt, s3 + 48pt, 240pt, s3 + 48pt)
-
-#box-at(240pt, s3 + 24pt, 195pt, 48pt,
-  [*PCA Projection*\
-  Subtract mean (384 floats)\
-  Multiply by components matrix\
-  → 128-dimensional vector],
+#box-at(cx - bw-s/2, y3, bw-s, bh,
+  [*Compress to 128-dim*],
   fill: light-blue, stroke: atlantic)
 
-#arr(435pt, s3 + 48pt, 475pt, s3 + 48pt)
-
-#box-at(475pt, s3 + 24pt, 150pt, 48pt,
-  [*L2 Normalize*\
-  $v_i = v_i / ||v||$\
-  Result: unit vector in\
-  shared 128-dim PCA space],
+#box-at(s3-r - bw-s/2, y3, bw-s, bh,
+  [*Normalize*],
   fill: light-blue, stroke: atlantic)
+
+#arr(s3-l + bw-s/2, y3 + bh/2, cx - bw-s/2, y3 + bh/2)
+#arr(cx + bw-s/2, y3 + bh/2, s3-r - bw-s/2, y3 + bh/2)
+
+// Arrow down from normalize to step 4
+#arr(s3-r, y3 + bh, s3-r, y4)
 
 // ================================================================
-// Step 4: Phrase Expansion
+// STEP 4: Phrase Expansion (3 boxes left to right)
 // ================================================================
 
-#let s4 = s3 + 105pt
-#subsec(0pt, s4, [Step 4: Expand Query into Academic Phrases])
+#subsec(0pt, y4, [Step 4])
 
-#arr(550pt, s3 + 72pt, 550pt, s4 + 24pt)
-
-#box-at(0pt, s4 + 24pt, 225pt, 52pt,
-  [*Cosine Similarity Search*\
-  Query vector vs all 6,313 phrase vectors\
-  $"sim"(q, p) = q dot p$ (unit vectors)\
-  6,313 dot products $times$ 128 dims\
-  *< 1ms on any device*],
+#box-at(s3-l - bw-s/2, y4, bw-s, bh,
+  [*Find Related Phrases*],
   fill: light-blue, stroke: atlantic)
 
-#arr(225pt, s4 + 50pt, 265pt, s4 + 50pt)
-
-#box-at(265pt, s4 + 24pt, 180pt, 52pt,
-  [*Filter and Select*\
-  Discard phrases with sim < 0.25\
-  Skip exact query string match\
-  (keep rearrangements)\
-  Rank by similarity\
-  *Select top 8 phrases*],
+#box-at(cx - bw-s/2, y4, bw-s, bh,
+  [*Filter and Rank*],
   fill: light-blue, stroke: atlantic)
 
-#arr(445pt, s4 + 50pt, 490pt, s4 + 50pt)
-
-#box-at(490pt, s4 + 24pt, 155pt, 52pt,
-  [*Build Search List*\
-  1. Original query\
-  2--9. Top 8 phrases\
-  \
-  *= 9 search terms*],
+#box-at(s3-r - bw-s/2, y4, bw-s, bh,
+  [*Build Search List*],
   fill: light-green, stroke: horseshoe)
 
+#arr(s3-l + bw-s/2, y4 + bh/2, cx - bw-s/2, y4 + bh/2)
+#arr(cx + bw-s/2, y4 + bh/2, s3-r - bw-s/2, y4 + bh/2)
+
+// Arrow from search list down, centering to step 5
+#arr(s3-r, y4 + bh, s3-r, y4 + bh + 15pt)
+// Fan out to two boxes
+#ln(s3-r, y4 + bh + 15pt, lc, y4 + bh + 15pt)
+#ln(s3-r, y4 + bh + 15pt, rc, y4 + bh + 15pt)
+#arr(lc, y4 + bh + 15pt, lc, y5)
+#arr(rc, y4 + bh + 15pt, rc, y5)
+
 // ================================================================
-// Step 5: Dual Search
+// STEP 5: Dual Search (2 boxes side by side)
 // ================================================================
 
-#let s5 = s4 + 110pt
-#subsec(0pt, s5, [Step 5: Dual Search --- Live API + Local Database #text(size: 8pt, weight: "regular", fill: warm-grey)[(parallel)]])
+#subsec(0pt, y5, [Step 5])
 
-#arr(567pt, s4 + 76pt, 567pt, s5 + 24pt)
-
-#box-at(0pt, s5 + 24pt, 290pt, 60pt,
-  [*5a. Live API Keyword Search*\
-  Fire all *9 search terms concurrently*\
-  USC bulletin API (catalog) or classes API (term)\
-  Each: `\{ field: "keyword", value: term \}`\
-  Collect results, deduplicate by course code\
-  *Always returns fresh data*],
+#box-at(lc - bw/2, y5, bw, bh,
+  [*Search Live USC API*],
   fill: light-blue, stroke: atlantic)
 
-#arr-hv(567pt, s5 + 24pt, 145pt, s5 + 24pt, color: atlantic)
-
-#box-at(355pt, s5 + 24pt, 290pt, 60pt,
-  [*5b. Local Embedding Search*\
-  Query vector vs 9,732 pre-computed course vectors\
-  (encode full title + description text)\
-  Cosine similarity, keep sim *> 0.30*\
-  *Top 30 matches*\
-  Catches courses API keyword search missed],
+#box-at(rc - bw/2, y5, bw, bh,
+  [*Search Local Database*],
   fill: light-blue, stroke: atlantic)
 
-#arr(567pt, s5 + 24pt, 500pt, s5 + 24pt, color: atlantic)
+// Both converge to merge
+#let merge-bus = y5 + bh + 15pt
+#ln(lc, y5 + bh, lc, merge-bus)
+#ln(rc, y5 + bh, rc, merge-bus)
+#ln(lc, merge-bus, rc, merge-bus)
+#arr(cx, merge-bus, cx, y6)
 
 // ================================================================
-// Step 6: Merge
+// STEP 6: Merge (centered)
 // ================================================================
 
-#let s6 = s5 + 115pt
-#subsec(0pt, s6, [Step 6: Merge and Deduplicate])
+#subsec(0pt, y6, [Step 6])
 
-#arr(145pt, s5 + 84pt, 145pt, s6 + 28pt)
-#arr(500pt, s5 + 84pt, 500pt, s6 + 28pt)
-
-#box-at(180pt, s6 + 24pt, 300pt, 38pt,
-  [*Merge by course code*\
-  Combine all API results + all local results\
-  Deduplicate: keep one copy per course code\
-  Typical: *60--120 unique candidate courses*],
+#box-at(cx - bw/2, y6, bw, bh,
+  [*Merge and Deduplicate*],
   fill: black10)
 
-#arr-vh(145pt, s6 + 28pt, 180pt, s6 + 43pt, color: black90)
-#arr-vh(500pt, s6 + 28pt, 480pt, s6 + 43pt, color: black90)
+#arr(cx, y6 + bh, cx, y7)
 
 // ================================================================
-// Step 7: Score
+// STEP 7: Score (3 boxes left to right)
 // ================================================================
 
-#let s7 = s6 + 95pt
-#subsec(0pt, s7, [Step 7: Score and Filter All Results])
+#subsec(0pt, y7, [Step 7])
 
-#arr(330pt, s6 + 62pt, 330pt, s7 + 24pt)
-
-#box-at(0pt, s7 + 24pt, 210pt, 52pt,
-  [*Batch-Embed All Titles*\
-  Collect all candidate course titles\
-  Single batched model call\
-  N titles → N $times$ 384-dim vectors\
-  *~100ms for ~80 titles*],
+#box-at(s3-l - bw-s/2, y7, bw-s, bh,
+  [*Embed All Titles*],
   fill: light-blue, stroke: atlantic)
 
-#arr(210pt, s7 + 50pt, 250pt, s7 + 50pt)
-
-#box-at(250pt, s7 + 24pt, 185pt, 52pt,
-  [*PCA + Normalize Each*\
-  For each title's 384-dim vector:\
-  Subtract mean, multiply by C^T\
-  → 128-dim PCA vector\
-  L2 normalize to unit length],
+#box-at(cx - bw-s/2, y7, bw-s, bh,
+  [*Compress and Normalize*],
   fill: light-blue, stroke: atlantic)
 
-#arr(435pt, s7 + 50pt, 475pt, s7 + 50pt)
-
-#box-at(475pt, s7 + 24pt, 180pt, 52pt,
-  [*Cosine Sim vs Query*\
-  $"score"_i = q dot t_i$\
-  *Discard if score < 0.15*\
-  Sort remaining descending\
-  *Keep top 50 results*],
+#box-at(s3-r - bw-s/2, y7, bw-s, bh,
+  [*Score and Rank*],
   fill: light-blue, stroke: atlantic)
 
+#arr(s3-l + bw-s/2, y7 + bh/2, cx - bw-s/2, y7 + bh/2)
+#arr(cx + bw-s/2, y7 + bh/2, s3-r - bw-s/2, y7 + bh/2)
+
+// Arrow down to step 8
+#arr(s3-r, y7 + bh, s3-r, y7 + bh + 15pt)
+#ln(s3-r, y7 + bh + 15pt, cx, y7 + bh + 15pt)
+#arr(cx, y7 + bh + 15pt, cx, y8)
+
 // ================================================================
-// Step 8: Availability
+// STEP 8: Availability (2 boxes side by side)
 // ================================================================
 
-#let s8 = s7 + 110pt
-#subsec(0pt, s8, [Step 8: Cross-Reference with Live Term Data])
+#subsec(0pt, y8, [Step 8])
 
-#arr(565pt, s7 + 76pt, 565pt, s8 + 24pt)
-
-#box-at(30pt, s8 + 24pt, 270pt, 52pt,
-  [*Fetch Live Section Data*\
-  Extract unique subjects from results\
-  (CSCE, MATH, STAT, BIOL, FINA...)\
-  Fire *concurrent* subject queries\
-  to classes API for selected term\
-  Build map: code → \{sections, hasOpen\}],
+#box-at(lc - bw/2, y8, bw, bh,
+  [*Check Availability*],
   fill: light-tan, stroke: warm-grey)
 
-#arr(300pt, s8 + 50pt, 350pt, s8 + 50pt)
-
-#box-at(350pt, s8 + 24pt, 260pt, 52pt,
-  [*Apply User's Filters*\
-  If *"current term only"* checked:\
-  #h(6pt) remove courses not offered this term\
-  If *"open sections only"* checked:\
-  #h(6pt) remove full sections\
-  Add availability badge to each course],
+#box-at(rc - bw/2, y8, bw, bh,
+  [*Apply User Filters*],
   fill: light-tan, stroke: warm-grey)
 
+// Arrow between and down
+#arr(lc + bw/2, y8 + bh/2, rc - bw/2, y8 + bh/2)
+#arr(rc, y8 + bh, rc, y8 + bh + 15pt)
+#ln(rc, y8 + bh + 15pt, cx, y8 + bh + 15pt)
+#arr(cx, y8 + bh + 15pt, cx, y9)
+
 // ================================================================
-// Step 9: Render
+// STEP 9: Render (centered)
 // ================================================================
 
-#let s9 = s8 + 110pt
-#subsec(0pt, s9, [Step 9: Render Results])
+#subsec(0pt, y9, [Step 9])
 
-#arr(480pt, s8 + 76pt, 480pt, s9 + 24pt)
-
-#box-at(150pt, s9 + 24pt, 360pt, 48pt,
-  [*Display Ranked Results*\
-  Group by course code, sorted by cosine similarity score\
-  Header: "Also searched:" with expanded phrase tags\
-  Each course: code, title, availability badge\
-  Expandable: individual sections, prerequisites, offering history],
+#box-at(cx - bw/2, y9, bw, bh,
+  [*Display Results*],
   fill: garnet, stroke: garnet, text-color: white)
 
 // ================================================================
-// Summary
+// KEY: What each step means
 // ================================================================
 
-#let SU = s9 + 100pt
+#let ky = y9 + 55pt
 
-#place(dx: 0pt, dy: SU,
-  rect(width: 720pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 1pt + black10, inset: 12pt,
+#place(dx: 0pt, dy: ky,
+  rect(width: 720pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 1pt + black10, inset: 10pt,
     [
-      #text(size: 10pt, weight: "bold", fill: garnet)[Performance Summary]\
+      #text(size: 10pt, weight: "bold", fill: garnet)[Step Descriptions]\
       #v(4pt)
-      #grid(columns: (170pt, 170pt, 170pt, 170pt), column-gutter: 8pt,
-        [
-          #text(size: 8pt, weight: "bold")[First-Time Download]\
-          #v(2pt)
-          #text(size: 7pt)[
-          Model: *23 MB* (CDN, cached)\
-          Phrases: *2.4 MB*\
-          Courses: *4.4 MB*\
-          PCA: *1.0 MB*\
-          *Total: ~31 MB*
-          ]
-        ],
-        [
-          #text(size: 8pt, weight: "bold")[API Calls per Search]\
-          #v(2pt)
-          #text(size: 7pt)[
-          Keyword: *9 concurrent*\
-          Availability: *10--25 concurrent*\
-          Local search: *0* (math only)\
-          Scoring: *0* (model in browser)\
-          *Latency: ~1--2 sec*
-          ]
-        ],
-        [
-          #text(size: 8pt, weight: "bold")[Client Computation]\
-          #v(2pt)
-          #text(size: 7pt)[
-          Query embed: *50--100ms*\
-          Phrase search: *< 1ms*\
-          Local search: *~5ms*\
-          Title embeds: *~100ms*\
-          *Total: ~200ms*
-          ]
-        ],
-        [
-          #text(size: 8pt, weight: "bold")[Build Step]\
-          #v(2pt)
-          #text(size: 7pt)[
-          Scrape: *~12 min* (once)\
-          Embed: *~30 sec*\
-          Output: *7.8 MB* (3 files)\
-          Re-run per semester
-          ]
-        ],
+      #grid(columns: (60pt, 1fr), row-gutter: 4pt,
+        text(size: 7.5pt, weight: "bold")[Step 1],
+        text(size: 7.5pt)[*User Query* --- User types a keyword phrase (5+ chars) such as "machine learning" or "car engineering."],
+        text(size: 7.5pt, weight: "bold")[Step 2],
+        text(size: 7.5pt)[*Load Resources* --- On first keyword search only: download the AI model (~23 MB from CDN), phrase embeddings (2.4 MB), course embeddings (4.4 MB), and compression parameters (1 MB). All four load in parallel and are cached by the browser.],
+        text(size: 7.5pt, weight: "bold")[Step 3],
+        text(size: 7.5pt)[*Embed Query* --- Pass the raw query text through MiniLM-L6-v2 to produce a 384-dim vector, then compress to 128 dimensions via PCA projection and normalize to unit length. This captures the semantic meaning of any English input (~50--100ms).],
+        text(size: 7.5pt, weight: "bold")[Step 4],
+        text(size: 7.5pt)[*Phrase Expansion* --- Compare the query vector against 6,313 pre-computed academic phrase vectors by cosine similarity. Select the top 8 most similar phrases (sim > 0.25), producing 9 total search terms (original + 8 expanded).],
+        text(size: 7.5pt, weight: "bold")[Step 5],
+        text(size: 7.5pt)[*Dual Search* --- Fire all 9 search terms concurrently to the USC API (live, always fresh). Simultaneously search 9,732 pre-computed course embeddings locally (catches courses the API keyword search misses). Both run in parallel.],
+        text(size: 7.5pt, weight: "bold")[Step 6],
+        text(size: 7.5pt)[*Merge* --- Combine results from both sources, deduplicate by course code. Typically produces 60--120 unique candidate courses.],
+        text(size: 7.5pt, weight: "bold")[Step 7],
+        text(size: 7.5pt)[*Score and Rank* --- Batch-embed all candidate titles through the model, compress via PCA, then score each by cosine similarity to the query vector. Discard courses below 0.15 similarity. Sort descending, keep top 50.],
+        text(size: 7.5pt, weight: "bold")[Step 8],
+        text(size: 7.5pt)[*Availability* --- Fetch live section data from USC for the selected term (concurrent by subject). If "current term only" is checked, remove courses not offered. If "open only," remove full sections. Add availability badges.],
+        text(size: 7.5pt, weight: "bold")[Step 9],
+        text(size: 7.5pt)[*Display* --- Show results grouped by course code, sorted by similarity. Display "Also searched" phrase tags. Each course expandable for sections, prerequisites, and offering history.],
       )
     ]
   )
@@ -396,22 +313,22 @@
 // Legend
 // ================================================================
 
-#let LG = SU + 110pt
+#let LG = ky + 260pt
 #place(dx: 0pt, dy: LG,
-  rect(width: 720pt, height: 30pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 6pt,
-    grid(columns: (12pt, auto, 20pt, 12pt, auto, 20pt, 12pt, auto, 20pt, 12pt, auto),
+  rect(width: 720pt, height: 26pt, radius: 0pt, fill: rgb("#fafafa"), stroke: 0.5pt + black10, inset: 5pt,
+    grid(columns: (12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto, 24pt, 12pt, auto),
       column-gutter: 4pt, align: horizon,
       rect(width: 12pt, height: 12pt, fill: light-blue, stroke: 1pt + atlantic),
-      text(size: 7pt)[Client-side computation],
+      text(size: 7pt)[Client computation],
       [],
       rect(width: 12pt, height: 12pt, fill: light-tan, stroke: 1pt + warm-grey),
-      text(size: 7pt)[Data loading / API calls],
+      text(size: 7pt)[Data / API calls],
       [],
       rect(width: 12pt, height: 12pt, fill: light-green, stroke: 1pt + horseshoe),
       text(size: 7pt)[Intermediate data],
       [],
       rect(width: 12pt, height: 12pt, fill: garnet, stroke: 1pt + garnet),
-      text(size: 7pt)[Entry / exit],
+      text(size: 7pt)[Output],
     )
   )
 )
