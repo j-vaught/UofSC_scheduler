@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 cache.db
 .DS_Store
+
+# Apple double files
+._*
