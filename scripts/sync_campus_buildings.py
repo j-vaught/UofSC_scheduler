@@ -22,6 +22,10 @@ MANUAL_ALIASES = {
     "INNOVA": [
         "Storey Engineering Center",
         "Storey Engineering Centre",
+        "Storey Eng & Innovation Ctr",
+        "Storey Eng and Innovation Ctr",
+        "Storey Eng & Innovation Center",
+        "Storey Eng and Innovation Center",
         "Storey Innovation Center",
         "M. Bert Storey Innovation Center",
         "M Bert Storey Innovation Center",

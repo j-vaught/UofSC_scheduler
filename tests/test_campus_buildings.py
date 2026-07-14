@@ -32,6 +32,7 @@ def test_storey_engineering_aliases_match_banner_names() -> None:
 
     assert storey["name"] == "M. Bert Storey Engineering & Innovation Center"
     assert "storey engineering center" in normalized_aliases
+    assert "storey eng & innovation ctr" in normalized_aliases
     assert "m bert storey innovation center" in normalized_aliases
 
 
