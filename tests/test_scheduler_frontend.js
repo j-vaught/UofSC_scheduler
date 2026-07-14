@@ -106,20 +106,54 @@ test('schedule search groups live sections into course-level results', async () 
 test('preview renders a candidate without replacing selected sections', () => {
     const original = { 'TEST 101': { crn: '10101' } };
     let rendered;
+    let renderOptions;
     const state = {
         selectedSections: original,
         solverResults: [{ sections: { 'TEST 101': { crn: '10102' } } }],
     };
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         State: state,
-        Calendar: { render() { rendered = state.selectedSections; } },
+        Calendar: { render(options) { rendered = state.selectedSections; renderOptions = options; } },
     });
 
     scheduler.previewSchedule(0);
 
     assert.equal(rendered['TEST 101'].crn, '10102');
+    assert.equal(renderOptions.preview, true);
     assert.strictEqual(state.selectedSections, original);
     assert.equal(state.selectedSections['TEST 101'].crn, '10101');
+});
+
+test('hovering a schedule option previews it and leaving restores the calendar', () => {
+    const listeners = {};
+    const classes = new Set();
+    const card = {
+        dataset: { idx: '0' },
+        addEventListener(type, listener) { listeners[type] = listener; },
+        classList: {
+            add(value) { classes.add(value); },
+            remove(value) { classes.delete(value); },
+        },
+    };
+    const container = { querySelectorAll: () => [card] };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: { solverResults: [{ sections: { 'TEST 101': { crn: '10102' } } }], selectedSections: {} },
+    });
+    let previewed = null;
+    let cleared = false;
+    scheduler.previewSchedule = index => { previewed = index; };
+    scheduler.clearSchedulePreview = () => { cleared = true; };
+
+    scheduler.bindScheduleCardPreview(card, container);
+    listeners.mouseenter();
+
+    assert.equal(previewed, 0);
+    assert.equal(classes.has('selected'), true);
+
+    listeners.mouseleave();
+
+    assert.equal(cleared, true);
+    assert.equal(classes.has('selected'), false);
 });
 
 test('applied schedule matching compares every selected CRN', () => {

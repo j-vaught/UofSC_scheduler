@@ -5,6 +5,7 @@ const WalkingMap = {
     LEAFLET_CSS: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
     ROUTE_URL: 'https://routing.openstreetmap.de/routed-foot/route/v1/driving',
     DEFAULT_CENTER: [33.9971, -81.0278],
+    ROUTE_COLORS: ['#73000A', '#466A9F', '#65780B', '#A49137', '#1F414D'],
     selectedDay: 0,
     buildings: [],
     sectionDetails: new Map(),
@@ -48,16 +49,17 @@ const WalkingMap = {
                 <div class="walking-map-header">
                     <div>
                         <h3 id="walking-map-heading">Walking Between Classes</h3>
-                        <p>Routes and time buffers for consecutive classes.</p>
                     </div>
                 </div>
-                <div class="walking-map-days" role="tablist" aria-label="Class day"></div>
                 <div class="walking-map-layout">
                     <div class="walking-map-canvas-wrap">
                         <div class="walking-map-canvas" role="region" aria-label="Campus walking route map"></div>
                         <div class="walking-map-zoom-hint">Hold Ctrl, Command, or Shift while scrolling to zoom</div>
                     </div>
-                    <div class="walking-map-list" aria-live="polite"></div>
+                    <div class="walking-map-side">
+                        <div class="walking-map-days" role="tablist" aria-label="Class day"></div>
+                        <div class="walking-map-list" aria-live="polite"></div>
+                    </div>
                 </div>
                 <p class="walking-map-note">Walking estimates use pedestrian routing when available. Allow extra time for stairs, elevators, construction, and entering buildings.</p>
             </section>
@@ -74,17 +76,22 @@ const WalkingMap = {
             this._map.setZoom(zoom);
         }, { passive: false });
         this.listElement = this.container.querySelector('.walking-map-list');
-        this.DAYS.forEach((day, index) => {
+        const dayOptions = [
+            { label: 'ALL', value: 'all' },
+            ...this.DAYS.map((day, index) => ({ label: day.slice(0, 3).toUpperCase(), value: String(index) })),
+        ];
+        dayOptions.forEach(option => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'walking-map-day';
-            button.id = `walking-map-day-${index}`;
+            button.id = `walking-map-day-${option.value}`;
+            button.dataset.day = option.value;
             button.setAttribute('role', 'tab');
             button.setAttribute('aria-controls', `${this.containerId}-day-panel`);
-            button.setAttribute('aria-selected', String(index === this.selectedDay));
-            button.textContent = day.slice(0, 3).toUpperCase();
+            button.setAttribute('aria-selected', String(option.value === String(this.selectedDay)));
+            button.textContent = option.label;
             button.addEventListener('click', () => {
-                this.selectedDay = index;
+                this.selectedDay = option.value === 'all' ? 'all' : Number(option.value);
                 this.updateDaySelection();
                 this.refresh();
             });
@@ -95,9 +102,10 @@ const WalkingMap = {
     },
 
     updateDaySelection() {
-        this.dayContainer.querySelectorAll('[role="tab"]').forEach((button, index) => {
-            button.setAttribute('aria-selected', String(index === this.selectedDay));
-            button.tabIndex = index === this.selectedDay ? 0 : -1;
+        this.dayContainer.querySelectorAll('[role="tab"]').forEach(button => {
+            const selected = button.dataset.day === String(this.selectedDay);
+            button.setAttribute('aria-selected', String(selected));
+            button.tabIndex = selected ? 0 : -1;
         });
         this.listElement.setAttribute('aria-labelledby', `walking-map-day-${this.selectedDay}`);
     },
@@ -112,8 +120,20 @@ const WalkingMap = {
         await this.hydrateSectionDetails(sections);
         if (token !== this._renderToken) return;
 
-        const events = this.buildEvents(sections, this.selectedDay);
-        const transitions = await this.buildTransitions(events);
+        let events = [];
+        let transitions = [];
+        if (this.selectedDay === 'all') {
+            for (let day = 0; day < this.DAYS.length; day += 1) {
+                const dayEvents = this.buildEvents(sections, day);
+                const dayTransitions = await this.buildTransitions(dayEvents);
+                events.push(...dayEvents);
+                transitions.push(...dayTransitions);
+                if (token !== this._renderToken) return;
+            }
+        } else {
+            events = this.buildEvents(sections, this.selectedDay);
+            transitions = await this.buildTransitions(events);
+        }
         if (token !== this._renderToken) return;
 
         this.renderTransitions(events, transitions);
@@ -234,6 +254,7 @@ const WalkingMap = {
                     const dayMatch = detailMeetings.find(detail => detail.days.includes(day));
                     const detail = exact || dayMatch || detailMeetings[0] || null;
                     events.push({
+                        day,
                         code: section.code || 'Class',
                         crn: section.crn,
                         start: meeting.start,
@@ -348,16 +369,18 @@ const WalkingMap = {
     },
 
     renderTransitions(events, transitions) {
+        const showingWeek = this.selectedDay === 'all';
+        const periodLabel = showingWeek ? 'this week' : this.DAYS[this.selectedDay];
         if (events.length === 0) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">No scheduled classes on ${this.DAYS[this.selectedDay]}.</p>`;
+            this.listElement.innerHTML = `<p class="walking-map-empty">No scheduled classes ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
             return;
         }
-        if (events.length === 1) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">Only one scheduled class on ${this.DAYS[this.selectedDay]}. There is no between-class walk to check.</p>`;
+        if (!showingWeek && events.length === 1) {
+            this.listElement.innerHTML = `<p class="walking-map-empty">Only one scheduled class on ${periodLabel}. There is no between-class walk to check.</p>`;
             return;
         }
         if (transitions.length === 0) {
-            this.listElement.innerHTML = '<p class="walking-map-empty">The classes overlap, so no valid walking transition can be calculated.</p>';
+            this.listElement.innerHTML = `<p class="walking-map-empty">No between-class walking routes are available ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
             return;
         }
 
@@ -376,9 +399,10 @@ const WalkingMap = {
                 ? (transition.kind === 'online' ? 'No walk needed' : 'Walk unavailable')
                 : `${transition.walkMinutes} min walk`;
             const distanceLabel = transition.distance === null ? '' : ` · ${this.formatDistance(transition.distance)}`;
+            const dayLabel = showingWeek ? `${this.DAYS[transition.from.day].slice(0, 3).toUpperCase()} · ` : '';
             card.innerHTML = `
                 <div class="walking-transition-title">
-                    <span>${this.escapeHtml(transition.from.code)} → ${this.escapeHtml(transition.to.code)}</span>
+                    <span>${dayLabel}${this.escapeHtml(transition.from.code)} → ${this.escapeHtml(transition.to.code)}</span>
                     <span class="walking-transition-time">${this.formatTime(transition.from.end)}–${this.formatTime(transition.to.start)}</span>
                 </div>
                 <div class="walking-transition-buildings">${this.escapeHtml(transition.from.building.name)} → ${this.escapeHtml(transition.to.building.name)}</div>
@@ -421,7 +445,7 @@ const WalkingMap = {
 
         const bounds = [];
         const seen = new Set();
-        knownEvents.forEach((event, index) => {
+        if (this.selectedDay !== 'all') knownEvents.forEach((event, index) => {
             const position = [event.building.lat, event.building.lon];
             bounds.push(position);
             if (seen.has(event.building.code)) return;
@@ -442,7 +466,7 @@ const WalkingMap = {
             if (!transition.geometry) return;
             transition.geometry.forEach(point => bounds.push(point));
             L.polyline(transition.geometry, {
-                color: '#73000A',
+                color: this.selectedDay === 'all' ? this.ROUTE_COLORS[transition.from.day] : '#73000A',
                 weight: 5,
                 opacity: 0.9,
                 dashArray: transition.kind === 'estimated' ? '8 6' : null,

@@ -2,7 +2,7 @@
 const Calendar = {
     START_HOUR: 8,
     END_HOUR: 21,
-    PX_PER_MIN: 1.5,
+    PX_PER_MIN: 1,
     COLORS: [
         '#73000A', '#1a4a8a', '#2e7d32', '#e65100', '#4a148c',
         '#00695c', '#bf360c', '#1565c0', '#6a1b9a', '#33691e',
@@ -38,7 +38,7 @@ const Calendar = {
             label.style.position = 'absolute';
             label.style.top = ((h - this.START_HOUR) * 60 * this.PX_PER_MIN) + 'px';
             label.style.left = '0';
-            label.style.width = '60px';
+            label.style.width = 'var(--calendar-time-width, 42px)';
             const hour12 = h > 12 ? h - 12 : h;
             const ampm = h >= 12 ? 'p' : 'a';
             label.textContent = `${hour12}${ampm}`;
@@ -51,8 +51,8 @@ const Calendar = {
             const col = document.createElement('div');
             col.className = 'cal-day-column';
             col.style.position = 'absolute';
-            col.style.left = `calc(60px + ${d} * (100% - 60px) / 5)`;
-            col.style.width = `calc((100% - 60px) / 5)`;
+            col.style.left = `calc(var(--calendar-time-width, 42px) + ${d} * (100% - var(--calendar-time-width, 42px)) / 5)`;
+            col.style.width = 'calc((100% - var(--calendar-time-width, 42px)) / 5)';
             col.style.top = '0';
             col.style.height = gridHeight + 'px';
 
@@ -62,6 +62,11 @@ const Calendar = {
                 line.className = 'cal-hour-line';
                 line.style.top = ((h - this.START_HOUR) * 60 * this.PX_PER_MIN) + 'px';
                 col.appendChild(line);
+
+                const halfHourLine = document.createElement('div');
+                halfHourLine.className = 'cal-half-hour-line';
+                halfHourLine.style.top = ((h - this.START_HOUR) * 60 * this.PX_PER_MIN + 30 * this.PX_PER_MIN) + 'px';
+                col.appendChild(halfHourLine);
             }
 
             body.appendChild(col);
@@ -92,7 +97,7 @@ const Calendar = {
         return h * 60 + m;
     },
 
-    render() {
+    render(options = {}) {
         // Clear existing blocks
         this._dayColumns.forEach(col => {
             col.querySelectorAll('.cal-block').forEach(b => b.remove());
@@ -135,7 +140,7 @@ const Calendar = {
                 const height = (endMin - startMin) * this.PX_PER_MIN;
 
                 const block = document.createElement('div');
-                block.className = 'cal-block' + (hasConflict ? ' conflict' : '');
+                block.className = `cal-block${hasConflict ? ' conflict' : ''}${options.preview ? ' preview' : ''}`;
                 block.style.top = top + 'px';
                 block.style.height = height + 'px';
                 block.style.background = color;

@@ -283,7 +283,7 @@ const Scheduler = {
             const codes = unschedulable.map(course => course.code).join(', ');
             const locked = unschedulable.filter(course => State.sectionLocks?.[course.code]).map(course => course.code);
             container.innerHTML = locked.length > 0
-                ? `<p class="solver-error">The locked section for ${locked.join(', ')} is not available for scheduling. Choose another section or use Any open section.</p>`
+                ? `<p class="solver-error">The locked section for ${locked.join(', ')} is not available for scheduling. Choose another section or allow all open sections.</p>`
                 : `<p class="hint">No open scheduled or asynchronous sections were found for ${codes} in this term.</p>`;
             return;
         }
@@ -336,16 +336,28 @@ const Scheduler = {
             });
         });
         container.querySelectorAll('.schedule-card').forEach(card => {
-            const preview = () => {
-                if (this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)])) return;
-                this.previewSchedule(Number(card.dataset.idx));
-                container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
-                card.classList.add('selected');
-            };
-            card.addEventListener('click', preview);
-            card.addEventListener('keydown', event => {
-                if (event.key === 'Enter' || event.key === ' ') preview();
-            });
+            this.bindScheduleCardPreview(card, container);
+        });
+    },
+
+    bindScheduleCardPreview(card, container) {
+        const preview = () => {
+            if (this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)])) return;
+            this.previewSchedule(Number(card.dataset.idx));
+            container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
+            card.classList.add('selected');
+        };
+        const clearPreview = () => {
+            this.clearSchedulePreview();
+            card.classList.remove('selected');
+        };
+        card.addEventListener('mouseenter', preview);
+        card.addEventListener('mouseleave', clearPreview);
+        card.addEventListener('focusin', preview);
+        card.addEventListener('focusout', clearPreview);
+        card.addEventListener('click', preview);
+        card.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') preview();
         });
     },
 
@@ -354,8 +366,13 @@ const Scheduler = {
         if (!schedule || typeof Calendar === 'undefined' || typeof Calendar.render !== 'function') return;
         const selectedSections = State.selectedSections;
         State.selectedSections = { ...schedule.sections };
-        Calendar.render();
+        Calendar.render({ preview: true });
         State.selectedSections = selectedSections;
+    },
+
+    clearSchedulePreview() {
+        if (typeof Calendar === 'undefined' || typeof Calendar.render !== 'function') return;
+        Calendar.render();
     },
 
     applySchedule(index) {

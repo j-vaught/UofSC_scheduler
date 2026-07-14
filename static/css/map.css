@@ -8,7 +8,7 @@
     --map-safe: #65780B;
     --map-tight: #A49137;
     --map-late: #CC2E40;
-    margin-top: 18px;
+    margin-top: 0;
     border: 2px solid var(--map-black);
     background: var(--map-white);
     color: var(--map-black);
@@ -23,12 +23,12 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    padding: 16px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--map-line);
 }
 
 .walking-map-header h3 {
-    margin: 0 0 4px;
+    margin: 0;
     color: var(--map-garnet);
 }
 
@@ -41,15 +41,15 @@
 }
 
 .walking-map-days {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0;
     border-bottom: 1px solid var(--map-line);
 }
 
 .walking-map-day {
-    min-width: 74px;
-    padding: 9px 12px;
+    min-width: 0;
+    padding: 8px 6px;
     border: 0;
     border-right: 1px solid var(--map-line);
     border-radius: 0;
@@ -79,6 +79,13 @@
     min-height: var(--walking-map-height, 380px);
 }
 
+.walking-map-side {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+}
+
 .walking-map-canvas-wrap {
     min-height: var(--walking-map-height, 380px);
     position: relative;
@@ -105,7 +112,8 @@
 }
 
 .walking-map-list {
-    max-height: 480px;
+    flex: 1;
+    max-height: var(--walking-map-height, 380px);
     overflow: auto;
     padding: 12px;
 }

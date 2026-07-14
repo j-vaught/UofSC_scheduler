@@ -842,14 +842,30 @@ main {
     text-transform: uppercase;
 }
 .section-lock-select {
+    appearance: none;
     background: #ffffff;
     border: 2px solid #000000;
     color: #000000;
     font-size: 0.72rem;
     margin-top: 3px;
     max-width: 100%;
-    padding: 5px;
+    padding: 5px 34px 5px 7px;
     width: 100%;
+}
+.section-lock-control { position: relative; }
+.section-lock-arrow {
+    align-items: center;
+    background: #ECECEC;
+    border-left: 2px solid #000000;
+    bottom: 2px;
+    display: flex;
+    font-size: 0.72rem;
+    justify-content: center;
+    pointer-events: none;
+    position: absolute;
+    right: 2px;
+    top: 5px;
+    width: 28px;
 }
 .selected-credits {
     font-size: 0.85rem;
@@ -879,7 +895,7 @@ main {
 }
 .schedule-workspace {
     display: grid;
-    grid-template-columns: minmax(520px, 1.5fr) minmax(330px, 0.8fr);
+    grid-template-columns: minmax(330px, 0.8fr) minmax(520px, 1.5fr);
     gap: 14px;
     height: var(--schedule-workspace-height, min(68vh, 720px));
     min-height: 420px;
@@ -904,14 +920,14 @@ main {
 .schedule-panel-heading {
     background: #000000;
     color: #ffffff;
-    padding: 10px 12px;
+    padding: 7px 10px;
     position: sticky;
     top: 0;
     z-index: 8;
 }
 .schedule-panel-heading h3,
 #solver-section h3 {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: #ffffff;
     text-transform: uppercase;
@@ -991,22 +1007,25 @@ main {
     height: auto;
     min-height: 0;
     overflow-y: auto;
-    padding: 10px;
+    padding: 0 10px 10px;
     background: #ffffff;
 }
-#calendar-grid { position: relative; }
+#calendar-grid {
+    --calendar-time-width: 42px;
+    position: relative;
+}
 .cal-header {
     display: grid;
-    grid-template-columns: 60px repeat(5, 1fr);
+    grid-template-columns: var(--calendar-time-width) repeat(5, 1fr);
     border-bottom: 2px solid #000000;
     position: sticky;
     top: 0;
     background: #ffffff;
-    z-index: 5;
+    z-index: 20;
 }
 .cal-day-label {
     text-align: center;
-    padding: 8px 0;
+    padding: 6px 0;
     font-weight: 700;
     font-size: 0.9rem;
     color: #73000A;
@@ -1016,7 +1035,7 @@ main {
 .cal-time-label { padding: 6px 0; }
 #cal-body {
     display: grid;
-    grid-template-columns: 60px repeat(5, 1fr);
+    grid-template-columns: var(--calendar-time-width) repeat(5, 1fr);
     position: relative;
 }
 .cal-time-slot {
@@ -1025,9 +1044,9 @@ main {
     color: #555555;
     font-weight: 600;
     text-align: right;
-    padding-right: 8px;
-    height: 40px;
-    line-height: 40px;
+    padding-right: 5px;
+    height: 22px;
+    line-height: 22px;
     border-top: 1px solid #e0e0e0;
 }
 .cal-day-column {
@@ -1038,6 +1057,13 @@ main {
     position: absolute;
     left: 0; right: 0;
     border-top: 1px solid #e0e0e0;
+}
+.cal-half-hour-line {
+    border-top: 1px dashed #C7C7C7;
+    left: 0;
+    opacity: 0.75;
+    position: absolute;
+    right: 0;
 }
 .cal-block {
     position: absolute;
@@ -1052,6 +1078,11 @@ main {
     border: 2px solid #000000;
 }
 .cal-block:hover { filter: brightness(0.92); }
+.cal-block.preview {
+    filter: saturate(0.18);
+    opacity: 0.58;
+    pointer-events: none;
+}
 .cal-block .block-title { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cal-block .block-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .cal-block.conflict { border: 3px solid #ff0000; }
@@ -1283,7 +1314,7 @@ main {
     font-weight: 700;
     justify-content: center;
     letter-spacing: 0.4px;
-    margin: -4px 10px;
+    margin: -4px 10px -10px;
     position: relative;
     text-transform: uppercase;
     user-select: none;

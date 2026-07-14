@@ -364,10 +364,17 @@
                 <!-- Right: Preview + Solver Results -->
                 <section id="schedule-content">
                     <div class="schedule-workspace">
+                        <section id="solver-section">
+                            <div class="schedule-panel-heading">
+                                <h3>Schedule Options</h3>
+                            </div>
+                            <div id="solver-container">
+                                <p class="hint">Add courses, then generate conflict-free schedule options.</p>
+                            </div>
+                        </section>
                         <section class="schedule-preview-panel">
                             <div class="schedule-panel-heading">
                                 <h3>Weekly Preview</h3>
-                                <p>Select an option to preview it. Apply it when you are ready.</p>
                             </div>
                             <div id="calendar-container">
                                 <div id="calendar-grid">
@@ -383,18 +390,9 @@
                                 </div>
                             </div>
                         </section>
-                        <section id="solver-section">
-                            <div class="schedule-panel-heading">
-                                <h3>Schedule Options</h3>
-                                <p>Generated sections appear here without changing your applied schedule.</p>
-                            </div>
-                            <div id="solver-container">
-                                <p class="hint">Add courses, then generate conflict-free schedule options.</p>
-                            </div>
-                        </section>
                     </div>
                     <div id="schedule-vertical-resizer" class="schedule-vertical-resizer" role="separator" aria-label="Resize calendar and walking map" aria-orientation="horizontal" tabindex="0">
-                        <span>DRAG TO RESIZE CALENDAR AND MAP</span>
+                        <span>DRAG TO RESIZE</span>
                     </div>
                     <div id="walking-map-container"></div>
                 </section>

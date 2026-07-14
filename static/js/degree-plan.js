@@ -848,11 +848,14 @@ const ScheduleSidebar = {
                     </div>
                     <div class="selected-course-detail">${title}</div>
                     <label class="section-lock-label" for="section-lock-${code.replace(/\s+/g, '-')}">Section preference</label>
-                    <select class="section-lock-select" id="section-lock-${code.replace(/\s+/g, '-')}" data-code="${code}">
-                        <option value="">Any open section</option>
-                        ${sectionOptions}
-                    </select>
-                    <div class="selected-course-detail">${lockedCrn ? 'Locked section will be required' : `${openSections.length} open section${openSections.length === 1 ? '' : 's'} available`}</div>
+                    <div class="section-lock-control">
+                        <select class="section-lock-select" id="section-lock-${code.replace(/\s+/g, '-')}" data-code="${code}">
+                            <option value="">${openSections.length} open section${openSections.length === 1 ? '' : 's'}</option>
+                            ${sectionOptions}
+                        </select>
+                        <span class="section-lock-arrow" aria-hidden="true">▼</span>
+                    </div>
+                    ${lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : ''}
                     ${applied ? `<div class="selected-course-applied">Applied section ${applied.section || ''}</div>` : ''}
                 </div>
             `;
