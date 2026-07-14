@@ -294,11 +294,11 @@ const Scheduler = {
             const lockedCrn = State.sectionLocks?.[group.code];
             return {
                 code: group.code,
-                sections: (group.sections || []).filter(section =>
-                    this.isOpenSection(section) &&
-                    this.isSchedulableSection(section) &&
-                    (!lockedCrn || String(section.crn) === String(lockedCrn)),
-                ),
+                sections: (group.sections || []).filter(section => {
+                    const locked = lockedCrn && String(section.crn) === String(lockedCrn);
+                    return this.isSchedulableSection(section)
+                        && (lockedCrn ? locked : this.isOpenSection(section));
+                }),
             };
         });
 
@@ -340,7 +340,7 @@ const Scheduler = {
         schedules.forEach((schedule, index) => {
             const applied = this.isAppliedSchedule(schedule);
             const courseList = Object.entries(schedule.sections).map(([code, section]) =>
-                `<div class="sched-course"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span></div>`,
+                `<div class="sched-course"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</div>`,
             ).join('');
             html += `
                 <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}" tabindex="${applied ? '-1' : '0'}" aria-disabled="${applied}">

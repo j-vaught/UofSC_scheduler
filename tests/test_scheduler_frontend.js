@@ -36,6 +36,32 @@ test('applied section appears in the section dropdown without a separate status 
     assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /Applied section 004/);
 });
 
+test('full sections remain selectable as an explicit planning override', () => {
+    const elements = {
+        'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },
+        'selected-credits': { textContent: '' },
+    };
+    const sidebar = loadObject('static/js/degree-plan.js', 'ScheduleSidebar', {
+        State: {
+            selectedCourses: {
+                'TEST 101': {
+                    title: 'Test Course',
+                    sections: [{ crn: '10101', section: '001', stat: 'C', hours: '3' }],
+                },
+            },
+            selectedSections: {},
+            sectionLocks: { 'TEST 101': '10101' },
+        },
+        document: { getElementById: id => elements[id] || null },
+    });
+
+    sidebar.render();
+
+    assert.match(elements['selected-courses-list'].innerHTML, /value="10101" selected/);
+    assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /value="10101"[^>]*disabled/);
+    assert.match(elements['selected-courses-list'].innerHTML, /Full section selected\. Planning only/);
+});
+
 test('solver uses course-level choices instead of applied sections', async () => {
     let solvedCourses;
     let requestedResults;
@@ -46,7 +72,7 @@ test('solver uses course-level choices instead of applied sections', async () =>
                 code: 'TEST 101',
                 sections: [
                     { crn: '10101', stat: 'A', meetingTimes: '[]' },
-                    { crn: '10102', stat: 'A', meetingTimes: '[]' },
+                    { crn: '10102', stat: 'C', meetingTimes: '[]' },
                 ],
             },
         },

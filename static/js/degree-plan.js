@@ -829,6 +829,12 @@ const ScheduleSidebar = {
             const openSections = (course.sections || []).filter(section => !section.stat || section.stat === 'A');
             const applied = State.selectedSections[code];
             const lockedCrn = State.sectionLocks[code] || '';
+            const lockedSection = (course.sections || []).find(section =>
+                String(section.crn) === String(lockedCrn),
+            );
+            const lockedSectionIsFull = Boolean(
+                lockedSection && lockedSection.stat && lockedSection.stat !== 'A',
+            );
             const defaultSectionLabel = applied?.section
                 ? `Section ${applied.section} selected`
                 : `${openSections.length} open section${openSections.length === 1 ? '' : 's'}`;
@@ -839,8 +845,7 @@ const ScheduleSidebar = {
                 const instructor = section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided';
                 const availability = !section.stat || section.stat === 'A' ? '' : ' — FULL';
                 const selected = String(section.crn) === String(lockedCrn) ? ' selected' : '';
-                const disabled = availability ? ' disabled' : '';
-                return `<option value="${section.crn}"${selected}${disabled}>Section ${section.section || '?'} — ${instructor} — ${section.meets || 'TBA'}${availability}</option>`;
+                return `<option value="${section.crn}"${selected}>Section ${section.section || '?'} — ${instructor} — ${section.meets || 'TBA'}${availability}</option>`;
             }).join('');
 
             html += `
@@ -858,7 +863,9 @@ const ScheduleSidebar = {
                         </select>
                         <span class="section-lock-arrow" aria-hidden="true">▼</span>
                     </div>
-                    ${lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : ''}
+                    ${lockedSectionIsFull
+                        ? '<div class="section-lock-warning">Full section selected. Planning only; enrollment requires an opening or override.</div>'
+                        : (lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : '')}
                 </div>
             `;
             totalCredits += parseInt((course.sections || [])[0]?.hours || '3', 10);
