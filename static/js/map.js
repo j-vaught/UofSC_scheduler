@@ -14,6 +14,9 @@ const WalkingMap = {
     _map: null,
     _layer: null,
     _routeLayers: [],
+    _lockedTransitionIndex: null,
+    _previewTransitionIndex: null,
+    _overviewView: null,
 
     async init(options = {}) {
         this.containerId = options.containerId || 'walking-map-container';
@@ -370,6 +373,8 @@ const WalkingMap = {
     },
 
     renderTransitions(events, transitions) {
+        this._lockedTransitionIndex = null;
+        this._previewTransitionIndex = null;
         const showingWeek = this.selectedDay === 'all';
         const periodLabel = showingWeek ? 'this week' : this.DAYS[this.selectedDay];
         if (events.length === 0) {
@@ -416,6 +421,10 @@ const WalkingMap = {
                 card.dataset.transitionIndex = String(index);
                 card.setAttribute('aria-label', `Show route from ${transition.from.code} to ${transition.to.code}`);
                 card.setAttribute('aria-pressed', 'false');
+                card.addEventListener('mouseenter', () => this.previewTransition(index));
+                card.addEventListener('mouseleave', () => this.clearTransitionPreview(index));
+                card.addEventListener('focus', () => this.previewTransition(index));
+                card.addEventListener('blur', () => this.clearTransitionPreview(index));
                 card.addEventListener('click', () => this.focusTransition(index));
             }
             this.listElement.appendChild(card);
@@ -479,22 +488,39 @@ const WalkingMap = {
             this._routeLayers[index] = { layer, baseStyle };
         });
 
-        if (bounds.length > 1) this._map.fitBounds(bounds, { padding: [28, 28], maxZoom: 17 });
-        else if (bounds.length === 1) this._map.setView(bounds[0], 17);
-        else this._map.setView(this.DEFAULT_CENTER, 15);
+        if (bounds.length > 1) this._overviewView = { kind: 'bounds', value: bounds.map(point => [...point]) };
+        else if (bounds.length === 1) this._overviewView = { kind: 'point', value: [...bounds[0]] };
+        else this._overviewView = { kind: 'default', value: [...this.DEFAULT_CENTER] };
+        this.restoreOverview();
     },
 
-    focusTransition(index) {
+    resetRouteStyles() {
+        this._routeLayers.forEach(route => {
+            if (route) route.layer.setStyle(route.baseStyle);
+        });
+    },
+
+    restoreOverview() {
+        if (!this._map || !this._overviewView) return;
+        if (this._overviewView.kind === 'bounds') {
+            this._map.fitBounds(this._overviewView.value, { padding: [28, 28], maxZoom: 17 });
+        } else if (this._overviewView.kind === 'point') {
+            this._map.setView(this._overviewView.value, 17);
+        } else {
+            this._map.setView(this._overviewView.value, 15);
+        }
+    },
+
+    showTransition(index, locked = false) {
         const transition = this._currentTransitions?.[index];
         if (!transition?.geometry || !this._map) return;
         this.listElement?.querySelectorAll('button.walking-transition').forEach(card => {
             const selected = Number(card.dataset.transitionIndex) === index;
-            card.classList.toggle('is-selected', selected);
-            card.setAttribute('aria-pressed', String(selected));
+            card.classList.toggle('is-selected', selected && locked);
+            card.classList.toggle('is-previewed', selected && !locked);
+            card.setAttribute('aria-pressed', String(selected && locked));
         });
-        this._routeLayers.forEach(route => {
-            if (route) route.layer.setStyle(route.baseStyle);
-        });
+        this.resetRouteStyles();
         const selectedRoute = this._routeLayers[index];
         if (selectedRoute) {
             selectedRoute.layer.setStyle({
@@ -506,6 +532,34 @@ const WalkingMap = {
             selectedRoute.layer.bringToFront();
         }
         this._map.fitBounds(transition.geometry, { padding: [35, 35], maxZoom: 18 });
+    },
+
+    previewTransition(index) {
+        if (this._lockedTransitionIndex === index) return;
+        this._previewTransitionIndex = index;
+        this.showTransition(index, false);
+    },
+
+    clearTransitionPreview(index) {
+        if (this._previewTransitionIndex !== index) return;
+        this._previewTransitionIndex = null;
+        if (this._lockedTransitionIndex !== null) {
+            this.showTransition(this._lockedTransitionIndex, true);
+            return;
+        }
+        this.listElement?.querySelectorAll('button.walking-transition').forEach(card => {
+            card.classList.toggle('is-previewed', false);
+            card.classList.toggle('is-selected', false);
+            card.setAttribute('aria-pressed', 'false');
+        });
+        this.resetRouteStyles();
+        this.restoreOverview();
+    },
+
+    focusTransition(index) {
+        this._lockedTransitionIndex = index;
+        this._previewTransitionIndex = null;
+        this.showTransition(index, true);
     },
 
     loadLeaflet() {

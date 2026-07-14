@@ -394,3 +394,100 @@ test('selecting a walking transition highlights its route and zooms the map', ()
     assert.equal(layers[1].broughtForward, true);
     assert.deepEqual(fittedBounds, [[3, 3], [4, 4]]);
 });
+
+test('hovering a walking transition previews its route and restores the overview', () => {
+    function routeCard(index) {
+        const classes = new Set();
+        const attributes = {};
+        return {
+            dataset: { transitionIndex: String(index) },
+            classList: {
+                toggle(value, enabled) { if (enabled) classes.add(value); else classes.delete(value); },
+                contains(value) { return classes.has(value); },
+            },
+            setAttribute(name, value) { attributes[name] = value; },
+            attributes,
+        };
+    }
+
+    function routeLayer() {
+        return {
+            styles: [],
+            setStyle(style) { this.styles.push(style); },
+            bringToFront() {},
+        };
+    }
+
+    const cards = [routeCard(0), routeCard(1)];
+    const layers = [routeLayer(), routeLayer()];
+    const fittedBounds = [];
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.listElement = { querySelectorAll: () => cards };
+    walkingMap._currentTransitions = [
+        { geometry: [[1, 1], [2, 2]] },
+        { geometry: [[3, 3], [4, 4]] },
+    ];
+    walkingMap._routeLayers = layers.map(layer => ({
+        layer,
+        baseStyle: { color: '#73000A', weight: 5 },
+    }));
+    walkingMap._overviewView = { kind: 'bounds', value: [[0, 0], [5, 5]] };
+    walkingMap._map = { fitBounds(bounds) { fittedBounds.push(bounds); } };
+
+    walkingMap.previewTransition(0);
+
+    assert.equal(cards[0].classList.contains('is-previewed'), true);
+    assert.equal(cards[0].classList.contains('is-selected'), false);
+    assert.equal(cards[0].attributes['aria-pressed'], 'false');
+    assert.deepEqual(fittedBounds.at(-1), [[1, 1], [2, 2]]);
+
+    walkingMap.clearTransitionPreview(0);
+
+    assert.equal(cards[0].classList.contains('is-previewed'), false);
+    assert.deepEqual(fittedBounds.at(-1), [[0, 0], [5, 5]]);
+});
+
+test('leaving a hover preview returns to the clicked walking route', () => {
+    function routeCard(index) {
+        const classes = new Set();
+        return {
+            dataset: { transitionIndex: String(index) },
+            classList: {
+                toggle(value, enabled) { if (enabled) classes.add(value); else classes.delete(value); },
+                contains(value) { return classes.has(value); },
+            },
+            setAttribute() {},
+        };
+    }
+
+    const cards = [routeCard(0), routeCard(1)];
+    const fittedBounds = [];
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.listElement = { querySelectorAll: () => cards };
+    walkingMap._currentTransitions = [
+        { geometry: [[1, 1], [2, 2]] },
+        { geometry: [[3, 3], [4, 4]] },
+    ];
+    walkingMap._routeLayers = [0, 1].map(() => ({
+        layer: { setStyle() {}, bringToFront() {} },
+        baseStyle: { color: '#73000A', weight: 5 },
+    }));
+    walkingMap._map = { fitBounds(bounds) { fittedBounds.push(bounds); } };
+
+    walkingMap.focusTransition(1);
+    walkingMap.previewTransition(0);
+    walkingMap.clearTransitionPreview(0);
+
+    assert.equal(cards[1].classList.contains('is-selected'), true);
+    assert.equal(cards[0].classList.contains('is-previewed'), false);
+    assert.deepEqual(fittedBounds.at(-1), [[3, 3], [4, 4]]);
+});
+
+test('walking transition cards wire hover and keyboard previews', () => {
+    const source = fs.readFileSync('static/js/map.js', 'utf8');
+
+    assert.match(source, /addEventListener\('mouseenter', \(\) => this\.previewTransition\(index\)\)/);
+    assert.match(source, /addEventListener\('mouseleave', \(\) => this\.clearTransitionPreview\(index\)\)/);
+    assert.match(source, /addEventListener\('focus', \(\) => this\.previewTransition\(index\)\)/);
+    assert.match(source, /addEventListener\('blur', \(\) => this\.clearTransitionPreview\(index\)\)/);
+});
