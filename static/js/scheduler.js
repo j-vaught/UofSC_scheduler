@@ -133,7 +133,7 @@ const Scheduler = {
         if (!container) return;
         if (this._lastSearchGroups.length === 0) {
             if (!container.querySelector('.loading')) {
-                container.innerHTML = '<p class="hint">Search by subject, course code, or keyword.</p>';
+                container.innerHTML = '';
             }
             return;
         }
@@ -254,7 +254,7 @@ const Scheduler = {
         return !section.stat || section.stat === 'A';
     },
 
-    async solve() {
+    async solve(maxResults = 10) {
         const courseGroups = Object.values(State.selectedCourses || {});
         if (courseGroups.length === 0) {
             alert('Add the courses you want to schedule first.');
@@ -293,7 +293,8 @@ const Scheduler = {
         preferences.max_credits = Number.isFinite(Number(configuredMax)) ? Number(configuredMax) : 18;
 
         try {
-            const result = await API.solve(courses, preferences);
+            const resultLimit = Math.max(10, Number(maxResults) || 10);
+            const result = await API.solve(courses, preferences, resultLimit);
             State.solverResults = result.schedules || [];
             this.renderResults(result, container);
         } catch (error) {
@@ -311,7 +312,7 @@ const Scheduler = {
             return;
         }
 
-        let html = `<p class="solver-summary">Found ${total_found} valid schedules. Showing the top ${returned}.</p>`;
+        let html = `<p class="solver-summary">Ranked ${total_found} valid schedules. Showing the top ${returned}.</p>`;
         schedules.forEach((schedule, index) => {
             const applied = this.isAppliedSchedule(schedule);
             const courseList = Object.entries(schedule.sections).map(([code, section]) =>
@@ -327,6 +328,9 @@ const Scheduler = {
                 </article>
             `;
         });
+        if (total_found > returned) {
+            html += `<button class="btn-show-more" type="button" data-next-limit="${returned + 10}">SHOW 10 MORE</button>`;
+        }
         container.innerHTML = html;
 
         container.querySelectorAll('.btn-apply').forEach(button => {
@@ -338,6 +342,12 @@ const Scheduler = {
         container.querySelectorAll('.schedule-card').forEach(card => {
             this.bindScheduleCardPreview(card, container);
         });
+        const showMore = container.querySelector('.btn-show-more');
+        if (showMore) {
+            showMore.addEventListener('click', () => {
+                this.solve(Number(showMore.dataset.nextLimit));
+            });
+        }
     },
 
     bindScheduleCardPreview(card, container) {

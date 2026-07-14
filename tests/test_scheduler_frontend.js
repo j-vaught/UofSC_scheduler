@@ -38,6 +38,7 @@ test('applied section appears in the section dropdown without a separate status 
 
 test('solver uses course-level choices instead of applied sections', async () => {
     let solvedCourses;
+    let requestedResults;
     const state = {
         term: '202608',
         selectedCourses: {
@@ -58,8 +59,9 @@ test('solver uses course-level choices instead of applied sections', async () =>
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         State: state,
         API: {
-            async solve(courses) {
+            async solve(courses, preferences, maxResults) {
                 solvedCourses = courses;
+                requestedResults = maxResults;
                 return { total_found: 0, returned: 0, schedules: [] };
             },
         },
@@ -67,12 +69,41 @@ test('solver uses course-level choices instead of applied sections', async () =>
         alert() {},
     });
 
-    await scheduler.solve();
+    await scheduler.solve(20);
 
     assert.equal(solvedCourses[0].code, 'TEST 101');
     assert.equal(solvedCourses[0].sections.length, 1);
     assert.equal(solvedCourses[0].sections[0].crn, '10102');
+    assert.equal(requestedResults, 20);
     assert.equal(state.selectedSections['TEST 101'].crn, 'old-section');
+});
+
+test('schedule results offer ten more ranked options when more are available', () => {
+    const listeners = {};
+    const showMore = {
+        dataset: { nextLimit: '20' },
+        addEventListener(type, listener) { listeners[type] = listener; },
+    };
+    const container = {
+        innerHTML: '',
+        querySelector(selector) { return selector === '.btn-show-more' ? showMore : null; },
+        querySelectorAll() { return []; },
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: { selectedSections: {}, sectionLocks: {}, solverResults: [] },
+    });
+    let requestedResults;
+    scheduler.solve = maxResults => { requestedResults = maxResults; };
+
+    scheduler.renderResults({
+        total_found: 30,
+        returned: 10,
+        schedules: [{ sections: { 'TEST 101': { crn: '10101', section: '001' } } }],
+    }, container);
+
+    assert.match(container.innerHTML, /SHOW 10 MORE/);
+    listeners.click();
+    assert.equal(requestedResults, 20);
 });
 
 test('adding a course code stores every live section without choosing one', async () => {

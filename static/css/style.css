@@ -745,8 +745,8 @@ main {
     margin-bottom: 10px;
 }
 .schedule-search-section {
-    border-bottom: 2px solid #000000;
-    padding: 12px;
+    border-bottom: 1px solid #C7C7C7;
+    padding: 12px 12px 8px;
 }
 .schedule-search-section input {
     width: 100%;
@@ -756,32 +756,22 @@ main {
 }
 .schedule-search-section button { width: 100%; margin-top: 6px; }
 .schedule-course-status {
-    min-height: 0;
-    margin-top: 6px;
-    color: #363636;
-    font-size: 0.72rem;
-    line-height: 1.3;
-}
-.schedule-course-status.success { color: #1F414D; font-weight: 700; }
-.schedule-course-status.error { color: #73000A; font-weight: 700; }
-.schedule-results-header {
-    align-items: center;
-    border-bottom: 1px solid #C7C7C7;
-    color: #73000A;
-    display: flex;
-    font-size: 0.75rem;
-    font-weight: 700;
-    justify-content: space-between;
-    padding: 8px 12px;
-    text-transform: uppercase;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }
 .schedule-search-results {
     border-bottom: 3px solid #000000;
     max-height: 250px;
-    min-height: 70px;
+    min-height: 0;
     overflow-y: auto;
     padding: 8px;
 }
+.schedule-search-results:empty { padding: 0; }
 .schedule-search-course {
     align-items: center;
     background: #ffffff;
@@ -1268,6 +1258,17 @@ main {
 .schedule-card .score { font-size: 0.85rem; color: #73000A; font-weight: 700; }
 .schedule-card .sched-courses { font-size: 0.8rem; color: #333333; margin-top: 4px; }
 .solver-summary { color: #363636; font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
+.btn-show-more {
+    background: #ffffff;
+    border: 2px solid #73000A;
+    color: #73000A;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    width: 100%;
+}
+.btn-show-more:hover { background: #73000A; color: #ffffff; }
 .schedule-card-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .btn-apply {
     background: #73000A;
