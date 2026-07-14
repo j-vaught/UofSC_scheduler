@@ -180,14 +180,13 @@ const Scheduler = {
         } catch (error) {
             stored = null;
         }
-        if (stored?.workspace && stored?.map) this.setVerticalSizes(stored.workspace, stored.map);
+        this.setVerticalSizes(stored?.workspace || workspace.getBoundingClientRect().height);
 
         let startY = 0;
         let startWorkspace = 0;
-        let startMap = 0;
         const resize = clientY => {
             const delta = clientY - startY;
-            this.setVerticalSizes(startWorkspace + delta, startMap - delta);
+            this.setVerticalSizes(startWorkspace + delta);
         };
         const stop = () => {
             document.removeEventListener('pointermove', move);
@@ -201,7 +200,6 @@ const Scheduler = {
         handle.addEventListener('pointerdown', event => {
             startY = event.clientY;
             startWorkspace = workspace.getBoundingClientRect().height;
-            startMap = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height || 380;
             handle.classList.add('active');
             document.body.classList.add('resizing-schedule');
             document.addEventListener('pointermove', move);
@@ -211,21 +209,48 @@ const Scheduler = {
         handle.addEventListener('keydown', event => {
             if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
             const workspaceHeight = workspace.getBoundingClientRect().height;
-            const mapHeight = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height || 380;
             const delta = event.key === 'ArrowDown' ? 30 : -30;
-            this.setVerticalSizes(workspaceHeight + delta, mapHeight - delta);
+            this.setVerticalSizes(workspaceHeight + delta);
             this.saveVerticalSizes();
             event.preventDefault();
         });
+        this._verticalResizeHandler = () => {
+            this.setVerticalSizes(workspace.getBoundingClientRect().height);
+        };
+        window.addEventListener('resize', this._verticalResizeHandler);
     },
 
-    setVerticalSizes(workspaceHeight, mapHeight) {
+    fitPanelSizes(workspaceHeight, availableHeight) {
+        const total = Math.max(0, Math.round(availableHeight));
+        const preferredMapMinimum = 260;
+        const mapMinimum = Math.min(preferredMapMinimum, Math.max(0, total - 200));
+        const workspaceMinimum = Math.min(420, Math.max(0, total - mapMinimum));
+        const workspaceMaximum = Math.max(workspaceMinimum, total - mapMinimum);
+        const workspace = Math.max(
+            workspaceMinimum,
+            Math.min(workspaceMaximum, Math.round(workspaceHeight)),
+        );
+        return { workspace, map: Math.max(0, total - workspace) };
+    },
+
+    availablePanelHeight(content, handle) {
+        const contentStyle = window.getComputedStyle(content);
+        const handleStyle = window.getComputedStyle(handle);
+        const padding = parseFloat(contentStyle.paddingTop) + parseFloat(contentStyle.paddingBottom);
+        const gap = parseFloat(contentStyle.rowGap || contentStyle.gap) || 0;
+        const handleHeight = handle.getBoundingClientRect().height
+            + parseFloat(handleStyle.marginTop)
+            + parseFloat(handleStyle.marginBottom);
+        return Math.max(0, content.clientHeight - padding - (gap * 2) - handleHeight);
+    },
+
+    setVerticalSizes(workspaceHeight) {
         const content = document.getElementById('schedule-content');
-        if (!content) return;
-        const workspace = Math.max(420, Math.min(900, Math.round(workspaceHeight)));
-        const map = Math.max(260, Math.min(800, Math.round(mapHeight)));
+        const handle = document.getElementById('schedule-vertical-resizer');
+        if (!content || !handle) return;
+        const available = this.availablePanelHeight(content, handle);
+        const { workspace } = this.fitPanelSizes(workspaceHeight, available);
         content.style.setProperty('--schedule-workspace-height', `${workspace}px`);
-        content.style.setProperty('--walking-map-height', `${map}px`);
         if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
             requestAnimationFrame(() => WalkingMap._map.invalidateSize());
         }
@@ -233,9 +258,8 @@ const Scheduler = {
 
     saveVerticalSizes() {
         const workspace = document.querySelector('.schedule-workspace')?.getBoundingClientRect().height;
-        const map = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height;
-        if (!workspace || !map) return;
-        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({ workspace, map }));
+        if (!workspace) return;
+        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({ workspace }));
     },
 
     isSchedulableSection(section) {

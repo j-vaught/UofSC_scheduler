@@ -106,6 +106,18 @@ test('schedule results offer ten more ranked options when more are available', (
     assert.equal(requestedResults, 20);
 });
 
+test('schedule splitter keeps calendar and map within the available height', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+
+    const mapExpanded = scheduler.fitPanelSizes(100, 700);
+    const calendarExpanded = scheduler.fitPanelSizes(900, 700);
+
+    assert.equal(mapExpanded.workspace + mapExpanded.map, 700);
+    assert.equal(calendarExpanded.workspace + calendarExpanded.map, 700);
+    assert.equal(mapExpanded.workspace, 420);
+    assert.equal(calendarExpanded.map, 260);
+});
+
 test('adding a course code stores every live section without choosing one', async () => {
     let addedGroup;
     const state = {
