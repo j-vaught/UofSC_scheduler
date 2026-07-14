@@ -809,11 +809,11 @@ const ScheduleSidebar = {
         const creditsEl = document.getElementById('selected-credits');
         if (!list) return;
 
-        const sections = State.selectedSections;
-        const codes = Object.keys(sections);
+        const courses = State.selectedCourses;
+        const codes = Object.keys(courses);
 
         if (codes.length === 0) {
-            list.innerHTML = '<p class="hint">Add courses from the Browse tab to build your schedule.</p>';
+            list.innerHTML = '<p class="hint">Add a course above or from Browse. You do not need to choose a section.</p>';
             if (creditsEl) creditsEl.textContent = '';
             return;
         }
@@ -822,10 +822,10 @@ const ScheduleSidebar = {
         let totalCredits = 0;
 
         codes.forEach(code => {
-            const sec = sections[code];
-            const title = sec.title || code;
-            const instr = (sec.instr && sec.instr !== 'Staff') ? sec.instr : 'Undecided';
-            const meets = sec.meets || 'TBA';
+            const course = courses[code];
+            const title = course.title || code;
+            const openSections = (course.sections || []).filter(section => !section.stat || section.stat === 'A');
+            const applied = State.selectedSections[code];
 
             html += `
                 <div class="selected-course-item">
@@ -834,18 +834,19 @@ const ScheduleSidebar = {
                         <button class="btn-remove" data-code="${code}">&times;</button>
                     </div>
                     <div class="selected-course-detail">${title}</div>
-                    <div class="selected-course-detail">${sec.section || ''} &bull; ${instr} &bull; ${meets}</div>
+                    <div class="selected-course-detail">${openSections.length} open section${openSections.length === 1 ? '' : 's'} &bull; Solver chooses</div>
+                    ${applied ? `<div class="selected-course-applied">Applied section ${applied.section || ''}</div>` : ''}
                 </div>
             `;
-            totalCredits += parseInt(sec.hours || '3', 10);
+            totalCredits += parseInt((course.sections || [])[0]?.hours || '3', 10);
         });
 
         list.innerHTML = html;
-        if (creditsEl) creditsEl.textContent = `${totalCredits} credits selected`;
+        if (creditsEl) creditsEl.textContent = `${totalCredits} estimated credits`;
 
         list.querySelectorAll('.btn-remove').forEach(btn => {
             btn.addEventListener('click', () => {
-                State.removeSection(btn.dataset.code);
+                State.removeCourse(btn.dataset.code);
             });
         });
     },

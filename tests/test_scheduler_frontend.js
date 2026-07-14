@@ -10,29 +10,69 @@ function loadObject(path, name, contextValues) {
     return context.__result;
 }
 
-test('selected course groups remain available across searches', () => {
-    const listeners = {};
+test('solver uses course-level choices instead of applied sections', async () => {
+    let solvedCourses;
     const state = {
         term: '202608',
-        selectedSections: { 'TEST 101': { code: 'TEST 101', crn: '10101', meetingTimes: '[]' } },
-        courseGroups: [{ code: 'TEST 101', sections: [{ crn: '10101' }, { crn: '10102' }] }],
-        on(event, fn) { listeners[event] = fn; },
+        selectedCourses: {
+            'TEST 101': {
+                code: 'TEST 101',
+                sections: [
+                    { crn: '10101', stat: 'A', meetingTimes: '[]' },
+                    { crn: '10102', stat: 'A', meetingTimes: '[]' },
+                ],
+            },
+        },
+        selectedSections: { 'TEST 101': { crn: 'old-section' } },
+        profile: { customCredits: { max: 18 } },
+        getPreferences: () => ({}),
+    };
+    const container = { innerHTML: '', querySelectorAll: () => [] };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: state,
+        API: {
+            async solve(courses) {
+                solvedCourses = courses;
+                return { total_found: 0, returned: 0, schedules: [] };
+            },
+        },
+        document: { getElementById: () => container },
+        alert() {},
+    });
+
+    await scheduler.solve();
+
+    assert.equal(solvedCourses[0].code, 'TEST 101');
+    assert.equal(solvedCourses[0].sections.length, 2);
+    assert.equal(state.selectedSections['TEST 101'].crn, 'old-section');
+});
+
+test('adding a course code stores every live section without choosing one', async () => {
+    let addedGroup;
+    const state = {
+        term: '202608',
+        addCourse(group) { addedGroup = group; },
     };
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         State: state,
-        document: { getElementById: () => ({ addEventListener() {} }) },
+        API: {
+            async searchCourses() {
+                return {
+                    results: [
+                        { code: 'CSCE 145', crn: '11111' },
+                        { code: 'CSCE 145', crn: '22222' },
+                        { code: 'CSCE 146', crn: '33333' },
+                    ],
+                };
+            },
+        },
     });
 
-    scheduler.init();
-    state.courseGroups = [{ code: 'TEST 102', sections: [{ crn: '10201' }] }];
-    state.selectedSections['TEST 102'] = { code: 'TEST 102', crn: '10201', meetingTimes: '[]' };
-    listeners['sections-changed']();
+    await scheduler.addCourseByCode('csce145');
 
-    assert.deepEqual(
-        Object.keys(scheduler._courseGroupCache).sort(),
-        ['TEST 101', 'TEST 102'],
-    );
-    assert.equal(scheduler._courseGroupCache['TEST 101'].sections.length, 2);
+    assert.equal(addedGroup.code, 'CSCE 145');
+    assert.equal(addedGroup.sections.length, 2);
+    assert.equal(state.selectedSections, undefined);
 });
 
 test('preview renders a candidate without replacing selected sections', () => {

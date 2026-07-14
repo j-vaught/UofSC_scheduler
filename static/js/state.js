@@ -1,6 +1,7 @@
 /* Central state management with localStorage persistence */
 const State = {
     term: '202608',
+    selectedCourses: {},     // { courseCode: {code, title, sections} }
     selectedSections: {},    // { courseCode: sectionObj }
     searchResults: [],       // raw API results
     courseGroups: [],         // grouped by course code
@@ -78,6 +79,34 @@ const State = {
         return Object.values(this.selectedSections).some(s => s.crn === crn);
     },
 
+    addCourse(group) {
+        if (!group || !group.code) return;
+        this.selectedCourses[group.code] = JSON.parse(JSON.stringify({
+            code: group.code,
+            title: group.title || group.code,
+            sections: group.sections || [],
+        }));
+        this.emit('courses-changed', this.selectedCourses);
+    },
+
+    removeCourse(code) {
+        delete this.selectedCourses[code];
+        if (this.selectedSections[code]) {
+            delete this.selectedSections[code];
+            this.emit('sections-changed', this.selectedSections);
+        }
+        this.emit('courses-changed', this.selectedCourses);
+    },
+
+    toggleCourse(group) {
+        if (this.selectedCourses[group.code]) this.removeCourse(group.code);
+        else this.addCourse(group);
+    },
+
+    isCourseSelected(code) {
+        return Boolean(this.selectedCourses[code]);
+    },
+
     getPreferences() {
         return {
             blocked_times: this.blockedTimes,
@@ -94,6 +123,7 @@ const State = {
     savePlan() {
         this.savedPlans[this.currentPlan] = {
             term: this.term,
+            courses: JSON.parse(JSON.stringify(this.selectedCourses)),
             sections: JSON.parse(JSON.stringify(this.selectedSections)),
             blockedTimes: [...this.blockedTimes],
             preferredInstructors: { ...this.preferredInstructors },
@@ -112,6 +142,16 @@ const State = {
         this.currentPlan = name;
         this.term = plan.term || this.term;
         this.selectedSections = JSON.parse(JSON.stringify(plan.sections || {}));
+        this.selectedCourses = JSON.parse(JSON.stringify(plan.courses || {}));
+        if (Object.keys(this.selectedCourses).length === 0) {
+            Object.entries(this.selectedSections).forEach(([code, section]) => {
+                this.selectedCourses[code] = {
+                    code,
+                    title: section.title || code,
+                    sections: [section],
+                };
+            });
+        }
         this.blockedTimes = plan.blockedTimes || [];
         this.preferredInstructors = plan.preferredInstructors || {};
         this.avoidedInstructors = plan.avoidedInstructors || {};
@@ -126,6 +166,7 @@ const State = {
         const termSelect = document.getElementById('term-select');
         if (termSelect) termSelect.value = this.term;
         this.emit('sections-changed', this.selectedSections);
+        this.emit('courses-changed', this.selectedCourses);
         this.emit('preferences-changed');
         this.emit('profile-updated');
         this.emit('degree-plan-updated');
@@ -156,8 +197,9 @@ const State = {
 
     exportToJSON() {
         return JSON.stringify({
-            version: 2,
+            version: 3,
             term: this.term,
+            selectedCourses: this.selectedCourses,
             selectedSections: this.selectedSections,
             blockedTimes: this.blockedTimes,
             preferredInstructors: this.preferredInstructors,
@@ -174,6 +216,16 @@ const State = {
             const data = JSON.parse(jsonStr);
             if (data.term) this.term = data.term;
             if (data.selectedSections) this.selectedSections = data.selectedSections;
+            this.selectedCourses = data.selectedCourses || {};
+            if (Object.keys(this.selectedCourses).length === 0) {
+                Object.entries(this.selectedSections).forEach(([code, section]) => {
+                    this.selectedCourses[code] = {
+                        code,
+                        title: section.title || code,
+                        sections: [section],
+                    };
+                });
+            }
             if (data.blockedTimes) this.blockedTimes = data.blockedTimes;
             if (data.preferredInstructors) this.preferredInstructors = data.preferredInstructors;
             if (data.avoidedInstructors) this.avoidedInstructors = data.avoidedInstructors;
@@ -182,6 +234,7 @@ const State = {
             if (data.profile) this.profile = data.profile;
             if (data.degreePlan) this.degreePlan = data.degreePlan;
             this.emit('sections-changed', this.selectedSections);
+            this.emit('courses-changed', this.selectedCourses);
             this.emit('preferences-changed');
             this.emit('profile-updated');
             this.emit('degree-plan-updated');

@@ -337,39 +337,59 @@
         <!-- ===== SCHEDULE TAB ===== -->
         <div id="tab-schedule" class="main-tab">
             <div class="schedule-layout">
-                <!-- Left: Selected Courses -->
+                <!-- Left: Courses to schedule -->
                 <aside id="schedule-sidebar">
-                    <h2>Selected Courses</h2>
+                    <h2>Courses to Schedule</h2>
+                    <p class="schedule-picker-help">Add a course. The scheduler will compare its open sections for you.</p>
+                    <div class="schedule-course-picker">
+                        <label for="schedule-course-input">Course code</label>
+                        <div class="schedule-course-controls">
+                            <input id="schedule-course-input" type="text" placeholder="CSCE 145" autocomplete="off">
+                            <button id="btn-add-schedule-course" class="btn-black">ADD</button>
+                        </div>
+                        <p id="schedule-course-status" class="schedule-course-status" aria-live="polite"></p>
+                    </div>
                     <div id="selected-courses-list" class="selected-courses-list">
-                        <p class="hint">Add courses from the Semester tab to build your schedule.</p>
+                        <p class="hint">Add a course above or from Browse.</p>
                     </div>
                     <div id="selected-credits" class="selected-credits"></div>
                     <button id="btn-solve" class="btn-garnet" style="width:100%">GENERATE SCHEDULES</button>
                     <button id="btn-export-quick" class="btn-black" style="width:100%;margin-top:6px">EXPORT .ICS</button>
                 </aside>
 
-                <!-- Right: Calendar + Solver Results -->
+                <!-- Right: Preview + Solver Results -->
                 <section id="schedule-content">
-                    <div id="calendar-container">
-                        <div id="calendar-grid">
-                            <div class="cal-header">
-                                <div class="cal-time-label"></div>
-                                <div class="cal-day-label">MON</div>
-                                <div class="cal-day-label">TUE</div>
-                                <div class="cal-day-label">WED</div>
-                                <div class="cal-day-label">THU</div>
-                                <div class="cal-day-label">FRI</div>
+                    <div class="schedule-workspace">
+                        <section class="schedule-preview-panel">
+                            <div class="schedule-panel-heading">
+                                <h3>Weekly Preview</h3>
+                                <p>Select an option to preview it. Apply it when you are ready.</p>
                             </div>
-                            <div id="cal-body"></div>
-                        </div>
+                            <div id="calendar-container">
+                                <div id="calendar-grid">
+                                    <div class="cal-header">
+                                        <div class="cal-time-label"></div>
+                                        <div class="cal-day-label">MON</div>
+                                        <div class="cal-day-label">TUE</div>
+                                        <div class="cal-day-label">WED</div>
+                                        <div class="cal-day-label">THU</div>
+                                        <div class="cal-day-label">FRI</div>
+                                    </div>
+                                    <div id="cal-body"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="solver-section">
+                            <div class="schedule-panel-heading">
+                                <h3>Schedule Options</h3>
+                                <p>Generated sections appear here without changing your applied schedule.</p>
+                            </div>
+                            <div id="solver-container">
+                                <p class="hint">Add courses, then generate conflict-free schedule options.</p>
+                            </div>
+                        </section>
                     </div>
                     <div id="walking-map-container"></div>
-                    <div id="solver-section">
-                        <h3>Schedule Options</h3>
-                        <div id="solver-container">
-                            <p class="hint">Click "Generate Schedules" to find conflict-free schedules for your selected courses.</p>
-                        </div>
-                    </div>
                 </section>
             </div>
         </div>
@@ -452,12 +472,14 @@
         DegreePlan.init();
 
         // Track picked courses count
-        State.on('sections-changed', () => {
-            const count = Object.keys(State.selectedSections).length;
+        State.on('courses-changed', () => {
+            const count = Object.keys(State.selectedCourses).length;
             const el = document.getElementById('pick-count');
             if (el) el.textContent = count > 0 ? `(${count} selected)` : '';
             ScheduleSidebar.render();
         });
+        State.on('sections-changed', () => ScheduleSidebar.render());
+        ScheduleSidebar.render();
 
         // Term change
         document.getElementById('term-select').addEventListener('change', (e) => {

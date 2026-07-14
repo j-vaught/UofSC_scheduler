@@ -842,13 +842,38 @@ const Search = {
             div.innerHTML = `
                 <div class="course-header">
                     <span><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</span>
-                    <span class="badge ${badgeClass}">${badgeText}</span>
+                    <span class="course-header-actions">
+                        <span class="badge ${badgeClass}">${badgeText}</span>
+                        <button class="btn-course-add ${State.isCourseSelected(group.code) ? 'added' : ''}">${State.isCourseSelected(group.code) ? 'ADDED' : 'ADD COURSE'}</button>
+                    </span>
                 </div>
                 <div class="course-sections"></div>
             `;
 
             const header = div.querySelector('.course-header');
             const sectionsDiv = div.querySelector('.course-sections');
+            const addCourseButton = div.querySelector('.btn-course-add');
+
+            addCourseButton.addEventListener('click', async event => {
+                event.stopPropagation();
+                if (State.isCourseSelected(group.code)) {
+                    State.removeCourse(group.code);
+                } else {
+                    addCourseButton.disabled = true;
+                    try {
+                        await Scheduler.addCourseGroup(group);
+                    } catch (error) {
+                        return;
+                    } finally {
+                        addCourseButton.disabled = false;
+                    }
+                }
+                const selected = State.isCourseSelected(group.code);
+                addCourseButton.textContent = selected ? 'ADDED' : 'ADD COURSE';
+                addCourseButton.classList.toggle('added', selected);
+                div.classList.toggle('course-added', selected);
+            });
+            div.classList.toggle('course-added', State.isCourseSelected(group.code));
 
             header.addEventListener('click', () => {
                 // Collapse all other course sections and remove active highlight
@@ -902,8 +927,7 @@ const Search = {
 
             group.sections.forEach(sec => {
                 const row = document.createElement('div');
-                const isAdded = State.isSelected(sec.crn);
-                row.className = 'section-row' + (isAdded ? ' selected' : '');
+                row.className = 'section-row';
                 const statusDot = sec.stat === 'A'
                     ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
@@ -920,7 +944,7 @@ const Search = {
                     // Clear all viewing highlights across all course groups
                     document.querySelectorAll('#search-results .section-row.viewing').forEach(r => r.classList.remove('viewing'));
                     row.classList.add('viewing');
-                    // Show section details with Add to Schedule button in main panel
+                    // Show section details while keeping schedule selection course-level
                     Search.showSectionDetail(sec);
                 });
                 row.dataset.crn = sec.crn;
@@ -935,9 +959,27 @@ const Search = {
         const detailsTab = document.getElementById('tab-details');
         if (!detailsTab) return;
 
-        const isAdded = State.isSelected(sec.crn);
-        const btnLabel = isAdded ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
-        const btnClass = isAdded ? 'btn-danger' : 'btn-green';
+        const group = (State.courseGroups || []).find(item => item.code === sec.code) || {
+            code: sec.code,
+            title: sec.title,
+            sections: [sec],
+        };
+
+        const bindActions = () => {
+            document.getElementById('btn-course-toggle')?.addEventListener('click', async () => {
+                if (State.isCourseSelected(sec.code)) State.removeCourse(sec.code);
+                else await Scheduler.addCourseGroup(group);
+                this.showSectionDetail(sec);
+            });
+            document.getElementById('btn-view-schedule')?.addEventListener('click', () => {
+                if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
+            });
+        };
+
+        const courseButton = () => {
+            const selected = State.isCourseSelected(sec.code);
+            return `<button id="btn-course-toggle" class="${selected ? 'btn-danger' : 'btn-green'}" style="margin-top:10px">${selected ? 'REMOVE COURSE' : 'ADD COURSE TO SCHEDULE'}</button>`;
+        };
 
         detailsTab.innerHTML = `
             <h3>${sec.code} - ${sec.title}</h3>
@@ -947,26 +989,13 @@ const Search = {
             <p><strong>Method:</strong> ${sec.inst_mthd || 'N/A'}</p>
             <p><strong>Status:</strong> ${sec.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
             <div class="section-actions">
-                <button id="btn-section-toggle" class="${btnClass}" style="margin-top:10px">${btnLabel}</button>
+                ${courseButton()}
                 <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
             </div>
+            <p class="hint">Adding this course lets the scheduler compare all of its open sections.</p>
             <p class="loading">Loading details</p>
         `;
-
-        // Bind Add/Remove button
-        document.getElementById('btn-section-toggle').addEventListener('click', () => {
-            State.toggleSection(sec);
-            // Re-render to update button state
-            this.showSectionDetail(sec);
-            // Update the search results row styling
-            const row = document.querySelector(`.section-row[data-crn="${sec.crn}"]`);
-            if (row) row.classList.toggle('selected', State.isSelected(sec.crn));
-        });
-
-        // Bind View Schedule button
-        document.getElementById('btn-view-schedule').addEventListener('click', () => {
-            if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
-        });
+        bindActions();
 
         // Fetch full details
         API.getDetails(sec.crn, State.term).then(data => {
@@ -980,10 +1009,6 @@ const Search = {
             const locsStr = meeting.locations.length > 0 ? meeting.locations.join('; ') : 'TBA';
             const locLabel = meeting.locations.length > 1 ? 'Locations' : 'Location';
 
-            const isAdded2 = State.isSelected(sec.crn);
-            const btnLabel2 = isAdded2 ? 'REMOVE FROM SCHEDULE' : 'ADD TO SCHEDULE';
-            const btnClass2 = isAdded2 ? 'btn-danger' : 'btn-green';
-
             detailsTab.innerHTML = `
                 <h3>${sec.code} - ${sec.title}</h3>
                 <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
@@ -996,21 +1021,12 @@ const Search = {
                 ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
                 ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}
                 <div class="section-actions">
-                    <button id="btn-section-toggle" class="${btnClass2}" style="margin-top:10px">${btnLabel2}</button>
+                    ${courseButton()}
                     <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
                 </div>
+                <p class="hint">Adding this course lets the scheduler compare all of its open sections.</p>
             `;
-
-            document.getElementById('btn-section-toggle').addEventListener('click', () => {
-                State.toggleSection(sec);
-                this.showSectionDetail(sec);
-                const row = document.querySelector(`.section-row[data-crn="${sec.crn}"]`);
-                if (row) row.classList.toggle('selected', State.isSelected(sec.crn));
-            });
-
-            document.getElementById('btn-view-schedule').addEventListener('click', () => {
-                if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
-            });
+            bindActions();
         }).catch(() => {
             detailsTab.querySelector('.loading')?.remove();
         });
