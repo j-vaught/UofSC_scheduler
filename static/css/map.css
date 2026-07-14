@@ -9,7 +9,7 @@
     --map-tight: #A49137;
     --map-late: #CC2E40;
     margin-top: 0;
-    border: 2px solid var(--map-black);
+    border: 3px solid var(--map-black);
     background: var(--map-white);
     color: var(--map-black);
     display: flex;
@@ -23,7 +23,7 @@
     flex: 1 0 auto;
     flex-direction: column;
     min-height: 0;
-    padding: 0 10px 10px;
+    padding: 0;
 }
 
 .walking-map-header {
@@ -31,13 +31,17 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 16px;
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--map-line);
+    background: var(--map-black);
+    color: var(--map-white);
+    padding: 7px 10px;
 }
 
 .walking-map-header h3 {
     margin: 0;
-    color: var(--map-garnet);
+    color: var(--map-white);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .walking-map-header p,
