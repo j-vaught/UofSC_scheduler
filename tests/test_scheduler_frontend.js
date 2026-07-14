@@ -141,8 +141,10 @@ test('hovering a schedule option previews it and leaving restores the calendar',
     });
     let previewed = null;
     let cleared = false;
+    let applied = null;
     scheduler.previewSchedule = index => { previewed = index; };
     scheduler.clearSchedulePreview = () => { cleared = true; };
+    scheduler.applySchedule = index => { applied = index; };
 
     scheduler.bindScheduleCardPreview(card, container);
     listeners.mouseenter();
@@ -154,6 +156,10 @@ test('hovering a schedule option previews it and leaving restores the calendar',
 
     assert.equal(cleared, true);
     assert.equal(classes.has('selected'), false);
+
+    listeners.click({ target: card });
+
+    assert.equal(applied, 0);
 });
 
 test('applied schedule matching compares every selected CRN', () => {

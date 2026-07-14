@@ -351,13 +351,22 @@ const Scheduler = {
             this.clearSchedulePreview();
             card.classList.remove('selected');
         };
+        const apply = () => {
+            if (this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)])) return;
+            card.classList.remove('selected');
+            this.applySchedule(Number(card.dataset.idx));
+        };
         card.addEventListener('mouseenter', preview);
         card.addEventListener('mouseleave', clearPreview);
         card.addEventListener('focusin', preview);
         card.addEventListener('focusout', clearPreview);
-        card.addEventListener('click', preview);
+        card.addEventListener('click', apply);
         card.addEventListener('keydown', event => {
-            if (event.key === 'Enter' || event.key === ' ') preview();
+            if (event.target !== card) return;
+            if (event.key === 'Enter' || event.key === ' ') {
+                apply();
+                event.preventDefault();
+            }
         });
     },
 
