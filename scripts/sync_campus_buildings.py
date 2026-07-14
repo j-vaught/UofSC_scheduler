@@ -19,6 +19,13 @@ OFFICIAL_MAP_URL = "https://www.sc.edu/visit/map/index.php"
 OUTPUT = Path(__file__).resolve().parents[1] / "static/data/campus_buildings.json"
 
 MANUAL_ALIASES = {
+    "CLLCTT": [
+        "Callcot Soc Sci Ctr",
+        "Callcott Soc Sci Ctr",
+        "Callcot Social Sciences Center",
+        "Callcott",
+        "Callcot",
+    ],
     "1112GR": [
         "Science and Technology Bldg",
         "Science & Technology Bldg",

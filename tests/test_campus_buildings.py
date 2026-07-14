@@ -51,6 +51,18 @@ def test_science_and_technology_aliases_match_banner_names() -> None:
     assert "science & technology bldg" in normalized_aliases
 
 
+def test_callcott_aliases_match_banner_names() -> None:
+    buildings = load_catalog()["buildings"]
+    callcott = next(building for building in buildings if building["code"] == "CLLCTT")
+    normalized_aliases = {
+        " ".join(alias.lower().replace(".", "").split()) for alias in callcott["aliases"]
+    }
+
+    assert callcott["name"] == "Callcott Social Sciences Center"
+    assert "callcot soc sci ctr" in normalized_aliases
+    assert "callcott soc sci ctr" in normalized_aliases
+
+
 def test_supplemental_classroom_buildings_are_retained() -> None:
     codes = {building["code"] for building in load_catalog()["buildings"]}
 

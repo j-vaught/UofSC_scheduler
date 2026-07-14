@@ -329,6 +329,16 @@ test('walking map resolves Science and Technology Banner labels', () => {
     assert.equal(resolved.code, '1112GR');
 });
 
+test('walking map resolves abbreviated Callcott Banner labels', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;
+
+    const resolved = walkingMap.resolveBuilding('Callcot Soc Sci Ctr 011');
+
+    assert.equal(resolved.kind, 'known');
+    assert.equal(resolved.code, 'CLLCTT');
+});
+
 test('selecting a walking transition highlights its route and zooms the map', () => {
     function routeCard(index) {
         const classes = new Set();
