@@ -116,7 +116,7 @@ const Grades = {
                     <div class="grade-stat"><strong>${data.typical_sections_per_year}</strong><span>Typical sections per active year (${data.typical_courses_per_year} distinct courses)</span></div>
                     <div class="grade-stat"><strong>${this.escape(data.experience_label)}</strong><span>Observed teaching span</span></div>
                 </div>
-                <p class="grade-note">Teaching experience is bounded by available records. “&gt;=” means the professor appears in the earliest available academic year and may have taught longer.</p>
+                <p class="grade-note">Teaching experience is bounded by available records. “&gt;=” means the professor appears in the earliest available semester and may have taught longer.</p>
                 <h4>Course breakdown</h4>
                 <div class="grade-table-wrap"><table class="grade-table"><thead><tr><th>Course</th><th>Sections</th><th>Grades</th><th>GPA</th></tr></thead><tbody>${courses}</tbody></table></div>
                 <h4>Yearly breakdown</h4>

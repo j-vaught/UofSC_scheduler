@@ -36,7 +36,7 @@ Official registrar grade workbooks remain unchanged in `ANALYSIS_and TODO__UofSC
 
 Professor matching uses the instructor identity attached to each Banner section. A privacy-safe derived identifier separates professors who share the same display name. Grade outcomes are section-level, so team-taught classes are labeled and cannot be attributed to one instructor independently.
 
-Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded from the grade point average denominator. The professor experience label measures the academic-year span between the first and last observed section. A label beginning with `>=` means the professor appears at the earliest boundary of the available records and may have taught longer. Typical annual teaching load is the median number of section assignments across active academic years.
+Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded from the grade point average denominator. The professor experience label measures the available-semester span between the first and last observed section. A label beginning with `>=` means the professor appears in the earliest available semester and may have taught longer. Typical annual teaching load is the median number of section assignments across active academic years.
 
 Rebuild the generated analytics file after adding an official registrar workbook.
 

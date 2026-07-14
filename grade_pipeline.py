@@ -482,6 +482,8 @@ def build_analytics(
 
     earliest_term = str(sections["TERM"].min())
     latest_term = str(sections["TERM"].max())
+    available_terms = sorted(str(term) for term in sections["TERM"].unique())
+    term_positions = {term: index for index, term in enumerate(available_terms)}
     earliest_year = academic_year(earliest_term)
     latest_year = academic_year(latest_term)
     courses: dict[str, Any] = {}
@@ -525,18 +527,21 @@ def build_analytics(
             for year in range(first_year, last_year + 1)
             if (professor_id, year) in professor_years
         ]
-        observed_span = last_year - first_year + 1
-        history_limited = first_year == earliest_year
+        observed_span = term_positions[last_term] - term_positions[first_term] + 1
+        history_limited = first_term == earliest_term
+        semester_word = "semester" if observed_span == 1 else "semesters"
         experience_label = (
-            f">= {observed_span} years" if history_limited else f"{observed_span} years"
+            f">= {observed_span} {semester_word}"
+            if history_limited
+            else f"{observed_span} {semester_word}"
         )
         data = {
             "name": professor_names[professor_id],
             **aggregate.export(),
             "first_observed_term": first_term,
             "last_observed_term": last_term,
-            "observed_teaching_years": len({academic_year(term) for term in terms}),
-            "experience_years": observed_span,
+            "observed_teaching_semesters": len(terms),
+            "experience_semesters": observed_span,
             "experience_label": experience_label,
             "history_limited": history_limited,
             "typical_sections_per_year": (
@@ -587,13 +592,14 @@ def build_analytics(
             "earliest_term": earliest_term,
             "latest_term": latest_term,
             "academic_years_available": latest_year - earliest_year + 1,
+            "semesters_available": len(available_terms),
             "gpa_scale": GRADE_POINTS,
             "gpa_excludes": [
                 "withdrawals, audits, incompletes, pass/fail outcomes, transfers, and missing grades"
             ],
             "professor_identity": "privacy-safe hash of Banner identity; display name is not a join key",
             "experience_definition": (
-                "academic-year span from first to last observed section; earliest-bound records use >="
+                "available-semester span from first to last observed section; earliest-bound records use >="
             ),
             "typical_load_definition": "median section assignments across active academic years",
             "quality": quality,

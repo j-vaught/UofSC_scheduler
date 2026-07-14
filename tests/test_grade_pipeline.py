@@ -43,6 +43,9 @@ def test_analytics_include_load_experience_and_breakdowns() -> None:
     result = build_analytics(sections, banner, faculty, {})
     professor = next(iter(result["professors"].values()))
     assert professor["experience_label"].startswith(">=")
+    assert professor["experience_label"] == ">= 2 semesters"
+    assert professor["experience_semesters"] == 2
+    assert professor["observed_teaching_semesters"] == 2
     assert professor["typical_sections_per_year"] == 1.0
     assert professor["typical_courses_per_year"] == 1.0
     assert len(professor["courses"]) == 2
