@@ -6,7 +6,7 @@ const WalkingMap = {
     ROUTE_URL: 'https://routing.openstreetmap.de/routed-foot/route/v1/driving',
     DEFAULT_CENTER: [33.9971, -81.0278],
     ROUTE_COLORS: ['#73000A', '#466A9F', '#65780B', '#A49137', '#1F414D'],
-    selectedDay: 0,
+    selectedDay: 'all',
     buildings: [],
     sectionDetails: new Map(),
     routeCache: new Map(),
