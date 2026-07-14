@@ -166,6 +166,13 @@ button.walking-transition:focus-visible {
     outline-offset: 1px;
 }
 
+button.walking-transition.is-selected {
+    background: #FFF2E3;
+    border-color: var(--map-black);
+    outline: 3px solid var(--map-garnet);
+    outline-offset: 1px;
+}
+
 .walking-transition.status-safe {
     border-left-color: var(--map-safe);
 }

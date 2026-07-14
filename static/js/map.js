@@ -13,6 +13,7 @@ const WalkingMap = {
     _renderToken: 0,
     _map: null,
     _layer: null,
+    _routeLayers: [],
 
     async init(options = {}) {
         this.containerId = options.containerId || 'walking-map-container';
@@ -412,7 +413,9 @@ const WalkingMap = {
                 </div>
             `;
             if (transition.geometry) {
+                card.dataset.transitionIndex = String(index);
                 card.setAttribute('aria-label', `Show route from ${transition.from.code} to ${transition.to.code}`);
+                card.setAttribute('aria-pressed', 'false');
                 card.addEventListener('click', () => this.focusTransition(index));
             }
             this.listElement.appendChild(card);
@@ -441,6 +444,7 @@ const WalkingMap = {
             this._layer = L.layerGroup().addTo(this._map);
         }
         this._layer.clearLayers();
+        this._routeLayers = [];
         setTimeout(() => this._map.invalidateSize(), 0);
 
         const bounds = [];
@@ -462,15 +466,17 @@ const WalkingMap = {
             marker.addTo(this._layer);
         });
 
-        transitions.forEach(transition => {
+        transitions.forEach((transition, index) => {
             if (!transition.geometry) return;
             transition.geometry.forEach(point => bounds.push(point));
-            L.polyline(transition.geometry, {
+            const baseStyle = {
                 color: this.selectedDay === 'all' ? this.ROUTE_COLORS[transition.from.day] : '#73000A',
                 weight: 5,
                 opacity: 0.9,
                 dashArray: transition.kind === 'estimated' ? '8 6' : null,
-            }).addTo(this._layer);
+            };
+            const layer = L.polyline(transition.geometry, baseStyle).addTo(this._layer);
+            this._routeLayers[index] = { layer, baseStyle };
         });
 
         if (bounds.length > 1) this._map.fitBounds(bounds, { padding: [28, 28], maxZoom: 17 });
@@ -481,6 +487,24 @@ const WalkingMap = {
     focusTransition(index) {
         const transition = this._currentTransitions?.[index];
         if (!transition?.geometry || !this._map) return;
+        this.listElement?.querySelectorAll('button.walking-transition').forEach(card => {
+            const selected = Number(card.dataset.transitionIndex) === index;
+            card.classList.toggle('is-selected', selected);
+            card.setAttribute('aria-pressed', String(selected));
+        });
+        this._routeLayers.forEach(route => {
+            if (route) route.layer.setStyle(route.baseStyle);
+        });
+        const selectedRoute = this._routeLayers[index];
+        if (selectedRoute) {
+            selectedRoute.layer.setStyle({
+                ...selectedRoute.baseStyle,
+                color: '#CC2E40',
+                opacity: 1,
+                weight: 8,
+            });
+            selectedRoute.layer.bringToFront();
+        }
         this._map.fitBounds(transition.geometry, { padding: [35, 35], maxZoom: 18 });
     },
 

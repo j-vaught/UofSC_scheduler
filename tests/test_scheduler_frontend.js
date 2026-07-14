@@ -223,3 +223,53 @@ test('walking map resolves Storey schedule labels to the official building', () 
     assert.equal(resolved.kind, 'known');
     assert.equal(resolved.code, 'INNOVA');
 });
+
+test('selecting a walking transition highlights its route and zooms the map', () => {
+    function routeCard(index) {
+        const classes = new Set();
+        const attributes = {};
+        return {
+            dataset: { transitionIndex: String(index) },
+            classList: {
+                toggle(value, enabled) { if (enabled) classes.add(value); else classes.delete(value); },
+                contains(value) { return classes.has(value); },
+            },
+            setAttribute(name, value) { attributes[name] = value; },
+            attributes,
+        };
+    }
+
+    function routeLayer() {
+        return {
+            styles: [],
+            broughtForward: false,
+            setStyle(style) { this.styles.push(style); },
+            bringToFront() { this.broughtForward = true; },
+        };
+    }
+
+    const cards = [routeCard(0), routeCard(1)];
+    const layers = [routeLayer(), routeLayer()];
+    let fittedBounds;
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.listElement = { querySelectorAll: () => cards };
+    walkingMap._currentTransitions = [
+        { geometry: [[1, 1], [2, 2]] },
+        { geometry: [[3, 3], [4, 4]] },
+    ];
+    walkingMap._routeLayers = layers.map(layer => ({
+        layer,
+        baseStyle: { color: '#73000A', weight: 5 },
+    }));
+    walkingMap._map = { fitBounds(bounds) { fittedBounds = bounds; } };
+
+    walkingMap.focusTransition(1);
+
+    assert.equal(cards[0].classList.contains('is-selected'), false);
+    assert.equal(cards[1].classList.contains('is-selected'), true);
+    assert.equal(cards[1].attributes['aria-pressed'], 'true');
+    assert.equal(layers[1].styles.at(-1).color, '#CC2E40');
+    assert.equal(layers[1].styles.at(-1).weight, 8);
+    assert.equal(layers[1].broughtForward, true);
+    assert.deepEqual(fittedBounds, [[3, 3], [4, 4]]);
+});
