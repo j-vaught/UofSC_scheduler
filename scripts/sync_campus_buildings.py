@@ -19,6 +19,12 @@ OFFICIAL_MAP_URL = "https://www.sc.edu/visit/map/index.php"
 OUTPUT = Path(__file__).resolve().parents[1] / "static/data/campus_buildings.json"
 
 MANUAL_ALIASES = {
+    "1112GR": [
+        "Science and Technology Bldg",
+        "Science & Technology Bldg",
+        "Science and Tech Building",
+        "Science and Tech Bldg",
+    ],
     "INNOVA": [
         "Storey Engineering Center",
         "Storey Engineering Centre",

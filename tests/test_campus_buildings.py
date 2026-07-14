@@ -36,6 +36,21 @@ def test_storey_engineering_aliases_match_banner_names() -> None:
     assert "m bert storey innovation center" in normalized_aliases
 
 
+def test_science_and_technology_aliases_match_banner_names() -> None:
+    buildings = load_catalog()["buildings"]
+    science_and_technology = next(
+        building for building in buildings if building["code"] == "1112GR"
+    )
+    normalized_aliases = {
+        " ".join(alias.lower().replace(".", "").split())
+        for alias in science_and_technology["aliases"]
+    }
+
+    assert science_and_technology["name"] == "Science and Technology Building"
+    assert "science and technology bldg" in normalized_aliases
+    assert "science & technology bldg" in normalized_aliases
+
+
 def test_supplemental_classroom_buildings_are_retained() -> None:
     codes = {building["code"] for building in load_catalog()["buildings"]}
 

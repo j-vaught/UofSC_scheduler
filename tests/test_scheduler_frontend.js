@@ -250,6 +250,16 @@ test('walking map resolves Storey schedule labels to the official building', () 
     assert.equal(resolved.code, 'INNOVA');
 });
 
+test('walking map resolves Science and Technology Banner labels', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;
+
+    const resolved = walkingMap.resolveBuilding('Science and Technology Bldg 352');
+
+    assert.equal(resolved.kind, 'known');
+    assert.equal(resolved.code, '1112GR');
+});
+
 test('selecting a walking transition highlights its route and zooms the map', () => {
     function routeCard(index) {
         const classes = new Set();
