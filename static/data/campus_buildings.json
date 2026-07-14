@@ -1,161 +1,1020 @@
 {
-  "version": 1,
-  "center": [33.9971, -81.0278],
-  "source": "OpenStreetMap building centroids, reviewed July 2026",
+  "center": [
+    33.9971,
+    -81.0278
+  ],
+  "source": {
+    "name": "University of South Carolina Campus Map",
+    "url": "https://www.sc.edu/visit/map/index.php",
+    "map_id": 744,
+    "category_id": 9492,
+    "official_location_count": 86,
+    "official_building_count": 85,
+    "supplemental_building_count": 2
+  },
   "buildings": [
     {
-      "code": "SWGN",
-      "name": "Swearingen Engineering Center",
-      "lat": 33.9894574,
-      "lon": -81.028903,
-      "aliases": ["Swearingen Engr Ctr", "Swearingen", "SWGN"]
+      "code": "C3D-223277",
+      "name": "1000 Catawba Street",
+      "lat": 33.987514,
+      "lon": -81.03051,
+      "aliases": [
+        "1000 Catawba Street",
+        "C3D-223277"
+      ],
+      "official_id": 223277
     },
     {
-      "code": "SMWALT",
-      "name": "Sumwalt College",
-      "lat": 33.9957596,
-      "lon": -81.0302547,
-      "aliases": ["Sumwalt College", "Sumwalt", "SMWALT"]
+      "code": "C3D-223278",
+      "name": "1200 Catawba Street",
+      "lat": 33.989014,
+      "lon": -81.02774,
+      "aliases": [
+        "1200 Catawba Street",
+        "C3D-223278"
+      ],
+      "official_id": 223278
     },
     {
-      "code": "CLHIPP",
-      "name": "Close-Hipp Building",
-      "lat": 34.0004098,
-      "lon": -81.0233687,
-      "aliases": ["Close-Hipp Building", "Close-Hipp", "CLHIPP"]
+      "code": "NGB",
+      "name": "1215 Devine Street (Neutron Generator)",
+      "lat": 33.995152,
+      "lon": -81.030029,
+      "aliases": [
+        "1215 Devine Street (Neutron Generator)",
+        "1215 Devine Street",
+        "NGB"
+      ],
+      "official_id": 223279
     },
     {
-      "code": "GAMBRL",
-      "name": "Gambrell Hall",
-      "lat": 33.9989964,
-      "lon": -81.0238507,
-      "aliases": ["Gambrell Hall", "Gambrell", "GAMBRL"]
+      "code": "C3D-223296",
+      "name": "1220 Catawba",
+      "lat": 33.988884,
+      "lon": -81.026558,
+      "aliases": [
+        "1220 Catawba",
+        "C3D-223296"
+      ],
+      "official_id": 223296
     },
     {
-      "code": "HAMLTN",
-      "name": "Hamilton College",
-      "lat": 33.9999957,
-      "lon": -81.0266215,
-      "aliases": ["Hamilton College", "Hamilton", "HAMLTN"]
+      "code": "C3D-223280",
+      "name": "1223 Catawba Street",
+      "lat": 33.989799,
+      "lon": -81.026947,
+      "aliases": [
+        "1223 Catawba Street",
+        "C3D-223280"
+      ],
+      "official_id": 223280
     },
     {
-      "code": "HUMCB",
-      "name": "Humanities Classroom Building",
-      "lat": 33.9989314,
-      "lon": -81.0248753,
-      "aliases": ["Humanities Classroom Building", "Humanities Classroom", "HUMCB"]
+      "code": "1233WA",
+      "name": "1233 Washington Street",
+      "lat": 34.004467,
+      "lon": -81.03392,
+      "aliases": [
+        "1233 Washington Street",
+        "1233WA"
+      ],
+      "official_id": 223281
     },
     {
-      "code": "JONES",
-      "name": "Jones Physical Science Center",
-      "lat": 33.9951706,
-      "lon": -81.0304743,
-      "aliases": ["Jones Physical Sci Ctr", "Jones Physical Science Center", "Jones Physical Sci", "JONES"]
+      "code": "INSTAA",
+      "name": "1321 Pendleton Street (S.C. Institute of Archaeology and Anthropology)",
+      "lat": 33.999599,
+      "lon": -81.029938,
+      "aliases": [
+        "1321 Pendleton Street (S.C. Institute of Archaeology and Anthropology)",
+        "1321 Pendleton Street",
+        "INSTAA"
+      ],
+      "official_id": 223282
     },
     {
-      "code": "LCONTE",
-      "name": "LeConte College",
-      "lat": 33.9983618,
-      "lon": -81.0254664,
-      "aliases": ["Leconte College", "LeConte College", "LeConte", "LCONTE"]
+      "code": "1430SN",
+      "name": "1430 Senate Street",
+      "lat": 34.00087,
+      "lon": -81.028252,
+      "aliases": [
+        "1430 Senate Street",
+        "1430SN"
+      ],
+      "official_id": 223283
     },
     {
-      "code": "COKER",
-      "name": "Coker Life Sciences Building",
-      "lat": 33.9953853,
-      "lon": -81.0296679,
-      "aliases": ["Coker Life Science", "Coker Life Sciences", "Coker Life Sciences Building", "COKER"]
+      "code": "1800G",
+      "name": "1800 Gervais Street (Institute for Mind and Brain)",
+      "lat": 34.004177,
+      "lon": -81.023346,
+      "aliases": [
+        "1800 Gervais Street (Institute for Mind and Brain)",
+        "1800 Gervais Street",
+        "1800G"
+      ],
+      "official_id": 223284
     },
     {
-      "code": "BYRNES",
-      "name": "Byrnes Building",
-      "lat": 33.9977421,
-      "lon": -81.0305839,
-      "aliases": ["Byrnes Building", "Byrnes", "BYRNES"]
+      "code": "2221DE",
+      "name": "2221 Devine Street",
+      "lat": 33.999191,
+      "lon": -81.013397,
+      "aliases": [
+        "2221 Devine Street",
+        "2221DE"
+      ],
+      "official_id": 223285
     },
     {
-      "code": "CRRELL",
-      "name": "Currell College",
-      "lat": 33.9978061,
-      "lon": -81.0271418,
-      "aliases": ["Currell College", "Currell", "CRRELL"]
+      "code": "300MN",
+      "name": "300 Main Street (Civil and Mechanical Engineering Building)",
+      "lat": 33.990192,
+      "lon": -81.028061,
+      "aliases": [
+        "300 Main Street (Civil and Mechanical Engineering Building)",
+        "300 Main Street",
+        "300MN",
+        "C3D-223286",
+        "300 Main"
+      ],
+      "official_id": 223286
     },
     {
-      "code": "WRDLAW",
-      "name": "Wardlaw College",
-      "lat": 33.9967545,
-      "lon": -81.0307889,
-      "aliases": ["Wardlaw College", "Wardlaw Coll", "Wardlaw", "WRDLAW"]
+      "code": "C3D-223287",
+      "name": "300 Sumter Street",
+      "lat": 33.990017,
+      "lon": -81.026222,
+      "aliases": [
+        "300 Sumter Street",
+        "C3D-223287"
+      ],
+      "official_id": 223287
     },
     {
-      "code": "PETIGR",
-      "name": "Petigru College",
-      "lat": 33.9977557,
-      "lon": -81.0256078,
-      "aliases": ["Petigru College", "Petigru", "PETIGR"]
+      "code": "ROTC",
+      "name": "513 Pickens Street (ROTC)",
+      "lat": 33.994106,
+      "lon": -81.023727,
+      "aliases": [
+        "513 Pickens Street (ROTC)",
+        "513 Pickens Street",
+        "ROTC"
+      ],
+      "official_id": 223288
     },
     {
-      "code": "SLOAN",
-      "name": "Sloan College",
-      "lat": 33.999417,
-      "lon": -81.0259244,
-      "aliases": ["Sloan College", "Sloan", "SLOAN"]
+      "code": "ROTCAX",
+      "name": "513 Pickens Street Annex (ROTC Annex)",
+      "lat": 33.993935,
+      "lon": -81.024055,
+      "aliases": [
+        "513 Pickens Street Annex (ROTC Annex)",
+        "513 Pickens Street Annex",
+        "ROTCAX"
+      ],
+      "official_id": 223289
+    },
+    {
+      "code": "707CA",
+      "name": "707 Catawba Street",
+      "lat": 33.987179,
+      "lon": -81.035484,
+      "aliases": [
+        "707 Catawba Street",
+        "707CA"
+      ],
+      "official_id": 223290
+    },
+    {
+      "code": "C3D-223292",
+      "name": "800-A Huger Street",
+      "lat": 33.993099,
+      "lon": -81.042084,
+      "aliases": [
+        "800-A Huger Street",
+        "C3D-223292"
+      ],
+      "official_id": 223292
+    },
+    {
+      "code": "PSYCAX",
+      "name": "819 Barnwell Street",
+      "lat": 33.99939,
+      "lon": -81.022095,
+      "aliases": [
+        "819 Barnwell Street",
+        "PSYCAX"
+      ],
+      "official_id": 223293
+    },
+    {
+      "code": "BRNWEL",
+      "name": "Barnwell College",
+      "lat": 33.999638,
+      "lon": -81.026459,
+      "aliases": [
+        "Barnwell College",
+        "BRNWEL"
+      ],
+      "official_id": 223294
+    },
+    {
+      "code": "C3D-223295",
+      "name": "Benson",
+      "lat": 33.99052,
+      "lon": -81.022484,
+      "aliases": [
+        "Benson",
+        "C3D-223295"
+      ],
+      "official_id": 223295
+    },
+    {
+      "code": "BTWASH",
+      "name": "Booker T. Washington",
+      "lat": 33.993252,
+      "lon": -81.025612,
+      "aliases": [
+        "Booker T. Washington",
+        "BTWASH"
+      ],
+      "official_id": 223297
+    },
+    {
+      "code": "C3D-230352",
+      "name": "Broadcast Studio",
+      "lat": 33.997261,
+      "lon": -81.029633,
+      "aliases": [
+        "Broadcast Studio",
+        "C3D-230352"
+      ],
+      "official_id": 230352
+    },
+    {
+      "code": "CLLCTT",
+      "name": "Callcott Social Sciences Center",
+      "lat": 33.996254,
+      "lon": -81.026222,
+      "aliases": [
+        "Callcott Social Sciences Center",
+        "CLLCTT"
+      ],
+      "official_id": 223298
     },
     {
       "code": "COL",
       "name": "Carolina Coliseum",
-      "lat": 33.9936254,
-      "lon": -81.0330961,
-      "aliases": ["Carolina Coliseum", "COL"]
+      "lat": 33.993839,
+      "lon": -81.033066,
+      "aliases": [
+        "Carolina Coliseum",
+        "COL"
+      ],
+      "official_id": 223299
     },
     {
-      "code": "BLATT",
-      "name": "Solomon Blatt Physical Education Center",
-      "lat": 33.9922612,
-      "lon": -81.0255729,
-      "aliases": ["Blatt PE Center", "Blatt Physical Education Center", "Solomon Blatt Physical Education Center", "BLATT"]
+      "code": "C3D-223312",
+      "name": "Challenge Course Building",
+      "lat": 33.991482,
+      "lon": -81.025063,
+      "aliases": [
+        "Challenge Course Building",
+        "C3D-223312"
+      ],
+      "official_id": 223312
     },
     {
-      "code": "DMSB",
-      "name": "Darla Moore School of Business",
-      "lat": 33.994488,
-      "lon": -81.0334798,
-      "aliases": ["Darla Moore Sch of Bus", "Darla Moore School of Business", "Darla Moore", "Moore School of Bus", "DMSB"]
+      "code": "CDRCTR",
+      "name": "Child Development and Research Center",
+      "lat": 33.99284,
+      "lon": -81.024048,
+      "aliases": [
+        "Child Development and Research Center",
+        "CDRCTR"
+      ],
+      "official_id": 247651
     },
     {
-      "code": "DAVIS",
-      "name": "Davis College",
-      "lat": 33.9980012,
-      "lon": -81.0262287,
-      "aliases": ["Davis College", "Davis", "DAVIS"]
+      "code": "CLHIPP",
+      "name": "Close-Hipp Buildings",
+      "lat": 34.000607,
+      "lon": -81.023232,
+      "aliases": [
+        "Close-Hipp Buildings",
+        "Close-Hipp Building",
+        "CLHIPP",
+        "Close-Hipp"
+      ],
+      "official_id": 223301
     },
     {
-      "code": "FLINN",
-      "name": "Flinn Hall",
-      "lat": 33.9988539,
-      "lon": -81.0296591,
-      "aliases": ["Flinn Hall", "Flinn", "FLINN"]
+      "code": "COKER",
+      "name": "Coker Life Sciences Building",
+      "lat": 33.995358,
+      "lon": -81.029617,
+      "aliases": [
+        "Coker Life Sciences Building",
+        "COKER",
+        "Coker Life Science",
+        "Coker Life Sciences"
+      ],
+      "official_id": 223304
     },
     {
       "code": "COLH",
       "name": "Columbia Hall",
       "lat": 34.0011534,
       "lon": -81.0221496,
-      "aliases": ["Columbia Hall", "COLH"]
+      "aliases": [
+        "Columbia Hall",
+        "COLH"
+      ],
+      "official_id": "supplemental-COLH"
     },
     {
-      "code": "300MN",
-      "name": "300 Main Street",
-      "lat": 33.9894241,
-      "lon": -81.0280843,
-      "aliases": ["300 Main Street", "300 Main", "300MN"]
+      "code": "C3D-229055",
+      "name": "Copenhaver Band Hall/Dance Facility",
+      "lat": 33.990601,
+      "lon": -81.026184,
+      "aliases": [
+        "Copenhaver Band Hall/Dance Facility",
+        "C3D-229055"
+      ],
+      "official_id": 229055
+    },
+    {
+      "code": "CA",
+      "name": "Currell Annex",
+      "lat": 33.997669,
+      "lon": -81.02774,
+      "aliases": [
+        "Currell Annex",
+        "CA"
+      ],
+      "official_id": 223305
+    },
+    {
+      "code": "CRRELL",
+      "name": "Currell College",
+      "lat": 33.997753,
+      "lon": -81.027168,
+      "aliases": [
+        "Currell College",
+        "CRRELL",
+        "Currell"
+      ],
+      "official_id": 223306
+    },
+    {
+      "code": "DMSB",
+      "name": "Darla Moore School of Business",
+      "lat": 33.994537,
+      "lon": -81.033485,
+      "aliases": [
+        "Darla Moore School of Business",
+        "DMSB",
+        "C3D-223307",
+        "Darla Moore Sch of Bus",
+        "Darla Moore",
+        "Moore School of Bus"
+      ],
+      "official_id": 223307
+    },
+    {
+      "code": "DAVIS",
+      "name": "Davis College",
+      "lat": 33.997997,
+      "lon": -81.026215,
+      "aliases": [
+        "Davis College",
+        "DAVIS"
+      ],
+      "official_id": 223308
+    },
+    {
+      "code": "C3D-223310",
+      "name": "Discovery I Building",
+      "lat": 33.994968,
+      "lon": -81.03521,
+      "aliases": [
+        "Discovery I Building",
+        "C3D-223310"
+      ],
+      "official_id": 223310
+    },
+    {
+      "code": "DRAYTN",
+      "name": "Drayton Hall",
+      "lat": 33.997143,
+      "lon": -81.030647,
+      "aliases": [
+        "Drayton Hall",
+        "DRAYTN"
+      ],
+      "official_id": 223371
+    },
+    {
+      "code": "EWSCI",
+      "name": "Earth and Water Sciences Building",
+      "lat": 33.995365,
+      "lon": -81.030052,
+      "aliases": [
+        "Earth and Water Sciences Building",
+        "EWSCI"
+      ],
+      "official_id": 223311
+    },
+    {
+      "code": "FLINN",
+      "name": "Flinn Hall",
+      "lat": 33.998863,
+      "lon": -81.029648,
+      "aliases": [
+        "Flinn Hall",
+        "FLINN",
+        "C3D-223313"
+      ],
+      "official_id": 223313
+    },
+    {
+      "code": "GAMBRL",
+      "name": "Gambrell Hall",
+      "lat": 33.998821,
+      "lon": -81.023834,
+      "aliases": [
+        "Gambrell Hall",
+        "GAMBRL",
+        "Gambrell"
+      ],
+      "official_id": 223314
+    },
+    {
+      "code": "1100GA",
+      "name": "Greene St. United Methodist Church (1100GA)",
+      "lat": 33.994282,
+      "lon": -81.033478,
+      "aliases": [
+        "Greene St. United Methodist Church (1100GA)",
+        "Greene St. United Methodist Church",
+        "1100GA"
+      ],
+      "official_id": 747649
+    },
+    {
+      "code": "C3D-223315",
+      "name": "Greenhouse No. 2",
+      "lat": 33.987312,
+      "lon": -81.022606,
+      "aliases": [
+        "Greenhouse No. 2",
+        "C3D-223315"
+      ],
+      "official_id": 223315
+    },
+    {
+      "code": "HAMLTN",
+      "name": "Hamilton College",
+      "lat": 34.000034,
+      "lon": -81.026161,
+      "aliases": [
+        "Hamilton College",
+        "HAMLTN",
+        "Hamilton"
+      ],
+      "official_id": 223316
+    },
+    {
+      "code": "HSCLIB",
+      "name": "Hollings Special Collections Library",
+      "lat": 33.994488,
+      "lon": -81.027763,
+      "aliases": [
+        "Hollings Special Collections Library",
+        "HSCLIB"
+      ],
+      "official_id": 223317
+    },
+    {
+      "code": "C3D-223318",
+      "name": "Horizon I Building",
+      "lat": 33.992722,
+      "lon": -81.030067,
+      "aliases": [
+        "Horizon I Building",
+        "C3D-223318"
+      ],
+      "official_id": 223318
+    },
+    {
+      "code": "HUMOB",
+      "name": "J. Welsh Humanities Building",
+      "lat": 33.999058,
+      "lon": -81.024391,
+      "aliases": [
+        "J. Welsh Humanities Building",
+        "HUMOB"
+      ],
+      "official_id": 223321
+    },
+    {
+      "code": "BYRNES",
+      "name": "James F. Byrnes Building",
+      "lat": 33.997822,
+      "lon": -81.030396,
+      "aliases": [
+        "James F. Byrnes Building",
+        "BYRNES",
+        "C3D-223322"
+      ],
+      "official_id": 223322
+    },
+    {
+      "code": "GSRC",
+      "name": "John M. Palms Center for Graduate Science Research",
+      "lat": 33.994484,
+      "lon": -81.029366,
+      "aliases": [
+        "John M. Palms Center for Graduate Science Research",
+        "GSRC"
+      ],
+      "official_id": 223332
+    },
+    {
+      "code": "JONES",
+      "name": "Jones Physical Sciences Center",
+      "lat": 33.995277,
+      "lon": -81.030434,
+      "aliases": [
+        "Jones Physical Sciences Center",
+        "JONES",
+        "Jones Physical Science Center",
+        "Jones Physical Sci Ctr",
+        "Jones Physical Sci"
+      ],
+      "official_id": 223323
+    },
+    {
+      "code": "SCHLAW",
+      "name": "Joseph F. Rice School of Law",
+      "lat": 34.002518,
+      "lon": -81.027779,
+      "aliases": [
+        "Joseph F. Rice School of Law",
+        "SCHLAW"
+      ],
+      "official_id": 227607
+    },
+    {
+      "code": "C3D-223324",
+      "name": "Keenan Building",
+      "lat": 34.003017,
+      "lon": -81.032074,
+      "aliases": [
+        "Keenan Building",
+        "C3D-223324"
+      ],
+      "official_id": 223324
+    },
+    {
+      "code": "LCONTE",
+      "name": "LeConte College",
+      "lat": 33.99836,
+      "lon": -81.025406,
+      "aliases": [
+        "LeConte College",
+        "LCONTE",
+        "LeConte"
+      ],
+      "official_id": 223325
+    },
+    {
+      "code": "C3D-223331",
+      "name": "Library Annex and Conservation Facility",
+      "lat": 34.088989,
+      "lon": -80.967583,
+      "aliases": [
+        "Library Annex and Conservation Facility",
+        "C3D-223331"
+      ],
+      "official_id": 223331
+    },
+    {
+      "code": "LNGSTX",
+      "name": "Longstreet Annex",
+      "lat": 33.995453,
+      "lon": -81.029099,
+      "aliases": [
+        "Longstreet Annex",
+        "LNGSTX"
+      ],
+      "official_id": 223327
+    },
+    {
+      "code": "LONGST",
+      "name": "Longstreet Theatre",
+      "lat": 33.996109,
+      "lon": -81.029404,
+      "aliases": [
+        "Longstreet Theatre",
+        "LONGST"
+      ],
+      "official_id": 232320
+    },
+    {
+      "code": "INNOVA",
+      "name": "M. Bert Storey Engineering & Innovation Center",
+      "lat": 33.992462,
+      "lon": -81.030968,
+      "aliases": [
+        "M. Bert Storey Engineering & Innovation Center",
+        "M. Bert Storey Engineering and Innovation Center",
+        "INNOVA",
+        "Storey Engineering Center",
+        "Storey Engineering Centre",
+        "Storey Innovation Center",
+        "M. Bert Storey Innovation Center",
+        "M.Bert Storey Eng/Innov Center",
+        "M.Bert Storey Eng/Innov Ctr"
+      ],
+      "official_id": 223320
+    },
+    {
+      "code": "C3D-224604",
+      "name": "McCutchen House",
+      "lat": 33.998753,
+      "lon": -81.028755,
+      "aliases": [
+        "McCutchen House",
+        "C3D-224604"
+      ],
+      "official_id": 224604
+    },
+    {
+      "code": "MCKSK",
+      "name": "McKissick",
+      "lat": 33.998718,
+      "lon": -81.027,
+      "aliases": [
+        "McKissick",
+        "MCKSK",
+        "McKissick Museum"
+      ],
+      "official_id": 223328
+    },
+    {
+      "code": "MCMSTR",
+      "name": "McMaster College",
+      "lat": 34.00267,
+      "lon": -81.0261,
+      "aliases": [
+        "McMaster College",
+        "MCMSTR"
+      ],
+      "official_id": 223329
+    },
+    {
+      "code": "C3D-227528",
+      "name": "Medicine VA Campus, Building No. 1",
+      "lat": 33.977524,
+      "lon": -80.961006,
+      "aliases": [
+        "Medicine VA Campus, Building No. 1",
+        "C3D-227528"
+      ],
+      "official_id": 227528
+    },
+    {
+      "code": "C3D-331487",
+      "name": "Medicine VA Campus, Building No. 10",
+      "lat": 33.979557,
+      "lon": -80.963173,
+      "aliases": [
+        "Medicine VA Campus, Building No. 10",
+        "C3D-331487"
+      ],
+      "official_id": 331487
+    },
+    {
+      "code": "C3D-227532",
+      "name": "Medicine VA Campus, Building No. 101",
+      "lat": 33.976704,
+      "lon": -80.960976,
+      "aliases": [
+        "Medicine VA Campus, Building No. 101",
+        "C3D-227532"
+      ],
+      "official_id": 227532
+    },
+    {
+      "code": "C3D-227533",
+      "name": "Medicine VA Campus, Building No. 104",
+      "lat": 33.976997,
+      "lon": -80.961136,
+      "aliases": [
+        "Medicine VA Campus, Building No. 104",
+        "C3D-227533"
+      ],
+      "official_id": 227533
+    },
+    {
+      "code": "C3D-331486",
+      "name": "Medicine VA Campus, Building No. 114",
+      "lat": 33.976566,
+      "lon": -80.960411,
+      "aliases": [
+        "Medicine VA Campus, Building No. 114",
+        "C3D-331486"
+      ],
+      "official_id": 331486
+    },
+    {
+      "code": "C3D-227529",
+      "name": "Medicine VA Campus, Building No. 2",
+      "lat": 33.978092,
+      "lon": -80.961693,
+      "aliases": [
+        "Medicine VA Campus, Building No. 2",
+        "C3D-227529"
+      ],
+      "official_id": 227529
+    },
+    {
+      "code": "C3D-331484",
+      "name": "Medicine VA Campus, Building No. 22",
+      "lat": 33.976311,
+      "lon": -80.960793,
+      "aliases": [
+        "Medicine VA Campus, Building No. 22",
+        "C3D-331484"
+      ],
+      "official_id": 331484
+    },
+    {
+      "code": "C3D-227534",
+      "name": "Medicine VA Campus, Building No. 28",
+      "lat": 33.978477,
+      "lon": -80.962349,
+      "aliases": [
+        "Medicine VA Campus, Building No. 28",
+        "C3D-227534"
+      ],
+      "official_id": 227534
+    },
+    {
+      "code": "C3D-227530",
+      "name": "Medicine VA Campus, Building No. 3",
+      "lat": 33.977543,
+      "lon": -80.962257,
+      "aliases": [
+        "Medicine VA Campus, Building No. 3",
+        "C3D-227530"
+      ],
+      "official_id": 227530
+    },
+    {
+      "code": "C3D-227531",
+      "name": "Medicine VA Campus, Building No. 4",
+      "lat": 33.977097,
+      "lon": -80.96151,
+      "aliases": [
+        "Medicine VA Campus, Building No. 4",
+        "C3D-227531"
+      ],
+      "official_id": 227531
+    },
+    {
+      "code": "C3D-331482",
+      "name": "Medicine VA Campus, Building No. 5",
+      "lat": 33.976891,
+      "lon": -80.960281,
+      "aliases": [
+        "Medicine VA Campus, Building No. 5",
+        "C3D-331482"
+      ],
+      "official_id": 331482
+    },
+    {
+      "code": "C3D-331485",
+      "name": "Medicine VA Campus, Building No. 6",
+      "lat": 33.976402,
+      "lon": -80.961555,
+      "aliases": [
+        "Medicine VA Campus, Building No. 6",
+        "C3D-331485"
+      ],
+      "official_id": 331485
+    },
+    {
+      "code": "C3D-331483",
+      "name": "Medicine VA Campus, Building No. 9",
+      "lat": 33.976849,
+      "lon": -80.961845,
+      "aliases": [
+        "Medicine VA Campus, Building No. 9",
+        "C3D-331483"
+      ],
+      "official_id": 331483
+    },
+    {
+      "code": "MEL",
+      "name": "Melton Observatory",
+      "lat": 33.997547,
+      "lon": -81.026413,
+      "aliases": [
+        "Melton Observatory",
+        "MEL"
+      ],
+      "official_id": 223330
+    },
+    {
+      "code": "PETIGR",
+      "name": "Petigru College",
+      "lat": 33.997772,
+      "lon": -81.02562,
+      "aliases": [
+        "Petigru College",
+        "PETIGR",
+        "Petigru"
+      ],
+      "official_id": 223333
+    },
+    {
+      "code": "C3D-223300",
+      "name": "Preston Greenhouse",
+      "lat": 33.997475,
+      "lon": -81.028084,
+      "aliases": [
+        "Preston Greenhouse",
+        "C3D-223300"
+      ],
+      "official_id": 223300
+    },
+    {
+      "code": "C3D-223334",
+      "name": "Public Health Research Center",
+      "lat": 33.996922,
+      "lon": -81.033974,
+      "aliases": [
+        "Public Health Research Center",
+        "C3D-223334"
+      ],
+      "official_id": 223334
     },
     {
       "code": "SJMC",
       "name": "School of Journalism and Mass Communications",
-      "lat": 33.9968766,
-      "lon": -81.0293222,
-      "aliases": ["School of Journalism and Mass Communications", "Sch of Jour", "SJMC"]
+      "lat": 33.996841,
+      "lon": -81.029388,
+      "aliases": [
+        "School of Journalism and Mass Communications",
+        "SJMC",
+        "Sch of Jour"
+      ],
+      "official_id": 223335
+    },
+    {
+      "code": "MUSIC",
+      "name": "School of Music",
+      "lat": 33.99612,
+      "lon": -81.034225,
+      "aliases": [
+        "School of Music",
+        "MUSIC"
+      ],
+      "official_id": 223337
+    },
+    {
+      "code": "1112GR",
+      "name": "Science and Technology Building",
+      "lat": 33.994656,
+      "lon": -81.031494,
+      "aliases": [
+        "Science and Technology Building",
+        "1112GR"
+      ],
+      "official_id": 472556
+    },
+    {
+      "code": "SLOAN",
+      "name": "Sloan College",
+      "lat": 33.99939,
+      "lon": -81.025879,
+      "aliases": [
+        "Sloan College",
+        "SLOAN"
+      ],
+      "official_id": 223338
+    },
+    {
+      "code": "BLATT",
+      "name": "Solomon Blatt Physical Education Center",
+      "lat": 33.9922612,
+      "lon": -81.0255729,
+      "aliases": [
+        "Blatt PE Center",
+        "Blatt Physical Education Center",
+        "Solomon Blatt Physical Education Center",
+        "BLATT"
+      ],
+      "official_id": "supplemental-BLATT"
+    },
+    {
+      "code": "C3D-223339",
+      "name": "South Caroliniana Library",
+      "lat": 33.998318,
+      "lon": -81.029961,
+      "aliases": [
+        "South Caroliniana Library",
+        "C3D-223339"
+      ],
+      "official_id": 223339
+    },
+    {
+      "code": "SMWALT",
+      "name": "Sumwalt College",
+      "lat": 33.995792,
+      "lon": -81.030273,
+      "aliases": [
+        "Sumwalt College",
+        "SMWALT",
+        "Sumwalt"
+      ],
+      "official_id": 223341
+    },
+    {
+      "code": "SWGN",
+      "name": "Swearingen Engineering Center",
+      "lat": 33.989532,
+      "lon": -81.029297,
+      "aliases": [
+        "Swearingen Engineering Center",
+        "SWGN",
+        "C3D-223342",
+        "Swearingen Engr Ctr",
+        "Swearingen"
+      ],
+      "official_id": 223342
+    },
+    {
+      "code": "TCLIBR",
+      "name": "Thomas Cooper Library",
+      "lat": 33.995224,
+      "lon": -81.028137,
+      "aliases": [
+        "Thomas Cooper Library",
+        "TCLIBR"
+      ],
+      "official_id": 223343
+    },
+    {
+      "code": "WRDLAW",
+      "name": "Wardlaw College",
+      "lat": 33.996643,
+      "lon": -81.030785,
+      "aliases": [
+        "Wardlaw College",
+        "WRDLAW",
+        "Wardlaw Coll",
+        "Wardlaw"
+      ],
+      "official_id": 223344
+    },
+    {
+      "code": "HUMCB",
+      "name": "Welsh Humanities Classroom Building",
+      "lat": 33.998833,
+      "lon": -81.024811,
+      "aliases": [
+        "Welsh Humanities Classroom Building",
+        "HUMCB",
+        "Humanities Classroom Building",
+        "Humanities Classroom"
+      ],
+      "official_id": 223319
+    },
+    {
+      "code": "WMBB",
+      "name": "Williams-Brice Building",
+      "lat": 33.998177,
+      "lon": -81.024376,
+      "aliases": [
+        "Williams-Brice Building",
+        "WMBB"
+      ],
+      "official_id": 223345
+    },
+    {
+      "code": "C3D-232321",
+      "name": "Williams-Brice Building Auditorium",
+      "lat": 33.998432,
+      "lon": -81.024673,
+      "aliases": [
+        "Williams-Brice Building Auditorium",
+        "C3D-232321"
+      ],
+      "official_id": 232321
     }
   ]
 }

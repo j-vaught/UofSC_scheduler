@@ -173,3 +173,23 @@ test('switching day patterns clears only automatic blocks', () => {
     assert.equal(cells[3].classList.contains('blocked'), false);
     assert.equal(cells[4].classList.contains('blocked'), true);
 });
+
+test('walking map resolves Storey schedule labels to the official building', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.buildings = [{
+        code: 'INNOVA',
+        name: 'M. Bert Storey Engineering & Innovation Center',
+        lat: 33.992462,
+        lon: -81.030968,
+        aliases: [
+            'Storey Engineering Center',
+            'M. Bert Storey Innovation Center',
+            'INNOVA',
+        ],
+    }];
+
+    const resolved = walkingMap.resolveBuilding('Storey Engineering Center 1400');
+
+    assert.equal(resolved.kind, 'known');
+    assert.equal(resolved.code, 'INNOVA');
+});
