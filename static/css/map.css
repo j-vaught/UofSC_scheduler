@@ -12,9 +12,17 @@
     border: 2px solid var(--map-black);
     background: var(--map-white);
     color: var(--map-black);
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    min-height: 0;
 }
 
 #walking-map-container {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    min-height: 0;
     padding: 0 10px 10px;
 }
 
@@ -75,6 +83,7 @@
 
 .walking-map-layout {
     display: grid;
+    flex: 1 0 var(--walking-map-height, 380px);
     grid-template-columns: minmax(300px, 1.4fr) minmax(270px, 1fr);
     min-height: var(--walking-map-height, 380px);
 }
@@ -84,6 +93,7 @@
     flex-direction: column;
     min-height: 0;
     min-width: 0;
+    overflow: hidden;
 }
 
 .walking-map-canvas-wrap {
@@ -113,7 +123,8 @@
 
 .walking-map-list {
     flex: 1;
-    max-height: var(--walking-map-height, 380px);
+    max-height: none;
+    min-height: 0;
     overflow: auto;
     padding: 12px;
 }
