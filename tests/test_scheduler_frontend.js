@@ -24,6 +24,7 @@ test('solver uses course-level choices instead of applied sections', async () =>
             },
         },
         selectedSections: { 'TEST 101': { crn: 'old-section' } },
+        sectionLocks: { 'TEST 101': '10102' },
         profile: { customCredits: { max: 18 } },
         getPreferences: () => ({}),
     };
@@ -43,7 +44,8 @@ test('solver uses course-level choices instead of applied sections', async () =>
     await scheduler.solve();
 
     assert.equal(solvedCourses[0].code, 'TEST 101');
-    assert.equal(solvedCourses[0].sections.length, 2);
+    assert.equal(solvedCourses[0].sections.length, 1);
+    assert.equal(solvedCourses[0].sections[0].crn, '10102');
     assert.equal(state.selectedSections['TEST 101'].crn, 'old-section');
 });
 
@@ -118,6 +120,29 @@ test('preview renders a candidate without replacing selected sections', () => {
     assert.equal(rendered['TEST 101'].crn, '10102');
     assert.strictEqual(state.selectedSections, original);
     assert.equal(state.selectedSections['TEST 101'].crn, '10101');
+});
+
+test('applied schedule matching compares every selected CRN', () => {
+    const state = {
+        selectedSections: {
+            'TEST 101': { crn: '10101' },
+            'TEST 102': { crn: '10201' },
+        },
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', { State: state });
+
+    assert.equal(scheduler.isAppliedSchedule({
+        sections: {
+            'TEST 101': { crn: '10101' },
+            'TEST 102': { crn: '10201' },
+        },
+    }), true);
+    assert.equal(scheduler.isAppliedSchedule({
+        sections: {
+            'TEST 101': { crn: 'different' },
+            'TEST 102': { crn: '10201' },
+        },
+    }), false);
 });
 
 test('switching day patterns clears only automatic blocks', () => {

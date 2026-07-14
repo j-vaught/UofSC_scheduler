@@ -12,6 +12,9 @@ const Scheduler = {
             this.clearResults();
             this.renderCourseSearchResults();
         });
+        State.on('section-locks-changed', () => this.clearResults());
+        State.on('sections-changed', () => this.refreshAppliedResultState());
+        this.initVerticalResizer();
     },
 
     normalizeCourseCode(value) {
@@ -165,6 +168,76 @@ const Scheduler = {
         }
     },
 
+    initVerticalResizer() {
+        const handle = document.getElementById('schedule-vertical-resizer');
+        const content = document.getElementById('schedule-content');
+        const workspace = content?.querySelector('.schedule-workspace');
+        if (!handle || !content || !workspace) return;
+
+        let stored = null;
+        try {
+            stored = JSON.parse(localStorage.getItem('uofsc-schedule-split-v1') || 'null');
+        } catch (error) {
+            stored = null;
+        }
+        if (stored?.workspace && stored?.map) this.setVerticalSizes(stored.workspace, stored.map);
+
+        let startY = 0;
+        let startWorkspace = 0;
+        let startMap = 0;
+        const resize = clientY => {
+            const delta = clientY - startY;
+            this.setVerticalSizes(startWorkspace + delta, startMap - delta);
+        };
+        const stop = () => {
+            document.removeEventListener('pointermove', move);
+            document.removeEventListener('pointerup', stop);
+            handle.classList.remove('active');
+            document.body.classList.remove('resizing-schedule');
+            this.saveVerticalSizes();
+        };
+        const move = event => resize(event.clientY);
+
+        handle.addEventListener('pointerdown', event => {
+            startY = event.clientY;
+            startWorkspace = workspace.getBoundingClientRect().height;
+            startMap = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height || 380;
+            handle.classList.add('active');
+            document.body.classList.add('resizing-schedule');
+            document.addEventListener('pointermove', move);
+            document.addEventListener('pointerup', stop);
+            event.preventDefault();
+        });
+        handle.addEventListener('keydown', event => {
+            if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+            const workspaceHeight = workspace.getBoundingClientRect().height;
+            const mapHeight = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height || 380;
+            const delta = event.key === 'ArrowDown' ? 30 : -30;
+            this.setVerticalSizes(workspaceHeight + delta, mapHeight - delta);
+            this.saveVerticalSizes();
+            event.preventDefault();
+        });
+    },
+
+    setVerticalSizes(workspaceHeight, mapHeight) {
+        const content = document.getElementById('schedule-content');
+        if (!content) return;
+        const workspace = Math.max(420, Math.min(900, Math.round(workspaceHeight)));
+        const map = Math.max(260, Math.min(800, Math.round(mapHeight)));
+        content.style.setProperty('--schedule-workspace-height', `${workspace}px`);
+        content.style.setProperty('--walking-map-height', `${map}px`);
+        if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
+            requestAnimationFrame(() => WalkingMap._map.invalidateSize());
+        }
+    },
+
+    saveVerticalSizes() {
+        const workspace = document.querySelector('.schedule-workspace')?.getBoundingClientRect().height;
+        const map = document.querySelector('.walking-map-canvas')?.getBoundingClientRect().height;
+        if (!workspace || !map) return;
+        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({ workspace, map }));
+    },
+
     isSchedulableSection(section) {
         if (section.meetingTimes) return true;
         const description = [
@@ -193,17 +266,25 @@ const Scheduler = {
         const container = document.getElementById('solver-container');
         container.innerHTML = '<p class="loading">Generating schedule options</p>';
 
-        const courses = courseGroups.map(group => ({
-            code: group.code,
-            sections: (group.sections || []).filter(section =>
-                this.isOpenSection(section) && this.isSchedulableSection(section),
-            ),
-        }));
+        const courses = courseGroups.map(group => {
+            const lockedCrn = State.sectionLocks?.[group.code];
+            return {
+                code: group.code,
+                sections: (group.sections || []).filter(section =>
+                    this.isOpenSection(section) &&
+                    this.isSchedulableSection(section) &&
+                    (!lockedCrn || String(section.crn) === String(lockedCrn)),
+                ),
+            };
+        });
 
         const unschedulable = courses.filter(course => course.sections.length === 0);
         if (unschedulable.length > 0) {
             const codes = unschedulable.map(course => course.code).join(', ');
-            container.innerHTML = `<p class="hint">No open scheduled or asynchronous sections were found for ${codes} in this term.</p>`;
+            const locked = unschedulable.filter(course => State.sectionLocks?.[course.code]).map(course => course.code);
+            container.innerHTML = locked.length > 0
+                ? `<p class="solver-error">The locked section for ${locked.join(', ')} is not available for scheduling. Choose another section or use Any open section.</p>`
+                : `<p class="hint">No open scheduled or asynchronous sections were found for ${codes} in this term.</p>`;
             return;
         }
 
@@ -223,20 +304,24 @@ const Scheduler = {
     renderResults(result, container) {
         const { total_found, returned, schedules } = result;
         if (!schedules || schedules.length === 0) {
-            container.innerHTML = '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
+            const hasLocks = Object.keys(State.sectionLocks || {}).length > 0;
+            container.innerHTML = hasLocks
+                ? '<p class="solver-error">No conflict-free schedule works with the locked sections. Change a section preference or remove a course.</p>'
+                : '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
             return;
         }
 
         let html = `<p class="solver-summary">Found ${total_found} valid schedules. Showing the top ${returned}.</p>`;
         schedules.forEach((schedule, index) => {
+            const applied = this.isAppliedSchedule(schedule);
             const courseList = Object.entries(schedule.sections).map(([code, section]) =>
                 `<div class="sched-course"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span></div>`,
             ).join('');
             html += `
-                <article class="schedule-card" data-idx="${index}" tabindex="0">
+                <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}" tabindex="${applied ? '-1' : '0'}" aria-disabled="${applied}">
                     <div class="schedule-card-header">
                         <span class="score">Option ${index + 1}</span>
-                        <button class="btn-apply" data-idx="${index}">APPLY</button>
+                        <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
                     </div>
                     <div class="sched-courses">${courseList}</div>
                 </article>
@@ -252,6 +337,7 @@ const Scheduler = {
         });
         container.querySelectorAll('.schedule-card').forEach(card => {
             const preview = () => {
+                if (this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)])) return;
                 this.previewSchedule(Number(card.dataset.idx));
                 container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
                 card.classList.add('selected');
@@ -276,5 +362,29 @@ const Scheduler = {
         const schedule = State.solverResults[index];
         if (!schedule) return;
         State.applySolverSchedule(schedule);
+        this.refreshAppliedResultState();
+    },
+
+    isAppliedSchedule(schedule) {
+        const entries = Object.entries(schedule?.sections || {});
+        const applied = State.selectedSections || {};
+        if (entries.length === 0 || entries.length !== Object.keys(applied).length) return false;
+        return entries.every(([code, section]) => String(applied[code]?.crn) === String(section.crn));
+    },
+
+    refreshAppliedResultState() {
+        const container = document.getElementById('solver-container');
+        if (!container || !State.solverResults?.length) return;
+        container.querySelectorAll('.schedule-card').forEach(card => {
+            const applied = this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)]);
+            card.classList.toggle('applied', applied);
+            card.setAttribute('aria-disabled', String(applied));
+            card.tabIndex = applied ? -1 : 0;
+            const button = card.querySelector('.btn-apply');
+            if (button) {
+                button.disabled = applied;
+                button.textContent = applied ? 'APPLIED' : 'APPLY';
+            }
+        });
     },
 };

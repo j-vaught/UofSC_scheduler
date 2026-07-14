@@ -393,6 +393,9 @@
                             </div>
                         </section>
                     </div>
+                    <div id="schedule-vertical-resizer" class="schedule-vertical-resizer" role="separator" aria-label="Resize calendar and walking map" aria-orientation="horizontal" tabindex="0">
+                        <span>DRAG TO RESIZE CALENDAR AND MAP</span>
+                    </div>
                     <div id="walking-map-container"></div>
                 </section>
             </div>
@@ -483,6 +486,7 @@
             ScheduleSidebar.render();
         });
         State.on('sections-changed', () => ScheduleSidebar.render());
+        State.on('section-locks-changed', () => ScheduleSidebar.render());
         ScheduleSidebar.render();
 
         // Term change

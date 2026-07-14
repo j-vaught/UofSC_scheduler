@@ -828,6 +828,17 @@ const ScheduleSidebar = {
             const title = course.title || code;
             const openSections = (course.sections || []).filter(section => !section.stat || section.stat === 'A');
             const applied = State.selectedSections[code];
+            const lockedCrn = State.sectionLocks[code] || '';
+            const sortedSections = [...(course.sections || [])].sort((left, right) =>
+                String(left.section || '').localeCompare(String(right.section || ''), undefined, { numeric: true }),
+            );
+            const sectionOptions = sortedSections.map(section => {
+                const instructor = section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided';
+                const availability = !section.stat || section.stat === 'A' ? '' : ' — FULL';
+                const selected = String(section.crn) === String(lockedCrn) ? ' selected' : '';
+                const disabled = availability ? ' disabled' : '';
+                return `<option value="${section.crn}"${selected}${disabled}>Section ${section.section || '?'} — ${instructor} — ${section.meets || 'TBA'}${availability}</option>`;
+            }).join('');
 
             html += `
                 <div class="selected-course-item">
@@ -836,7 +847,12 @@ const ScheduleSidebar = {
                         <button class="btn-remove" data-code="${code}">&times;</button>
                     </div>
                     <div class="selected-course-detail">${title}</div>
-                    <div class="selected-course-detail">${openSections.length} open section${openSections.length === 1 ? '' : 's'} &bull; Solver chooses</div>
+                    <label class="section-lock-label" for="section-lock-${code.replace(/\s+/g, '-')}">Section preference</label>
+                    <select class="section-lock-select" id="section-lock-${code.replace(/\s+/g, '-')}" data-code="${code}">
+                        <option value="">Any open section</option>
+                        ${sectionOptions}
+                    </select>
+                    <div class="selected-course-detail">${lockedCrn ? 'Locked section will be required' : `${openSections.length} open section${openSections.length === 1 ? '' : 's'} available`}</div>
                     ${applied ? `<div class="selected-course-applied">Applied section ${applied.section || ''}</div>` : ''}
                 </div>
             `;
@@ -849,6 +865,11 @@ const ScheduleSidebar = {
         list.querySelectorAll('.btn-remove').forEach(btn => {
             btn.addEventListener('click', () => {
                 State.removeCourse(btn.dataset.code);
+            });
+        });
+        list.querySelectorAll('.section-lock-select').forEach(select => {
+            select.addEventListener('change', () => {
+                State.setSectionLock(select.dataset.code, select.value);
             });
         });
     },

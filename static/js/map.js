@@ -53,7 +53,10 @@ const WalkingMap = {
                 </div>
                 <div class="walking-map-days" role="tablist" aria-label="Class day"></div>
                 <div class="walking-map-layout">
-                    <div class="walking-map-canvas" role="region" aria-label="Campus walking route map"></div>
+                    <div class="walking-map-canvas-wrap">
+                        <div class="walking-map-canvas" role="region" aria-label="Campus walking route map"></div>
+                        <div class="walking-map-zoom-hint">Hold Ctrl, Command, or Shift while scrolling to zoom</div>
+                    </div>
                     <div class="walking-map-list" aria-live="polite"></div>
                 </div>
                 <p class="walking-map-note">Walking estimates use pedestrian routing when available. Allow extra time for stairs, elevators, construction, and entering buildings.</p>
@@ -62,6 +65,14 @@ const WalkingMap = {
 
         this.dayContainer = this.container.querySelector('.walking-map-days');
         this.mapElement = this.container.querySelector('.walking-map-canvas');
+        this.mapElement.addEventListener('wheel', event => {
+            if (!event.ctrlKey && !event.metaKey && !event.shiftKey) return;
+            if (!this._map) return;
+            event.preventDefault();
+            const direction = event.deltaY < 0 ? 1 : -1;
+            const zoom = Math.max(this._map.getMinZoom(), Math.min(this._map.getMaxZoom(), this._map.getZoom() + direction));
+            this._map.setZoom(zoom);
+        }, { passive: false });
         this.listElement = this.container.querySelector('.walking-map-list');
         this.DAYS.forEach((day, index) => {
             const button = document.createElement('button');
@@ -395,7 +406,10 @@ const WalkingMap = {
         }
 
         if (!this._map) {
-            this._map = L.map(this.mapElement, { zoomControl: true }).setView(this.DEFAULT_CENTER, 15);
+            this._map = L.map(this.mapElement, {
+                zoomControl: true,
+                scrollWheelZoom: false,
+            }).setView(this.DEFAULT_CENTER, 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; OpenStreetMap contributors',

@@ -3,6 +3,7 @@ const State = {
     term: '202608',
     selectedCourses: {},     // { courseCode: {code, title, sections} }
     selectedSections: {},    // { courseCode: sectionObj }
+    sectionLocks: {},        // { courseCode: crn }
     searchResults: [],       // raw API results
     courseGroups: [],         // grouped by course code
     blockedTimes: [],        // [{day, start, end}]
@@ -91,11 +92,13 @@ const State = {
 
     removeCourse(code) {
         delete this.selectedCourses[code];
+        delete this.sectionLocks[code];
         if (this.selectedSections[code]) {
             delete this.selectedSections[code];
             this.emit('sections-changed', this.selectedSections);
         }
         this.emit('courses-changed', this.selectedCourses);
+        this.emit('section-locks-changed', this.sectionLocks);
     },
 
     toggleCourse(group) {
@@ -105,6 +108,12 @@ const State = {
 
     isCourseSelected(code) {
         return Boolean(this.selectedCourses[code]);
+    },
+
+    setSectionLock(code, crn) {
+        if (crn) this.sectionLocks[code] = String(crn);
+        else delete this.sectionLocks[code];
+        this.emit('section-locks-changed', this.sectionLocks);
     },
 
     getPreferences() {
@@ -125,6 +134,7 @@ const State = {
             term: this.term,
             courses: JSON.parse(JSON.stringify(this.selectedCourses)),
             sections: JSON.parse(JSON.stringify(this.selectedSections)),
+            sectionLocks: { ...this.sectionLocks },
             blockedTimes: [...this.blockedTimes],
             preferredInstructors: { ...this.preferredInstructors },
             avoidedInstructors: { ...this.avoidedInstructors },
@@ -143,6 +153,7 @@ const State = {
         this.term = plan.term || this.term;
         this.selectedSections = JSON.parse(JSON.stringify(plan.sections || {}));
         this.selectedCourses = JSON.parse(JSON.stringify(plan.courses || {}));
+        this.sectionLocks = { ...(plan.sectionLocks || {}) };
         if (Object.keys(this.selectedCourses).length === 0) {
             Object.entries(this.selectedSections).forEach(([code, section]) => {
                 this.selectedCourses[code] = {
@@ -167,6 +178,7 @@ const State = {
         if (termSelect) termSelect.value = this.term;
         this.emit('sections-changed', this.selectedSections);
         this.emit('courses-changed', this.selectedCourses);
+        this.emit('section-locks-changed', this.sectionLocks);
         this.emit('preferences-changed');
         this.emit('profile-updated');
         this.emit('degree-plan-updated');
@@ -197,10 +209,11 @@ const State = {
 
     exportToJSON() {
         return JSON.stringify({
-            version: 3,
+            version: 4,
             term: this.term,
             selectedCourses: this.selectedCourses,
             selectedSections: this.selectedSections,
+            sectionLocks: this.sectionLocks,
             blockedTimes: this.blockedTimes,
             preferredInstructors: this.preferredInstructors,
             avoidedInstructors: this.avoidedInstructors,
@@ -217,6 +230,7 @@ const State = {
             if (data.term) this.term = data.term;
             if (data.selectedSections) this.selectedSections = data.selectedSections;
             this.selectedCourses = data.selectedCourses || {};
+            this.sectionLocks = data.sectionLocks || {};
             if (Object.keys(this.selectedCourses).length === 0) {
                 Object.entries(this.selectedSections).forEach(([code, section]) => {
                     this.selectedCourses[code] = {
@@ -235,6 +249,7 @@ const State = {
             if (data.degreePlan) this.degreePlan = data.degreePlan;
             this.emit('sections-changed', this.selectedSections);
             this.emit('courses-changed', this.selectedCourses);
+            this.emit('section-locks-changed', this.sectionLocks);
             this.emit('preferences-changed');
             this.emit('profile-updated');
             this.emit('degree-plan-updated');

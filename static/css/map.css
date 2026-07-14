@@ -76,13 +76,32 @@
 .walking-map-layout {
     display: grid;
     grid-template-columns: minmax(300px, 1.4fr) minmax(270px, 1fr);
-    min-height: 380px;
+    min-height: var(--walking-map-height, 380px);
+}
+
+.walking-map-canvas-wrap {
+    min-height: var(--walking-map-height, 380px);
+    position: relative;
 }
 
 .walking-map-canvas {
-    min-height: 380px;
+    height: 100%;
+    min-height: var(--walking-map-height, 380px);
     border-right: 1px solid var(--map-line);
     background: var(--map-surface);
+}
+
+.walking-map-zoom-hint {
+    background: rgba(0, 0, 0, 0.82);
+    bottom: 10px;
+    color: var(--map-white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    left: 10px;
+    padding: 6px 8px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 500;
 }
 
 .walking-map-list {
