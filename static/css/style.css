@@ -825,14 +825,6 @@ main {
     color: #5C5C5C;
     margin-top: 2px;
 }
-.selected-course-applied {
-    border-left: 3px solid #73000A;
-    color: #73000A;
-    font-size: 0.72rem;
-    font-weight: 700;
-    margin-top: 5px;
-    padding-left: 6px;
-}
 .section-lock-label {
     color: #363636;
     display: block;

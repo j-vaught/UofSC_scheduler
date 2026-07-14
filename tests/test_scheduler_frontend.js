@@ -10,6 +10,32 @@ function loadObject(path, name, contextValues) {
     return context.__result;
 }
 
+test('applied section appears in the section dropdown without a separate status line', () => {
+    const elements = {
+        'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },
+        'selected-credits': { textContent: '' },
+        'schedule-selected-count': { textContent: '' },
+    };
+    const sidebar = loadObject('static/js/degree-plan.js', 'ScheduleSidebar', {
+        State: {
+            selectedCourses: {
+                'TEST 101': {
+                    title: 'Test Course',
+                    sections: [{ crn: '10101', section: '004', stat: 'A', hours: '3' }],
+                },
+            },
+            selectedSections: { 'TEST 101': { crn: '10101', section: '004' } },
+            sectionLocks: {},
+        },
+        document: { getElementById: id => elements[id] || null },
+    });
+
+    sidebar.render();
+
+    assert.match(elements['selected-courses-list'].innerHTML, /<option value="">Section 004 selected<\/option>/);
+    assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /Applied section 004/);
+});
+
 test('solver uses course-level choices instead of applied sections', async () => {
     let solvedCourses;
     const state = {

@@ -829,6 +829,9 @@ const ScheduleSidebar = {
             const openSections = (course.sections || []).filter(section => !section.stat || section.stat === 'A');
             const applied = State.selectedSections[code];
             const lockedCrn = State.sectionLocks[code] || '';
+            const defaultSectionLabel = applied?.section
+                ? `Section ${applied.section} selected`
+                : `${openSections.length} open section${openSections.length === 1 ? '' : 's'}`;
             const sortedSections = [...(course.sections || [])].sort((left, right) =>
                 String(left.section || '').localeCompare(String(right.section || ''), undefined, { numeric: true }),
             );
@@ -850,13 +853,12 @@ const ScheduleSidebar = {
                     <label class="section-lock-label" for="section-lock-${code.replace(/\s+/g, '-')}">Section preference</label>
                     <div class="section-lock-control">
                         <select class="section-lock-select" id="section-lock-${code.replace(/\s+/g, '-')}" data-code="${code}">
-                            <option value="">${openSections.length} open section${openSections.length === 1 ? '' : 's'}</option>
+                            <option value="">${defaultSectionLabel}</option>
                             ${sectionOptions}
                         </select>
                         <span class="section-lock-arrow" aria-hidden="true">▼</span>
                     </div>
                     ${lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : ''}
-                    ${applied ? `<div class="selected-course-applied">Applied section ${applied.section || ''}</div>` : ''}
                 </div>
             `;
             totalCredits += parseInt((course.sections || [])[0]?.hours || '3', 10);
