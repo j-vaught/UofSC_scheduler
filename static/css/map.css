@@ -42,21 +42,21 @@
 
 .walking-map-days {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0;
     border-bottom: 1px solid var(--map-line);
 }
 
 .walking-map-day {
     min-width: 0;
-    padding: 8px 6px;
+    padding: 8px 2px;
     border: 0;
     border-right: 1px solid var(--map-line);
     border-radius: 0;
     background: var(--map-surface);
     color: var(--map-black);
     font: inherit;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
     cursor: pointer;
 }
