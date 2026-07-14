@@ -53,13 +53,19 @@ const Preferences = {
                     }
 
                     cell.addEventListener('click', () => {
+                        delete cell.dataset.dayPreferenceBlocked;
                         cell.classList.toggle('blocked');
                         this.updateBlockedTimes();
                     });
 
-                    cell.addEventListener('mousedown', () => { this._dragging = true; this._dragState = !cell.classList.contains('blocked'); });
+                    cell.addEventListener('mousedown', () => {
+                        delete cell.dataset.dayPreferenceBlocked;
+                        this._dragging = true;
+                        this._dragState = !cell.classList.contains('blocked');
+                    });
                     cell.addEventListener('mouseenter', () => {
                         if (this._dragging) {
+                            delete cell.dataset.dayPreferenceBlocked;
                             cell.classList.toggle('blocked', this._dragState);
                         }
                     });
@@ -180,10 +186,9 @@ const Preferences = {
             mwfToggle.addEventListener('change', () => {
                 if (mwfToggle.checked) {
                     if (trToggle) trToggle.checked = false;
-                    // Block Tu (1) and Th (3)
-                    this.blockEntireDays([1, 3]);
+                    this.setDayPreference([1, 3]);
                 } else {
-                    this.unblockEntireDays([1, 3]);
+                    this.setDayPreference([]);
                 }
             });
         }
@@ -192,13 +197,32 @@ const Preferences = {
             trToggle.addEventListener('change', () => {
                 if (trToggle.checked) {
                     if (mwfToggle) mwfToggle.checked = false;
-                    // Block Mon (0), Wed (2), Fri (4)
-                    this.blockEntireDays([0, 2, 4]);
+                    this.setDayPreference([0, 2, 4]);
                 } else {
-                    this.unblockEntireDays([0, 2, 4]);
+                    this.setDayPreference([]);
                 }
             });
         }
+    },
+
+    setDayPreference(days) {
+        const cells = document.querySelectorAll('#block-calendar .block-cell');
+
+        cells.forEach(cell => {
+            if (cell.dataset.dayPreferenceBlocked === 'true') {
+                cell.classList.remove('blocked');
+                delete cell.dataset.dayPreferenceBlocked;
+            }
+        });
+
+        cells.forEach(cell => {
+            const day = parseInt(cell.dataset.day);
+            if (days.includes(day) && !cell.classList.contains('blocked')) {
+                cell.classList.add('blocked');
+                cell.dataset.dayPreferenceBlocked = 'true';
+            }
+        });
+        this.updateBlockedTimes();
     },
 
     blockEntireDays(days) {

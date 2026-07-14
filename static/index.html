@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UofSC Course Scheduler</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/grades.css">
+    <link rel="stylesheet" href="/static/css/map.css">
 </head>
 <body>
     <header>
@@ -322,6 +324,12 @@
                             <p class="hint">Select a course to see how often it is offered.</p>
                         </div>
                     </div>
+                    <div id="semester-grades">
+                        <h3>Historical Grades</h3>
+                        <div id="grades-container">
+                            <p class="hint">Select a course to see grade and professor history.</p>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -355,6 +363,7 @@
                             <div id="cal-body"></div>
                         </div>
                     </div>
+                    <div id="walking-map-container"></div>
                     <div id="solver-section">
                         <h3>Schedule Options</h3>
                         <div id="solver-container">
@@ -424,7 +433,9 @@
     <script src="/static/js/preferences.js"></script>
     <script src="/static/js/prereqs.js"></script>
     <script src="/static/js/history.js"></script>
+    <script src="/static/js/grades.js"></script>
     <script src="/static/js/scheduler.js"></script>
+    <script src="/static/js/map.js"></script>
     <script src="/static/js/export.js"></script>
     <script src="/static/js/profile.js"></script>
     <script src="/static/js/degree-plan.js"></script>
@@ -433,6 +444,7 @@
         Tabs.init();
         Profile.init();
         Calendar.init();
+        WalkingMap.init();
         Search.init();
         Preferences.init();
         Scheduler.init();

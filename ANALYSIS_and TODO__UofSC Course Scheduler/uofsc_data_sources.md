@@ -106,7 +106,7 @@ Returns `fmt` array with:
 
 **URL:** https://sc.edu/about/offices_and_divisions/registrar/toolbox/grade_processing/grade_spreads/
 **Format:** Excel (.xlsx), one file per semester
-**Range:** Summer 2017 – Fall 2025 (25 files in `/Users/user/Desktop/uofsc_grade_data/`)
+**Range:** Summer 2017 – Spring 2026 (26 files in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data/`)
 **Granularity:** One row per course section
 
 ### Columns (34 total)
@@ -151,15 +151,19 @@ Older files (pre-2021): `YYYYMM_grade_spread.xlsx`
 ### Coverage Overlap
 | Source | Range |
 |--------|-------|
-| Grade spreads | Summer 2017 – Fall 2025 |
+| Grade spreads | Summer 2017 – Spring 2026 |
 | Banner API | Fall 2013 – Fall 2026 |
-| **Full overlap** | **Summer 2017 – Fall 2025** |
+| **Full overlap** | **Summer 2017 – Spring 2026** |
 | FOSE API | Fall 2023 – Fall 2026 (redundant) |
 
 ### Disambiguation
 - Banner `instr` field (FOSE) = last name only — ambiguous for common names
-- Banner `getFacultyMeetingTimes` = full name + email — use for reliable matching
-- Match by **email** first (most reliable), fall back to **displayName**
+- Banner `getFacultyMeetingTimes` = Banner identity, full name, and email
+- Use the Banner identity as the primary internal key and normalized email as a secondary identity signal
+- Use display name for presentation only, never as an identity join key
+- Serve only a privacy-safe derived professor identifier; do not expose Banner identities or email addresses
+
+The preserved Spring 2026 workbook is `202601_grade_spread_report_2.xlsx`. Its SHA-256 checksum is `2c79d8e4cffe915a09187d04e3668519a0c43e48cdb6e08bbec947524d13a890`.
 
 ---
 

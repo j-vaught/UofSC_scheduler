@@ -1,14 +1,68 @@
 /* Solver frontend glue */
 const Scheduler = {
+    _courseGroupCache: {},
+    _cacheTerm: null,
+
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
+        this._cacheTerm = State.term;
+        State.on('sections-changed', () => this.captureSelectedCourseGroups());
+        this.captureSelectedCourseGroups();
+    },
+
+    captureSelectedCourseGroups() {
+        if (this._cacheTerm !== State.term) {
+            this._courseGroupCache = {};
+            this._cacheTerm = State.term;
+        }
+
+        const selectedCodes = new Set(Object.keys(State.selectedSections || {}));
+        Object.keys(this._courseGroupCache).forEach(code => {
+            if (!selectedCodes.has(code)) delete this._courseGroupCache[code];
+        });
+
+        const visibleGroups = new Map((State.courseGroups || []).map(group => [group.code, group]));
+        selectedCodes.forEach(code => {
+            if (visibleGroups.has(code)) {
+                const group = visibleGroups.get(code);
+                const sections = [...(group.sections || [])];
+                const selected = State.selectedSections[code];
+                if (selected && !sections.some(section => section.crn === selected.crn)) {
+                    sections.push(selected);
+                }
+                this._courseGroupCache[code] = {
+                    ...group,
+                    sections,
+                };
+            } else if (!this._courseGroupCache[code]) {
+                this._courseGroupCache[code] = {
+                    code,
+                    title: State.selectedSections[code].title || code,
+                    sections: [State.selectedSections[code]],
+                };
+            }
+        });
+    },
+
+    isSchedulableSection(section) {
+        if (section.meetingTimes) return true;
+        const description = [
+            section.meets,
+            section.inst_mthd,
+            section.instructionalMethod,
+            section.instructional_method,
+        ].filter(Boolean).join(' ').toLowerCase();
+        return ['asynchronous', 'does not meet', 'online', 'distance', 'web', 'dweb', 'b3web']
+            .some(marker => description.includes(marker));
     },
 
     async solve() {
-        // Gather courses that have been searched (from courseGroups)
-        const courseGroups = State.courseGroups;
+        this.captureSelectedCourseGroups();
+        const courseGroups = Object.keys(State.selectedSections || {})
+            .map(code => this._courseGroupCache[code])
+            .filter(Boolean);
         if (!courseGroups || courseGroups.length === 0) {
-            alert('Please search for courses first, then click Solve.');
+            alert('Add the courses you want to schedule first, then click Solve.');
             return;
         }
 
@@ -21,18 +75,19 @@ const Scheduler = {
         // Build course list for solver
         const courses = courseGroups.map(g => ({
             code: g.code,
-            sections: g.sections.filter(s => {
-                // Only include sections with meeting times
-                return s.meetingTimes && s.meets !== 'Does Not Meet';
-            }),
-        })).filter(c => c.sections.length > 0);
+            sections: g.sections.filter(s => this.isSchedulableSection(s)),
+        }));
 
-        if (courses.length === 0) {
-            container.innerHTML = '<p class="hint">No courses with meeting times to schedule.</p>';
+        const unschedulable = courses.filter(course => course.sections.length === 0);
+        if (unschedulable.length > 0) {
+            const codes = unschedulable.map(course => course.code).join(', ');
+            container.innerHTML = `<p class="hint">No scheduled or asynchronous sections were found for ${codes}. Search that course in the selected term and choose a section before solving.</p>`;
             return;
         }
 
         const preferences = State.getPreferences();
+        const configuredMax = State.profile?.customCredits?.max;
+        preferences.max_credits = Number.isFinite(Number(configuredMax)) ? Number(configuredMax) : 18;
 
         try {
             const result = await API.solve(courses, preferences);
@@ -96,7 +151,12 @@ const Scheduler = {
     previewSchedule(idx) {
         const sched = State.solverResults[idx];
         if (!sched) return;
-        State.applySolverSchedule(sched);
+        if (typeof Calendar === 'undefined' || typeof Calendar.render !== 'function') return;
+
+        const selectedSections = State.selectedSections;
+        State.selectedSections = { ...sched.sections };
+        Calendar.render();
+        State.selectedSections = selectedSections;
     },
 
     applySchedule(idx) {

@@ -785,7 +785,7 @@ main {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
 }
 #solver-section {
     border-top: 3px solid #000000;
@@ -863,7 +863,8 @@ main {
 
 /* === Calendar === */
 #calendar-container {
-    flex: 1;
+    flex: 0 0 auto;
+    height: min(56vh, 620px);
     min-height: 300px;
     overflow-y: auto;
     padding: 10px;

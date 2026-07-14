@@ -1,83 +1,80 @@
 # UofSC Course Scheduler
 
-A local-first course scheduling tool for University of South Carolina students. Searches live course data, checks prerequisites, and auto-generates optimal conflict-free schedules.
+The UofSC Course Scheduler is a local-first semester planning tool for University of South Carolina students. It searches live course offerings, checks prerequisites, builds conflict-free schedules, compares historical course and professor grade outcomes, summarizes offering and enrollment history, and estimates walking transitions between consecutive classes.
 
-![Python](https://img.shields.io/badge/python-3.9+-blue) ![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-green) ![License](https://img.shields.io/badge/license-MIT-yellow)
+The application focuses on planning one semester effectively. The degree-planning code remains available for later work, but it is not the primary workflow.
 
-## Features
+## Local Setup
 
-- **Live course search** — queries UofSC's public course API in real time
-- **Prerequisite checking** — input courses you've taken, see which courses you're eligible for (CAN TAKE / PREREQS NEEDED badges)
-- **Auto-schedule generation** — CSP solver with backtracking generates top-K conflict-free schedules ranked by your preferences
-- **Visual weekly calendar** — color-coded course blocks with conflict detection
-- **Time blocking** — click/drag to block out times you're unavailable
-- **Professor preferences** — prefer or avoid specific instructors (weighted in schedule scoring)
-- **Offering history** — see how often a course has been offered across 10+ terms
-- **Prerequisite visualization** — SVG dependency graph showing met/unmet prereqs
-- **Multiple plans** — save Plan A / B / C to localStorage for registration day
-- **Calendar export** — download .ICS file for Google Calendar, Apple Calendar, Outlook
-- **Seat availability** — real-time open/full status from the registrar
-
-## Quick Start
+Install [uv](https://docs.astral.sh/uv/), clone the repository, and prepare the development environment.
 
 ```bash
-git clone https://github.com/j-vaught/uosc-scheduler.git
-cd uosc-scheduler
-python3 app.py
+git clone https://github.com/j-vaught/UofSC_scheduler.git
+cd UofSC_scheduler
+uv sync
 ```
 
-Open `http://127.0.0.1:8765` in your browser. That's it — no pip install, no build step, no dependencies.
+Start the local server with the following command.
 
-## How to Use
-
-1. **Enter courses you've already taken** (Step 1) — type course codes like `MATH 242` and press Enter, or paste a comma-separated list
-2. **Search for courses** (Step 2) — pick a subject, optionally filter by "I can take (prereqs met)"
-3. **Pick sections** (Step 3) — click sections to add them to your calendar. Courses with met prereqs show a green CAN TAKE badge
-4. **Generate schedules** — click GENERATE SCHEDULES to auto-find the best conflict-free combinations
-5. **Adjust preferences** — use the Preferences tab to block times, set professor preferences, and tune scoring weights
-6. **Export** — click EXPORT .ICS to download your schedule for your calendar app
-
-## Architecture
-
-```
-uosc-scheduler/
-  app.py          # HTTP server + CORS proxy to UofSC APIs (stdlib only)
-  cache.py        # SQLite response cache (5min live, 24hr historical)
-  scheduler.py    # CSP solver with backtracking + weighted scoring
-  prereqs.py      # Bulletin API prerequisite fetcher
-  static/
-    index.html    # Single-page app
-    css/style.css # UofSC garnet/black branding
-    js/           # Vanilla JS modules (9 files)
+```bash
+uv run python app.py
 ```
 
-**Zero external dependencies.** The backend uses only Python standard library (`http.server`, `sqlite3`, `urllib`, `json`). The frontend is vanilla HTML/CSS/JS with no frameworks or build tools.
+Open `http://127.0.0.1:8765` in a browser. Live search, seat checks, offering history, and walking routes require an internet connection. Saved plans stay in the browser through local storage.
 
-## APIs Used
+## Semester Planning
 
-This tool queries two public, unauthenticated UofSC APIs:
+Search by subject, course number, range, or descriptive phrase. Filters can restrict results to open sections, sections with a specified number of remaining seats, or courses whose known prerequisites appear in the completed-course profile. Selected courses remain available to the solver across successive searches.
 
-- **classes.sc.edu** — live course sections, meeting times, instructors, seat availability
-- **academicbulletins.sc.edu** — course catalog, prerequisites, corequisites
+The schedule solver applies hard constraints for meeting conflicts, blocked times, and maximum credits. It ranks valid schedules using time-window, instructor, gap, compactness, and consecutive-class preferences. Asynchronous sections remain eligible, while physical sections with unknown meeting times are rejected because their conflicts cannot be verified. Previewing a candidate changes only the calendar until the student explicitly applies it.
 
-A local Python server proxies these requests to handle CORS restrictions. All data is cached in SQLite to minimize API calls.
+The schedule view also evaluates transitions between consecutive classes. It reports available time, walking distance, estimated walking time, and remaining buffer. Known campus buildings use pedestrian routing when available and a straight-line estimate as a fallback. Online, same-building, unknown-location, and overlapping transitions receive explicit statuses.
 
-## Solver
+## Historical Data
 
-The schedule solver uses a **Constraint Satisfaction Problem (CSP)** approach:
+Official registrar grade workbooks remain unchanged in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data`. The generated `data/grade_analytics.json` file contains only the normalized course and professor summaries required by the application. It does not expose Banner IDs or email addresses.
 
-- **Hard constraints**: no time conflicts, no blocked-time violations, credit limits
-- **Soft constraints** (weighted scoring): instructor preferences, time window preferences, gap minimization, day compactness, back-to-back avoidance
-- **Algorithm**: backtracking search with Most Constrained Variable (MCV) heuristic
-- Generates up to 30 candidate schedules and returns the top 10 ranked by score
-- 5-second timeout with partial results fallback
+Professor matching uses the instructor identity attached to each Banner section. A privacy-safe derived identifier separates professors who share the same display name. Grade outcomes are section-level, so team-taught classes are labeled and cannot be attributed to one instructor independently.
 
-## Requirements
+Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded from the grade point average denominator. The professor experience label measures the academic-year span between the first and last observed section. A label beginning with `>=` means the professor appears at the earliest boundary of the available records and may have taught longer. Typical annual teaching load is the median number of section assignments across active academic years.
 
-- Python 3.9+
-- Internet connection (to reach UofSC APIs)
-- A web browser
+Rebuild the generated analytics file after adding an official registrar workbook.
 
-## License
+```bash
+uv run python grade_pipeline.py
+```
 
-MIT
+The pipeline is resumable. It keeps the raw Banner matching cache in `data/grade_matching_cache.sqlite`, which is excluded from version control because it contains source identifiers used only during processing.
+
+## Quality Checks
+
+Run the complete formatting, linting, type, Python test, and browser-module checks locally.
+
+```bash
+uv run ruff format .
+uv run ruff check . --fix
+uv run ty check .
+uv run pytest
+node tests/test_scheduler_frontend.js
+```
+
+## Application Structure
+
+```text
+app.py                    Local HTTP server and upstream API proxy.
+grade_pipeline.py         Registrar and Banner matching pipeline.
+grade_analytics.py        Read-only historical analytics repository.
+offering_analyzer.py      Offering and enrollment history analysis.
+scheduler.py              Constraint-based semester schedule solver.
+data/grade_analytics.json Generated privacy-safe analytics dataset.
+static/                    Browser application, styles, and campus data.
+tests/                     Python and JavaScript regression tests.
+```
+
+The local web runtime uses the Python standard library. The data preparation workflow uses pandas, openpyxl, and requests through uv. The browser interface is vanilla HTML, CSS, and JavaScript.
+
+## Data Sources and License
+
+The application reads public course information from `classes.sc.edu`, catalog and prerequisite information from `academicbulletins.sc.edu`, section and instructor information from Banner, official grade-spread workbooks from the University Registrar, and map data from OpenStreetMap services.
+
+The project is maintained by J.C. Vaught and distributed under the MIT license.

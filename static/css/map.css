@@ -1,0 +1,214 @@
+.walking-map-panel {
+    --map-garnet: #73000A;
+    --map-black: #000000;
+    --map-white: #FFFFFF;
+    --map-muted: #5C5C5C;
+    --map-line: #C7C7C7;
+    --map-surface: #ECECEC;
+    --map-safe: #65780B;
+    --map-tight: #A49137;
+    --map-late: #CC2E40;
+    margin-top: 18px;
+    border: 2px solid var(--map-black);
+    background: var(--map-white);
+    color: var(--map-black);
+}
+
+#walking-map-container {
+    padding: 0 10px 10px;
+}
+
+.walking-map-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--map-line);
+}
+
+.walking-map-header h3 {
+    margin: 0 0 4px;
+    color: var(--map-garnet);
+}
+
+.walking-map-header p,
+.walking-map-empty,
+.walking-map-note {
+    margin: 0;
+    color: var(--map-muted);
+    font-size: 0.86rem;
+}
+
+.walking-map-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid var(--map-line);
+}
+
+.walking-map-day {
+    min-width: 74px;
+    padding: 9px 12px;
+    border: 0;
+    border-right: 1px solid var(--map-line);
+    border-radius: 0;
+    background: var(--map-surface);
+    color: var(--map-black);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.walking-map-day:hover,
+.walking-map-day:focus-visible {
+    background: #FFF2E3;
+    outline: 2px solid var(--map-garnet);
+    outline-offset: -2px;
+}
+
+.walking-map-day[aria-selected="true"] {
+    background: var(--map-garnet);
+    color: var(--map-white);
+}
+
+.walking-map-layout {
+    display: grid;
+    grid-template-columns: minmax(300px, 1.4fr) minmax(270px, 1fr);
+    min-height: 380px;
+}
+
+.walking-map-canvas {
+    min-height: 380px;
+    border-right: 1px solid var(--map-line);
+    background: var(--map-surface);
+}
+
+.walking-map-list {
+    max-height: 480px;
+    overflow: auto;
+    padding: 12px;
+}
+
+.walking-map-summary {
+    margin-bottom: 10px;
+    padding: 9px 10px;
+    border-left: 5px solid var(--map-garnet);
+    background: #FFF2E3;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.walking-transition {
+    width: 100%;
+    margin: 0 0 10px;
+    padding: 11px;
+    border: 1px solid var(--map-line);
+    border-left: 7px solid var(--map-muted);
+    border-radius: 0;
+    background: var(--map-white);
+    color: var(--map-black);
+    text-align: left;
+    font: inherit;
+}
+
+button.walking-transition {
+    cursor: pointer;
+}
+
+button.walking-transition:hover,
+button.walking-transition:focus-visible {
+    border-color: var(--map-black);
+    outline: 2px solid var(--map-garnet);
+    outline-offset: 1px;
+}
+
+.walking-transition.status-safe {
+    border-left-color: var(--map-safe);
+}
+
+.walking-transition.status-tight {
+    border-left-color: var(--map-tight);
+}
+
+.walking-transition.status-late {
+    border-left-color: var(--map-late);
+}
+
+.walking-transition.status-neutral {
+    border-left-color: var(--map-muted);
+}
+
+.walking-transition-title,
+.walking-transition-metrics {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.walking-transition-title {
+    margin-bottom: 7px;
+    font-weight: 700;
+}
+
+.walking-transition-time {
+    white-space: nowrap;
+    color: var(--map-muted);
+    font-size: 0.78rem;
+}
+
+.walking-transition-buildings {
+    margin-bottom: 7px;
+    color: var(--map-muted);
+    font-size: 0.78rem;
+}
+
+.walking-transition-metrics {
+    font-size: 0.8rem;
+}
+
+.walking-transition-status {
+    font-weight: 700;
+}
+
+.walking-map-note {
+    padding: 10px 12px;
+    border-top: 1px solid var(--map-line);
+}
+
+.walking-map-marker {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--map-white);
+    border-radius: 0;
+    background: var(--map-garnet);
+    color: var(--map-white);
+    box-shadow: 0 0 0 1px var(--map-black);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+@media (max-width: 850px) {
+    .walking-map-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .walking-map-canvas {
+        min-height: 320px;
+        border-right: 0;
+        border-bottom: 1px solid var(--map-line);
+    }
+
+    .walking-map-list {
+        max-height: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .walking-map-panel * {
+        scroll-behavior: auto !important;
+    }
+}

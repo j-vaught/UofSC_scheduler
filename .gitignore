@@ -1,6 +1,14 @@
 __pycache__/
 *.pyc
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
 cache.db
+data/grade_matching_cache.sqlite
+data/grade_matching_cache.sqlite-*
 .DS_Store
 
 # Apple double files

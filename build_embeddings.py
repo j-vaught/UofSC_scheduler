@@ -20,13 +20,20 @@ import re
 import numpy as np
 from collections import Counter
 
-INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'course_data.json')
-PHRASE_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'phrase_embeddings.json')
-COURSE_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'course_embeddings.json')
-PCA_OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'data', 'pca_params.json')
+INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "course_data.json")
+PHRASE_OUT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "static", "data", "phrase_embeddings.json"
+)
+COURSE_OUT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "static", "data", "course_embeddings.json"
+)
+PCA_OUT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "static", "data", "pca_params.json"
+)
 DIMS = 128
 
-STOPWORDS = set("""
+STOPWORDS = set(
+    """
 a an the and or but in on of to for with by at from is are was were be been
 being have has had do does did will would shall should may might can could
 this that these those it its they them their there here not no nor so as
@@ -35,10 +42,12 @@ many much how what which who whom whose when where why if then than too
 only just about above after again against before between into through
 during out over under further once up down off own same until while
 per our his her your its we you one two three
-""".split())
+""".split()
+)
 
 # Additional academic filler to exclude from phrases
-ACADEMIC_FILLER = set("""
+ACADEMIC_FILLER = set(
+    """
 course courses student students study studies topic topics include includes
 including included credit credits hour hours semester semesters class classes
 prerequisite prerequisites corequisite required requires requirement focus
@@ -48,18 +57,21 @@ applications areas aspects methods techniques approaches overview survey
 covers covered covering consideration development analysis problems readings
 research reading experience experiences practice will various role use used
 using major current contemporary week laboratory arranged instructor taken
-""".split())
+""".split()
+)
 
 
 # Short but meaningful terms to always keep in vocabulary
-KEEP_SHORT = {'ai', 'ml', 'cs', 'it', 'db', 'os', 'ui', 'ux', 'ip', 'rl'}
+KEEP_SHORT = {"ai", "ml", "cs", "it", "db", "os", "ui", "ux", "ip", "rl"}
 
 
 def tokenize(text):
-    words = re.findall(r'[a-z]{2,}', text.lower())
-    return [w for w in words
-            if (w in KEEP_SHORT or len(w) >= 3)
-            and w not in STOPWORDS and w not in ACADEMIC_FILLER]
+    words = re.findall(r"[a-z]{2,}", text.lower())
+    return [
+        w
+        for w in words
+        if (w in KEEP_SHORT or len(w) >= 3) and w not in STOPWORDS and w not in ACADEMIC_FILLER
+    ]
 
 
 def extract_phrases(texts, min_count=3, max_count_ratio=0.05):
@@ -72,12 +84,12 @@ def extract_phrases(texts, min_count=3, max_count_ratio=0.05):
         words = tokenize(text)
         for i in range(len(words) - 1):
             # Skip phrases where both words are the same
-            if words[i] != words[i+1]:
-                bigram_counts[(words[i], words[i+1])] += 1
+            if words[i] != words[i + 1]:
+                bigram_counts[(words[i], words[i + 1])] += 1
         for i in range(len(words) - 2):
             # Skip if any adjacent pair is the same word
-            if words[i] != words[i+1] and words[i+1] != words[i+2]:
-                trigram_counts[(words[i], words[i+1], words[i+2])] += 1
+            if words[i] != words[i + 1] and words[i + 1] != words[i + 2]:
+                trigram_counts[(words[i], words[i + 1], words[i + 2])] += 1
 
     phrases = []
     # Be more selective: bigrams need 3+ occurrences, trigrams need 3+
@@ -85,11 +97,11 @@ def extract_phrases(texts, min_count=3, max_count_ratio=0.05):
         if min_count <= count <= max_count:
             # Skip phrases with generic filler combinations
             if len(set(gram)) == len(gram):  # all words unique
-                phrases.append(' '.join(gram))
+                phrases.append(" ".join(gram))
     for gram, count in trigram_counts.items():
         if min_count <= count <= max_count:
             if len(set(gram)) == len(gram):
-                phrases.append(' '.join(gram))
+                phrases.append(" ".join(gram))
 
     phrases = sorted(set(phrases))
     return phrases
@@ -100,12 +112,12 @@ def main():
     with open(INPUT) as f:
         courses = json.load(f)
 
-    courses = [c for c in courses if c.get('description') or c.get('title')]
+    courses = [c for c in courses if c.get("description") or c.get("title")]
     print(f"  {len(courses)} courses with content")
 
     texts = []
     for c in courses:
-        t = (c.get('title', '') + '. ' + c.get('description', '')).strip()
+        t = (c.get("title", "") + ". " + c.get("description", "")).strip()
         texts.append(t)
 
     # Extract phrases
@@ -115,18 +127,21 @@ def main():
 
     # Load model
     print("\nLoading embedding model (all-MiniLM-L6-v2)...")
-    from sentence_transformers import SentenceTransformer
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    from sentence_transformers import SentenceTransformer  # ty: ignore[unresolved-import]
+
+    model = SentenceTransformer("all-MiniLM-L6-v2")
 
     # Embed phrases
     print(f"\nEmbedding {len(phrases)} phrases...")
-    phrase_vecs = model.encode(phrases, show_progress_bar=True, batch_size=256,
-                                normalize_embeddings=True)
+    phrase_vecs = model.encode(
+        phrases, show_progress_bar=True, batch_size=256, normalize_embeddings=True
+    )
 
     # Embed all courses (title + description) for local similarity search
     print(f"\nEmbedding {len(texts)} courses (title + description)...")
-    course_vecs = model.encode(texts, show_progress_bar=True, batch_size=256,
-                                normalize_embeddings=True)
+    course_vecs = model.encode(
+        texts, show_progress_bar=True, batch_size=256, normalize_embeddings=True
+    )
     print(f"  Shape: {course_vecs.shape}")
 
     # PCA: fit on BOTH phrase and course vectors together for a shared space
@@ -149,9 +164,9 @@ def main():
     course_norms[course_norms == 0] = 1
     course_pca = course_pca / course_norms
 
-    total_var = (S ** 2).sum()
+    total_var = (S**2).sum()
     explained_var = (S[:DIMS] ** 2).sum()
-    print(f"  Variance explained: {explained_var/total_var:.1%}")
+    print(f"  Variance explained: {explained_var / total_var:.1%}")
 
     # Quantize
     phrase_q = np.clip(np.round(phrase_pca * 127), -128, 127).astype(np.int8)
@@ -159,61 +174,63 @@ def main():
 
     # Save phrase embeddings
     print("\nSaving phrase embeddings...")
-    phrase_data = {'dims': DIMS, 'phrases': {}}
+    phrase_data = {"dims": DIMS, "phrases": {}}
     for i, p in enumerate(phrases):
-        phrase_data['phrases'][p] = phrase_q[i].tolist()
-    with open(PHRASE_OUT, 'w') as f:
-        json.dump(phrase_data, f, separators=(',', ':'))
+        phrase_data["phrases"][p] = phrase_q[i].tolist()
+    with open(PHRASE_OUT, "w") as f:
+        json.dump(phrase_data, f, separators=(",", ":"))
     print(f"  {os.path.getsize(PHRASE_OUT) / 1024:.0f} KB")
 
     # Save course embeddings (code, title, subject, key + vector)
     print("Saving course embeddings...")
-    course_data = {'dims': DIMS, 'courses': []}
+    course_data = {"dims": DIMS, "courses": []}
     for i, c in enumerate(courses):
-        course_data['courses'].append({
-            'code': c['code'],
-            'title': c.get('title', ''),
-            'subject': c.get('subject', ''),
-            'key': c.get('key', ''),
-            'vec': course_q[i].tolist(),
-        })
-    with open(COURSE_OUT, 'w') as f:
-        json.dump(course_data, f, separators=(',', ':'))
+        course_data["courses"].append(
+            {
+                "code": c["code"],
+                "title": c.get("title", ""),
+                "subject": c.get("subject", ""),
+                "key": c.get("key", ""),
+                "vec": course_q[i].tolist(),
+            }
+        )
+    with open(COURSE_OUT, "w") as f:
+        json.dump(course_data, f, separators=(",", ":"))
     print(f"  {os.path.getsize(COURSE_OUT) / 1024:.0f} KB")
 
     # Save PCA params (for applying the same transform to query vectors in the browser)
     print("Saving PCA params...")
     pca_data = {
-        'dims': DIMS,
-        'mean': mean.tolist(),
-        'components': components.tolist(),  # shape: [DIMS, 384]
+        "dims": DIMS,
+        "mean": mean.tolist(),
+        "components": components.tolist(),  # shape: [DIMS, 384]
     }
-    with open(PCA_OUT, 'w') as f:
-        json.dump(pca_data, f, separators=(',', ':'))
+    with open(PCA_OUT, "w") as f:
+        json.dump(pca_data, f, separators=(",", ":"))
     print(f"  {os.path.getsize(PCA_OUT) / 1024:.0f} KB")
 
     # === TEST HARNESS ===
     # Test with the REAL model embedding full queries (simulates what Transformers.js will do)
-    print("\n" + "="*70)
+    print("\n" + "=" * 70)
     print("QUERY EXPANSION TEST (using real model for query embedding)")
-    print("="*70)
+    print("=" * 70)
 
     test_queries = [
-        'machine learning',
-        'machine learning engineering',
-        'robot AI autonomous exploration',
-        'organic chemistry',
-        'cyber security',
-        'data science',
-        'civil engineering structures',
-        'Spanish literature',
-        'transfer of heat',
-        'car engineering',
-        'coding for beginners',
-        'brain science',
-        'money and investing',
-        'building bridges',
-        'how computers work',
+        "machine learning",
+        "machine learning engineering",
+        "robot AI autonomous exploration",
+        "organic chemistry",
+        "cyber security",
+        "data science",
+        "civil engineering structures",
+        "Spanish literature",
+        "transfer of heat",
+        "car engineering",
+        "coding for beginners",
+        "brain science",
+        "money and investing",
+        "building bridges",
+        "how computers work",
     ]
 
     for q in test_queries:
@@ -241,13 +258,13 @@ def main():
                 break
 
         print(f'\n  Query: "{q}"')
-        print(f'  Top expanded phrases:')
+        print("  Top expanded phrases:")
         for p, sim in selected:
             print(f'    {sim:.3f}  "{p}"')
 
         api_searches = [q] + [p for p, _ in selected]
-        print(f'  → {len(api_searches)} API calls: {api_searches}')
+        print(f"  → {len(api_searches)} API calls: {api_searches}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "center": [33.9971, -81.0278],
+  "source": "OpenStreetMap building centroids, reviewed July 2026",
+  "buildings": [
+    {
+      "code": "SWGN",
+      "name": "Swearingen Engineering Center",
+      "lat": 33.9894574,
+      "lon": -81.028903,
+      "aliases": ["Swearingen Engr Ctr", "Swearingen", "SWGN"]
+    },
+    {
+      "code": "SMWALT",
+      "name": "Sumwalt College",
+      "lat": 33.9957596,
+      "lon": -81.0302547,
+      "aliases": ["Sumwalt College", "Sumwalt", "SMWALT"]
+    },
+    {
+      "code": "CLHIPP",
+      "name": "Close-Hipp Building",
+      "lat": 34.0004098,
+      "lon": -81.0233687,
+      "aliases": ["Close-Hipp Building", "Close-Hipp", "CLHIPP"]
+    },
+    {
+      "code": "GAMBRL",
+      "name": "Gambrell Hall",
+      "lat": 33.9989964,
+      "lon": -81.0238507,
+      "aliases": ["Gambrell Hall", "Gambrell", "GAMBRL"]
+    },
+    {
+      "code": "HAMLTN",
+      "name": "Hamilton College",
+      "lat": 33.9999957,
+      "lon": -81.0266215,
+      "aliases": ["Hamilton College", "Hamilton", "HAMLTN"]
+    },
+    {
+      "code": "HUMCB",
+      "name": "Humanities Classroom Building",
+      "lat": 33.9989314,
+      "lon": -81.0248753,
+      "aliases": ["Humanities Classroom Building", "Humanities Classroom", "HUMCB"]
+    },
+    {
+      "code": "JONES",
+      "name": "Jones Physical Science Center",
+      "lat": 33.9951706,
+      "lon": -81.0304743,
+      "aliases": ["Jones Physical Sci Ctr", "Jones Physical Science Center", "Jones Physical Sci", "JONES"]
+    },
+    {
+      "code": "LCONTE",
+      "name": "LeConte College",
+      "lat": 33.9983618,
+      "lon": -81.0254664,
+      "aliases": ["Leconte College", "LeConte College", "LeConte", "LCONTE"]
+    },
+    {
+      "code": "COKER",
+      "name": "Coker Life Sciences Building",
+      "lat": 33.9953853,
+      "lon": -81.0296679,
+      "aliases": ["Coker Life Science", "Coker Life Sciences", "Coker Life Sciences Building", "COKER"]
+    },
+    {
+      "code": "BYRNES",
+      "name": "Byrnes Building",
+      "lat": 33.9977421,
+      "lon": -81.0305839,
+      "aliases": ["Byrnes Building", "Byrnes", "BYRNES"]
+    },
+    {
+      "code": "CRRELL",
+      "name": "Currell College",
+      "lat": 33.9978061,
+      "lon": -81.0271418,
+      "aliases": ["Currell College", "Currell", "CRRELL"]
+    },
+    {
+      "code": "WRDLAW",
+      "name": "Wardlaw College",
+      "lat": 33.9967545,
+      "lon": -81.0307889,
+      "aliases": ["Wardlaw College", "Wardlaw Coll", "Wardlaw", "WRDLAW"]
+    },
+    {
+      "code": "PETIGR",
+      "name": "Petigru College",
+      "lat": 33.9977557,
+      "lon": -81.0256078,
+      "aliases": ["Petigru College", "Petigru", "PETIGR"]
+    },
+    {
+      "code": "SLOAN",
+      "name": "Sloan College",
+      "lat": 33.999417,
+      "lon": -81.0259244,
+      "aliases": ["Sloan College", "Sloan", "SLOAN"]
+    },
+    {
+      "code": "COL",
+      "name": "Carolina Coliseum",
+      "lat": 33.9936254,
+      "lon": -81.0330961,
+      "aliases": ["Carolina Coliseum", "COL"]
+    },
+    {
+      "code": "BLATT",
+      "name": "Solomon Blatt Physical Education Center",
+      "lat": 33.9922612,
+      "lon": -81.0255729,
+      "aliases": ["Blatt PE Center", "Blatt Physical Education Center", "Solomon Blatt Physical Education Center", "BLATT"]
+    },
+    {
+      "code": "DMSB",
+      "name": "Darla Moore School of Business",
+      "lat": 33.994488,
+      "lon": -81.0334798,
+      "aliases": ["Darla Moore Sch of Bus", "Darla Moore School of Business", "Darla Moore", "Moore School of Bus", "DMSB"]
+    },
+    {
+      "code": "DAVIS",
+      "name": "Davis College",
+      "lat": 33.9980012,
+      "lon": -81.0262287,
+      "aliases": ["Davis College", "Davis", "DAVIS"]
+    },
+    {
+      "code": "FLINN",
+      "name": "Flinn Hall",
+      "lat": 33.9988539,
+      "lon": -81.0296591,
+      "aliases": ["Flinn Hall", "Flinn", "FLINN"]
+    },
+    {
+      "code": "COLH",
+      "name": "Columbia Hall",
+      "lat": 34.0011534,
+      "lon": -81.0221496,
+      "aliases": ["Columbia Hall", "COLH"]
+    },
+    {
+      "code": "300MN",
+      "name": "300 Main Street",
+      "lat": 33.9894241,
+      "lon": -81.0280843,
+      "aliases": ["300 Main Street", "300 Main", "300MN"]
+    },
+    {
+      "code": "SJMC",
+      "name": "School of Journalism and Mass Communications",
+      "lat": 33.9968766,
+      "lon": -81.0293222,
+      "aliases": ["School of Journalism and Mass Communications", "Sch of Jour", "SJMC"]
+    }
+  ]
+}

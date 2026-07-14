@@ -10,11 +10,11 @@ import csv
 import io
 
 # Matches 3-4 uppercase/lowercase letters followed by optional space then 3 digits + optional letter
-COURSE_CODE_RE = re.compile(r'([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)')
+COURSE_CODE_RE = re.compile(r"([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)")
 
 # Valid grade values (anything that counts as having taken the course)
-PASSING_GRADES = {'A', 'A+', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'S', 'P', 'T'}
-ALL_GRADES = PASSING_GRADES | {'F', 'W', 'WF', 'I', 'NR', 'U', 'NC'}
+PASSING_GRADES = {"A", "A+", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "S", "P", "T"}
+ALL_GRADES = PASSING_GRADES | {"F", "W", "WF", "I", "NR", "U", "NC"}
 
 
 def normalize_code(raw):
@@ -29,7 +29,7 @@ def normalize_code(raw):
         return None
     subject = m.group(1).upper()
     number = m.group(2).upper()
-    return f'{subject} {number}'
+    return f"{subject} {number}"
 
 
 def parse_text(raw_text):
@@ -41,7 +41,7 @@ def parse_text(raw_text):
     Returns: list of unique normalized course code strings.
     """
     # Split on common delimiters
-    tokens = re.split(r'[,;\.\n]+', raw_text)
+    tokens = re.split(r"[,;\.\n]+", raw_text)
 
     codes = []
     seen = set()
@@ -88,7 +88,7 @@ def parse_csv(csv_text):
             for cell in row:
                 code = normalize_code(cell.strip())
                 if code and code not in seen:
-                    results.append({'code': code, 'grade': None, 'credits': None, 'semester': None})
+                    results.append({"code": code, "grade": None, "credits": None, "semester": None})
                     seen.add(code)
         return results
 
@@ -98,13 +98,13 @@ def parse_csv(csv_text):
     seen = set()
 
     for row in data_rows:
-        if not row or all(c.strip() == '' for c in row):
+        if not row or all(c.strip() == "" for c in row):
             continue
 
         record = _parse_row(row, col_map)
-        if record and record['code'] not in seen:
+        if record and record["code"] not in seen:
             results.append(record)
-            seen.add(record['code'])
+            seen.add(record["code"])
 
     return results
 
@@ -114,19 +114,19 @@ def _detect_columns(header):
     col_map = {}
 
     for i, h in enumerate(header):
-        if any(k in h for k in ['course', 'code', 'subject', 'class']):
-            col_map['course'] = i
-        elif h in ['number', 'num', 'no', 'no.']:
-            col_map['number'] = i
-        elif 'grade' in h or h == 'grd':
-            col_map['grade'] = i
-        elif 'credit' in h or 'hour' in h or h == 'cr' or h == 'hrs':
-            col_map['credits'] = i
-        elif any(k in h for k in ['semester', 'term', 'session', 'period']):
-            col_map['semester'] = i
+        if any(k in h for k in ["course", "code", "subject", "class"]):
+            col_map["course"] = i
+        elif h in ["number", "num", "no", "no."]:
+            col_map["number"] = i
+        elif "grade" in h or h == "grd":
+            col_map["grade"] = i
+        elif "credit" in h or "hour" in h or h == "cr" or h == "hrs":
+            col_map["credits"] = i
+        elif any(k in h for k in ["semester", "term", "session", "period"]):
+            col_map["semester"] = i
 
     # Must have at least a course column
-    if 'course' not in col_map:
+    if "course" not in col_map:
         return None
 
     return col_map
@@ -136,16 +136,16 @@ def _parse_row(row, col_map):
     """Parse a single CSV row using the detected column mapping."""
     try:
         # Get course code
-        course_idx = col_map['course']
+        course_idx = col_map["course"]
         if course_idx >= len(row):
             return None
 
         raw_course = row[course_idx].strip()
 
         # If there's a separate number column, combine them
-        if 'number' in col_map and col_map['number'] < len(row):
-            raw_number = row[col_map['number']].strip()
-            raw_course = f'{raw_course} {raw_number}'
+        if "number" in col_map and col_map["number"] < len(row):
+            raw_number = row[col_map["number"]].strip()
+            raw_course = f"{raw_course} {raw_number}"
 
         code = normalize_code(raw_course)
         if not code:
@@ -153,31 +153,26 @@ def _parse_row(row, col_map):
 
         # Get optional fields
         grade = None
-        if 'grade' in col_map and col_map['grade'] < len(row):
-            grade = row[col_map['grade']].strip().upper() or None
+        if "grade" in col_map and col_map["grade"] < len(row):
+            grade = row[col_map["grade"]].strip().upper() or None
 
         credits = None
-        if 'credits' in col_map and col_map['credits'] < len(row):
+        if "credits" in col_map and col_map["credits"] < len(row):
             try:
-                credits = int(float(row[col_map['credits']].strip()))
+                credits = int(float(row[col_map["credits"]].strip()))
             except (ValueError, TypeError):
                 credits = None
 
         semester = None
-        if 'semester' in col_map and col_map['semester'] < len(row):
-            semester = row[col_map['semester']].strip() or None
+        if "semester" in col_map and col_map["semester"] < len(row):
+            semester = row[col_map["semester"]].strip() or None
 
-        return {
-            'code': code,
-            'grade': grade,
-            'credits': credits,
-            'semester': semester
-        }
+        return {"code": code, "grade": grade, "credits": credits, "semester": semester}
     except (IndexError, KeyError):
         return None
 
 
-def is_passing(grade, min_grade='C'):
+def is_passing(grade, min_grade="C"):
     """Check if a grade meets the minimum requirement.
 
     Default minimum is C (required for most CS/Math courses).
@@ -188,14 +183,14 @@ def is_passing(grade, min_grade='C'):
     grade = grade.upper().strip()
 
     # Transfer/satisfactory always counts
-    if grade in ('T', 'S', 'P'):
+    if grade in ("T", "S", "P"):
         return True
 
     # Failing grades
-    if grade in ('F', 'W', 'WF', 'I', 'NR', 'U', 'NC'):
+    if grade in ("F", "W", "WF", "I", "NR", "U", "NC"):
         return False
 
-    grade_order = ['A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-']
+    grade_order = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
 
     try:
         grade_idx = grade_order.index(grade)

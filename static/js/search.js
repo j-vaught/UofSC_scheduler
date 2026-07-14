@@ -358,7 +358,8 @@ const Search = {
 
         // Availability filter
         const availMode = document.getElementById('filter-avail-mode').value;
-        const availValue = parseInt(document.getElementById('filter-avail-value').value) || 0;
+        const availRaw = document.getElementById('filter-avail-value').value.trim();
+        const availValue = availRaw === '' ? null : Number(availRaw);
 
         if (!rawInput) {
             this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 500+), or keyword.');
@@ -515,6 +516,12 @@ const Search = {
                     }
                 }
 
+                if (availMode && availValue !== null) {
+                    const availableSections = await this.filterByAvailableSeats(liveAll.flat(), availMode, availValue);
+                    const availableCodes = new Set(availableSections.map(section => section.code));
+                    results = results.filter(course => availableCodes.has(course.code));
+                }
+
                 if (currentTermOnly) {
                     // Only show courses offered this term
                     results = results.filter(c => liveByCode[c.code]);
@@ -543,8 +550,8 @@ const Search = {
                 });
 
                 if (searchId !== this._searchId) return;
-                const prereqData = {};
                 const eligibleOnly2 = document.getElementById('filter-eligible').checked;
+                const prereqData = eligibleOnly2 ? await this.loadPrereqsForResults(results) : {};
                 const searchInfo = semantic.expandedTerms?.length ? semantic.expandedTerms : null;
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
             } catch (err) {
@@ -661,17 +668,17 @@ const Search = {
                 });
             }
 
-            // Availability filter (seats remaining)
-            // The API gives 'stat' (A=open) and 'total' but not remaining directly.
-            // We'll need to fetch details for this. For now, filter on total and stat.
-            // We store a flag to do detailed seat filtering after render.
-            this._pendingAvailFilter = (availMode && availValue) ? { mode: availMode, value: availValue } : null;
+            // Availability requires section details because search results only expose open/full status.
+            if (availMode && availValue !== null) {
+                results = await this.filterByAvailableSeats(results, availMode, availValue);
+            }
 
             // If a newer search was started, discard these results
             if (searchId !== this._searchId) return;
 
-            // Skip bulk prereq fetch — prereqs load on-demand when a course is clicked
-            const prereqData = this._prereqCache[subject] || {};
+            const prereqData = eligibleOnly
+                ? await this.loadPrereqsForResults(results)
+                : (this._prereqCache[subject] || {});
 
             this.renderResults(results, totalCount || results.length, prereqData, eligibleOnly);
         } catch (err) {
@@ -711,6 +718,33 @@ const Search = {
         const completed = new Set(State.completedCourses);
         const missing = info.prereqs.filter(p => !completed.has(p));
         return { eligible: missing.length === 0, missing, noData: false };
+    },
+
+    async loadPrereqsForResults(results) {
+        const codes = [...new Set(results.map(result => result.code).filter(Boolean))];
+        const entries = await Promise.all(codes.map(async code => {
+            const info = await this.fetchPrereqForCourse(code);
+            return [code, info];
+        }));
+        return Object.fromEntries(entries);
+    },
+
+    async filterByAvailableSeats(results, mode, value) {
+        if (!mode || value === null || value === undefined) return results;
+        const checked = await Promise.all(results.map(async result => {
+            if (!result.crn) return null;
+            try {
+                const details = await API.getDetails(result.crn, State.term);
+                const match = (details.seats || '').match(/seats_avail[^>]*>(\d+)/);
+                if (!match) return null;
+                return { result, available: Number(match[1]) };
+            } catch (error) {
+                return null;
+            }
+        }));
+        return checked
+            .filter(item => item && (mode === 'above' ? item.available >= value : item.available < value))
+            .map(item => item.result);
     },
 
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
@@ -833,6 +867,9 @@ const Search = {
                     }
                     if (typeof History !== 'undefined' && History.loadForCourse) {
                         History.loadForCourse(firstSec.code);
+                    }
+                    if (typeof Grades !== 'undefined' && Grades.loadForCourse) {
+                        Grades.loadForCourse(firstSec.code);
                     }
                     // Show course-level details (not section-specific)
                     const detailsTab = document.getElementById('tab-details');
