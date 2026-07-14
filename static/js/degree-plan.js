@@ -807,13 +807,15 @@ const ScheduleSidebar = {
     render() {
         const list = document.getElementById('selected-courses-list');
         const creditsEl = document.getElementById('selected-credits');
+        const countEl = document.getElementById('schedule-selected-count');
         if (!list) return;
 
         const courses = State.selectedCourses;
         const codes = Object.keys(courses);
+        if (countEl) countEl.textContent = codes.length > 0 ? `(${codes.length} selected)` : '';
 
         if (codes.length === 0) {
-            list.innerHTML = '<p class="hint">Add a course above or from Browse. You do not need to choose a section.</p>';
+            list.innerHTML = '<p class="hint">Add courses from the results above. You do not need to choose a section.</p>';
             if (creditsEl) creditsEl.textContent = '';
             return;
         }

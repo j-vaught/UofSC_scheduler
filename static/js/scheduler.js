@@ -1,12 +1,17 @@
 /* Course-level schedule builder and solver frontend glue */
 const Scheduler = {
+    _lastSearchGroups: [],
+
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
-        document.getElementById('btn-add-schedule-course').addEventListener('click', () => this.addCourseFromInput());
+        document.getElementById('btn-search-schedule-courses').addEventListener('click', () => this.searchFromInput());
         document.getElementById('schedule-course-input').addEventListener('keydown', event => {
-            if (event.key === 'Enter') this.addCourseFromInput();
+            if (event.key === 'Enter') this.searchFromInput();
         });
-        State.on('courses-changed', () => this.clearResults());
+        State.on('courses-changed', () => {
+            this.clearResults();
+            this.renderCourseSearchResults();
+        });
     },
 
     normalizeCourseCode(value) {
@@ -66,21 +71,90 @@ const Scheduler = {
         return group;
     },
 
-    async addCourseFromInput() {
+    async searchCourseGroups(query) {
+        const normalized = this.normalizeCourseCode(query);
+        let criteria;
+        if (/^[A-Z]{2,4}\s+\d{3}[A-Z]?$/.test(normalized)) {
+            criteria = [{ field: 'alias', value: normalized }];
+        } else if (/^[A-Z]{2,4}$/.test(normalized)) {
+            criteria = [{ field: 'subject', value: normalized }];
+        } else if (/^\d+$/.test(normalized)) {
+            throw new Error('Include the subject code, such as CSCE 145.');
+        } else if (normalized.length >= 3) {
+            criteria = [{ field: 'keyword', value: String(query).trim() }];
+        } else {
+            throw new Error('Enter a subject, course code, or keyword.');
+        }
+
+        const result = await API.searchCourses(State.term, criteria);
+        const groups = {};
+        (result.results || []).forEach(section => {
+            if (!section.code) return;
+            if (!groups[section.code]) {
+                groups[section.code] = {
+                    code: section.code,
+                    title: section.title || section.code,
+                    sections: [],
+                };
+            }
+            groups[section.code].sections.push(section);
+        });
+        return Object.values(groups).slice(0, 30);
+    },
+
+    async searchFromInput() {
         const input = document.getElementById('schedule-course-input');
-        const button = document.getElementById('btn-add-schedule-course');
-        const courseCode = input.value;
+        const button = document.getElementById('btn-search-schedule-courses');
         button.disabled = true;
-        this.setCourseStatus('Finding open sections');
+        this.setCourseStatus('Searching courses');
+        const results = document.getElementById('schedule-search-results');
+        results.innerHTML = '<p class="loading">Searching courses</p>';
         try {
-            const group = await this.addCourseByCode(courseCode);
-            input.value = '';
-            this.setCourseStatus(`${group.code} added. The solver will choose its section.`, 'success');
+            this._lastSearchGroups = await this.searchCourseGroups(input.value);
+            if (this._lastSearchGroups.length === 0) {
+                this.setCourseStatus('No courses found in the selected term.', 'error');
+            } else {
+                this.setCourseStatus(`${this._lastSearchGroups.length} course${this._lastSearchGroups.length === 1 ? '' : 's'} found.`);
+            }
+            this.renderCourseSearchResults();
         } catch (error) {
             this.setCourseStatus(error.message, 'error');
+            results.innerHTML = `<p class="hint">${error.message}</p>`;
         } finally {
             button.disabled = false;
         }
+    },
+
+    renderCourseSearchResults() {
+        const container = document.getElementById('schedule-search-results');
+        if (!container) return;
+        if (this._lastSearchGroups.length === 0) {
+            if (!container.querySelector('.loading')) {
+                container.innerHTML = '<p class="hint">Search by subject, course code, or keyword.</p>';
+            }
+            return;
+        }
+
+        container.innerHTML = '';
+        this._lastSearchGroups.forEach(group => {
+            const openCount = (group.sections || []).filter(section => this.isOpenSection(section)).length;
+            const selected = State.isCourseSelected(group.code);
+            const course = document.createElement('div');
+            course.className = `schedule-search-course${selected ? ' selected' : ''}`;
+            course.innerHTML = `
+                <div class="schedule-search-course-copy">
+                    <strong>${group.code}</strong>
+                    <span>${group.title}</span>
+                    <small>${openCount} open section${openCount === 1 ? '' : 's'}</small>
+                </div>
+                <button class="btn-course-add ${selected ? 'added' : ''}" data-code="${group.code}">${selected ? 'ADDED' : 'ADD COURSE'}</button>
+            `;
+            course.querySelector('.btn-course-add').addEventListener('click', async () => {
+                if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
+                else await this.addCourseGroup(group);
+            });
+            container.appendChild(course);
+        });
     },
 
     clearResults() {

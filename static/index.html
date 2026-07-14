@@ -339,18 +339,22 @@
             <div class="schedule-layout">
                 <!-- Left: Courses to schedule -->
                 <aside id="schedule-sidebar">
-                    <h2>Courses to Schedule</h2>
-                    <p class="schedule-picker-help">Add a course. The scheduler will compare its open sections for you.</p>
-                    <div class="schedule-course-picker">
-                        <label for="schedule-course-input">Course code</label>
-                        <div class="schedule-course-controls">
-                            <input id="schedule-course-input" type="text" placeholder="CSCE 145" autocomplete="off">
-                            <button id="btn-add-schedule-course" class="btn-black">ADD</button>
-                        </div>
+                    <div class="schedule-search-section">
+                        <h2>Find Courses</h2>
+                        <input id="schedule-course-input" type="text" placeholder="Subject (CSCE), course # (145), or keyword" autocomplete="off" aria-label="Schedule course search">
+                        <button id="btn-search-schedule-courses" class="btn-garnet">SEARCH COURSES</button>
                         <p id="schedule-course-status" class="schedule-course-status" aria-live="polite"></p>
                     </div>
+                    <div class="schedule-results-header">
+                        <span>Results</span>
+                        <span id="schedule-selected-count" class="pick-count"></span>
+                    </div>
+                    <div id="schedule-search-results" class="schedule-search-results">
+                        <p class="hint">Search by subject, course code, or keyword.</p>
+                    </div>
+                    <h2 class="schedule-selected-heading">Courses in This Schedule</h2>
                     <div id="selected-courses-list" class="selected-courses-list">
-                        <p class="hint">Add a course above or from Browse.</p>
+                        <p class="hint">Add courses from the results above.</p>
                     </div>
                     <div id="selected-credits" class="selected-credits"></div>
                     <button id="btn-solve" class="btn-garnet" style="width:100%">GENERATE SCHEDULES</button>

@@ -75,6 +75,32 @@ test('adding a course code stores every live section without choosing one', asyn
     assert.equal(state.selectedSections, undefined);
 });
 
+test('schedule search groups live sections into course-level results', async () => {
+    let submittedCriteria;
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: { term: '202608' },
+        API: {
+            async searchCourses(term, criteria) {
+                submittedCriteria = criteria;
+                return {
+                    results: [
+                        { code: 'CSCE 145', crn: '11111', title: 'Algorithmic Design I' },
+                        { code: 'CSCE 145', crn: '22222', title: 'Algorithmic Design I' },
+                        { code: 'CSCE 146', crn: '33333', title: 'Algorithmic Design II' },
+                    ],
+                };
+            },
+        },
+    });
+
+    const groups = await scheduler.searchCourseGroups('CSCE');
+
+    assert.equal(submittedCriteria[0].field, 'subject');
+    assert.equal(submittedCriteria[0].value, 'CSCE');
+    assert.equal(groups.length, 2);
+    assert.equal(groups[0].sections.length, 2);
+});
+
 test('preview renders a candidate without replacing selected sections', () => {
     const original = { 'TEST 101': { crn: '10101' } };
     let rendered;
