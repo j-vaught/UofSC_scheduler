@@ -2098,7 +2098,7 @@ body.filter-modal-open { overflow: hidden; }
     gap: 10px 18px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.filter-primary-grid > .filter-group:first-child { grid-column: 1 / -1; }
+.filter-primary-column { min-width: 0; }
 .browse-search-shell > .filter-panel .additional-filter-panel:not(.hidden) {
     display: grid;
     gap: 8px 18px;
@@ -2183,7 +2183,6 @@ body.filter-modal-open { overflow: hidden; }
     }
     .filter-primary-grid,
     .browse-search-shell > .filter-panel .additional-filter-panel:not(.hidden) { grid-template-columns: 1fr; }
-    .filter-primary-grid > .filter-group:first-child { grid-column: auto; }
     .browse-detail #semester-search { display: none; }
     .browse-detail #semester-content { padding: 20px 48px 24px 16px; }
     .browse-results #semester-search .search-section { padding-inline: 10px; }

@@ -215,6 +215,7 @@ test('browse filters separate primary and additional course choices', () => {
     assert.doesNotMatch(source, /id="filter-current-term"/);
     assert.match(source, /id="filter-method"/);
     assert.match(source, /id="filter-carolina-core"/);
+    assert.match(source, /class="filter-primary-column filter-primary-checkboxes">[\s\S]*id="filter-show-all"[\s\S]*id="filter-open"[\s\S]*id="filter-eligible"[\s\S]*class="filter-primary-column filter-primary-selects">[\s\S]*id="filter-method"[\s\S]*id="filter-carolina-core"/);
     assert.match(source, /value="CMW"/);
     assert.match(source, /value="VSR"/);
     assert.match(source, /id="additional-filter-toggle"/);
