@@ -388,6 +388,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.equal(preferences.preferred_maximum_walk_minutes, undefined);
 
     const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(source, /class="schedule-preference-times"/);
     assert.match(source, /id="schedule-preferred-start"/);
     assert.match(source, /id="schedule-preferred-end"/);
@@ -408,6 +409,8 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.doesNotMatch(source, /id="schedule-minimum-buffer"/);
     assert.doesNotMatch(source, /id="schedule-preferred-maximum-walk"/);
     assert.match(source, /min="1"/);
+    assert.match(styles, /input:checked \+ \.schedule-preference-mode-track \.require\s*{[^}]*background:\s*#000000;/s);
+    assert.doesNotMatch(styles, /schedule-preference-mode[^}]*#73000A/s);
 });
 
 test('saving schedule preferences preserves each prefer-require mode', () => {

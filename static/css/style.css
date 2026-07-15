@@ -1151,7 +1151,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 .schedule-preference-mode-track span {
     background: #ffffff;
-    color: #5C5C5C;
+    color: #000000;
     font-size: 0.65rem;
     font-weight: 800;
     padding: 5px 7px;
@@ -1162,14 +1162,14 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     color: #ffffff;
 }
 .schedule-preference-mode input:checked + .schedule-preference-mode-track .require {
-    background: #73000A;
+    background: #000000;
     color: #ffffff;
 }
 .schedule-preference-mode input:focus-visible + .schedule-preference-mode-track {
-    outline: 2px solid #466A9F;
+    outline: 2px solid #000000;
     outline-offset: 2px;
 }
-.schedule-preference-mode:hover .schedule-preference-mode-track { border-color: #73000A; }
+.schedule-preference-mode:hover .schedule-preference-mode-track { border-color: #000000; }
 
 @media (max-width: 600px) {
     .schedule-preference-days legend,
