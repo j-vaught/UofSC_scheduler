@@ -713,15 +713,15 @@
         }
 
         // Modal
-        document.getElementById('modal-close').addEventListener('click', () => {
-            document.getElementById('modal-overlay').classList.add('hidden');
-            document.getElementById('modal').classList.remove('course-quick-modal', 'registration-info-modal');
-        });
-        document.getElementById('modal-overlay').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                e.currentTarget.classList.add('hidden');
-                document.getElementById('modal').classList.remove('course-quick-modal', 'registration-info-modal');
-            }
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+        const closeModal = () => {
+            modalOverlay.classList.add('hidden');
+            modal.classList.remove('course-quick-modal', 'registration-info-modal');
+        };
+        document.getElementById('modal-close').addEventListener('click', closeModal);
+        modalOverlay.addEventListener('pointerdown', (event) => {
+            if (!modal.contains(event.target)) closeModal();
         });
     });
     </script>

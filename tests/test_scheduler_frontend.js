@@ -434,6 +434,14 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(styles, /\.registration-copy-crn\s*{[^}]*width:\s*84px;/s);
 });
 
+test('course and registration dialogs close when the backdrop is pressed', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+
+    assert.match(html, /modalOverlay\.addEventListener\('pointerdown'/);
+    assert.match(html, /if \(!modal\.contains\(event\.target\)\) closeModal\(\);/);
+    assert.match(html, /modal\.classList\.remove\('course-quick-modal', 'registration-info-modal'\);/);
+});
+
 test('course results remain visible with useful empty states', () => {
     const results = { innerHTML: '', querySelector: () => null };
     const input = { value: '' };
