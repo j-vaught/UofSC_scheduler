@@ -400,6 +400,8 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /modeControl\('schedule-walking-mode-required'/);
     assert.match(source, /modeControl\('schedule-days-mode-required'/);
     assert.match(source, />PREFER<\/span><span class="require">REQUIRE</);
+    assert.match(source, /class="schedule-preference-legend"/);
+    assert.doesNotMatch(source, /How to apply/);
     assert.match(source, /Extra time after walking between classes/);
     assert.match(source, /Choose 10 to arrive at least ten minutes early/);
     assert.doesNotMatch(source, /Minutes remaining after travel/);
