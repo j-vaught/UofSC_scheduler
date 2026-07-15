@@ -191,7 +191,8 @@ test('browse results reserve course add actions for the details pane', () => {
     assert.doesNotMatch(source, /class="btn-course-add/);
     assert.match(source, /class="course-header-main"/);
     assert.match(source, /class="course-availability \$\{availability\.kind\}"/);
-    assert.match(source, /id="btn-course-toggle"[^>]*disabled>NOT OFFERED THIS TERM/);
+    assert.match(source, /unavailable \? ' disabled' : ''/);
+    assert.match(source, /unavailable \? 'NOT OFFERED THIS TERM'/);
     assert.match(styles, /\.course-header-main\s*{[^}]*text-overflow:\s*ellipsis;/s);
     assert.match(styles, /\.course-availability\.open[^}]*color:\s*#2e7d32/s);
     assert.match(styles, /\.course-availability\.full[^}]*color:\s*#c62828/s);
@@ -201,10 +202,13 @@ test('browse results reserve course add actions for the details pane', () => {
 test('browse section details add and lock the specific section', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
 
-    assert.match(source, /ADD SECTION TO SCHEDULE/);
-    assert.match(source, /REMOVE SECTION FROM SCHEDULE/);
-    assert.match(source, /State\.setSectionLock\(sec\.code, sec\.crn\)/);
-    assert.match(source, /This section will be used in every generated schedule/);
+    assert.match(source, /ADD COURSE AND USE THIS SECTION/);
+    assert.match(source, /USE THIS SECTION/);
+    assert.match(source, /USE ANY OPEN SECTION/);
+    assert.match(source, /State\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
+    assert.match(source, /Full section\. You can still use it for planning\./);
+    assert.match(source, /this\._detailSectionData\[this\._detailSectionCrn\] = \{ details, faculty \}/);
+    assert.match(source, /panel\.querySelectorAll\('\[data-detail-crn\]'\)[\s\S]*selectDetailSection\(button\.dataset\.detailCrn, false\)/);
 });
 
 test('browse filters separate primary and additional course choices', () => {
@@ -428,9 +432,11 @@ test('saving schedule preferences preserves each prefer-require mode', () => {
         'modal-overlay': { classList: { add() {} } },
     };
     let emitted = false;
+    let modalClosed = false;
     const state = { emit() { emitted = true; } };
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         State: state,
+        window: { AppModal: { close() { modalClosed = true; } } },
         document: {
             getElementById: id => elements[id],
             querySelectorAll(selector) {
@@ -449,6 +455,7 @@ test('saving schedule preferences preserves each prefer-require mode', () => {
     assert.equal(state.avoidedDaysRequired, true);
     assert.deepEqual(Array.from(state.avoidedDays), [1]);
     assert.equal(emitted, true);
+    assert.equal(modalClosed, true);
 });
 
 test('schedule actions live in the options panel and quick ICS export is removed', () => {
@@ -531,9 +538,12 @@ test('registration info unlocks for selected sections and links to the CRN cart'
 test('course and registration dialogs close when the backdrop is pressed', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
 
-    assert.match(html, /modalOverlay\.addEventListener\('pointerdown'/);
-    assert.match(html, /if \(!modal\.contains\(event\.target\)\) closeModal\(\);/);
-    assert.match(html, /modal\.classList\.remove\('course-quick-modal', 'registration-info-modal'\);/);
+    assert.match(html, /window\.AppModal = \{/);
+    assert.match(html, /modalOverlay\.addEventListener\('click'/);
+    assert.match(html, /if \(event\.target === modalOverlay\) closeModal\(\);/);
+    assert.match(html, /if \(event\.key === 'Escape'\)/);
+    assert.match(html, /modal\.classList\.remove\(\.\.\.modalClasses\)/);
+    assert.match(html, /requestAnimationFrame\(\(\) => restore\?\.isConnected && restore\.focus\(\)\)/);
 });
 
 test('registration prerequisite warnings account for completed alternatives', () => {
@@ -949,14 +959,21 @@ test('numeric course ranges are parsed before semantic search in Browse', () => 
     assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140–199\)/);
 });
 
-test('Browse uses progressive search, results, and detail states with opt-in Smart Search', () => {
+test('Browse uses progressive states with AI-assisted search on by default', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(html, /id="browse-workspace" class="semester-layout browse-empty"/);
-    assert.match(html, /id="smart-search-toggle"/);
+    assert.match(html, /id="filter-ai-search" type="checkbox" checked/);
+    assert.doesNotMatch(html, /id="smart-search-toggle"/);
     assert.match(html, /id="browse-close-details"/);
+    assert.match(html, /id="course-detail-tabs"[^>]*role="tablist"/);
+    assert.match(html, /data-course-tab="overview"/);
+    assert.match(html, /data-course-tab="sections"/);
+    assert.match(html, /data-course-tab="grades"/);
+    assert.match(html, /data-course-tab="history"/);
+    assert.match(html, /data-course-tab="resources"/);
     assert.match(html, /id="active-filter-chips"/);
     assert.match(html, /id="filter-backdrop"/);
     assert.match(html, /id="filter-panel"/);
@@ -964,7 +981,8 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.doesNotMatch(html, /<span>Results<\/span>/);
     assert.match(source, /setBrowseState\('results'\)/);
     assert.match(source, /setBrowseState\('detail'\)/);
-    assert.match(source, /else if \(!document\.getElementById\('smart-search-toggle'\)\?\.checked\)/);
+    assert.match(source, /const aiAssisted = document\.getElementById\('filter-ai-search'\)\?\.checked !== false/);
+    assert.match(source, /requestIdleCallback\(preload, \{ timeout: 3500 \}\)/);
     assert.match(styles, /\.browse-empty \.browse-body\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
@@ -979,10 +997,11 @@ test('Browse filters open as a centered modal and applying closes them', () => {
     assert.match(styles, /\.browse-search-shell > \.filter-panel\s*\{[^}]*left:\s*50%;[^}]*position:\s*fixed;[^}]*top:\s*50%;[^}]*transform:\s*translate\(-50%, -50%\);[^}]*width:\s*min\(720px,/s);
     assert.match(source, /filterBackdrop\?\.classList\.remove\('hidden'\)/);
     assert.match(source, /document\.getElementById\('btn-apply-filters'\)\?\.addEventListener\('click',[\s\S]*?this\.closeFilters\(\);/);
-    assert.match(source, /if \(event\.key === 'Escape'/);
+    assert.match(source, /if \(event\.key === 'Escape'[\s\S]*?event\.stopImmediatePropagation\(\);[\s\S]*?this\.closeFilters\(\);/);
+    assert.match(source, /document\.getElementById\('filter-panel'\)\?\.classList\.contains\('hidden'\)/);
 });
 
-test('Browse teaches structured searches and exposes visible Smart Search progress', () => {
+test('Browse teaches structured searches and presents generated searches compactly', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
@@ -992,107 +1011,63 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(html, /data-search-example="CSCE 5xx"/);
     assert.match(html, /data-search-example="CSCE 140–199"/);
     assert.match(html, /class="filter-sliders-icon"/);
-    assert.doesNotMatch(html, /id="active-filter-count"/);
-    assert.match(html, /id="smart-search-status"/);
-    assert.match(html, /id="smart-model-loading"/);
-    assert.match(html, /id="smart-model-loading-stage">Loading embedding model/);
-    assert.doesNotMatch(html, /smart-search-network/);
-    assert.match(html, /id="smart-search-query-list"/);
-    assert.match(html, /id="smart-search-aggregate"/);
-    assert.match(source, /if \(smartToggle\.checked\) this\.prepareSmartSearch\(\)/);
-    assert.match(source, /Loading embedding model/);
-    assert.match(source, /Loading search model/);
-    assert.match(source, /Loading semantic model/);
-    assert.match(source, /performance\.getEntriesByType\('resource'\)/);
-    assert.match(source, /navigator\.connection\?\.downlink/);
+    assert.match(html, /id="smart-model-loading-stage">Preparing AI-assisted search/);
+    assert.doesNotMatch(html, /id="smart-search-status"/);
+    assert.doesNotMatch(html, /id="smart-search-query-list"/);
+    assert.doesNotMatch(html, /id="smart-search-aggregate"/);
     assert.match(source, /input\.disabled = active/);
-    assert.match(source, /input\.value = ''/);
-    assert.match(source, /if \(status\) status\.hidden = true;/);
-    assert.match(source, /Understanding “\$\{query\}”/);
-    assert.match(source, /Ranking the closest courses/);
-    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
-    assert.match(styles, /\.smart-model-loading\s*{[^}]*position:\s*absolute;/s);
-    assert.match(styles, /@keyframes smart-model-loading-dot/);
-    assert.match(styles, /\.smart-search-status\s*{[^}]*background:\s*#ffffff;/s);
-    assert.doesNotMatch(styles, /smart-search-network-node/);
-    assert.match(source, /this\.showSmartSearchQueries\(searches\)/);
-    assert.match(source, /this\.updateSmartSearchQuery\(index, courseCount\)/);
-    assert.match(source, /item\.addEventListener\('click', \(\) => this\.openRegularSearch\(term\)\)/);
     assert.match(source, /openRegularSearch\(term\)/);
-    assert.match(source, /smartToggle\.checked = false;[\s\S]*regularInput\.value = term;[\s\S]*this\.doSearch\(\);/);
-    assert.match(source, /semantic\.searches\?\.length \? semantic\.searches : null/);
+    assert.match(source, /this\._directSearchOnce = true;[\s\S]*this\.doSearch\(\);/);
     assert.match(source, /class="semantic-search-term" data-regular-search-index/);
-    assert.match(source, /searches\.map\(\(term, index\) => \(\{/);
-    assert.match(source, /new Set\(allResults\[index\]\.map\(result => result\.code\)/);
+    assert.match(source, /const relatedBatches = await Promise\.all/);
+    assert.match(source, /this\.applySectionFilters\(candidates, semanticFilters\)/);
+    assert.match(source, /count: new Set\(matchingCodes\)\.size/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
     assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
     assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
-    assert.match(source, /showSmartSearchAggregation\(/);
-    assert.match(source, /waitForSmartSearchPhase\(understandingStartedAt, 650\)/);
-    assert.match(source, /waitForSmartSearchPhase\(expandingStartedAt, 650\)/);
-    assert.match(source, /waitForSmartSearchPhase\(queryPhaseStartedAt, 1800\)/);
-    assert.match(source, /aggregationDelay = 1500 - \(Date\.now\(\) - aggregationStartedAt\)/);
-    assert.match(styles, /\.smart-search-query-list\s*{[^}]*grid-template-columns:\s*repeat\(3,/s);
-    assert.match(styles, /@keyframes smart-search-combine/);
-    assert.match(styles, /@keyframes smart-search-query-enter/);
-    assert.match(styles, /@keyframes smart-search-stage-in/);
-    assert.match(styles, /\.smart-search-query-item:not\(:disabled\)\s*{\s*cursor:\s*pointer;/);
+    assert.match(styles, /\.smart-model-loading\s*{[^}]*position:\s*absolute;/s);
     assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
     assert.match(styles, /\.semantic-search-term strong\s*{[^}]*background:\s*#466A9F;/s);
     assert.match(styles, /\.semantic-search-terms-toggle\s*{[^}]*width:\s*100%;/s);
     assert.match(styles, /\.semantic-search-terms-toggle\[aria-expanded="true"\] i\s*{\s*transform:\s*rotate\(180deg\);/s);
 });
 
-test('Smart Search estimates stage timing from measured download speed', () => {
-    const search = loadObject('static/js/search.js', 'Search', {
-        console,
-        performance: {
-            getEntriesByType: () => [
-                { transferSize: 1_000_000, duration: 1000 },
-                { transferSize: 2_000_000, duration: 2000 },
-            ],
-        },
-        navigator: { connection: { downlink: 2 } },
-    });
+test('AI-assisted search can be disabled and related searches bypass it once', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
 
-    assert.equal(search.smartDownloadMbps(), 8);
-    assert.equal(search.estimatedSmartStageMs(8_000_000, 350, 1800), 1200);
+    assert.match(html, /id="filter-ai-search" type="checkbox" checked/);
+    assert.match(source, /const useDirectSearch = !aiAssisted \|\| this\._directSearchOnce \|\| this\._semanticFallbackOnce/);
+    assert.match(source, /if \(aiToggle\) aiToggle\.checked = true/);
+    assert.match(source, /openRegularSearch\(term\)[\s\S]*this\._directSearchOnce = true/);
+    assert.match(source, /Meaning-based matching is unavailable\. Showing direct matches\./);
 });
 
-test('Smart Search expands into a prompt with an arrow and four example cards', () => {
+test('Browse uses one search field for direct and AI-assisted queries', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(html, /id="smart-keyword-input"/);
-    assert.match(html, /id="smart-search-submit"/);
-    assert.equal((html.match(/class="smart-search-examples"[\s\S]*?<\/div>/)?.[0].match(/data-search-example=/g) || []).length, 4);
-    assert.match(source, /Nursing courses about caring for children/);
-    assert.match(source, /Mechanical engineering courses about robotics/);
-    assert.match(source, /Electrical engineering courses about renewable energy/);
-    assert.match(source, /phrase\.slice\(0, length\)/);
-    assert.match(html, /<span aria-hidden="true">&#10022;<\/span>/);
-    assert.match(styles, /background:\s*linear-gradient/);
-    assert.match(styles, /\.smart-search-toggle span\s*{[^}]*border:\s*0;/s);
-    assert.match(styles, /\.smart-search-toggle \*\s*{\s*cursor:\s*pointer !important;/);
-    assert.match(html, /<path d="M7 18H33M24 9L33 18L24 27"><\/path>/);
-    assert.match(styles, /\.smart-search-submit path\s*{[^}]*stroke:\s*#000000;[^}]*stroke-linecap:\s*round;[^}]*stroke-width:\s*5;/s);
-    assert.match(styles, /\.browse-search-form \.smart-keyword-input\s*{[^}]*overflow-y:\s*hidden;[^}]*resize:\s*none;/s);
-    assert.match(source, /input\.style\.height = `\$\{Math\.max\(96, input\.scrollHeight\)\}px`/);
-    assert.match(source, /event\.key === 'Enter' && !event\.isComposing[\s\S]*event\.preventDefault\(\);[\s\S]*this\.doSearch\(\);/);
-    assert.doesNotMatch(source, /event\.metaKey \|\| event\.ctrlKey/);
-    assert.match(source, /'Nursing'/);
-    assert.match(source, /'Studio Art'/);
-    assert.match(source, /'Political Science'/);
-    assert.match(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
-    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{[^}]*grid-template-columns:\s*repeat\(4,/s);
-    assert.match(source, /smartToggle\.checked = false/);
-    assert.doesNotMatch(source, /getItem\('uofsc-smart-search'\)/);
-    assert.match(styles, /\.smart-search-active \.smart-search-toggle\s*{\s*display:\s*none;/);
-    assert.match(styles, /\.smart-search-active \.search-clear\s*{\s*display:\s*none !important;/);
+    assert.equal((html.match(/id="keyword-input"/g) || []).length, 1);
+    assert.doesNotMatch(html, /id="smart-keyword-input"/);
+    assert.doesNotMatch(html, /id="smart-search-submit"/);
+    assert.equal((html.match(/data-search-example=/g) || []).length, 6);
+    assert.match(source, /getElementById\('keyword-input'\)\.addEventListener\('keydown',[\s\S]*if \(e\.key === 'Enter'\) this\.doSearch\(\)/);
+    assert.doesNotMatch(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.browse-empty \.browse-search-form\s*{\s*grid-template-columns:\s*minmax\(0, 1fr\) 44px 102px;/);
+    assert.doesNotMatch(styles, /\.smart-search-active/);
 });
 
+test('Course and professor close controls remain available while scrolling', () => {
+    const source = fs.readFileSync('static/js/grades.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(styles, /\.browse-close-details\s*{[^}]*position:\s*sticky;/s);
+    assert.match(styles, /#modal\.professor-profile-modal #modal-close\s*{[^}]*height:\s*44px;[^}]*position:\s*sticky;/s);
+    assert.match(source, /openProfessorLoading\(name/);
+    assert.match(source, /professorDetailContextIsCurrent/);
+});
 test('Browse result cards lazily add descriptions and historical grades', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');

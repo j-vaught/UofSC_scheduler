@@ -252,20 +252,10 @@
                     <div class="search-form browse-search-form">
                         <div class="search-input-wrap">
                             <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                            <textarea id="smart-keyword-input" class="smart-keyword-input" placeholder="Describe what you want to learn" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Describe the courses you want to find"></textarea>
                             <div id="smart-model-loading" class="smart-model-loading hidden" role="status" aria-live="polite">
-                                <span id="smart-model-loading-stage">Loading embedding model</span><span class="smart-model-loading-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span>
+                                <span id="smart-model-loading-stage">Preparing AI-assisted search</span>
                             </div>
                             <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
-                            <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
-                                <input id="smart-search-toggle" type="checkbox" aria-label="Smart Search">
-                                <span aria-hidden="true">&#10022;</span>
-                            </label>
-                            <button id="smart-search-submit" class="smart-search-submit" type="button" aria-label="Search">
-                                <svg aria-hidden="true" viewBox="0 0 42 36">
-                                    <path d="M7 18H33M24 9L33 18L24 27"></path>
-                                </svg>
-                            </button>
                         </div>
                         <button class="browse-filter-button" id="filter-toggle" type="button" aria-label="Filters" title="Filters" aria-expanded="false" aria-controls="filter-panel">
                             <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
@@ -282,32 +272,19 @@
                             <button type="button" data-search-example="CSCE 5xx">CSCE 5xx</button>
                             <button type="button" data-search-example="CSCE 140–199">CSCE 140–199</button>
                         </div>
-                        <div class="smart-search-examples">
-                            <button type="button" data-search-example="courses about ethical artificial intelligence"><strong>Ethical technology</strong><span>Explore artificial intelligence, ethics, and society.</span></button>
-                            <button type="button" data-search-example="how computers recognize images"><strong>Computer vision</strong><span>Learn how computers understand images.</span></button>
-                            <button type="button" data-search-example="protecting systems from cyber attacks"><strong>Cybersecurity</strong><span>Find courses about protecting digital systems.</span></button>
-                            <button type="button" data-search-example="technology and society"><strong>Technology and society</strong><span>Study how technology shapes communities.</span></button>
-                        </div>
-                    </div>
-                    <div id="smart-search-status" class="smart-search-status" hidden aria-live="polite">
-                        <div class="smart-search-status-heading"><strong>Smart Search</strong><span id="smart-search-status-text">Preparing meaning-based search</span></div>
-                        <div id="smart-search-trace" class="smart-search-trace" hidden>
-                            <div class="smart-search-trace-heading">
-                                <strong id="smart-search-trace-phase">Searching related concepts</strong>
-                                <span id="smart-search-trace-summary">0 searches complete</span>
-                            </div>
-                            <div id="smart-search-query-list" class="smart-search-query-list"></div>
-                            <div id="smart-search-aggregate" class="smart-search-aggregate" hidden>
-                                <div class="smart-search-aggregate-visual" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                                <div><strong id="smart-search-aggregate-title">Combining matches</strong><span id="smart-search-aggregate-detail">Removing duplicates and ranking courses.</span></div>
-                            </div>
-                        </div>
-                        <p id="smart-search-activity">Loading the course language model and academic concepts.</p>
                     </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-backdrop hidden" id="filter-backdrop" aria-hidden="true"></div>
                         <div class="filter-panel hidden" id="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-panel-title">
                             <div class="filter-panel-heading"><strong id="filter-panel-title">Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters">&times;</button></div>
+                            <label class="filter-ai-control" for="filter-ai-search">
+                                <span>
+                                    <strong>AI-assisted search</strong>
+                                    <small>Include courses that match the meaning of your search.</small>
+                                </span>
+                                <input id="filter-ai-search" type="checkbox" checked>
+                                <i aria-hidden="true"></i>
+                            </label>
                             <div class="filter-primary-grid">
                             <div class="filter-primary-column filter-primary-checkboxes">
                             <div class="filter-group">
@@ -439,29 +416,46 @@
 
                 <!-- Right: Course Details + Mini Calendar -->
                 <section id="semester-content">
-                    <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
-                    <div id="semester-course-info">
-                        <h2>Course Details</h2>
-                        <div id="tab-details">
-                            <p class="hint">Click a course in the search results to see its details, prerequisites, and offering history.</p>
-                        </div>
-                    </div>
-                    <div id="semester-prereqs">
-                        <h3>Prerequisites</h3>
-                        <div id="prereq-container">
-                            <p class="hint">Select a course to view its prerequisite chain.</p>
-                        </div>
-                    </div>
-                    <div id="semester-history">
-                        <h3>Offering History</h3>
-                        <div id="history-container">
-                            <p class="hint">Select a course to see how often it is offered.</p>
-                        </div>
-                    </div>
-                    <div id="semester-grades">
-                        <h3>Historical Grades</h3>
-                        <div id="grades-container">
-                            <p class="hint">Select a course to see grade and professor history.</p>
+                    <div id="course-detail-shell" class="course-detail-shell">
+                        <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
+                        <header id="tab-details" class="course-detail-header">
+                            <p class="hint">Choose a course to see its details.</p>
+                        </header>
+                        <section id="course-section-picker-wrap" class="course-section-picker-wrap" hidden>
+                            <div class="course-section-picker-heading">
+                                <h2>Choose a section</h2>
+                                <span id="course-section-picker-count"></span>
+                            </div>
+                            <div id="course-section-picker" class="course-section-picker" role="group" aria-label="Course sections"></div>
+                            <div id="course-section-summary" class="course-section-summary"></div>
+                        </section>
+                        <nav id="course-detail-tabs" class="course-detail-tabs" role="tablist" aria-label="Course details">
+                            <button id="course-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="course-panel-overview" data-course-tab="overview">Overview</button>
+                            <button id="course-tab-sections" type="button" role="tab" aria-selected="false" aria-controls="course-panel-sections" data-course-tab="sections">Sections</button>
+                            <button id="course-tab-grades" type="button" role="tab" aria-selected="false" aria-controls="course-panel-grades" data-course-tab="grades">Grades</button>
+                            <button id="course-tab-history" type="button" role="tab" aria-selected="false" aria-controls="course-panel-history" data-course-tab="history">History</button>
+                            <button id="course-tab-resources" type="button" role="tab" aria-selected="false" aria-controls="course-panel-resources" data-course-tab="resources">Resources</button>
+                        </nav>
+                        <div class="course-detail-panels">
+                            <section id="course-panel-overview" class="course-detail-panel" data-course-panel="overview" role="tabpanel" aria-labelledby="course-tab-overview">
+                                <div id="course-overview-content" class="course-overview-content"></div>
+                                <section id="semester-prereqs" class="course-detail-card">
+                                    <div class="course-detail-card-heading"><h2>Prerequisites</h2></div>
+                                    <div id="prereq-container"><p class="hint">Prerequisite information will appear here.</p></div>
+                                </section>
+                            </section>
+                            <section id="course-panel-sections" class="course-detail-panel" data-course-panel="sections" role="tabpanel" aria-labelledby="course-tab-sections" hidden>
+                                <div id="course-sections-panel"></div>
+                            </section>
+                            <section id="semester-grades" class="course-detail-panel" data-course-panel="grades" role="tabpanel" aria-labelledby="course-tab-grades" hidden>
+                                <div id="grades-container"><p class="hint">Historical grade information will appear here.</p></div>
+                            </section>
+                            <section id="semester-history" class="course-detail-panel" data-course-panel="history" role="tabpanel" aria-labelledby="course-tab-history" hidden>
+                                <div id="history-container"><p class="hint">Offering history will appear here.</p></div>
+                            </section>
+                            <section id="course-panel-resources" class="course-detail-panel" data-course-panel="resources" role="tabpanel" aria-labelledby="course-tab-resources" hidden>
+                                <div id="course-resource-links"></div>
+                            </section>
                         </div>
                     </div>
                 </section>
@@ -627,6 +621,8 @@
         // Term change
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
+            if (Search._browseState === 'detail') Search.closeCourseDetail();
+            if (Search.activeSearchInput()?.value.trim()) Search.doSearch();
         });
 
         // Home tab: path cards
@@ -774,13 +770,70 @@
         // Modal
         const modalOverlay = document.getElementById('modal-overlay');
         const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        let modalPreviousFocus = null;
+        const modalClasses = [
+            'course-quick-modal',
+            'registration-info-modal',
+            'schedule-preferences-modal',
+            'professor-profile-modal',
+        ];
         const closeModal = () => {
+            if (modalOverlay.classList.contains('hidden')) return;
+            window.AppModal.version += 1;
             modalOverlay.classList.add('hidden');
-            modal.classList.remove('course-quick-modal', 'registration-info-modal');
+            modal.classList.remove(...modalClasses);
+            modal.removeAttribute('aria-label');
+            modal.removeAttribute('aria-labelledby');
+            modal.removeAttribute('aria-modal');
+            modal.removeAttribute('role');
+            document.body.classList.remove('app-modal-open');
+            modalContent.replaceChildren();
+            const restore = modalPreviousFocus;
+            modalPreviousFocus = null;
+            requestAnimationFrame(() => restore?.isConnected && restore.focus());
+        };
+        window.AppModal = {
+            version: 0,
+            open(markup, options = {}) {
+                this.version += 1;
+                modalPreviousFocus = document.activeElement;
+                modal.classList.remove(...modalClasses);
+                if (options.className) modal.classList.add(options.className);
+                modal.setAttribute('role', 'dialog');
+                modal.setAttribute('aria-modal', 'true');
+                modal.setAttribute('aria-label', options.label || 'Details');
+                modalContent.innerHTML = markup;
+                modalOverlay.classList.remove('hidden');
+                document.body.classList.add('app-modal-open');
+                requestAnimationFrame(() => document.getElementById('modal-close')?.focus());
+            },
+            close: closeModal,
         };
         document.getElementById('modal-close').addEventListener('click', closeModal);
-        modalOverlay.addEventListener('pointerdown', (event) => {
-            if (!modal.contains(event.target)) closeModal();
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', event => {
+            if (modalOverlay.classList.contains('hidden')) return;
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeModal();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+            const focusable = [...modal.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+                .filter(element => !element.hidden && element.offsetParent !== null);
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
         });
     });
     </script>

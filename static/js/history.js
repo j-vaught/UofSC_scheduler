@@ -215,53 +215,41 @@ const History = {
         const totalCapacity = capacityTerms.reduce((sum, term) => sum + this._number(term.capacity), 0);
         const hasEnrollment = enrollmentTerms.length > 0 || availableTerms.some(term => this._number(term.capacity) !== null);
 
-        let html = `<h3>${this._escape(code)} — Offering History</h3>`;
-        if (totalTerms) {
-            html += `<p>Offered <strong>${offeredCount}</strong> out of <strong>${totalTerms}</strong> completed terms (${pct}%)</p>`;
-        } else {
-            html += '<p class="hint">No completed-term offering history is available.</p>';
-        }
-        if (patternParts.length) {
-            html += `<p style="color:#466A9F;font-weight:600">Typically offered in ${patternParts.join(', ')}</p>`;
-        }
-        if (averageEnrollment !== null) {
-            const fillText = totalCapacity ? ` Historical seat fill was ${Math.round(totalEnrollment / totalCapacity * 100)}%.` : '';
-            html += `<p>Average recorded enrollment was <strong>${Math.round(averageEnrollment)}</strong> students across ${enrollmentTerms.length} term${enrollmentTerms.length === 1 ? '' : 's'}.${fillText}</p>`;
-        }
-
-        html += `<table class="history-table" style="margin-top:10px">
-            <thead><tr><th>Term</th><th>Offered</th><th>Sections</th><th>Instructor(s)</th><th>Times</th>`;
-        if (hasEnrollment) html += '<th>Enrolled</th><th>Capacity</th><th>Filled</th>';
-        html += '</tr></thead><tbody>';
-
-        terms.forEach(term => {
-            if (term.error || term.available === false) {
-                html += `<tr><td>${this._escape(term.label)}</td><td colspan="${hasEnrollment ? 7 : 4}" class="hint">Data unavailable</td></tr>`;
-                return;
-            }
-
+        const seasonSummary = patternParts.length ? patternParts.join(', ') : 'No recurring season yet';
+        const fillRate = totalCapacity ? Math.round(totalEnrollment / totalCapacity * 100) : null;
+        const timeline = terms.map(term => {
             const enrollment = this._number(term.enrollment);
             const capacity = this._number(term.capacity);
-            const fillRate = enrollment !== null && capacity > 0 ? `${Math.round(enrollment / capacity * 100)}%` : '—';
-            if (term.offered) {
-                html += `<tr>
-                    <td>${this._escape(term.label)}</td>
-                    <td class="offered">Yes</td>
-                    <td>${term.sections || 0}</td>
-                    <td>${this._escape((term.instructors || []).join(', '))}</td>
-                    <td>${this._escape((term.times || []).join(', '))}</td>`;
-                if (hasEnrollment) {
-                    html += `<td>${enrollment === null ? '—' : enrollment}</td><td>${capacity === null ? '—' : capacity}</td><td>${fillRate}</td>`;
-                }
-                html += '</tr>';
-            } else {
-                html += `<tr><td>${this._escape(term.label)}</td><td class="not-offered">No</td><td>—</td><td>—</td><td>—</td>`;
-                if (hasEnrollment) html += '<td>—</td><td>—</td><td>—</td>';
-                html += '</tr>';
-            }
-        });
+            const termFill = enrollment !== null && capacity > 0 ? Math.round(enrollment / capacity * 100) : null;
+            const state = term.error || term.available === false ? 'unknown' : term.offered ? 'offered' : 'not-offered';
+            return `
+                <div class="history-term-card ${state}">
+                    <span>${this._escape(term.label)}</span>
+                    <strong>${state === 'unknown' ? 'Unavailable' : term.offered ? `${term.sections || 0} section${term.sections === 1 ? '' : 's'}` : 'Not offered'}</strong>
+                    ${term.offered && termFill !== null ? `<small>${termFill}% filled</small>` : '<small>&nbsp;</small>'}
+                </div>
+            `;
+        }).join('');
+        const detailRows = terms.map(term => {
+            const enrollment = this._number(term.enrollment);
+            const capacity = this._number(term.capacity);
+            const termFill = enrollment !== null && capacity > 0 ? `${Math.round(enrollment / capacity * 100)}% filled` : '';
+            const detail = term.offered
+                ? `${term.sections || 0} sections · ${(term.instructors || []).join(', ') || 'Instructor TBA'}${termFill ? ` · ${termFill}` : ''}`
+                : (term.error || term.available === false ? 'Data unavailable' : 'Not offered');
+            return `<div class="history-detail-row"><strong>${this._escape(term.label)}</strong><span>${this._escape(detail)}</span></div>`;
+        }).join('');
 
-        html += '</tbody></table>';
-        container.innerHTML = html;
+        container.innerHTML = `
+            <div class="history-detail-heading"><div><h2>Offering history</h2><p>Completed terms before the current planning term.</p></div></div>
+            <div class="history-summary-grid">
+                <div><strong>${pct}%</strong><span>of recent terms</span></div>
+                <div><strong>${offeredCount} of ${totalTerms}</strong><span>terms offered</span></div>
+                <div><strong>${this._escape(seasonSummary)}</strong><span>observed seasons</span></div>
+                ${averageEnrollment !== null ? `<div><strong>${Math.round(averageEnrollment)}</strong><span>average enrollment${fillRate !== null ? ` · ${fillRate}% filled` : ''}</span></div>` : ''}
+            </div>
+            ${totalTerms ? `<div class="history-frequency-track"><i style="width:${pct}%"></i></div><div class="history-term-grid">${timeline}</div>` : '<p class="hint">No completed-term offering history is available.</p>'}
+            ${detailRows ? `<details class="history-exact-disclosure"><summary>View instructors and term details</summary><div class="history-detail-list">${detailRows}</div></details>` : ''}
+        `;
     },
 };

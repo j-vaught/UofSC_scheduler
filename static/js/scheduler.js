@@ -275,7 +275,11 @@ const Scheduler = {
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
         modal.setAttribute('aria-labelledby', 'registration-dialog-title');
-        overlay.classList.remove('hidden');
+        if (window.AppModal) {
+            AppModal.open(content.innerHTML, { className: 'registration-info-modal', label: 'Registration information' });
+        } else {
+            overlay.classList.remove('hidden');
+        }
 
         const copyStatus = document.getElementById('registration-copy-status');
         content.querySelectorAll('[data-registration-copy]').forEach(button => {
@@ -396,7 +400,11 @@ const Scheduler = {
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
         modal.setAttribute('aria-labelledby', 'schedule-preferences-title');
-        overlay.classList.remove('hidden');
+        if (window.AppModal) {
+            AppModal.open(content.innerHTML, { className: 'schedule-preferences-modal', label: 'Schedule preferences' });
+        } else {
+            overlay.classList.remove('hidden');
+        }
 
         const saveButton = document.getElementById('btn-save-schedule-preferences');
         saveButton.addEventListener('click', () => this.saveSchedulePreferences());
@@ -498,7 +506,7 @@ const Scheduler = {
         State.timePreferencesRequired = document.getElementById('schedule-time-mode-required').checked;
         State.walkingBufferRequired = document.getElementById('schedule-walking-mode-required').checked;
         State.avoidedDaysRequired = document.getElementById('schedule-days-mode-required').checked;
-        document.getElementById('modal-overlay').classList.add('hidden');
+        if (typeof window !== 'undefined' && window.AppModal) window.AppModal.close();
         State.emit('preferences-changed');
         return true;
     },
@@ -978,13 +986,15 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
-        modal.classList.remove('registration-info-modal', 'schedule-preferences-modal');
-        modal.classList.add('course-quick-modal');
-        modal.setAttribute('role', 'dialog');
-        modal.setAttribute('aria-modal', 'true');
-        modal.setAttribute('aria-labelledby', 'course-quick-title');
-        content.innerHTML = '<div class="course-quick-loading"><span></span><p>Loading course details</p></div>';
-        overlay.classList.remove('hidden');
+        const loadingMarkup = '<div class="course-quick-loading"><span></span><p>Loading course details</p></div>';
+        if (window.AppModal) {
+            AppModal.open(loadingMarkup, { className: 'course-quick-modal', label: `Course details for ${group.code}` });
+        } else {
+            modal.classList.remove('registration-info-modal', 'schedule-preferences-modal');
+            modal.classList.add('course-quick-modal');
+            content.innerHTML = loadingMarkup;
+            overlay.classList.remove('hidden');
+        }
         const requestId = ++this._quickViewRequestId;
 
         const detailsPromise = typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
@@ -1030,14 +1040,14 @@ const Scheduler = {
     },
 
     openCourseInBrowse(group) {
-        document.getElementById('modal-overlay')?.classList.add('hidden');
-        document.getElementById('modal')?.classList.remove('course-quick-modal', 'registration-info-modal');
+        if (window.AppModal) AppModal.close();
+        else document.getElementById('modal-overlay')?.classList.add('hidden');
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
         const input = document.getElementById('keyword-input');
         if (input) input.value = group.code;
         if (typeof Search === 'undefined') return;
         Search.renderResults(group.sections || [], (group.sections || []).length, {}, false, null);
-        document.querySelector(`#search-results .course-group[data-course-code="${group.code}"] .course-header`)?.click();
+        document.querySelector(`#search-results .course-group[data-course-code="${group.code}"]`)?.click();
     },
 
     scheduleCourseAvailability(group) {

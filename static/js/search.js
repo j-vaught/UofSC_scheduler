@@ -17,9 +17,16 @@ const Search = {
     _resultSummaryCache: {},
     _resultSummaryObserver: null,
     _smartModelPromise: null,
-    _placeholderTimer: null,
-    _placeholderIndex: 0,
     _browseState: 'empty',
+    _detailGroup: null,
+    _detailSectionCrn: '',
+    _detailTab: 'overview',
+    _detailLoads: {},
+    _lastDetailTrigger: null,
+    _facultyCache: {},
+    _directSearchOnce: false,
+    _semanticFallbackOnce: false,
+    _semanticFallbackNotice: '',
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -28,7 +35,11 @@ const Search = {
         console.log('[Semantic] Loading Transformers.js model (first time only, ~23MB)...');
         this._extractorLoading = import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2')
             .then(({ pipeline }) => pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', { quantized: true }))
-            .then(ext => { this._extractor = ext; console.log('[Semantic] Model loaded.'); return ext; });
+            .then(ext => { this._extractor = ext; console.log('[Semantic] Model loaded.'); return ext; })
+            .catch(error => {
+                this._extractorLoading = null;
+                throw error;
+            });
         return this._extractorLoading;
     },
 
@@ -133,21 +144,14 @@ const Search = {
         // Load model + phrase data concurrently
         await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
         if (searchId !== this._searchId) return null;
-        this.resetSmartSearchTrace();
 
         // Step 1: Embed query
-        const understandingStartedAt = Date.now();
-        this.setSmartSearchStatus(`Understanding “${query}”`, 'searching', 'Comparing the search with course language.');
         const queryVec = await this._embedQuery(query);
-        await this.waitForSmartSearchPhase(understandingStartedAt, 650);
         if (searchId !== this._searchId) return null;
 
         // Step 2: Find nearest academic phrases
-        const expandingStartedAt = Date.now();
-        this.setSmartSearchStatus('Expanding academic concepts', 'searching', 'Finding related subjects and course terminology.');
         const nearestPhrases = this._findNearestPhrases(queryVec, 8, query);
         const expandedTerms = nearestPhrases.map(n => n.phrase);
-        await this.waitForSmartSearchPhase(expandingStartedAt, 650);
         if (searchId !== this._searchId) return null;
 
         // Step 3: Build search list — original query + expanded phrases
@@ -155,10 +159,7 @@ const Search = {
         console.log(`[Semantic] "${query}" → ${searches.length} API calls:`, searches);
 
         // Step 4: Fire all searches concurrently
-        this.setSmartSearchStatus('Checking course matches', 'searching', `Searching “${query}” and ${expandedTerms.length} related concepts.`);
-        const queryPhaseStartedAt = Date.now();
-        this.showSmartSearchQueries(searches);
-        const promises = searches.map(async (term, index) => {
+        const promises = searches.map(async term => {
             let results = [];
             try {
                 if (currentTermOnly) {
@@ -176,19 +177,10 @@ const Search = {
             } catch (error) {
                 console.warn(`[Semantic] Search failed for “${term}”:`, error);
             }
-            const courseCount = new Set(results.map(result => result.code).filter(Boolean)).size;
-            this.updateSmartSearchQuery(index, courseCount);
             return results;
         });
         const allResults = await Promise.all(promises);
-        await this.waitForSmartSearchPhase(queryPhaseStartedAt, 1800);
         if (searchId !== this._searchId) return null;
-        const rawMatchCount = allResults.reduce((total, batch) => total + batch.length, 0);
-        const aggregationStartedAt = Date.now();
-        this.showSmartSearchAggregation(
-            'Combining search results',
-            `${rawMatchCount.toLocaleString()} matches across ${searches.length} searches`,
-        );
 
         // Step 5: Local course search — find top matches from pre-computed
         // course embeddings (title+description). These catch courses the API
@@ -237,14 +229,9 @@ const Search = {
             }
         }
         console.log(`[Semantic] ${deduped.length} total unique (${localAdded} added from local database)`);
-        this.showSmartSearchAggregation(
-            'Ranking combined courses',
-            `${deduped.length.toLocaleString()} unique courses after removing duplicates`,
-        );
 
         // Step 7: Score each result title by embedding similarity to query
         // Batch-embed all titles at once for performance
-        this.setSmartSearchStatus('Ranking the closest courses', 'searching', `Comparing ${deduped.length} possible matches by meaning.`);
         const extractor = await this._loadExtractor();
         const titles = deduped.map(r => r.title || r.name || '').filter(Boolean);
         const titleOutputs = await extractor(titles, { pooling: 'mean', normalize: true });
@@ -285,13 +272,17 @@ const Search = {
         const top = scored.slice(0, 50);
 
         console.log(`[Semantic] ${deduped.length} candidates → ${scored.length} above threshold → top ${top.length}`);
-        const aggregationDelay = 1500 - (Date.now() - aggregationStartedAt);
-        if (aggregationDelay > 0) await new Promise(resolve => setTimeout(resolve, aggregationDelay));
         const searchMetrics = searches.map((term, index) => ({
             term,
             count: new Set(allResults[index].map(result => result.code).filter(Boolean)).size,
         }));
-        return { results: top, expandedTerms, searches: searchMetrics };
+        return {
+            results: top,
+            expandedTerms,
+            searches: searchMetrics,
+            searchResults: allResults,
+            searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
+        };
     },
 
     // Levenshtein edit distance between two strings
@@ -483,15 +474,6 @@ const Search = {
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
         });
-        const smartInput = document.getElementById('smart-keyword-input');
-        smartInput?.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && !event.isComposing) {
-                event.preventDefault();
-                this.doSearch();
-            }
-        });
-        smartInput?.addEventListener('input', () => this.autoSizeSmartInput());
-        document.getElementById('smart-search-submit')?.addEventListener('click', () => this.doSearch());
 
         // Clear button
         const clearBtn = document.getElementById('search-clear');
@@ -499,7 +481,6 @@ const Search = {
             clearBtn.addEventListener('click', () => {
                 const input = this.activeSearchInput();
                 input.value = '';
-                this.autoSizeSmartInput();
                 input.focus();
             });
         }
@@ -527,38 +508,33 @@ const Search = {
             filterPanel.addEventListener('click', event => event.stopPropagation());
             document.addEventListener('click', () => this.closeFilters());
             document.addEventListener('keydown', event => {
-                if (event.key === 'Escape' && !filterPanel.classList.contains('hidden')) this.closeFilters();
+                if (event.key === 'Escape' && !filterPanel.classList.contains('hidden')) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    this.closeFilters();
+                }
             });
         }
 
         filterBackdrop?.addEventListener('click', () => this.closeFilters());
         document.getElementById('btn-close-filters')?.addEventListener('click', () => this.closeFilters());
-        document.getElementById('browse-close-details')?.addEventListener('click', () => this.setBrowseState('results'));
-
-        const smartToggle = document.getElementById('smart-search-toggle');
-        if (smartToggle) {
-            smartToggle.checked = false;
-            localStorage.removeItem('uofsc-smart-search');
-            smartToggle.addEventListener('change', () => {
-                const previousInput = smartToggle.checked
-                    ? document.getElementById('keyword-input')
-                    : document.getElementById('smart-keyword-input');
-                const nextInput = smartToggle.checked
-                    ? document.getElementById('smart-keyword-input')
-                    : document.getElementById('keyword-input');
-                if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
-                this.autoSizeSmartInput();
-                this.setSmartSearchMode(smartToggle.checked);
-                if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
-            });
-            this.setSmartSearchMode(smartToggle.checked);
-        }
+        document.getElementById('browse-close-details')?.addEventListener('click', () => this.closeCourseDetail());
+        document.querySelectorAll('[data-course-tab]').forEach(button => {
+            button.addEventListener('click', () => this.setCourseDetailTab(button.dataset.courseTab, true));
+            button.addEventListener('keydown', event => this.handleCourseTabKeydown(event));
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && this._browseState === 'detail'
+                && document.getElementById('modal-overlay')?.classList.contains('hidden')
+                && document.getElementById('filter-panel')?.classList.contains('hidden')) {
+                this.closeCourseDetail();
+            }
+        });
 
         document.querySelectorAll('[data-search-example]').forEach(button => {
             button.addEventListener('click', () => {
                 const input = this.activeSearchInput();
                 input.value = button.dataset.searchExample || '';
-                this.autoSizeSmartInput();
                 this.doSearch();
             });
         });
@@ -581,76 +557,17 @@ const Search = {
         document.getElementById('btn-clear-filters')?.addEventListener('click', () => this.clearFilters());
         this.setBrowseState('empty');
         this.updateActiveFilterChips();
-        this.startPlaceholderTyping();
+        const preload = () => {
+            if (document.getElementById('filter-ai-search')?.checked) {
+                this.prepareSmartSearch({ background: true }).catch(() => {});
+            }
+        };
+        if (typeof requestIdleCallback === 'function') requestIdleCallback(preload, { timeout: 3500 });
+        else setTimeout(preload, 1500);
     },
 
     activeSearchInput() {
-        return document.getElementById('smart-search-toggle')?.checked
-            ? document.getElementById('smart-keyword-input')
-            : document.getElementById('keyword-input');
-    },
-
-    autoSizeSmartInput() {
-        const input = document.getElementById('smart-keyword-input');
-        if (!input) return;
-        input.style.height = 'auto';
-        input.style.height = `${Math.max(96, input.scrollHeight)}px`;
-    },
-
-    startPlaceholderTyping() {
-        clearTimeout(this._placeholderTimer);
-        this._placeholderIndex = 0;
-        const regularExamples = [
-            'CSCE 145',
-            'CSCE 500+',
-            'CSCE 140–199',
-            'Nursing',
-            'Studio Art',
-            'Political Science',
-            'Mechanical Engineering',
-            'Computer Science',
-            'Electrical Engineering',
-        ];
-        const smartExamples = [
-            'Nursing courses about caring for children',
-            'Art classes focused on digital illustration',
-            'Political science courses about elections',
-            'Mechanical engineering courses about robotics',
-            'Computer science courses about machine learning',
-            'Electrical engineering courses about renewable energy',
-        ];
-        const cycle = () => {
-            const input = this.activeSearchInput();
-            if (!input) return;
-            const examples = document.getElementById('smart-search-toggle')?.checked
-                ? smartExamples
-                : regularExamples;
-            const phrase = examples[this._placeholderIndex % examples.length];
-            let length = 0;
-            let deleting = false;
-            const animate = () => {
-                if (!input.value) input.placeholder = phrase.slice(0, length);
-                if (!deleting && length < phrase.length) {
-                    length += 1;
-                    this._placeholderTimer = setTimeout(animate, 52);
-                    return;
-                }
-                if (!deleting) {
-                    deleting = true;
-                    this._placeholderTimer = setTimeout(animate, 1250);
-                    return;
-                }
-                if (length > 0) {
-                    length -= 1;
-                    this._placeholderTimer = setTimeout(animate, 24);
-                    return;
-                }
-                this._placeholderIndex += 1;
-                this._placeholderTimer = setTimeout(cycle, 250);
-            };
-            animate();
-        };
-        cycle();
+        return document.getElementById('keyword-input');
     },
 
     setBrowseState(state) {
@@ -661,221 +578,48 @@ const Search = {
         workspace.classList.add(`browse-${state}`);
     },
 
-    setSmartSearchMode(enabled) {
-        const workspace = document.getElementById('browse-workspace');
-        const title = document.getElementById('browse-search-title');
-        const description = document.getElementById('browse-search-description');
-        const status = document.getElementById('smart-search-status');
-        workspace?.classList.toggle('smart-search-active', enabled);
-        if (title) title.textContent = enabled ? 'Search courses by meaning' : 'Find your next course';
-        if (description) {
-            description.textContent = enabled
-                ? 'Describe what you want to learn in plain English.'
-                : 'Search by course, subject, CRN, range, or description.';
-        }
-        if (status) status.hidden = true;
-        if (!enabled) workspace?.classList.remove('smart-search-busy');
-        if (enabled && typeof requestAnimationFrame !== 'undefined') {
-            requestAnimationFrame(() => this.autoSizeSmartInput());
-        } else if (enabled) {
-            this.autoSizeSmartInput();
-        }
-        this.startPlaceholderTyping();
-    },
-
-    setSmartSearchStatus(message, mode = 'loading', activity = '') {
-        if (!document.getElementById('smart-search-toggle')?.checked) return;
-        const status = document.getElementById('smart-search-status');
-        const text = document.getElementById('smart-search-status-text');
-        const detail = document.getElementById('smart-search-activity');
-        if (!status || !text || !detail) return;
-        if (mode === 'ready') {
-            this.hideSmartSearchStatus();
-            return;
-        }
-        status.hidden = false;
-        status.dataset.state = mode;
-        if (mode === 'loading') {
-            status.dataset.phase = 'model';
-            const trace = document.getElementById('smart-search-trace');
-            if (trace) trace.hidden = true;
-        }
-        document.getElementById('browse-workspace')?.classList.toggle(
-            'smart-search-busy',
-            mode === 'loading' || mode === 'searching',
-        );
-        text.textContent = message;
-        detail.textContent = activity;
-    },
-
-    resetSmartSearchTrace() {
-        const status = document.getElementById('smart-search-status');
-        const trace = document.getElementById('smart-search-trace');
-        const list = document.getElementById('smart-search-query-list');
-        const aggregate = document.getElementById('smart-search-aggregate');
-        if (status) status.dataset.phase = 'thinking';
-        if (trace) trace.hidden = true;
-        if (list) list.replaceChildren();
-        if (aggregate) aggregate.hidden = true;
-    },
-
-    showSmartSearchQueries(searches) {
-        const status = document.getElementById('smart-search-status');
-        const trace = document.getElementById('smart-search-trace');
-        const list = document.getElementById('smart-search-query-list');
-        const phase = document.getElementById('smart-search-trace-phase');
-        const summary = document.getElementById('smart-search-trace-summary');
-        const aggregate = document.getElementById('smart-search-aggregate');
-        if (!status || !trace || !list || !phase || !summary || !aggregate) return;
-        status.dataset.phase = 'queries';
-        trace.hidden = false;
-        aggregate.hidden = true;
-        phase.textContent = `${searches.length} searches generated`;
-        summary.textContent = `0 of ${searches.length} complete`;
-        list.replaceChildren();
-        searches.forEach((term, index) => {
-            const item = document.createElement('button');
-            item.type = 'button';
-            item.className = 'smart-search-query-item';
-            item.dataset.queryIndex = String(index);
-            item.dataset.state = 'searching';
-            item.disabled = true;
-            item.style.setProperty('--query-delay', `${index * 55}ms`);
-            const label = document.createElement('span');
-            label.textContent = term;
-            const count = document.createElement('strong');
-            count.textContent = 'SEARCHING';
-            item.append(label, count);
-            item.addEventListener('click', () => this.openRegularSearch(term));
-            list.append(item);
-        });
-    },
-
-    updateSmartSearchQuery(index, resultCount) {
-        const list = document.getElementById('smart-search-query-list');
-        const summary = document.getElementById('smart-search-trace-summary');
-        const item = list?.querySelector(`[data-query-index="${index}"]`);
-        if (!list || !summary || !item) return;
-        item.dataset.state = 'complete';
-        item.disabled = false;
-        item.setAttribute('aria-label', `Search regular results for ${item.querySelector('span')?.textContent || 'this term'}`);
-        const count = item.querySelector('strong');
-        if (count) count.textContent = `${resultCount.toLocaleString()} ${resultCount === 1 ? 'RESULT' : 'RESULTS'}`;
-        const completed = list.querySelectorAll('[data-state="complete"]').length;
-        const total = list.children.length;
-        summary.textContent = `${completed} of ${total} complete`;
-    },
 
     openRegularSearch(term) {
-        const smartToggle = document.getElementById('smart-search-toggle');
         const regularInput = document.getElementById('keyword-input');
-        if (!smartToggle || !regularInput) return;
+        if (!regularInput) return;
         this._searchId += 1;
-        smartToggle.checked = false;
         regularInput.value = term;
-        this.setSmartSearchMode(false);
+        this._directSearchOnce = true;
         regularInput.focus();
         this.doSearch();
     },
 
-    showSmartSearchAggregation(title, detail) {
-        const status = document.getElementById('smart-search-status');
-        const trace = document.getElementById('smart-search-trace');
-        const phase = document.getElementById('smart-search-trace-phase');
-        const summary = document.getElementById('smart-search-trace-summary');
-        const aggregate = document.getElementById('smart-search-aggregate');
-        const aggregateTitle = document.getElementById('smart-search-aggregate-title');
-        const aggregateDetail = document.getElementById('smart-search-aggregate-detail');
-        if (!status || !trace || !phase || !summary || !aggregate || !aggregateTitle || !aggregateDetail) return;
-        status.dataset.phase = 'aggregating';
-        trace.hidden = false;
-        phase.textContent = 'Searches complete';
-        summary.textContent = 'Combining matches';
-        aggregate.hidden = false;
-        aggregateTitle.textContent = title;
-        aggregateDetail.textContent = detail;
-    },
-
-    async waitForSmartSearchPhase(startedAt, minimumMs) {
-        const remaining = minimumMs - (Date.now() - startedAt);
-        if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
-    },
-
-    hideSmartSearchStatus() {
-        const status = document.getElementById('smart-search-status');
-        if (status) status.hidden = true;
-        document.getElementById('browse-workspace')?.classList.remove('smart-search-busy');
-    },
-
-    smartDownloadMbps() {
-        const entries = typeof performance !== 'undefined' && performance.getEntriesByType
-            ? performance.getEntriesByType('resource').filter(entry => entry.transferSize > 0 && entry.duration > 0)
-            : [];
-        const recent = entries.slice(-12);
-        const bytes = recent.reduce((sum, entry) => sum + entry.transferSize, 0);
-        const milliseconds = recent.reduce((sum, entry) => sum + entry.duration, 0);
-        const measuredMbps = milliseconds > 0 ? (bytes * 8) / (milliseconds * 1000) : 0;
-        const reportedMbps = typeof navigator !== 'undefined' ? Number(navigator.connection?.downlink) : 0;
-        return measuredMbps > 0 ? measuredMbps : (reportedMbps > 0 ? reportedMbps : 10);
-    },
-
-    estimatedSmartStageMs(bytes, minimumMs = 350, maximumMs = 1800) {
-        const transferMs = (bytes * 8) / (this.smartDownloadMbps() * 1000);
-        return Math.round(Math.min(maximumMs, Math.max(minimumMs, transferMs * 0.15)));
-    },
-
-    async waitForEstimatedSmartStage(startedAt, bytes, minimumMs, maximumMs) {
-        const remaining = this.estimatedSmartStageMs(bytes, minimumMs, maximumMs) - (Date.now() - startedAt);
-        if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
-    },
-
     setSmartModelLoading(active, stage = '') {
-        const input = document.getElementById('smart-keyword-input');
+        const input = document.getElementById('keyword-input');
         const loading = document.getElementById('smart-model-loading');
         const label = document.getElementById('smart-model-loading-stage');
-        const submit = document.getElementById('smart-search-submit');
+        const submit = document.getElementById('btn-search');
         const workspace = document.getElementById('browse-workspace');
         workspace?.classList.toggle('smart-search-busy', active);
         if (label && stage) label.textContent = stage;
         loading?.classList.toggle('hidden', !active);
         if (input) {
             input.disabled = active;
-            input.value = '';
             input.setAttribute('aria-busy', String(active));
         }
         if (submit) submit.disabled = active;
-        document.querySelectorAll?.('.smart-search-examples button').forEach(button => { button.disabled = active; });
         if (!active) {
-            this.autoSizeSmartInput();
-            if (document.getElementById('smart-search-toggle')?.checked) input?.focus();
+            input?.focus();
         }
     },
 
-    async prepareSmartSearch() {
+    async prepareSmartSearch({ background = false } = {}) {
         if (this._extractor && this._phraseData) return true;
         if (this._smartModelPromise) return this._smartModelPromise;
-        this.hideSmartSearchStatus();
         this._smartModelPromise = (async () => {
-            this.setSmartModelLoading(true, 'Loading embedding model');
-            const embeddingStartedAt = Date.now();
-            await this._loadExtractor();
-            await this.waitForEstimatedSmartStage(embeddingStartedAt, 23 * 1024 * 1024, 500, 1800);
-
-            this.setSmartModelLoading(true, 'Loading search model');
-            const searchStartedAt = Date.now();
-            await this._loadPhraseData();
-            await this.waitForEstimatedSmartStage(searchStartedAt, 8 * 1024 * 1024, 450, 1400);
-
-            this.setSmartModelLoading(true, 'Loading semantic model');
-            const semanticStartedAt = Date.now();
+            if (!background) this.setSmartModelLoading(true, 'Preparing meaning-based search');
+            await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
             await this._embedQuery('course search');
-            await this.waitForEstimatedSmartStage(semanticStartedAt, 512 * 1024, 450, 900);
-            this.setSmartModelLoading(false);
+            if (!background) this.setSmartModelLoading(false);
             return true;
         })().catch(error => {
             this._smartModelPromise = null;
-            this.setSmartModelLoading(false);
-            this.setSmartSearchStatus('Could not load Smart Search', 'error', 'Check your connection or use regular search.');
+            if (!background) this.setSmartModelLoading(false);
             throw error;
         });
         return this._smartModelPromise;
@@ -886,11 +630,13 @@ const Search = {
         const backdrop = document.getElementById('filter-backdrop');
         const toggle = document.getElementById('filter-toggle');
         const arrow = document.getElementById('filter-arrow');
+        const wasOpen = Boolean(panel && !panel.classList.contains('hidden'));
         panel?.classList.add('hidden');
         backdrop?.classList.add('hidden');
         document.body?.classList.remove('filter-modal-open');
         arrow?.classList.remove('open');
         toggle?.setAttribute('aria-expanded', 'false');
+        if (wasOpen) requestAnimationFrame(() => toggle?.focus());
     },
 
     activeFilterEntries() {
@@ -907,6 +653,9 @@ const Search = {
         checked('filter-show-all', 'All catalog courses');
         checked('filter-open', 'Open sections');
         checked('filter-eligible', 'Prerequisites met');
+        if (document.getElementById('filter-ai-search')?.checked === false) {
+            entries.push({ ids: ['filter-ai-search'], label: 'Direct search only', restore: true });
+        }
         selected('filter-method', 'Method');
         selected('filter-carolina-core', 'Core');
         selected('filter-part-of-term', 'Term');
@@ -942,7 +691,7 @@ const Search = {
                 entry.ids.forEach(id => {
                     const element = document.getElementById(id);
                     if (!element) return;
-                    if (element.type === 'checkbox') element.checked = false;
+                    if (element.type === 'checkbox') element.checked = Boolean(entry.restore);
                     else element.value = '';
                 });
                 this.updateActiveFilterChips();
@@ -956,6 +705,8 @@ const Search = {
         document.querySelectorAll('#filter-panel input[type="checkbox"]').forEach(input => {
             input.checked = false;
         });
+        const aiToggle = document.getElementById('filter-ai-search');
+        if (aiToggle) aiToggle.checked = true;
         document.querySelectorAll('#filter-panel select').forEach(select => {
             select.selectedIndex = 0;
         });
@@ -979,6 +730,9 @@ const Search = {
         const courseAttribute = document.getElementById('filter-course-attribute').value;
         const honors = document.getElementById('filter-honors').value;
         const meetingPattern = document.getElementById('filter-meeting-pattern').value;
+        const aiAssisted = document.getElementById('filter-ai-search')?.checked !== false;
+        const useDirectSearch = !aiAssisted || this._directSearchOnce || this._semanticFallbackOnce;
+        this._directSearchOnce = false;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
         const levelMode = '';
@@ -1128,8 +882,8 @@ const Search = {
             this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
             return;
 
-        // Plain keyword search unless Smart Search was explicitly enabled
-        } else if (!document.getElementById('smart-search-toggle')?.checked) {
+        // Direct keyword search when meaning-based matching is disabled or bypassed once
+        } else if (useDirectSearch) {
             criteria.push({ field: 'keyword', value: kw });
 
         // Meaning-based search via Transformers.js
@@ -1143,7 +897,6 @@ const Search = {
                 if (!semantic || searchId !== this._searchId) return;
 
                 if (semantic.results.length === 0) {
-                    this.setSmartSearchStatus('No close matches found', 'ready', 'Try describing the topic another way.');
                     this.showHint(`No matching courses found for "${kw}".`);
                     return;
                 }
@@ -1151,7 +904,9 @@ const Search = {
                 let results = semantic.results;
 
                 // Cross-reference ALL results with live term data
-                const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
+                const relatedResults = currentTermOnly ? [] : (semantic.searchResults || []).flat();
+                const subjects = [...new Set([...results, ...relatedResults]
+                    .map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
                 const livePromises = subjects.map(s =>
                     API.searchCourses(State.term, [{ field: 'subject', value: s }])
                         .then(d => d.results || []).catch(() => [])
@@ -1166,7 +921,7 @@ const Search = {
                 }
 
                 results = this.mergeCatalogWithLiveSections(results, liveByCode);
-                results = await this.applySectionFilters(results, {
+                const semanticFilters = {
                     openOnly,
                     instructionalMethod,
                     carolinaCore,
@@ -1178,22 +933,42 @@ const Search = {
                     sizeValue,
                     availMode,
                     availValue,
-                });
+                };
+                results = await this.applySectionFilters(results, semanticFilters);
 
                 if (searchId !== this._searchId) return;
-                const eligibleOnly2 = document.getElementById('filter-eligible').checked;
-                const prereqData = eligibleOnly2 ? await this.loadPrereqsForResults(results) : {};
-                const searchInfo = semantic.searches?.length ? semantic.searches : null;
+                const eligibleOnly2 = eligibleOnly;
+                const relatedBatches = await Promise.all((semantic.searchResults || []).map(batch => {
+                    const candidates = currentTermOnly
+                        ? batch
+                        : this.mergeCatalogWithLiveSections(batch, liveByCode);
+                    return this.applySectionFilters(candidates, semanticFilters);
+                }));
+                if (searchId !== this._searchId) return;
+                const prereqData = eligibleOnly2
+                    ? await this.loadPrereqsForResults([...results, ...relatedBatches.flat()])
+                    : {};
+                if (searchId !== this._searchId) return;
+                const searchInfo = semantic.searches?.length
+                    ? semantic.searches.map((search, index) => {
+                        const matchingCodes = (relatedBatches[index] || [])
+                            .map(result => result.code)
+                            .filter(code => code && (!eligibleOnly2 || this.checkEligibility(code, prereqData).eligible));
+                        return { ...search, count: new Set(matchingCodes).size };
+                    })
+                    : null;
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
-                this.setSmartSearchStatus(
-                    `${new Set(results.map(result => result.code)).size} courses found`,
-                    'ready',
-                    'Results are ranked by how closely their meaning matches your search.',
-                );
             } catch (err) {
+                if (searchId !== this._searchId) return;
+                if (this.activeSearchInput()?.value.trim() !== kw) return;
                 console.error('[Semantic] Error:', err);
-                this.setSmartSearchStatus('Smart Search failed', 'error', 'Try again or turn off Smart Search.');
-                this.showHint('Search failed. Try again.');
+                this._extractorLoading = null;
+                this._smartModelPromise = null;
+                this.setSmartModelLoading(false);
+                this._semanticFallbackNotice = 'Meaning-based matching is unavailable. Showing direct matches.';
+                this._semanticFallbackOnce = true;
+                await this.doSearch();
+                this._semanticFallbackOnce = false;
             }
             return;
         }
@@ -1214,17 +989,24 @@ const Search = {
                 totalCount = data.count || 0;
             } else {
                 // Search the bulletin catalog (all courses, not term-specific)
-                if (!subject) {
-                    this.showHint('Pick a subject to browse the full catalog.');
-                    return;
-                }
-                const bulletinData = await API.bulletinSearch(subject);
+                const bulletinData = subject
+                    ? await API.bulletinSearch(subject)
+                    : await API.post('/api/bulletin/search', {
+                        other: { srcdb: '2026' },
+                        criteria,
+                    });
                 const bulletinCourses = bulletinData.results || [];
 
                 // Also fetch live term data to cross-reference availability
-                const liveCriteria = [{ field: 'subject', value: subject }];
-                const liveData = await API.searchCourses(State.term, liveCriteria);
-                const liveResults = liveData.results || [];
+                const subjects = subject
+                    ? [subject]
+                    : [...new Set(bulletinCourses
+                        .map(course => String(course.code || '').split(' ')[0])
+                        .filter(Boolean))];
+                const liveResults = (await Promise.all(subjects.map(code => API.searchCourses(
+                    State.term,
+                    [{ field: 'subject', value: code }],
+                ).then(data => data.results || []).catch(() => [])))).flat();
 
                 // Build a set of course codes offered this term + their open status
                 const liveByCode = this.buildLiveCourseIndex(liveResults);
@@ -1624,52 +1406,360 @@ const Search = {
         });
     },
 
+    stripHtml(value) {
+        return String(value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    },
+
+    detailLiveSections(group = this._detailGroup) {
+        return (group?.sections || []).filter(section => section.crn && !section._isCatalog);
+    },
+
+    preferredDetailSection(group) {
+        const sections = this.detailLiveSections(group);
+        const locked = String(State.sectionLocks?.[group.code] || '');
+        const applied = String(State.selectedSections?.[group.code]?.crn || '');
+        return sections.find(section => String(section.crn) === locked)
+            || sections.find(section => String(section.crn) === applied)
+            || sections.find(section => section.stat === 'A')
+            || sections[0]
+            || null;
+    },
+
+    closeCourseDetail() {
+        this._detailToken = (this._detailToken || 0) + 1;
+        this.setBrowseState('results');
+        document.querySelectorAll('#search-results .course-group').forEach(card => {
+            card.classList.remove('active');
+            card.removeAttribute('aria-current');
+        });
+        const trigger = this._lastDetailTrigger;
+        requestAnimationFrame(() => {
+            if (trigger?.isConnected) trigger.focus();
+            else document.getElementById('keyword-input')?.focus();
+        });
+    },
+
+    handleCourseTabKeydown(event) {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        const tabs = [...document.querySelectorAll('[data-course-tab]')];
+        const index = tabs.indexOf(event.currentTarget);
+        if (index < 0) return;
+        event.preventDefault();
+        const nextIndex = event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+                ? tabs.length - 1
+                : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        this.setCourseDetailTab(tabs[nextIndex].dataset.courseTab, true);
+    },
+
+    setCourseDetailTab(tab, focus = false) {
+        const allowed = new Set(['overview', 'sections', 'grades', 'history', 'resources']);
+        const active = allowed.has(tab) ? tab : 'overview';
+        this._detailTab = active;
+        document.querySelectorAll('[data-course-tab]').forEach(button => {
+            const selected = button.dataset.courseTab === active;
+            button.setAttribute('aria-selected', String(selected));
+            button.tabIndex = selected ? 0 : -1;
+            if (selected && focus) button.focus();
+        });
+        document.querySelectorAll('[data-course-panel]').forEach(panel => {
+            panel.hidden = panel.dataset.coursePanel !== active;
+        });
+        this.loadCourseDetailTab(active);
+    },
+
+    loadCourseDetailTab(tab) {
+        const code = this._detailGroup?.code;
+        if (!code) return;
+        const loadKey = `${this._detailToken}:${tab}`;
+        if (this._detailLoads[loadKey]) return;
+        this._detailLoads[loadKey] = true;
+        if (tab === 'grades' && typeof Grades !== 'undefined') Grades.loadForCourse(code);
+        if (tab === 'history' && typeof History !== 'undefined') History.loadForCourse(code);
+        if (tab === 'resources') this.renderCourseResources();
+    },
+
+    async hydrateFullDetailGroup(group, token, term) {
+        const subject = String(group.code || '').split(' ')[0];
+        if (!subject) return;
+        try {
+            const data = await API.searchCourses(term, [{ field: 'subject', value: subject }]);
+            if (token !== this._detailToken || term !== this._detailTerm) return;
+            const sections = (data.results || []).filter(section => section.code === group.code);
+            if (!sections.length) return;
+            const viewedCrn = this._detailSectionCrn;
+            this._detailGroup = { ...group, sections };
+            if (!sections.some(section => String(section.crn) === viewedCrn)) {
+                this._detailSectionCrn = String(this.preferredDetailSection(this._detailGroup)?.crn || '');
+            }
+            this.renderCourseDetailHeader(this._detailDetails);
+            this.renderDetailSections();
+            this.selectDetailSection(this._detailSectionCrn, false);
+        } catch (error) {
+            // The filtered result sections remain usable if full-course hydration fails.
+        }
+    },
+
     showCourseDetail(group) {
         const detailsTab = document.getElementById('tab-details');
-        if (!detailsTab) return;
+        if (!detailsTab || !group) return;
+        this._detailToken = (this._detailToken || 0) + 1;
+        const token = this._detailToken;
+        this._detailTerm = State.term;
+        this._detailGroup = group;
+        this._detailDetails = null;
+        this._detailFaculty = [];
+        this._detailSectionData = {};
+        this._detailLoads = {};
+        this._detailSectionCrn = String(this.preferredDetailSection(group)?.crn || '');
+        if (document.activeElement?.closest?.('.course-group')) {
+            this._lastDetailTrigger = document.activeElement.closest('.course-group');
+        }
         this.setBrowseState('detail');
+        document.querySelectorAll('#search-results .course-group').forEach(card => {
+            const selected = card.dataset.courseCode === group.code;
+            card.classList.toggle('active', selected);
+            if (selected) card.setAttribute('aria-current', 'true');
+            else card.removeAttribute('aria-current');
+        });
 
-        const firstSection = group.sections[0];
+        this.renderCourseDetailHeader(null);
+        this.renderDetailSections();
+        this.selectDetailSection(this._detailSectionCrn, false);
+        this.setCourseDetailTab('overview');
+        if (typeof Prereqs !== 'undefined') Prereqs.loadForCourse(group.code);
+        this.hydrateFullDetailGroup(group, token, this._detailTerm);
+        this.fetchBulletinDetailsForCourse(group.code).then(details => {
+            if (token !== this._detailToken) return;
+            this._detailDetails = details || {};
+            this.renderCourseDetailHeader(this._detailDetails);
+            this.renderCourseOverview();
+            this.renderCourseResources();
+        }).catch(() => {
+            if (token === this._detailToken) this.renderCourseDetailHeader({});
+        });
+    },
+
+    renderCourseDetailHeader(details) {
+        const header = document.getElementById('tab-details');
+        const group = this._detailGroup;
+        if (!header || !group) return;
         const availability = this.courseAvailability(group);
-        const unavailable = availability.kind === 'unavailable';
-        const liveSections = group.sections.filter(section => section.crn && !section._isCatalog);
+        const selected = State.isCourseSelected(group.code);
+        const unavailable = availability.kind === 'unavailable' && !selected;
+        const credits = typeof Scheduler !== 'undefined'
+            ? Scheduler.parseCreditHours(details?.hours_html || group.credits || this.detailLiveSections(group)[0]?.hours)
+            : null;
+        const description = this.stripHtml(details?.description);
+        header.innerHTML = `
+            <div class="course-detail-kicker">Course details</div>
+            <div class="course-detail-title-row">
+                <div>
+                    <h1><span>${this.escapeText(group.code)}</span>${this.escapeText(details?.title || group.title || '')}</h1>
+                    <p class="course-detail-availability ${availability.kind}">${availability.text}</p>
+                </div>
+                <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
+            </div>
+            ${description ? `<p class="course-detail-description">${this.escapeText(description)}</p>` : '<p class="course-detail-description loading">Loading course description</p>'}
+            <div class="course-detail-primary-actions">
+                <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
+            </div>
+        `;
+        header.querySelector('#btn-course-toggle')?.addEventListener('click', async () => {
+            if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
+            else await Scheduler.addCourseGroup(this._detailGroup);
+            this.updateCourseSelectionStyles(group.code);
+            this.renderCourseDetailHeader(this._detailDetails || {});
+            const cached = this._detailSectionData?.[this._detailSectionCrn];
+            this.renderSectionSummary(this.currentDetailSection(), cached?.details, cached?.faculty || []);
+        });
+    },
 
-        const actionButton = () => {
-            if (unavailable) {
-                return '<button id="btn-course-toggle" class="btn-course-unavailable" disabled>NOT OFFERED THIS TERM</button>';
-            }
-            const selected = State.isCourseSelected(group.code);
-            return `<button id="btn-course-toggle" class="${selected ? 'btn-danger' : 'btn-green'}">${selected ? 'REMOVE COURSE' : 'ADD COURSE TO SCHEDULE'}</button>`;
-        };
+    renderCourseOverview() {
+        const container = document.getElementById('course-overview-content');
+        if (!container || !this._detailGroup) return;
+        const details = this._detailDetails || {};
+        const attributes = [details.attributes, details.carolina_core, details.course_attributes]
+            .map(value => this.stripHtml(value)).filter(Boolean);
+        container.innerHTML = attributes.length ? `
+            <section class="course-detail-card">
+                <div class="course-detail-card-heading"><h2>Course attributes</h2></div>
+                <p>${this.escapeText(attributes.join(' · '))}</p>
+            </section>
+        ` : '';
+    },
 
-        const bindAction = () => {
-            document.getElementById('btn-course-toggle')?.addEventListener('click', async () => {
-                if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
-                else await Scheduler.addCourseGroup(group);
-                this.updateCourseSelectionStyles(group.code);
-                this.showCourseDetail(group);
-            });
-        };
+    currentDetailSection() {
+        return this.detailLiveSections().find(section => String(section.crn) === String(this._detailSectionCrn)) || null;
+    },
 
-        const render = details => {
-            const desc = (details?.description || '').replace(/<[^>]+>/g, ' ').trim();
-            detailsTab.innerHTML = `
-                <h3>${group.code} - ${details?.title || group.title}</h3>
-                <p class="course-detail-availability ${availability.kind}">${availability.text}</p>
-                ${details ? `<p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>` : ''}
-                <p><strong>Sections this term:</strong> ${liveSections.length}</p>
-                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
-                <div class="section-actions">${actionButton()}</div>
-                ${details === null ? '<p class="loading">Loading details</p>' : ''}
-            `;
-            bindAction();
-        };
+    renderDetailSections() {
+        const group = this._detailGroup;
+        if (!group) return;
+        const sections = this.detailLiveSections(group);
+        const wrap = document.getElementById('course-section-picker-wrap');
+        const picker = document.getElementById('course-section-picker');
+        const count = document.getElementById('course-section-picker-count');
+        const panel = document.getElementById('course-sections-panel');
+        if (!wrap || !picker || !panel) return;
+        wrap.hidden = sections.length === 0;
+        if (count) count.textContent = `${sections.length} this term`;
+        if (!sections.length) {
+            panel.innerHTML = '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
+            return;
+        }
+        picker.innerHTML = sections.map(section => `
+            <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}">
+                <span><i aria-hidden="true"></i>Section ${this.escapeText(section.section || '—')}</span>
+                <small>${this.escapeText(section.meets || 'Time TBA')}</small>
+            </button>
+        `).join('');
+        panel.innerHTML = `
+            <div class="course-sections-comparison">
+                ${sections.map(section => `
+                    <button type="button" class="course-section-card ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}">
+                        <span class="course-section-card-title"><strong>Section ${this.escapeText(section.section || '—')}</strong><em>${section.stat === 'A' ? 'Open' : 'Full'}</em></span>
+                        <span>${this.escapeText(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA')}</span>
+                        <span>${this.escapeText(section.meets || 'Time TBA')}</span>
+                        <small>CRN ${this.escapeText(section.crn)}</small>
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        picker.querySelectorAll('[data-detail-crn]').forEach(button => {
+            button.addEventListener('click', () => this.selectDetailSection(button.dataset.detailCrn));
+        });
+        panel.querySelectorAll('[data-detail-crn]').forEach(button => {
+            button.addEventListener('click', () => this.selectDetailSection(button.dataset.detailCrn, false));
+        });
+    },
 
-        render(null);
-        if (!firstSection) return;
-        this.fetchBulletinDetailsForCourse(group.code)
-            .then(details => render(details || {}))
-            .catch(() => detailsTab.querySelector('.loading')?.remove());
+    selectDetailSection(crn, focusPicker = true) {
+        const section = this.detailLiveSections().find(item => String(item.crn) === String(crn))
+            || this.preferredDetailSection(this._detailGroup);
+        this._detailSectionCrn = String(section?.crn || '');
+        this._detailFaculty = [];
+        document.querySelectorAll('[data-detail-crn]').forEach(button => {
+            const selected = String(button.dataset.detailCrn) === this._detailSectionCrn;
+            button.setAttribute('aria-pressed', String(selected));
+            button.classList.toggle('selected', selected);
+        });
+        this.renderSectionSummary(section);
+        this.renderCourseResources();
+        this.refreshDetailGrades();
+        if (focusPicker) document.querySelector(`#course-section-picker [data-detail-crn="${this._detailSectionCrn}"]`)?.focus();
+        if (!section) return;
+        const request = (this._sectionDetailToken || 0) + 1;
+        this._sectionDetailToken = request;
+        const term = this._detailTerm;
+        Promise.allSettled([
+            API.getDetails(section.crn, term),
+            this.loadSectionFaculty(section, term),
+        ]).then(([detailsResult, facultyResult]) => {
+            if (request !== this._sectionDetailToken || String(section.crn) !== this._detailSectionCrn) return;
+            const details = detailsResult.status === 'fulfilled' ? detailsResult.value : null;
+            const faculty = facultyResult.status === 'fulfilled' ? facultyResult.value : [];
+            this._detailSectionData[this._detailSectionCrn] = { details, faculty };
+            this._detailFaculty = faculty;
+            this.renderSectionSummary(section, details, faculty);
+            this.renderCourseResources(section, faculty);
+            this.refreshDetailGrades();
+        });
+    },
+
+    refreshDetailGrades() {
+        if (this._detailTab !== 'grades' || typeof Grades === 'undefined') return;
+        const code = this._detailGroup?.code;
+        const data = Grades._courseCache?.[code];
+        const container = document.getElementById('grades-container');
+        if (data && container) Grades.renderCourse(container, data);
+    },
+
+    async loadSectionFaculty(section, term) {
+        const key = `${term}:${section.crn}`;
+        if (!this._facultyCache[key]) {
+            this._facultyCache[key] = API.getFaculty(term, [section.crn])
+                .then(data => data.faculty || []).catch(() => []);
+        }
+        return this._facultyCache[key];
+    },
+
+    renderSectionSummary(section, details = null, faculty = []) {
+        const container = document.getElementById('course-section-summary');
+        const group = this._detailGroup;
+        if (!container || !group || !section) {
+            if (container) container.innerHTML = '';
+            return;
+        }
+        const meeting = this.parseMeetingHtml(details?.meeting_html || '');
+        const times = meeting.times.length ? meeting.times.join('; ') : (section.meets || 'TBA');
+        const locations = meeting.locations.length ? meeting.locations.join('; ') : 'TBA';
+        const seatsAvailable = String(details?.seats || '').match(/seats_avail[^>]*>(\d+)/)?.[1];
+        const seatsMax = String(details?.seats || '').match(/seats_max[^>]*>(\d+)/)?.[1];
+        const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
+        const instructorName = primaryFaculty?.name
+            || (section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA');
+        const locked = String(State.sectionLocks?.[group.code] || '') === String(section.crn);
+        const courseSelected = State.isCourseSelected(group.code);
+        const actionLabel = locked
+            ? 'USE ANY OPEN SECTION'
+            : courseSelected
+                ? 'USE THIS SECTION'
+                : 'ADD COURSE AND USE THIS SECTION';
+        const fullNotice = section.stat === 'A' ? '' : '<p class="course-section-full-note">Full section. You can still use it for planning.</p>';
+        container.innerHTML = `
+            <div class="course-section-summary-heading">
+                <div><span>Viewing</span><strong>Section ${this.escapeText(section.section || '—')}</strong></div>
+                <span class="course-section-status ${section.stat === 'A' ? 'open' : 'full'}">${section.stat === 'A' ? 'Open' : 'Full'}</span>
+            </div>
+            <div class="course-section-facts">
+                <div><span>Instructor</span>${instructorName === 'Instructor TBA'
+                    ? `<strong>${instructorName}</strong>`
+                    : `<button type="button" id="btn-section-professor">${this.escapeText(instructorName)}</button>${primaryFaculty?.email ? `<a href="mailto:${this.escapeText(primaryFaculty.email)}">${this.escapeText(primaryFaculty.email)}</a>` : ''}`}</div>
+                <div><span>Meeting</span><strong>${this.escapeText(times)}</strong></div>
+                <div><span>Location</span><strong>${this.escapeText(locations)}</strong></div>
+                <div><span>Seats</span><strong>${seatsAvailable !== undefined ? `${seatsAvailable} of ${seatsMax || '—'} available` : (section.stat === 'A' ? 'Available' : 'Full')}</strong></div>
+                <div><span>CRN</span><strong>${this.escapeText(section.crn)}</strong></div>
+                <div><span>Method</span><strong>${this.escapeText(details?.inst_mthd || section.inst_mthd || 'Not listed')}</strong></div>
+            </div>
+            ${fullNotice}
+            <div class="course-section-actions">
+                <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}">${actionLabel}</button>
+                <button id="btn-view-schedule" type="button" class="btn-secondary">VIEW SCHEDULE</button>
+            </div>
+        `;
+        container.querySelector('#btn-use-detail-section')?.addEventListener('click', async () => {
+            if (!State.isCourseSelected(group.code)) await Scheduler.addCourseGroup(this._detailGroup);
+            State.setSectionLock(group.code, locked ? null : section.crn);
+            this.updateCourseSelectionStyles(group.code);
+            this.renderCourseDetailHeader(this._detailDetails || {});
+            this.renderSectionSummary(section, details, faculty);
+        });
+        container.querySelector('#btn-view-schedule')?.addEventListener('click', () => Tabs.switchTo('schedule'));
+        container.querySelector('#btn-section-professor')?.addEventListener('click', () => {
+            if (typeof Grades !== 'undefined') Grades.showProfessorForCourseName(group.code, instructorName, primaryFaculty?.email || '');
+        });
+    },
+
+    renderCourseResources(section = this.currentDetailSection(), faculty = this._detailFaculty || []) {
+        const container = document.getElementById('course-resource-links');
+        const group = this._detailGroup;
+        if (!container || !group) return;
+        const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
+        const professor = primaryFaculty?.name || (section?.instr && section.instr !== 'Staff' ? section.instr : '');
+        const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina`);
+        const professorQuery = encodeURIComponent(`${professor} University of South Carolina`);
+        container.innerHTML = `
+            <div class="course-resource-intro"><h2>Course resources</h2><p>Official course information and useful searches open in a new tab.</p></div>
+            <div class="course-resource-grid">
+                <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/" target="_blank" rel="noopener noreferrer"><strong>Academic bulletin</strong><span>Official description and requirements</span></a>
+                <a href="https://www.uscbookstore.com/" target="_blank" rel="noopener noreferrer"><strong>USC Bookstore</strong><span>Find assigned course materials</span></a>
+                <a href="https://www.google.com/search?q=${query}%20syllabus%20site%3Asc.edu" target="_blank" rel="noopener noreferrer"><strong>Find a syllabus</strong><span>Search university pages for this course</span></a>
+                <a href="https://www.google.com/search?q=${query}%20course%20reviews" target="_blank" rel="noopener noreferrer"><strong>Course reviews</strong><span>Search independent course feedback</span></a>
+                ${professor ? `<a href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer"><strong>Professor reviews</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
+            </div>
+        `;
     },
 
     escapeText(value) {
@@ -1732,9 +1822,11 @@ const Search = {
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
         this.setBrowseState('results');
+        const fallbackNotice = this._semanticFallbackNotice;
+        this._semanticFallbackNotice = '';
 
         if (results.length === 0) {
-            container.innerHTML = '<p class="hint">No results found.</p>';
+            container.innerHTML = `${fallbackNotice ? `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>` : ''}<p class="hint">No results found.</p>`;
             return;
         }
 
@@ -1771,8 +1863,13 @@ const Search = {
 
         State.courseGroups = groupList;
 
-        // Header with search info
-        let header = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
+        // Header with compact search information
+        const courseLabel = groupList.length === 1 ? 'course' : 'courses';
+        const sectionLabel = count === 1 ? 'section' : 'sections';
+        let header = `<div class="browse-results-summary"><strong>${groupList.length} ${courseLabel}</strong><span>${count} total ${sectionLabel}</span></div>`;
+        if (fallbackNotice) {
+            header += `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>`;
+        }
         if (searchTerms && searchTerms.length) {
             const expandedTags = searchTerms.map((search, index) => {
                 const term = typeof search === 'string' ? search : search.term;
@@ -1780,12 +1877,13 @@ const Search = {
                 const countLabel = Number.isFinite(resultCount)
                     ? `${resultCount.toLocaleString()} ${resultCount === 1 ? 'course' : 'courses'}`
                     : '';
-                return `<button type="button" class="semantic-search-term" data-regular-search-index="${index}" data-result-count="${resultCount || 0}"><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
+                const disabled = Number.isFinite(resultCount) && resultCount === 0 ? ' disabled' : '';
+                return `<button type="button" class="semantic-search-term" data-regular-search-index="${index}" data-result-count="${resultCount || 0}"${disabled}><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
             }).join(' ');
             header += `
                 <div class="semantic-search-terms">
                     <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
-                        <span>Generated searches</span><strong>${searchTerms.length}</strong><i aria-hidden="true">&#9660;</i>
+                        <span><b>Related searches</b><small>Select a phrase to view its direct matches.</small></span><strong>${searchTerms.length} terms</strong><i aria-hidden="true">&#9660;</i>
                     </button>
                     <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
                 </div>`;
@@ -1810,6 +1908,9 @@ const Search = {
             const div = document.createElement('div');
             div.className = 'course-group';
             div.dataset.courseCode = group.code;
+            div.tabIndex = 0;
+            div.setAttribute('role', 'button');
+            div.setAttribute('aria-label', `View details for ${group.code} ${group.title || ''}`);
             const availability = this.courseAvailability(group);
             const liveSections = group.sections.filter(section => !section._isCatalog);
             const instructors = new Set(liveSections
@@ -1838,66 +1939,20 @@ const Search = {
                     <div class="course-result-meta">${sectionLabel} · ${instructorLabel}</div>
                 </div>
                 <div class="course-result-summary"><p class="course-result-description loading">Loading course summary</p></div>
-                <div class="course-sections"></div>
             `;
 
-            const header = div.querySelector('.course-header');
             const summary = div.querySelector('.course-result-summary');
-            const sectionsDiv = div.querySelector('.course-sections');
             div.classList.toggle('course-added', State.isCourseSelected(group.code));
 
-            header.addEventListener('click', () => {
-                // Collapse all other course sections and remove active highlight
-                const isExpanding = !sectionsDiv.classList.contains('expanded');
-                document.querySelectorAll('#search-results .course-group.active').forEach(g => g.classList.remove('active'));
-                document.querySelectorAll('#search-results .course-sections.expanded').forEach(s => {
-                    if (s !== sectionsDiv) s.classList.remove('expanded');
-                });
-                sectionsDiv.classList.toggle('expanded', isExpanding);
-                div.classList.toggle('active', isExpanding);
-                // Load course info using the first section's data
-                const firstSec = group.sections[0];
-                if (firstSec) {
-                    if (typeof Prereqs !== 'undefined' && Prereqs.loadForCourse) {
-                        Prereqs.loadForCourse(firstSec.code);
-                    }
-                    if (typeof History !== 'undefined' && History.loadForCourse) {
-                        History.loadForCourse(firstSec.code);
-                    }
-                    if (typeof Grades !== 'undefined' && Grades.loadForCourse) {
-                        Grades.loadForCourse(firstSec.code);
-                    }
-                    this.showCourseDetail(group);
-                }
-            });
-
-            group.sections.forEach(sec => {
-                const row = document.createElement('div');
-                row.className = 'section-row';
-                const statusDot = sec._isCatalog
-                    ? '<span style="color:#5C5C5C;font-weight:700">&#9679;</span>'
-                    : sec.stat === 'A'
-                    ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
-                    : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
-                row.innerHTML = `
-                    <span class="sec-status">${statusDot}</span>
-                    <span class="sec-id">${sec.section}</span>
-                    <span class="sec-instr">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</span>
-                    <span class="sec-time">${sec.meets || 'TBA'}</span>
-                `;
-
-                // Clicking the row shows details in the main content panel
-                row.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    // Clear all viewing highlights across all course groups
-                    document.querySelectorAll('#search-results .section-row.viewing').forEach(r => r.classList.remove('viewing'));
-                    row.classList.add('viewing');
-                    // Show section details while keeping schedule selection course-level
-                    if (sec._isCatalog) Search.showCourseDetail(group);
-                    else Search.showSectionDetail(sec);
-                });
-                row.dataset.crn = sec.crn;
-                sectionsDiv.appendChild(row);
+            const openDetail = () => {
+                this._lastDetailTrigger = div;
+                this.showCourseDetail(group);
+            };
+            div.addEventListener('click', openDetail);
+            div.addEventListener('keydown', event => {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+                event.preventDefault();
+                openDetail();
             });
 
             container.appendChild(div);
@@ -1906,88 +1961,14 @@ const Search = {
     },
 
     showSectionDetail(sec) {
-        const detailsTab = document.getElementById('tab-details');
-        if (!detailsTab) return;
-        this.setBrowseState('detail');
-
         const group = (State.courseGroups || []).find(item => item.code === sec.code) || {
             code: sec.code,
             title: sec.title,
             sections: [sec],
         };
-
-        const bindActions = () => {
-            document.getElementById('btn-course-toggle')?.addEventListener('click', async () => {
-                const thisSectionIsSelected = State.isCourseSelected(sec.code)
-                    && String(State.sectionLocks?.[sec.code] || '') === String(sec.crn);
-                if (thisSectionIsSelected) {
-                    State.removeCourse(sec.code);
-                } else {
-                    if (!State.isCourseSelected(sec.code)) await Scheduler.addCourseGroup(group);
-                    State.setSectionLock(sec.code, sec.crn);
-                }
-                this.showSectionDetail(sec);
-            });
-            document.getElementById('btn-view-schedule')?.addEventListener('click', () => {
-                if (typeof Tabs !== 'undefined') Tabs.switchTo('schedule');
-            });
-        };
-
-        const courseButton = () => {
-            const thisSectionIsSelected = State.isCourseSelected(sec.code)
-                && String(State.sectionLocks?.[sec.code] || '') === String(sec.crn);
-            return `<button id="btn-course-toggle" class="${thisSectionIsSelected ? 'btn-danger' : 'btn-green'}" style="margin-top:10px">${thisSectionIsSelected ? 'REMOVE SECTION FROM SCHEDULE' : 'ADD SECTION TO SCHEDULE'}</button>`;
-        };
-
-        detailsTab.innerHTML = `
-            <h3>${sec.code} - ${sec.title}</h3>
-            <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
-            <p><strong>Instructor:</strong> ${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</p>
-            <p><strong>Meets:</strong> ${sec.meets || 'TBA'}</p>
-            <p><strong>Method:</strong> ${sec.inst_mthd || 'N/A'}</p>
-            <p><strong>Status:</strong> ${sec.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
-            <div class="section-actions">
-                ${courseButton()}
-                <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
-            </div>
-            <p class="hint">This section will be used in every generated schedule.</p>
-            <p class="loading">Loading details</p>
-        `;
-        bindActions();
-
-        // Fetch full details
-        API.getDetails(sec.crn, State.term).then(data => {
-            const seatsMatch = (data.seats || '').match(/seats_avail[^>]*>(\d+)/);
-            const maxMatch = (data.seats || '').match(/seats_max[^>]*>(\d+)/);
-            const seats = seatsMatch ? seatsMatch[1] : '?';
-            const max = maxMatch ? maxMatch[1] : '?';
-            const desc = (data.description || '').replace(/<[^>]+>/g, ' ').trim();
-            const meeting = this.parseMeetingHtml(data.meeting_html);
-            const timesStr = meeting.times.length > 0 ? meeting.times.join('; ') : (sec.meets || 'TBA');
-            const locsStr = meeting.locations.length > 0 ? meeting.locations.join('; ') : 'TBA';
-            const locLabel = meeting.locations.length > 1 ? 'Locations' : 'Location';
-
-            detailsTab.innerHTML = `
-                <h3>${sec.code} - ${sec.title}</h3>
-                <p><strong>Section:</strong> ${sec.section} (CRN: ${sec.crn})</p>
-                <p><strong>Instructor:</strong> ${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</p>
-                <p><strong>Class Times:</strong> ${timesStr}</p>
-                <p><strong>${locLabel}:</strong> ${locsStr}</p>
-                <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
-                <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>
-                <p><strong>Method:</strong> ${data.inst_mthd || sec.inst_mthd || 'N/A'}</p>
-                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
-                ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}
-                <div class="section-actions">
-                    ${courseButton()}
-                    <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
-                </div>
-                <p class="hint">This section will be used in every generated schedule.</p>
-            `;
-            bindActions();
-        }).catch(() => {
-            detailsTab.querySelector('.loading')?.remove();
-        });
+        if (this._detailGroup?.code !== sec.code) this.showCourseDetail(group);
+        this.selectDetailSection(sec.crn);
+        this.setCourseDetailTab('sections');
     },
 
     parseMeetingHtml(meetingHtml) {

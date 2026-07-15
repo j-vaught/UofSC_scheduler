@@ -1,16 +1,19 @@
 /* Prerequisite chain visualization */
 const Prereqs = {
     _cache: {},
+    _loadId: 0,
 
     async loadForCourse(courseCode) {
         const container = document.getElementById('prereq-container');
         if (!container) return;
+        const loadId = ++this._loadId;
         container.innerHTML = '<p class="loading">Loading prerequisites</p>';
 
         const subject = courseCode.split(' ')[0];
         try {
             // Get all courses in the subject from bulletin
             const search = await API.bulletinSearch(subject);
+            if (loadId !== this._loadId) return;
             const courses = search.results || [];
 
             // Find the target course
@@ -22,6 +25,7 @@ const Prereqs = {
 
             // Get details for the target course
             const details = await API.bulletinDetails(target.key);
+            if (loadId !== this._loadId) return;
             const prereqHtml = details.prereq || '';
             const coreqHtml = details.corequisite || details.prerequisite_or_corequisite || '';
 
@@ -33,19 +37,18 @@ const Prereqs = {
             // Build display
             const completed = new Set(State.completedCourses);
 
-            let html = `<h3>${courseCode} - ${details.title || ''}</h3>`;
-            html += `<p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>`;
+            let html = '';
 
             if (prereqHtml) {
                 const cleanPrereq = prereqHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-                html += `<p><strong>Prerequisites:</strong> ${cleanPrereq}</p>`;
+                html += `<p class="prereq-requirement"><strong>Required before this course</strong><span>${cleanPrereq}</span></p>`;
             } else {
-                html += `<p><strong>Prerequisites:</strong> None listed</p>`;
+                html += '<p class="hint">No prerequisites are listed for this course.</p>';
             }
 
             if (coreqHtml) {
                 const cleanCoreq = coreqHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-                html += `<p><strong>Corequisites:</strong> ${cleanCoreq}</p>`;
+                html += `<p class="prereq-requirement"><strong>Take alongside this course</strong><span>${cleanCoreq}</span></p>`;
             }
 
             if (prereqGroups.length > 0) {
@@ -96,6 +99,7 @@ const Prereqs = {
             html += this.renderGraph(courseCode, allPrereqCodes, coreqCodes, completed);
             html += '</div>';
 
+            if (loadId !== this._loadId) return;
             container.innerHTML = html;
 
             // Bind clickable prereq links
@@ -120,35 +124,29 @@ const Prereqs = {
         }
     },
 
-    navigateToCourse(courseCode) {
-        // Clear course details and reload for the clicked prereq course
-        const detailsTab = document.getElementById('tab-details');
-        if (detailsTab) {
-            detailsTab.innerHTML = `<p class="loading">Loading ${courseCode}</p>`;
-        }
-
-        // Load prereqs, history, and bulletin details for the new course
-        this.loadForCourse(courseCode);
-        if (typeof History !== 'undefined' && History.loadForCourse) {
-            History.loadForCourse(courseCode);
-        }
-
-        // Fetch bulletin details to populate the course info panel
+    async navigateToCourse(courseCode) {
         const subject = courseCode.split(' ')[0];
-        API.bulletinSearch(subject).then(search => {
-            const courses = search.results || [];
-            const target = courses.find(c => c.code === courseCode);
-            if (!target || !detailsTab) return;
-            API.bulletinDetails(target.key).then(details => {
-                const desc = (details.description || '').replace(/<[^>]+>/g, ' ').trim();
-                detailsTab.innerHTML = `
-                    <h3>${courseCode} - ${details.title || ''}</h3>
-                    <p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>
-                    ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 300)}${desc.length > 300 ? '...' : ''}</p>` : ''}
-                    <p class="hint" style="margin-top:8px">Viewing from prerequisite chain. Search and select a section for full details.</p>
-                `;
+        try {
+            const [live, bulletin] = await Promise.all([
+                API.searchCourses(State.term, [{ field: 'subject', value: subject }]),
+                API.bulletinSearch(subject),
+            ]);
+            const sections = (live.results || []).filter(section => section.code === courseCode);
+            const catalog = (bulletin.results || []).find(course => course.code === courseCode);
+            if (!sections.length && !catalog) return;
+            Search.showCourseDetail({
+                code: courseCode,
+                title: sections[0]?.title || catalog?.title || courseCode,
+                sections: sections.length ? sections : [{
+                    code: courseCode,
+                    title: catalog?.title || courseCode,
+                    key: catalog?.key,
+                    _isCatalog: true,
+                }],
             });
-        }).catch(() => {});
+        } catch (error) {
+            // Keep the current course visible if navigation cannot be completed.
+        }
     },
 
     parseCourseCodes(html) {
