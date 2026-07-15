@@ -410,6 +410,20 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 
+test('registration info unlocks for selected sections and links to the CRN cart', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(html, /id="btn-registration-info"[^>]*disabled>REGISTRATION INFO/);
+    assert.match(source, /button\.disabled = this\.registrationSections\(\)\.length === 0;/);
+    assert.match(source, /id="btn-copy-registration-crns"/);
+    assert.match(source, /sections\.map\(section => section\.crn\)/);
+    assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#/);
+    assert.match(styles, /\.btn-panel-registration\s*{[^}]*margin-left:\s*auto;/s);
+    assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
+});
+
 test('course results remain visible with useful empty states', () => {
     const results = { innerHTML: '', querySelector: () => null };
     const input = { value: '' };

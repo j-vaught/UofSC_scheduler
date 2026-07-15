@@ -1012,7 +1012,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     padding: 8px 10px;
 }
 .btn-panel-primary,
-.btn-panel-secondary {
+.btn-panel-secondary,
+.btn-panel-registration {
     border: 2px solid #000000;
     border-radius: 0;
     cursor: pointer;
@@ -1041,6 +1042,24 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     background: #ECECEC;
     outline: 2px solid #000000;
     outline-offset: 1px;
+}
+.btn-panel-registration {
+    background: #2e7d32;
+    color: #FFFFFF;
+    margin-left: auto;
+}
+.btn-panel-registration:hover,
+.btn-panel-registration:focus-visible {
+    background: #1F414D;
+    outline: 2px solid #000000;
+    outline-offset: 1px;
+}
+.btn-panel-registration:disabled {
+    background: #C7C7C7;
+    border-color: #A2A2A2;
+    color: #5C5C5C;
+    cursor: not-allowed;
+    outline: none;
 }
 #solver-container {
     flex: 1 1 auto;
@@ -1815,6 +1834,126 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 #modal-content h2 { font-size: 1rem; color: #73000A; font-weight: 700; margin-bottom: 8px; }
 #modal-content p, #modal-content div { font-size: 0.85rem; margin-bottom: 6px; }
 .seats-info { color: #2e7d32; font-weight: 700; }
+
+/* === Registration info === */
+.registration-info-modal { padding: 20px; }
+.registration-info-modal #modal-close {
+    align-items: center;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    line-height: 1;
+    right: 14px;
+    top: 14px;
+    width: 32px;
+}
+.registration-dialog { margin: -20px; }
+.registration-dialog-header {
+    background: #000000;
+    color: #FFFFFF;
+    padding: 18px 54px 17px 20px;
+}
+.registration-dialog-header > span {
+    color: #CED318;
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+#modal-content .registration-dialog-header h2 {
+    color: #FFFFFF;
+    font-size: 1.35rem;
+    margin: 2px 0 3px;
+}
+#modal-content .registration-dialog-header p {
+    color: #C7C7C7;
+    font-size: 0.76rem;
+    margin: 0;
+}
+.registration-instructions {
+    background: #FFF2E3;
+    border-bottom: 1px solid #A49137;
+    color: #363636;
+    line-height: 1.4;
+    margin: 0 !important;
+    padding: 11px 20px;
+}
+.registration-course-list {
+    display: grid;
+    gap: 7px;
+    margin: 0 !important;
+    padding: 14px 20px 8px;
+}
+.registration-course-row {
+    align-items: center;
+    border: 1px solid #A2A2A2;
+    border-left: 5px solid #73000A;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    padding: 9px 11px;
+}
+.registration-course-copy { min-width: 0; }
+.registration-course-copy strong,
+.registration-course-copy span { display: block; }
+.registration-course-copy strong { color: #73000A; font-size: 0.85rem; }
+.registration-course-copy span {
+    color: #5C5C5C;
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.registration-section-number,
+.registration-crn { min-width: 58px; text-align: center; }
+.registration-section-number span,
+.registration-crn span {
+    color: #5C5C5C;
+    display: block;
+    font-size: 0.56rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+.registration-section-number strong,
+.registration-crn strong { color: #000000; font-size: 0.86rem; }
+.registration-copy-status {
+    color: #1F414D;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    min-height: 1em;
+    padding: 0 20px;
+}
+.registration-dialog-actions {
+    background: #ECECEC;
+    border-top: 2px solid #000000;
+    display: flex;
+    gap: 8px;
+    margin: 4px 0 0 !important;
+    padding: 11px 20px;
+}
+.registration-dialog-actions button,
+.registration-onecarolina-link {
+    align-items: center;
+    border: 2px solid #000000;
+    display: inline-flex;
+    font-size: 0.72rem;
+    font-weight: 800;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 12px;
+    text-decoration: none;
+}
+.registration-onecarolina-link { background: #FFFFFF; color: #000000; }
+.registration-onecarolina-link:hover,
+.registration-onecarolina-link:focus-visible { background: #363636; color: #FFFFFF; }
+
+@media (max-width: 620px) {
+    .registration-course-row { grid-template-columns: minmax(0, 1fr) auto; }
+    .registration-section-number { display: none; }
+    .registration-dialog-actions { flex-direction: column; }
+}
 
 /* === Schedule course quick view === */
 #modal.course-quick-modal {

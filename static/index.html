@@ -444,6 +444,7 @@
                             <div class="schedule-panel-actions">
                                 <button id="btn-solve" class="btn-panel-primary" type="button">GENERATE SCHEDULES</button>
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary" type="button">PREFERENCES</button>
+                                <button id="btn-registration-info" class="btn-panel-registration" type="button" disabled>REGISTRATION INFO</button>
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
@@ -714,12 +715,12 @@
         // Modal
         document.getElementById('modal-close').addEventListener('click', () => {
             document.getElementById('modal-overlay').classList.add('hidden');
-            document.getElementById('modal').classList.remove('course-quick-modal');
+            document.getElementById('modal').classList.remove('course-quick-modal', 'registration-info-modal');
         });
         document.getElementById('modal-overlay').addEventListener('click', (e) => {
             if (e.target === e.currentTarget) {
                 e.currentTarget.classList.add('hidden');
-                document.getElementById('modal').classList.remove('course-quick-modal');
+                document.getElementById('modal').classList.remove('course-quick-modal', 'registration-info-modal');
             }
         });
     });

@@ -7,6 +7,7 @@ const Scheduler = {
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
         document.getElementById('btn-schedule-preferences').addEventListener('click', () => this.openSchedulePreferences());
+        document.getElementById('btn-registration-info').addEventListener('click', () => this.openRegistrationInfo());
         document.getElementById('btn-search-schedule-courses').addEventListener('click', () => this.searchFromInput());
         document.getElementById('schedule-course-input').addEventListener('keydown', event => {
             if (event.key === 'Enter') this.searchFromInput();
@@ -16,12 +17,115 @@ const Scheduler = {
             this.renderCourseSearchResults();
         });
         State.on('section-locks-changed', () => this.clearResults());
-        State.on('sections-changed', () => this.refreshAppliedResultState());
+        State.on('sections-changed', () => {
+            this.refreshAppliedResultState();
+            this.updateRegistrationButton();
+        });
         State.on('preferences-changed', () => this.clearResults());
         this.renderCourseSearchResults();
         this.initCourseDivider();
         this.initVerticalResizer();
         this.initScheduleScrollPreview();
+        this.updateRegistrationButton();
+    },
+
+    registrationSections() {
+        return Object.entries(State.selectedSections || {})
+            .map(([code, section]) => ({ code, ...section, crn: String(section.crn || '').trim() }))
+            .filter(section => section.crn);
+    },
+
+    updateRegistrationButton() {
+        const button = document.getElementById('btn-registration-info');
+        if (!button) return;
+        button.disabled = this.registrationSections().length === 0;
+    },
+
+    async copyRegistrationCrns(crns, button, status) {
+        const text = crns.join('\n');
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                const input = document.createElement('textarea');
+                input.value = text;
+                input.setAttribute('readonly', '');
+                input.style.position = 'fixed';
+                input.style.opacity = '0';
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                input.remove();
+            }
+            button.textContent = 'COPIED';
+            status.textContent = `${crns.length} CRN${crns.length === 1 ? '' : 's'} copied to your clipboard.`;
+        } catch (error) {
+            button.textContent = 'COPY CRNs';
+            status.textContent = 'Copying was blocked by the browser. Select the CRNs above and copy them manually.';
+        }
+    },
+
+    openRegistrationInfo() {
+        const sections = this.registrationSections();
+        if (sections.length === 0) return;
+
+        const overlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+        const content = document.getElementById('modal-content');
+        if (!overlay || !modal || !content) return;
+        modal.classList.remove('course-quick-modal');
+        modal.classList.add('registration-info-modal');
+
+        const termSelect = document.getElementById('term-select');
+        const termLabel = termSelect?.selectedOptions?.[0]?.textContent?.trim() || 'Selected term';
+        const rows = sections.map(section => `
+            <article class="registration-course-row">
+                <div class="registration-course-copy">
+                    <strong>${this.escapeHtml(section.code)}</strong>
+                    <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
+                </div>
+                <div class="registration-section-number">
+                    <span>SECTION</span>
+                    <strong>${this.escapeHtml(section.section || '—')}</strong>
+                </div>
+                <div class="registration-crn">
+                    <span>CRN</span>
+                    <strong>${this.escapeHtml(section.crn)}</strong>
+                </div>
+            </article>
+        `).join('');
+
+        content.innerHTML = `
+            <section class="registration-dialog" aria-labelledby="registration-dialog-title">
+                <header class="registration-dialog-header">
+                    <span>READY TO REGISTER</span>
+                    <h2 id="registration-dialog-title">Registration Info</h2>
+                    <p>${this.escapeHtml(termLabel)} · ${sections.length} course${sections.length === 1 ? '' : 's'}</p>
+                </header>
+                <div class="registration-instructions">
+                    Copy these CRNs, then enter them one at a time in the OneCarolina shopping cart.
+                </div>
+                <div class="registration-course-list">${rows}</div>
+                <p id="registration-copy-status" class="registration-copy-status" aria-live="polite"></p>
+                <div class="registration-dialog-actions">
+                    <button id="btn-copy-registration-crns" class="btn-green" type="button">COPY CRNs</button>
+                    <a class="registration-onecarolina-link" href="https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb/classRegistration/classRegistration#" target="_blank" rel="noopener noreferrer">OPEN CRN SHOPPING CART</a>
+                </div>
+            </section>
+        `;
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'registration-dialog-title');
+        overlay.classList.remove('hidden');
+
+        const copyButton = document.getElementById('btn-copy-registration-crns');
+        const copyStatus = document.getElementById('registration-copy-status');
+        copyButton.addEventListener('click', () => this.copyRegistrationCrns(
+            sections.map(section => section.crn),
+            copyButton,
+            copyStatus,
+        ));
+        copyButton.focus();
     },
 
     formatPreferenceTime(value) {
@@ -41,7 +145,7 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
-        modal.classList.remove('course-quick-modal');
+        modal.classList.remove('course-quick-modal', 'registration-info-modal');
 
         const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         const avoidedDays = new Set((State.avoidedDays || []).map(Number));
@@ -581,6 +685,7 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
+        modal.classList.remove('registration-info-modal');
         modal.classList.add('course-quick-modal');
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');
@@ -633,7 +738,7 @@ const Scheduler = {
 
     openCourseInBrowse(group) {
         document.getElementById('modal-overlay')?.classList.add('hidden');
-        document.getElementById('modal')?.classList.remove('course-quick-modal');
+        document.getElementById('modal')?.classList.remove('course-quick-modal', 'registration-info-modal');
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
         const input = document.getElementById('keyword-input');
         if (input) input.value = group.code;

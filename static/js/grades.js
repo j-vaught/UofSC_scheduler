@@ -93,7 +93,7 @@ const Grades = {
                 this._professorCache[professorId] = data;
             }
             const modal = document.getElementById('modal-content');
-            document.getElementById('modal')?.classList.remove('course-quick-modal');
+            document.getElementById('modal')?.classList.remove('course-quick-modal', 'registration-info-modal');
             modal.innerHTML = this.professorMarkup(data);
             document.getElementById('modal-overlay').classList.remove('hidden');
         } catch (error) {
