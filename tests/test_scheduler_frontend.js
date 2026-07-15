@@ -964,6 +964,7 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.match(styles, /\.browse-empty \.browse-body\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
+    assert.match(styles, /\.browse-results \.browse-search-examples,[\s\S]*\.browse-detail \.browse-search-examples\s*{\s*display:\s*none;/);
 });
 
 test('Browse teaches structured searches and exposes visible Smart Search progress', () => {

@@ -1855,6 +1855,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin: 9px auto 0;
     max-width: 980px;
 }
+.browse-results .browse-search-examples,
+.browse-detail .browse-search-examples { display: none; }
 .browse-search-examples > span { font-weight: 800; text-transform: uppercase; }
 .regular-search-examples,
 .smart-search-examples { display: flex; flex-wrap: wrap; gap: 5px; }
