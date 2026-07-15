@@ -65,15 +65,6 @@ const Scheduler = {
         }
     },
 
-    registrationMeetingDetails(details, section) {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = String(details.meeting_html || '');
-        const meetings = [...wrapper.querySelectorAll('.meet')]
-            .map(meeting => (meeting.textContent || '').replace(/\s+/g, ' ').trim())
-            .filter(Boolean);
-        return meetings.join(' · ') || section.meets || 'Meeting time not announced';
-    },
-
     registrationSeatDetails(details, section) {
         const maximum = String(details.seats || '').match(/seats_max[^>]*>(\d+)/);
         const available = String(details.seats || '').match(/seats_avail[^>]*>(\d+)/);
@@ -90,14 +81,24 @@ const Scheduler = {
         };
     },
 
-    registrationWarnings(details) {
+    registrationRequirementRows(details, bulletin) {
+        const combined = values => [...new Set(values
+            .map(value => this.stripHtml(value || ''))
+            .filter(Boolean))].join(' · ');
         return [
-            ['Registration restrictions', details.registration_restrictions],
-            ['Corequisites', details.section_coreqs || details.course_coreqs],
-            ['Class notes', details.clssnotes],
-        ].map(([label, value]) => {
-            const text = this.stripHtml(value || '');
-            if (!text) return '';
+            ['Prerequisites', combined([bulletin.prereq]), true],
+            ['Prerequisite or corequisite', combined([bulletin.prerequisite_or_corequisite]), false],
+            ['Corequisites or linked sections', combined([
+                bulletin.corequisite,
+                details.course_coreqs,
+                details.section_coreqs,
+            ]), true],
+            ['Registration restrictions', combined([details.registration_restrictions]), true],
+            ['Cross-listed sections', combined([details.xlist, bulletin.crosslisted]), false],
+            ['Class notes', combined([details.clssnotes]), false],
+        ].map(([label, value, showWhenEmpty]) => {
+            if (!value && !showWhenEmpty) return '';
+            const text = value || 'None listed';
             const shortened = text.length > 240 ? `${text.slice(0, 237)}…` : text;
             return `<p><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
         }).filter(Boolean).join('');
@@ -107,23 +108,30 @@ const Scheduler = {
         const card = document.getElementById(`registration-course-${section.crn}`);
         if (!card || !API.getDetails) return;
         try {
-            const details = await API.getDetails(section.crn, State.term);
+            const [details, bulletin] = await Promise.all([
+                API.getDetails(section.crn, State.term),
+                typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
+                    ? Search.fetchBulletinDetailsForCourse(section.code)
+                    : Promise.resolve({}),
+            ]);
             if (!document.body.contains(card)) return;
             const seats = this.registrationSeatDetails(details, section);
-            const credits = this.parseCreditHours(details.hours_html || section.hours);
-            const warnings = this.registrationWarnings(details);
-            card.querySelector('[data-registration-schedule]').textContent = this.registrationMeetingDetails(details, section);
-            card.querySelector('[data-registration-method]').textContent = details.inst_mthd || section.inst_mthd || 'Instruction method unavailable';
-            card.querySelector('[data-registration-part]').textContent = details.part_of_term || 'Part of term unavailable';
+            const credits = this.parseCreditHours(details.hours_html || bulletin.hours_html || section.hours);
+            const requirements = this.registrationRequirementRows(details, bulletin || {});
+            const status = card.querySelector('[data-registration-status]');
+            status.textContent = seats.kind === 'open' ? 'OPEN' : 'FULL — PLANNING ONLY';
+            status.className = `registration-section-status ${seats.kind}`;
             card.querySelector('[data-registration-seats]').textContent = seats.text;
             card.querySelector('[data-registration-seats]').className = `registration-value registration-seats ${seats.kind}`;
             card.querySelector('[data-registration-credits]').textContent = credits === null ? 'Credits unavailable' : `${credits} credit${credits === 1 ? '' : 's'}`;
-            const warningBox = card.querySelector('[data-registration-warnings]');
-            warningBox.innerHTML = warnings;
-            warningBox.hidden = !warnings;
+            card.querySelector('[data-registration-term]').textContent = details.part_of_term || 'Part of term unavailable';
+            card.querySelector('[data-registration-dates]').textContent = section.start_date && section.end_date
+                ? `${section.start_date} through ${section.end_date}`
+                : 'Course dates unavailable';
+            card.querySelector('[data-registration-requirements]').innerHTML = requirements;
         } catch (error) {
             if (!document.body.contains(card)) return;
-            card.querySelector('[data-registration-part]').textContent = 'Additional details unavailable';
+            card.querySelector('[data-registration-term]').textContent = 'Registration details unavailable';
             card.querySelector('[data-registration-seats]').textContent = this.isOpenSection(section) ? 'Listed as open' : 'Listed as full';
         }
     },
@@ -151,7 +159,7 @@ const Scheduler = {
                         <strong>${this.escapeHtml(section.code)}</strong>
                         <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
                     </div>
-                    <span class="registration-section-status ${open ? 'open' : 'full'}">${open ? 'OPEN' : 'FULL'}</span>
+                    <span class="registration-section-status ${open ? 'open' : 'full'}" data-registration-status>${open ? 'OPEN' : 'FULL — PLANNING ONLY'}</span>
                     <button class="registration-copy-crn btn-green" type="button" data-registration-copy="${this.escapeHtml(section.crn)}">COPY CRN</button>
                 </header>
                 <div class="registration-identifiers">
@@ -161,27 +169,24 @@ const Scheduler = {
                 </div>
                 <div class="registration-detail-grid">
                     <div>
-                        <span class="registration-label">INSTRUCTOR</span>
-                        <span class="registration-value">${this.escapeHtml(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor not announced')}</span>
-                    </div>
-                    <div>
-                        <span class="registration-label">AVAILABILITY</span>
-                        <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Listed as open' : 'Listed as full'}</span>
-                    </div>
-                    <div class="registration-detail-wide">
-                        <span class="registration-label">MEETING AND LOCATION</span>
-                        <span class="registration-value" data-registration-schedule>${this.escapeHtml(section.meets || 'Meeting time not announced')}</span>
-                    </div>
-                    <div>
-                        <span class="registration-label">INSTRUCTION</span>
-                        <span class="registration-value" data-registration-method>${this.escapeHtml(section.inst_mthd || 'Checking method')}</span>
+                        <span class="registration-label">LIVE SEAT STATUS</span>
+                        <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Checking available seats' : 'Listed as full'}</span>
                     </div>
                     <div>
                         <span class="registration-label">PART OF TERM</span>
-                        <span class="registration-value" data-registration-part>Checking details</span>
+                        <span class="registration-value" data-registration-term>Checking details</span>
+                    </div>
+                    <div class="registration-detail-wide">
+                        <span class="registration-label">COURSE DATES</span>
+                        <span class="registration-value" data-registration-dates>${section.start_date && section.end_date ? `${this.escapeHtml(section.start_date)} through ${this.escapeHtml(section.end_date)}` : 'Checking dates'}</span>
                     </div>
                 </div>
-                <div class="registration-warnings" data-registration-warnings hidden></div>
+                <section class="registration-requirements">
+                    <h3>Registration checks</h3>
+                    <div data-registration-requirements>
+                        <p><strong>Requirements</strong><span>Checking prerequisites, corequisites, and restrictions</span></p>
+                    </div>
+                </section>
             </article>
         `;
         }).join('');
@@ -194,7 +199,7 @@ const Scheduler = {
                     <p>${this.escapeHtml(termLabel)} · ${sections.length} course${sections.length === 1 ? '' : 's'}</p>
                 </header>
                 <div class="registration-instructions">
-                    Copy each CRN when you are ready to enter it in the OneCarolina shopping cart.
+                    Confirm that you meet each requirement, then copy the CRN into OneCarolina. This planner cannot verify registration eligibility.
                 </div>
                 <div class="registration-course-list">${rows}</div>
                 <p id="registration-copy-status" class="registration-copy-status" aria-live="polite"></p>

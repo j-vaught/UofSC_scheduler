@@ -420,9 +420,14 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(source, /data-registration-copy="\$\{this\.escapeHtml\(section\.crn\)\}">COPY CRN/);
     assert.match(source, /copyRegistrationCrn\(section, button, copyStatus\)/);
     assert.doesNotMatch(source, /COPY CRNs/);
-    assert.match(source, /data-registration-schedule/);
     assert.match(source, /data-registration-seats/);
+    assert.match(source, /data-registration-requirements/);
+    assert.match(source, /bulletin\.prereq/);
+    assert.match(source, /details\.section_coreqs/);
     assert.match(source, /registration_restrictions/);
+    assert.match(source, /FULL — PLANNING ONLY/);
+    assert.match(source, /This planner cannot verify registration eligibility/);
+    assert.doesNotMatch(source, /data-registration-schedule/);
     assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#" target="_blank"/);
     assert.match(styles, /\.btn-panel-registration\s*{[^}]*margin-left:\s*auto;/s);
     assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
