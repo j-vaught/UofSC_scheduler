@@ -1012,6 +1012,10 @@ test('Smart Search expands into a prompt with an arrow and four example cards', 
     assert.match(source, /'Political Science'/);
     assert.match(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{[^}]*grid-template-columns:\s*repeat\(4,/s);
+    assert.match(source, /smartToggle\.checked = false/);
+    assert.doesNotMatch(source, /getItem\('uofsc-smart-search'\)/);
+    assert.match(styles, /\.smart-search-active \.smart-search-toggle\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.smart-search-active \.search-clear\s*{\s*display:\s*none !important;/);
 });
 
 test('Browse result cards lazily add descriptions and historical grades', () => {

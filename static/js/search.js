@@ -485,7 +485,8 @@ const Search = {
 
         const smartToggle = document.getElementById('smart-search-toggle');
         if (smartToggle) {
-            smartToggle.checked = localStorage.getItem('uofsc-smart-search') === 'true';
+            smartToggle.checked = false;
+            localStorage.removeItem('uofsc-smart-search');
             smartToggle.addEventListener('change', () => {
                 const previousInput = smartToggle.checked
                     ? document.getElementById('keyword-input')
@@ -495,12 +496,10 @@ const Search = {
                     : document.getElementById('keyword-input');
                 if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
                 this.autoSizeSmartInput();
-                localStorage.setItem('uofsc-smart-search', String(smartToggle.checked));
                 this.setSmartSearchMode(smartToggle.checked);
                 if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
             });
             this.setSmartSearchMode(smartToggle.checked);
-            if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
         }
 
         document.querySelectorAll('[data-search-example]').forEach(button => {
