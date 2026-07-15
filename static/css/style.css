@@ -2018,6 +2018,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 @media (prefers-reduced-motion: reduce) {
     .smart-model-loading-dots i,
+    .semantic-search-terms-toggle i,
     .smart-search-trace,
     .smart-search-query-item,
     .smart-search-aggregate,
@@ -2027,13 +2028,46 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     .smart-search-query-list { grid-template-columns: 1fr; }
 }
 .semantic-search-terms {
+    margin-bottom: 8px;
+}
+.semantic-search-terms-toggle {
     align-items: center;
+    background: #ECECEC;
+    border: 1px solid #A2A2A2;
+    color: #363636;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.68rem;
+    font-weight: 700;
+    gap: 7px;
+    justify-content: flex-start;
+    padding: 5px 7px;
+    text-transform: uppercase;
+    width: 100%;
+}
+.semantic-search-terms-toggle strong {
+    background: #363636;
+    color: #ffffff;
+    font-size: 0.58rem;
+    padding: 2px 5px;
+}
+.semantic-search-terms-toggle i {
+    font-size: 0.58rem;
+    font-style: normal;
+    margin-left: auto;
+    transition: transform 0.16s ease;
+}
+.semantic-search-terms-toggle[aria-expanded="true"] i { transform: rotate(180deg); }
+.semantic-search-terms-toggle:hover,
+.semantic-search-terms-toggle:focus-visible { border-color: #73000A; color: #73000A; }
+.semantic-search-terms-toggle:hover strong,
+.semantic-search-terms-toggle:focus-visible strong { background: #73000A; }
+.semantic-search-term-list {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    margin-bottom: 8px;
+    padding-top: 5px;
 }
-.semantic-search-terms > span { color: #5C5C5C; font-size: 0.68rem; font-weight: 700; margin-right: 2px; text-transform: uppercase; }
 .semantic-search-term {
     align-items: center;
     background: #eef3ff;

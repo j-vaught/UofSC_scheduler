@@ -1782,9 +1782,22 @@ const Search = {
                     : '';
                 return `<button type="button" class="semantic-search-term" data-regular-search-index="${index}" data-result-count="${resultCount || 0}"><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
             }).join(' ');
-            header += `<div class="semantic-search-terms"><span>Generated searches</span>${expandedTags}</div>`;
+            header += `
+                <div class="semantic-search-terms">
+                    <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
+                        <span>Generated searches</span><strong>${searchTerms.length}</strong><i aria-hidden="true">&#9660;</i>
+                    </button>
+                    <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
+                </div>`;
         }
         container.innerHTML = header;
+        const searchTermsToggle = container.querySelector('.semantic-search-terms-toggle');
+        const searchTermsList = container.querySelector('.semantic-search-term-list');
+        searchTermsToggle?.addEventListener('click', () => {
+            const willExpand = searchTermsList?.classList.contains('hidden');
+            searchTermsList?.classList.toggle('hidden', !willExpand);
+            searchTermsToggle.setAttribute('aria-expanded', String(willExpand));
+        });
         container.querySelectorAll('[data-regular-search-index]').forEach(button => {
             button.addEventListener('click', () => {
                 const search = searchTerms[Number(button.dataset.regularSearchIndex)];

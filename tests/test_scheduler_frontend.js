@@ -1025,6 +1025,9 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(source, /searches\.map\(\(term, index\) => \(\{/);
     assert.match(source, /new Set\(allResults\[index\]\.map\(result => result\.code\)/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
+    assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
+    assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
+    assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
     assert.match(source, /showSmartSearchAggregation\(/);
     assert.match(source, /waitForSmartSearchPhase\(understandingStartedAt, 650\)/);
     assert.match(source, /waitForSmartSearchPhase\(expandingStartedAt, 650\)/);
@@ -1037,6 +1040,8 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(styles, /\.smart-search-query-item:not\(:disabled\)\s*{\s*cursor:\s*pointer;/);
     assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
     assert.match(styles, /\.semantic-search-term strong\s*{[^}]*background:\s*#466A9F;/s);
+    assert.match(styles, /\.semantic-search-terms-toggle\s*{[^}]*width:\s*100%;/s);
+    assert.match(styles, /\.semantic-search-terms-toggle\[aria-expanded="true"\] i\s*{\s*transform:\s*rotate\(180deg\);/s);
 });
 
 test('Smart Search estimates stage timing from measured download speed', () => {
