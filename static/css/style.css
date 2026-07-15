@@ -1713,7 +1713,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .browse-search-form .search-input-wrap input:not(:placeholder-shown) ~ .search-clear,
 .browse-search-form .smart-keyword-input:not(:placeholder-shown) ~ .search-clear { display: block; }
 .smart-search-toggle {
-    cursor: pointer;
+    cursor: pointer !important;
     height: 38px;
     position: absolute;
     right: 3px;
@@ -1721,6 +1721,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     width: 38px;
     z-index: 3;
 }
+.smart-search-toggle * { cursor: pointer !important; }
 .smart-search-toggle input {
     height: 1px;
     opacity: 0;

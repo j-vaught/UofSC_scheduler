@@ -1003,6 +1003,7 @@ test('Smart Search expands into a prompt with an arrow and four example cards', 
     assert.match(html, /<span aria-hidden="true">&#10022;<\/span>/);
     assert.match(styles, /background:\s*linear-gradient/);
     assert.match(styles, /\.smart-search-toggle span\s*{[^}]*border:\s*0;/s);
+    assert.match(styles, /\.smart-search-toggle \*\s*{\s*cursor:\s*pointer !important;/);
     assert.match(html, /<path d="M7 18H33M24 9L33 18L24 27"><\/path>/);
     assert.match(styles, /\.smart-search-submit path\s*{[^}]*stroke:\s*#000000;[^}]*stroke-linecap:\s*round;[^}]*stroke-width:\s*5;/s);
     assert.match(styles, /\.browse-search-form \.smart-keyword-input\s*{[^}]*overflow-y:\s*hidden;[^}]*resize:\s*none;/s);
