@@ -1888,7 +1888,6 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 }
 .registration-course-card {
     border: 1px solid #A2A2A2;
-    border-left: 5px solid #73000A;
     padding: 0;
 }
 .registration-course-header {
@@ -1935,16 +1934,34 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .registration-expand:focus-visible { background: #C7C7C7; outline: 2px solid #73000A; outline-offset: 1px; }
 .registration-warning-icon {
     align-items: center;
-    background: #A49137;
-    border: 1px solid #000000;
+    background: transparent;
+    border: 0;
     color: #000000;
     display: inline-flex;
     font-size: 0.65rem;
     font-weight: 900;
-    height: 16px;
+    height: 18px;
     justify-content: center;
-    line-height: 1;
-    width: 16px;
+    line-height: 1.2;
+    padding-top: 4px;
+    position: relative;
+    width: 20px;
+    z-index: 0;
+}
+.registration-warning-icon::before,
+.registration-warning-icon::after {
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    content: '';
+    position: absolute;
+    z-index: -1;
+}
+.registration-warning-icon::before {
+    background: #000000;
+    inset: 0;
+}
+.registration-warning-icon::after {
+    background: #FFF2E3;
+    inset: 2px 2px 1px;
 }
 .registration-warning-icon[hidden] { display: none; }
 .registration-chevron {

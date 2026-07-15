@@ -282,6 +282,14 @@ const Scheduler = {
                 const details = document.getElementById(`registration-details-${button.dataset.registrationExpand}`);
                 if (!details) return;
                 const expanded = button.getAttribute('aria-expanded') === 'true';
+                content.querySelectorAll('[data-registration-expand][aria-expanded="true"]').forEach(otherButton => {
+                    if (otherButton === button) return;
+                    const otherDetails = document.getElementById(`registration-details-${otherButton.dataset.registrationExpand}`);
+                    otherButton.setAttribute('aria-expanded', 'false');
+                    otherButton.setAttribute('aria-label', `Show registration details for ${otherButton.closest('.registration-course-card').querySelector('.registration-course-copy strong').textContent}`);
+                    if (otherDetails) otherDetails.hidden = true;
+                    otherButton.closest('.registration-course-card').classList.remove('expanded');
+                });
                 button.setAttribute('aria-expanded', String(!expanded));
                 button.setAttribute('aria-label', `${expanded ? 'Show' : 'Hide'} registration details for ${button.closest('.registration-course-card').querySelector('.registration-course-copy strong').textContent}`);
                 details.hidden = expanded;
