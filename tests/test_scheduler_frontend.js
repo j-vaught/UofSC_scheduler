@@ -978,10 +978,13 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(html, /class="filter-sliders-icon"/);
     assert.doesNotMatch(html, /id="active-filter-count"/);
     assert.match(html, /id="smart-search-status"/);
+    assert.match(html, /class="smart-search-progress"[^>]*><span><\/span><i><\/i><i><\/i><i><\/i><i><\/i>/);
     assert.match(source, /prepareSmartSearch\(\)/);
     assert.match(source, /Understanding “\$\{query\}”/);
     assert.match(source, /Ranking the closest courses/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
+    assert.match(styles, /@keyframes smart-search-signal/);
+    assert.match(styles, /\.smart-search-status\[data-state="ready"\] \.smart-search-progress,[\s\S]*display:\s*none;/);
 });
 
 test('Smart Search expands into a prompt with an arrow and four example cards', () => {
