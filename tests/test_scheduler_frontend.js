@@ -169,15 +169,17 @@ test('browse course availability uses concise color-coded states', () => {
             { crn: '10003', stat: 'C' },
         ],
     });
-    const full = search.courseAvailability({ sections: [{ crn: '20001', stat: 'C' }] });
+    const full = search.courseAvailability({
+        sections: [{ crn: '20001', stat: 'C' }, { crn: '20002', stat: 'C' }],
+    });
     const unavailable = search.courseAvailability({
         sections: [{ _isCatalog: true, meets: 'Not offered this term' }],
     });
 
     assert.equal(open.kind, 'open');
-    assert.equal(open.text, '2 open');
+    assert.equal(open.text, '2 of 3 sections open');
     assert.equal(full.kind, 'full');
-    assert.equal(full.text, 'All full');
+    assert.equal(full.text, 'All 2 sections full');
     assert.equal(unavailable.kind, 'unavailable');
     assert.equal(unavailable.text, 'Not offered');
 });
@@ -187,8 +189,10 @@ test('browse results reserve course add actions for the details pane', () => {
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.doesNotMatch(source, /class="btn-course-add/);
+    assert.match(source, /class="course-header-main"/);
     assert.match(source, /class="course-availability \$\{availability\.kind\}"/);
     assert.match(source, /id="btn-course-toggle"[^>]*disabled>NOT OFFERED THIS TERM/);
+    assert.match(styles, /\.course-header-main\s*{[^}]*text-overflow:\s*ellipsis;/s);
     assert.match(styles, /\.course-availability\.open[^}]*color:\s*#2e7d32/s);
     assert.match(styles, /\.course-availability\.full[^}]*color:\s*#c62828/s);
     assert.match(styles, /\.course-availability\.unavailable[^}]*color:\s*#5C5C5C/s);

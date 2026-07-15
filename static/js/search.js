@@ -954,8 +954,17 @@ const Search = {
         if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
 
         const openCount = liveSections.filter(section => section.stat === 'A').length;
-        if (openCount > 0) return { kind: 'open', text: `${openCount} open` };
-        return { kind: 'full', text: 'All full' };
+        const sectionLabel = liveSections.length === 1 ? 'section' : 'sections';
+        if (openCount > 0) {
+            return {
+                kind: 'open',
+                text: `${openCount} of ${liveSections.length} ${sectionLabel} open`,
+            };
+        }
+        return {
+            kind: 'full',
+            text: liveSections.length === 1 ? '1 section full' : `All ${liveSections.length} sections full`,
+        };
     },
 
     updateCourseSelectionStyles(courseCode) {
@@ -1083,8 +1092,8 @@ const Search = {
 
             div.innerHTML = `
                 <div class="course-header">
-                    <span><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</span>
-                    <span class="course-availability ${availability.kind}">${availability.text}</span>
+                    <div class="course-header-main"><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</div>
+                    <div class="course-availability ${availability.kind}">${availability.text}</div>
                 </div>
                 <div class="course-sections"></div>
             `;
