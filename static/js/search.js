@@ -11,7 +11,9 @@ const Search = {
     _courseEmbeddings: null,  // pre-computed course embeddings (title+desc)
     _courseVecs: null,        // normalized float32 course vectors
     _bulletinCourseCache: {},
+    _bulletinDetailsCache: {},
     _carolinaCoreCache: {},
+    _sectionDetailCache: {},
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -349,6 +351,10 @@ const Search = {
         const currentTermOnly = !document.getElementById('filter-show-all').checked;
         const instructionalMethod = document.getElementById('filter-method').value;
         const carolinaCore = document.getElementById('filter-carolina-core').value;
+        const partOfTerm = document.getElementById('filter-part-of-term').value;
+        const courseAttribute = document.getElementById('filter-course-attribute').value;
+        const honors = document.getElementById('filter-honors').value;
+        const meetingPattern = document.getElementById('filter-meeting-pattern').value;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
         const levelMode = '';
@@ -521,6 +527,10 @@ const Search = {
                     openOnly,
                     instructionalMethod,
                     carolinaCore,
+                    partOfTerm,
+                    courseAttribute,
+                    honors,
+                    meetingPattern,
                     sizeMode,
                     sizeValue,
                     availMode,
@@ -616,6 +626,10 @@ const Search = {
                 openOnly,
                 instructionalMethod,
                 carolinaCore,
+                partOfTerm,
+                courseAttribute,
+                honors,
+                meetingPattern,
                 sizeMode,
                 sizeValue,
                 availMode,
@@ -688,25 +702,140 @@ const Search = {
         return true;
     },
 
-    async fetchCarolinaCoreCodes(courseCode) {
-        if (this._carolinaCoreCache[courseCode]) return this._carolinaCoreCache[courseCode];
+    meetingCount(section) {
+        if (!section.meetingTimes) return 0;
+        try {
+            const meetings = typeof section.meetingTimes === 'string'
+                ? JSON.parse(section.meetingTimes)
+                : section.meetingTimes;
+            return Array.isArray(meetings) ? meetings.length : 0;
+        } catch (error) {
+            return 0;
+        }
+    },
+
+    matchesMeetingPattern(section, selectedPattern) {
+        if (!selectedPattern) return true;
+        if (section._isCatalog) return false;
+        const count = this.meetingCount(section);
+        if (selectedPattern === 'scheduled') return count > 0;
+        if (selectedPattern === 'unscheduled') return count === 0;
+        if (selectedPattern === 'once') return count === 1;
+        if (selectedPattern === 'twice') return count === 2;
+        if (selectedPattern === 'three-plus') return count >= 3;
+        return true;
+    },
+
+    async fetchBulletinDetailsForCourse(courseCode) {
+        if (this._bulletinDetailsCache[courseCode]) {
+            return this._bulletinDetailsCache[courseCode];
+        }
         const subject = courseCode.split(' ')[0];
         if (!this._bulletinCourseCache[subject]) {
             this._bulletinCourseCache[subject] = API.bulletinSearch(subject)
                 .then(data => data.results || [])
                 .catch(() => []);
         }
-        const courses = await this._bulletinCourseCache[subject];
-        const target = courses.find(course => course.code === courseCode);
-        if (!target) return [];
-        try {
-            const details = await API.bulletinDetails(target.key);
-            const text = String(details.carolinacore || '').replace(/<[^>]+>/g, ' ');
-            const codes = text.match(/\b(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/g) || [];
-            this._carolinaCoreCache[courseCode] = [...new Set(codes)];
-        } catch (error) {
-            this._carolinaCoreCache[courseCode] = [];
+        this._bulletinDetailsCache[courseCode] = this._bulletinCourseCache[subject]
+            .then(courses => {
+                const target = courses.find(course => course.code === courseCode);
+                return target ? API.bulletinDetails(target.key) : {};
+            })
+            .catch(() => ({}));
+        return this._bulletinDetailsCache[courseCode];
+    },
+
+    async fetchSectionFilterDetails(section) {
+        if (!section.crn) return null;
+        const key = `${State.term}:${section.crn}`;
+        if (!this._sectionDetailCache[key]) {
+            this._sectionDetailCache[key] = API.getDetails(section.crn, State.term)
+                .catch(() => null);
         }
+        return this._sectionDetailCache[key];
+    },
+
+    matchesPartOfTerm(value, selectedPart) {
+        if (!selectedPart) return true;
+        const part = String(value || '').toLowerCase();
+        if (selectedPart === 'full') return /full term/.test(part);
+        if (selectedPart === 'first') return /first half|1st half/.test(part);
+        if (selectedPart === 'second') return /second half|2nd half/.test(part);
+        if (selectedPart === 'other') {
+            return Boolean(part) && !/full term|first half|1st half|second half|2nd half/.test(part);
+        }
+        return true;
+    },
+
+    async filterByPartOfTerm(results, selectedPart) {
+        if (!selectedPart) return results;
+        const checked = await Promise.all(results.map(async section => {
+            const details = await this.fetchSectionFilterDetails(section);
+            return details && this.matchesPartOfTerm(details.part_of_term, selectedPart)
+                ? section
+                : null;
+        }));
+        return checked.filter(Boolean);
+    },
+
+    isHonorsSection(section, details = {}) {
+        const text = [
+            section.code,
+            section.title,
+            section.section,
+            details.title,
+            details.section,
+            details.course_attr,
+            details.clssnotes,
+            details.registration_restrictions,
+        ].filter(Boolean).join(' ');
+        return /^SCHC\b/i.test(String(section.code || ''))
+            || /^H\d/i.test(String(section.section || ''))
+            || /\bHNRS\b|\bhonors?\b/i.test(text);
+    },
+
+    async filterByHonors(results, selectedHonors) {
+        if (!selectedHonors) return results;
+        const checked = await Promise.all(results.map(async section => {
+            const details = await this.fetchSectionFilterDetails(section) || {};
+            const honors = this.isHonorsSection(section, details);
+            const keep = selectedHonors === 'only' ? honors : !honors;
+            return keep ? section : null;
+        }));
+        return checked.filter(Boolean);
+    },
+
+    matchesCourseAttribute(details, selectedAttribute) {
+        if (!selectedAttribute) return true;
+        const experiential = String(details.experiential || '').replace(/<[^>]+>/g, ' ').toLowerCase();
+        const founding = String(details.founding_documents || '').replace(/<[^>]+>/g, ' ').toLowerCase();
+        const graduation = String(details.graduation || '').replace(/<[^>]+>/g, ' ').toLowerCase();
+        if (selectedAttribute === 'elo') return /experiential learning opportunity/.test(experiential);
+        if (selectedAttribute === 'founding') return /founding documents/.test(founding);
+        if (selectedAttribute === 'gld-community') return /community engagement|social advocacy/.test(graduation);
+        if (selectedAttribute === 'gld-global') return /global learning/.test(graduation);
+        if (selectedAttribute === 'gld-professional') return /professional engagement/.test(graduation);
+        if (selectedAttribute === 'gld-research') return /research/.test(graduation);
+        return true;
+    },
+
+    async filterByCourseAttribute(results, selectedAttribute) {
+        if (!selectedAttribute) return results;
+        const courseCodes = [...new Set(results.map(result => result.code).filter(Boolean))];
+        const matches = await Promise.all(courseCodes.map(async code => {
+            const details = await this.fetchBulletinDetailsForCourse(code);
+            return this.matchesCourseAttribute(details, selectedAttribute) ? code : null;
+        }));
+        const allowed = new Set(matches.filter(Boolean));
+        return results.filter(result => allowed.has(result.code));
+    },
+
+    async fetchCarolinaCoreCodes(courseCode) {
+        if (this._carolinaCoreCache[courseCode]) return this._carolinaCoreCache[courseCode];
+        const details = await this.fetchBulletinDetailsForCourse(courseCode);
+        const text = String(details.carolinacore || '').replace(/<[^>]+>/g, ' ');
+        const codes = text.match(/\b(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/g) || [];
+        this._carolinaCoreCache[courseCode] = [...new Set(codes)];
         return this._carolinaCoreCache[courseCode];
     },
 
@@ -730,6 +859,12 @@ const Search = {
                 filters.instructionalMethod,
             ));
         }
+        if (filters.meetingPattern) {
+            filtered = filtered.filter(section => this.matchesMeetingPattern(
+                section,
+                filters.meetingPattern,
+            ));
+        }
         if (filters.sizeMode && filters.sizeValue) {
             filtered = filtered.filter(section => {
                 const total = parseInt(section.total);
@@ -746,6 +881,9 @@ const Search = {
                 filters.availValue,
             );
         }
+        filtered = await this.filterByPartOfTerm(filtered, filters.partOfTerm);
+        filtered = await this.filterByHonors(filtered, filters.honors);
+        filtered = await this.filterByCourseAttribute(filtered, filters.courseAttribute);
         return this.filterByCarolinaCore(filtered, filters.carolinaCore);
     },
 
@@ -797,7 +935,8 @@ const Search = {
         const checked = await Promise.all(results.map(async result => {
             if (!result.crn) return null;
             try {
-                const details = await API.getDetails(result.crn, State.term);
+                const details = await this.fetchSectionFilterDetails(result);
+                if (!details) return null;
                 const match = (details.seats || '').match(/seats_avail[^>]*>(\d+)/);
                 if (!match) return null;
                 return { result, available: Number(match[1]) };

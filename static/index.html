@@ -296,6 +296,47 @@
                             <div class="filter-toggle additional-filter-toggle" id="additional-filter-toggle">Additional Filters <span id="additional-filter-arrow">&#9660;</span></div>
                             <div class="additional-filter-panel hidden" id="additional-filter-panel">
                                 <div class="filter-group">
+                                    <label class="filter-label" for="filter-part-of-term">Part of Term</label>
+                                    <select id="filter-part-of-term" class="filter-select">
+                                        <option value="">Any part of term</option>
+                                        <option value="full">Full term</option>
+                                        <option value="first">First half term</option>
+                                        <option value="second">Second half term</option>
+                                        <option value="other">Other partial term</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-course-attribute">Course Attribute</label>
+                                    <select id="filter-course-attribute" class="filter-select">
+                                        <option value="">Any course attribute</option>
+                                        <option value="elo">Experiential Learning Opportunity</option>
+                                        <option value="founding">Founding Documents</option>
+                                        <option value="gld-community">GLD — Community Engagement</option>
+                                        <option value="gld-global">GLD — Global Learning</option>
+                                        <option value="gld-professional">GLD — Professional Engagement</option>
+                                        <option value="gld-research">GLD — Research</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-honors">Honors</label>
+                                    <select id="filter-honors" class="filter-select">
+                                        <option value="">All sections</option>
+                                        <option value="only">Honors sections only</option>
+                                        <option value="exclude">Exclude honors sections</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label" for="filter-meeting-pattern">Meeting Pattern</label>
+                                    <select id="filter-meeting-pattern" class="filter-select">
+                                        <option value="">Any meeting pattern</option>
+                                        <option value="scheduled">Has scheduled meetings</option>
+                                        <option value="unscheduled">No scheduled meeting time</option>
+                                        <option value="once">Meets once weekly</option>
+                                        <option value="twice">Meets twice weekly</option>
+                                        <option value="three-plus">Meets 3+ times weekly</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
                                     <label class="filter-label">Class Size</label>
                                     <div class="filter-row">
                                         <select id="filter-size-mode" style="width:auto;flex:1">

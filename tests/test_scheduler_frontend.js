@@ -145,6 +145,10 @@ test('browse filters separate primary and additional course choices', () => {
     assert.match(source, /value="VSR"/);
     assert.match(source, /id="additional-filter-toggle"/);
     const additionalStart = source.indexOf('id="additional-filter-panel"');
+    assert.ok(source.indexOf('id="filter-part-of-term"') > additionalStart);
+    assert.ok(source.indexOf('id="filter-course-attribute"') > additionalStart);
+    assert.ok(source.indexOf('id="filter-honors"') > additionalStart);
+    assert.ok(source.indexOf('id="filter-meeting-pattern"') > additionalStart);
     assert.ok(source.indexOf('id="filter-size-mode"') > additionalStart);
     assert.ok(source.indexOf('id="filter-avail-mode"') > additionalStart);
 });
@@ -169,6 +173,44 @@ test('instructional method and Carolina Core filters use section and bulletin da
     assert.equal(search.matchesInstructionalMethod(results[1], 'online'), true);
     const coreResults = await search.filterByCarolinaCore(results, 'INF');
     assert.deepEqual(Array.from(coreResults, result => result.code), ['ENGL 101']);
+});
+
+test('meeting pattern stays separate from instructional method', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const asynchronous = {
+        inst_mthd: '100% Web Asynchronous',
+        meetingTimes: '[]',
+    };
+    const twiceWeeklyOnline = {
+        inst_mthd: 'Synchronous Web Instruction',
+        meetingTimes: '[{"meet_day":"1"},{"meet_day":"3"}]',
+    };
+
+    assert.equal(search.matchesInstructionalMethod(asynchronous, 'online'), true);
+    assert.equal(search.matchesMeetingPattern(asynchronous, 'unscheduled'), true);
+    assert.equal(search.matchesInstructionalMethod(twiceWeeklyOnline, 'online'), true);
+    assert.equal(search.matchesMeetingPattern(twiceWeeklyOnline, 'twice'), true);
+    assert.equal(search.matchesMeetingPattern(twiceWeeklyOnline, 'unscheduled'), false);
+    assert.equal(search.matchesMeetingPattern({ _isCatalog: true }, 'unscheduled'), false);
+});
+
+test('part-of-term, honors, and course-attribute filters recognize live values', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+
+    assert.equal(search.matchesPartOfTerm('30 (30 - Columbia Full Term)', 'full'), true);
+    assert.equal(search.matchesPartOfTerm('3A (3A - Columbia First Half Term)', 'first'), true);
+    assert.equal(search.matchesPartOfTerm('3B (3B - Columbia Second Half Term)', 'second'), true);
+    assert.equal(search.isHonorsSection({ code: 'SCHC 158', section: 'H01', title: 'HNRS: Rhetoric' }), true);
+    assert.equal(search.isHonorsSection({ code: 'CSCE 145', section: '001', title: 'Algorithmic Design I' }), false);
+    assert.equal(search.matchesCourseAttribute({
+        experiential: '<strong>Experiential Learning:</strong> Experiential Learning Opportunity',
+    }, 'elo'), true);
+    assert.equal(search.matchesCourseAttribute({
+        founding_documents: '<strong>Founding Documents:</strong> FND Founding Documents',
+    }, 'founding'), true);
+    assert.equal(search.matchesCourseAttribute({
+        graduation: '<strong>Graduation with Leadership Distinction:</strong> GLD: Global Learning',
+    }, 'gld-global'), true);
 });
 
 test('solver uses course-level choices instead of applied sections', async () => {
