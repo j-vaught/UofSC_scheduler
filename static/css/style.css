@@ -726,7 +726,7 @@ main {
 }
 .results-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     padding: 8px 12px;
     font-size: 0.8rem;
@@ -734,6 +734,7 @@ main {
     color: #73000A;
     text-transform: uppercase;
 }
+.results-header:has(.pick-count:empty) { display: none; }
 .pick-count { font-size: 0.75rem; font-weight: 400; color: #363636; }
 #semester-content {
     flex: 1;

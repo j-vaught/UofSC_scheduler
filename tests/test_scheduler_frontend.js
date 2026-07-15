@@ -960,6 +960,7 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.match(html, /id="filter-backdrop"/);
     assert.match(html, /id="filter-panel"/);
     assert.match(html, /role="dialog" aria-modal="true"/);
+    assert.doesNotMatch(html, /<span>Results<\/span>/);
     assert.match(source, /setBrowseState\('results'\)/);
     assert.match(source, /setBrowseState\('detail'\)/);
     assert.match(source, /else if \(!document\.getElementById\('smart-search-toggle'\)\?\.checked\)/);
