@@ -323,7 +323,7 @@ const WalkingMap = {
             return { kind: 'unknown', distance: null, walkMinutes: null, geometry: null };
         }
         if (from.code === to.code) {
-            return { kind: 'same', distance: 0, walkMinutes: 0, geometry: [[from.lat, from.lon], [to.lat, to.lon]] };
+            return { kind: 'same', distance: 0, walkMinutes: 0, geometry: null };
         }
 
         const key = `${from.code}>${to.code}`;
@@ -369,11 +369,19 @@ const WalkingMap = {
 
     transitionStatus(transition) {
         if (transition.kind === 'online') return { className: 'neutral', label: 'No campus travel' };
+        if (transition.kind === 'same') return { className: 'neutral', label: 'Same building' };
         if (transition.kind === 'unknown') return { className: 'neutral', label: 'Location needed' };
         const buffer = transition.available - transition.walkMinutes;
         if (buffer < 0) return { className: 'late', label: `${Math.abs(buffer)} min short` };
         if (buffer < 5) return { className: 'tight', label: `${buffer} min buffer` };
         return { className: 'safe', label: `${buffer} min buffer` };
+    },
+
+    routeColor(transition) {
+        if (this.selectedDay === 'all') {
+            return this.ROUTE_COLORS[transition.from.day] || '#73000A';
+        }
+        return '#73000A';
     },
 
     renderTransitions(events, transitions) {
@@ -405,9 +413,15 @@ const WalkingMap = {
             const card = document.createElement(transition.geometry ? 'button' : 'div');
             if (card.tagName === 'BUTTON') card.type = 'button';
             card.className = `walking-transition status-${status.className}`;
+            if (transition.geometry) {
+                card.classList.add('has-route');
+                card.style.setProperty('--transition-color', this.routeColor(transition));
+            }
+            const noRouteNeeded = transition.kind === 'online' || transition.kind === 'same';
+            if (noRouteNeeded) card.classList.add('no-route-needed');
             const walkLabel = transition.walkMinutes === null
                 ? (transition.kind === 'online' ? 'No route needed' : 'Route unavailable')
-                : `${transition.walkMinutes} min route`;
+                : (transition.kind === 'same' ? 'No route needed' : `${transition.walkMinutes} min route`);
             const distanceLabel = transition.distance === null ? '' : ` · ${this.formatDistance(transition.distance)}`;
             const dayLabel = showingWeek ? `${this.DAYS[transition.from.day].slice(0, 3).toUpperCase()} · ` : '';
             card.innerHTML = `
@@ -485,7 +499,7 @@ const WalkingMap = {
             if (!transition.geometry) return;
             transition.geometry.forEach(point => bounds.push(point));
             const baseStyle = {
-                color: this.selectedDay === 'all' ? this.ROUTE_COLORS[transition.from.day] : '#73000A',
+                color: this.routeColor(transition),
                 weight: 5,
                 opacity: 0.9,
                 dashArray: transition.kind === 'estimated' ? '8 6' : null,
@@ -531,7 +545,6 @@ const WalkingMap = {
         if (selectedRoute) {
             selectedRoute.layer.setStyle({
                 ...selectedRoute.baseStyle,
-                color: '#CC2E40',
                 opacity: 1,
                 weight: 8,
             });

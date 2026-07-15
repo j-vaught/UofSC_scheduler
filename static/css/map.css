@@ -198,6 +198,21 @@ button.walking-transition.is-previewed {
     border-left-color: var(--map-muted);
 }
 
+.walking-transition.has-route {
+    border-left-color: var(--transition-color);
+}
+
+.walking-transition.no-route-needed {
+    background: #ECECEC;
+    border-color: #C7C7C7;
+    border-left-color: #A2A2A2;
+    color: #5C5C5C;
+}
+
+.walking-transition.status-safe .walking-transition-status { color: var(--map-safe); }
+.walking-transition.status-tight .walking-transition-status { color: var(--map-tight); }
+.walking-transition.status-late .walking-transition-status { color: var(--map-late); }
+
 .walking-transition-title,
 .walking-transition-metrics {
     display: flex;

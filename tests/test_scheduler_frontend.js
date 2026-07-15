@@ -782,7 +782,7 @@ test('selecting a walking transition highlights its route and zooms the map', ()
     assert.equal(cards[0].classList.contains('is-selected'), false);
     assert.equal(cards[1].classList.contains('is-selected'), true);
     assert.equal(cards[1].attributes['aria-pressed'], 'true');
-    assert.equal(layers[1].styles.at(-1).color, '#CC2E40');
+    assert.equal(layers[1].styles.at(-1).color, '#73000A');
     assert.equal(layers[1].styles.at(-1).weight, 8);
     assert.equal(layers[1].broughtForward, true);
     assert.deepEqual(fittedBounds, [[3, 3], [4, 4]]);
@@ -884,4 +884,40 @@ test('walking transition cards wire hover and keyboard previews', () => {
     assert.doesNotMatch(source, /card\.addEventListener\('mouseleave'/);
     assert.match(source, /addEventListener\('focus', \(\) => this\.previewTransition\(index\)\)/);
     assert.match(source, /addEventListener\('blur', event =>/);
+});
+
+test('transition cards and map routes share the same colors', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const mondayTransition = { from: { day: 0 } };
+    const tuesdayTransition = { from: { day: 1 } };
+
+    walkingMap.selectedDay = 'all';
+    assert.equal(walkingMap.routeColor(mondayTransition), '#73000A');
+    assert.equal(walkingMap.routeColor(tuesdayTransition), '#466A9F');
+    walkingMap.selectedDay = 1;
+    assert.equal(walkingMap.routeColor(tuesdayTransition), '#73000A');
+
+    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const styles = fs.readFileSync('static/css/map.css', 'utf8');
+    assert.match(source, /--transition-color', this\.routeColor\(transition\)/);
+    assert.match(source, /color: this\.routeColor\(transition\)/);
+    assert.match(styles, /\.walking-transition\.has-route\s*{[^}]*border-left-color:\s*var\(--transition-color\)/s);
+});
+
+test('online and same-building transitions use disabled no-route cards', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const building = { kind: 'known', code: 'TEST', lat: 1, lon: 2 };
+
+    assert.equal(walkingMap.transitionStatus({ kind: 'online' }).className, 'neutral');
+    assert.equal(walkingMap.transitionStatus({ kind: 'same' }).label, 'Same building');
+
+    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const styles = fs.readFileSync('static/css/map.css', 'utf8');
+    assert.match(source, /transition\.kind === 'online' \|\| transition\.kind === 'same'/);
+    assert.match(source, /card\.classList\.add\('no-route-needed'\)/);
+    assert.match(styles, /\.walking-transition\.no-route-needed\s*{[^}]*background:\s*#ECECEC/s);
+    return walkingMap.routeBetween(building, building).then(route => {
+        assert.equal(route.kind, 'same');
+        assert.equal(route.geometry, null);
+    });
 });
