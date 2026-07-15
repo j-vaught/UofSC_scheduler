@@ -1313,7 +1313,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-time-options label,
 .schedule-preference-walking > label:not(.schedule-preference-mode) {
     display: grid;
-    gap: 4px;
+    gap: 5px;
 }
 .schedule-day-options {
     display: grid;
