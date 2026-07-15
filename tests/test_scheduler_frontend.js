@@ -524,6 +524,7 @@ test('current faculty records replace surname-only labels and add email', () => 
         sections: [
             { crn: '10868', instr: 'Kanapala', stat: 'A' },
             { crn: '16759', instr: 'Kanapala', stat: 'A' },
+            { crn: '10869', instr: 'Kanapala', stat: 'C' },
         ],
     }, {
         instructors: [
@@ -537,7 +538,8 @@ test('current faculty records replace surname-only labels and add email', () => 
     assert.equal(summaries.length, 1);
     assert.equal(summaries[0].displayName, 'Kanapala, Neema');
     assert.equal(summaries[0].email, 'neema@cse.sc.edu');
-    assert.equal(summaries[0].sections, 2);
+    assert.equal(summaries[0].sections, 3);
+    assert.equal(summaries[0].open, 2);
     assert.equal(summaries[0].grade.average_gpa, 3.04);
 });
 

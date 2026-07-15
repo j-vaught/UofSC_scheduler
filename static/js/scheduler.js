@@ -330,6 +330,11 @@ const Scheduler = {
 
     currentInstructorSummaries(group, gradeData = {}, facultyData = []) {
         const instructors = {};
+        const uniqueFaculty = Object.values((facultyData || []).reduce((records, member) => {
+            const key = this.normalizeInstructorName(member.email || member.name);
+            if (key && !records[key]) records[key] = member;
+            return records;
+        }, {}));
         (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
             const liveFaculty = (facultyData || []).filter(member => String(member.crn) === String(section.crn));
             const identities = liveFaculty.length > 0
@@ -337,7 +342,7 @@ const Scheduler = {
                 : String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
                     const name = rawName.trim();
                     const normalized = this.normalizeInstructorName(name);
-                    const matches = (facultyData || []).filter(member => {
+                    const matches = uniqueFaculty.filter(member => {
                         const candidate = this.normalizeInstructorName(member.name);
                         return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
                     });
