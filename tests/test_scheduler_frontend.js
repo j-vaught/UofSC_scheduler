@@ -194,6 +194,15 @@ test('browse results reserve course add actions for the details pane', () => {
     assert.match(styles, /\.course-availability\.unavailable[^}]*color:\s*#5C5C5C/s);
 });
 
+test('browse section details add and lock the specific section', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+
+    assert.match(source, /ADD SECTION TO SCHEDULE/);
+    assert.match(source, /REMOVE SECTION FROM SCHEDULE/);
+    assert.match(source, /State\.setSectionLock\(sec\.code, sec\.crn\)/);
+    assert.match(source, /This section will be used in every generated schedule/);
+});
+
 test('browse filters separate primary and additional course choices', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
 

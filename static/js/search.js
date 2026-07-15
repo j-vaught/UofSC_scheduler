@@ -1163,8 +1163,14 @@ const Search = {
 
         const bindActions = () => {
             document.getElementById('btn-course-toggle')?.addEventListener('click', async () => {
-                if (State.isCourseSelected(sec.code)) State.removeCourse(sec.code);
-                else await Scheduler.addCourseGroup(group);
+                const thisSectionIsSelected = State.isCourseSelected(sec.code)
+                    && String(State.sectionLocks?.[sec.code] || '') === String(sec.crn);
+                if (thisSectionIsSelected) {
+                    State.removeCourse(sec.code);
+                } else {
+                    if (!State.isCourseSelected(sec.code)) await Scheduler.addCourseGroup(group);
+                    State.setSectionLock(sec.code, sec.crn);
+                }
                 this.showSectionDetail(sec);
             });
             document.getElementById('btn-view-schedule')?.addEventListener('click', () => {
@@ -1173,8 +1179,9 @@ const Search = {
         };
 
         const courseButton = () => {
-            const selected = State.isCourseSelected(sec.code);
-            return `<button id="btn-course-toggle" class="${selected ? 'btn-danger' : 'btn-green'}" style="margin-top:10px">${selected ? 'REMOVE COURSE' : 'ADD COURSE TO SCHEDULE'}</button>`;
+            const thisSectionIsSelected = State.isCourseSelected(sec.code)
+                && String(State.sectionLocks?.[sec.code] || '') === String(sec.crn);
+            return `<button id="btn-course-toggle" class="${thisSectionIsSelected ? 'btn-danger' : 'btn-green'}" style="margin-top:10px">${thisSectionIsSelected ? 'REMOVE SECTION FROM SCHEDULE' : 'ADD SECTION TO SCHEDULE'}</button>`;
         };
 
         detailsTab.innerHTML = `
@@ -1188,7 +1195,7 @@ const Search = {
                 ${courseButton()}
                 <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
             </div>
-            <p class="hint">Adding this course lets the scheduler compare all of its open sections.</p>
+            <p class="hint">This section will be used in every generated schedule.</p>
             <p class="loading">Loading details</p>
         `;
         bindActions();
@@ -1220,7 +1227,7 @@ const Search = {
                     ${courseButton()}
                     <button id="btn-view-schedule" class="btn-garnet" style="margin-top:10px">VIEW SCHEDULE</button>
                 </div>
-                <p class="hint">Adding this course lets the scheduler compare all of its open sections.</p>
+                <p class="hint">This section will be used in every generated schedule.</p>
             `;
             bindActions();
         }).catch(() => {
