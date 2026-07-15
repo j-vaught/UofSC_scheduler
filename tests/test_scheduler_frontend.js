@@ -521,6 +521,14 @@ test('registration prerequisite warnings account for completed alternatives', ()
     );
 });
 
+test('registration info omits cross-listed course information', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.doesNotMatch(source, /Cross-listed sections/);
+    assert.doesNotMatch(source, /details\.xlist/);
+    assert.doesNotMatch(source, /bulletin\.crosslisted/);
+});
+
 test('course results remain visible with useful empty states', () => {
     const results = { innerHTML: '', querySelector: () => null };
     const input = { value: '' };

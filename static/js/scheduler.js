@@ -141,7 +141,6 @@ const Scheduler = {
                 details.section_coreqs,
             ]), type: 'corequisite' },
             { label: 'Registration restrictions', value: this.registrationRestrictionText(details.registration_restrictions), type: 'restriction' },
-            { label: 'Cross-listed sections', value: combined([details.xlist, bulletin.crosslisted]), type: 'information' },
             { label: 'Class notes', value: combined([details.clssnotes]), type: 'note' },
         ];
         const attentionLabels = [];
