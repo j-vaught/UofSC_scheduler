@@ -64,7 +64,6 @@ const Scheduler = {
                                 <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(State.preferredEnd)}">
                             </label>
                         </div>
-                        <small>Classes outside this range remain available but rank lower.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-walking">
                         <legend>Minimum time between classes</legend>
@@ -72,12 +71,11 @@ const Scheduler = {
                             <span>Minutes remaining after travel</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
                         </label>
-                        <small>Schedules at or below this amount rank lower. Shorter campus routes are preferred automatically.</small>
+                        <small>This lets you plan for time remaining between classes after accounting for travel between buildings. Travel time defaults to a walking-route estimate.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>
                         <div class="schedule-day-options">${dayOptions}</div>
-                        <small>Schedules using these days remain valid and are ranked below comparable alternatives.</small>
                     </fieldset>
                 </div>
                 <p id="schedule-preferences-error" class="schedule-preferences-error" role="alert"></p>
