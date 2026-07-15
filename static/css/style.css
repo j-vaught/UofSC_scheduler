@@ -1790,7 +1790,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     width: 7px;
 }
 .filter-sliders-icon > span:nth-child(1) i { left: 3px; }
-.filter-sliders-icon > span:nth-child(2) i { right: 3px; }
+.filter-sliders-icon > span:nth-child(2) i { right: 0; }
 .filter-sliders-icon > span:nth-child(3) i { left: 8px; }
 .smart-search-submit {
     background: transparent;
