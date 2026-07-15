@@ -1,8 +1,9 @@
 /* Weekly calendar grid rendering */
 const Calendar = {
     START_HOUR: 8,
-    END_HOUR: 21,
+    END_HOUR: 22,
     PX_PER_MIN: 1,
+    DAY_LABELS: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
     COLORS: [
         '#73000A', '#1a4a8a', '#2e7d32', '#e65100', '#4a148c',
         '#00695c', '#bf360c', '#1565c0', '#6a1b9a', '#33691e',
@@ -11,7 +12,7 @@ const Calendar = {
     _colorIdx: 0,
 
     init() {
-        this.buildGrid();
+        this.buildGrid(5);
         State.on('sections-changed', () => this.render());
     },
 
@@ -23,8 +24,17 @@ const Calendar = {
         return this._colorMap[code];
     },
 
-    buildGrid() {
+    buildGrid(dayCount = 5) {
+        this._dayCount = dayCount;
+        const grid = document.getElementById('calendar-grid');
+        const header = grid.querySelector('.cal-header');
         const body = document.getElementById('cal-body');
+        header.innerHTML = `
+            <div class="cal-time-label"></div>
+            ${this.DAY_LABELS.slice(0, dayCount).map(day => `<div class="cal-day-label">${day}</div>`).join('')}
+        `;
+        header.style.gridTemplateColumns = `var(--calendar-time-width) repeat(${dayCount}, 1fr)`;
+        grid.classList.toggle('calendar-seven-day', dayCount === 7);
         body.innerHTML = '';
 
         // Time labels column
@@ -47,12 +57,12 @@ const Calendar = {
 
         // Create day columns
         this._dayColumns = [];
-        for (let d = 0; d < 5; d++) {
+        for (let d = 0; d < dayCount; d++) {
             const col = document.createElement('div');
             col.className = 'cal-day-column';
             col.style.position = 'absolute';
-            col.style.left = `calc(var(--calendar-time-width, 42px) + ${d} * (100% - var(--calendar-time-width, 42px)) / 5)`;
-            col.style.width = 'calc((100% - var(--calendar-time-width, 42px)) / 5)';
+            col.style.left = `calc(var(--calendar-time-width, 42px) + ${d} * (100% - var(--calendar-time-width, 42px)) / ${dayCount})`;
+            col.style.width = `calc((100% - var(--calendar-time-width, 42px)) / ${dayCount})`;
             col.style.top = '0';
             col.style.height = gridHeight + 'px';
 
@@ -97,13 +107,23 @@ const Calendar = {
         return h * 60 + m;
     },
 
-    render(options = {}) {
-        // Clear existing blocks
-        this._dayColumns.forEach(col => {
-            col.querySelectorAll('.cal-block').forEach(b => b.remove());
-        });
+    visibleDayCount(sections) {
+        const hasWeekendMeeting = sections.some(section =>
+            this.parseMeetingTimes(section.meetingTimes).some(meeting => meeting.day === 5 || meeting.day === 6),
+        );
+        return hasWeekendMeeting ? 7 : 5;
+    },
 
+    render(options = {}) {
         const sections = Object.values(State.selectedSections);
+        const dayCount = this.visibleDayCount(sections);
+        if (!this._dayColumns || this._dayCount !== dayCount) {
+            this.buildGrid(dayCount);
+        } else {
+            this._dayColumns.forEach(col => {
+                col.querySelectorAll('.cal-block').forEach(b => b.remove());
+            });
+        }
 
         // Check for conflicts
         const allMeetings = [];
@@ -132,7 +152,7 @@ const Calendar = {
             const hasConflict = conflicts.has(sec.crn);
 
             times.forEach(mt => {
-                if (mt.day < 0 || mt.day > 4) return; // skip Sat/Sun
+                if (mt.day < 0 || mt.day >= this._dayCount) return;
                 const col = this._dayColumns[mt.day];
                 const startMin = this.timeToMinutes(mt.start);
                 const endMin = this.timeToMinutes(mt.end);

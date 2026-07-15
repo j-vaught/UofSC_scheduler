@@ -1131,6 +1131,7 @@ main {
     --calendar-time-width: 42px;
     position: relative;
 }
+#calendar-grid.calendar-seven-day { min-width: 760px; }
 .cal-header {
     display: grid;
     grid-template-columns: var(--calendar-time-width) repeat(5, 1fr);
@@ -1151,8 +1152,6 @@ main {
 .cal-day-label:first-of-type { border-left: none; }
 .cal-time-label { padding: 6px 0; }
 #cal-body {
-    display: grid;
-    grid-template-columns: var(--calendar-time-width) repeat(5, 1fr);
     position: relative;
 }
 .cal-time-slot {

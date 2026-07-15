@@ -244,6 +244,31 @@ test('preview renders a candidate without replacing selected sections', () => {
     assert.equal(state.selectedSections['TEST 101'].crn, '10101');
 });
 
+test('calendar runs from 8 AM through 10 PM', () => {
+    const calendar = loadObject('static/js/calendar.js', 'Calendar', {});
+
+    assert.equal(calendar.START_HOUR, 8);
+    assert.equal(calendar.END_HOUR, 22);
+});
+
+test('calendar expands to seven days only when a weekend meeting is present', () => {
+    const calendar = loadObject('static/js/calendar.js', 'Calendar', {});
+    const weekdaySections = [
+        { meetingTimes: '[{"meet_day": 4, "start_time": 900, "end_time": 950}]' },
+    ];
+    const saturdaySections = [
+        { meetingTimes: '[{"meet_day": 5, "start_time": 900, "end_time": 950}]' },
+    ];
+    const sundaySections = [
+        { meetingTimes: '[{"meet_day": 6, "start_time": 900, "end_time": 950}]' },
+    ];
+
+    assert.equal(calendar.visibleDayCount(weekdaySections), 5);
+    assert.equal(calendar.visibleDayCount(saturdaySections), 7);
+    assert.equal(calendar.visibleDayCount(sundaySections), 7);
+    assert.deepEqual(Array.from(calendar.DAY_LABELS), ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']);
+});
+
 test('hovering a schedule option previews it and leaving restores the calendar', () => {
     const listeners = {};
     const classes = new Set();
