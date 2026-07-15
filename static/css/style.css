@@ -1394,19 +1394,26 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     text-align: center;
     flex-shrink: 0;
 }
-.course-header-actions { display: flex; align-items: center; gap: 7px; }
-.btn-course-add {
-    background: #73000A;
-    border: 2px solid #73000A;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 0.68rem;
+.course-availability,
+.course-detail-availability {
+    font-size: 0.74rem;
     font-weight: 700;
-    padding: 5px 7px;
     white-space: nowrap;
 }
-.btn-course-add:hover { background: #000000; border-color: #000000; }
-.btn-course-add.added { background: #ffffff; color: #73000A; }
+.course-availability.open,
+.course-detail-availability.open { color: #2e7d32; }
+.course-availability.full,
+.course-detail-availability.full { color: #c62828; }
+.course-availability.unavailable,
+.course-detail-availability.unavailable { color: #5C5C5C; }
+.course-detail-availability { margin: 2px 0 10px; }
+.btn-course-unavailable {
+    background: #ECECEC;
+    border: 2px solid #C7C7C7;
+    color: #5C5C5C;
+    cursor: not-allowed;
+    opacity: 1;
+}
 .course-group.course-added { border-left: 6px solid #73000A; }
 .badge-open { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
 .badge-full { background: #ffebee; color: #c62828; border-color: #c62828; }

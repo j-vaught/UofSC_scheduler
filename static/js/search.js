@@ -949,6 +949,70 @@ const Search = {
             .map(item => item.result);
     },
 
+    courseAvailability(group) {
+        const liveSections = group.sections.filter(section => section.crn && !section._isCatalog);
+        if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
+
+        const openCount = liveSections.filter(section => section.stat === 'A').length;
+        if (openCount > 0) return { kind: 'open', text: `${openCount} open` };
+        return { kind: 'full', text: 'All full' };
+    },
+
+    updateCourseSelectionStyles(courseCode) {
+        document.querySelectorAll('#search-results .course-group').forEach(course => {
+            if (course.dataset.courseCode === courseCode) {
+                course.classList.toggle('course-added', State.isCourseSelected(courseCode));
+            }
+        });
+    },
+
+    showCourseDetail(group) {
+        const detailsTab = document.getElementById('tab-details');
+        if (!detailsTab) return;
+
+        const firstSection = group.sections[0];
+        const availability = this.courseAvailability(group);
+        const unavailable = availability.kind === 'unavailable';
+        const liveSections = group.sections.filter(section => section.crn && !section._isCatalog);
+
+        const actionButton = () => {
+            if (unavailable) {
+                return '<button id="btn-course-toggle" class="btn-course-unavailable" disabled>NOT OFFERED THIS TERM</button>';
+            }
+            const selected = State.isCourseSelected(group.code);
+            return `<button id="btn-course-toggle" class="${selected ? 'btn-danger' : 'btn-green'}">${selected ? 'REMOVE COURSE' : 'ADD COURSE TO SCHEDULE'}</button>`;
+        };
+
+        const bindAction = () => {
+            document.getElementById('btn-course-toggle')?.addEventListener('click', async () => {
+                if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
+                else await Scheduler.addCourseGroup(group);
+                this.updateCourseSelectionStyles(group.code);
+                this.showCourseDetail(group);
+            });
+        };
+
+        const render = details => {
+            const desc = (details?.description || '').replace(/<[^>]+>/g, ' ').trim();
+            detailsTab.innerHTML = `
+                <h3>${group.code} - ${details?.title || group.title}</h3>
+                <p class="course-detail-availability ${availability.kind}">${availability.text}</p>
+                ${details ? `<p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>` : ''}
+                <p><strong>Sections this term:</strong> ${liveSections.length}</p>
+                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
+                <div class="section-actions">${actionButton()}</div>
+                ${details === null ? '<p class="loading">Loading details</p>' : ''}
+            `;
+            bindAction();
+        };
+
+        render(null);
+        if (!firstSection) return;
+        this.fetchBulletinDetailsForCourse(group.code)
+            .then(details => render(details || {}))
+            .catch(() => detailsTab.querySelector('.loading')?.remove());
+    },
+
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
 
@@ -1003,32 +1067,8 @@ const Search = {
         groupList.forEach(group => {
             const div = document.createElement('div');
             div.className = 'course-group';
-
-            const isCatalog = group.sections.some(s => s._isCatalog);
-            let badgeClass, badgeText;
-            if (isCatalog) {
-                const offeredThisTerm = group.sections.some(s => s._offeredThisTerm);
-                const hasOpen = group.sections.some(s => s._hasOpen);
-                if (offeredThisTerm && hasOpen) {
-                    badgeClass = 'badge-open';
-                    badgeText = this.shortTermLabel(State.term);
-                } else if (offeredThisTerm) {
-                    badgeClass = 'badge-full';
-                    badgeText = 'FULL';
-                } else {
-                    badgeClass = 'badge-na';
-                    badgeText = 'NOT OFFERED';
-                }
-            } else {
-                const hasOpen = group.sections.some(s => s.stat === 'A');
-                if (hasOpen) {
-                    badgeClass = 'badge-open';
-                    badgeText = this.shortTermLabel(State.term);
-                } else {
-                    badgeClass = 'badge-full';
-                    badgeText = 'FULL';
-                }
-            }
+            div.dataset.courseCode = group.code;
+            const availability = this.courseAvailability(group);
 
             // Eligibility badge
             const elig = this.checkEligibility(group.code, prereqData);
@@ -1044,37 +1084,13 @@ const Search = {
             div.innerHTML = `
                 <div class="course-header">
                     <span><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</span>
-                    <span class="course-header-actions">
-                        <span class="badge ${badgeClass}">${badgeText}</span>
-                        <button class="btn-course-add ${State.isCourseSelected(group.code) ? 'added' : ''}">${State.isCourseSelected(group.code) ? 'ADDED' : 'ADD COURSE'}</button>
-                    </span>
+                    <span class="course-availability ${availability.kind}">${availability.text}</span>
                 </div>
                 <div class="course-sections"></div>
             `;
 
             const header = div.querySelector('.course-header');
             const sectionsDiv = div.querySelector('.course-sections');
-            const addCourseButton = div.querySelector('.btn-course-add');
-
-            addCourseButton.addEventListener('click', async event => {
-                event.stopPropagation();
-                if (State.isCourseSelected(group.code)) {
-                    State.removeCourse(group.code);
-                } else {
-                    addCourseButton.disabled = true;
-                    try {
-                        await Scheduler.addCourseGroup(group);
-                    } catch (error) {
-                        return;
-                    } finally {
-                        addCourseButton.disabled = false;
-                    }
-                }
-                const selected = State.isCourseSelected(group.code);
-                addCourseButton.textContent = selected ? 'ADDED' : 'ADD COURSE';
-                addCourseButton.classList.toggle('added', selected);
-                div.classList.toggle('course-added', selected);
-            });
             div.classList.toggle('course-added', State.isCourseSelected(group.code));
 
             header.addEventListener('click', () => {
@@ -1098,39 +1114,16 @@ const Search = {
                     if (typeof Grades !== 'undefined' && Grades.loadForCourse) {
                         Grades.loadForCourse(firstSec.code);
                     }
-                    // Show course-level details (not section-specific)
-                    const detailsTab = document.getElementById('tab-details');
-                    if (detailsTab) {
-                        detailsTab.innerHTML = `
-                            <h3>${firstSec.code} - ${firstSec.title}</h3>
-                            <p><strong>Sections available:</strong> ${group.sections.length}</p>
-                            <p class="loading">Loading details</p>
-                        `;
-                        const subject = firstSec.code.split(' ')[0];
-                        API.bulletinSearch(subject).then(search => {
-                            const target = (search.results || []).find(c => c.code === firstSec.code);
-                            if (!target) return;
-                            return API.bulletinDetails(target.key);
-                        }).then(details => {
-                            if (!details) return;
-                            const desc = (details.description || '').replace(/<[^>]+>/g, ' ').trim();
-                            detailsTab.innerHTML = `
-                                <h3>${firstSec.code} - ${details.title || firstSec.title}</h3>
-                                <p><strong>Credits:</strong> ${details.hours_html || 'N/A'}</p>
-                                <p><strong>Sections available:</strong> ${group.sections.length}</p>
-                                ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 400)}${desc.length > 400 ? '...' : ''}</p>` : ''}
-                            `;
-                        }).catch(() => {
-                            detailsTab.querySelector('.loading')?.remove();
-                        });
-                    }
+                    this.showCourseDetail(group);
                 }
             });
 
             group.sections.forEach(sec => {
                 const row = document.createElement('div');
                 row.className = 'section-row';
-                const statusDot = sec.stat === 'A'
+                const statusDot = sec._isCatalog
+                    ? '<span style="color:#5C5C5C;font-weight:700">&#9679;</span>'
+                    : sec.stat === 'A'
                     ? '<span style="color:#2e7d32;font-weight:700">&#9679;</span>'
                     : '<span style="color:#c62828;font-weight:700">&#9679;</span>';
                 row.innerHTML = `
@@ -1147,7 +1140,8 @@ const Search = {
                     document.querySelectorAll('#search-results .section-row.viewing').forEach(r => r.classList.remove('viewing'));
                     row.classList.add('viewing');
                     // Show section details while keeping schedule selection course-level
-                    Search.showSectionDetail(sec);
+                    if (sec._isCatalog) Search.showCourseDetail(group);
+                    else Search.showSectionDetail(sec);
                 });
                 row.dataset.crn = sec.crn;
                 sectionsDiv.appendChild(row);

@@ -134,6 +134,40 @@ test('semantic catalog matches retain complete live section records', () => {
     assert.equal(catalogOnly[0]._isCatalog, true);
 });
 
+test('browse course availability uses concise color-coded states', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const open = search.courseAvailability({
+        sections: [
+            { crn: '10001', stat: 'A' },
+            { crn: '10002', stat: 'A' },
+            { crn: '10003', stat: 'C' },
+        ],
+    });
+    const full = search.courseAvailability({ sections: [{ crn: '20001', stat: 'C' }] });
+    const unavailable = search.courseAvailability({
+        sections: [{ _isCatalog: true, meets: 'Not offered this term' }],
+    });
+
+    assert.equal(open.kind, 'open');
+    assert.equal(open.text, '2 open');
+    assert.equal(full.kind, 'full');
+    assert.equal(full.text, 'All full');
+    assert.equal(unavailable.kind, 'unavailable');
+    assert.equal(unavailable.text, 'Not offered');
+});
+
+test('browse results reserve course add actions for the details pane', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.doesNotMatch(source, /class="btn-course-add/);
+    assert.match(source, /class="course-availability \$\{availability\.kind\}"/);
+    assert.match(source, /id="btn-course-toggle"[^>]*disabled>NOT OFFERED THIS TERM/);
+    assert.match(styles, /\.course-availability\.open[^}]*color:\s*#2e7d32/s);
+    assert.match(styles, /\.course-availability\.full[^}]*color:\s*#c62828/s);
+    assert.match(styles, /\.course-availability\.unavailable[^}]*color:\s*#5C5C5C/s);
+});
+
 test('browse filters separate primary and additional course choices', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
 
