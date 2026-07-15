@@ -1135,6 +1135,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     position: absolute;
     right: 10px;
     top: -14px;
+    transform: translateY(-50%);
     z-index: 2;
 }
 .schedule-preference-mode input {

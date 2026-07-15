@@ -410,6 +410,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.doesNotMatch(source, /id="schedule-preferred-maximum-walk"/);
     assert.match(source, /min="1"/);
     assert.match(styles, /input:checked \+ \.schedule-preference-mode-track \.require\s*{[^}]*background:\s*#000000;/s);
+    assert.match(styles, /\.schedule-preference-mode\s*{[^}]*top:\s*-14px;[^}]*transform:\s*translateY\(-50%\);/s);
     assert.doesNotMatch(styles, /schedule-preference-mode[^}]*#73000A/s);
 });
 
