@@ -981,7 +981,24 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(source, /prepareSmartSearch\(\)/);
     assert.match(source, /Understanding “\$\{query\}”/);
     assert.match(source, /Ranking the closest courses/);
-    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*flex;/);
+    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
+});
+
+test('Smart Search expands into a prompt with an arrow and four example cards', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(html, /id="smart-keyword-input"/);
+    assert.match(html, /id="smart-search-submit"/);
+    assert.equal((html.match(/class="smart-search-examples"[\s\S]*?<\/div>/)?.[0].match(/data-search-example=/g) || []).length, 4);
+    assert.match(source, /Nursing courses about caring for children/);
+    assert.match(source, /Mechanical engineering courses about robotics/);
+    assert.match(source, /Electrical engineering courses about renewable energy/);
+    assert.match(source, /phrase\.slice\(0, length\)/);
+    assert.match(styles, /conic-gradient/);
+    assert.match(styles, /\.browse-empty\.smart-search-active \.browse-filter-button\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{[^}]*grid-template-columns:\s*repeat\(4,/s);
 });
 
 test('Browse result cards lazily add descriptions and historical grades', () => {

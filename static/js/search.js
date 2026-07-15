@@ -17,6 +17,8 @@ const Search = {
     _resultSummaryCache: {},
     _resultSummaryObserver: null,
     _smartModelPromise: null,
+    _placeholderTimer: null,
+    _placeholderIndex: 0,
     _browseState: 'empty',
 
     // Lazy-load Transformers.js embedding model
@@ -300,7 +302,7 @@ const Search = {
             document.querySelectorAll('.fuzzy-suggestion').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const input = document.getElementById('keyword-input');
+                    const input = this.activeSearchInput();
                     input.value = input.value.replace(/^[A-Za-z]{3,4}/i, e.target.dataset.code);
                     this.doSearch();
                 });
@@ -445,13 +447,18 @@ const Search = {
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
         });
+        document.getElementById('smart-keyword-input')?.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) this.doSearch();
+        });
+        document.getElementById('smart-search-submit')?.addEventListener('click', () => this.doSearch());
 
         // Clear button
         const clearBtn = document.getElementById('search-clear');
         if (clearBtn) {
             clearBtn.addEventListener('click', () => {
-                document.getElementById('keyword-input').value = '';
-                document.getElementById('keyword-input').focus();
+                const input = this.activeSearchInput();
+                input.value = '';
+                input.focus();
             });
         }
 
@@ -477,6 +484,13 @@ const Search = {
         if (smartToggle) {
             smartToggle.checked = localStorage.getItem('uofsc-smart-search') === 'true';
             smartToggle.addEventListener('change', () => {
+                const previousInput = smartToggle.checked
+                    ? document.getElementById('keyword-input')
+                    : document.getElementById('smart-keyword-input');
+                const nextInput = smartToggle.checked
+                    ? document.getElementById('smart-keyword-input')
+                    : document.getElementById('keyword-input');
+                if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
                 localStorage.setItem('uofsc-smart-search', String(smartToggle.checked));
                 this.setSmartSearchMode(smartToggle.checked);
                 if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
@@ -487,7 +501,7 @@ const Search = {
 
         document.querySelectorAll('[data-search-example]').forEach(button => {
             button.addEventListener('click', () => {
-                const input = document.getElementById('keyword-input');
+                const input = this.activeSearchInput();
                 input.value = button.dataset.searchExample || '';
                 this.doSearch();
             });
@@ -506,11 +520,69 @@ const Search = {
         document.getElementById('btn-apply-filters')?.addEventListener('click', () => {
             this.updateActiveFilterChips();
             this.closeFilters();
-            if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+            if (this.activeSearchInput()?.value.trim()) this.doSearch();
         });
         document.getElementById('btn-clear-filters')?.addEventListener('click', () => this.clearFilters());
         this.setBrowseState('empty');
         this.updateActiveFilterChips();
+        this.startPlaceholderTyping();
+    },
+
+    activeSearchInput() {
+        return document.getElementById('smart-search-toggle')?.checked
+            ? document.getElementById('smart-keyword-input')
+            : document.getElementById('keyword-input');
+    },
+
+    startPlaceholderTyping() {
+        clearTimeout(this._placeholderTimer);
+        this._placeholderIndex = 0;
+        const regularExamples = [
+            'CSCE 145',
+            'Computer Science',
+            'CSCE 500+',
+            'CSCE 140–199',
+        ];
+        const smartExamples = [
+            'Nursing courses about caring for children',
+            'Art classes focused on digital illustration',
+            'Political science courses about elections',
+            'Mechanical engineering courses about robotics',
+            'Computer science courses about machine learning',
+            'Electrical engineering courses about renewable energy',
+        ];
+        const cycle = () => {
+            const input = this.activeSearchInput();
+            if (!input) return;
+            const examples = document.getElementById('smart-search-toggle')?.checked
+                ? smartExamples
+                : regularExamples;
+            const phrase = examples[this._placeholderIndex % examples.length];
+            let length = 0;
+            let deleting = false;
+            const animate = () => {
+                if (!input.value) input.placeholder = phrase.slice(0, length);
+                if (!deleting && length < phrase.length) {
+                    length += 1;
+                    this._placeholderTimer = setTimeout(animate, 52);
+                    return;
+                }
+                if (!deleting) {
+                    deleting = true;
+                    this._placeholderTimer = setTimeout(animate, 1250);
+                    return;
+                }
+                if (length > 0) {
+                    length -= 1;
+                    this._placeholderTimer = setTimeout(animate, 24);
+                    return;
+                }
+                this._placeholderIndex += 1;
+                this._placeholderTimer = setTimeout(cycle, 250);
+            };
+            animate();
+        };
+        cycle();
     },
 
     setBrowseState(state) {
@@ -534,6 +606,11 @@ const Search = {
                 : 'Search by course, subject, CRN, range, or description.';
         }
         if (status) status.hidden = !enabled;
+        if (!enabled) workspace?.classList.remove('smart-search-busy');
+        if (enabled && this._extractor && this._phraseData) {
+            this.setSmartSearchStatus('Ready for Smart Search', 'ready', 'Enter an idea or choose an example below.');
+        }
+        this.startPlaceholderTyping();
     },
 
     setSmartSearchStatus(message, mode = 'loading', activity = '') {
@@ -544,6 +621,10 @@ const Search = {
         if (!status || !text || !detail) return;
         status.hidden = false;
         status.dataset.state = mode;
+        document.getElementById('browse-workspace')?.classList.toggle(
+            'smart-search-busy',
+            mode === 'loading' || mode === 'searching',
+        );
         text.textContent = message;
         detail.textContent = activity;
     },
@@ -630,7 +711,7 @@ const Search = {
                     else element.value = '';
                 });
                 this.updateActiveFilterChips();
-                if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+                if (this.activeSearchInput()?.value.trim()) this.doSearch();
             });
             container.appendChild(button);
         });
@@ -648,11 +729,12 @@ const Search = {
         });
         this.updateActiveFilterChips();
         this.closeFilters();
-        if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+        if (this.activeSearchInput()?.value.trim()) this.doSearch();
     },
 
     async doSearch() {
-        const rawInput = document.getElementById('keyword-input').value.trim();
+        const searchInput = this.activeSearchInput();
+        const rawInput = searchInput.value.trim();
         const openOnly = document.getElementById('filter-open').checked;
         const eligibleOnly = document.getElementById('filter-eligible').checked;
         const currentTermOnly = !document.getElementById('filter-show-all').checked;
@@ -732,7 +814,7 @@ const Search = {
         if (/^[A-Za-z]{3,4}$/i.test(kw)) {
             subject = this._resolveSubject(kw);
             if (!subject) return;
-            document.getElementById('keyword-input').value = subject;
+            searchInput.value = subject;
             criteria.push({ field: 'subject', value: subject });
 
         // Inclusive numeric range: "CSCE 140-150", "CSCE 140–150", or "CSCE 140 to 150"
@@ -784,7 +866,7 @@ const Search = {
             if (!subject) return;
             const num = m[2].toUpperCase();
             const normalized = subject + ' ' + num;
-            document.getElementById('keyword-input').value = normalized;
+            searchInput.value = normalized;
             criteria.push({ field: 'alias', value: normalized });
 
         // 5-digit CRN

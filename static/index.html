@@ -252,11 +252,13 @@
                     <div class="search-form browse-search-form">
                         <div class="search-input-wrap">
                             <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <textarea id="smart-keyword-input" class="smart-keyword-input" placeholder="Describe what you want to learn" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Describe the courses you want to find"></textarea>
                             <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
                             <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
                                 <input id="smart-search-toggle" type="checkbox" aria-label="Smart Search">
-                                <span aria-hidden="true">&#10022;</span>
+                                <span aria-hidden="true"></span>
                             </label>
+                            <button id="smart-search-submit" class="smart-search-submit" type="button" aria-label="Search">&#8594;</button>
                         </div>
                         <button class="browse-filter-button" id="filter-toggle" type="button" aria-label="Filters" title="Filters" aria-expanded="false" aria-controls="filter-panel">
                             <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
@@ -274,10 +276,10 @@
                             <button type="button" data-search-example="CSCE 140–199">CSCE 140–199</button>
                         </div>
                         <div class="smart-search-examples">
-                            <button type="button" data-search-example="courses about ethical artificial intelligence">ethical artificial intelligence</button>
-                            <button type="button" data-search-example="how computers recognize images">computers recognizing images</button>
-                            <button type="button" data-search-example="protecting systems from cyber attacks">cybersecurity</button>
-                            <button type="button" data-search-example="technology and society">technology and society</button>
+                            <button type="button" data-search-example="courses about ethical artificial intelligence"><strong>Ethical technology</strong><span>Explore artificial intelligence, ethics, and society.</span></button>
+                            <button type="button" data-search-example="how computers recognize images"><strong>Computer vision</strong><span>Learn how computers understand images.</span></button>
+                            <button type="button" data-search-example="protecting systems from cyber attacks"><strong>Cybersecurity</strong><span>Find courses about protecting digital systems.</span></button>
+                            <button type="button" data-search-example="technology and society"><strong>Technology and society</strong><span>Study how technology shapes communities.</span></button>
                         </div>
                     </div>
                     <div id="smart-search-status" class="smart-search-status" hidden aria-live="polite">
