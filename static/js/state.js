@@ -14,9 +14,7 @@ const State = {
     preferredStart: 800,
     preferredEnd: 2100,
     avoidedDays: [],
-    minimumClassBuffer: 0,
-    minimumWalkingBuffer: 0,
-    preferredMaximumWalk: 0,
+    minimumWalkingBuffer: 1,
     gapWeight: 2,
     compactWeight: 3,
     consecWeight: 2,
@@ -128,9 +126,7 @@ const State = {
             preferred_start: this.preferredStart,
             preferred_end: this.preferredEnd,
             avoided_days: [...this.avoidedDays],
-            minimum_transition_minutes: this.minimumClassBuffer,
-            minimum_walking_buffer_minutes: this.minimumWalkingBuffer,
-            preferred_maximum_walk_minutes: this.preferredMaximumWalk,
+            minimum_walking_buffer_minutes: Math.max(1, Number(this.minimumWalkingBuffer) || 1),
             gap_penalty_weight: this.gapWeight,
             day_compactness_weight: this.compactWeight,
             consecutive_penalty_weight: this.consecWeight,
@@ -149,9 +145,7 @@ const State = {
             preferredStart: this.preferredStart,
             preferredEnd: this.preferredEnd,
             avoidedDays: [...this.avoidedDays],
-            minimumClassBuffer: this.minimumClassBuffer,
             minimumWalkingBuffer: this.minimumWalkingBuffer,
-            preferredMaximumWalk: this.preferredMaximumWalk,
             completedCourses: [...this.completedCourses],
             completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
             profile: JSON.parse(JSON.stringify(this.profile)),
@@ -183,9 +177,7 @@ const State = {
         this.preferredStart = plan.preferredStart ?? this.preferredStart;
         this.preferredEnd = plan.preferredEnd ?? this.preferredEnd;
         this.avoidedDays = plan.avoidedDays || [];
-        this.minimumClassBuffer = plan.minimumClassBuffer ?? 0;
-        this.minimumWalkingBuffer = plan.minimumWalkingBuffer ?? 0;
-        this.preferredMaximumWalk = plan.preferredMaximumWalk ?? 0;
+        this.minimumWalkingBuffer = Math.max(1, Number(plan.minimumWalkingBuffer) || 1);
         this.completedCourses = plan.completedCourses || [];
         this.completedDetails = plan.completedDetails || [];
         if (plan.profile) {
@@ -240,9 +232,7 @@ const State = {
             preferredStart: this.preferredStart,
             preferredEnd: this.preferredEnd,
             avoidedDays: this.avoidedDays,
-            minimumClassBuffer: this.minimumClassBuffer,
             minimumWalkingBuffer: this.minimumWalkingBuffer,
-            preferredMaximumWalk: this.preferredMaximumWalk,
             completedCourses: this.completedCourses,
             completedDetails: this.completedDetails,
             profile: this.profile,
@@ -272,9 +262,9 @@ const State = {
             if (data.preferredStart !== undefined) this.preferredStart = data.preferredStart;
             if (data.preferredEnd !== undefined) this.preferredEnd = data.preferredEnd;
             if (data.avoidedDays) this.avoidedDays = data.avoidedDays;
-            if (data.minimumClassBuffer !== undefined) this.minimumClassBuffer = data.minimumClassBuffer;
-            if (data.minimumWalkingBuffer !== undefined) this.minimumWalkingBuffer = data.minimumWalkingBuffer;
-            if (data.preferredMaximumWalk !== undefined) this.preferredMaximumWalk = data.preferredMaximumWalk;
+            if (data.minimumWalkingBuffer !== undefined) {
+                this.minimumWalkingBuffer = Math.max(1, Number(data.minimumWalkingBuffer) || 1);
+            }
             if (data.completedCourses) this.completedCourses = data.completedCourses;
             if (data.completedDetails) this.completedDetails = data.completedDetails;
             if (data.profile) this.profile = data.profile;

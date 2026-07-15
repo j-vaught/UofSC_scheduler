@@ -81,7 +81,7 @@ class SchedulerTests(unittest.TestCase):
 
         self.assertEqual(result["total_found"], 0)
 
-    def test_minimum_transition_time_is_a_hard_constraint(self):
+    def test_minimum_transition_preference_does_not_remove_valid_schedules(self):
         courses = [
             {
                 "code": "TEST 101",
@@ -101,11 +101,9 @@ class SchedulerTests(unittest.TestCase):
             },
         ]
 
-        too_close = solve({"courses": courses, "preferences": {"minimum_transition_minutes": 15}})
-        allowed = solve({"courses": courses, "preferences": {"minimum_transition_minutes": 10}})
+        result = solve({"courses": courses, "preferences": {"minimum_walking_buffer_minutes": 15}})
 
-        self.assertEqual(too_close["total_found"], 0)
-        self.assertEqual(allowed["total_found"], 1)
+        self.assertEqual(result["total_found"], 1)
 
     def test_avoided_days_rank_lower_without_removing_schedules(self):
         courses = [
@@ -123,7 +121,7 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(result["total_found"], 2)
         self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "tuesday")
 
-    def test_minimum_walking_buffer_removes_too_distant_transition(self):
+    def test_minimum_walking_buffer_ranks_without_removing_schedule(self):
         first = section(
             "first",
             '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]',
@@ -146,9 +144,10 @@ class SchedulerTests(unittest.TestCase):
             }
         )
 
-        self.assertEqual(result["total_found"], 0)
+        self.assertEqual(result["total_found"], 1)
+        self.assertLess(result["schedules"][0]["score"], -30)
 
-    def test_longer_walks_rank_lower_without_becoming_invalid(self):
+    def test_shorter_walks_rank_higher_by_default(self):
         origin = section(
             "origin",
             '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]',
@@ -173,7 +172,6 @@ class SchedulerTests(unittest.TestCase):
                     {"code": "TEST 101", "sections": [origin]},
                     {"code": "TEST 102", "sections": [distant, nearby]},
                 ],
-                "preferences": {"preferred_maximum_walk_minutes": 5},
             }
         )
 

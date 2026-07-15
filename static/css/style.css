@@ -1032,7 +1032,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-times legend,
 .schedule-preference-walking legend,
 .schedule-time-options label,
-.schedule-walking-options label {
+.schedule-preference-walking label {
     color: #363636;
     display: block;
     font-size: 0.76rem;
@@ -1042,7 +1042,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-field input[type="number"],
 .schedule-preference-field input[type="time"],
 .schedule-time-options input,
-.schedule-walking-options input {
+.schedule-preference-walking input {
     background: #ffffff;
     border: 2px solid #000000;
     border-radius: 0;
@@ -1065,8 +1065,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-times,
 .schedule-preference-walking { grid-column: 1 / -1; }
 
-.schedule-time-options,
-.schedule-walking-options {
+.schedule-time-options {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
@@ -1074,7 +1073,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 
 .schedule-time-options label,
-.schedule-walking-options label {
+.schedule-preference-walking label {
     display: grid;
     gap: 4px;
 }
@@ -1549,8 +1548,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     .schedule-preference-times,
     .schedule-preference-walking { grid-column: 1; }
 
-    .schedule-time-options,
-    .schedule-walking-options { grid-template-columns: 1fr; }
+    .schedule-time-options { grid-template-columns: 1fr; }
     .schedule-day-options { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow-x: auto; }
 }
 
