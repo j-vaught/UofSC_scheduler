@@ -109,6 +109,15 @@ const Scheduler = {
         return !restriction.includes(major);
     },
 
+    registrationRestrictionText(value) {
+        return this.stripHtml(value || '')
+            .split(/(?<=[.!?])\s+/)
+            .filter(sentence => !/columbia campus/i.test(sentence)
+                || /major|concentration|program|college|school|student level/i.test(sentence))
+            .join(' ')
+            .trim();
+    },
+
     registrationRequirementRows(details, bulletin) {
         const combined = values => [...new Set(values
             .map(value => this.stripHtml(value || ''))
@@ -122,20 +131,20 @@ const Scheduler = {
             ...Object.keys(State.selectedCourses || {}).map(normalizeCode),
         ]);
         const rows = [
-            { label: 'Prerequisites', value: combined([bulletin.prereq]), showWhenEmpty: true, type: 'prerequisite' },
-            { label: 'Prerequisite or corequisite', value: combined([bulletin.prerequisite_or_corequisite]), showWhenEmpty: false, type: 'prerequisite' },
+            { label: 'Prerequisites', value: combined([bulletin.prereq]), type: 'prerequisite' },
+            { label: 'Prerequisite or corequisite', value: combined([bulletin.prerequisite_or_corequisite]), type: 'prerequisite' },
             { label: 'Corequisites or linked sections', value: combined([
                 bulletin.corequisite,
                 details.course_coreqs,
                 details.section_coreqs,
-            ]), showWhenEmpty: true, type: 'corequisite' },
-            { label: 'Registration restrictions', value: combined([details.registration_restrictions]), showWhenEmpty: true, type: 'restriction' },
-            { label: 'Cross-listed sections', value: combined([details.xlist, bulletin.crosslisted]), showWhenEmpty: false, type: 'information' },
-            { label: 'Class notes', value: combined([details.clssnotes]), showWhenEmpty: false, type: 'note' },
+            ]), type: 'corequisite' },
+            { label: 'Registration restrictions', value: this.registrationRestrictionText(details.registration_restrictions), type: 'restriction' },
+            { label: 'Cross-listed sections', value: combined([details.xlist, bulletin.crosslisted]), type: 'information' },
+            { label: 'Class notes', value: combined([details.clssnotes]), type: 'note' },
         ];
         const attentionLabels = [];
-        const html = rows.map(({ label, value, showWhenEmpty, type }) => {
-            if (!value && !showWhenEmpty) return '';
+        const html = rows.map(({ label, value, type }) => {
+            if (!value) return '';
             const attention = Boolean(value) && (
                 (type === 'prerequisite' && !this.registrationRequirementSatisfied(value, completed))
                 || (type === 'corequisite' && !this.registrationRequirementSatisfied(value, completedOrSelected))
@@ -143,8 +152,7 @@ const Scheduler = {
                 || type === 'note'
             );
             if (attention) attentionLabels.push(label);
-            const text = value || 'None listed';
-            const shortened = text.length > 240 ? `${text.slice(0, 237)}…` : text;
+            const shortened = value.length > 240 ? `${value.slice(0, 237)}…` : value;
             return `<p class="${attention ? 'attention' : ''}"><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
         }).filter(Boolean).join('');
         return { html, attentionLabels };
@@ -172,7 +180,9 @@ const Scheduler = {
             card.querySelector('[data-registration-dates]').textContent = section.start_date && section.end_date
                 ? `${section.start_date} through ${section.end_date}`
                 : 'Course dates unavailable';
-            card.querySelector('[data-registration-requirements]').innerHTML = requirements.html;
+            const requirementList = card.querySelector('[data-registration-requirements]');
+            requirementList.innerHTML = requirements.html;
+            requirementList.closest('.registration-requirements').hidden = !requirements.html;
             const attention = seats.kind === 'full'
                 ? ['Full section', ...requirements.attentionLabels]
                 : requirements.attentionLabels;
@@ -199,8 +209,6 @@ const Scheduler = {
         modal.classList.remove('course-quick-modal');
         modal.classList.add('registration-info-modal');
 
-        const termSelect = document.getElementById('term-select');
-        const termLabel = termSelect?.selectedOptions?.[0]?.textContent?.trim() || 'Selected term';
         const rows = sections.map(section => {
             const open = this.isOpenSection(section);
             const credits = this.parseCreditHours(section.hours);
@@ -251,12 +259,10 @@ const Scheduler = {
         content.innerHTML = `
             <section class="registration-dialog" aria-labelledby="registration-dialog-title">
                 <header class="registration-dialog-header">
-                    <span>READY TO REGISTER</span>
                     <h2 id="registration-dialog-title">Registration Info</h2>
-                    <p>${this.escapeHtml(termLabel)} · ${sections.length} course${sections.length === 1 ? '' : 's'}</p>
                 </header>
                 <div class="registration-instructions">
-                    Confirm that you meet each requirement, then copy the CRN into OneCarolina. This planner cannot verify registration eligibility.
+                    Review highlighted items, then copy each CRN into OneCarolina.
                 </div>
                 <div class="registration-course-list">${rows}</div>
                 <p id="registration-copy-status" class="registration-copy-status" aria-live="polite"></p>

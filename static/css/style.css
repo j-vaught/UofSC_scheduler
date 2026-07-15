@@ -1855,21 +1855,9 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     color: #FFFFFF;
     padding: 18px 54px 17px 20px;
 }
-.registration-dialog-header > span {
-    color: #CED318;
-    display: block;
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-}
 #modal-content .registration-dialog-header h2 {
     color: #FFFFFF;
     font-size: 1.35rem;
-    margin: 2px 0 3px;
-}
-#modal-content .registration-dialog-header p {
-    color: #C7C7C7;
-    font-size: 0.76rem;
     margin: 0;
 }
 .registration-instructions {
@@ -1960,7 +1948,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     inset: 0;
 }
 .registration-warning-icon::after {
-    background: #FFF2E3;
+    background: #FFEB66;
     inset: 2px 2px 1px;
 }
 .registration-warning-icon[hidden] { display: none; }
@@ -2015,6 +2003,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     margin: 0 !important;
     padding: 8px 11px;
 }
+.registration-requirements[hidden] { display: none; }
 .registration-requirements h3 {
     color: #73000A;
     font-size: 0.7rem;

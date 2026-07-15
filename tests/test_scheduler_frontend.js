@@ -430,7 +430,12 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(source, /data-registration-details hidden/);
     assert.match(source, /data-registration-warning/);
     assert.match(source, /registrationRequirementSatisfied/);
-    assert.match(source, /This planner cannot verify registration eligibility/);
+    assert.doesNotMatch(source, /This planner cannot verify registration eligibility/);
+    assert.doesNotMatch(source, /READY TO REGISTER/);
+    assert.doesNotMatch(source, /termLabel/);
+    assert.doesNotMatch(source, /value \|\| 'None listed'/);
+    assert.doesNotMatch(source, /showWhenEmpty/);
+    assert.match(source, /registrationRestrictionText\(details\.registration_restrictions\)/);
     assert.doesNotMatch(source, /data-registration-schedule/);
     assert.doesNotMatch(source, /data-registration-status/);
     assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#" target="_blank"/);
@@ -438,11 +443,12 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
     assert.match(styles, /\.registration-copy-crn\s*{[^}]*width:\s*84px;/s);
     assert.match(styles, /\.registration-course-details\[hidden\]\s*{[^}]*display:\s*none;/s);
-    assert.match(styles, /\.registration-warning-icon::after\s*{[^}]*background:\s*#FFF2E3;/s);
+    assert.match(styles, /\.registration-warning-icon::after\s*{[^}]*background:\s*#FFEB66;/s);
     assert.match(styles, /clip-path:\s*polygon\(50% 0, 100% 100%, 0 100%\)/);
     assert.match(styles, /\.registration-course-card\s*{\s*border:\s*1px solid #A2A2A2;\s*padding:/s);
     assert.doesNotMatch(styles, /\.registration-course-card\s*{[^}]*border-left:/s);
     assert.match(styles, /\.registration-requirements p\.attention\s*{[^}]*border-left:\s*4px solid #CC2E40;/s);
+    assert.match(source, /requirementList\.closest\('\.registration-requirements'\)\.hidden = !requirements\.html;/);
     assert.match(source, /querySelectorAll\('\[data-registration-expand\]\[aria-expanded="true"\]'\)/);
     assert.match(source, /otherDetails\.hidden = true/);
 });
@@ -492,6 +498,18 @@ test('registration prerequisite warnings account for completed alternatives', ()
             'Enrollment limited to students in the Nursing Major.',
         ),
         true,
+    );
+    assert.equal(
+        scheduler.registrationRestrictionText(
+            'Enrollment limited to students in the Mechanical Engineering Major. Enrollment limited to students in the USC Columbia campus.',
+        ),
+        'Enrollment limited to students in the Mechanical Engineering Major.',
+    );
+    assert.equal(
+        scheduler.registrationRestrictionText(
+            'Enrollment limited to students in the USC Columbia campus.',
+        ),
+        '',
     );
 });
 
