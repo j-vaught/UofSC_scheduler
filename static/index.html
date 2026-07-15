@@ -246,22 +246,44 @@
             <div id="browse-workspace" class="semester-layout browse-empty">
                 <section class="browse-search-shell" aria-label="Course search">
                     <div class="browse-search-intro">
-                        <h2>Find your next course</h2>
-                        <p>Search by course, subject, CRN, range, or description.</p>
+                        <h2 id="browse-search-title">Find your next course</h2>
+                        <p id="browse-search-description">Search by course, subject, CRN, range, or description.</p>
                     </div>
                     <div class="search-form browse-search-form">
                         <div class="search-input-wrap">
                             <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                             <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
+                            <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
+                                <input id="smart-search-toggle" type="checkbox" aria-label="Smart Search">
+                                <span aria-hidden="true">&#10022;</span>
+                            </label>
                         </div>
-                        <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
-                            <input id="smart-search-toggle" type="checkbox">
-                            <span>SMART SEARCH</span>
-                        </label>
-                        <button class="browse-filter-button" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
-                            FILTERS <span id="active-filter-count" class="active-filter-count" hidden>0</span><span id="filter-arrow">&#9660;</span>
+                        <button class="browse-filter-button" id="filter-toggle" type="button" aria-label="Filters" title="Filters" aria-expanded="false" aria-controls="filter-panel">
+                            <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
                         </button>
                         <button id="btn-search" class="btn-garnet">SEARCH</button>
+                    </div>
+                    <div class="browse-search-examples" aria-label="Search examples">
+                        <span>Try</span>
+                        <div class="regular-search-examples">
+                            <button type="button" data-search-example="Machine Learning">Machine Learning</button>
+                            <button type="button" data-search-example="CSCE 145">CSCE 145</button>
+                            <button type="button" data-search-example="Computer Science">Computer Science</button>
+                            <button type="button" data-search-example="CSCE 500+">CSCE 500+</button>
+                            <button type="button" data-search-example="CSCE 5xx">CSCE 5xx</button>
+                            <button type="button" data-search-example="CSCE 140–199">CSCE 140–199</button>
+                        </div>
+                        <div class="smart-search-examples">
+                            <button type="button" data-search-example="courses about ethical artificial intelligence">ethical artificial intelligence</button>
+                            <button type="button" data-search-example="how computers recognize images">computers recognizing images</button>
+                            <button type="button" data-search-example="protecting systems from cyber attacks">cybersecurity</button>
+                            <button type="button" data-search-example="technology and society">technology and society</button>
+                        </div>
+                    </div>
+                    <div id="smart-search-status" class="smart-search-status" hidden aria-live="polite">
+                        <div class="smart-search-status-heading"><strong>Smart Search</strong><span id="smart-search-status-text">Preparing meaning-based search</span></div>
+                        <div class="smart-search-progress" aria-hidden="true"><span></span></div>
+                        <p id="smart-search-activity">Loading the course language model and academic concepts.</p>
                     </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-panel hidden" id="filter-panel">

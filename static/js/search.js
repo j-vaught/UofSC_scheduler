@@ -14,6 +14,9 @@ const Search = {
     _bulletinDetailsCache: {},
     _carolinaCoreCache: {},
     _sectionDetailCache: {},
+    _resultSummaryCache: {},
+    _resultSummaryObserver: null,
+    _smartModelPromise: null,
     _browseState: 'empty',
 
     // Lazy-load Transformers.js embedding model
@@ -130,10 +133,12 @@ const Search = {
         if (searchId !== this._searchId) return null;
 
         // Step 1: Embed query
+        this.setSmartSearchStatus(`Understanding “${query}”`, 'searching', 'Comparing the search with course language.');
         const queryVec = await this._embedQuery(query);
         if (searchId !== this._searchId) return null;
 
         // Step 2: Find nearest academic phrases
+        this.setSmartSearchStatus('Expanding academic concepts', 'searching', 'Finding related subjects and course terminology.');
         const nearestPhrases = this._findNearestPhrases(queryVec, 8, query);
         const expandedTerms = nearestPhrases.map(n => n.phrase);
 
@@ -142,6 +147,7 @@ const Search = {
         console.log(`[Semantic] "${query}" → ${searches.length} API calls:`, searches);
 
         // Step 4: Fire all searches concurrently
+        this.setSmartSearchStatus('Checking course matches', 'searching', `Searching “${query}” and ${expandedTerms.length} related concepts.`);
         const promises = searches.map(term => {
             if (currentTermOnly) {
                 return API.searchCourses(State.term, [{ field: 'keyword', value: term }])
@@ -206,6 +212,7 @@ const Search = {
 
         // Step 7: Score each result title by embedding similarity to query
         // Batch-embed all titles at once for performance
+        this.setSmartSearchStatus('Ranking the closest courses', 'searching', `Comparing ${deduped.length} possible matches by meaning.`);
         const extractor = await this._loadExtractor();
         const titles = deduped.map(r => r.title || r.name || '').filter(Boolean);
         const titleOutputs = await extractor(titles, { pooling: 'mean', normalize: true });
@@ -456,7 +463,7 @@ const Search = {
             filterToggle.addEventListener('click', event => {
                 event.stopPropagation();
                 filterPanel.classList.toggle('hidden');
-                filterArrow.classList.toggle('open');
+                filterArrow?.classList.toggle('open');
                 filterToggle.setAttribute('aria-expanded', String(!filterPanel.classList.contains('hidden')));
             });
             filterPanel.addEventListener('click', event => event.stopPropagation());
@@ -471,8 +478,20 @@ const Search = {
             smartToggle.checked = localStorage.getItem('uofsc-smart-search') === 'true';
             smartToggle.addEventListener('change', () => {
                 localStorage.setItem('uofsc-smart-search', String(smartToggle.checked));
+                this.setSmartSearchMode(smartToggle.checked);
+                if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
             });
+            this.setSmartSearchMode(smartToggle.checked);
+            if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
         }
+
+        document.querySelectorAll('[data-search-example]').forEach(button => {
+            button.addEventListener('click', () => {
+                const input = document.getElementById('keyword-input');
+                input.value = button.dataset.searchExample || '';
+                this.doSearch();
+            });
+        });
 
         const additionalToggle = document.getElementById('additional-filter-toggle');
         const additionalPanel = document.getElementById('additional-filter-panel');
@@ -500,6 +519,53 @@ const Search = {
         this._browseState = state;
         workspace.classList.remove('browse-empty', 'browse-results', 'browse-detail');
         workspace.classList.add(`browse-${state}`);
+    },
+
+    setSmartSearchMode(enabled) {
+        const workspace = document.getElementById('browse-workspace');
+        const title = document.getElementById('browse-search-title');
+        const description = document.getElementById('browse-search-description');
+        const status = document.getElementById('smart-search-status');
+        workspace?.classList.toggle('smart-search-active', enabled);
+        if (title) title.textContent = enabled ? 'Search courses by meaning' : 'Find your next course';
+        if (description) {
+            description.textContent = enabled
+                ? 'Describe what you want to learn, even if you do not know the course name.'
+                : 'Search by course, subject, CRN, range, or description.';
+        }
+        if (status) status.hidden = !enabled;
+    },
+
+    setSmartSearchStatus(message, mode = 'loading', activity = '') {
+        if (!document.getElementById('smart-search-toggle')?.checked) return;
+        const status = document.getElementById('smart-search-status');
+        const text = document.getElementById('smart-search-status-text');
+        const detail = document.getElementById('smart-search-activity');
+        if (!status || !text || !detail) return;
+        status.hidden = false;
+        status.dataset.state = mode;
+        text.textContent = message;
+        detail.textContent = activity;
+    },
+
+    prepareSmartSearch() {
+        if (this._smartModelPromise) return this._smartModelPromise;
+        this.setSmartSearchStatus(
+            'Loading the meaning model',
+            'loading',
+            'Preparing course descriptions and academic concepts. The first load can take a moment.',
+        );
+        this._smartModelPromise = Promise.all([this._loadExtractor(), this._loadPhraseData()])
+            .then(() => {
+                this.setSmartSearchStatus('Ready for Smart Search', 'ready', 'Enter an idea or choose an example below.');
+                return true;
+            })
+            .catch(error => {
+                this._smartModelPromise = null;
+                this.setSmartSearchStatus('Could not load Smart Search', 'error', 'Check your connection or use regular search.');
+                throw error;
+            });
+        return this._smartModelPromise;
     },
 
     closeFilters() {
@@ -546,11 +612,9 @@ const Search = {
 
     updateActiveFilterChips() {
         const container = document.getElementById('active-filter-chips');
-        const badge = document.getElementById('active-filter-count');
-        if (!container || !badge) return;
+        if (!container) return;
         const entries = this.activeFilterEntries();
-        badge.textContent = String(entries.length);
-        badge.hidden = entries.length === 0;
+        document.getElementById('filter-toggle')?.classList.toggle('has-active-filters', entries.length > 0);
         container.innerHTML = '';
         entries.forEach(entry => {
             const button = document.createElement('button');
@@ -753,18 +817,16 @@ const Search = {
 
         // Meaning-based search via Transformers.js
         } else {
-            if (!this._extractor) {
-                document.getElementById('search-results').innerHTML =
-                    '<p class="loading">Loading AI search model (first time only)...</p>';
-            } else {
-                this.showLoading();
-            }
+            this.showLoading();
             const searchId = ++this._searchId;
             try {
+                await this.prepareSmartSearch();
+                if (searchId !== this._searchId) return;
                 const semantic = await this._doSemanticSearch(kw, currentTermOnly, openOnly, searchId);
                 if (!semantic || searchId !== this._searchId) return;
 
                 if (semantic.results.length === 0) {
+                    this.setSmartSearchStatus('No close matches found', 'ready', 'Try describing the topic another way.');
                     this.showHint(`No matching courses found for "${kw}".`);
                     return;
                 }
@@ -806,8 +868,14 @@ const Search = {
                 const prereqData = eligibleOnly2 ? await this.loadPrereqsForResults(results) : {};
                 const searchInfo = semantic.expandedTerms?.length ? semantic.expandedTerms : null;
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
+                this.setSmartSearchStatus(
+                    `${new Set(results.map(result => result.code)).size} courses found`,
+                    'ready',
+                    'Results are ranked by how closely their meaning matches your search.',
+                );
             } catch (err) {
                 console.error('[Semantic] Error:', err);
+                this.setSmartSearchStatus('Smart Search failed', 'error', 'Try again or turn off Smart Search.');
                 this.showHint('Search failed. Try again.');
             }
             return;
@@ -1287,6 +1355,63 @@ const Search = {
             .catch(() => detailsTab.querySelector('.loading')?.remove());
     },
 
+    escapeText(value) {
+        const element = document.createElement('span');
+        element.textContent = String(value ?? '');
+        return element.innerHTML;
+    },
+
+    observeCourseResultSummary(element, group) {
+        if (typeof IntersectionObserver === 'undefined') return;
+        if (!this._resultSummaryObserver) {
+            this._resultSummaryObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    this._resultSummaryObserver.unobserve(entry.target);
+                    const code = entry.target.dataset.courseCode;
+                    const matchedGroup = (State.courseGroups || []).find(item => item.code === code);
+                    if (matchedGroup) this.hydrateCourseResultSummary(entry.target, matchedGroup);
+                });
+            }, {
+                root: document.getElementById('search-results'),
+                rootMargin: '160px 0px',
+            });
+        }
+        element.dataset.courseCode = group.code;
+        this._resultSummaryObserver.observe(element);
+    },
+
+    async hydrateCourseResultSummary(element, group) {
+        if (!this._resultSummaryCache[group.code]) {
+            this._resultSummaryCache[group.code] = Promise.allSettled([
+                this.fetchBulletinDetailsForCourse(group.code),
+                API.getCourseGrades(group.code),
+            ]).then(([detailsResult, gradesResult]) => ({
+                details: detailsResult.status === 'fulfilled' ? detailsResult.value : {},
+                grades: gradesResult.status === 'fulfilled' && !gradesResult.value?.error
+                    ? gradesResult.value
+                    : {},
+            }));
+        }
+        const { details, grades } = await this._resultSummaryCache[group.code];
+        if (!element.isConnected) return;
+        const fullDescription = String(details?.description || '')
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+        const description = fullDescription
+            ? `${fullDescription.slice(0, 185)}${fullDescription.length > 185 ? '…' : ''}`
+            : 'Course description unavailable.';
+        const averageGpa = Number(grades?.average_gpa);
+        const gradedStudents = Number(grades?.graded_students || 0);
+        element.innerHTML = `
+            <p class="course-result-description">${this.escapeText(description)}</p>
+            ${Number.isFinite(averageGpa) && averageGpa > 0
+                ? `<p class="course-result-grade"><strong>${averageGpa.toFixed(2)} historical GPA</strong><span>${gradedStudents.toLocaleString()} grades</span></p>`
+                : '<p class="course-result-grade unavailable">Historical grades unavailable</p>'}
+        `;
+    },
+
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
         this.setBrowseState('results');
@@ -1344,6 +1469,14 @@ const Search = {
             div.className = 'course-group';
             div.dataset.courseCode = group.code;
             const availability = this.courseAvailability(group);
+            const liveSections = group.sections.filter(section => !section._isCatalog);
+            const instructors = new Set(liveSections
+                .map(section => section.instr)
+                .filter(name => name && name !== 'Staff'));
+            const sectionLabel = `${liveSections.length} ${liveSections.length === 1 ? 'section' : 'sections'}`;
+            const instructorLabel = instructors.size
+                ? `${instructors.size} ${instructors.size === 1 ? 'instructor' : 'instructors'}`
+                : 'Instructor TBA';
 
             // Eligibility badge
             const elig = this.checkEligibility(group.code, prereqData);
@@ -1360,11 +1493,14 @@ const Search = {
                 <div class="course-header">
                     <div class="course-header-main"><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</div>
                     <div class="course-availability ${availability.kind}">${availability.text}</div>
+                    <div class="course-result-meta">${sectionLabel} · ${instructorLabel}</div>
                 </div>
+                <div class="course-result-summary"><p class="course-result-description loading">Loading course summary</p></div>
                 <div class="course-sections"></div>
             `;
 
             const header = div.querySelector('.course-header');
+            const summary = div.querySelector('.course-result-summary');
             const sectionsDiv = div.querySelector('.course-sections');
             div.classList.toggle('course-added', State.isCourseSelected(group.code));
 
@@ -1423,6 +1559,7 @@ const Search = {
             });
 
             container.appendChild(div);
+            this.observeCourseResultSummary(summary, group);
         });
     },
 

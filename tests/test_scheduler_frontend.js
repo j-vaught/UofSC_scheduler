@@ -966,6 +966,36 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
 });
 
+test('Browse teaches structured searches and exposes visible Smart Search progress', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(html, /data-search-example="Machine Learning"/);
+    assert.match(html, /data-search-example="CSCE 500\+"/);
+    assert.match(html, /data-search-example="CSCE 5xx"/);
+    assert.match(html, /data-search-example="CSCE 140–199"/);
+    assert.match(html, /class="filter-sliders-icon"/);
+    assert.doesNotMatch(html, /id="active-filter-count"/);
+    assert.match(html, /id="smart-search-status"/);
+    assert.match(source, /prepareSmartSearch\(\)/);
+    assert.match(source, /Understanding “\$\{query\}”/);
+    assert.match(source, /Ranking the closest courses/);
+    assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*flex;/);
+});
+
+test('Browse result cards lazily add descriptions and historical grades', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(source, /new IntersectionObserver/);
+    assert.match(source, /API\.getCourseGrades\(group\.code\)/);
+    assert.match(source, /course-result-description/);
+    assert.match(source, /historical GPA/);
+    assert.match(styles, /\.course-result-description/);
+    assert.match(styles, /\.course-result-grade/);
+});
+
 test('schedule course search paginates matches instead of discarding them', () => {
     const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
 
