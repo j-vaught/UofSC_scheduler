@@ -811,7 +811,6 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin-bottom: 6px;
     padding: 8px;
 }
-.schedule-search-course.selected { border-left: 6px solid #73000A; }
 .schedule-search-course-copy {
     display: flex;
     flex: 1 1 auto;

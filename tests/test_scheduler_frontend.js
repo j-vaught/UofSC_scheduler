@@ -466,6 +466,7 @@ test('schedule result cards use fixed add-remove buttons and truncating text', (
     assert.match(styles, /\.schedule-search-course-copy span\s*{[^}]*text-overflow:\s*ellipsis;/s);
     assert.match(styles, /\.schedule-course-availability\.open\s*{\s*color:\s*#2e7d32;/s);
     assert.match(styles, /\.schedule-course-availability\.full\s*{\s*color:\s*#c62828;/s);
+    assert.doesNotMatch(styles, /\.schedule-search-course\.selected\s*{[^}]*border-left:/s);
 });
 
 test('course results divider is adjustable while preserving selected-course space', () => {
