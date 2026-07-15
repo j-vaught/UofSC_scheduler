@@ -71,7 +71,7 @@ const Scheduler = {
                             <span>Minutes remaining after travel</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
                         </label>
-                        <small>This lets you plan for time remaining between classes after accounting for travel between buildings. Travel time defaults to a walking-route estimate.</small>
+                        <small>Accounts for travel between buildings using walking time.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>

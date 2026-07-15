@@ -427,7 +427,7 @@ test('route interface uses neutral travel language', () => {
     assert.match(source, /min route/);
     assert.doesNotMatch(source, />Walking Between Classes</);
     assert.match(schedulerSource, /Minutes remaining after travel/);
-    assert.match(schedulerSource, /Travel time defaults to a walking-route estimate/);
+    assert.match(schedulerSource, /Accounts for travel between buildings using walking time/);
     assert.doesNotMatch(schedulerSource, /Classes outside this range remain available/);
     assert.doesNotMatch(schedulerSource, /Schedules using these days remain valid/);
 });
