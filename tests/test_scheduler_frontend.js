@@ -957,7 +957,9 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.match(html, /id="smart-search-toggle"/);
     assert.match(html, /id="browse-close-details"/);
     assert.match(html, /id="active-filter-chips"/);
+    assert.match(html, /id="filter-backdrop"/);
     assert.match(html, /id="filter-panel"/);
+    assert.match(html, /role="dialog" aria-modal="true"/);
     assert.match(source, /setBrowseState\('results'\)/);
     assert.match(source, /setBrowseState\('detail'\)/);
     assert.match(source, /else if \(!document\.getElementById\('smart-search-toggle'\)\?\.checked\)/);
@@ -965,6 +967,17 @@ test('Browse uses progressive search, results, and detail states with opt-in Sma
     assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
     assert.match(styles, /\.browse-results \.browse-search-examples,[\s\S]*\.browse-detail \.browse-search-examples\s*{\s*display:\s*none;/);
+});
+
+test('Browse filters open as a centered modal and applying closes them', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(styles, /\.filter-backdrop\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*240;/s);
+    assert.match(styles, /\.browse-search-shell > \.filter-panel\s*\{[^}]*left:\s*50%;[^}]*position:\s*fixed;[^}]*top:\s*50%;[^}]*transform:\s*translate\(-50%, -50%\);[^}]*width:\s*min\(720px,/s);
+    assert.match(source, /filterBackdrop\?\.classList\.remove\('hidden'\)/);
+    assert.match(source, /document\.getElementById\('btn-apply-filters'\)\?\.addEventListener\('click',[\s\S]*?this\.closeFilters\(\);/);
+    assert.match(source, /if \(event\.key === 'Escape'/);
 });
 
 test('Browse teaches structured searches and exposes visible Smart Search progress', () => {

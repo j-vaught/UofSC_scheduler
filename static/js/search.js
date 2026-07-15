@@ -501,18 +501,31 @@ const Search = {
         // Filter toggle
         const filterToggle = document.getElementById('filter-toggle');
         const filterPanel = document.getElementById('filter-panel');
+        const filterBackdrop = document.getElementById('filter-backdrop');
         const filterArrow = document.getElementById('filter-arrow');
         if (filterToggle && filterPanel) {
             filterToggle.addEventListener('click', event => {
                 event.stopPropagation();
-                filterPanel.classList.toggle('hidden');
-                filterArrow?.classList.toggle('open');
-                filterToggle.setAttribute('aria-expanded', String(!filterPanel.classList.contains('hidden')));
+                const shouldOpen = filterPanel.classList.contains('hidden');
+                if (shouldOpen) {
+                    filterPanel.classList.remove('hidden');
+                    filterBackdrop?.classList.remove('hidden');
+                    document.body?.classList.add('filter-modal-open');
+                    filterArrow?.classList.add('open');
+                    filterToggle.setAttribute('aria-expanded', 'true');
+                    document.getElementById('btn-close-filters')?.focus();
+                } else {
+                    this.closeFilters();
+                }
             });
             filterPanel.addEventListener('click', event => event.stopPropagation());
             document.addEventListener('click', () => this.closeFilters());
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !filterPanel.classList.contains('hidden')) this.closeFilters();
+            });
         }
 
+        filterBackdrop?.addEventListener('click', () => this.closeFilters());
         document.getElementById('btn-close-filters')?.addEventListener('click', () => this.closeFilters());
         document.getElementById('browse-close-details')?.addEventListener('click', () => this.setBrowseState('results'));
 
@@ -869,9 +882,12 @@ const Search = {
 
     closeFilters() {
         const panel = document.getElementById('filter-panel');
+        const backdrop = document.getElementById('filter-backdrop');
         const toggle = document.getElementById('filter-toggle');
         const arrow = document.getElementById('filter-arrow');
         panel?.classList.add('hidden');
+        backdrop?.classList.add('hidden');
+        document.body?.classList.remove('filter-modal-open');
         arrow?.classList.remove('open');
         toggle?.setAttribute('aria-expanded', 'false');
     },

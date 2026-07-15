@@ -316,8 +316,10 @@
                         <p id="smart-search-activity">Loading the course language model and academic concepts.</p>
                     </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
-                        <div class="filter-panel hidden" id="filter-panel">
-                            <div class="filter-panel-heading"><strong>Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters">&times;</button></div>
+                        <div class="filter-backdrop hidden" id="filter-backdrop" aria-hidden="true"></div>
+                        <div class="filter-panel hidden" id="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-panel-title">
+                            <div class="filter-panel-heading"><strong id="filter-panel-title">Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters">&times;</button></div>
+                            <div class="filter-primary-grid">
                             <div class="filter-group">
                                 <label><input type="checkbox" id="filter-show-all"> Show all courses, including those not offered this term</label>
                             </div>
@@ -350,6 +352,7 @@
                                     <option value="SCI">SCI — Scientific Literacy</option>
                                     <option value="VSR">VSR — Values, Ethics, and Social Responsibility</option>
                                 </select>
+                            </div>
                             </div>
                             <div class="filter-toggle additional-filter-toggle" id="additional-filter-toggle">Additional Filters <span id="additional-filter-arrow">&#9660;</span></div>
                             <div class="additional-filter-panel hidden" id="additional-filter-panel">
