@@ -993,27 +993,27 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(html, /class="filter-sliders-icon"/);
     assert.doesNotMatch(html, /id="active-filter-count"/);
     assert.match(html, /id="smart-search-status"/);
-    const networkLayerCounts = [...html.matchAll(/<div class="network-layer">([\s\S]*?)<\/div>/g)]
-        .map(match => (match[1].match(/<i><\/i>/g) || []).length);
-    assert.deepEqual(networkLayerCounts, [6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6]);
-    assert.match(html, /<canvas class="smart-search-network-links"><\/canvas>/);
+    assert.match(html, /id="smart-model-loading"/);
+    assert.match(html, /id="smart-model-loading-stage">Loading embedding model/);
+    assert.doesNotMatch(html, /smart-search-network/);
     assert.match(html, /id="smart-search-query-list"/);
     assert.match(html, /id="smart-search-aggregate"/);
-    assert.match(source, /prepareSmartSearch\(5000\)/);
-    assert.match(source, /this\._smartLoadingUntil - Date\.now\(\)/);
+    assert.match(source, /if \(smartToggle\.checked\) this\.prepareSmartSearch\(\)/);
+    assert.match(source, /Loading embedding model/);
+    assert.match(source, /Loading search model/);
+    assert.match(source, /Loading semantic model/);
+    assert.match(source, /performance\.getEntriesByType\('resource'\)/);
+    assert.match(source, /navigator\.connection\?\.downlink/);
+    assert.match(source, /input\.disabled = active/);
+    assert.match(source, /input\.value = ''/);
     assert.match(source, /if \(status\) status\.hidden = true;/);
     assert.match(source, /Understanding “\$\{query\}”/);
     assert.match(source, /Ranking the closest courses/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
-    assert.match(styles, /grid-template-columns:\s*repeat\(11,/);
-    assert.match(styles, /\.smart-search-network\s*{[^}]*height:\s*82px;/s);
-    assert.match(styles, /@keyframes smart-search-network-node/);
+    assert.match(styles, /\.smart-model-loading\s*{[^}]*position:\s*absolute;/s);
+    assert.match(styles, /@keyframes smart-model-loading-dot/);
     assert.match(styles, /\.smart-search-status\s*{[^}]*background:\s*#ffffff;/s);
-    assert.match(styles, /\.network-layer i\s*{[^}]*infinite alternate;[^}]*border-radius:\s*50% !important;/s);
-    assert.match(styles, /--network-color:\s*#00c2ff;[\s\S]*--network-color:\s*#ff9f1c;/);
-    assert.match(source, /drawSmartSearchNetwork\(\)/);
-    assert.match(source, /for \(const source of sources\)[\s\S]*for \(const target of targets\)/);
-    assert.match(source, /context\.createLinearGradient\(startX, startY, endX, endY\)/);
+    assert.doesNotMatch(styles, /smart-search-network-node/);
     assert.match(source, /this\.showSmartSearchQueries\(searches\)/);
     assert.match(source, /this\.updateSmartSearchQuery\(index, results\.length\)/);
     assert.match(source, /item\.addEventListener\('click', \(\) => this\.openRegularSearch\(term\)\)/);
@@ -1034,36 +1034,20 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
 });
 
-test('cached Smart Search still shows the testing loader for five seconds and then removes the status', async () => {
-    let now = 5000;
-    const delays = [];
-    const status = { hidden: true, dataset: {} };
-    const elements = {
-        'smart-search-toggle': { checked: true },
-        'smart-search-status': status,
-        'smart-search-status-text': { textContent: '' },
-        'smart-search-activity': { textContent: '' },
-        'browse-workspace': { classList: { toggle() {}, remove() {} } },
-    };
+test('Smart Search estimates stage timing from measured download speed', () => {
     const search = loadObject('static/js/search.js', 'Search', {
         console,
-        document: { getElementById: id => elements[id] || null },
-        Date: { now: () => now },
-        setTimeout(resolve, delay) {
-            delays.push(delay);
-            now += delay;
-            resolve();
+        performance: {
+            getEntriesByType: () => [
+                { transferSize: 1_000_000, duration: 1000 },
+                { transferSize: 2_000_000, duration: 2000 },
+            ],
         },
+        navigator: { connection: { downlink: 2 } },
     });
-    search._extractor = {};
-    search._phraseData = {};
-    search._loadExtractor = async () => search._extractor;
-    search._loadPhraseData = async () => search._phraseData;
 
-    await search.prepareSmartSearch(5000);
-
-    assert.deepEqual(delays, [5000]);
-    assert.equal(status.hidden, true);
+    assert.equal(search.smartDownloadMbps(), 8);
+    assert.equal(search.estimatedSmartStageMs(8_000_000, 350, 1800), 1200);
 });
 
 test('Smart Search expands into a prompt with an arrow and four example cards', () => {

@@ -17,7 +17,6 @@ const Search = {
     _resultSummaryCache: {},
     _resultSummaryObserver: null,
     _smartModelPromise: null,
-    _smartLoadingUntil: 0,
     _placeholderTimer: null,
     _placeholderIndex: 0,
     _browseState: 'empty',
@@ -543,7 +542,7 @@ const Search = {
                 if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
                 this.autoSizeSmartInput();
                 this.setSmartSearchMode(smartToggle.checked);
-                if (smartToggle.checked) this.prepareSmartSearch(5000).catch(() => {});
+                if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
             });
             this.setSmartSearchMode(smartToggle.checked);
         }
@@ -700,13 +699,6 @@ const Search = {
         );
         text.textContent = message;
         detail.textContent = activity;
-        if (mode !== 'error') {
-            if (typeof requestAnimationFrame !== 'undefined') {
-                requestAnimationFrame(() => this.drawSmartSearchNetwork());
-            } else {
-                this.drawSmartSearchNetwork();
-            }
-        }
     },
 
     resetSmartSearchTrace() {
@@ -802,82 +794,84 @@ const Search = {
         if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
     },
 
-    drawSmartSearchNetwork() {
-        const network = document.querySelector?.('.smart-search-network');
-        const canvas = network?.querySelector('.smart-search-network-links');
-        if (!network || !canvas || network.offsetParent === null) return;
-        const bounds = network.getBoundingClientRect();
-        const ratio = window.devicePixelRatio || 1;
-        canvas.width = Math.max(1, Math.round(bounds.width * ratio));
-        canvas.height = Math.max(1, Math.round(bounds.height * ratio));
-        const context = canvas.getContext('2d');
-        if (!context) return;
-        context.setTransform(ratio, 0, 0, ratio, 0, 0);
-        context.clearRect(0, 0, bounds.width, bounds.height);
-        context.lineWidth = 0.75;
-        const layers = [...network.querySelectorAll('.network-layer')];
-        for (let layerIndex = 0; layerIndex < layers.length - 1; layerIndex += 1) {
-            const sources = [...layers[layerIndex].querySelectorAll('i')];
-            const targets = [...layers[layerIndex + 1].querySelectorAll('i')];
-            for (const source of sources) {
-                const sourceBounds = source.getBoundingClientRect();
-                const startX = sourceBounds.left + sourceBounds.width / 2 - bounds.left;
-                const startY = sourceBounds.top + sourceBounds.height / 2 - bounds.top;
-                const sourceColor = getComputedStyle(source).backgroundColor;
-                for (const target of targets) {
-                    const targetBounds = target.getBoundingClientRect();
-                    const endX = targetBounds.left + targetBounds.width / 2 - bounds.left;
-                    const endY = targetBounds.top + targetBounds.height / 2 - bounds.top;
-                    const gradient = context.createLinearGradient(startX, startY, endX, endY);
-                    gradient.addColorStop(0, sourceColor);
-                    gradient.addColorStop(1, getComputedStyle(target).backgroundColor);
-                    context.globalAlpha = 0.24;
-                    context.strokeStyle = gradient;
-                    context.beginPath();
-                    context.moveTo(startX, startY);
-                    context.lineTo(endX, endY);
-                    context.stroke();
-                }
-            }
-        }
-        context.globalAlpha = 1;
-    },
-
     hideSmartSearchStatus() {
         const status = document.getElementById('smart-search-status');
         if (status) status.hidden = true;
         document.getElementById('browse-workspace')?.classList.remove('smart-search-busy');
     },
 
-    async prepareSmartSearch(minimumVisibleMs = 0) {
-        const now = Date.now();
-        this._smartLoadingUntil = Math.max(this._smartLoadingUntil, now + minimumVisibleMs);
-        const shouldShowLoading = minimumVisibleMs > 0 || !this._extractor || !this._phraseData;
-        if (shouldShowLoading) {
-            this.setSmartSearchStatus(
-                'Loading the meaning model',
-                'loading',
-                'Preparing course descriptions and academic concepts.',
-            );
+    smartDownloadMbps() {
+        const entries = typeof performance !== 'undefined' && performance.getEntriesByType
+            ? performance.getEntriesByType('resource').filter(entry => entry.transferSize > 0 && entry.duration > 0)
+            : [];
+        const recent = entries.slice(-12);
+        const bytes = recent.reduce((sum, entry) => sum + entry.transferSize, 0);
+        const milliseconds = recent.reduce((sum, entry) => sum + entry.duration, 0);
+        const measuredMbps = milliseconds > 0 ? (bytes * 8) / (milliseconds * 1000) : 0;
+        const reportedMbps = typeof navigator !== 'undefined' ? Number(navigator.connection?.downlink) : 0;
+        return measuredMbps > 0 ? measuredMbps : (reportedMbps > 0 ? reportedMbps : 10);
+    },
+
+    estimatedSmartStageMs(bytes, minimumMs = 350, maximumMs = 1800) {
+        const transferMs = (bytes * 8) / (this.smartDownloadMbps() * 1000);
+        return Math.round(Math.min(maximumMs, Math.max(minimumMs, transferMs * 0.15)));
+    },
+
+    async waitForEstimatedSmartStage(startedAt, bytes, minimumMs, maximumMs) {
+        const remaining = this.estimatedSmartStageMs(bytes, minimumMs, maximumMs) - (Date.now() - startedAt);
+        if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
+    },
+
+    setSmartModelLoading(active, stage = '') {
+        const input = document.getElementById('smart-keyword-input');
+        const loading = document.getElementById('smart-model-loading');
+        const label = document.getElementById('smart-model-loading-stage');
+        const submit = document.getElementById('smart-search-submit');
+        const workspace = document.getElementById('browse-workspace');
+        workspace?.classList.toggle('smart-search-busy', active);
+        if (label && stage) label.textContent = stage;
+        loading?.classList.toggle('hidden', !active);
+        if (input) {
+            input.disabled = active;
+            input.value = '';
+            input.setAttribute('aria-busy', String(active));
         }
-        if (!this._smartModelPromise) {
-            this._smartModelPromise = Promise.all([this._loadExtractor(), this._loadPhraseData()])
-                .then(() => true)
-                .catch(error => {
-                    this._smartModelPromise = null;
-                    throw error;
-                });
+        if (submit) submit.disabled = active;
+        document.querySelectorAll?.('.smart-search-examples button').forEach(button => { button.disabled = active; });
+        if (!active) {
+            this.autoSizeSmartInput();
+            if (document.getElementById('smart-search-toggle')?.checked) input?.focus();
         }
-        try {
-            await this._smartModelPromise;
-            const remaining = this._smartLoadingUntil - Date.now();
-            if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
-            this.hideSmartSearchStatus();
+    },
+
+    async prepareSmartSearch() {
+        if (this._extractor && this._phraseData) return true;
+        if (this._smartModelPromise) return this._smartModelPromise;
+        this.hideSmartSearchStatus();
+        this._smartModelPromise = (async () => {
+            this.setSmartModelLoading(true, 'Loading embedding model');
+            const embeddingStartedAt = Date.now();
+            await this._loadExtractor();
+            await this.waitForEstimatedSmartStage(embeddingStartedAt, 23 * 1024 * 1024, 500, 1800);
+
+            this.setSmartModelLoading(true, 'Loading search model');
+            const searchStartedAt = Date.now();
+            await this._loadPhraseData();
+            await this.waitForEstimatedSmartStage(searchStartedAt, 8 * 1024 * 1024, 450, 1400);
+
+            this.setSmartModelLoading(true, 'Loading semantic model');
+            const semanticStartedAt = Date.now();
+            await this._embedQuery('course search');
+            await this.waitForEstimatedSmartStage(semanticStartedAt, 512 * 1024, 450, 900);
+            this.setSmartModelLoading(false);
             return true;
-        } catch (error) {
+        })().catch(error => {
+            this._smartModelPromise = null;
+            this.setSmartModelLoading(false);
             this.setSmartSearchStatus('Could not load Smart Search', 'error', 'Check your connection or use regular search.');
             throw error;
-        }
+        });
+        return this._smartModelPromise;
     },
 
     closeFilters() {

@@ -253,6 +253,9 @@
                         <div class="search-input-wrap">
                             <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                             <textarea id="smart-keyword-input" class="smart-keyword-input" placeholder="Describe what you want to learn" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Describe the courses you want to find"></textarea>
+                            <div id="smart-model-loading" class="smart-model-loading hidden" role="status" aria-live="polite">
+                                <span id="smart-model-loading-stage">Loading embedding model</span><span class="smart-model-loading-dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span>
+                            </div>
                             <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
                             <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
                                 <input id="smart-search-toggle" type="checkbox" aria-label="Smart Search">
@@ -288,20 +291,6 @@
                     </div>
                     <div id="smart-search-status" class="smart-search-status" hidden aria-live="polite">
                         <div class="smart-search-status-heading"><strong>Smart Search</strong><span id="smart-search-status-text">Preparing meaning-based search</span></div>
-                        <div class="smart-search-network" aria-hidden="true">
-                            <canvas class="smart-search-network-links"></canvas>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i></div>
-                            <div class="network-layer"><i></i></div>
-                            <div class="network-layer"><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i><i></i></div>
-                            <div class="network-layer"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                        </div>
                         <div id="smart-search-trace" class="smart-search-trace" hidden>
                             <div class="smart-search-trace-heading">
                                 <strong id="smart-search-trace-phase">Searching related concepts</strong>
