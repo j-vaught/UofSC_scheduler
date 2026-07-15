@@ -382,6 +382,9 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /id="schedule-preferred-start"/);
     assert.match(source, /id="schedule-preferred-end"/);
     assert.match(source, /id="schedule-minimum-walking-buffer"/);
+    assert.match(source, /Extra time after walking between classes/);
+    assert.match(source, /Choose 10 to arrive at least ten minutes early/);
+    assert.doesNotMatch(source, /Minutes remaining after travel/);
     assert.doesNotMatch(source, /id="schedule-minimum-buffer"/);
     assert.doesNotMatch(source, /id="schedule-preferred-maximum-walk"/);
     assert.match(source, /min="1"/);
@@ -423,6 +426,42 @@ test('course results remain visible with useful empty states', () => {
     input.value = 'NO MATCH';
     scheduler.renderCourseSearchResults();
     assert.match(results.innerHTML, /No courses found for this search/);
+});
+
+test('schedule search results use compact availability summaries', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const open = scheduler.scheduleCourseAvailability({
+        sections: [
+            { crn: '1', stat: 'A' },
+            { crn: '2', stat: 'C' },
+            { crn: '3', stat: 'C' },
+        ],
+    });
+    const full = scheduler.scheduleCourseAvailability({
+        sections: Array.from({ length: 18 }, (_, index) => ({ crn: String(index + 1), stat: 'C' })),
+    });
+    const unavailable = scheduler.scheduleCourseAvailability({
+        sections: [{ _isCatalog: true }],
+    });
+
+    assert.equal(open.kind, 'open');
+    assert.equal(open.text, '1 of 3 open');
+    assert.equal(full.kind, 'full');
+    assert.equal(full.text, 'All 18 are full');
+    assert.equal(unavailable.kind, 'unavailable');
+    assert.equal(unavailable.text, 'Not offered');
+});
+
+test('schedule result cards use a fixed green add button and truncating text', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(source, /schedule-course-add btn-green/);
+    assert.match(source, /selected \? 'ADDED' : 'ADD'/);
+    assert.match(styles, /\.schedule-search-course \.schedule-course-add\s*{[^}]*flex:\s*0 0 58px;[^}]*width:\s*58px;/s);
+    assert.match(styles, /\.schedule-search-course-copy span\s*{[^}]*text-overflow:\s*ellipsis;/s);
+    assert.match(styles, /\.schedule-course-availability\.open\s*{\s*color:\s*#2e7d32;/s);
+    assert.match(styles, /\.schedule-course-availability\.full\s*{\s*color:\s*#c62828;/s);
 });
 
 test('course results divider is adjustable while preserving selected-course space', () => {
@@ -702,8 +741,8 @@ test('route interface uses neutral travel language', () => {
     assert.doesNotMatch(source, /walking-map-note/);
     assert.match(source, /min route/);
     assert.doesNotMatch(source, />Walking Between Classes</);
-    assert.match(schedulerSource, /Minutes remaining after travel/);
-    assert.match(schedulerSource, /Accounts for travel between buildings using walking time/);
+    assert.match(schedulerSource, /Extra time after walking between classes/);
+    assert.match(schedulerSource, /Choose 10 to arrive at least ten minutes early/);
     assert.doesNotMatch(schedulerSource, /Classes outside this range remain available/);
     assert.doesNotMatch(schedulerSource, /Schedules using these days remain valid/);
 });

@@ -812,16 +812,37 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     padding: 8px;
 }
 .schedule-search-course.selected { border-left: 6px solid #73000A; }
-.schedule-search-course-copy { display: flex; flex-direction: column; min-width: 0; }
+.schedule-search-course-copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
 .schedule-search-course-copy strong { color: #73000A; font-size: 0.8rem; }
 .schedule-search-course-copy span {
+    display: block;
     color: #363636;
     font-size: 0.72rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
 }
 .schedule-search-course-copy small { color: #5C5C5C; font-size: 0.68rem; margin-top: 2px; }
+.schedule-search-course-copy .schedule-course-availability.open { color: #2e7d32; }
+.schedule-search-course-copy .schedule-course-availability.full { color: #c62828; }
+.schedule-search-course-copy .schedule-course-availability.unavailable { color: #5C5C5C; }
+.schedule-search-course .schedule-course-add {
+    flex: 0 0 58px;
+    height: 30px;
+    margin-top: 0;
+    overflow: hidden;
+    padding: 6px 3px;
+    text-align: center;
+    width: 58px;
+}
+.schedule-search-course .schedule-course-add.added { background: #2e7d32; border-color: #2e7d32; color: #FFFFFF; }
 .schedule-selected-section {
     background: #ECECEC;
     border-top: 0;

@@ -69,10 +69,10 @@ const Scheduler = {
                     <fieldset class="schedule-preference-walking">
                         <legend>Minimum time between classes</legend>
                         <label for="schedule-minimum-walking-buffer">
-                            <span>Minutes remaining after travel</span>
+                            <span>Extra time after walking between classes</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
                         </label>
-                        <small>Accounts for travel between buildings using walking time.</small>
+                        <small>Choose 10 to arrive at least ten minutes early.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>
@@ -268,7 +268,7 @@ const Scheduler = {
 
         container.innerHTML = '';
         this._lastSearchGroups.forEach(group => {
-            const openCount = (group.sections || []).filter(section => this.isOpenSection(section)).length;
+            const availability = this.scheduleCourseAvailability(group);
             const selected = State.isCourseSelected(group.code);
             const course = document.createElement('div');
             course.className = `schedule-search-course${selected ? ' selected' : ''}`;
@@ -276,9 +276,9 @@ const Scheduler = {
                 <div class="schedule-search-course-copy">
                     <strong>${group.code}</strong>
                     <span>${group.title}</span>
-                    <small>${openCount} open section${openCount === 1 ? '' : 's'}</small>
+                    <small class="schedule-course-availability ${availability.kind}">${availability.text}</small>
                 </div>
-                <button class="btn-course-add ${selected ? 'added' : ''}" data-code="${group.code}">${selected ? 'ADDED' : 'ADD COURSE'}</button>
+                <button class="btn-course-add schedule-course-add btn-green ${selected ? 'added' : ''}" data-code="${group.code}">${selected ? 'ADDED' : 'ADD'}</button>
             `;
             course.querySelector('.btn-course-add').addEventListener('click', async () => {
                 if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
@@ -286,6 +286,16 @@ const Scheduler = {
             });
             container.appendChild(course);
         });
+    },
+
+    scheduleCourseAvailability(group) {
+        const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+        if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
+        const openCount = liveSections.filter(section => this.isOpenSection(section)).length;
+        if (openCount > 0) {
+            return { kind: 'open', text: `${openCount} of ${liveSections.length} open` };
+        }
+        return { kind: 'full', text: `All ${liveSections.length} are full` };
     },
 
     clearResults() {
