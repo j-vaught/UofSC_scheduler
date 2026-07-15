@@ -133,6 +133,42 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 
+test('course results remain visible with useful empty states', () => {
+    const results = { innerHTML: '', querySelector: () => null };
+    const input = { value: '' };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        document: {
+            getElementById(id) {
+                if (id === 'schedule-search-results') return results;
+                if (id === 'schedule-course-input') return input;
+                return null;
+            },
+        },
+    });
+
+    scheduler.renderCourseSearchResults();
+    assert.match(results.innerHTML, /Search for a course to see results/);
+
+    input.value = 'NO MATCH';
+    scheduler.renderCourseSearchResults();
+    assert.match(results.innerHTML, /No courses found for this search/);
+});
+
+test('course results divider is adjustable while preserving selected-course space', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const source = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    const balanced = scheduler.fitCoursePanelSizes(300, 600);
+    const clamped = scheduler.fitCoursePanelSizes(500, 600);
+    assert.equal(balanced.results, 300);
+    assert.equal(balanced.selected, 300);
+    assert.equal(clamped.results, 410);
+    assert.equal(clamped.selected, 190);
+    assert.match(source, /id="schedule-course-divider"[^>]*role="separator"/);
+    assert.match(styles, /\.schedule-course-divider\s*{[^}]*cursor:\s*row-resize;/s);
+});
+
 test('schedule results offer ten more ranked options when more are available', () => {
     const listeners = {};
     const showMore = {

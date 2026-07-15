@@ -16,6 +16,8 @@ const Scheduler = {
         State.on('section-locks-changed', () => this.clearResults());
         State.on('sections-changed', () => this.refreshAppliedResultState());
         State.on('preferences-changed', () => this.clearResults());
+        this.renderCourseSearchResults();
+        this.initCourseDivider();
         this.initVerticalResizer();
     },
 
@@ -222,9 +224,8 @@ const Scheduler = {
         const container = document.getElementById('schedule-search-results');
         if (!container) return;
         if (this._lastSearchGroups.length === 0) {
-            if (!container.querySelector('.loading')) {
-                container.innerHTML = '';
-            }
+            const query = document.getElementById('schedule-course-input')?.value.trim();
+            container.innerHTML = `<p class="hint schedule-results-empty">${query ? 'No courses found for this search.' : 'Search for a course to see results.'}</p>`;
             return;
         }
 
@@ -256,6 +257,82 @@ const Scheduler = {
         if (container) {
             container.innerHTML = '<p class="hint">Generate schedules to compare section combinations for these courses.</p>';
         }
+    },
+
+    fitCoursePanelSizes(resultsHeight, availableHeight) {
+        const available = Math.max(0, Math.round(availableHeight));
+        const minimumResults = Math.min(72, available);
+        const minimumSelected = Math.min(190, Math.max(0, available - minimumResults));
+        const maximumResults = Math.max(minimumResults, available - minimumSelected);
+        const results = Math.max(minimumResults, Math.min(maximumResults, Math.round(resultsHeight)));
+        return { results, selected: Math.max(0, available - results) };
+    },
+
+    setCoursePanelSizes(resultsHeight) {
+        const sidebar = document.getElementById('schedule-sidebar');
+        const search = sidebar?.querySelector('.schedule-search-section');
+        const divider = document.getElementById('schedule-course-divider');
+        if (!sidebar || !search || !divider) return;
+        const available = sidebar.clientHeight
+            - search.getBoundingClientRect().height
+            - divider.getBoundingClientRect().height;
+        if (available <= 0) {
+            sidebar.style.setProperty('--schedule-results-height', `${Math.max(72, Math.round(resultsHeight))}px`);
+            return;
+        }
+        const { results } = this.fitCoursePanelSizes(resultsHeight, available);
+        sidebar.style.setProperty('--schedule-results-height', `${results}px`);
+        divider.setAttribute('aria-valuemin', '72');
+        divider.setAttribute('aria-valuemax', String(Math.max(72, Math.round(available - 190))));
+        divider.setAttribute('aria-valuenow', String(results));
+    },
+
+    initCourseDivider() {
+        const divider = document.getElementById('schedule-course-divider');
+        const sidebar = document.getElementById('schedule-sidebar');
+        const results = document.getElementById('schedule-search-results');
+        if (!divider || !sidebar || !results) return;
+
+        let storedHeight = 170;
+        try {
+            const stored = JSON.parse(localStorage.getItem('uofsc-course-divider-v1') || 'null');
+            storedHeight = Number(stored?.resultsHeight) || storedHeight;
+        } catch (error) {
+            storedHeight = 170;
+        }
+        sidebar.style.setProperty('--schedule-results-height', `${storedHeight}px`);
+
+        let startY = 0;
+        let startHeight = 0;
+        const move = event => this.setCoursePanelSizes(startHeight + event.clientY - startY);
+        const stop = () => {
+            document.removeEventListener('pointermove', move);
+            document.removeEventListener('pointerup', stop);
+            divider.classList.remove('active');
+            document.body.classList.remove('resizing-course-divider');
+            localStorage.setItem('uofsc-course-divider-v1', JSON.stringify({
+                resultsHeight: results.getBoundingClientRect().height,
+            }));
+        };
+
+        divider.addEventListener('pointerdown', event => {
+            startY = event.clientY;
+            startHeight = results.getBoundingClientRect().height;
+            divider.classList.add('active');
+            document.body.classList.add('resizing-course-divider');
+            document.addEventListener('pointermove', move);
+            document.addEventListener('pointerup', stop);
+            event.preventDefault();
+        });
+        divider.addEventListener('keydown', event => {
+            if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+            const delta = event.key === 'ArrowDown' ? 24 : -24;
+            this.setCoursePanelSizes(results.getBoundingClientRect().height + delta);
+            event.preventDefault();
+        });
+        window.addEventListener('resize', () => {
+            if (sidebar.clientHeight > 0) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+        });
     },
 
     initVerticalResizer() {
