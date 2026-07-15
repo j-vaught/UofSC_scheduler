@@ -479,9 +479,13 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /id="btn-quick-view-browse"/);
     assert.match(source, /quick-grade-strip/);
     assert.match(source, /quick-frequency-ring/);
+    assert.match(source, /const detailsPromise =/);
+    assert.match(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
+    assert.match(source, /detailsPromise\s*\.then\(details =>/);
     assert.match(api, /async getCourseGrades\(code\)/);
     assert.match(styles, /#modal\.course-quick-modal\s*{[^}]*max-width:\s*780px;/s);
     assert.match(styles, /\.quick-instructor-grid\s*{[^}]*grid-template-columns:\s*repeat\(2,/s);
+    assert.match(styles, /\.quick-instructor-card small\s*{[^}]*font-size:\s*0\.7rem;/s);
 });
 
 test('quick view compares grades only for instructors teaching the current term', () => {

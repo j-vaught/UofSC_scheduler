@@ -355,7 +355,7 @@ const Scheduler = {
         }));
     },
 
-    renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}) {
+    renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}, detailsPending = false) {
         const content = document.getElementById('modal-content');
         if (!content) return;
         const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
@@ -407,9 +407,9 @@ const Scheduler = {
                     <div>
                         <span class="course-quick-kicker">QUICK COURSE DETAILS</span>
                         <h2 id="course-quick-title">${this.escapeHtml(group.code)}</h2>
-                        <p>${this.escapeHtml(details.title || group.title)}</p>
+                        <p id="course-quick-name">${this.escapeHtml(details.title || group.title)}</p>
                     </div>
-                    <div class="course-quick-credits"><strong>${credits ?? '—'}</strong><span>CREDITS</span></div>
+                    <div class="course-quick-credits"><strong id="course-quick-credit-value">${credits ?? '—'}</strong><span>CREDITS</span></div>
                 </header>
 
                 <div class="course-quick-overview">
@@ -429,12 +429,12 @@ const Scheduler = {
                     </section>
                 </div>
 
-                ${description || prerequisite ? `
-                    <section class="course-quick-summary">
+                <section id="course-quick-summary" class="course-quick-summary${description || prerequisite ? '' : ' quick-summary-loading'}">
+                    ${description || prerequisite ? `
                         ${description ? `<p>${this.escapeHtml(description)}${this.stripHtml(details.description || '').length > 280 ? '…' : ''}</p>` : ''}
                         <div class="quick-prerequisite"><strong>PREREQUISITES</strong><span>${this.escapeHtml(prerequisite || 'None listed')}</span></div>
-                    </section>
-                ` : ''}
+                    ` : `<p>${detailsPending ? 'Loading description and prerequisites' : 'Course description and prerequisites are unavailable.'}</p>`}
+                </section>
 
                 <section class="course-quick-section">
                     <div class="quick-section-heading"><h3>Current instructors</h3><span>${instructors.length} listed this term</span></div>
@@ -461,6 +461,29 @@ const Scheduler = {
             event.currentTarget.className = State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
         });
         document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group));
+    },
+
+    updateQuickDetails(details = {}, group = {}, unavailable = false) {
+        const name = document.getElementById('course-quick-name');
+        const creditValue = document.getElementById('course-quick-credit-value');
+        const summary = document.getElementById('course-quick-summary');
+        if (!name || !creditValue || !summary) return;
+        const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+        const credits = this.parseCreditHours(details.hours_html || group.credits || liveSections[0]?.hours);
+        const fullDescription = this.stripHtml(details.description || '');
+        const description = fullDescription.slice(0, 280);
+        const prerequisite = this.stripHtml(details.prereq || details.prerequisite || '');
+        name.textContent = details.title || group.title || group.code || '';
+        creditValue.textContent = credits ?? '—';
+        summary.classList.remove('quick-summary-loading');
+        if (description || prerequisite) {
+            summary.innerHTML = `
+                ${description ? `<p>${this.escapeHtml(description)}${fullDescription.length > 280 ? '…' : ''}</p>` : ''}
+                <div class="quick-prerequisite"><strong>PREREQUISITES</strong><span>${this.escapeHtml(prerequisite || 'None listed')}</span></div>
+            `;
+        } else {
+            summary.innerHTML = `<p>${unavailable ? 'Course description and prerequisites are unavailable.' : 'No description or prerequisites are listed.'}</p>`;
+        }
     },
 
     updateQuickOffering(offering = {}) {
@@ -493,21 +516,27 @@ const Scheduler = {
         overlay.classList.remove('hidden');
         const requestId = ++this._quickViewRequestId;
 
+        const detailsPromise = typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
+            ? Search.fetchBulletinDetailsForCourse(group.code)
+            : Promise.resolve({});
         const offeringPromise = API.getOfferingAnalysis(group.code, State.term);
-        const [detailsResult, gradesResult] = await Promise.allSettled([
-            typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
-                ? Search.fetchBulletinDetailsForCourse(group.code)
-                : Promise.resolve({}),
-            API.getCourseGrades(group.code),
-        ]);
+        const gradesResult = await Promise.allSettled([API.getCourseGrades(group.code)]);
         if (requestId !== this._quickViewRequestId || overlay.classList.contains('hidden')) return;
         this.renderCourseQuickView(
             group,
-            detailsResult.status === 'fulfilled' ? detailsResult.value || {} : {},
-            gradesResult.status === 'fulfilled' && !gradesResult.value?.error ? gradesResult.value : {},
             {},
+            gradesResult[0].status === 'fulfilled' && !gradesResult[0].value?.error ? gradesResult[0].value : {},
+            {},
+            true,
         );
         document.getElementById('modal-close')?.focus();
+        detailsPromise
+            .then(details => {
+                if (requestId === this._quickViewRequestId) this.updateQuickDetails(details || {}, group);
+            })
+            .catch(() => {
+                if (requestId === this._quickViewRequestId) this.updateQuickDetails({}, group, true);
+            });
         offeringPromise
             .then(offering => {
                 if (requestId === this._quickViewRequestId && !offering?.error) this.updateQuickOffering(offering);
