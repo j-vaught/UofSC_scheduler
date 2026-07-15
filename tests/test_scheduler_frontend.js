@@ -62,6 +62,32 @@ test('full sections remain selectable as an explicit planning override', () => {
     assert.match(elements['selected-courses-list'].innerHTML, /Full section selected\. Planning only/);
 });
 
+test('locked section helper explains that every generated schedule will use it', () => {
+    const elements = {
+        'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },
+        'selected-credits': { textContent: '' },
+        'schedule-selected-count': { textContent: '' },
+    };
+    const sidebar = loadObject('static/js/degree-plan.js', 'ScheduleSidebar', {
+        State: {
+            selectedCourses: {
+                'CSCE 145': {
+                    title: 'Algorithmic Design I',
+                    sections: [{ crn: '10868', section: '001', stat: 'A', hours: '4' }],
+                },
+            },
+            selectedSections: {},
+            sectionLocks: { 'CSCE 145': '10868' },
+        },
+        document: { getElementById: id => elements[id] || null },
+    });
+
+    sidebar.render();
+
+    assert.match(elements['selected-courses-list'].innerHTML, /Section 001 will be used in all schedules/);
+    assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /Locked section will be required/);
+});
+
 test('schedule sidebar totals actual one, four, and three credit courses', () => {
     const elements = {
         'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },

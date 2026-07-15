@@ -865,7 +865,7 @@ const ScheduleSidebar = {
                     </div>
                     ${lockedSectionIsFull
                         ? '<div class="section-lock-warning">Full section selected. Planning only; enrollment requires an opening or override.</div>'
-                        : (lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : '')}
+                        : (lockedCrn ? `<div class="selected-course-detail">Section ${lockedSection?.section || lockedCrn} will be used in all schedules</div>` : '')}
                 </div>
             `;
             const creditValues = String(
