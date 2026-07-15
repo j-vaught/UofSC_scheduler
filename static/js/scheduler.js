@@ -49,7 +49,6 @@ const Scheduler = {
         content.innerHTML = `
             <section class="schedule-preferences-dialog" aria-labelledby="schedule-preferences-title">
                 <h2 id="schedule-preferences-title">Schedule Preferences</h2>
-                <p class="schedule-preferences-intro">Avoid-day and time choices improve ranking without hiding valid schedules. Minimum time between classes is a hard requirement.</p>
                 <div class="schedule-preference-grid">
                     <div class="schedule-preference-field">
                         <label for="schedule-minimum-buffer">Minimum time between classes</label>

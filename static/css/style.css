@@ -944,13 +944,17 @@ main {
     margin-top: 3px;
 }
 .schedule-panel-actions {
+    background: #ffffff;
+    border-bottom: 2px solid #C7C7C7;
     display: flex;
     flex-shrink: 0;
     gap: 6px;
+    justify-content: flex-end;
+    padding: 8px 10px;
 }
 .btn-panel-primary,
 .btn-panel-secondary {
-    border: 2px solid #ffffff;
+    border: 2px solid #000000;
     border-radius: 0;
     cursor: pointer;
     font-size: 0.68rem;
@@ -966,7 +970,7 @@ main {
 .btn-panel-primary:hover,
 .btn-panel-primary:focus-visible {
     background: #CC2E40;
-    outline: 2px solid #ffffff;
+    outline: 2px solid #73000A;
     outline-offset: 1px;
 }
 .btn-panel-secondary {
@@ -976,18 +980,11 @@ main {
 .btn-panel-secondary:hover,
 .btn-panel-secondary:focus-visible {
     background: #ECECEC;
-    outline: 2px solid #ffffff;
+    outline: 2px solid #000000;
     outline-offset: 1px;
 }
 #solver-container { padding: 12px; }
 
-.schedule-preferences-intro {
-    background: #FFF2E3;
-    border-left: 5px solid #73000A;
-    color: #363636;
-    line-height: 1.4;
-    padding: 9px 10px;
-}
 .schedule-preference-grid {
     display: grid;
     gap: 12px;
@@ -1632,7 +1629,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.5);
-    z-index: 100;
+    z-index: 5000;
     display: flex;
     align-items: center;
     justify-content: center;

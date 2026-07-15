@@ -119,14 +119,18 @@ test('schedule preferences expose soft avoid choices and a hard class buffer', (
 
 test('schedule actions live in the options panel and quick ICS export is removed', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
     const optionsStart = source.indexOf('<section id="solver-section">');
     const optionsEnd = source.indexOf('<div id="solver-container">', optionsStart);
     const optionsHeading = source.slice(optionsStart, optionsEnd);
 
     assert.match(optionsHeading, /id="btn-schedule-preferences"/);
     assert.match(optionsHeading, /id="btn-solve"/);
+    assert.match(optionsHeading, /<div class="schedule-panel-heading">\s*<h3>Schedule Options<\/h3>\s*<\/div>\s*<div class="schedule-panel-actions">/);
     assert.doesNotMatch(source, /id="btn-export-quick"/);
     assert.match(source, /class="schedule-selected-section"/);
+    assert.match(styles, /#modal-overlay\s*{[^}]*z-index:\s*5000;/s);
+    assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 
 test('schedule results offer ten more ranked options when more are available', () => {
