@@ -404,6 +404,9 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.doesNotMatch(source, /id="btn-export-quick"/);
     assert.match(source, /class="schedule-selected-section"/);
     assert.match(styles, /#modal-overlay\s*{[^}]*z-index:\s*5000;/s);
+    assert.match(styles, /#solver-section\s*{[^}]*display:\s*flex;[^}]*overflow:\s*hidden;/s);
+    assert.match(styles, /#solver-container\s*{[^}]*flex:\s*1 1 auto;[^}]*overflow-y:\s*auto;/s);
+    assert.match(styles, /\.schedule-panel-heading\s*{[^}]*position:\s*sticky;/s);
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 
@@ -452,13 +455,14 @@ test('schedule search results use compact availability summaries', () => {
     assert.equal(unavailable.text, 'Not offered');
 });
 
-test('schedule result cards use a fixed green add button and truncating text', () => {
+test('schedule result cards use fixed add-remove buttons and truncating text', () => {
     const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(source, /schedule-course-add btn-green/);
-    assert.match(source, /selected \? 'ADDED' : 'ADD'/);
-    assert.match(styles, /\.schedule-search-course \.schedule-course-add\s*{[^}]*flex:\s*0 0 58px;[^}]*width:\s*58px;/s);
+    assert.match(source, /selected \? 'btn-danger added' : 'btn-green'/);
+    assert.match(source, /selected \? 'REMOVE' : 'ADD'/);
+    assert.match(styles, /\.schedule-search-course \.schedule-course-add\s*{[^}]*flex:\s*0 0 68px;[^}]*height:\s*30px;[^}]*width:\s*68px;/s);
+    assert.match(styles, /\.schedule-search-course \.schedule-course-add\.added\s*{[^}]*background:\s*#c62828;/s);
     assert.match(styles, /\.schedule-search-course-copy span\s*{[^}]*text-overflow:\s*ellipsis;/s);
     assert.match(styles, /\.schedule-course-availability\.open\s*{\s*color:\s*#2e7d32;/s);
     assert.match(styles, /\.schedule-course-availability\.full\s*{\s*color:\s*#c62828;/s);

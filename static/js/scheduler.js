@@ -278,7 +278,7 @@ const Scheduler = {
                     <span>${group.title}</span>
                     <small class="schedule-course-availability ${availability.kind}">${availability.text}</small>
                 </div>
-                <button class="btn-course-add schedule-course-add btn-green ${selected ? 'added' : ''}" data-code="${group.code}">${selected ? 'ADDED' : 'ADD'}</button>
+                <button class="btn-course-add schedule-course-add ${selected ? 'btn-danger added' : 'btn-green'}" data-code="${group.code}">${selected ? 'REMOVE' : 'ADD'}</button>
             `;
             course.querySelector('.btn-course-add').addEventListener('click', async () => {
                 if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
