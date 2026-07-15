@@ -73,4 +73,8 @@ const API = {
     async getCourseGrades(code) {
         return this.post('/api/course-grades', { code });
     },
+
+    async getFaculty(term, crns) {
+        return this.post('/api/faculty', { term, crns });
+    },
 };

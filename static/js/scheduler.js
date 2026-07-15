@@ -317,15 +317,48 @@ const Scheduler = {
         return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     },
 
-    currentInstructorSummaries(group, gradeData = {}) {
+    currentInstructorCrns(group) {
+        const seen = {};
+        return (group.sections || []).filter(section => {
+            const instructor = String(section.instr || '').trim().toLowerCase();
+            if (!section.crn || !instructor || ['staff', 'undecided', 'tba'].includes(instructor)) return false;
+            seen[instructor] = (seen[instructor] || 0) + 1;
+            if (seen[instructor] > 2) return false;
+            return true;
+        }).map(section => String(section.crn)).slice(0, 12);
+    },
+
+    currentInstructorSummaries(group, gradeData = {}, facultyData = []) {
         const instructors = {};
         (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
-            String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).forEach(rawName => {
-                const name = rawName.trim();
+            const liveFaculty = (facultyData || []).filter(member => String(member.crn) === String(section.crn));
+            const identities = liveFaculty.length > 0
+                ? liveFaculty
+                : String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
+                    const name = rawName.trim();
+                    const normalized = this.normalizeInstructorName(name);
+                    const matches = (facultyData || []).filter(member => {
+                        const candidate = this.normalizeInstructorName(member.name);
+                        return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
+                    });
+                    return matches.length === 1 ? matches[0] : { name, email: '' };
+                });
+            identities.forEach(identity => {
+                const name = String(identity.name || '').trim();
                 if (!name || ['staff', 'undecided', 'tba'].includes(name.toLowerCase())) return;
-                if (!instructors[name]) instructors[name] = { name, sections: 0, open: 0, grade: null };
-                instructors[name].sections += 1;
-                if (this.isOpenSection(section)) instructors[name].open += 1;
+                const key = this.normalizeInstructorName(identity.email || name);
+                if (!instructors[key]) {
+                    instructors[key] = {
+                        name,
+                        displayName: name,
+                        email: String(identity.email || '').trim().toLowerCase(),
+                        sections: 0,
+                        open: 0,
+                        grade: null,
+                    };
+                }
+                instructors[key].sections += 1;
+                if (this.isOpenSection(section)) instructors[key].open += 1;
             });
         });
         const historical = gradeData.instructors || [];
@@ -335,9 +368,52 @@ const Scheduler = {
                 const candidate = this.normalizeInstructorName(record.name);
                 return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
             }) || null;
+            summary.displayName = summary.name.includes(',')
+                ? summary.name
+                : summary.grade?.name || summary.name;
+            if (!summary.email && summary.grade?.email) summary.email = summary.grade.email;
         });
         return Object.values(instructors)
-            .sort((a, b) => b.open - a.open || b.sections - a.sections || a.name.localeCompare(b.name));
+            .sort((a, b) => b.open - a.open || b.sections - a.sections || a.displayName.localeCompare(b.displayName));
+    },
+
+    instructorCardsMarkup(instructors) {
+        return instructors.map(instructor => {
+            const grade = instructor.grade;
+            const gpa = Number(grade?.average_gpa);
+            const gpaPosition = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
+            return `
+                <article class="quick-instructor-card">
+                    <div class="quick-instructor-heading">
+                        <strong>${this.escapeHtml(instructor.displayName || instructor.name)}</strong>
+                        <span>${instructor.open} open / ${instructor.sections} section${instructor.sections === 1 ? '' : 's'}</span>
+                    </div>
+                    ${instructor.email ? `<a class="quick-instructor-email" href="mailto:${this.escapeHtml(instructor.email)}">${this.escapeHtml(instructor.email)}</a>` : '<span class="quick-instructor-email unavailable">Email unavailable</span>'}
+                    ${Number.isFinite(gpa) ? `
+                        <div class="quick-gpa-track" aria-label="Historical course GPA ${gpa.toFixed(2)} out of 4">
+                            <span style="width:${gpaPosition}%"></span>
+                        </div>
+                        <small>${gpa.toFixed(2)} historical course GPA · ${Number(grade.graded_students || 0).toLocaleString()} grades</small>
+                    ` : '<small>No matched grade history for this course.</small>'}
+                </article>
+            `;
+        }).join('');
+    },
+
+    updateQuickFaculty(group, gradeData = {}, facultyData = []) {
+        const count = document.getElementById('quick-instructor-count');
+        const grid = document.getElementById('quick-instructor-grid');
+        const more = document.getElementById('quick-instructor-more');
+        if (!count || !grid || !more) return;
+        const instructors = this.currentInstructorSummaries(group, gradeData, facultyData);
+        const visible = instructors.slice(0, 4);
+        count.textContent = `${instructors.length} listed this term`;
+        grid.innerHTML = this.instructorCardsMarkup(visible)
+            || '<p class="quick-empty">Instructor assignments have not been posted.</p>';
+        const remaining = instructors.length - visible.length;
+        more.textContent = remaining > 0
+            ? `${remaining} additional instructor${remaining === 1 ? '' : 's'} available in Browse.`
+            : '';
     },
 
     gradeBuckets(gradeData = {}) {
@@ -385,25 +461,7 @@ const Scheduler = {
         const gradeLegend = buckets.map(bucket => `
             <span><i class="${bucket.className}"></i><strong>${bucket.percent}%</strong> ${bucket.label}</span>
         `).join('');
-        const instructorCards = visibleInstructors.map(instructor => {
-            const grade = instructor.grade;
-            const gpa = Number(grade?.average_gpa);
-            const gpaPosition = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
-            return `
-                <article class="quick-instructor-card">
-                    <div class="quick-instructor-heading">
-                        <strong>${this.escapeHtml(instructor.name)}</strong>
-                        <span>${instructor.open} open / ${instructor.sections} section${instructor.sections === 1 ? '' : 's'}</span>
-                    </div>
-                    ${Number.isFinite(gpa) ? `
-                        <div class="quick-gpa-track" aria-label="Historical course GPA ${gpa.toFixed(2)} out of 4">
-                            <span style="width:${gpaPosition}%"></span>
-                        </div>
-                        <small>${gpa.toFixed(2)} historical course GPA · ${Number(grade.graded_students || 0).toLocaleString()} grades</small>
-                    ` : '<small>No matched grade history for this course.</small>'}
-                </article>
-            `;
-        }).join('');
+        const instructorCards = this.instructorCardsMarkup(visibleInstructors);
 
         content.innerHTML = `
             <section class="course-quick-view" aria-labelledby="course-quick-title">
@@ -441,9 +499,9 @@ const Scheduler = {
                 </section>
 
                 <section class="course-quick-section">
-                    <div class="quick-section-heading"><h3>Current instructors</h3><span>${instructors.length} listed this term</span></div>
-                    <div class="quick-instructor-grid">${instructorCards || '<p class="quick-empty">Instructor assignments have not been posted.</p>'}</div>
-                    ${instructors.length > visibleInstructors.length ? `<small class="quick-more-note">${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in Browse.</small>` : ''}
+                    <div class="quick-section-heading"><h3>Current instructors</h3><span id="quick-instructor-count">${instructors.length} listed this term</span></div>
+                    <div id="quick-instructor-grid" class="quick-instructor-grid">${instructorCards || '<p class="quick-empty">Instructor assignments have not been posted.</p>'}</div>
+                    <small id="quick-instructor-more" class="quick-more-note">${instructors.length > visibleInstructors.length ? `${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in Browse.` : ''}</small>
                 </section>
 
                 <section class="course-quick-section quick-grade-section">
@@ -528,6 +586,10 @@ const Scheduler = {
         const detailsPromise = typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
             ? Search.fetchBulletinDetailsForCourse(group.code)
             : Promise.resolve({});
+        const facultyCrns = this.currentInstructorCrns(group);
+        const facultyPromise = facultyCrns.length > 0
+            ? API.getFaculty(State.term, facultyCrns)
+            : Promise.resolve({ faculty: [] });
         const offeringPromise = API.getOfferingAnalysis(group.code, State.term);
         const gradesResult = await Promise.allSettled([API.getCourseGrades(group.code)]);
         if (requestId !== this._quickViewRequestId || overlay.classList.contains('hidden')) return;
@@ -539,6 +601,14 @@ const Scheduler = {
             true,
         );
         document.getElementById('modal-close')?.focus();
+        const gradeData = gradesResult[0].status === 'fulfilled' && !gradesResult[0].value?.error
+            ? gradesResult[0].value
+            : {};
+        facultyPromise
+            .then(result => {
+                if (requestId === this._quickViewRequestId) this.updateQuickFaculty(group, gradeData, result.faculty || []);
+            })
+            .catch(() => {});
         detailsPromise
             .then(details => {
                 if (requestId === this._quickViewRequestId) this.updateQuickDetails(details || {}, group);

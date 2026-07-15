@@ -479,12 +479,15 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /id="btn-quick-view-browse"/);
     assert.match(source, /quick-grade-strip/);
     assert.match(source, /quick-frequency-ring/);
+    assert.match(source, /API\.getFaculty\(State\.term, facultyCrns\)/);
+    assert.match(source, /href="mailto:\$\{this\.escapeHtml\(instructor\.email\)\}"/);
     assert.match(source, /Offered in \$\{frequency\}% of recent terms/);
     assert.match(source, /Last offered \$\{offering\.last_offered_label\}/);
     assert.match(source, /const detailsPromise =/);
     assert.match(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
     assert.match(source, /detailsPromise\s*\.then\(details =>/);
     assert.match(api, /async getCourseGrades\(code\)/);
+    assert.match(api, /async getFaculty\(term, crns\)/);
     assert.match(styles, /#modal\.course-quick-modal\s*{[^}]*max-width:\s*780px;/s);
     assert.match(styles, /\.quick-instructor-grid\s*{[^}]*grid-template-columns:\s*repeat\(2,/s);
     assert.match(styles, /\.quick-instructor-card small\s*{[^}]*font-size:\s*0\.7rem;/s);
@@ -513,6 +516,29 @@ test('quick view compares grades only for instructors teaching the current term'
     assert.equal(summaries[0].grade.average_gpa, 3.04);
     assert.equal(summaries[1].name, 'Hoskins, William');
     assert.equal(summaries[1].grade, null);
+});
+
+test('current faculty records replace surname-only labels and add email', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const summaries = scheduler.currentInstructorSummaries({
+        sections: [
+            { crn: '10868', instr: 'Kanapala', stat: 'A' },
+            { crn: '16759', instr: 'Kanapala', stat: 'A' },
+        ],
+    }, {
+        instructors: [
+            { name: 'Kanapala, Neema', average_gpa: 3.04, graded_students: 1149 },
+        ],
+    }, [
+        { crn: '10868', name: 'Kanapala, Neema', email: 'neema@cse.sc.edu' },
+        { crn: '16759', name: 'Kanapala, Neema', email: 'neema@cse.sc.edu' },
+    ]);
+
+    assert.equal(summaries.length, 1);
+    assert.equal(summaries[0].displayName, 'Kanapala, Neema');
+    assert.equal(summaries[0].email, 'neema@cse.sc.edu');
+    assert.equal(summaries[0].sections, 2);
+    assert.equal(summaries[0].grade.average_gpa, 3.04);
 });
 
 test('quick view grade diagram groups outcomes into readable bands', () => {

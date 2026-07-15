@@ -1955,6 +1955,19 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .quick-instructor-heading { align-items: baseline; display: flex; gap: 5px; justify-content: space-between; }
 .quick-instructor-heading strong { color: #000000; font-size: 0.74rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .quick-instructor-heading span { color: #5C5C5C; flex: 0 0 auto; font-size: 0.61rem; }
+.quick-instructor-email {
+    color: #466A9F;
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    margin-top: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.quick-instructor-email.unavailable { color: #676156; font-weight: 400; }
+.quick-instructor-email:hover,
+.quick-instructor-email:focus-visible { color: #73000A; }
 .quick-instructor-card small { color: #363636; display: block; font-size: 0.7rem; line-height: 1.3; margin-top: 5px; }
 .quick-gpa-track { background: #C7C7C7; height: 5px; margin-top: 6px !important; }
 .quick-gpa-track span { background: #466A9F; display: block; height: 100%; }

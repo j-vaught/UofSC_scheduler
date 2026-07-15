@@ -3,6 +3,7 @@
 
 import http.server
 import socketserver
+import concurrent.futures
 import json
 import urllib.request
 import urllib.error
@@ -173,6 +174,43 @@ def handle_history(body):
     ).encode()
 
 
+def handle_faculty(body):
+    """Return current-term full instructor identities for selected sections."""
+    params = json.loads(body)
+    term = str(params.get("term", ""))
+    crns = list(dict.fromkeys(str(crn) for crn in params.get("crns", [])))[:12]
+    if not re.fullmatch(r"\d{6}", term) or any(not re.fullmatch(r"\d+", crn) for crn in crns):
+        return json.dumps({"error": "invalid term or CRN", "faculty": []}).encode()
+
+    def fetch_one(crn):
+        cache_key = cache.make_key("current-faculty", f"{term}:{crn}")
+        cached = cache.get(cache_key)
+        if cached:
+            members = json.loads(cached)
+        else:
+            from grade_pipeline import fetch_faculty
+
+            _, _, members = fetch_faculty((term, crn))
+            cache.put(cache_key, json.dumps(members).encode(), ttl=86400)
+        return [
+            {
+                "crn": crn,
+                "name": member.get("name", ""),
+                "email": member.get("email", ""),
+                "primary": bool(member.get("primary")),
+            }
+            for member in members
+            if member.get("name")
+        ]
+
+    records = []
+    if crns:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(4, len(crns))) as executor:
+            for result in executor.map(fetch_one, crns):
+                records.extend(result)
+    return json.dumps({"faculty": records}).encode()
+
+
 class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass  # suppress default logging
@@ -320,6 +358,12 @@ class Handler(http.server.BaseHTTPRequestHandler):
                 self._send_json('{"error":"course grade history not found"}', 404)
             else:
                 self._send_json(json.dumps(result))
+
+        elif path == "/api/faculty":
+            try:
+                self._send_json(handle_faculty(body))
+            except Exception:
+                self._send_json('{"error":"faculty lookup unavailable","faculty":[]}', 502)
 
         elif path == "/api/professor-grades":
             params = json.loads(body)
