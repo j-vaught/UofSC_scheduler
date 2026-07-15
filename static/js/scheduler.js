@@ -81,27 +81,73 @@ const Scheduler = {
         };
     },
 
+    registrationRequirementSatisfied(value, eligibleCourses) {
+        const normalizeCode = code => String(code).toUpperCase()
+            .replace(/\s+/g, '')
+            .replace(/^([A-Z]{2,4})(\d)/, '$1 $2');
+        const text = this.stripHtml(value || '').toUpperCase();
+        const rawCodes = text.match(/\b[A-Z]{2,4}\s*\d{3}[A-Z]?\b/g) || [];
+        if (rawCodes.length === 0) return false;
+        const normalized = rawCodes.map(normalizeCode);
+        const groups = text.split(/;|\bAND\b/).map(group => {
+            const groupCodes = normalized.filter((code, index) => group.includes(rawCodes[index]));
+            return groupCodes.length > 0 ? groupCodes : null;
+        }).filter(Boolean);
+        if (groups.length > 1) {
+            return groups.every(group => group.some(code => eligibleCourses.has(code)));
+        }
+        return /\bOR\b/.test(text)
+            ? normalized.some(code => eligibleCourses.has(code))
+            : normalized.every(code => eligibleCourses.has(code));
+    },
+
+    registrationRestrictionNeedsAttention(value) {
+        const restriction = this.stripHtml(value || '').toLowerCase();
+        if (!restriction) return false;
+        const major = String(State.profile?.majorData?.major || '').trim().toLowerCase();
+        if (!major) return true;
+        return !restriction.includes(major);
+    },
+
     registrationRequirementRows(details, bulletin) {
         const combined = values => [...new Set(values
             .map(value => this.stripHtml(value || ''))
             .filter(Boolean))].join(' · ');
-        return [
-            ['Prerequisites', combined([bulletin.prereq]), true],
-            ['Prerequisite or corequisite', combined([bulletin.prerequisite_or_corequisite]), false],
-            ['Corequisites or linked sections', combined([
+        const normalizeCode = code => String(code).toUpperCase()
+            .replace(/\s+/g, '')
+            .replace(/^([A-Z]{2,4})(\d)/, '$1 $2');
+        const completed = new Set((State.completedCourses || []).map(normalizeCode));
+        const completedOrSelected = new Set([
+            ...completed,
+            ...Object.keys(State.selectedCourses || {}).map(normalizeCode),
+        ]);
+        const rows = [
+            { label: 'Prerequisites', value: combined([bulletin.prereq]), showWhenEmpty: true, type: 'prerequisite' },
+            { label: 'Prerequisite or corequisite', value: combined([bulletin.prerequisite_or_corequisite]), showWhenEmpty: false, type: 'prerequisite' },
+            { label: 'Corequisites or linked sections', value: combined([
                 bulletin.corequisite,
                 details.course_coreqs,
                 details.section_coreqs,
-            ]), true],
-            ['Registration restrictions', combined([details.registration_restrictions]), true],
-            ['Cross-listed sections', combined([details.xlist, bulletin.crosslisted]), false],
-            ['Class notes', combined([details.clssnotes]), false],
-        ].map(([label, value, showWhenEmpty]) => {
+            ]), showWhenEmpty: true, type: 'corequisite' },
+            { label: 'Registration restrictions', value: combined([details.registration_restrictions]), showWhenEmpty: true, type: 'restriction' },
+            { label: 'Cross-listed sections', value: combined([details.xlist, bulletin.crosslisted]), showWhenEmpty: false, type: 'information' },
+            { label: 'Class notes', value: combined([details.clssnotes]), showWhenEmpty: false, type: 'note' },
+        ];
+        const attentionLabels = [];
+        const html = rows.map(({ label, value, showWhenEmpty, type }) => {
             if (!value && !showWhenEmpty) return '';
+            const attention = Boolean(value) && (
+                (type === 'prerequisite' && !this.registrationRequirementSatisfied(value, completed))
+                || (type === 'corequisite' && !this.registrationRequirementSatisfied(value, completedOrSelected))
+                || (type === 'restriction' && this.registrationRestrictionNeedsAttention(value))
+                || type === 'note'
+            );
+            if (attention) attentionLabels.push(label);
             const text = value || 'None listed';
             const shortened = text.length > 240 ? `${text.slice(0, 237)}…` : text;
-            return `<p><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
+            return `<p class="${attention ? 'attention' : ''}"><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
         }).filter(Boolean).join('');
+        return { html, attentionLabels };
     },
 
     async hydrateRegistrationCourse(section) {
@@ -118,17 +164,23 @@ const Scheduler = {
             const seats = this.registrationSeatDetails(details, section);
             const credits = this.parseCreditHours(details.hours_html || bulletin.hours_html || section.hours);
             const requirements = this.registrationRequirementRows(details, bulletin || {});
-            const status = card.querySelector('[data-registration-status]');
-            status.textContent = seats.kind === 'open' ? 'OPEN' : 'FULL — PLANNING ONLY';
-            status.className = `registration-section-status ${seats.kind}`;
             card.querySelector('[data-registration-seats]').textContent = seats.text;
             card.querySelector('[data-registration-seats]').className = `registration-value registration-seats ${seats.kind}`;
+            card.querySelector('[data-registration-seat-row]').classList.toggle('attention', seats.kind === 'full');
             card.querySelector('[data-registration-credits]').textContent = credits === null ? 'Credits unavailable' : `${credits} credit${credits === 1 ? '' : 's'}`;
             card.querySelector('[data-registration-term]').textContent = details.part_of_term || 'Part of term unavailable';
             card.querySelector('[data-registration-dates]').textContent = section.start_date && section.end_date
                 ? `${section.start_date} through ${section.end_date}`
                 : 'Course dates unavailable';
-            card.querySelector('[data-registration-requirements]').innerHTML = requirements;
+            card.querySelector('[data-registration-requirements]').innerHTML = requirements.html;
+            const attention = seats.kind === 'full'
+                ? ['Full section', ...requirements.attentionLabels]
+                : requirements.attentionLabels;
+            const warning = card.querySelector('[data-registration-warning]');
+            warning.hidden = attention.length === 0;
+            warning.title = attention.join(' · ');
+            warning.setAttribute('aria-label', `Registration warning. ${attention.join('. ')}`);
+            card.classList.toggle('has-registration-warning', attention.length > 0);
         } catch (error) {
             if (!document.body.contains(card)) return;
             card.querySelector('[data-registration-term]').textContent = 'Registration details unavailable';
@@ -159,34 +211,39 @@ const Scheduler = {
                         <strong>${this.escapeHtml(section.code)}</strong>
                         <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
                     </div>
-                    <span class="registration-section-status ${open ? 'open' : 'full'}" data-registration-status>${open ? 'OPEN' : 'FULL — PLANNING ONLY'}</span>
                     <button class="registration-copy-crn btn-green" type="button" data-registration-copy="${this.escapeHtml(section.crn)}">COPY CRN</button>
+                    <button class="registration-expand" type="button" data-registration-expand="${this.escapeHtml(section.crn)}" aria-expanded="false" aria-controls="registration-details-${this.escapeHtml(section.crn)}" aria-label="Show registration details for ${this.escapeHtml(section.code)}">
+                        <span class="registration-warning-icon" data-registration-warning${open ? ' hidden' : ''} title="${open ? '' : 'Full section'}" aria-label="${open ? '' : 'Registration warning. Full section'}">!</span>
+                        <span class="registration-chevron" aria-hidden="true">▼</span>
+                    </button>
                 </header>
-                <div class="registration-identifiers">
-                    <span>Section <strong>${this.escapeHtml(section.section || '—')}</strong></span>
-                    <span>CRN <strong>${this.escapeHtml(section.crn)}</strong></span>
-                    <span data-registration-credits>${credits === null ? 'Checking credits' : `${credits} credit${credits === 1 ? '' : 's'}`}</span>
+                <div id="registration-details-${this.escapeHtml(section.crn)}" class="registration-course-details" data-registration-details hidden>
+                    <div class="registration-identifiers">
+                        <span>Section <strong>${this.escapeHtml(section.section || '—')}</strong></span>
+                        <span>CRN <strong>${this.escapeHtml(section.crn)}</strong></span>
+                        <span data-registration-credits>${credits === null ? 'Checking credits' : `${credits} credit${credits === 1 ? '' : 's'}`}</span>
+                    </div>
+                    <div class="registration-detail-grid">
+                        <div data-registration-seat-row${open ? '' : ' class="attention"'}>
+                            <span class="registration-label">LIVE SEAT STATUS</span>
+                            <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Checking available seats' : 'Listed as full — planning only'}</span>
+                        </div>
+                        <div>
+                            <span class="registration-label">PART OF TERM</span>
+                            <span class="registration-value" data-registration-term>Checking details</span>
+                        </div>
+                        <div class="registration-detail-wide">
+                            <span class="registration-label">COURSE DATES</span>
+                            <span class="registration-value" data-registration-dates>${section.start_date && section.end_date ? `${this.escapeHtml(section.start_date)} through ${this.escapeHtml(section.end_date)}` : 'Checking dates'}</span>
+                        </div>
+                    </div>
+                    <section class="registration-requirements">
+                        <h3>Registration checks</h3>
+                        <div data-registration-requirements>
+                            <p><strong>Requirements</strong><span>Checking prerequisites, corequisites, and restrictions</span></p>
+                        </div>
+                    </section>
                 </div>
-                <div class="registration-detail-grid">
-                    <div>
-                        <span class="registration-label">LIVE SEAT STATUS</span>
-                        <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Checking available seats' : 'Listed as full'}</span>
-                    </div>
-                    <div>
-                        <span class="registration-label">PART OF TERM</span>
-                        <span class="registration-value" data-registration-term>Checking details</span>
-                    </div>
-                    <div class="registration-detail-wide">
-                        <span class="registration-label">COURSE DATES</span>
-                        <span class="registration-value" data-registration-dates>${section.start_date && section.end_date ? `${this.escapeHtml(section.start_date)} through ${this.escapeHtml(section.end_date)}` : 'Checking dates'}</span>
-                    </div>
-                </div>
-                <section class="registration-requirements">
-                    <h3>Registration checks</h3>
-                    <div data-registration-requirements>
-                        <p><strong>Requirements</strong><span>Checking prerequisites, corequisites, and restrictions</span></p>
-                    </div>
-                </section>
             </article>
         `;
         }).join('');
@@ -218,6 +275,17 @@ const Scheduler = {
             button.addEventListener('click', () => {
                 const section = sections.find(item => item.crn === button.dataset.registrationCopy);
                 if (section) this.copyRegistrationCrn(section, button, copyStatus);
+            });
+        });
+        content.querySelectorAll('[data-registration-expand]').forEach(button => {
+            button.addEventListener('click', () => {
+                const details = document.getElementById(`registration-details-${button.dataset.registrationExpand}`);
+                if (!details) return;
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', String(!expanded));
+                button.setAttribute('aria-label', `${expanded ? 'Show' : 'Hide'} registration details for ${button.closest('.registration-course-card').querySelector('.registration-course-copy strong').textContent}`);
+                details.hidden = expanded;
+                button.closest('.registration-course-card').classList.toggle('expanded', !expanded);
             });
         });
         content.querySelector('[data-registration-copy]')?.focus();

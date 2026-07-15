@@ -425,13 +425,21 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(source, /bulletin\.prereq/);
     assert.match(source, /details\.section_coreqs/);
     assert.match(source, /registration_restrictions/);
-    assert.match(source, /FULL — PLANNING ONLY/);
+    assert.match(source, /full — planning only/i);
+    assert.match(source, /data-registration-expand/);
+    assert.match(source, /data-registration-details hidden/);
+    assert.match(source, /data-registration-warning/);
+    assert.match(source, /registrationRequirementSatisfied/);
     assert.match(source, /This planner cannot verify registration eligibility/);
     assert.doesNotMatch(source, /data-registration-schedule/);
+    assert.doesNotMatch(source, /data-registration-status/);
     assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#" target="_blank"/);
     assert.match(styles, /\.btn-panel-registration\s*{[^}]*margin-left:\s*auto;/s);
     assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
     assert.match(styles, /\.registration-copy-crn\s*{[^}]*width:\s*84px;/s);
+    assert.match(styles, /\.registration-course-details\[hidden\]\s*{[^}]*display:\s*none;/s);
+    assert.match(styles, /\.registration-warning-icon\s*{[^}]*background:\s*#A49137;/s);
+    assert.match(styles, /\.registration-requirements p\.attention\s*{[^}]*border-left:\s*4px solid #CC2E40;/s);
 });
 
 test('course and registration dialogs close when the backdrop is pressed', () => {
@@ -440,6 +448,46 @@ test('course and registration dialogs close when the backdrop is pressed', () =>
     assert.match(html, /modalOverlay\.addEventListener\('pointerdown'/);
     assert.match(html, /if \(!modal\.contains\(event\.target\)\) closeModal\(\);/);
     assert.match(html, /modal\.classList\.remove\('course-quick-modal', 'registration-info-modal'\);/);
+});
+
+test('registration prerequisite warnings account for completed alternatives', () => {
+    const state = { profile: { majorData: { major: 'Mechanical Engineering' } } };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', { State: state });
+    scheduler.stripHtml = value => String(value || '');
+
+    assert.equal(
+        scheduler.registrationRequirementSatisfied(
+            'D or better in EMCH 260 or ENCP 260.',
+            new Set(['EMCH 260']),
+        ),
+        true,
+    );
+    assert.equal(
+        scheduler.registrationRequirementSatisfied(
+            'MATH 242; C or better in EMCH 200 or ENCP 200.',
+            new Set(['MATH 242']),
+        ),
+        false,
+    );
+    assert.equal(
+        scheduler.registrationRequirementSatisfied(
+            'MATH 242; C or better in EMCH 200 or ENCP 200.',
+            new Set(['MATH 242', 'ENCP 200']),
+        ),
+        true,
+    );
+    assert.equal(
+        scheduler.registrationRestrictionNeedsAttention(
+            'Enrollment limited to students in the Mechanical Engineering Major.',
+        ),
+        false,
+    );
+    assert.equal(
+        scheduler.registrationRestrictionNeedsAttention(
+            'Enrollment limited to students in the Nursing Major.',
+        ),
+        true,
+    );
 });
 
 test('course results remain visible with useful empty states', () => {
