@@ -41,8 +41,8 @@ const Scheduler = {
         button.disabled = this.registrationSections().length === 0;
     },
 
-    async copyRegistrationCrns(crns, button, status) {
-        const text = crns.join('\n');
+    async copyRegistrationCrn(section, button, status) {
+        const text = section.crn;
         try {
             if (navigator.clipboard?.writeText) {
                 await navigator.clipboard.writeText(text);
@@ -58,10 +58,73 @@ const Scheduler = {
                 input.remove();
             }
             button.textContent = 'COPIED';
-            status.textContent = `${crns.length} CRN${crns.length === 1 ? '' : 's'} copied to your clipboard.`;
+            status.textContent = `${section.code} CRN ${section.crn} copied to your clipboard.`;
         } catch (error) {
-            button.textContent = 'COPY CRNs';
-            status.textContent = 'Copying was blocked by the browser. Select the CRNs above and copy them manually.';
+            button.textContent = 'COPY CRN';
+            status.textContent = `Copying was blocked. Select CRN ${section.crn} and copy it manually.`;
+        }
+    },
+
+    registrationMeetingDetails(details, section) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = String(details.meeting_html || '');
+        const meetings = [...wrapper.querySelectorAll('.meet')]
+            .map(meeting => (meeting.textContent || '').replace(/\s+/g, ' ').trim())
+            .filter(Boolean);
+        return meetings.join(' · ') || section.meets || 'Meeting time not announced';
+    },
+
+    registrationSeatDetails(details, section) {
+        const maximum = String(details.seats || '').match(/seats_max[^>]*>(\d+)/);
+        const available = String(details.seats || '').match(/seats_avail[^>]*>(\d+)/);
+        if (maximum && available) {
+            const open = Number(available[1]);
+            return {
+                text: open > 0 ? `${open} of ${maximum[1]} seats available` : `All ${maximum[1]} seats are full`,
+                kind: open > 0 ? 'open' : 'full',
+            };
+        }
+        return {
+            text: this.isOpenSection(section) ? 'Listed as open' : 'Listed as full',
+            kind: this.isOpenSection(section) ? 'open' : 'full',
+        };
+    },
+
+    registrationWarnings(details) {
+        return [
+            ['Registration restrictions', details.registration_restrictions],
+            ['Corequisites', details.section_coreqs || details.course_coreqs],
+            ['Class notes', details.clssnotes],
+        ].map(([label, value]) => {
+            const text = this.stripHtml(value || '');
+            if (!text) return '';
+            const shortened = text.length > 240 ? `${text.slice(0, 237)}…` : text;
+            return `<p><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
+        }).filter(Boolean).join('');
+    },
+
+    async hydrateRegistrationCourse(section) {
+        const card = document.getElementById(`registration-course-${section.crn}`);
+        if (!card || !API.getDetails) return;
+        try {
+            const details = await API.getDetails(section.crn, State.term);
+            if (!document.body.contains(card)) return;
+            const seats = this.registrationSeatDetails(details, section);
+            const credits = this.parseCreditHours(details.hours_html || section.hours);
+            const warnings = this.registrationWarnings(details);
+            card.querySelector('[data-registration-schedule]').textContent = this.registrationMeetingDetails(details, section);
+            card.querySelector('[data-registration-method]').textContent = details.inst_mthd || section.inst_mthd || 'Instruction method unavailable';
+            card.querySelector('[data-registration-part]').textContent = details.part_of_term || 'Part of term unavailable';
+            card.querySelector('[data-registration-seats]').textContent = seats.text;
+            card.querySelector('[data-registration-seats]').className = `registration-value registration-seats ${seats.kind}`;
+            card.querySelector('[data-registration-credits]').textContent = credits === null ? 'Credits unavailable' : `${credits} credit${credits === 1 ? '' : 's'}`;
+            const warningBox = card.querySelector('[data-registration-warnings]');
+            warningBox.innerHTML = warnings;
+            warningBox.hidden = !warnings;
+        } catch (error) {
+            if (!document.body.contains(card)) return;
+            card.querySelector('[data-registration-part]').textContent = 'Additional details unavailable';
+            card.querySelector('[data-registration-seats]').textContent = this.isOpenSection(section) ? 'Listed as open' : 'Listed as full';
         }
     },
 
@@ -78,22 +141,50 @@ const Scheduler = {
 
         const termSelect = document.getElementById('term-select');
         const termLabel = termSelect?.selectedOptions?.[0]?.textContent?.trim() || 'Selected term';
-        const rows = sections.map(section => `
-            <article class="registration-course-row">
-                <div class="registration-course-copy">
-                    <strong>${this.escapeHtml(section.code)}</strong>
-                    <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
+        const rows = sections.map(section => {
+            const open = this.isOpenSection(section);
+            const credits = this.parseCreditHours(section.hours);
+            return `
+            <article id="registration-course-${this.escapeHtml(section.crn)}" class="registration-course-card">
+                <header class="registration-course-header">
+                    <div class="registration-course-copy">
+                        <strong>${this.escapeHtml(section.code)}</strong>
+                        <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
+                    </div>
+                    <span class="registration-section-status ${open ? 'open' : 'full'}">${open ? 'OPEN' : 'FULL'}</span>
+                    <button class="registration-copy-crn btn-green" type="button" data-registration-copy="${this.escapeHtml(section.crn)}">COPY CRN</button>
+                </header>
+                <div class="registration-identifiers">
+                    <span>Section <strong>${this.escapeHtml(section.section || '—')}</strong></span>
+                    <span>CRN <strong>${this.escapeHtml(section.crn)}</strong></span>
+                    <span data-registration-credits>${credits === null ? 'Checking credits' : `${credits} credit${credits === 1 ? '' : 's'}`}</span>
                 </div>
-                <div class="registration-section-number">
-                    <span>SECTION</span>
-                    <strong>${this.escapeHtml(section.section || '—')}</strong>
+                <div class="registration-detail-grid">
+                    <div>
+                        <span class="registration-label">INSTRUCTOR</span>
+                        <span class="registration-value">${this.escapeHtml(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor not announced')}</span>
+                    </div>
+                    <div>
+                        <span class="registration-label">AVAILABILITY</span>
+                        <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Listed as open' : 'Listed as full'}</span>
+                    </div>
+                    <div class="registration-detail-wide">
+                        <span class="registration-label">MEETING AND LOCATION</span>
+                        <span class="registration-value" data-registration-schedule>${this.escapeHtml(section.meets || 'Meeting time not announced')}</span>
+                    </div>
+                    <div>
+                        <span class="registration-label">INSTRUCTION</span>
+                        <span class="registration-value" data-registration-method>${this.escapeHtml(section.inst_mthd || 'Checking method')}</span>
+                    </div>
+                    <div>
+                        <span class="registration-label">PART OF TERM</span>
+                        <span class="registration-value" data-registration-part>Checking details</span>
+                    </div>
                 </div>
-                <div class="registration-crn">
-                    <span>CRN</span>
-                    <strong>${this.escapeHtml(section.crn)}</strong>
-                </div>
+                <div class="registration-warnings" data-registration-warnings hidden></div>
             </article>
-        `).join('');
+        `;
+        }).join('');
 
         content.innerHTML = `
             <section class="registration-dialog" aria-labelledby="registration-dialog-title">
@@ -103,12 +194,11 @@ const Scheduler = {
                     <p>${this.escapeHtml(termLabel)} · ${sections.length} course${sections.length === 1 ? '' : 's'}</p>
                 </header>
                 <div class="registration-instructions">
-                    Copy these CRNs, then enter them one at a time in the OneCarolina shopping cart.
+                    Copy each CRN when you are ready to enter it in the OneCarolina shopping cart.
                 </div>
                 <div class="registration-course-list">${rows}</div>
                 <p id="registration-copy-status" class="registration-copy-status" aria-live="polite"></p>
                 <div class="registration-dialog-actions">
-                    <button id="btn-copy-registration-crns" class="btn-green" type="button">COPY CRNs</button>
                     <a class="registration-onecarolina-link" href="https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb/classRegistration/classRegistration#" target="_blank" rel="noopener noreferrer">OPEN CRN SHOPPING CART</a>
                 </div>
             </section>
@@ -118,14 +208,15 @@ const Scheduler = {
         modal.setAttribute('aria-labelledby', 'registration-dialog-title');
         overlay.classList.remove('hidden');
 
-        const copyButton = document.getElementById('btn-copy-registration-crns');
         const copyStatus = document.getElementById('registration-copy-status');
-        copyButton.addEventListener('click', () => this.copyRegistrationCrns(
-            sections.map(section => section.crn),
-            copyButton,
-            copyStatus,
-        ));
-        copyButton.focus();
+        content.querySelectorAll('[data-registration-copy]').forEach(button => {
+            button.addEventListener('click', () => {
+                const section = sections.find(item => item.crn === button.dataset.registrationCopy);
+                if (section) this.copyRegistrationCrn(section, button, copyStatus);
+            });
+        });
+        content.querySelector('[data-registration-copy]')?.focus();
+        sections.forEach(section => this.hydrateRegistrationCourse(section));
     },
 
     formatPreferenceTime(value) {

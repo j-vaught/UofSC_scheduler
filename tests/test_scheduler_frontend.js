@@ -417,11 +417,16 @@ test('registration info unlocks for selected sections and links to the CRN cart'
 
     assert.match(html, /id="btn-registration-info"[^>]*disabled>REGISTRATION INFO/);
     assert.match(source, /button\.disabled = this\.registrationSections\(\)\.length === 0;/);
-    assert.match(source, /id="btn-copy-registration-crns"/);
-    assert.match(source, /sections\.map\(section => section\.crn\)/);
-    assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#/);
+    assert.match(source, /data-registration-copy="\$\{this\.escapeHtml\(section\.crn\)\}">COPY CRN/);
+    assert.match(source, /copyRegistrationCrn\(section, button, copyStatus\)/);
+    assert.doesNotMatch(source, /COPY CRNs/);
+    assert.match(source, /data-registration-schedule/);
+    assert.match(source, /data-registration-seats/);
+    assert.match(source, /registration_restrictions/);
+    assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#" target="_blank"/);
     assert.match(styles, /\.btn-panel-registration\s*{[^}]*margin-left:\s*auto;/s);
     assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
+    assert.match(styles, /\.registration-copy-crn\s*{[^}]*width:\s*84px;/s);
 });
 
 test('course results remain visible with useful empty states', () => {
