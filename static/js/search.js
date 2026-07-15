@@ -650,6 +650,54 @@ const Search = {
         );
         text.textContent = message;
         detail.textContent = activity;
+        if (mode !== 'error') {
+            if (typeof requestAnimationFrame !== 'undefined') {
+                requestAnimationFrame(() => this.drawSmartSearchNetwork());
+            } else {
+                this.drawSmartSearchNetwork();
+            }
+        }
+    },
+
+    drawSmartSearchNetwork() {
+        const network = document.querySelector?.('.smart-search-network');
+        const canvas = network?.querySelector('.smart-search-network-links');
+        if (!network || !canvas || network.offsetParent === null) return;
+        const bounds = network.getBoundingClientRect();
+        const ratio = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(bounds.width * ratio));
+        canvas.height = Math.max(1, Math.round(bounds.height * ratio));
+        const context = canvas.getContext('2d');
+        if (!context) return;
+        context.setTransform(ratio, 0, 0, ratio, 0, 0);
+        context.clearRect(0, 0, bounds.width, bounds.height);
+        context.lineWidth = 0.75;
+        const layers = [...network.querySelectorAll('.network-layer')];
+        for (let layerIndex = 0; layerIndex < layers.length - 1; layerIndex += 1) {
+            const sources = [...layers[layerIndex].querySelectorAll('i')];
+            const targets = [...layers[layerIndex + 1].querySelectorAll('i')];
+            for (const source of sources) {
+                const sourceBounds = source.getBoundingClientRect();
+                const startX = sourceBounds.left + sourceBounds.width / 2 - bounds.left;
+                const startY = sourceBounds.top + sourceBounds.height / 2 - bounds.top;
+                const sourceColor = getComputedStyle(source).backgroundColor;
+                for (const target of targets) {
+                    const targetBounds = target.getBoundingClientRect();
+                    const endX = targetBounds.left + targetBounds.width / 2 - bounds.left;
+                    const endY = targetBounds.top + targetBounds.height / 2 - bounds.top;
+                    const gradient = context.createLinearGradient(startX, startY, endX, endY);
+                    gradient.addColorStop(0, sourceColor);
+                    gradient.addColorStop(1, getComputedStyle(target).backgroundColor);
+                    context.globalAlpha = 0.24;
+                    context.strokeStyle = gradient;
+                    context.beginPath();
+                    context.moveTo(startX, startY);
+                    context.lineTo(endX, endY);
+                    context.stroke();
+                }
+            }
+        }
+        context.globalAlpha = 1;
     },
 
     hideSmartSearchStatus() {

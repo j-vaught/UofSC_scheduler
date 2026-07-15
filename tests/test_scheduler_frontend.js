@@ -979,18 +979,25 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(html, /class="filter-sliders-icon"/);
     assert.doesNotMatch(html, /id="active-filter-count"/);
     assert.match(html, /id="smart-search-status"/);
-    assert.equal((html.match(/class="network-layer"/g) || []).length, 10);
+    const networkLayerCounts = [...html.matchAll(/<div class="network-layer">([\s\S]*?)<\/div>/g)]
+        .map(match => (match[1].match(/<i><\/i>/g) || []).length);
+    assert.deepEqual(networkLayerCounts, [6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6]);
+    assert.match(html, /<canvas class="smart-search-network-links"><\/canvas>/);
     assert.match(source, /prepareSmartSearch\(5000\)/);
     assert.match(source, /this\._smartLoadingUntil - Date\.now\(\)/);
     assert.match(source, /if \(status\) status\.hidden = true;/);
     assert.match(source, /Understanding “\$\{query\}”/);
     assert.match(source, /Ranking the closest courses/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
-    assert.match(styles, /grid-template-columns:\s*repeat\(10,/);
+    assert.match(styles, /grid-template-columns:\s*repeat\(11,/);
+    assert.match(styles, /\.smart-search-network\s*{[^}]*height:\s*82px;/s);
     assert.match(styles, /@keyframes smart-search-network-node/);
     assert.match(styles, /\.smart-search-status\s*{[^}]*background:\s*#ffffff;/s);
     assert.match(styles, /\.network-layer i\s*{[^}]*infinite alternate;[^}]*border-radius:\s*50% !important;/s);
     assert.match(styles, /--network-color:\s*#00c2ff;[\s\S]*--network-color:\s*#ff9f1c;/);
+    assert.match(source, /drawSmartSearchNetwork\(\)/);
+    assert.match(source, /for \(const source of sources\)[\s\S]*for \(const target of targets\)/);
+    assert.match(source, /context\.createLinearGradient\(startX, startY, endX, endY\)/);
 });
 
 test('cached Smart Search still shows the testing loader for five seconds and then removes the status', async () => {
