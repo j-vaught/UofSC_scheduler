@@ -977,7 +977,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     display: flex;
     flex-shrink: 0;
     gap: 6px;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 8px 10px;
 }
 .btn-panel-primary,

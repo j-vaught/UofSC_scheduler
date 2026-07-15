@@ -127,6 +127,7 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.match(optionsHeading, /id="btn-schedule-preferences"/);
     assert.match(optionsHeading, /id="btn-solve"/);
     assert.match(optionsHeading, /<div class="schedule-panel-heading">\s*<h3>Schedule Options<\/h3>\s*<\/div>\s*<div class="schedule-panel-actions">/);
+    assert.ok(optionsHeading.indexOf('id="btn-solve"') < optionsHeading.indexOf('id="btn-schedule-preferences"'));
     assert.doesNotMatch(source, /id="btn-export-quick"/);
     assert.match(source, /class="schedule-selected-section"/);
     assert.match(styles, /#modal-overlay\s*{[^}]*z-index:\s*5000;/s);
