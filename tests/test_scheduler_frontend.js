@@ -470,6 +470,20 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 
+test('navigation is centered inside the single garnet header', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const header = html.slice(html.indexOf('<header>'), html.indexOf('</header>') + 9);
+
+    assert.match(html, /<title>Course Scheduler<\/title>/);
+    assert.match(header, /<h1>Course Scheduler<\/h1>/);
+    assert.match(header, /<nav id="main-tabs"/);
+    assert.match(styles, /header\s*{[^}]*grid-template-columns:\s*minmax\(180px, 1fr\) auto minmax\(180px, 1fr\);/s);
+    assert.match(styles, /#main-tabs\s*{[^}]*background:\s*transparent;[^}]*justify-content:\s*center;/s);
+    assert.match(styles, /main\s*{[^}]*height:\s*calc\(100vh - 58px\);/s);
+    assert.doesNotMatch(html, /UOFSC COURSE SCHEDULER/);
+});
+
 test('registration info unlocks for selected sections and links to the CRN cart', () => {
     const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
     const html = fs.readFileSync('static/index.html', 'utf8');

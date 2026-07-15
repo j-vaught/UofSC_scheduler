@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UofSC Course Scheduler</title>
+    <title>Course Scheduler</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
 </head>
 <body>
     <header>
-        <h1>UOFSC COURSE SCHEDULER</h1>
+        <h1>Course Scheduler</h1>
+        <nav id="main-tabs" aria-label="Main navigation">
+            <button data-tab="home" class="main-tab-btn active">HOME</button>
+            <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
+            <button data-tab="semester" class="main-tab-btn">BROWSE</button>
+            <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
+            <button data-tab="profile" class="main-tab-btn">PROFILE</button>
+            <button data-tab="export" class="main-tab-btn">EXPORT</button>
+        </nav>
         <div class="header-controls">
             <label for="term-select">TERM:</label>
             <select id="term-select">
@@ -27,22 +35,12 @@
         </div>
     </header>
 
-    <!-- Main Tab Navigation -->
-    <nav id="main-tabs">
-        <button data-tab="home" class="main-tab-btn active">HOME</button>
-        <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
-        <button data-tab="semester" class="main-tab-btn">BROWSE</button>
-        <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
-        <button data-tab="profile" class="main-tab-btn">PROFILE</button>
-        <button data-tab="export" class="main-tab-btn">EXPORT</button>
-    </nav>
-
     <main>
         <!-- ===== HOME TAB ===== -->
         <div id="tab-home" class="main-tab active">
             <div class="home-container">
                 <div class="home-welcome">
-                    <h2>Welcome to the UofSC Course Scheduler</h2>
+                    <h2>Welcome to the Course Scheduler</h2>
                     <p>Plan your degree or build your semester schedule.</p>
                 </div>
 

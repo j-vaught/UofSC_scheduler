@@ -125,7 +125,7 @@ const Export = {
         let ics = [
             'BEGIN:VCALENDAR',
             'VERSION:2.0',
-            'PRODID:-//UofSC Course Scheduler//EN',
+            'PRODID:-//Course Scheduler//EN',
             'CALSCALE:GREGORIAN',
         ];
 
