@@ -1085,6 +1085,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     border: 2px solid #C7C7C7;
     margin: 0;
     padding: 10px;
+    position: relative;
 }
 .schedule-preference-field label,
 .schedule-preference-days legend,
@@ -1124,23 +1125,17 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-times,
 .schedule-preference-walking { grid-column: 1 / -1; }
 
-.schedule-preference-legend {
-    align-items: center;
-    display: flex;
-    gap: 10px;
-    margin: 0 auto 6px;
-    max-width: calc(100% - 20px);
-    padding: 0 8px;
-}
-.schedule-preference-legend > span:first-child {
-    color: #363636;
-    line-height: 1.2;
-}
 .schedule-preference-mode {
     align-items: center;
+    background: #ffffff;
     display: flex;
     cursor: pointer;
     margin: 0;
+    padding: 0 6px;
+    position: absolute;
+    right: 10px;
+    top: -14px;
+    z-index: 2;
 }
 .schedule-preference-mode input {
     height: 1px;
@@ -1175,6 +1170,19 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     outline-offset: 2px;
 }
 .schedule-preference-mode:hover .schedule-preference-mode-track { border-color: #73000A; }
+
+@media (max-width: 600px) {
+    .schedule-preference-days legend,
+    .schedule-preference-times legend,
+    .schedule-preference-walking legend {
+        max-width: calc(100% - 145px);
+    }
+    .schedule-preference-mode-track { width: 122px; }
+    .schedule-preference-mode-track span {
+        font-size: 0.58rem;
+        padding: 5px 3px;
+    }
+}
 
 #modal.schedule-preferences-modal { max-width: 850px; }
 .schedule-advanced-toggle {

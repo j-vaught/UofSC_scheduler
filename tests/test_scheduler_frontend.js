@@ -400,7 +400,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /modeControl\('schedule-walking-mode-required'/);
     assert.match(source, /modeControl\('schedule-days-mode-required'/);
     assert.match(source, />PREFER<\/span><span class="require">REQUIRE</);
-    assert.match(source, /class="schedule-preference-legend"/);
+    assert.doesNotMatch(source, /class="schedule-preference-legend"/);
     assert.doesNotMatch(source, /How to apply/);
     assert.match(source, /Extra time after walking between classes/);
     assert.match(source, /Choose 10 to arrive at least ten minutes early/);
@@ -408,6 +408,41 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.doesNotMatch(source, /id="schedule-minimum-buffer"/);
     assert.doesNotMatch(source, /id="schedule-preferred-maximum-walk"/);
     assert.match(source, /min="1"/);
+});
+
+test('saving schedule preferences preserves each prefer-require mode', () => {
+    const elements = {
+        'schedule-preferred-start': { value: '08:00' },
+        'schedule-preferred-end': { value: '21:00' },
+        'schedule-minimum-walking-buffer': { value: '10' },
+        'schedule-time-mode-required': { checked: true },
+        'schedule-walking-mode-required': { checked: false },
+        'schedule-days-mode-required': { checked: true },
+        'schedule-preferences-error': { textContent: '' },
+        'modal-overlay': { classList: { add() {} } },
+    };
+    let emitted = false;
+    const state = { emit() { emitted = true; } };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: state,
+        document: {
+            getElementById: id => elements[id],
+            querySelectorAll(selector) {
+                if (selector.includes('schedule-avoid-day')) return [{ value: '1' }];
+                if (selector.includes('schedule-advanced-cell')) {
+                    return [{ dataset: { day: '2', start: '1030', end: '1100' } }];
+                }
+                return [];
+            },
+        },
+    });
+
+    assert.equal(scheduler.saveSchedulePreferences(), true);
+    assert.equal(state.timePreferencesRequired, true);
+    assert.equal(state.walkingBufferRequired, false);
+    assert.equal(state.avoidedDaysRequired, true);
+    assert.deepEqual(Array.from(state.avoidedDays), [1]);
+    assert.equal(emitted, true);
 });
 
 test('schedule actions live in the options panel and quick ICS export is removed', () => {

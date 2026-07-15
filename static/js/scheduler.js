@@ -349,7 +349,8 @@ const Scheduler = {
                 <h2 id="schedule-preferences-title">Schedule Preferences</h2>
                 <div class="schedule-preference-grid">
                     <fieldset class="schedule-preference-times">
-                        <legend class="schedule-preference-legend"><span>Class times to avoid when possible</span>${modeControl('schedule-time-mode-required', 'Require all class-time choices', State.timePreferencesRequired)}</legend>
+                        <legend>Class times to avoid when possible</legend>
+                        ${modeControl('schedule-time-mode-required', 'Require all class-time choices', State.timePreferencesRequired)}
                         <div class="schedule-time-options">
                             <label for="schedule-preferred-start">
                                 <span>Before</span>
@@ -372,7 +373,8 @@ const Scheduler = {
                         </div>
                     </fieldset>
                     <fieldset class="schedule-preference-walking">
-                        <legend class="schedule-preference-legend"><span>Minimum time between classes</span>${modeControl('schedule-walking-mode-required', 'Require the minimum time between classes', State.walkingBufferRequired)}</legend>
+                        <legend>Minimum time between classes</legend>
+                        ${modeControl('schedule-walking-mode-required', 'Require the minimum time between classes', State.walkingBufferRequired)}
                         <label for="schedule-minimum-walking-buffer">
                             <span>Extra time after walking between classes</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
@@ -380,7 +382,8 @@ const Scheduler = {
                         <small>Choose 10 to arrive at least ten minutes early.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
-                        <legend class="schedule-preference-legend"><span>Days to avoid when possible</span>${modeControl('schedule-days-mode-required', 'Require classes to avoid the selected days', State.avoidedDaysRequired)}</legend>
+                        <legend>Days to avoid when possible</legend>
+                        ${modeControl('schedule-days-mode-required', 'Require classes to avoid the selected days', State.avoidedDaysRequired)}
                         <div class="schedule-day-options">${dayOptions}</div>
                     </fieldset>
                 </div>
