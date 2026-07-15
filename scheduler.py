@@ -174,6 +174,7 @@ def score_schedule(assignment, prefs):
 
     active_days = set()
     day_meetings = {}
+    route_transitions = []
     for m in all_meetings:
         active_days.add(m["day"])
         day_meetings.setdefault(m["day"], []).append(m)
@@ -193,14 +194,18 @@ def score_schedule(assignment, prefs):
             gap = hhmm_to_minutes(sorted_m[i]["start"]) - hhmm_to_minutes(sorted_m[i - 1]["end"])
             walk = estimated_walk_minutes(sorted_m[i - 1], sorted_m[i])
             if walk is not None:
-                remaining_time = gap - walk
-                score -= walk * 0.5
-                if remaining_time <= preferred_remaining_time:
-                    score -= 30 + 5 * (preferred_remaining_time - remaining_time)
+                route_transitions.append({"travel": walk, "remaining": gap - walk})
             if gap > 30:
                 score -= gap_weight * (gap / 60)
             elif gap < 15 and gap >= 0:
                 score -= consec_weight
+
+    if route_transitions:
+        longest_route = max(transition["travel"] for transition in route_transitions)
+        smallest_buffer = min(transition["remaining"] for transition in route_transitions)
+        score -= longest_route * 0.5
+        if smallest_buffer <= preferred_remaining_time:
+            score -= 30 + 5 * (preferred_remaining_time - smallest_buffer)
 
     return score
 

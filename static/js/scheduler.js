@@ -69,10 +69,10 @@ const Scheduler = {
                     <fieldset class="schedule-preference-walking">
                         <legend>Minimum time between classes</legend>
                         <label for="schedule-minimum-walking-buffer">
-                            <span>Minutes remaining after walking</span>
+                            <span>Minutes remaining after travel</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
                         </label>
-                        <small>Schedules at or below this amount rank lower. Shorter walks are preferred automatically.</small>
+                        <small>Schedules at or below this amount rank lower. Shorter campus routes are preferred automatically.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>

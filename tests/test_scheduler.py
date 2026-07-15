@@ -178,6 +178,51 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(result["total_found"], 2)
         self.assertEqual(result["schedules"][0]["sections"]["TEST 102"]["crn"], "nearby")
 
+    def test_route_ranking_uses_worst_transition_instead_of_total_travel(self):
+        origin = {"day": 0, "start": 900, "end": 1000, "latitude": 34.0, "longitude": -81.0}
+        destination = {
+            "day": 0,
+            "start": 1020,
+            "end": 1100,
+            "latitude": 34.0,
+            "longitude": -80.99,
+        }
+        single_route = {
+            "A": {"_parsed_times": [origin]},
+            "B": {"_parsed_times": [destination]},
+        }
+        repeated_routes = {
+            "A": {"_parsed_times": [origin]},
+            "B": {"_parsed_times": [destination]},
+            "C": {
+                "_parsed_times": [
+                    {
+                        "day": 0,
+                        "start": 1120,
+                        "end": 1200,
+                        "latitude": 34.0,
+                        "longitude": -81.0,
+                    }
+                ]
+            },
+            "D": {
+                "_parsed_times": [
+                    {
+                        "day": 0,
+                        "start": 1220,
+                        "end": 1300,
+                        "latitude": 34.0,
+                        "longitude": -80.99,
+                    }
+                ]
+            },
+        }
+
+        single_score = score_schedule(single_route, {})
+        repeated_score = score_schedule(repeated_routes, {})
+
+        self.assertEqual(single_score, repeated_score)
+
 
 if __name__ == "__main__":
     unittest.main()

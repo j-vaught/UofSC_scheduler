@@ -1,6 +1,6 @@
 # UofSC Course Scheduler
 
-The UofSC Course Scheduler is a local-first semester planning tool for University of South Carolina students. It searches live course offerings, checks prerequisites, builds conflict-free schedules, compares historical course and professor grade outcomes, summarizes offering and enrollment history, and estimates walking transitions between consecutive classes.
+The UofSC Course Scheduler is a local-first semester planning tool for University of South Carolina students. It searches live course offerings, checks prerequisites, builds conflict-free schedules, compares historical course and professor grade outcomes, summarizes offering and enrollment history, and estimates travel transitions between consecutive classes.
 
 The application focuses on planning one semester effectively. The degree-planning code remains available for later work, but it is not the primary workflow.
 
@@ -20,7 +20,7 @@ Start the local server with the following command.
 uv run python app.py
 ```
 
-Open `http://127.0.0.1:8765` in a browser. Live search, seat checks, offering history, and walking routes require an internet connection. Saved plans stay in the browser through local storage.
+Open `http://127.0.0.1:8765` in a browser. Live search, seat checks, offering history, and campus routes require an internet connection. Saved plans stay in the browser through local storage.
 
 ## Semester Planning
 
@@ -28,7 +28,7 @@ Search by subject, course number, range, or descriptive phrase. Filters can rest
 
 The schedule solver applies hard constraints for meeting conflicts, blocked times, and maximum credits. It ranks valid schedules using time-window, instructor, gap, compactness, and consecutive-class preferences. Asynchronous sections remain eligible, while physical sections with unknown meeting times are rejected because their conflicts cannot be verified. Previewing a candidate changes only the calendar until the student explicitly applies it.
 
-The schedule view also evaluates transitions between consecutive classes. It reports available time, walking distance, estimated walking time, and remaining buffer. Known campus buildings use pedestrian routing when available and a straight-line estimate as a fallback. Online, same-building, unknown-location, and overlapping transitions receive explicit statuses.
+The schedule view also evaluates transitions between consecutive classes. It reports available time, route distance, estimated travel time, and remaining buffer. Known campus buildings use pedestrian routing when available and a straight-line estimate as a fallback. Online, same-building, unknown-location, and overlapping transitions receive explicit statuses.
 
 ## Historical Data
 

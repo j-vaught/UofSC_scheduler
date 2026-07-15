@@ -418,6 +418,18 @@ test('walking map defaults to the all-days view', () => {
     assert.equal(walkingMap.selectedDay, 'all');
 });
 
+test('route interface uses neutral travel language', () => {
+    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const schedulerSource = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.match(source, /Routes Between Classes/);
+    assert.match(source, /Travel-time estimates currently use pedestrian routing/);
+    assert.match(source, /min route/);
+    assert.doesNotMatch(source, />Walking Between Classes</);
+    assert.match(schedulerSource, /Minutes remaining after travel/);
+    assert.match(schedulerSource, /Shorter campus routes are preferred automatically/);
+});
+
 test('walking map resolves Storey schedule labels to the official building', () => {
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
     walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;

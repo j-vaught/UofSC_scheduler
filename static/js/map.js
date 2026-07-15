@@ -52,12 +52,12 @@ const WalkingMap = {
             <section class="walking-map-panel" aria-labelledby="walking-map-heading">
                 <div class="walking-map-header">
                     <div>
-                        <h3 id="walking-map-heading">Walking Between Classes</h3>
+                        <h3 id="walking-map-heading">Routes Between Classes</h3>
                     </div>
                 </div>
                 <div class="walking-map-layout">
                     <div class="walking-map-canvas-wrap">
-                        <div class="walking-map-canvas" role="region" aria-label="Campus walking route map"></div>
+                        <div class="walking-map-canvas" role="region" aria-label="Campus route map"></div>
                         <div class="walking-map-zoom-hint">Hold Ctrl, Command, or Shift while scrolling to zoom</div>
                     </div>
                     <div class="walking-map-side">
@@ -65,7 +65,7 @@ const WalkingMap = {
                         <div class="walking-map-list" aria-live="polite"></div>
                     </div>
                 </div>
-                <p class="walking-map-note">Walking estimates use pedestrian routing when available. Allow extra time for stairs, elevators, construction, and entering buildings.</p>
+                <p class="walking-map-note">Travel-time estimates currently use pedestrian routing when available. Allow extra time for accessibility needs, elevators, construction, and entering buildings.</p>
             </section>
         `;
 
@@ -123,7 +123,7 @@ const WalkingMap = {
         if (!this.container) return;
         const token = ++this._renderToken;
         this.updateDaySelection();
-        this.listElement.innerHTML = '<p class="walking-map-empty">Loading class locations and walking routes.</p>';
+        this.listElement.innerHTML = '<p class="walking-map-empty">Loading class locations and campus routes.</p>';
 
         const sections = typeof State !== 'undefined' ? Object.values(State.selectedSections || {}) : [];
         await this.hydrateSectionDetails(sections);
@@ -369,7 +369,7 @@ const WalkingMap = {
     },
 
     transitionStatus(transition) {
-        if (transition.kind === 'online') return { className: 'neutral', label: 'No campus walk' };
+        if (transition.kind === 'online') return { className: 'neutral', label: 'No campus travel' };
         if (transition.kind === 'unknown') return { className: 'neutral', label: 'Location needed' };
         const buffer = transition.available - transition.walkMinutes;
         if (buffer < 0) return { className: 'late', label: `${Math.abs(buffer)} min short` };
@@ -387,18 +387,18 @@ const WalkingMap = {
             return;
         }
         if (!showingWeek && events.length === 1) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">Only one scheduled class on ${periodLabel}. There is no between-class walk to check.</p>`;
+            this.listElement.innerHTML = `<p class="walking-map-empty">Only one scheduled class on ${periodLabel}. There is no between-class route to check.</p>`;
             return;
         }
         if (transitions.length === 0) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">No between-class walking routes are available ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
+            this.listElement.innerHTML = `<p class="walking-map-empty">No between-class routes are available ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
             return;
         }
 
         const risky = transitions.filter(transition => this.transitionStatus(transition).className === 'late').length;
         const summary = risky > 0
-            ? `${risky} transition${risky === 1 ? '' : 's'} may not leave enough walking time.`
-            : `${transitions.length} transition${transitions.length === 1 ? '' : 's'} checked. No walking-time shortage found.`;
+            ? `${risky} transition${risky === 1 ? '' : 's'} may not leave enough travel time.`
+            : `${transitions.length} transition${transitions.length === 1 ? '' : 's'} checked. No travel-time shortage found.`;
         this.listElement.innerHTML = `<div class="walking-map-summary">${summary}</div>`;
 
         transitions.forEach((transition, index) => {
@@ -407,8 +407,8 @@ const WalkingMap = {
             if (card.tagName === 'BUTTON') card.type = 'button';
             card.className = `walking-transition status-${status.className}`;
             const walkLabel = transition.walkMinutes === null
-                ? (transition.kind === 'online' ? 'No walk needed' : 'Walk unavailable')
-                : `${transition.walkMinutes} min walk`;
+                ? (transition.kind === 'online' ? 'No route needed' : 'Route unavailable')
+                : `${transition.walkMinutes} min route`;
             const distanceLabel = transition.distance === null ? '' : ` · ${this.formatDistance(transition.distance)}`;
             const dayLabel = showingWeek ? `${this.DAYS[transition.from.day].slice(0, 3).toUpperCase()} · ` : '';
             card.innerHTML = `
@@ -444,7 +444,7 @@ const WalkingMap = {
         try {
             await this.loadLeaflet();
         } catch (error) {
-            this.mapElement.innerHTML = '<p class="walking-map-empty" style="padding:16px">The interactive map could not load. Walking details are still available in the list.</p>';
+            this.mapElement.innerHTML = '<p class="walking-map-empty" style="padding:16px">The interactive map could not load. Route details are still available in the list.</p>';
             return;
         }
 
