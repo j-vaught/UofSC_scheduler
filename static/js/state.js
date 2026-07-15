@@ -14,6 +14,7 @@ const State = {
     preferredStart: 800,
     preferredEnd: 2100,
     avoidedDays: [],
+    avoidedTimeBlocks: [],
     minimumWalkingBuffer: 1,
     gapWeight: 2,
     compactWeight: 3,
@@ -127,6 +128,7 @@ const State = {
             preferred_start: this.preferredStart,
             preferred_end: this.preferredEnd,
             avoided_days: [...this.avoidedDays],
+            avoided_time_blocks: this.avoidedTimeBlocks.map(block => ({ ...block })),
             minimum_walking_buffer_minutes: Math.max(1, Number(this.minimumWalkingBuffer) || 1),
             gap_penalty_weight: this.gapWeight,
             day_compactness_weight: this.compactWeight,
@@ -146,6 +148,7 @@ const State = {
             preferredStart: this.preferredStart,
             preferredEnd: this.preferredEnd,
             avoidedDays: [...this.avoidedDays],
+            avoidedTimeBlocks: this.avoidedTimeBlocks.map(block => ({ ...block })),
             minimumWalkingBuffer: this.minimumWalkingBuffer,
             completedCourses: [...this.completedCourses],
             completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
@@ -178,6 +181,7 @@ const State = {
         this.preferredStart = plan.preferredStart ?? this.preferredStart;
         this.preferredEnd = plan.preferredEnd ?? this.preferredEnd;
         this.avoidedDays = plan.avoidedDays || [];
+        this.avoidedTimeBlocks = (plan.avoidedTimeBlocks || []).map(block => ({ ...block }));
         this.minimumWalkingBuffer = Math.max(1, Number(plan.minimumWalkingBuffer) || 1);
         this.completedCourses = plan.completedCourses || [];
         this.completedDetails = plan.completedDetails || [];

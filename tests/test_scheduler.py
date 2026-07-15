@@ -121,6 +121,28 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(result["total_found"], 2)
         self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "tuesday")
 
+    def test_advanced_avoided_times_rank_lower_without_removing_schedules(self):
+        courses = [
+            {
+                "code": "TEST 101",
+                "sections": [
+                    section("avoided", '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]'),
+                    section("preferred", '[{"meet_day": 0, "start_time": 1100, "end_time": 1200}]'),
+                ],
+            }
+        ]
+
+        result = solve(
+            {
+                "courses": courses,
+                "preferences": {"avoided_time_blocks": [{"day": 0, "start": 900, "end": 1000}]},
+            }
+        )
+
+        self.assertEqual(result["total_found"], 2)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "preferred")
+        self.assertEqual(result["schedules"][1]["sections"]["TEST 101"]["crn"], "avoided")
+
     def test_minimum_walking_buffer_ranks_without_removing_schedule(self):
         first = section(
             "first",

@@ -208,7 +208,7 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
-        modal.classList.remove('course-quick-modal');
+        modal.classList.remove('course-quick-modal', 'schedule-preferences-modal');
         modal.classList.add('registration-info-modal');
 
         const rows = sections.map(section => {
@@ -326,6 +326,7 @@ const Scheduler = {
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
         modal.classList.remove('course-quick-modal', 'registration-info-modal');
+        modal.classList.add('schedule-preferences-modal');
 
         const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         const avoidedDays = new Set((State.avoidedDays || []).map(Number));
@@ -351,6 +352,16 @@ const Scheduler = {
                                 <span>Ending after</span>
                                 <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(State.preferredEnd)}">
                             </label>
+                        </div>
+                        <button id="btn-advanced-time-avoidance" class="btn-panel-secondary schedule-advanced-toggle" type="button" aria-expanded="false" aria-controls="schedule-advanced-time-panel">ADVANCED TIME BLOCKS</button>
+                        <div id="schedule-advanced-time-panel" class="schedule-advanced-time-panel hidden">
+                            <div class="schedule-advanced-heading">
+                                <span>Draw over times you would rather avoid.</span>
+                                <button id="btn-clear-advanced-times" type="button">CLEAR</button>
+                            </div>
+                            <div class="schedule-advanced-calendar-wrap">
+                                <div id="schedule-advanced-calendar" class="schedule-advanced-calendar" aria-label="Weekly times to avoid"></div>
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset class="schedule-preference-walking">
@@ -379,7 +390,78 @@ const Scheduler = {
 
         const saveButton = document.getElementById('btn-save-schedule-preferences');
         saveButton.addEventListener('click', () => this.saveSchedulePreferences());
+        const advancedToggle = document.getElementById('btn-advanced-time-avoidance');
+        advancedToggle.addEventListener('click', () => {
+            const panel = document.getElementById('schedule-advanced-time-panel');
+            const expanded = advancedToggle.getAttribute('aria-expanded') === 'true';
+            advancedToggle.setAttribute('aria-expanded', String(!expanded));
+            advancedToggle.textContent = expanded ? 'ADVANCED TIME BLOCKS' : 'HIDE ADVANCED';
+            panel.classList.toggle('hidden', expanded);
+        });
+        document.getElementById('btn-clear-advanced-times').addEventListener('click', () => {
+            document.querySelectorAll('#schedule-advanced-calendar .schedule-advanced-cell.selected')
+                .forEach(cell => {
+                    cell.classList.remove('selected');
+                    cell.setAttribute('aria-pressed', 'false');
+                });
+        });
+        this.buildAdvancedTimeAvoidance();
         saveButton.focus();
+    },
+
+    buildAdvancedTimeAvoidance() {
+        const calendar = document.getElementById('schedule-advanced-calendar');
+        if (!calendar) return;
+        const selected = new Set((State.avoidedTimeBlocks || [])
+            .map(block => `${Number(block.day)}-${Number(block.start)}-${Number(block.end)}`));
+        const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+        calendar.innerHTML = `<div class="schedule-advanced-corner"></div>${days
+            .map(day => `<div class="schedule-advanced-day">${day}</div>`).join('')}`;
+
+        for (let hour = 8; hour < 22; hour++) {
+            for (let half = 0; half < 2; half++) {
+                const start = hour * 100 + half * 30;
+                const end = half === 0 ? hour * 100 + 30 : (hour + 1) * 100;
+                const displayHour = hour > 12 ? hour - 12 : hour;
+                calendar.insertAdjacentHTML('beforeend', `<div class="schedule-advanced-time">${half === 0 ? `${displayHour}${hour >= 12 ? 'p' : 'a'}` : ''}</div>`);
+                days.forEach((day, dayIndex) => {
+                    const key = `${dayIndex}-${start}-${end}`;
+                    calendar.insertAdjacentHTML('beforeend', `
+                        <button type="button" class="schedule-advanced-cell${selected.has(key) ? ' selected' : ''}" data-day="${dayIndex}" data-start="${start}" data-end="${end}" aria-label="${day} ${this.formatPreferenceTime(start)} to ${this.formatPreferenceTime(end)}" aria-pressed="${selected.has(key)}"></button>
+                    `);
+                });
+            }
+        }
+
+        const setCell = (cell, value) => {
+            if (!cell?.classList.contains('schedule-advanced-cell')) return;
+            cell.classList.toggle('selected', value);
+            cell.setAttribute('aria-pressed', String(value));
+        };
+        calendar.querySelectorAll('.schedule-advanced-cell').forEach(cell => {
+            cell.addEventListener('pointerdown', event => {
+                event.preventDefault();
+                const paint = !cell.classList.contains('selected');
+                setCell(cell, paint);
+                const move = moveEvent => {
+                    const target = document.elementFromPoint?.(moveEvent.clientX, moveEvent.clientY);
+                    setCell(target?.closest?.('.schedule-advanced-cell'), paint);
+                };
+                const finish = () => {
+                    document.removeEventListener('pointermove', move);
+                    document.removeEventListener('pointerup', finish);
+                    document.removeEventListener('pointercancel', finish);
+                };
+                document.addEventListener('pointermove', move);
+                document.addEventListener('pointerup', finish);
+                document.addEventListener('pointercancel', finish);
+            });
+            cell.addEventListener('keydown', event => {
+                if (!['Enter', ' '].includes(event.key)) return;
+                event.preventDefault();
+                setCell(cell, !cell.classList.contains('selected'));
+            });
+        });
     },
 
     saveSchedulePreferences() {
@@ -397,6 +479,12 @@ const Scheduler = {
         State.preferredEnd = end;
         State.avoidedDays = Array.from(document.querySelectorAll('input[name="schedule-avoid-day"]:checked'))
             .map(input => Number(input.value));
+        State.avoidedTimeBlocks = Array.from(document.querySelectorAll('#schedule-advanced-calendar .schedule-advanced-cell.selected'))
+            .map(cell => ({
+                day: Number(cell.dataset.day),
+                start: Number(cell.dataset.start),
+                end: Number(cell.dataset.end),
+            }));
         document.getElementById('modal-overlay').classList.add('hidden');
         State.emit('preferences-changed');
         return true;
@@ -865,7 +953,7 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
-        modal.classList.remove('registration-info-modal');
+        modal.classList.remove('registration-info-modal', 'schedule-preferences-modal');
         modal.classList.add('course-quick-modal');
         modal.setAttribute('role', 'dialog');
         modal.setAttribute('aria-modal', 'true');

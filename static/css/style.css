@@ -1124,6 +1124,93 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-times,
 .schedule-preference-walking { grid-column: 1 / -1; }
 
+#modal.schedule-preferences-modal { max-width: 850px; }
+.schedule-advanced-toggle {
+    margin-top: 4px;
+    width: 100%;
+}
+.schedule-advanced-time-panel {
+    border-top: 1px solid #C7C7C7;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.schedule-advanced-time-panel.hidden { display: none; }
+.schedule-advanced-heading {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+.schedule-advanced-heading span {
+    color: #5C5C5C;
+    font-size: 0.72rem;
+}
+.schedule-advanced-heading button {
+    background: #ffffff;
+    border: 1px solid #000000;
+    color: #000000;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+}
+.schedule-advanced-calendar-wrap {
+    border: 2px solid #000000;
+    margin-top: 8px;
+    max-height: 330px;
+    overflow: auto;
+}
+.schedule-advanced-calendar {
+    display: grid;
+    grid-template-columns: 38px repeat(7, minmax(50px, 1fr));
+    min-width: 500px;
+    touch-action: none;
+}
+.schedule-advanced-corner,
+.schedule-advanced-day {
+    background: #000000;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 6px 2px;
+    position: sticky;
+    text-align: center;
+    top: 0;
+    z-index: 2;
+}
+.schedule-advanced-time {
+    align-items: flex-start;
+    background: #ECECEC;
+    border-right: 1px solid #A2A2A2;
+    color: #5C5C5C;
+    display: flex;
+    font-size: 0.6rem;
+    justify-content: flex-end;
+    min-height: 16px;
+    padding: 1px 4px 0 0;
+}
+.schedule-advanced-cell {
+    background: #ffffff;
+    border: 0;
+    border-bottom: 1px solid #ECECEC;
+    border-right: 1px solid #C7C7C7;
+    min-height: 16px;
+    padding: 0;
+}
+.schedule-advanced-cell:nth-child(16n + 10),
+.schedule-advanced-cell:nth-child(16n + 11),
+.schedule-advanced-cell:nth-child(16n + 12),
+.schedule-advanced-cell:nth-child(16n + 13),
+.schedule-advanced-cell:nth-child(16n + 14),
+.schedule-advanced-cell:nth-child(16n + 15),
+.schedule-advanced-cell:nth-child(16n + 16) { border-bottom-color: #C7C7C7; }
+.schedule-advanced-cell.selected { background: #73000A; }
+.schedule-advanced-cell:focus-visible {
+    outline: 2px solid #466A9F;
+    outline-offset: -2px;
+    position: relative;
+    z-index: 1;
+}
+
 .schedule-time-options {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

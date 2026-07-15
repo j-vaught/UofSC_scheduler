@@ -164,6 +164,17 @@ def score_schedule(assignment, prefs):
         if end > pref_end:
             score -= 5 * (end - pref_end) / 60
 
+        for block in prefs.get("avoided_time_blocks", []):
+            try:
+                if int(block.get("day")) != int(m["day"]):
+                    continue
+                block_start = hhmm_to_minutes(int(block.get("start")))
+                block_end = hhmm_to_minutes(int(block.get("end")))
+            except (TypeError, ValueError):
+                continue
+            overlap = max(0, min(end, block_end) - max(start, block_start))
+            score -= 8 * overlap / 30
+
     gap_weight = prefs.get("gap_penalty_weight", 2.0)
     compact_weight = prefs.get("day_compactness_weight", 3.0)
     consec_weight = prefs.get("consecutive_penalty_weight", 2.0)
@@ -223,6 +234,7 @@ def solve(params):
             preferred_start: int,
             preferred_end: int,
             avoided_days: [int],
+            avoided_time_blocks: [{day, start, end}],
             minimum_walking_buffer_minutes: int,
             max_credits: int,
             gap_penalty_weight: float,

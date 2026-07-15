@@ -368,11 +368,15 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     });
     assert.equal(state.getPreferences().minimum_walking_buffer_minutes, 1);
     state.avoidedDays = [1, 3];
+    state.avoidedTimeBlocks = [{ day: 2, start: 1030, end: 1100 }];
     state.minimumWalkingBuffer = 5;
 
     const preferences = state.getPreferences();
 
     assert.deepEqual(Array.from(preferences.avoided_days), [1, 3]);
+    assert.deepEqual(Array.from(preferences.avoided_time_blocks, block => ({ ...block })), [
+        { day: 2, start: 1030, end: 1100 },
+    ]);
     assert.equal(preferences.minimum_walking_buffer_minutes, 5);
     assert.equal(preferences.minimum_transition_minutes, undefined);
     assert.equal(preferences.preferred_maximum_walk_minutes, undefined);
@@ -381,6 +385,10 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /class="schedule-preference-times"/);
     assert.match(source, /id="schedule-preferred-start"/);
     assert.match(source, /id="schedule-preferred-end"/);
+    assert.match(source, /id="btn-advanced-time-avoidance"/);
+    assert.match(source, /id="schedule-advanced-calendar"/);
+    assert.match(source, /buildAdvancedTimeAvoidance/);
+    assert.match(source, /State\.avoidedTimeBlocks/);
     assert.match(source, /id="schedule-minimum-walking-buffer"/);
     assert.match(source, /Extra time after walking between classes/);
     assert.match(source, /Choose 10 to arrive at least ten minutes early/);
