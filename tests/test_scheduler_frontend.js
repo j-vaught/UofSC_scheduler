@@ -678,6 +678,45 @@ test('hovering a schedule option previews it and leaving restores the calendar',
     assert.equal(applied, 0);
 });
 
+test('scrolling schedule options previews the card under a stationary pointer', () => {
+    const classes = new Set();
+    const card = {
+        dataset: { idx: '1' },
+        classList: {
+            add(value) { classes.add(value); },
+            remove(value) { classes.delete(value); },
+        },
+    };
+    const otherCard = { classList: { remove() {} } };
+    const target = { closest: selector => selector === '.schedule-card' ? card : null };
+    const container = {
+        contains: element => element === card,
+        querySelectorAll: () => [otherCard, card],
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        document: { elementFromPoint: () => target },
+        State: { solverResults: [{}, {}], selectedSections: {} },
+    });
+    let previewed;
+    scheduler.isAppliedSchedule = () => false;
+    scheduler.previewSchedule = index => { previewed = index; };
+
+    const result = scheduler.previewScheduleAtPoint(container, 100, 200);
+
+    assert.equal(result, 1);
+    assert.equal(previewed, 1);
+    assert.equal(classes.has('selected'), true);
+});
+
+test('schedule scrolling reevaluates hover on every animation frame', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.match(source, /addEventListener\('scroll', \(\) =>/);
+    assert.match(source, /previewFrame = requestAnimationFrame\(\(\) =>/);
+    assert.match(source, /document\.elementFromPoint\(clientX, clientY\)/);
+    assert.match(source, /this\.previewScheduleAtPoint\(container, pointer\.x, pointer\.y\)/);
+});
+
 test('applied schedule matching compares every selected CRN', () => {
     const state = {
         selectedSections: {

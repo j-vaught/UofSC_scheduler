@@ -20,6 +20,7 @@ const Scheduler = {
         this.renderCourseSearchResults();
         this.initCourseDivider();
         this.initVerticalResizer();
+        this.initScheduleScrollPreview();
     },
 
     formatPreferenceTime(value) {
@@ -661,6 +662,44 @@ const Scheduler = {
                 event.preventDefault();
             }
         });
+    },
+
+    initScheduleScrollPreview() {
+        const container = document.getElementById('solver-container');
+        if (!container || container.dataset.scrollPreviewBound === 'true') return;
+        container.dataset.scrollPreviewBound = 'true';
+
+        let pointer = null;
+        let previewFrame = null;
+        const rememberPointer = event => {
+            pointer = { x: event.clientX, y: event.clientY };
+        };
+        container.addEventListener('pointerenter', rememberPointer);
+        container.addEventListener('pointermove', rememberPointer);
+        container.addEventListener('pointerleave', () => {
+            pointer = null;
+            container.querySelectorAll('.schedule-card').forEach(card => card.classList.remove('selected'));
+            this.clearSchedulePreview();
+        });
+        container.addEventListener('scroll', () => {
+            if (!pointer || previewFrame !== null) return;
+            previewFrame = requestAnimationFrame(() => {
+                previewFrame = null;
+                this.previewScheduleAtPoint(container, pointer.x, pointer.y);
+            });
+        }, { passive: true });
+    },
+
+    previewScheduleAtPoint(container, clientX, clientY) {
+        const target = document.elementFromPoint(clientX, clientY);
+        const card = target?.closest?.('.schedule-card');
+        if (!card || !container.contains(card)) return null;
+        const index = Number(card.dataset.idx);
+        if (!Number.isInteger(index) || this.isAppliedSchedule(State.solverResults[index])) return null;
+        container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
+        card.classList.add('selected');
+        this.previewSchedule(index);
+        return index;
     },
 
     previewSchedule(index) {
