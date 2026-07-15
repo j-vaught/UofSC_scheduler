@@ -1733,6 +1733,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     background-clip: text;
     border: 0;
     color: transparent;
+    cursor: pointer;
     display: flex;
     font-size: 2rem;
     font-weight: 900;
