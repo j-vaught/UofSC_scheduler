@@ -1003,7 +1003,7 @@ test('Smart Search expands into a prompt with an arrow and four example cards', 
     assert.match(source, /'Nursing'/);
     assert.match(source, /'Studio Art'/);
     assert.match(source, /'Political Science'/);
-    assert.match(styles, /\.browse-empty\.smart-search-active \.browse-filter-button\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{[^}]*grid-template-columns:\s*repeat\(4,/s);
 });
 
