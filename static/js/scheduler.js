@@ -562,7 +562,18 @@ const Scheduler = {
             }
             await this.hydrateCourseCredits(liveGroup);
             State.addCourse(liveGroup);
-            this.setCourseStatus(`${liveGroup.code} added. The solver will choose its section.`, 'success');
+            const exactSection = liveGroup._exactCrn
+                ? (liveGroup.sections || []).find(section => String(section.crn) === String(liveGroup._exactCrn))
+                : null;
+            if (exactSection) {
+                State.setSectionLock(liveGroup.code, exactSection.crn);
+                this.setCourseStatus(
+                    `${liveGroup.code} Section ${exactSection.section || exactSection.crn} added from CRN ${exactSection.crn}.`,
+                    'success',
+                );
+            } else {
+                this.setCourseStatus(`${liveGroup.code} added. The solver will choose its section.`, 'success');
+            }
             return liveGroup;
         } catch (error) {
             this.setCourseStatus(error.message, 'error');
@@ -587,6 +598,7 @@ const Scheduler = {
                     code: section.code,
                     title: section.title || section.code,
                     sections: [],
+                    _exactCrn: result.queryType === 'crn' ? result.crn : null,
                 };
             }
             groups[section.code].sections.push(section);

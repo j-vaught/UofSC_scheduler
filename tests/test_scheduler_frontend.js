@@ -822,6 +822,14 @@ test('schedule search shares browse CRN, range, partial, and semantic query beha
     assert.equal(calls[0][0].field, 'crn');
     assert.equal(calls[0][0].value, '10501');
     assert.equal(crn.results.length, 3);
+    assert.equal(crn.queryType, 'crn');
+    assert.equal(crn.crn, '10501');
+
+    const boundedRange = await search.searchLiveCourses('CSCE 501-525');
+    assert.deepEqual(Array.from(boundedRange.results, result => result.code), ['CSCE 501']);
+
+    const wordRange = await search.searchLiveCourses('CSCE 501 to 550');
+    assert.deepEqual(Array.from(wordRange.results, result => result.code), ['CSCE 501', 'CSCE 550']);
 
     const range = await search.searchLiveCourses('CSCE 500+');
     assert.deepEqual(Array.from(range.results, result => result.code), ['CSCE 501', 'CSCE 550']);
@@ -836,6 +844,42 @@ test('schedule search shares browse CRN, range, partial, and semantic query beha
     const semantic = await search.searchLiveCourses('graph algorithms');
     assert.equal(semantic.semantic, true);
     assert.equal(semantic.results[0].crn, '10550');
+});
+
+test('adding a CRN search result locks and confirms its exact section', async () => {
+    let locked;
+    const status = { textContent: '', className: '' };
+    const state = {
+        term: '202608',
+        addCourse() {},
+        setSectionLock(code, crn) { locked = { code, crn }; },
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        State: state,
+        document: { getElementById: id => id === 'schedule-course-status' ? status : null },
+    });
+    scheduler.hydrateCourseCredits = async group => group;
+
+    await scheduler.addCourseGroup({
+        code: 'CSCE 145',
+        title: 'Algorithmic Design I',
+        _exactCrn: '16759',
+        sections: [{ code: 'CSCE 145', section: '002', crn: '16759' }],
+    });
+
+    assert.deepEqual(locked, { code: 'CSCE 145', crn: '16759' });
+    assert.equal(status.textContent, 'CSCE 145 Section 002 added from CRN 16759.');
+});
+
+test('numeric course ranges are parsed before semantic search in Browse', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const numericRange = source.indexOf('Inclusive numeric range');
+    const semanticSearch = source.indexOf('Valid text keyword — semantic search');
+
+    assert.ok(numericRange > 0);
+    assert.ok(numericRange < semanticSearch);
+    assert.match(source, /CSCE 140–150/);
+    assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140–199\)/);
 });
 
 test('schedule course search paginates matches instead of discarding them', () => {

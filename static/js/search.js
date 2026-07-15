@@ -338,6 +338,21 @@ const Search = {
         return null;
     },
 
+    courseNumberRangeFilter(subject, firstNumber, lastNumber) {
+        const lower = Number(firstNumber);
+        const upper = Number(lastNumber);
+        if (!Number.isInteger(lower) || !Number.isInteger(upper) || lower > upper) {
+            throw new Error('The first course number in a range must be lower than the last.');
+        }
+        const normalizedSubject = String(subject || '').toUpperCase();
+        return code => {
+            const match = String(code || '').match(/^([A-Z]+)\s*(\d{3})[A-Z]?$/i);
+            if (!match || match[1].toUpperCase() !== normalizedSubject) return false;
+            const number = Number(match[2]);
+            return number >= lower && number <= upper;
+        };
+    },
+
     async searchLiveCourses(rawInput) {
         const query = String(rawInput || '').trim();
         if (!query) throw new Error('Enter a subject code, course number, CRN, range, or keyword.');
@@ -348,6 +363,11 @@ const Search = {
 
         if (/^[A-Za-z]{3,4}$/.test(query)) {
             const subject = this._resolveSubjectForLiveSearch(query);
+            criteria.push({ field: 'subject', value: subject });
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(query)) {
+            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
+            const subject = this._resolveSubjectForLiveSearch(match[1]);
+            resultFilter = this.courseNumberRangeFilter(subject, match[2], match[3]);
             criteria.push({ field: 'subject', value: subject });
         } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/.test(query)
             && (query.includes('+') || wildcardPattern.test(query))) {
@@ -401,7 +421,12 @@ const Search = {
         const results = resultFilter
             ? (data.results || []).filter(result => resultFilter(result.code || ''))
             : (data.results || []);
-        return { results, semantic: false };
+        return {
+            results,
+            semantic: false,
+            queryType: /^\d{5}$/.test(query) ? 'crn' : 'structured',
+            crn: /^\d{5}$/.test(query) ? query : null,
+        };
     },
 
     init() {
@@ -486,7 +511,7 @@ const Search = {
         const availValue = availRaw === '' ? null : Number(availRaw);
 
         if (!rawInput) {
-            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 500+), or keyword.');
+            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140–199), or keyword.');
             return;
         }
 
@@ -538,6 +563,19 @@ const Search = {
             subject = this._resolveSubject(kw);
             if (!subject) return;
             document.getElementById('keyword-input').value = subject;
+            criteria.push({ field: 'subject', value: subject });
+
+        // Inclusive numeric range: "CSCE 140-150", "CSCE 140–150", or "CSCE 140 to 150"
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
+            const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
+            subject = this._resolveSubject(m[1]);
+            if (!subject) return;
+            try {
+                courseRangeFilter = this.courseNumberRangeFilter(subject, m[2], m[3]);
+            } catch (error) {
+                this.showHint(error.message);
+                return;
+            }
             criteria.push({ field: 'subject', value: subject });
 
         // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
