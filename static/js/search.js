@@ -450,7 +450,10 @@ const Search = {
         });
         const smartInput = document.getElementById('smart-keyword-input');
         smartInput?.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) this.doSearch();
+            if (event.key === 'Enter' && !event.isComposing) {
+                event.preventDefault();
+                this.doSearch();
+            }
         });
         smartInput?.addEventListener('input', () => this.autoSizeSmartInput());
         document.getElementById('smart-search-submit')?.addEventListener('click', () => this.doSearch());
