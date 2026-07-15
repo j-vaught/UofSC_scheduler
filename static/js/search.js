@@ -447,9 +447,11 @@ const Search = {
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.doSearch();
         });
-        document.getElementById('smart-keyword-input')?.addEventListener('keydown', (event) => {
+        const smartInput = document.getElementById('smart-keyword-input');
+        smartInput?.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) this.doSearch();
         });
+        smartInput?.addEventListener('input', () => this.autoSizeSmartInput());
         document.getElementById('smart-search-submit')?.addEventListener('click', () => this.doSearch());
 
         // Clear button
@@ -458,6 +460,7 @@ const Search = {
             clearBtn.addEventListener('click', () => {
                 const input = this.activeSearchInput();
                 input.value = '';
+                this.autoSizeSmartInput();
                 input.focus();
             });
         }
@@ -491,6 +494,7 @@ const Search = {
                     ? document.getElementById('smart-keyword-input')
                     : document.getElementById('keyword-input');
                 if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
+                this.autoSizeSmartInput();
                 localStorage.setItem('uofsc-smart-search', String(smartToggle.checked));
                 this.setSmartSearchMode(smartToggle.checked);
                 if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
@@ -503,6 +507,7 @@ const Search = {
             button.addEventListener('click', () => {
                 const input = this.activeSearchInput();
                 input.value = button.dataset.searchExample || '';
+                this.autoSizeSmartInput();
                 this.doSearch();
             });
         });
@@ -532,6 +537,13 @@ const Search = {
         return document.getElementById('smart-search-toggle')?.checked
             ? document.getElementById('smart-keyword-input')
             : document.getElementById('keyword-input');
+    },
+
+    autoSizeSmartInput() {
+        const input = document.getElementById('smart-keyword-input');
+        if (!input) return;
+        input.style.height = 'auto';
+        input.style.height = `${Math.max(96, input.scrollHeight)}px`;
     },
 
     startPlaceholderTyping() {
@@ -614,6 +626,11 @@ const Search = {
         if (!enabled) workspace?.classList.remove('smart-search-busy');
         if (enabled && this._extractor && this._phraseData) {
             this.setSmartSearchStatus('Ready for Smart Search', 'ready', 'Enter an idea or choose an example below.');
+        }
+        if (enabled && typeof requestAnimationFrame !== 'undefined') {
+            requestAnimationFrame(() => this.autoSizeSmartInput());
+        } else if (enabled) {
+            this.autoSizeSmartInput();
         }
         this.startPlaceholderTyping();
     },

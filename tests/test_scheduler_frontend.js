@@ -999,7 +999,10 @@ test('Smart Search expands into a prompt with an arrow and four example cards', 
     assert.match(html, /<span aria-hidden="true">&#10022;<\/span>/);
     assert.match(styles, /background:\s*linear-gradient/);
     assert.match(styles, /\.smart-search-toggle span\s*{[^}]*border:\s*0;/s);
-    assert.match(styles, /\.smart-search-submit\s*{[^}]*background:\s*transparent;[^}]*color:\s*#000000;/s);
+    assert.match(styles, /\.smart-search-submit::before\s*{[^}]*background:\s*#000000;[^}]*height:\s*3px;/s);
+    assert.match(styles, /\.smart-search-submit::after\s*{[^}]*border-right:\s*3px solid #000000;/s);
+    assert.match(styles, /\.browse-search-form \.smart-keyword-input\s*{[^}]*overflow-y:\s*hidden;[^}]*resize:\s*none;/s);
+    assert.match(source, /input\.style\.height = `\$\{Math\.max\(96, input\.scrollHeight\)\}px`/);
     assert.match(source, /'Nursing'/);
     assert.match(source, /'Studio Art'/);
     assert.match(source, /'Political Science'/);
