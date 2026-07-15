@@ -104,6 +104,31 @@ test('solver uses course-level choices instead of applied sections', async () =>
     assert.equal(state.selectedSections['TEST 101'].crn, 'old-section');
 });
 
+test('schedule preferences expose soft avoid choices and a hard class buffer', () => {
+    const state = loadObject('static/js/state.js', 'State', {
+        localStorage: { getItem: () => null },
+    });
+    state.avoidedDays = [1, 3];
+    state.minimumClassBuffer = 20;
+
+    const preferences = state.getPreferences();
+
+    assert.deepEqual(Array.from(preferences.avoided_days), [1, 3]);
+    assert.equal(preferences.minimum_transition_minutes, 20);
+});
+
+test('schedule actions live in the options panel and quick ICS export is removed', () => {
+    const source = fs.readFileSync('static/index.html', 'utf8');
+    const optionsStart = source.indexOf('<section id="solver-section">');
+    const optionsEnd = source.indexOf('<div id="solver-container">', optionsStart);
+    const optionsHeading = source.slice(optionsStart, optionsEnd);
+
+    assert.match(optionsHeading, /id="btn-schedule-preferences"/);
+    assert.match(optionsHeading, /id="btn-solve"/);
+    assert.doesNotMatch(source, /id="btn-export-quick"/);
+    assert.match(source, /class="schedule-selected-section"/);
+});
+
 test('schedule results offer ten more ranked options when more are available', () => {
     const listeners = {};
     const showMore = {
@@ -487,7 +512,8 @@ test('walking transition cards wire hover and keyboard previews', () => {
     const source = fs.readFileSync('static/js/map.js', 'utf8');
 
     assert.match(source, /addEventListener\('mouseenter', \(\) => this\.previewTransition\(index\)\)/);
-    assert.match(source, /addEventListener\('mouseleave', \(\) => this\.clearTransitionPreview\(index\)\)/);
+    assert.match(source, /this\.listElement\.addEventListener\('mouseleave'/);
+    assert.doesNotMatch(source, /card\.addEventListener\('mouseleave'/);
     assert.match(source, /addEventListener\('focus', \(\) => this\.previewTransition\(index\)\)/);
-    assert.match(source, /addEventListener\('blur', \(\) => this\.clearTransitionPreview\(index\)\)/);
+    assert.match(source, /addEventListener\('blur', event =>/);
 });

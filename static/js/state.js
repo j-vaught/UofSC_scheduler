@@ -13,6 +13,8 @@ const State = {
     completedDetails: [],    // [{code, grade, credits, semester}]
     preferredStart: 800,
     preferredEnd: 2100,
+    avoidedDays: [],
+    minimumClassBuffer: 0,
     gapWeight: 2,
     compactWeight: 3,
     consecWeight: 2,
@@ -123,6 +125,8 @@ const State = {
             avoided_instructors: this.avoidedInstructors,
             preferred_start: this.preferredStart,
             preferred_end: this.preferredEnd,
+            avoided_days: [...this.avoidedDays],
+            minimum_transition_minutes: this.minimumClassBuffer,
             gap_penalty_weight: this.gapWeight,
             day_compactness_weight: this.compactWeight,
             consecutive_penalty_weight: this.consecWeight,
@@ -138,6 +142,10 @@ const State = {
             blockedTimes: [...this.blockedTimes],
             preferredInstructors: { ...this.preferredInstructors },
             avoidedInstructors: { ...this.avoidedInstructors },
+            preferredStart: this.preferredStart,
+            preferredEnd: this.preferredEnd,
+            avoidedDays: [...this.avoidedDays],
+            minimumClassBuffer: this.minimumClassBuffer,
             completedCourses: [...this.completedCourses],
             completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
             profile: JSON.parse(JSON.stringify(this.profile)),
@@ -166,6 +174,10 @@ const State = {
         this.blockedTimes = plan.blockedTimes || [];
         this.preferredInstructors = plan.preferredInstructors || {};
         this.avoidedInstructors = plan.avoidedInstructors || {};
+        this.preferredStart = plan.preferredStart ?? this.preferredStart;
+        this.preferredEnd = plan.preferredEnd ?? this.preferredEnd;
+        this.avoidedDays = plan.avoidedDays || [];
+        this.minimumClassBuffer = plan.minimumClassBuffer ?? 0;
         this.completedCourses = plan.completedCourses || [];
         this.completedDetails = plan.completedDetails || [];
         if (plan.profile) {
@@ -217,6 +229,10 @@ const State = {
             blockedTimes: this.blockedTimes,
             preferredInstructors: this.preferredInstructors,
             avoidedInstructors: this.avoidedInstructors,
+            preferredStart: this.preferredStart,
+            preferredEnd: this.preferredEnd,
+            avoidedDays: this.avoidedDays,
+            minimumClassBuffer: this.minimumClassBuffer,
             completedCourses: this.completedCourses,
             completedDetails: this.completedDetails,
             profile: this.profile,
@@ -243,6 +259,10 @@ const State = {
             if (data.blockedTimes) this.blockedTimes = data.blockedTimes;
             if (data.preferredInstructors) this.preferredInstructors = data.preferredInstructors;
             if (data.avoidedInstructors) this.avoidedInstructors = data.avoidedInstructors;
+            if (data.preferredStart !== undefined) this.preferredStart = data.preferredStart;
+            if (data.preferredEnd !== undefined) this.preferredEnd = data.preferredEnd;
+            if (data.avoidedDays) this.avoidedDays = data.avoidedDays;
+            if (data.minimumClassBuffer !== undefined) this.minimumClassBuffer = data.minimumClassBuffer;
             if (data.completedCourses) this.completedCourses = data.completedCourses;
             if (data.completedDetails) this.completedDetails = data.completedDetails;
             if (data.profile) this.profile = data.profile;

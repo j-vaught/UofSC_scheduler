@@ -85,13 +85,38 @@ def blocked_conflict(section_times, blocked):
     return False
 
 
-def is_consistent(section, assignment, blocked_times):
+def buffer_conflict(section_times, assigned_times, minimum_minutes):
+    """Check whether non-overlapping meetings are closer than the required buffer."""
+    if minimum_minutes <= 0:
+        return False
+    for section_time in section_times:
+        section_start = hhmm_to_minutes(section_time["start"])
+        section_end = hhmm_to_minutes(section_time["end"])
+        for assigned_time in assigned_times:
+            if section_time["day"] != assigned_time["day"]:
+                continue
+            assigned_start = hhmm_to_minutes(assigned_time["start"])
+            assigned_end = hhmm_to_minutes(assigned_time["end"])
+            if section_end <= assigned_start:
+                gap = assigned_start - section_end
+            elif assigned_end <= section_start:
+                gap = section_start - assigned_end
+            else:
+                continue
+            if gap < minimum_minutes:
+                return True
+    return False
+
+
+def is_consistent(section, assignment, blocked_times, minimum_buffer=0):
     """Check hard constraints for adding a section to current assignment."""
     s_times = section["_parsed_times"]
     if blocked_conflict(s_times, blocked_times):
         return False
     for assigned in assignment.values():
         if times_overlap(s_times, assigned["_parsed_times"]):
+            return False
+        if buffer_conflict(s_times, assigned["_parsed_times"], minimum_buffer):
             return False
     return True
 
@@ -137,6 +162,13 @@ def score_schedule(assignment, prefs):
         day_meetings.setdefault(m["day"], []).append(m)
 
     score -= compact_weight * len(active_days)
+    avoided_days = set()
+    for day in prefs.get("avoided_days", []):
+        try:
+            avoided_days.add(int(day))
+        except (TypeError, ValueError):
+            continue
+    score -= 12 * len(active_days & avoided_days)
 
     for day, meetings in day_meetings.items():
         sorted_m = sorted(meetings, key=lambda x: x["start"])
@@ -162,6 +194,8 @@ def solve(params):
             avoided_instructors: {name: weight},
             preferred_start: int,
             preferred_end: int,
+            avoided_days: [int],
+            minimum_transition_minutes: int,
             max_credits: int,
             gap_penalty_weight: float,
             day_compactness_weight: float,
@@ -174,6 +208,10 @@ def solve(params):
     prefs = params.get("preferences", {})
     max_k = params.get("max_results", 10)
     blocked = prefs.get("blocked_times", [])
+    try:
+        minimum_buffer = max(0, int(prefs.get("minimum_transition_minutes", 0)))
+    except (TypeError, ValueError):
+        minimum_buffer = 0
     max_credits = prefs.get("max_credits")
     try:
         max_credits = float(max_credits) if max_credits is not None else None
@@ -210,7 +248,7 @@ def solve(params):
             next_credits = assigned_credits + section["_credits"]
             if max_credits is not None and next_credits > max_credits:
                 continue
-            if is_consistent(section, assignment, blocked):
+            if is_consistent(section, assignment, blocked, minimum_buffer):
                 assignment[code] = section
                 if backtrack(idx + 1, assignment, next_credits):
                     return True

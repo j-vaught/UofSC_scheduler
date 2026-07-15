@@ -346,13 +346,13 @@
                         <p id="schedule-course-status" class="schedule-course-status" aria-live="polite"></p>
                     </div>
                     <div id="schedule-search-results" class="schedule-search-results"></div>
-                    <h2 class="schedule-selected-heading">Courses in This Schedule</h2>
-                    <div id="selected-courses-list" class="selected-courses-list">
-                        <p class="hint">Add courses from the results above.</p>
-                    </div>
-                    <div id="selected-credits" class="selected-credits"></div>
-                    <button id="btn-solve" class="btn-garnet" style="width:100%">GENERATE SCHEDULES</button>
-                    <button id="btn-export-quick" class="btn-black" style="width:100%;margin-top:6px">EXPORT .ICS</button>
+                    <section class="schedule-selected-section" aria-labelledby="schedule-selected-heading">
+                        <h2 id="schedule-selected-heading" class="schedule-selected-heading">Courses in This Schedule</h2>
+                        <div id="selected-courses-list" class="selected-courses-list">
+                            <p class="hint">Add courses from the results above.</p>
+                        </div>
+                        <div id="selected-credits" class="selected-credits"></div>
+                    </section>
                 </aside>
 
                 <!-- Right: Preview + Solver Results -->
@@ -361,6 +361,10 @@
                         <section id="solver-section">
                             <div class="schedule-panel-heading">
                                 <h3>Schedule Options</h3>
+                                <div class="schedule-panel-actions">
+                                    <button id="btn-schedule-preferences" class="btn-panel-secondary" type="button">PREFERENCES</button>
+                                    <button id="btn-solve" class="btn-panel-primary" type="button">GENERATE SCHEDULES</button>
+                                </div>
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
@@ -439,7 +443,7 @@
     <!-- Modal -->
     <div id="modal-overlay" class="hidden">
         <div id="modal">
-            <button id="modal-close">&times;</button>
+            <button id="modal-close" aria-label="Close dialog">&times;</button>
             <div id="modal-content"></div>
         </div>
     </div>

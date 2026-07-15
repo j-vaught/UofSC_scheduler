@@ -80,6 +80,11 @@ const WalkingMap = {
             this._map.setZoom(zoom);
         }, { passive: false });
         this.listElement = this.container.querySelector('.walking-map-list');
+        this.listElement.addEventListener('mouseleave', () => {
+            if (this._previewTransitionIndex !== null) {
+                this.clearTransitionPreview(this._previewTransitionIndex);
+            }
+        });
         const dayOptions = [
             { label: 'ALL', value: 'all' },
             ...this.DAYS.map((day, index) => ({ label: day.slice(0, 3).toUpperCase(), value: String(index) })),
@@ -422,9 +427,11 @@ const WalkingMap = {
                 card.setAttribute('aria-label', `Show route from ${transition.from.code} to ${transition.to.code}`);
                 card.setAttribute('aria-pressed', 'false');
                 card.addEventListener('mouseenter', () => this.previewTransition(index));
-                card.addEventListener('mouseleave', () => this.clearTransitionPreview(index));
                 card.addEventListener('focus', () => this.previewTransition(index));
-                card.addEventListener('blur', () => this.clearTransitionPreview(index));
+                card.addEventListener('blur', event => {
+                    if (event.relatedTarget?.classList?.contains('walking-transition')) return;
+                    this.clearTransitionPreview(index);
+                });
                 card.addEventListener('click', () => this.focusTransition(index));
             }
             this.listElement.appendChild(card);

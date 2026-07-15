@@ -793,9 +793,19 @@ main {
     white-space: nowrap;
 }
 .schedule-search-course-copy small { color: #5C5C5C; font-size: 0.68rem; margin-top: 2px; }
+.schedule-selected-section {
+    background: #ECECEC;
+    border-top: 3px solid #000000;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    max-height: 58%;
+    min-height: 190px;
+}
 .schedule-selected-heading { margin: 10px 12px 4px; }
 .selected-courses-list {
     flex: 1;
+    min-height: 0;
     overflow-y: auto;
     margin: 0 12px 10px;
 }
@@ -864,8 +874,6 @@ main {
     color: #363636;
     margin: 0 12px 8px;
 }
-#schedule-sidebar > #btn-solve,
-#schedule-sidebar > #btn-export-quick { margin-left: 12px; margin-right: 12px; width: calc(100% - 24px) !important; }
 .btn-remove {
     background: none;
     border: none;
@@ -910,8 +918,12 @@ main {
     max-height: none;
 }
 .schedule-panel-heading {
+    align-items: center;
     background: #000000;
     color: #ffffff;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
     padding: 7px 10px;
     position: sticky;
     top: 0;
@@ -931,7 +943,120 @@ main {
     line-height: 1.35;
     margin-top: 3px;
 }
+.schedule-panel-actions {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+}
+.btn-panel-primary,
+.btn-panel-secondary {
+    border: 2px solid #ffffff;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+    min-height: 28px;
+    padding: 6px 9px;
+}
+.btn-panel-primary {
+    background: #73000A;
+    color: #ffffff;
+}
+.btn-panel-primary:hover,
+.btn-panel-primary:focus-visible {
+    background: #CC2E40;
+    outline: 2px solid #ffffff;
+    outline-offset: 1px;
+}
+.btn-panel-secondary {
+    background: #ffffff;
+    color: #000000;
+}
+.btn-panel-secondary:hover,
+.btn-panel-secondary:focus-visible {
+    background: #ECECEC;
+    outline: 2px solid #ffffff;
+    outline-offset: 1px;
+}
 #solver-container { padding: 12px; }
+
+.schedule-preferences-intro {
+    background: #FFF2E3;
+    border-left: 5px solid #73000A;
+    color: #363636;
+    line-height: 1.4;
+    padding: 9px 10px;
+}
+.schedule-preference-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 14px;
+}
+.schedule-preference-field,
+.schedule-preference-days {
+    border: 2px solid #C7C7C7;
+    margin: 0;
+    padding: 10px;
+}
+.schedule-preference-field label,
+.schedule-preference-days legend {
+    color: #363636;
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.schedule-preference-field input[type="number"],
+.schedule-preference-field input[type="time"] {
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 0;
+    color: #000000;
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    width: 100%;
+}
+.schedule-preference-field small,
+.schedule-preference-days small {
+    color: #5C5C5C;
+    display: block;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    margin-top: 6px;
+}
+.schedule-preference-days { grid-column: 1 / -1; }
+.schedule-day-options {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.schedule-day-options label {
+    align-items: center;
+    background: #ECECEC;
+    border: 2px solid #C7C7C7;
+    cursor: pointer;
+    display: flex;
+    font-size: 0.72rem;
+    font-weight: 700;
+    gap: 5px;
+    justify-content: center;
+    margin: 0;
+    padding: 7px 4px;
+}
+.schedule-day-options input { accent-color: #73000A; }
+.schedule-preferences-error {
+    color: #73000A;
+    font-size: 0.76rem;
+    font-weight: 700;
+    min-height: 1em;
+}
+.schedule-preference-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
 
 /* === EXPORT TAB === */
 .export-grid {
@@ -1366,6 +1491,10 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     #schedule-content { overflow: visible; }
     .schedule-workspace { display: flex; flex-direction: column; }
     #solver-section { order: -1; }
+    .schedule-selected-section { margin-top: 20px; max-height: 440px; }
+    .schedule-preference-grid { grid-template-columns: 1fr; }
+    .schedule-preference-days { grid-column: 1; }
+    .schedule-day-options { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow-x: auto; }
 }
 
 /* === History === */

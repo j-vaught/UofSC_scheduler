@@ -81,6 +81,48 @@ class SchedulerTests(unittest.TestCase):
 
         self.assertEqual(result["total_found"], 0)
 
+    def test_minimum_transition_time_is_a_hard_constraint(self):
+        courses = [
+            {
+                "code": "TEST 101",
+                "sections": [
+                    section("10001", '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]')
+                ],
+            },
+            {
+                "code": "TEST 102",
+                "sections": [
+                    section(
+                        "10002",
+                        '[{"meet_day": 0, "start_time": 1010, "end_time": 1100}]',
+                        code="TEST 102",
+                    )
+                ],
+            },
+        ]
+
+        too_close = solve({"courses": courses, "preferences": {"minimum_transition_minutes": 15}})
+        allowed = solve({"courses": courses, "preferences": {"minimum_transition_minutes": 10}})
+
+        self.assertEqual(too_close["total_found"], 0)
+        self.assertEqual(allowed["total_found"], 1)
+
+    def test_avoided_days_rank_lower_without_removing_schedules(self):
+        courses = [
+            {
+                "code": "TEST 101",
+                "sections": [
+                    section("monday", '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]'),
+                    section("tuesday", '[{"meet_day": 1, "start_time": 900, "end_time": 1000}]'),
+                ],
+            }
+        ]
+
+        result = solve({"courses": courses, "preferences": {"avoided_days": [0]}})
+
+        self.assertEqual(result["total_found"], 2)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "tuesday")
+
 
 if __name__ == "__main__":
     unittest.main()

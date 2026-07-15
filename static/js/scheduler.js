@@ -4,6 +4,7 @@ const Scheduler = {
 
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
+        document.getElementById('btn-schedule-preferences').addEventListener('click', () => this.openSchedulePreferences());
         document.getElementById('btn-search-schedule-courses').addEventListener('click', () => this.searchFromInput());
         document.getElementById('schedule-course-input').addEventListener('keydown', event => {
             if (event.key === 'Enter') this.searchFromInput();
@@ -14,7 +15,97 @@ const Scheduler = {
         });
         State.on('section-locks-changed', () => this.clearResults());
         State.on('sections-changed', () => this.refreshAppliedResultState());
+        State.on('preferences-changed', () => this.clearResults());
         this.initVerticalResizer();
+    },
+
+    formatPreferenceTime(value) {
+        const numeric = Number(value);
+        const hours = Math.floor(numeric / 100);
+        const minutes = numeric % 100;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    },
+
+    parsePreferenceTime(value) {
+        const [hours, minutes] = String(value || '').split(':').map(Number);
+        return hours * 100 + minutes;
+    },
+
+    openSchedulePreferences() {
+        const overlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+        const content = document.getElementById('modal-content');
+        if (!overlay || !modal || !content) return;
+
+        const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        const avoidedDays = new Set((State.avoidedDays || []).map(Number));
+        const dayOptions = dayNames.map((name, day) => `
+            <label>
+                <input type="checkbox" name="schedule-avoid-day" value="${day}"${avoidedDays.has(day) ? ' checked' : ''}>
+                ${name.slice(0, 3).toUpperCase()}
+            </label>
+        `).join('');
+
+        content.innerHTML = `
+            <section class="schedule-preferences-dialog" aria-labelledby="schedule-preferences-title">
+                <h2 id="schedule-preferences-title">Schedule Preferences</h2>
+                <p class="schedule-preferences-intro">Avoid-day and time choices improve ranking without hiding valid schedules. Minimum time between classes is a hard requirement.</p>
+                <div class="schedule-preference-grid">
+                    <div class="schedule-preference-field">
+                        <label for="schedule-minimum-buffer">Minimum time between classes</label>
+                        <input id="schedule-minimum-buffer" type="number" min="0" max="240" step="5" value="${Number(State.minimumClassBuffer) || 0}">
+                        <small>Minutes required between the end of one class and the start of the next.</small>
+                    </div>
+                    <div class="schedule-preference-field">
+                        <label for="schedule-preferred-start">Prefer to avoid classes before</label>
+                        <input id="schedule-preferred-start" type="time" value="${this.formatPreferenceTime(State.preferredStart)}">
+                        <small>Earlier classes remain available but rank lower.</small>
+                    </div>
+                    <div class="schedule-preference-field">
+                        <label for="schedule-preferred-end">Prefer to avoid classes ending after</label>
+                        <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(State.preferredEnd)}">
+                        <small>Later classes remain available but rank lower.</small>
+                    </div>
+                    <fieldset class="schedule-preference-days">
+                        <legend>Days to avoid when possible</legend>
+                        <div class="schedule-day-options">${dayOptions}</div>
+                        <small>Schedules using these days remain valid and are ranked below comparable alternatives.</small>
+                    </fieldset>
+                </div>
+                <p id="schedule-preferences-error" class="schedule-preferences-error" role="alert"></p>
+                <div class="schedule-preference-actions">
+                    <button id="btn-save-schedule-preferences" type="button" class="btn-garnet">SAVE PREFERENCES</button>
+                </div>
+            </section>
+        `;
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'schedule-preferences-title');
+        overlay.classList.remove('hidden');
+
+        const saveButton = document.getElementById('btn-save-schedule-preferences');
+        saveButton.addEventListener('click', () => this.saveSchedulePreferences());
+        saveButton.focus();
+    },
+
+    saveSchedulePreferences() {
+        const start = this.parsePreferenceTime(document.getElementById('schedule-preferred-start').value);
+        const end = this.parsePreferenceTime(document.getElementById('schedule-preferred-end').value);
+        const error = document.getElementById('schedule-preferences-error');
+        if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end) {
+            error.textContent = 'The preferred end time must be later than the preferred start time.';
+            return false;
+        }
+
+        const minimumBuffer = Number(document.getElementById('schedule-minimum-buffer').value);
+        State.minimumClassBuffer = Math.max(0, Math.min(240, Number.isFinite(minimumBuffer) ? Math.round(minimumBuffer) : 0));
+        State.preferredStart = start;
+        State.preferredEnd = end;
+        State.avoidedDays = Array.from(document.querySelectorAll('input[name="schedule-avoid-day"]:checked'))
+            .map(input => Number(input.value));
+        document.getElementById('modal-overlay').classList.add('hidden');
+        State.emit('preferences-changed');
+        return true;
     },
 
     normalizeCourseCode(value) {
