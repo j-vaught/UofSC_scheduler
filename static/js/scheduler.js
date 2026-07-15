@@ -1,6 +1,7 @@
 /* Course-level schedule builder and solver frontend glue */
 const Scheduler = {
     _lastSearchGroups: [],
+    _preferredWorkspaceHeight: 620,
 
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
@@ -383,7 +384,17 @@ const Scheduler = {
         } catch (error) {
             stored = null;
         }
-        this.setVerticalSizes(stored?.workspace || workspace.getBoundingClientRect().height);
+        this._preferredWorkspaceHeight = this.initialPanelHeight(
+            stored?.workspace,
+            workspace.getBoundingClientRect().height,
+        );
+        this.setVerticalSizes(this._preferredWorkspaceHeight);
+
+        document.addEventListener('tab-changed', event => {
+            if (event.detail?.tab === 'schedule') {
+                this.setVerticalSizes(this._preferredWorkspaceHeight);
+            }
+        });
 
         let startY = 0;
         let startWorkspace = 0;
@@ -436,6 +447,14 @@ const Scheduler = {
         return { workspace, map: Math.max(0, total - workspace) };
     },
 
+    initialPanelHeight(storedHeight, measuredHeight) {
+        const stored = Number(storedHeight);
+        if (Number.isFinite(stored) && stored > 0) return stored;
+        const measured = Number(measuredHeight);
+        if (Number.isFinite(measured) && measured > 0) return measured;
+        return 620;
+    },
+
     availablePanelHeight(content, handle) {
         const contentStyle = window.getComputedStyle(content);
         const handleStyle = window.getComputedStyle(handle);
@@ -452,7 +471,9 @@ const Scheduler = {
         const handle = document.getElementById('schedule-vertical-resizer');
         if (!content || !handle) return;
         const available = this.availablePanelHeight(content, handle);
+        if (available <= 0) return;
         const { workspace } = this.fitPanelSizes(workspaceHeight, available);
+        this._preferredWorkspaceHeight = workspace;
         content.style.setProperty('--schedule-workspace-height', `${workspace}px`);
         if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
             requestAnimationFrame(() => WalkingMap._map.invalidateSize());

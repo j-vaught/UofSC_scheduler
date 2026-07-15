@@ -446,6 +446,23 @@ test('schedule splitter keeps calendar and map within the available height', () 
     assert.equal(calendarExpanded.map, 260);
 });
 
+test('schedule splitter uses a safe default when initialized in a hidden tab', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+
+    assert.equal(scheduler.initialPanelHeight(null, 0), 620);
+    assert.equal(scheduler.initialPanelHeight(0, 0), 620);
+    assert.equal(scheduler.initialPanelHeight(540, 0), 540);
+    assert.equal(scheduler.initialPanelHeight(null, 575), 575);
+});
+
+test('schedule splitter recalculates when the schedule tab becomes visible', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.match(source, /addEventListener\('tab-changed'/);
+    assert.match(source, /event\.detail\?\.tab === 'schedule'/);
+    assert.match(source, /if \(available <= 0\) return;/);
+});
+
 test('adding a course code stores every live section without choosing one', async () => {
     let addedGroup;
     const state = {
