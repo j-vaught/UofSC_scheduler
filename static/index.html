@@ -243,21 +243,29 @@
 
         <!-- ===== SEMESTER TAB ===== -->
         <div id="tab-semester" class="main-tab">
-            <div class="semester-layout">
-                <!-- Left: Search Panel -->
-                <aside id="semester-search">
-                    <div class="resize-handle" id="search-resize-handle"></div>
-                    <div class="search-section">
-                        <h2>Find Courses</h2>
-                        <div class="search-form">
-                            <div class="search-input-wrap">
-                                <input type="text" id="keyword-input" placeholder="Course, keyword, or range (CSCE 140–199)" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-                                <span class="search-clear" id="search-clear">&times;</span>
-                            </div>
-                            <button id="btn-search" class="btn-garnet">SEARCH COURSES</button>
+            <div id="browse-workspace" class="semester-layout browse-empty">
+                <section class="browse-search-shell" aria-label="Course search">
+                    <div class="browse-search-intro">
+                        <h2>Find your next course</h2>
+                        <p>Search by course, subject, CRN, range, or description.</p>
+                    </div>
+                    <div class="search-form browse-search-form">
+                        <div class="search-input-wrap">
+                            <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
                         </div>
-                        <div class="filter-toggle" id="filter-toggle">Filters <span id="filter-arrow">&#9660;</span></div>
+                        <label class="smart-search-toggle" for="smart-search-toggle" title="Use meaning-based course search">
+                            <input id="smart-search-toggle" type="checkbox">
+                            <span>SMART SEARCH</span>
+                        </label>
+                        <button class="browse-filter-button" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
+                            FILTERS <span id="active-filter-count" class="active-filter-count" hidden>0</span><span id="filter-arrow">&#9660;</span>
+                        </button>
+                        <button id="btn-search" class="btn-garnet">SEARCH</button>
+                    </div>
+                    <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-panel hidden" id="filter-panel">
+                            <div class="filter-panel-heading"><strong>Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters">&times;</button></div>
                             <div class="filter-group">
                                 <label><input type="checkbox" id="filter-show-all"> Show all courses, including those not offered this term</label>
                             </div>
@@ -366,7 +374,11 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                </section>
+
+                <div class="browse-body">
+                <aside id="semester-search">
+                    <div class="resize-handle" id="search-resize-handle"></div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
                         <div class="results-header">
                             <span>Results</span>
@@ -380,6 +392,7 @@
 
                 <!-- Right: Course Details + Mini Calendar -->
                 <section id="semester-content">
+                    <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
                     <div id="semester-course-info">
                         <h2>Course Details</h2>
                         <div id="tab-details">
@@ -405,6 +418,7 @@
                         </div>
                     </div>
                 </section>
+                </div>
             </div>
         </div>
 

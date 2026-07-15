@@ -940,12 +940,30 @@ test('adding a CRN search result locks and confirms its exact section', async ()
 test('numeric course ranges are parsed before semantic search in Browse', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const numericRange = source.indexOf('Inclusive numeric range');
-    const semanticSearch = source.indexOf('Valid text keyword — semantic search');
+    const semanticSearch = source.indexOf('Meaning-based search via Transformers.js');
 
     assert.ok(numericRange > 0);
     assert.ok(numericRange < semanticSearch);
     assert.match(source, /CSCE 140–150/);
     assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140–199\)/);
+});
+
+test('Browse uses progressive search, results, and detail states with opt-in Smart Search', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(html, /id="browse-workspace" class="semester-layout browse-empty"/);
+    assert.match(html, /id="smart-search-toggle"/);
+    assert.match(html, /id="browse-close-details"/);
+    assert.match(html, /id="active-filter-chips"/);
+    assert.match(html, /id="filter-panel"/);
+    assert.match(source, /setBrowseState\('results'\)/);
+    assert.match(source, /setBrowseState\('detail'\)/);
+    assert.match(source, /else if \(!document\.getElementById\('smart-search-toggle'\)\?\.checked\)/);
+    assert.match(styles, /\.browse-empty \.browse-body\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
+    assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
 });
 
 test('schedule course search paginates matches instead of discarding them', () => {

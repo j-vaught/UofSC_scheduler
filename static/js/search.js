@@ -14,6 +14,7 @@ const Search = {
     _bulletinDetailsCache: {},
     _carolinaCoreCache: {},
     _sectionDetailCache: {},
+    _browseState: 'empty',
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -452,9 +453,24 @@ const Search = {
         const filterPanel = document.getElementById('filter-panel');
         const filterArrow = document.getElementById('filter-arrow');
         if (filterToggle && filterPanel) {
-            filterToggle.addEventListener('click', () => {
+            filterToggle.addEventListener('click', event => {
+                event.stopPropagation();
                 filterPanel.classList.toggle('hidden');
                 filterArrow.classList.toggle('open');
+                filterToggle.setAttribute('aria-expanded', String(!filterPanel.classList.contains('hidden')));
+            });
+            filterPanel.addEventListener('click', event => event.stopPropagation());
+            document.addEventListener('click', () => this.closeFilters());
+        }
+
+        document.getElementById('btn-close-filters')?.addEventListener('click', () => this.closeFilters());
+        document.getElementById('browse-close-details')?.addEventListener('click', () => this.setBrowseState('results'));
+
+        const smartToggle = document.getElementById('smart-search-toggle');
+        if (smartToggle) {
+            smartToggle.checked = localStorage.getItem('uofsc-smart-search') === 'true';
+            smartToggle.addEventListener('change', () => {
+                localStorage.setItem('uofsc-smart-search', String(smartToggle.checked));
             });
         }
 
@@ -468,8 +484,92 @@ const Search = {
             });
         }
 
-        document.getElementById('btn-apply-filters')?.addEventListener('click', () => this.doSearch());
+        document.getElementById('btn-apply-filters')?.addEventListener('click', () => {
+            this.updateActiveFilterChips();
+            this.closeFilters();
+            if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+        });
         document.getElementById('btn-clear-filters')?.addEventListener('click', () => this.clearFilters());
+        this.setBrowseState('empty');
+        this.updateActiveFilterChips();
+    },
+
+    setBrowseState(state) {
+        const workspace = document.getElementById('browse-workspace');
+        if (!workspace) return;
+        this._browseState = state;
+        workspace.classList.remove('browse-empty', 'browse-results', 'browse-detail');
+        workspace.classList.add(`browse-${state}`);
+    },
+
+    closeFilters() {
+        const panel = document.getElementById('filter-panel');
+        const toggle = document.getElementById('filter-toggle');
+        const arrow = document.getElementById('filter-arrow');
+        panel?.classList.add('hidden');
+        arrow?.classList.remove('open');
+        toggle?.setAttribute('aria-expanded', 'false');
+    },
+
+    activeFilterEntries() {
+        const entries = [];
+        const checked = (id, label) => {
+            if (document.getElementById(id)?.checked) entries.push({ ids: [id], label });
+        };
+        const selected = (id, prefix) => {
+            const element = document.getElementById(id);
+            if (!element?.value) return;
+            const text = element.options?.[element.selectedIndex]?.text || element.value;
+            entries.push({ ids: [id], label: `${prefix}: ${text}` });
+        };
+        checked('filter-show-all', 'All catalog courses');
+        checked('filter-open', 'Open sections');
+        checked('filter-eligible', 'Prerequisites met');
+        selected('filter-method', 'Method');
+        selected('filter-carolina-core', 'Core');
+        selected('filter-part-of-term', 'Term');
+        selected('filter-course-attribute', 'Attribute');
+        selected('filter-honors', 'Honors');
+        selected('filter-meeting-pattern', 'Meetings');
+        const sizeMode = document.getElementById('filter-size-mode');
+        const sizeValue = document.getElementById('filter-size-value');
+        if (sizeMode?.value && sizeValue?.value) {
+            entries.push({ ids: ['filter-size-mode', 'filter-size-value'], label: `Class size: ${sizeMode.value} ${sizeValue.value}` });
+        }
+        const availabilityMode = document.getElementById('filter-avail-mode');
+        const availabilityValue = document.getElementById('filter-avail-value');
+        if (availabilityMode?.value && availabilityValue?.value !== '') {
+            entries.push({ ids: ['filter-avail-mode', 'filter-avail-value'], label: `Seats: ${availabilityMode.value} ${availabilityValue.value}` });
+        }
+        return entries;
+    },
+
+    updateActiveFilterChips() {
+        const container = document.getElementById('active-filter-chips');
+        const badge = document.getElementById('active-filter-count');
+        if (!container || !badge) return;
+        const entries = this.activeFilterEntries();
+        badge.textContent = String(entries.length);
+        badge.hidden = entries.length === 0;
+        container.innerHTML = '';
+        entries.forEach(entry => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'active-filter-chip';
+            button.innerHTML = `${entry.label}<span aria-hidden="true">&times;</span>`;
+            button.setAttribute('aria-label', `Remove filter ${entry.label}`);
+            button.addEventListener('click', () => {
+                entry.ids.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (!element) return;
+                    if (element.type === 'checkbox') element.checked = false;
+                    else element.value = '';
+                });
+                this.updateActiveFilterChips();
+                if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+            });
+            container.appendChild(button);
+        });
     },
 
     clearFilters() {
@@ -482,6 +582,8 @@ const Search = {
         document.querySelectorAll('#filter-panel input[type="number"]').forEach(input => {
             input.value = '';
         });
+        this.updateActiveFilterChips();
+        this.closeFilters();
         if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
     },
 
@@ -514,6 +616,10 @@ const Search = {
             this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140–199), or keyword.');
             return;
         }
+
+        this.setBrowseState('results');
+        this.updateActiveFilterChips();
+        this.closeFilters();
 
         const kw = rawInput.trim();
         const criteria = [];
@@ -641,7 +747,11 @@ const Search = {
             this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
             return;
 
-        // Valid text keyword — semantic search via Transformers.js
+        // Plain keyword search unless Smart Search was explicitly enabled
+        } else if (!document.getElementById('smart-search-toggle')?.checked) {
+            criteria.push({ field: 'keyword', value: kw });
+
+        // Meaning-based search via Transformers.js
         } else {
             if (!this._extractor) {
                 document.getElementById('search-results').innerHTML =
@@ -1132,6 +1242,7 @@ const Search = {
     showCourseDetail(group) {
         const detailsTab = document.getElementById('tab-details');
         if (!detailsTab) return;
+        this.setBrowseState('detail');
 
         const firstSection = group.sections[0];
         const availability = this.courseAvailability(group);
@@ -1178,6 +1289,7 @@ const Search = {
 
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
+        this.setBrowseState('results');
 
         if (results.length === 0) {
             container.innerHTML = '<p class="hint">No results found.</p>';
@@ -1317,6 +1429,7 @@ const Search = {
     showSectionDetail(sec) {
         const detailsTab = document.getElementById('tab-details');
         if (!detailsTab) return;
+        this.setBrowseState('detail');
 
         const group = (State.courseGroups || []).find(item => item.code === sec.code) || {
             code: sec.code,
