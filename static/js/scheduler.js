@@ -522,10 +522,11 @@ const Scheduler = {
         `;
 
         document.getElementById('btn-quick-course-toggle')?.addEventListener('click', async event => {
+            const button = event.currentTarget;
             if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
             else await this.addCourseGroup(group);
-            event.currentTarget.textContent = State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
-            event.currentTarget.className = State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
+            button.textContent = State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
+            button.className = State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
         });
         document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group));
     },

@@ -477,6 +477,9 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /courseCopy\.addEventListener\('click', \(\) => this\.openCourseQuickView\(group\)\)/);
     assert.match(source, /id="btn-quick-course-toggle"/);
     assert.match(source, /id="btn-quick-view-browse"/);
+    assert.match(source, /const button = event\.currentTarget;/);
+    assert.match(source, /button\.textContent = State\.isCourseSelected\(group\.code\) \? 'REMOVE' : 'ADD TO SCHEDULE';/);
+    assert.match(source, /button\.className = State\.isCourseSelected\(group\.code\) \? 'btn-danger' : 'btn-green';/);
     assert.match(source, /quick-grade-strip/);
     assert.match(source, /quick-frequency-ring/);
     assert.match(source, /API\.getFaculty\(State\.term, facultyCrns\)/);
