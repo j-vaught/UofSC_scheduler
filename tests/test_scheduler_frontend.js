@@ -979,13 +979,50 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(html, /class="filter-sliders-icon"/);
     assert.doesNotMatch(html, /id="active-filter-count"/);
     assert.match(html, /id="smart-search-status"/);
-    assert.match(html, /class="smart-search-progress"[^>]*><span><\/span><i><\/i><i><\/i><i><\/i><i><\/i>/);
-    assert.match(source, /prepareSmartSearch\(\)/);
+    assert.equal((html.match(/class="network-layer"/g) || []).length, 10);
+    assert.match(source, /prepareSmartSearch\(5000\)/);
+    assert.match(source, /this\._smartLoadingUntil - Date\.now\(\)/);
+    assert.match(source, /if \(status\) status\.hidden = true;/);
     assert.match(source, /Understanding “\$\{query\}”/);
     assert.match(source, /Ranking the closest courses/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{\s*display:\s*grid;/);
-    assert.match(styles, /@keyframes smart-search-signal/);
-    assert.match(styles, /\.smart-search-status\[data-state="ready"\] \.smart-search-progress,[\s\S]*display:\s*none;/);
+    assert.match(styles, /grid-template-columns:\s*repeat\(10,/);
+    assert.match(styles, /@keyframes smart-search-network-node/);
+    assert.match(styles, /\.smart-search-status\s*{[^}]*background:\s*#ffffff;/s);
+    assert.match(styles, /\.network-layer i\s*{[^}]*infinite alternate;[^}]*border-radius:\s*50% !important;/s);
+    assert.match(styles, /--network-color:\s*#00c2ff;[\s\S]*--network-color:\s*#ff9f1c;/);
+});
+
+test('cached Smart Search still shows the testing loader for five seconds and then removes the status', async () => {
+    let now = 5000;
+    const delays = [];
+    const status = { hidden: true, dataset: {} };
+    const elements = {
+        'smart-search-toggle': { checked: true },
+        'smart-search-status': status,
+        'smart-search-status-text': { textContent: '' },
+        'smart-search-activity': { textContent: '' },
+        'browse-workspace': { classList: { toggle() {}, remove() {} } },
+    };
+    const search = loadObject('static/js/search.js', 'Search', {
+        console,
+        document: { getElementById: id => elements[id] || null },
+        Date: { now: () => now },
+        setTimeout(resolve, delay) {
+            delays.push(delay);
+            now += delay;
+            resolve();
+        },
+    });
+    search._extractor = {};
+    search._phraseData = {};
+    search._loadExtractor = async () => search._extractor;
+    search._loadPhraseData = async () => search._phraseData;
+
+    await search.prepareSmartSearch(5000);
+
+    assert.deepEqual(delays, [5000]);
+    assert.equal(status.hidden, true);
 });
 
 test('Smart Search expands into a prompt with an arrow and four example cards', () => {

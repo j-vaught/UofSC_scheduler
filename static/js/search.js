@@ -17,6 +17,7 @@ const Search = {
     _resultSummaryCache: {},
     _resultSummaryObserver: null,
     _smartModelPromise: null,
+    _smartLoadingUntil: 0,
     _placeholderTimer: null,
     _placeholderIndex: 0,
     _browseState: 'empty',
@@ -497,7 +498,7 @@ const Search = {
                 if (nextInput && previousInput?.value && !nextInput.value) nextInput.value = previousInput.value;
                 this.autoSizeSmartInput();
                 this.setSmartSearchMode(smartToggle.checked);
-                if (smartToggle.checked) this.prepareSmartSearch().catch(() => {});
+                if (smartToggle.checked) this.prepareSmartSearch(5000).catch(() => {});
             });
             this.setSmartSearchMode(smartToggle.checked);
         }
@@ -621,11 +622,8 @@ const Search = {
                 ? 'Describe what you want to learn in plain English.'
                 : 'Search by course, subject, CRN, range, or description.';
         }
-        if (status) status.hidden = !enabled;
+        if (status) status.hidden = true;
         if (!enabled) workspace?.classList.remove('smart-search-busy');
-        if (enabled && this._extractor && this._phraseData) {
-            this.setSmartSearchStatus('Ready for Smart Search', 'ready', 'Enter an idea or choose an example below.');
-        }
         if (enabled && typeof requestAnimationFrame !== 'undefined') {
             requestAnimationFrame(() => this.autoSizeSmartInput());
         } else if (enabled) {
@@ -640,6 +638,10 @@ const Search = {
         const text = document.getElementById('smart-search-status-text');
         const detail = document.getElementById('smart-search-activity');
         if (!status || !text || !detail) return;
+        if (mode === 'ready') {
+            this.hideSmartSearchStatus();
+            return;
+        }
         status.hidden = false;
         status.dataset.state = mode;
         document.getElementById('browse-workspace')?.classList.toggle(
@@ -650,24 +652,41 @@ const Search = {
         detail.textContent = activity;
     },
 
-    prepareSmartSearch() {
-        if (this._smartModelPromise) return this._smartModelPromise;
-        this.setSmartSearchStatus(
-            'Loading the meaning model',
-            'loading',
-            'Preparing course descriptions and academic concepts. The first load can take a moment.',
-        );
-        this._smartModelPromise = Promise.all([this._loadExtractor(), this._loadPhraseData()])
-            .then(() => {
-                this.setSmartSearchStatus('Ready for Smart Search', 'ready', 'Enter an idea or choose an example below.');
-                return true;
-            })
-            .catch(error => {
-                this._smartModelPromise = null;
-                this.setSmartSearchStatus('Could not load Smart Search', 'error', 'Check your connection or use regular search.');
-                throw error;
-            });
-        return this._smartModelPromise;
+    hideSmartSearchStatus() {
+        const status = document.getElementById('smart-search-status');
+        if (status) status.hidden = true;
+        document.getElementById('browse-workspace')?.classList.remove('smart-search-busy');
+    },
+
+    async prepareSmartSearch(minimumVisibleMs = 0) {
+        const now = Date.now();
+        this._smartLoadingUntil = Math.max(this._smartLoadingUntil, now + minimumVisibleMs);
+        const shouldShowLoading = minimumVisibleMs > 0 || !this._extractor || !this._phraseData;
+        if (shouldShowLoading) {
+            this.setSmartSearchStatus(
+                'Loading the meaning model',
+                'loading',
+                'Preparing course descriptions and academic concepts.',
+            );
+        }
+        if (!this._smartModelPromise) {
+            this._smartModelPromise = Promise.all([this._loadExtractor(), this._loadPhraseData()])
+                .then(() => true)
+                .catch(error => {
+                    this._smartModelPromise = null;
+                    throw error;
+                });
+        }
+        try {
+            await this._smartModelPromise;
+            const remaining = this._smartLoadingUntil - Date.now();
+            if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
+            this.hideSmartSearchStatus();
+            return true;
+        } catch (error) {
+            this.setSmartSearchStatus('Could not load Smart Search', 'error', 'Check your connection or use regular search.');
+            throw error;
+        }
     },
 
     closeFilters() {
