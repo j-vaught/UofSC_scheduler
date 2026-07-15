@@ -403,6 +403,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, />PREFER<\/span><span class="require">REQUIRE</);
     assert.doesNotMatch(source, /class="schedule-preference-legend"/);
     assert.doesNotMatch(source, /How to apply/);
+    assert.doesNotMatch(source, /when possible/i);
     assert.match(source, /Extra time after walking between classes/);
     assert.match(source, /Choose 10 to arrive at least ten minutes early/);
     assert.doesNotMatch(source, /Minutes remaining after travel/);

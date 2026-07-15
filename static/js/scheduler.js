@@ -349,7 +349,7 @@ const Scheduler = {
                 <h2 id="schedule-preferences-title">Schedule Preferences</h2>
                 <div class="schedule-preference-grid">
                     <fieldset class="schedule-preference-times">
-                        <legend>Class times to avoid when possible</legend>
+                        <legend>Class times to avoid</legend>
                         ${modeControl('schedule-time-mode-required', 'Require all class-time choices', State.timePreferencesRequired)}
                         <div class="schedule-time-options">
                             <label for="schedule-preferred-start">
@@ -382,7 +382,7 @@ const Scheduler = {
                         <small>Choose 10 to arrive at least ten minutes early.</small>
                     </fieldset>
                     <fieldset class="schedule-preference-days">
-                        <legend>Days to avoid when possible</legend>
+                        <legend>Days to avoid</legend>
                         ${modeControl('schedule-days-mode-required', 'Require classes to avoid the selected days', State.avoidedDaysRequired)}
                         <div class="schedule-day-options">${dayOptions}</div>
                     </fieldset>
