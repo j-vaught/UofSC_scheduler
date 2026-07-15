@@ -123,6 +123,63 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(result["total_found"], 2)
         self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "tuesday")
 
+    def test_minimum_walking_buffer_removes_too_distant_transition(self):
+        first = section(
+            "first",
+            '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]',
+            _walking_locations=[{"day": 0, "start": 540, "latitude": 34.0, "longitude": -81.0}],
+        )
+        second = section(
+            "far",
+            '[{"meet_day": 0, "start_time": 1015, "end_time": 1100}]',
+            code="TEST 102",
+            _walking_locations=[{"day": 0, "start": 615, "latitude": 34.0, "longitude": -80.99}],
+        )
+
+        result = solve(
+            {
+                "courses": [
+                    {"code": "TEST 101", "sections": [first]},
+                    {"code": "TEST 102", "sections": [second]},
+                ],
+                "preferences": {"minimum_walking_buffer_minutes": 5},
+            }
+        )
+
+        self.assertEqual(result["total_found"], 0)
+
+    def test_longer_walks_rank_lower_without_becoming_invalid(self):
+        origin = section(
+            "origin",
+            '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]',
+            _walking_locations=[{"day": 0, "start": 540, "latitude": 34.0, "longitude": -81.0}],
+        )
+        nearby = section(
+            "nearby",
+            '[{"meet_day": 0, "start_time": 1030, "end_time": 1100}]',
+            code="TEST 102",
+            _walking_locations=[{"day": 0, "start": 630, "latitude": 34.0, "longitude": -80.999}],
+        )
+        distant = section(
+            "distant",
+            '[{"meet_day": 0, "start_time": 1030, "end_time": 1100}]',
+            code="TEST 102",
+            _walking_locations=[{"day": 0, "start": 630, "latitude": 34.0, "longitude": -80.99}],
+        )
+
+        result = solve(
+            {
+                "courses": [
+                    {"code": "TEST 101", "sections": [origin]},
+                    {"code": "TEST 102", "sections": [distant, nearby]},
+                ],
+                "preferences": {"preferred_maximum_walk_minutes": 5},
+            }
+        )
+
+        self.assertEqual(result["total_found"], 2)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 102"]["crn"], "nearby")
+
 
 if __name__ == "__main__":
     unittest.main()

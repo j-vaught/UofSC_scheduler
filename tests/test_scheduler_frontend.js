@@ -104,17 +104,28 @@ test('solver uses course-level choices instead of applied sections', async () =>
     assert.equal(state.selectedSections['TEST 101'].crn, 'old-section');
 });
 
-test('schedule preferences expose soft avoid choices and a hard class buffer', () => {
+test('schedule preferences expose time, day, class, and walking choices', () => {
     const state = loadObject('static/js/state.js', 'State', {
         localStorage: { getItem: () => null },
     });
     state.avoidedDays = [1, 3];
     state.minimumClassBuffer = 20;
+    state.minimumWalkingBuffer = 5;
+    state.preferredMaximumWalk = 10;
 
     const preferences = state.getPreferences();
 
     assert.deepEqual(Array.from(preferences.avoided_days), [1, 3]);
     assert.equal(preferences.minimum_transition_minutes, 20);
+    assert.equal(preferences.minimum_walking_buffer_minutes, 5);
+    assert.equal(preferences.preferred_maximum_walk_minutes, 10);
+
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    assert.match(source, /class="schedule-preference-times"/);
+    assert.match(source, /id="schedule-preferred-start"/);
+    assert.match(source, /id="schedule-preferred-end"/);
+    assert.match(source, /id="schedule-minimum-walking-buffer"/);
+    assert.match(source, /id="schedule-preferred-maximum-walk"/);
 });
 
 test('schedule actions live in the options panel and quick ICS export is removed', () => {

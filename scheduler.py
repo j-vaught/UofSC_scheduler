@@ -1,8 +1,9 @@
 """CSP-based course schedule solver with weighted scoring."""
 
-import json
-import time
 import copy
+import json
+import math
+import time
 
 
 def hhmm_to_minutes(value):
@@ -23,6 +24,43 @@ def parse_meeting_times(mt_str):
         ]
     except (json.JSONDecodeError, KeyError, TypeError):
         return []
+
+
+def attach_walking_locations(meetings, locations):
+    """Attach known building coordinates to their matching section meetings."""
+    for meeting in meetings:
+        meeting_start = hhmm_to_minutes(meeting["start"])
+        for location in locations or []:
+            try:
+                if int(location["day"]) != meeting["day"]:
+                    continue
+                if abs(int(location["start"]) - meeting_start) > 5:
+                    continue
+                meeting["latitude"] = float(location["latitude"])
+                meeting["longitude"] = float(location["longitude"])
+                break
+            except (KeyError, TypeError, ValueError):
+                continue
+    return meetings
+
+
+def estimated_walk_minutes(first, second):
+    """Estimate campus walking time from straight-line building coordinates."""
+    required = ("latitude", "longitude")
+    if not all(key in first and key in second for key in required):
+        return None
+    lat1 = math.radians(first["latitude"])
+    lat2 = math.radians(second["latitude"])
+    delta_lat = lat2 - lat1
+    delta_lon = math.radians(second["longitude"] - first["longitude"])
+    haversine = (
+        math.sin(delta_lat / 2) ** 2
+        + math.cos(lat1) * math.cos(lat2) * math.sin(delta_lon / 2) ** 2
+    )
+    distance_meters = 6_371_000 * 2 * math.asin(math.sqrt(haversine))
+    if distance_meters < 15:
+        return 0
+    return max(1, math.ceil((distance_meters * 1.25) / 80))
 
 
 def is_asynchronous(section):
@@ -108,7 +146,38 @@ def buffer_conflict(section_times, assigned_times, minimum_minutes):
     return False
 
 
-def is_consistent(section, assignment, blocked_times, minimum_buffer=0):
+def walking_buffer_conflict(section_times, assigned_times, minimum_minutes):
+    """Check whether estimated walking leaves less than the requested buffer."""
+    if minimum_minutes <= 0:
+        return False
+    for section_time in section_times:
+        for assigned_time in assigned_times:
+            if section_time["day"] != assigned_time["day"]:
+                continue
+            section_start = hhmm_to_minutes(section_time["start"])
+            section_end = hhmm_to_minutes(section_time["end"])
+            assigned_start = hhmm_to_minutes(assigned_time["start"])
+            assigned_end = hhmm_to_minutes(assigned_time["end"])
+            if section_end <= assigned_start:
+                gap = assigned_start - section_end
+                walk = estimated_walk_minutes(section_time, assigned_time)
+            elif assigned_end <= section_start:
+                gap = section_start - assigned_end
+                walk = estimated_walk_minutes(assigned_time, section_time)
+            else:
+                continue
+            if walk is not None and gap - walk < minimum_minutes:
+                return True
+    return False
+
+
+def is_consistent(
+    section,
+    assignment,
+    blocked_times,
+    minimum_buffer=0,
+    minimum_walking_buffer=0,
+):
     """Check hard constraints for adding a section to current assignment."""
     s_times = section["_parsed_times"]
     if blocked_conflict(s_times, blocked_times):
@@ -117,6 +186,12 @@ def is_consistent(section, assignment, blocked_times, minimum_buffer=0):
         if times_overlap(s_times, assigned["_parsed_times"]):
             return False
         if buffer_conflict(s_times, assigned["_parsed_times"], minimum_buffer):
+            return False
+        if walking_buffer_conflict(
+            s_times,
+            assigned["_parsed_times"],
+            minimum_walking_buffer,
+        ):
             return False
     return True
 
@@ -174,6 +249,14 @@ def score_schedule(assignment, prefs):
         sorted_m = sorted(meetings, key=lambda x: x["start"])
         for i in range(1, len(sorted_m)):
             gap = hhmm_to_minutes(sorted_m[i]["start"]) - hhmm_to_minutes(sorted_m[i - 1]["end"])
+            walk = estimated_walk_minutes(sorted_m[i - 1], sorted_m[i])
+            preferred_maximum_walk = prefs.get("preferred_maximum_walk_minutes", 0)
+            try:
+                preferred_maximum_walk = max(0, int(preferred_maximum_walk))
+            except (TypeError, ValueError):
+                preferred_maximum_walk = 0
+            if walk is not None and preferred_maximum_walk > 0 and walk > preferred_maximum_walk:
+                score -= 4 * (walk - preferred_maximum_walk)
             if gap > 30:
                 score -= gap_weight * (gap / 60)
             elif gap < 15 and gap >= 0:
@@ -196,6 +279,8 @@ def solve(params):
             preferred_end: int,
             avoided_days: [int],
             minimum_transition_minutes: int,
+            minimum_walking_buffer_minutes: int,
+            preferred_maximum_walk_minutes: int,
             max_credits: int,
             gap_penalty_weight: float,
             day_compactness_weight: float,
@@ -212,6 +297,10 @@ def solve(params):
         minimum_buffer = max(0, int(prefs.get("minimum_transition_minutes", 0)))
     except (TypeError, ValueError):
         minimum_buffer = 0
+    try:
+        minimum_walking_buffer = max(0, int(prefs.get("minimum_walking_buffer_minutes", 0)))
+    except (TypeError, ValueError):
+        minimum_walking_buffer = 0
     max_credits = prefs.get("max_credits")
     try:
         max_credits = float(max_credits) if max_credits is not None else None
@@ -221,7 +310,10 @@ def solve(params):
     # Pre-parse meeting times for all sections
     for course in courses:
         for sec in course.get("sections", []):
-            sec["_parsed_times"] = parse_meeting_times(sec.get("meetingTimes", ""))
+            sec["_parsed_times"] = attach_walking_locations(
+                parse_meeting_times(sec.get("meetingTimes", "")),
+                sec.get("_walking_locations", []),
+            )
             sec["_is_async"] = not sec["_parsed_times"] and is_asynchronous(sec)
             sec["_credits"] = section_credits(sec)
 
@@ -248,7 +340,13 @@ def solve(params):
             next_credits = assigned_credits + section["_credits"]
             if max_credits is not None and next_credits > max_credits:
                 continue
-            if is_consistent(section, assignment, blocked, minimum_buffer):
+            if is_consistent(
+                section,
+                assignment,
+                blocked,
+                minimum_buffer,
+                minimum_walking_buffer,
+            ):
                 assignment[code] = section
                 if backtrack(idx + 1, assignment, next_credits):
                     return True

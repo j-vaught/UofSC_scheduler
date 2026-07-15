@@ -57,16 +57,34 @@ const Scheduler = {
                         <input id="schedule-minimum-buffer" type="number" min="0" max="240" step="5" value="${Number(State.minimumClassBuffer) || 0}">
                         <small>Minutes required between the end of one class and the start of the next.</small>
                     </div>
-                    <div class="schedule-preference-field">
-                        <label for="schedule-preferred-start">Prefer to avoid classes before</label>
-                        <input id="schedule-preferred-start" type="time" value="${this.formatPreferenceTime(State.preferredStart)}">
-                        <small>Earlier classes remain available but rank lower.</small>
-                    </div>
-                    <div class="schedule-preference-field">
-                        <label for="schedule-preferred-end">Prefer to avoid classes ending after</label>
-                        <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(State.preferredEnd)}">
-                        <small>Later classes remain available but rank lower.</small>
-                    </div>
+                    <fieldset class="schedule-preference-times">
+                        <legend>Class times to avoid when possible</legend>
+                        <div class="schedule-time-options">
+                            <label for="schedule-preferred-start">
+                                <span>Before</span>
+                                <input id="schedule-preferred-start" type="time" value="${this.formatPreferenceTime(State.preferredStart)}">
+                            </label>
+                            <label for="schedule-preferred-end">
+                                <span>Ending after</span>
+                                <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(State.preferredEnd)}">
+                            </label>
+                        </div>
+                        <small>Classes outside this range remain available but rank lower.</small>
+                    </fieldset>
+                    <fieldset class="schedule-preference-walking">
+                        <legend>Walking between classes</legend>
+                        <div class="schedule-walking-options">
+                            <label for="schedule-minimum-walking-buffer">
+                                <span>Minimum time left after walking</span>
+                                <input id="schedule-minimum-walking-buffer" type="number" min="0" max="120" step="5" value="${Number(State.minimumWalkingBuffer) || 0}">
+                            </label>
+                            <label for="schedule-preferred-maximum-walk">
+                                <span>Prefer walks no longer than</span>
+                                <input id="schedule-preferred-maximum-walk" type="number" min="0" max="60" step="5" value="${Number(State.preferredMaximumWalk) || 0}">
+                            </label>
+                        </div>
+                        <small>Minutes. A minimum removes schedules without enough time. Longer preferred walks rank lower. Use 0 to turn either option off.</small>
+                    </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>
                         <div class="schedule-day-options">${dayOptions}</div>
@@ -99,7 +117,11 @@ const Scheduler = {
         }
 
         const minimumBuffer = Number(document.getElementById('schedule-minimum-buffer').value);
+        const minimumWalkingBuffer = Number(document.getElementById('schedule-minimum-walking-buffer').value);
+        const preferredMaximumWalk = Number(document.getElementById('schedule-preferred-maximum-walk').value);
         State.minimumClassBuffer = Math.max(0, Math.min(240, Number.isFinite(minimumBuffer) ? Math.round(minimumBuffer) : 0));
+        State.minimumWalkingBuffer = Math.max(0, Math.min(120, Number.isFinite(minimumWalkingBuffer) ? Math.round(minimumWalkingBuffer) : 0));
+        State.preferredMaximumWalk = Math.max(0, Math.min(60, Number.isFinite(preferredMaximumWalk) ? Math.round(preferredMaximumWalk) : 0));
         State.preferredStart = start;
         State.preferredEnd = end;
         State.avoidedDays = Array.from(document.querySelectorAll('input[name="schedule-avoid-day"]:checked'))
@@ -445,6 +467,32 @@ const Scheduler = {
         return !section.stat || section.stat === 'A';
     },
 
+    async addWalkingLocations(courses, preferences) {
+        const usesWalkingPreference = Number(preferences.minimum_walking_buffer_minutes) > 0
+            || Number(preferences.preferred_maximum_walk_minutes) > 0;
+        if (!usesWalkingPreference || typeof WalkingMap === 'undefined') return;
+
+        const sections = courses.flatMap(course => course.sections || []);
+        await WalkingMap.hydrateSectionDetails(sections);
+        sections.forEach(section => {
+            const details = WalkingMap.sectionDetails.get(String(section.crn)) || [];
+            section._walking_locations = WalkingMap.parseMeetingTimes(section.meetingTimes)
+                .map(meeting => {
+                    const detail = details.find(item => item.days.includes(meeting.day)
+                        && item.start !== null && Math.abs(item.start - meeting.start) <= 5)
+                        || details.find(item => item.days.includes(meeting.day));
+                    if (!detail || detail.building?.kind !== 'known') return null;
+                    return {
+                        day: meeting.day,
+                        start: meeting.start,
+                        latitude: Number(detail.building.lat),
+                        longitude: Number(detail.building.lon),
+                    };
+                })
+                .filter(Boolean);
+        });
+    },
+
     async solve(maxResults = 10) {
         const courseGroups = Object.values(State.selectedCourses || {});
         if (courseGroups.length === 0) {
@@ -484,6 +532,7 @@ const Scheduler = {
         preferences.max_credits = Number.isFinite(Number(configuredMax)) ? Number(configuredMax) : 18;
 
         try {
+            await this.addWalkingLocations(courses, preferences);
             const resultLimit = Math.max(10, Number(maxResults) || 10);
             const result = await API.solve(courses, preferences, resultLimit);
             State.solverResults = result.schedules || [];

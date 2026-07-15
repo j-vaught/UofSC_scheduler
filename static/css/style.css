@@ -1020,13 +1020,19 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin-top: 14px;
 }
 .schedule-preference-field,
-.schedule-preference-days {
+.schedule-preference-days,
+.schedule-preference-times,
+.schedule-preference-walking {
     border: 2px solid #C7C7C7;
     margin: 0;
     padding: 10px;
 }
 .schedule-preference-field label,
-.schedule-preference-days legend {
+.schedule-preference-days legend,
+.schedule-preference-times legend,
+.schedule-preference-walking legend,
+.schedule-time-options label,
+.schedule-walking-options label {
     color: #363636;
     display: block;
     font-size: 0.76rem;
@@ -1034,7 +1040,9 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin-bottom: 6px;
 }
 .schedule-preference-field input[type="number"],
-.schedule-preference-field input[type="time"] {
+.schedule-preference-field input[type="time"],
+.schedule-time-options input,
+.schedule-walking-options input {
     background: #ffffff;
     border: 2px solid #000000;
     border-radius: 0;
@@ -1044,14 +1052,32 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     width: 100%;
 }
 .schedule-preference-field small,
-.schedule-preference-days small {
+.schedule-preference-days small,
+.schedule-preference-times small,
+.schedule-preference-walking small {
     color: #5C5C5C;
     display: block;
     font-size: 0.7rem;
     line-height: 1.35;
     margin-top: 6px;
 }
-.schedule-preference-days { grid-column: 1 / -1; }
+.schedule-preference-days,
+.schedule-preference-times,
+.schedule-preference-walking { grid-column: 1 / -1; }
+
+.schedule-time-options,
+.schedule-walking-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.schedule-time-options label,
+.schedule-walking-options label {
+    display: grid;
+    gap: 4px;
+}
 .schedule-day-options {
     display: grid;
     gap: 6px;
@@ -1519,7 +1545,12 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     .schedule-course-divider { display: none; }
     .schedule-selected-section { flex: none; margin-top: 20px; max-height: 440px; }
     .schedule-preference-grid { grid-template-columns: 1fr; }
-    .schedule-preference-days { grid-column: 1; }
+    .schedule-preference-days,
+    .schedule-preference-times,
+    .schedule-preference-walking { grid-column: 1; }
+
+    .schedule-time-options,
+    .schedule-walking-options { grid-template-columns: 1fr; }
     .schedule-day-options { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow-x: auto; }
 }
 
