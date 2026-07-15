@@ -1016,12 +1016,15 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(styles, /\.smart-search-status\s*{[^}]*background:\s*#ffffff;/s);
     assert.doesNotMatch(styles, /smart-search-network-node/);
     assert.match(source, /this\.showSmartSearchQueries\(searches\)/);
-    assert.match(source, /this\.updateSmartSearchQuery\(index, results\.length\)/);
+    assert.match(source, /this\.updateSmartSearchQuery\(index, courseCount\)/);
     assert.match(source, /item\.addEventListener\('click', \(\) => this\.openRegularSearch\(term\)\)/);
     assert.match(source, /openRegularSearch\(term\)/);
     assert.match(source, /smartToggle\.checked = false;[\s\S]*regularInput\.value = term;[\s\S]*this\.doSearch\(\);/);
     assert.match(source, /semantic\.searches\?\.length \? semantic\.searches : null/);
     assert.match(source, /class="semantic-search-term" data-regular-search-index/);
+    assert.match(source, /searches\.map\(\(term, index\) => \(\{/);
+    assert.match(source, /new Set\(allResults\[index\]\.map\(result => result\.code\)/);
+    assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /showSmartSearchAggregation\(/);
     assert.match(source, /waitForSmartSearchPhase\(understandingStartedAt, 650\)/);
     assert.match(source, /waitForSmartSearchPhase\(expandingStartedAt, 650\)/);
@@ -1033,6 +1036,7 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(styles, /@keyframes smart-search-stage-in/);
     assert.match(styles, /\.smart-search-query-item:not\(:disabled\)\s*{\s*cursor:\s*pointer;/);
     assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
+    assert.match(styles, /\.semantic-search-term strong\s*{[^}]*background:\s*#466A9F;/s);
 });
 
 test('Smart Search estimates stage timing from measured download speed', () => {

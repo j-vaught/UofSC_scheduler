@@ -162,7 +162,9 @@ const Search = {
             let results = [];
             try {
                 if (currentTermOnly) {
-                    const data = await API.searchCourses(State.term, [{ field: 'keyword', value: term }]);
+                    const criteria = [{ field: 'keyword', value: term }];
+                    if (openOnly) criteria.push({ field: 'stat', value: 'A' });
+                    const data = await API.searchCourses(State.term, criteria);
                     results = data.results || [];
                 } else {
                     const data = await API.post('/api/bulletin/search', {
@@ -174,7 +176,8 @@ const Search = {
             } catch (error) {
                 console.warn(`[Semantic] Search failed for “${term}”:`, error);
             }
-            this.updateSmartSearchQuery(index, results.length);
+            const courseCount = new Set(results.map(result => result.code).filter(Boolean)).size;
+            this.updateSmartSearchQuery(index, courseCount);
             return results;
         });
         const allResults = await Promise.all(promises);
@@ -284,7 +287,11 @@ const Search = {
         console.log(`[Semantic] ${deduped.length} candidates → ${scored.length} above threshold → top ${top.length}`);
         const aggregationDelay = 1500 - (Date.now() - aggregationStartedAt);
         if (aggregationDelay > 0) await new Promise(resolve => setTimeout(resolve, aggregationDelay));
-        return { results: top, expandedTerms, searches };
+        const searchMetrics = searches.map((term, index) => ({
+            term,
+            count: new Set(allResults[index].map(result => result.code).filter(Boolean)).size,
+        }));
+        return { results: top, expandedTerms, searches: searchMetrics };
     },
 
     // Levenshtein edit distance between two strings
@@ -1767,15 +1774,21 @@ const Search = {
         // Header with search info
         let header = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
         if (searchTerms && searchTerms.length) {
-            const expandedTags = searchTerms.map((term, index) =>
-                `<button type="button" class="semantic-search-term" data-regular-search-index="${index}">${this.escapeText(term)}</button>`
-            ).join(' ');
+            const expandedTags = searchTerms.map((search, index) => {
+                const term = typeof search === 'string' ? search : search.term;
+                const resultCount = typeof search === 'string' ? null : Number(search.count);
+                const countLabel = Number.isFinite(resultCount)
+                    ? `${resultCount.toLocaleString()} ${resultCount === 1 ? 'course' : 'courses'}`
+                    : '';
+                return `<button type="button" class="semantic-search-term" data-regular-search-index="${index}" data-result-count="${resultCount || 0}"><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
+            }).join(' ');
             header += `<div class="semantic-search-terms"><span>Generated searches</span>${expandedTags}</div>`;
         }
         container.innerHTML = header;
         container.querySelectorAll('[data-regular-search-index]').forEach(button => {
             button.addEventListener('click', () => {
-                const term = searchTerms[Number(button.dataset.regularSearchIndex)];
+                const search = searchTerms[Number(button.dataset.regularSearchIndex)];
+                const term = typeof search === 'string' ? search : search?.term;
                 if (term) this.openRegularSearch(term);
             });
         });

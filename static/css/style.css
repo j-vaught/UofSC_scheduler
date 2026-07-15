@@ -2035,15 +2035,29 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 .semantic-search-terms > span { color: #5C5C5C; font-size: 0.68rem; font-weight: 700; margin-right: 2px; text-transform: uppercase; }
 .semantic-search-term {
+    align-items: center;
     background: #eef3ff;
     border: 1px solid #C7C7C7;
     color: #466A9F;
     cursor: pointer;
+    display: inline-flex;
     font-size: 0.68rem;
-    padding: 2px 6px;
+    gap: 6px;
+    padding: 3px 4px 3px 7px;
 }
+.semantic-search-term strong {
+    background: #466A9F;
+    color: #ffffff;
+    font-size: 0.58rem;
+    padding: 2px 4px;
+    white-space: nowrap;
+}
+.semantic-search-term[data-result-count="0"] { background: #ECECEC; color: #5C5C5C; }
+.semantic-search-term[data-result-count="0"] strong { background: #5C5C5C; }
 .semantic-search-term:hover,
 .semantic-search-term:focus-visible { background: #ffffff; border-color: #73000A; color: #73000A; }
+.semantic-search-term:hover strong,
+.semantic-search-term:focus-visible strong { background: #73000A; }
 .active-filter-chips {
     display: flex;
     flex-wrap: wrap;
