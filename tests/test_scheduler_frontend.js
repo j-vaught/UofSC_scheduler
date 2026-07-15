@@ -996,7 +996,13 @@ test('Smart Search expands into a prompt with an arrow and four example cards', 
     assert.match(source, /Mechanical engineering courses about robotics/);
     assert.match(source, /Electrical engineering courses about renewable energy/);
     assert.match(source, /phrase\.slice\(0, length\)/);
-    assert.match(styles, /conic-gradient/);
+    assert.match(html, /<span aria-hidden="true">&#10022;<\/span>/);
+    assert.match(styles, /background:\s*linear-gradient/);
+    assert.match(styles, /\.smart-search-toggle span\s*{[^}]*border:\s*0;/s);
+    assert.match(styles, /\.smart-search-submit\s*{[^}]*background:\s*transparent;[^}]*color:\s*#000000;/s);
+    assert.match(source, /'Nursing'/);
+    assert.match(source, /'Studio Art'/);
+    assert.match(source, /'Political Science'/);
     assert.match(styles, /\.browse-empty\.smart-search-active \.browse-filter-button\s*{\s*display:\s*none;/);
     assert.match(styles, /\.smart-search-active \.smart-search-examples\s*{[^}]*grid-template-columns:\s*repeat\(4,/s);
 });

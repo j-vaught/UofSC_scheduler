@@ -539,9 +539,14 @@ const Search = {
         this._placeholderIndex = 0;
         const regularExamples = [
             'CSCE 145',
-            'Computer Science',
             'CSCE 500+',
             'CSCE 140–199',
+            'Nursing',
+            'Studio Art',
+            'Political Science',
+            'Mechanical Engineering',
+            'Computer Science',
+            'Electrical Engineering',
         ];
         const smartExamples = [
             'Nursing courses about caring for children',

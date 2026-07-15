@@ -1728,17 +1728,22 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 .smart-search-toggle span {
     align-items: center;
-    background: conic-gradient(from 210deg, #00c2ff, #466A9F, #8b5cf6, #ec4899, #ff7a00, #f5d90a, #00c2ff);
-    border: 2px solid #000000;
+    background: linear-gradient(135deg, #00c2ff 8%, #8b5cf6 42%, #ec4899 68%, #ff7a00 94%);
+    background-clip: text;
+    border: 0;
+    color: transparent;
     display: flex;
+    font-size: 2rem;
+    font-weight: 900;
     height: 38px;
     justify-content: center;
     padding: 0;
     width: 38px;
-    border-radius: 50% !important;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .smart-search-toggle input:checked + span {
-    box-shadow: inset 0 0 0 3px #ffffff;
+    filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.55));
 }
 .smart-search-toggle input:focus-visible + span,
 .browse-filter-button:focus-visible {
@@ -1779,31 +1784,31 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     background: currentColor;
     border: 0;
     border-radius: 50% !important;
-    height: 9px;
+    height: 7px;
     position: absolute;
-    top: -5.5px;
-    width: 9px;
+    top: -4.5px;
+    width: 7px;
 }
 .filter-sliders-icon > span:nth-child(1) i { left: 3px; }
 .filter-sliders-icon > span:nth-child(2) i { right: 3px; }
 .filter-sliders-icon > span:nth-child(3) i { left: 8px; }
 .smart-search-submit {
-    background: #000000;
+    background: transparent;
     border: 0;
     bottom: 10px;
-    color: #ffffff;
+    color: #000000;
     cursor: pointer;
     display: none;
-    font-size: 1.1rem;
+    font-size: 1.55rem;
     font-weight: 800;
-    height: 27px;
+    height: 30px;
     line-height: 1;
     position: absolute;
     right: 10px;
     width: 30px;
     z-index: 3;
 }
-.smart-search-submit:hover { background: #73000A; }
+.smart-search-submit:hover { background: transparent; color: #73000A; }
 .smart-search-active .browse-search-form { grid-template-columns: minmax(260px, 1fr) 44px; }
 .browse-empty.smart-search-active .browse-search-form { grid-template-columns: 1fr; }
 .smart-search-active .browse-search-form #btn-search { display: none; }
