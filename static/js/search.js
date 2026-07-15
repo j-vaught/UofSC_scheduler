@@ -619,7 +619,7 @@ const Search = {
         if (title) title.textContent = enabled ? 'Search courses by meaning' : 'Find your next course';
         if (description) {
             description.textContent = enabled
-                ? 'Describe what you want to learn, even if you do not know the course name.'
+                ? 'Describe what you want to learn in plain English.'
                 : 'Search by course, subject, CRN, range, or description.';
         }
         if (status) status.hidden = !enabled;
