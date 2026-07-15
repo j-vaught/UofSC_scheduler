@@ -303,6 +303,107 @@ const Search = {
         return null;
     },
 
+    _resolveSubjectForLiveSearch(raw) {
+        const upper = String(raw || '').toUpperCase();
+        if (!this._subjects.length || this._subjects.includes(upper)) return upper;
+        const matches = this._fuzzyMatchSubject(upper);
+        if (matches.length === 1 && matches[0].dist === 1) return matches[0].code;
+        if (matches.length > 0) {
+            throw new Error(`Unknown subject "${upper}". Try ${matches.map(match => match.code).join(', ')}.`);
+        }
+        throw new Error(`Unknown subject "${upper}". Check the code and try again.`);
+    },
+
+    liveCourseRangeFilter(numberPattern) {
+        const pattern = String(numberPattern || '').toUpperCase();
+        if (/^\d{1,3}\+$/.test(pattern)) {
+            const floor = parseInt(pattern.slice(0, -1));
+            return code => {
+                const match = String(code || '').match(/^[A-Z]+\s*(\d{3})/i);
+                return Boolean(match && parseInt(match[1]) >= floor);
+            };
+        }
+        const wildcard = pattern.match(/^([\dX*#_?%]{1,3})([A-Z]?)$/);
+        if (wildcard && /[X*#_?%]/.test(wildcard[1])) {
+            const digits = (wildcard[1] + 'XX').slice(0, 3);
+            const number = new RegExp(`^${digits.replace(/[X*#_?%]/g, '\\d')}$`);
+            const suffix = wildcard[2];
+            return code => {
+                const match = String(code || '').match(/^[A-Z]+\s*(\d{3})([A-Z]?)$/i);
+                return Boolean(match
+                    && number.test(match[1])
+                    && (!suffix || match[2].toUpperCase() === suffix));
+            };
+        }
+        return null;
+    },
+
+    async searchLiveCourses(rawInput) {
+        const query = String(rawInput || '').trim();
+        if (!query) throw new Error('Enter a subject code, course number, CRN, range, or keyword.');
+
+        const wildcardPattern = /[xX*#_?%]/;
+        const criteria = [];
+        let resultFilter = null;
+
+        if (/^[A-Za-z]{3,4}$/.test(query)) {
+            const subject = this._resolveSubjectForLiveSearch(query);
+            criteria.push({ field: 'subject', value: subject });
+        } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/.test(query)
+            && (query.includes('+') || wildcardPattern.test(query))) {
+            const match = query.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/);
+            const subject = this._resolveSubjectForLiveSearch(match[1]);
+            resultFilter = this.liveCourseRangeFilter(match[2]);
+            if (!resultFilter) throw new Error('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
+            criteria.push({ field: 'subject', value: subject });
+        } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/.test(query)) {
+            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/);
+            const subject = this._resolveSubjectForLiveSearch(match[1]);
+            const prefix = match[2];
+            resultFilter = code => {
+                const number = String(code || '').match(/^[A-Z]+\s*(\d{3})/i);
+                return Boolean(number && number[1].startsWith(prefix));
+            };
+            criteria.push({ field: 'subject', value: subject });
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/.test(query)) {
+            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/);
+            const subject = this._resolveSubjectForLiveSearch(match[1]);
+            criteria.push({ field: 'alias', value: `${subject} ${match[2].toUpperCase()}` });
+        } else if (/^\d{5}$/.test(query)) {
+            criteria.push({ field: 'crn', value: query });
+        } else if (/^\d{4}$/.test(query)) {
+            throw new Error('A CRN has 5 digits. For a course, include its subject, such as CSCE 145.');
+        } else if (/^\d{3}\s?[A-Za-z]?$/.test(query)) {
+            throw new Error('Include the subject code, such as CSCE 145.');
+        } else if (/^\d{1,2}$/.test(query)) {
+            throw new Error('Enter a subject code or full course number, such as CSCE 145.');
+        } else if (query.length < 5) {
+            throw new Error('Keywords must be at least 5 characters.');
+        } else {
+            const searchId = ++this._searchId;
+            const semantic = await this._doSemanticSearch(query, true, false, searchId);
+            if (!semantic || searchId !== this._searchId) return { results: [], semantic: true };
+            const subjects = [...new Set(semantic.results
+                .map(result => String(result.code || '').split(' ')[0])
+                .filter(Boolean))];
+            const liveBatches = await Promise.all(subjects.map(subject => API.searchCourses(
+                State.term,
+                [{ field: 'subject', value: subject }],
+            ).then(data => data.results || []).catch(() => [])));
+            if (searchId !== this._searchId) return { results: [], semantic: true };
+            const liveByCode = this.buildLiveCourseIndex(liveBatches.flat());
+            const liveResults = this.mergeCatalogWithLiveSections(semantic.results, liveByCode)
+                .filter(result => !result._isCatalog);
+            return { results: liveResults, semantic: true };
+        }
+
+        const data = await API.searchCourses(State.term, criteria);
+        const results = resultFilter
+            ? (data.results || []).filter(result => resultFilter(result.code || ''))
+            : (data.results || []);
+        return { results, semantic: false };
+    },
+
     init() {
         // Load subject list for fuzzy matching
         fetch('/api/subjects').then(r => r.json()).then(list => { this._subjects = list; });

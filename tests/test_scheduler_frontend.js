@@ -760,12 +760,12 @@ test('adding a course code stores every live section without choosing one', asyn
 });
 
 test('schedule search groups live sections into course-level results', async () => {
-    let submittedCriteria;
+    let submittedQuery;
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         State: { term: '202608' },
-        API: {
-            async searchCourses(term, criteria) {
-                submittedCriteria = criteria;
+        Search: {
+            async searchLiveCourses(query) {
+                submittedQuery = query;
                 return {
                     results: [
                         { code: 'CSCE 145', crn: '11111', title: 'Algorithmic Design I' },
@@ -779,10 +779,56 @@ test('schedule search groups live sections into course-level results', async () 
 
     const groups = await scheduler.searchCourseGroups('CSCE');
 
-    assert.equal(submittedCriteria[0].field, 'subject');
-    assert.equal(submittedCriteria[0].value, 'CSCE');
+    assert.equal(submittedQuery, 'CSCE');
     assert.equal(groups.length, 2);
     assert.equal(groups[0].sections.length, 2);
+});
+
+test('schedule search shares browse CRN, range, partial, and semantic query behavior', async () => {
+    const calls = [];
+    const search = loadObject('static/js/search.js', 'Search', {
+        State: { term: '202608' },
+        API: {
+            async searchCourses(term, criteria) {
+                calls.push(criteria);
+                return {
+                    results: [
+                        { code: 'CSCE 501', crn: '10501' },
+                        { code: 'CSCE 550', crn: '10550' },
+                        { code: 'CSCE 410', crn: '10410' },
+                    ],
+                };
+            },
+        },
+    });
+
+    const crn = await search.searchLiveCourses('10501');
+    assert.equal(calls[0][0].field, 'crn');
+    assert.equal(calls[0][0].value, '10501');
+    assert.equal(crn.results.length, 3);
+
+    const range = await search.searchLiveCourses('CSCE 500+');
+    assert.deepEqual(Array.from(range.results, result => result.code), ['CSCE 501', 'CSCE 550']);
+
+    const partial = await search.searchLiveCourses('CSCE 5');
+    assert.deepEqual(Array.from(partial.results, result => result.code), ['CSCE 501', 'CSCE 550']);
+
+    search._doSemanticSearch = async () => ({
+        results: [{ code: 'CSCE 550', title: 'Data Structures' }],
+        expandedTerms: [],
+    });
+    const semantic = await search.searchLiveCourses('graph algorithms');
+    assert.equal(semantic.semantic, true);
+    assert.equal(semantic.results[0].crn, '10550');
+});
+
+test('schedule course search paginates matches instead of discarding them', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.doesNotMatch(source, /Object\.values\(groups\)\.slice\(0, 30\)/);
+    assert.match(source, /_searchPageSize:\s*30/);
+    assert.match(source, /SHOW \$\{increment\} MORE/);
+    assert.match(source, /Search\.searchLiveCourses\(query\)/);
 });
 
 test('preview renders a candidate without replacing selected sections', () => {

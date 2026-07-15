@@ -777,6 +777,10 @@ main {
     margin: 0;
     padding: 4px;
 }
+.schedule-search-show-more {
+    margin: 4px 0 2px;
+    width: 100%;
+}
 .schedule-course-divider {
     background: #000000;
     cursor: row-resize;

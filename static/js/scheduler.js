@@ -1,6 +1,8 @@
 /* Course-level schedule builder and solver frontend glue */
 const Scheduler = {
     _lastSearchGroups: [],
+    _searchPageSize: 30,
+    _searchVisibleCount: 30,
     _preferredWorkspaceHeight: 620,
     _quickViewRequestId: 0,
 
@@ -489,21 +491,7 @@ const Scheduler = {
     },
 
     async searchCourseGroups(query) {
-        const normalized = this.normalizeCourseCode(query);
-        let criteria;
-        if (/^[A-Z]{2,4}\s+\d{3}[A-Z]?$/.test(normalized)) {
-            criteria = [{ field: 'alias', value: normalized }];
-        } else if (/^[A-Z]{2,4}$/.test(normalized)) {
-            criteria = [{ field: 'subject', value: normalized }];
-        } else if (/^\d+$/.test(normalized)) {
-            throw new Error('Include the subject code, such as CSCE 145.');
-        } else if (normalized.length >= 3) {
-            criteria = [{ field: 'keyword', value: String(query).trim() }];
-        } else {
-            throw new Error('Enter a subject, course code, or keyword.');
-        }
-
-        const result = await API.searchCourses(State.term, criteria);
+        const result = await Search.searchLiveCourses(query);
         const groups = {};
         (result.results || []).forEach(section => {
             if (!section.code) return;
@@ -516,7 +504,7 @@ const Scheduler = {
             }
             groups[section.code].sections.push(section);
         });
-        return Object.values(groups).slice(0, 30);
+        return Object.values(groups);
     },
 
     async searchFromInput() {
@@ -528,6 +516,7 @@ const Scheduler = {
         results.innerHTML = '<p class="loading">Searching courses</p>';
         try {
             this._lastSearchGroups = await this.searchCourseGroups(input.value);
+            this._searchVisibleCount = this._searchPageSize;
             if (this._lastSearchGroups.length === 0) {
                 this.setCourseStatus('No courses found in the selected term.', 'error');
             } else {
@@ -552,7 +541,7 @@ const Scheduler = {
         }
 
         container.innerHTML = '';
-        this._lastSearchGroups.forEach(group => {
+        this._lastSearchGroups.slice(0, this._searchVisibleCount).forEach(group => {
             const availability = this.scheduleCourseAvailability(group);
             const selected = State.isCourseSelected(group.code);
             const course = document.createElement('div');
@@ -578,6 +567,19 @@ const Scheduler = {
             });
             container.appendChild(course);
         });
+        if (this._searchVisibleCount < this._lastSearchGroups.length) {
+            const remaining = this._lastSearchGroups.length - this._searchVisibleCount;
+            const increment = Math.min(this._searchPageSize, remaining);
+            const showMore = document.createElement('button');
+            showMore.type = 'button';
+            showMore.className = 'btn-show-more schedule-search-show-more';
+            showMore.textContent = `SHOW ${increment} MORE`;
+            showMore.addEventListener('click', () => {
+                this._searchVisibleCount += this._searchPageSize;
+                this.renderCourseSearchResults();
+            });
+            container.appendChild(showMore);
+        }
     },
 
     escapeHtml(value) {
