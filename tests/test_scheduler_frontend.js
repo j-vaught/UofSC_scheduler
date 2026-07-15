@@ -209,6 +209,7 @@ test('browse section details add and lock the specific section', () => {
 
 test('browse filters separate primary and additional course choices', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(source, /id="filter-show-all"/);
     assert.doesNotMatch(source, /id="filter-current-term"/);
@@ -224,6 +225,39 @@ test('browse filters separate primary and additional course choices', () => {
     assert.ok(source.indexOf('id="filter-meeting-pattern"') > additionalStart);
     assert.ok(source.indexOf('id="filter-size-mode"') > additionalStart);
     assert.ok(source.indexOf('id="filter-avail-mode"') > additionalStart);
+    assert.ok(source.indexOf('id="btn-apply-filters"') > additionalStart);
+    assert.ok(source.indexOf('id="btn-clear-filters"') > additionalStart);
+    assert.match(styles, /\.filter-actions\s*{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\)/s);
+    assert.match(styles, /@container browse-sidebar \(max-width:\s*285px\)/);
+    assert.match(styles, /\.filter-action-compact\s*{\s*display:\s*inline;/s);
+});
+
+test('clear filters resets browse controls and reapplies the search', () => {
+    const checkboxes = [{ checked: true }, { checked: true }];
+    const selects = [{ selectedIndex: 2 }, { selectedIndex: 1 }];
+    const numbers = [{ value: '25' }, { value: '4' }];
+    const search = loadObject('static/js/search.js', 'Search', {
+        document: {
+            querySelectorAll(selector) {
+                if (selector.includes('checkbox')) return checkboxes;
+                if (selector.includes('select')) return selects;
+                if (selector.includes('number')) return numbers;
+                return [];
+            },
+            getElementById(id) {
+                return id === 'keyword-input' ? { value: 'CSCE' } : null;
+            },
+        },
+    });
+    let searches = 0;
+    search.doSearch = () => { searches += 1; };
+
+    search.clearFilters();
+
+    assert.equal(checkboxes.every(input => input.checked === false), true);
+    assert.equal(selects.every(select => select.selectedIndex === 0), true);
+    assert.equal(numbers.every(input => input.value === ''), true);
+    assert.equal(searches, 1);
 });
 
 test('instructional method and Carolina Core filters use section and bulletin data', async () => {

@@ -341,8 +341,23 @@ const Search = {
                 additionalArrow.classList.toggle('open');
             });
         }
+
+        document.getElementById('btn-apply-filters')?.addEventListener('click', () => this.doSearch());
+        document.getElementById('btn-clear-filters')?.addEventListener('click', () => this.clearFilters());
     },
 
+    clearFilters() {
+        document.querySelectorAll('#filter-panel input[type="checkbox"]').forEach(input => {
+            input.checked = false;
+        });
+        document.querySelectorAll('#filter-panel select').forEach(select => {
+            select.selectedIndex = 0;
+        });
+        document.querySelectorAll('#filter-panel input[type="number"]').forEach(input => {
+            input.value = '';
+        });
+        if (document.getElementById('keyword-input')?.value.trim()) this.doSearch();
+    },
 
     async doSearch() {
         const rawInput = document.getElementById('keyword-input').value.trim();
