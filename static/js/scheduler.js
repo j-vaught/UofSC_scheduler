@@ -2,6 +2,7 @@
 const Scheduler = {
     _lastSearchGroups: [],
     _preferredWorkspaceHeight: 620,
+    _quickViewRequestId: 0,
 
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
@@ -40,6 +41,7 @@ const Scheduler = {
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
         if (!overlay || !modal || !content) return;
+        modal.classList.remove('course-quick-modal');
 
         const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         const avoidedDays = new Set((State.avoidedDays || []).map(Number));
@@ -274,19 +276,256 @@ const Scheduler = {
             const course = document.createElement('div');
             course.className = `schedule-search-course${selected ? ' selected' : ''}`;
             course.innerHTML = `
-                <div class="schedule-search-course-copy">
+                <div class="schedule-search-course-copy" role="button" tabindex="0" aria-label="View details for ${this.escapeHtml(group.code)}">
                     <strong>${group.code}</strong>
                     <span>${group.title}</span>
                     <small class="schedule-course-availability ${availability.kind}">${availability.text}</small>
                 </div>
                 <button class="btn-course-add schedule-course-add ${selected ? 'btn-danger added' : 'btn-green'}" data-code="${group.code}">${selected ? 'REMOVE' : 'ADD'}</button>
             `;
+            const courseCopy = course.querySelector('.schedule-search-course-copy');
+            courseCopy.addEventListener('click', () => this.openCourseQuickView(group));
+            courseCopy.addEventListener('keydown', event => {
+                if (!['Enter', ' '].includes(event.key)) return;
+                event.preventDefault();
+                this.openCourseQuickView(group);
+            });
             course.querySelector('.btn-course-add').addEventListener('click', async () => {
                 if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
                 else await this.addCourseGroup(group);
             });
             container.appendChild(course);
         });
+    },
+
+    escapeHtml(value) {
+        return String(value ?? '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    },
+
+    stripHtml(value) {
+        const element = document.createElement('div');
+        element.innerHTML = String(value || '');
+        return (element.textContent || '').replace(/\s+/g, ' ').trim();
+    },
+
+    normalizeInstructorName(value) {
+        return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    },
+
+    currentInstructorSummaries(group, gradeData = {}) {
+        const instructors = {};
+        (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
+            String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).forEach(rawName => {
+                const name = rawName.trim();
+                if (!name || ['staff', 'undecided', 'tba'].includes(name.toLowerCase())) return;
+                if (!instructors[name]) instructors[name] = { name, sections: 0, open: 0, grade: null };
+                instructors[name].sections += 1;
+                if (this.isOpenSection(section)) instructors[name].open += 1;
+            });
+        });
+        const historical = gradeData.instructors || [];
+        Object.values(instructors).forEach(summary => {
+            const normalized = this.normalizeInstructorName(summary.name);
+            summary.grade = historical.find(record => {
+                const candidate = this.normalizeInstructorName(record.name);
+                return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
+            }) || null;
+        });
+        return Object.values(instructors)
+            .sort((a, b) => b.open - a.open || b.sections - a.sections || a.name.localeCompare(b.name));
+    },
+
+    gradeBuckets(gradeData = {}) {
+        const counts = gradeData.grade_counts || {};
+        const buckets = [
+            { label: 'A', count: Number(counts.A) || 0, className: 'grade-a' },
+            { label: 'B', count: (Number(counts['B+']) || 0) + (Number(counts.B) || 0), className: 'grade-b' },
+            { label: 'C', count: (Number(counts['C+']) || 0) + (Number(counts.C) || 0), className: 'grade-c' },
+            { label: 'D / F', count: ['D+', 'D', 'F', 'FN'].reduce((sum, grade) => sum + (Number(counts[grade]) || 0), 0), className: 'grade-df' },
+        ];
+        const total = buckets.reduce((sum, bucket) => sum + bucket.count, 0);
+        return buckets.map(bucket => ({
+            ...bucket,
+            percent: total ? Math.round(bucket.count / total * 100) : 0,
+        }));
+    },
+
+    renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}) {
+        const content = document.getElementById('modal-content');
+        if (!content) return;
+        const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+        const openSections = liveSections.filter(section => this.isOpenSection(section)).length;
+        const availabilityPercent = liveSections.length ? Math.round(openSections / liveSections.length * 100) : 0;
+        const availability = this.scheduleCourseAvailability(group);
+        const credits = this.parseCreditHours(details.hours_html || group.credits || liveSections[0]?.hours);
+        const description = this.stripHtml(details.description || '').slice(0, 280);
+        const prerequisite = this.stripHtml(details.prereq || details.prerequisite || '');
+        const buckets = this.gradeBuckets(gradeData);
+        const instructors = this.currentInstructorSummaries(group, gradeData);
+        const visibleInstructors = instructors.slice(0, 4);
+        const courseGpa = Number(gradeData.average_gpa);
+        const hasGrades = Number.isFinite(courseGpa) && Number(gradeData.graded_students) > 0;
+        const hasOffering = Number.isFinite(Number(offering.frequency));
+        const frequency = hasOffering
+            ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
+            : 0;
+
+        const gradeStrip = buckets.map(bucket => bucket.percent > 0
+            ? `<span class="quick-grade-segment ${bucket.className}" style="width:${bucket.percent}%" title="${bucket.label}: ${bucket.percent}%"></span>`
+            : '').join('');
+        const gradeLegend = buckets.map(bucket => `
+            <span><i class="${bucket.className}"></i><strong>${bucket.percent}%</strong> ${bucket.label}</span>
+        `).join('');
+        const instructorCards = visibleInstructors.map(instructor => {
+            const grade = instructor.grade;
+            const gpa = Number(grade?.average_gpa);
+            const gpaPosition = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
+            return `
+                <article class="quick-instructor-card">
+                    <div class="quick-instructor-heading">
+                        <strong>${this.escapeHtml(instructor.name)}</strong>
+                        <span>${instructor.open} open / ${instructor.sections} section${instructor.sections === 1 ? '' : 's'}</span>
+                    </div>
+                    ${Number.isFinite(gpa) ? `
+                        <div class="quick-gpa-track" aria-label="Historical course GPA ${gpa.toFixed(2)} out of 4">
+                            <span style="width:${gpaPosition}%"></span>
+                        </div>
+                        <small>${gpa.toFixed(2)} historical course GPA · ${Number(grade.graded_students || 0).toLocaleString()} grades</small>
+                    ` : '<small>No matched grade history for this course.</small>'}
+                </article>
+            `;
+        }).join('');
+
+        content.innerHTML = `
+            <section class="course-quick-view" aria-labelledby="course-quick-title">
+                <header class="course-quick-header">
+                    <div>
+                        <span class="course-quick-kicker">QUICK COURSE DETAILS</span>
+                        <h2 id="course-quick-title">${this.escapeHtml(group.code)}</h2>
+                        <p>${this.escapeHtml(details.title || group.title)}</p>
+                    </div>
+                    <div class="course-quick-credits"><strong>${credits ?? '—'}</strong><span>CREDITS</span></div>
+                </header>
+
+                <div class="course-quick-overview">
+                    <section class="quick-availability-card">
+                        <div class="quick-section-heading">
+                            <h3>This term</h3>
+                            <span class="schedule-course-availability ${availability.kind}">${availability.text}</span>
+                        </div>
+                        <div class="quick-availability-track" aria-label="${availabilityPercent}% of sections open">
+                            <span style="width:${availabilityPercent}%"></span>
+                        </div>
+                        <small>${openSections} open · ${Math.max(0, liveSections.length - openSections)} full</small>
+                    </section>
+                    <section class="quick-offering-card">
+                        <div id="quick-frequency-ring" class="quick-frequency-ring" style="--frequency:${frequency * 3.6}deg"><strong>${hasOffering ? `${frequency}%` : '…'}</strong></div>
+                        <div><h3>How often it runs</h3><p id="quick-offering-label">${this.escapeHtml(offering.label || 'Checking offering history')}</p><small id="quick-offering-count">${offering.total_terms_checked ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms` : ''}</small></div>
+                    </section>
+                </div>
+
+                ${description || prerequisite ? `
+                    <section class="course-quick-summary">
+                        ${description ? `<p>${this.escapeHtml(description)}${this.stripHtml(details.description || '').length > 280 ? '…' : ''}</p>` : ''}
+                        <div class="quick-prerequisite"><strong>PREREQUISITES</strong><span>${this.escapeHtml(prerequisite || 'None listed')}</span></div>
+                    </section>
+                ` : ''}
+
+                <section class="course-quick-section">
+                    <div class="quick-section-heading"><h3>Current instructors</h3><span>${instructors.length} listed this term</span></div>
+                    <div class="quick-instructor-grid">${instructorCards || '<p class="quick-empty">Instructor assignments have not been posted.</p>'}</div>
+                    ${instructors.length > visibleInstructors.length ? `<small class="quick-more-note">${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in Browse.</small>` : ''}
+                </section>
+
+                <section class="course-quick-section quick-grade-section">
+                    <div class="quick-section-heading"><h3>Historical grades</h3>${hasGrades ? `<span>${courseGpa.toFixed(2)} GPA · ${Number(gradeData.graded_students).toLocaleString()} grades</span>` : ''}</div>
+                    ${hasGrades ? `<div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div><div class="quick-grade-legend">${gradeLegend}</div>` : '<p class="quick-empty">No historical grade data is available.</p>'}
+                </section>
+
+                <footer class="course-quick-actions">
+                    <button id="btn-quick-course-toggle" class="${State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}">${State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
+                    <button id="btn-quick-view-browse" class="btn-secondary">VIEW FULL DETAILS IN BROWSE</button>
+                </footer>
+            </section>
+        `;
+
+        document.getElementById('btn-quick-course-toggle')?.addEventListener('click', async event => {
+            if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
+            else await this.addCourseGroup(group);
+            event.currentTarget.textContent = State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
+            event.currentTarget.className = State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
+        });
+        document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group));
+    },
+
+    updateQuickOffering(offering = {}) {
+        const ring = document.getElementById('quick-frequency-ring');
+        const label = document.getElementById('quick-offering-label');
+        const count = document.getElementById('quick-offering-count');
+        if (!ring || !label || !count) return;
+        const hasOffering = Number.isFinite(Number(offering.frequency));
+        const frequency = hasOffering
+            ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
+            : 0;
+        ring.style.setProperty('--frequency', `${frequency * 3.6}deg`);
+        ring.querySelector('strong').textContent = hasOffering ? `${frequency}%` : '—';
+        label.textContent = offering.label || 'Offering history unavailable';
+        count.textContent = offering.total_terms_checked
+            ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms`
+            : '';
+    },
+
+    async openCourseQuickView(group) {
+        const overlay = document.getElementById('modal-overlay');
+        const modal = document.getElementById('modal');
+        const content = document.getElementById('modal-content');
+        if (!overlay || !modal || !content) return;
+        modal.classList.add('course-quick-modal');
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'course-quick-title');
+        content.innerHTML = '<div class="course-quick-loading"><span></span><p>Loading course details</p></div>';
+        overlay.classList.remove('hidden');
+        const requestId = ++this._quickViewRequestId;
+
+        const offeringPromise = API.getOfferingAnalysis(group.code, State.term);
+        const [detailsResult, gradesResult] = await Promise.allSettled([
+            typeof Search !== 'undefined' && Search.fetchBulletinDetailsForCourse
+                ? Search.fetchBulletinDetailsForCourse(group.code)
+                : Promise.resolve({}),
+            API.getCourseGrades(group.code),
+        ]);
+        if (requestId !== this._quickViewRequestId || overlay.classList.contains('hidden')) return;
+        this.renderCourseQuickView(
+            group,
+            detailsResult.status === 'fulfilled' ? detailsResult.value || {} : {},
+            gradesResult.status === 'fulfilled' && !gradesResult.value?.error ? gradesResult.value : {},
+            {},
+        );
+        document.getElementById('modal-close')?.focus();
+        offeringPromise
+            .then(offering => {
+                if (requestId === this._quickViewRequestId && !offering?.error) this.updateQuickOffering(offering);
+            })
+            .catch(() => {
+                if (requestId === this._quickViewRequestId) this.updateQuickOffering({});
+            });
+    },
+
+    openCourseInBrowse(group) {
+        document.getElementById('modal-overlay')?.classList.add('hidden');
+        document.getElementById('modal')?.classList.remove('course-quick-modal');
+        if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
+        const input = document.getElementById('keyword-input');
+        if (input) input.value = group.code;
+        if (typeof Search === 'undefined') return;
+        Search.renderResults(group.sections || [], (group.sections || []).length, {}, false, null);
+        document.querySelector(`#search-results .course-group[data-course-code="${group.code}"] .course-header`)?.click();
     },
 
     scheduleCourseAvailability(group) {

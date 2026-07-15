@@ -469,6 +469,56 @@ test('schedule result cards use fixed add-remove buttons and truncating text', (
     assert.doesNotMatch(styles, /\.schedule-search-course\.selected\s*{[^}]*border-left:/s);
 });
 
+test('schedule course cards open a visual quick view without hijacking add-remove', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const api = fs.readFileSync('static/js/api.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(source, /courseCopy\.addEventListener\('click', \(\) => this\.openCourseQuickView\(group\)\)/);
+    assert.match(source, /id="btn-quick-course-toggle"/);
+    assert.match(source, /id="btn-quick-view-browse"/);
+    assert.match(source, /quick-grade-strip/);
+    assert.match(source, /quick-frequency-ring/);
+    assert.match(api, /async getCourseGrades\(code\)/);
+    assert.match(styles, /#modal\.course-quick-modal\s*{[^}]*max-width:\s*780px;/s);
+    assert.match(styles, /\.quick-instructor-grid\s*{[^}]*grid-template-columns:\s*repeat\(2,/s);
+});
+
+test('quick view compares grades only for instructors teaching the current term', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const summaries = scheduler.currentInstructorSummaries({
+        sections: [
+            { crn: '1', instr: 'Kanapala, Neema', stat: 'A' },
+            { crn: '2', instr: 'Kanapala, Neema', stat: 'C' },
+            { crn: '3', instr: 'Hoskins, William', stat: 'A' },
+            { crn: '4', instr: 'Staff', stat: 'A' },
+        ],
+    }, {
+        instructors: [
+            { name: 'Kanapala, Neema', average_gpa: 3.04 },
+            { name: 'Shepherd, Jeremiah', average_gpa: 3.01 },
+        ],
+    });
+
+    assert.equal(summaries.length, 2);
+    assert.equal(summaries[0].name, 'Kanapala, Neema');
+    assert.equal(summaries[0].sections, 2);
+    assert.equal(summaries[0].open, 1);
+    assert.equal(summaries[0].grade.average_gpa, 3.04);
+    assert.equal(summaries[1].name, 'Hoskins, William');
+    assert.equal(summaries[1].grade, null);
+});
+
+test('quick view grade diagram groups outcomes into readable bands', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const buckets = scheduler.gradeBuckets({
+        grade_counts: { A: 50, 'B+': 10, B: 20, 'C+': 5, C: 5, 'D+': 2, D: 3, F: 5, FN: 0 },
+    });
+
+    assert.deepEqual(Array.from(buckets, bucket => bucket.label), ['A', 'B', 'C', 'D / F']);
+    assert.deepEqual(Array.from(buckets, bucket => bucket.percent), [50, 30, 10, 10]);
+});
+
 test('course results divider is adjustable while preserving selected-course space', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
     const source = fs.readFileSync('static/index.html', 'utf8');

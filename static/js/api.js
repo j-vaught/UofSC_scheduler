@@ -69,4 +69,8 @@ const API = {
     async getOfferingAnalysis(code, currentTerm) {
         return this.post('/api/offering-analysis', { code, current_term: currentTerm });
     },
+
+    async getCourseGrades(code) {
+        return this.post('/api/course-grades', { code });
+    },
 };

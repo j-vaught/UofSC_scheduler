@@ -714,9 +714,13 @@
         // Modal
         document.getElementById('modal-close').addEventListener('click', () => {
             document.getElementById('modal-overlay').classList.add('hidden');
+            document.getElementById('modal').classList.remove('course-quick-modal');
         });
         document.getElementById('modal-overlay').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) e.currentTarget.classList.add('hidden');
+            if (e.target === e.currentTarget) {
+                e.currentTarget.classList.add('hidden');
+                document.getElementById('modal').classList.remove('course-quick-modal');
+            }
         });
     });
     </script>
