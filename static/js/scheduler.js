@@ -329,6 +329,15 @@ const Scheduler = {
 
         const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         const avoidedDays = new Set((State.avoidedDays || []).map(Number));
+        const modeControl = (id, label, required) => `
+            <label class="schedule-preference-mode" for="${id}">
+                <span class="schedule-preference-mode-label">How to apply</span>
+                <input id="${id}" type="checkbox"${required ? ' checked' : ''} aria-label="${label}">
+                <span class="schedule-preference-mode-track" aria-hidden="true">
+                    <span class="prefer">PREFER</span><span class="require">REQUIRE</span>
+                </span>
+            </label>
+        `;
         const dayOptions = dayNames.map((name, day) => `
             <label>
                 <input type="checkbox" name="schedule-avoid-day" value="${day}"${avoidedDays.has(day) ? ' checked' : ''}>
@@ -342,6 +351,7 @@ const Scheduler = {
                 <div class="schedule-preference-grid">
                     <fieldset class="schedule-preference-times">
                         <legend>Class times to avoid when possible</legend>
+                        ${modeControl('schedule-time-mode-required', 'Require all class-time choices', State.timePreferencesRequired)}
                         <div class="schedule-time-options">
                             <label for="schedule-preferred-start">
                                 <span>Before</span>
@@ -365,6 +375,7 @@ const Scheduler = {
                     </fieldset>
                     <fieldset class="schedule-preference-walking">
                         <legend>Minimum time between classes</legend>
+                        ${modeControl('schedule-walking-mode-required', 'Require the minimum time between classes', State.walkingBufferRequired)}
                         <label for="schedule-minimum-walking-buffer">
                             <span>Extra time after walking between classes</span>
                             <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(State.minimumWalkingBuffer) || 1)}">
@@ -373,6 +384,7 @@ const Scheduler = {
                     </fieldset>
                     <fieldset class="schedule-preference-days">
                         <legend>Days to avoid when possible</legend>
+                        ${modeControl('schedule-days-mode-required', 'Require classes to avoid the selected days', State.avoidedDaysRequired)}
                         <div class="schedule-day-options">${dayOptions}</div>
                     </fieldset>
                 </div>
@@ -484,6 +496,9 @@ const Scheduler = {
                 start: Number(cell.dataset.start),
                 end: Number(cell.dataset.end),
             }));
+        State.timePreferencesRequired = document.getElementById('schedule-time-mode-required').checked;
+        State.walkingBufferRequired = document.getElementById('schedule-walking-mode-required').checked;
+        State.avoidedDaysRequired = document.getElementById('schedule-days-mode-required').checked;
         document.getElementById('modal-overlay').classList.add('hidden');
         State.emit('preferences-changed');
         return true;
@@ -1327,9 +1342,16 @@ const Scheduler = {
         const { total_found, returned, schedules } = result;
         if (!schedules || schedules.length === 0) {
             const hasLocks = Object.keys(State.sectionLocks || {}).length > 0;
-            container.innerHTML = hasLocks
-                ? '<p class="solver-error">No conflict-free schedule works with the locked sections. Change a section preference or remove a course.</p>'
-                : '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
+            const hasRequirements = State.timePreferencesRequired
+                || State.walkingBufferRequired
+                || State.avoidedDaysRequired;
+            if (hasLocks) {
+                container.innerHTML = '<p class="solver-error">No conflict-free schedule works with the locked sections. Change a section preference or remove a course.</p>';
+            } else if (hasRequirements) {
+                container.innerHTML = '<p class="solver-error">No schedule meets every required preference. Switch a requirement to Prefer or adjust its choices.</p>';
+            } else {
+                container.innerHTML = '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
+            }
             return;
         }
 

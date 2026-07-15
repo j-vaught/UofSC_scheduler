@@ -1091,7 +1091,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-times legend,
 .schedule-preference-walking legend,
 .schedule-time-options label,
-.schedule-preference-walking label {
+.schedule-preference-walking > label:not(.schedule-preference-mode) {
     color: #363636;
     display: block;
     font-size: 0.76rem;
@@ -1101,7 +1101,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-field input[type="number"],
 .schedule-preference-field input[type="time"],
 .schedule-time-options input,
-.schedule-preference-walking input {
+.schedule-preference-walking input[type="number"] {
     background: #ffffff;
     border: 2px solid #000000;
     border-radius: 0;
@@ -1123,6 +1123,53 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-preference-days,
 .schedule-preference-times,
 .schedule-preference-walking { grid-column: 1 / -1; }
+
+.schedule-preference-mode {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    margin: 0 0 10px;
+}
+.schedule-preference-mode-label {
+    color: #5C5C5C;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.schedule-preference-mode input {
+    height: 1px;
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+}
+.schedule-preference-mode-track {
+    border: 2px solid #000000;
+    display: grid;
+    flex: 0 0 160px;
+    grid-template-columns: repeat(2, 1fr);
+}
+.schedule-preference-mode-track span {
+    background: #ffffff;
+    color: #5C5C5C;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 5px 7px;
+    text-align: center;
+}
+.schedule-preference-mode input:not(:checked) + .schedule-preference-mode-track .prefer {
+    background: #000000;
+    color: #ffffff;
+}
+.schedule-preference-mode input:checked + .schedule-preference-mode-track .require {
+    background: #73000A;
+    color: #ffffff;
+}
+.schedule-preference-mode input:focus-visible + .schedule-preference-mode-track {
+    outline: 2px solid #466A9F;
+    outline-offset: 2px;
+}
+.schedule-preference-mode:hover .schedule-preference-mode-track { border-color: #73000A; }
 
 #modal.schedule-preferences-modal { max-width: 850px; }
 .schedule-advanced-toggle {
@@ -1219,7 +1266,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 
 .schedule-time-options label,
-.schedule-preference-walking label {
+.schedule-preference-walking > label:not(.schedule-preference-mode) {
     display: grid;
     gap: 4px;
 }

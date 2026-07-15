@@ -143,6 +143,89 @@ class SchedulerTests(unittest.TestCase):
         self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "preferred")
         self.assertEqual(result["schedules"][1]["sections"]["TEST 101"]["crn"], "avoided")
 
+    def test_required_time_preferences_remove_outside_and_painted_times(self):
+        courses = [
+            {
+                "code": "TEST 101",
+                "sections": [
+                    section("early", '[{"meet_day": 0, "start_time": 730, "end_time": 820}]'),
+                    section("painted", '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]'),
+                    section("allowed", '[{"meet_day": 0, "start_time": 1100, "end_time": 1200}]'),
+                ],
+            }
+        ]
+
+        result = solve(
+            {
+                "courses": courses,
+                "preferences": {
+                    "preferred_start": 800,
+                    "preferred_end": 2100,
+                    "avoided_time_blocks": [{"day": 0, "start": 900, "end": 1000}],
+                    "time_preferences_required": True,
+                },
+            }
+        )
+
+        self.assertEqual(result["total_found"], 1)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "allowed")
+
+    def test_required_avoided_days_remove_sections_on_those_days(self):
+        courses = [
+            {
+                "code": "TEST 101",
+                "sections": [
+                    section("monday", '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]'),
+                    section("tuesday", '[{"meet_day": 1, "start_time": 900, "end_time": 1000}]'),
+                ],
+            }
+        ]
+
+        result = solve(
+            {
+                "courses": courses,
+                "preferences": {"avoided_days": [0], "avoided_days_required": True},
+            }
+        )
+
+        self.assertEqual(result["total_found"], 1)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 101"]["crn"], "tuesday")
+
+    def test_required_walking_buffer_removes_short_transitions(self):
+        first = section(
+            "first",
+            '[{"meet_day": 0, "start_time": 900, "end_time": 1000}]',
+            _walking_locations=[{"day": 0, "start": 540, "latitude": 34.0, "longitude": -81.0}],
+        )
+        short = section(
+            "short",
+            '[{"meet_day": 0, "start_time": 1010, "end_time": 1100}]',
+            code="TEST 102",
+            _walking_locations=[{"day": 0, "start": 610, "latitude": 34.0, "longitude": -80.999}],
+        )
+        long = section(
+            "long",
+            '[{"meet_day": 0, "start_time": 1030, "end_time": 1100}]',
+            code="TEST 102",
+            _walking_locations=[{"day": 0, "start": 630, "latitude": 34.0, "longitude": -80.999}],
+        )
+
+        result = solve(
+            {
+                "courses": [
+                    {"code": "TEST 101", "sections": [first]},
+                    {"code": "TEST 102", "sections": [short, long]},
+                ],
+                "preferences": {
+                    "minimum_walking_buffer_minutes": 10,
+                    "walking_buffer_required": True,
+                },
+            }
+        )
+
+        self.assertEqual(result["total_found"], 1)
+        self.assertEqual(result["schedules"][0]["sections"]["TEST 102"]["crn"], "long")
+
     def test_minimum_walking_buffer_ranks_without_removing_schedule(self):
         first = section(
             "first",

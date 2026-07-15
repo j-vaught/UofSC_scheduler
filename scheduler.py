@@ -134,6 +134,51 @@ def is_consistent(section, assignment, blocked_times):
     return True
 
 
+def required_preferences_satisfied(assignment, prefs):
+    """Return whether a complete schedule satisfies enabled hard preferences."""
+    meetings = [meeting for section in assignment.values() for meeting in section["_parsed_times"]]
+
+    if prefs.get("time_preferences_required"):
+        required_start = hhmm_to_minutes(prefs.get("preferred_start", 800))
+        required_end = hhmm_to_minutes(prefs.get("preferred_end", 2100))
+        if any(
+            hhmm_to_minutes(meeting["start"]) < required_start
+            or hhmm_to_minutes(meeting["end"]) > required_end
+            for meeting in meetings
+        ):
+            return False
+        if blocked_conflict(meetings, prefs.get("avoided_time_blocks", [])):
+            return False
+
+    if prefs.get("avoided_days_required"):
+        avoided_days = set()
+        for day in prefs.get("avoided_days", []):
+            try:
+                avoided_days.add(int(day))
+            except (TypeError, ValueError):
+                continue
+        if any(meeting["day"] in avoided_days for meeting in meetings):
+            return False
+
+    if prefs.get("walking_buffer_required"):
+        try:
+            required_buffer = max(1, int(prefs.get("minimum_walking_buffer_minutes", 1)))
+        except (TypeError, ValueError):
+            required_buffer = 1
+        day_meetings = {}
+        for meeting in meetings:
+            day_meetings.setdefault(meeting["day"], []).append(meeting)
+        for day_schedule in day_meetings.values():
+            ordered = sorted(day_schedule, key=lambda meeting: meeting["start"])
+            for first, second in zip(ordered, ordered[1:]):
+                gap = hhmm_to_minutes(second["start"]) - hhmm_to_minutes(first["end"])
+                walk = estimated_walk_minutes(first, second) or 0
+                if gap - walk < required_buffer:
+                    return False
+
+    return True
+
+
 def score_schedule(assignment, prefs):
     """Score a feasible schedule based on soft constraints."""
     score = 0.0
@@ -236,6 +281,9 @@ def solve(params):
             avoided_days: [int],
             avoided_time_blocks: [{day, start, end}],
             minimum_walking_buffer_minutes: int,
+            time_preferences_required: bool,
+            walking_buffer_required: bool,
+            avoided_days_required: bool,
             max_credits: int,
             gap_penalty_weight: float,
             day_compactness_weight: float,
@@ -275,7 +323,8 @@ def solve(params):
         if time.time() > deadline:
             return True
         if idx == len(courses_sorted):
-            solutions.append(copy.deepcopy(assignment))
+            if required_preferences_satisfied(assignment, prefs):
+                solutions.append(copy.deepcopy(assignment))
             return len(solutions) >= target
 
         course = courses_sorted[idx]

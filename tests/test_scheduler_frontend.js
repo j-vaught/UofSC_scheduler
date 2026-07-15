@@ -370,6 +370,9 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     state.avoidedDays = [1, 3];
     state.avoidedTimeBlocks = [{ day: 2, start: 1030, end: 1100 }];
     state.minimumWalkingBuffer = 5;
+    state.timePreferencesRequired = true;
+    state.walkingBufferRequired = true;
+    state.avoidedDaysRequired = true;
 
     const preferences = state.getPreferences();
 
@@ -378,6 +381,9 @@ test('schedule preferences expose one walking-aware transition choice', () => {
         { day: 2, start: 1030, end: 1100 },
     ]);
     assert.equal(preferences.minimum_walking_buffer_minutes, 5);
+    assert.equal(preferences.time_preferences_required, true);
+    assert.equal(preferences.walking_buffer_required, true);
+    assert.equal(preferences.avoided_days_required, true);
     assert.equal(preferences.minimum_transition_minutes, undefined);
     assert.equal(preferences.preferred_maximum_walk_minutes, undefined);
 
@@ -390,6 +396,10 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /buildAdvancedTimeAvoidance/);
     assert.match(source, /State\.avoidedTimeBlocks/);
     assert.match(source, /id="schedule-minimum-walking-buffer"/);
+    assert.match(source, /modeControl\('schedule-time-mode-required'/);
+    assert.match(source, /modeControl\('schedule-walking-mode-required'/);
+    assert.match(source, /modeControl\('schedule-days-mode-required'/);
+    assert.match(source, />PREFER<\/span><span class="require">REQUIRE</);
     assert.match(source, /Extra time after walking between classes/);
     assert.match(source, /Choose 10 to arrive at least ten minutes early/);
     assert.doesNotMatch(source, /Minutes remaining after travel/);

@@ -16,6 +16,9 @@ const State = {
     avoidedDays: [],
     avoidedTimeBlocks: [],
     minimumWalkingBuffer: 1,
+    timePreferencesRequired: false,
+    walkingBufferRequired: false,
+    avoidedDaysRequired: false,
     gapWeight: 2,
     compactWeight: 3,
     consecWeight: 2,
@@ -130,6 +133,9 @@ const State = {
             avoided_days: [...this.avoidedDays],
             avoided_time_blocks: this.avoidedTimeBlocks.map(block => ({ ...block })),
             minimum_walking_buffer_minutes: Math.max(1, Number(this.minimumWalkingBuffer) || 1),
+            time_preferences_required: Boolean(this.timePreferencesRequired),
+            walking_buffer_required: Boolean(this.walkingBufferRequired),
+            avoided_days_required: Boolean(this.avoidedDaysRequired),
             gap_penalty_weight: this.gapWeight,
             day_compactness_weight: this.compactWeight,
             consecutive_penalty_weight: this.consecWeight,
@@ -150,6 +156,9 @@ const State = {
             avoidedDays: [...this.avoidedDays],
             avoidedTimeBlocks: this.avoidedTimeBlocks.map(block => ({ ...block })),
             minimumWalkingBuffer: this.minimumWalkingBuffer,
+            timePreferencesRequired: this.timePreferencesRequired,
+            walkingBufferRequired: this.walkingBufferRequired,
+            avoidedDaysRequired: this.avoidedDaysRequired,
             completedCourses: [...this.completedCourses],
             completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
             profile: JSON.parse(JSON.stringify(this.profile)),
@@ -183,6 +192,9 @@ const State = {
         this.avoidedDays = plan.avoidedDays || [];
         this.avoidedTimeBlocks = (plan.avoidedTimeBlocks || []).map(block => ({ ...block }));
         this.minimumWalkingBuffer = Math.max(1, Number(plan.minimumWalkingBuffer) || 1);
+        this.timePreferencesRequired = Boolean(plan.timePreferencesRequired);
+        this.walkingBufferRequired = Boolean(plan.walkingBufferRequired);
+        this.avoidedDaysRequired = Boolean(plan.avoidedDaysRequired);
         this.completedCourses = plan.completedCourses || [];
         this.completedDetails = plan.completedDetails || [];
         if (plan.profile) {
