@@ -43,6 +43,22 @@ class OfferingAnalyzerTests(unittest.TestCase):
         self.assertEqual(result["total_terms_checked"], 2)
         self.assertEqual(result["frequency"], 0.5)
 
+    def test_display_uses_observed_frequency_instead_of_season_prediction(self):
+        history = {
+            "terms": [
+                {"term": "202401", "offered": False},
+                {"term": "202405", "offered": True},
+                {"term": "202408", "offered": True},
+            ],
+        }
+
+        result = offering_analyzer.analyze_offering_pattern(history, as_of_term="202501")
+
+        self.assertEqual(result["pattern"], "fall_only")
+        self.assertEqual(result["label"], "Offered in 67% of recent terms")
+        self.assertEqual(result["last_offered_term"], "202408")
+        self.assertEqual(result["last_offered_label"], "Fall 2024")
+
     def test_enrollment_summary_accepts_common_backend_field_names(self):
         history = {
             "terms": [

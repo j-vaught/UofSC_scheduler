@@ -479,6 +479,8 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /id="btn-quick-view-browse"/);
     assert.match(source, /quick-grade-strip/);
     assert.match(source, /quick-frequency-ring/);
+    assert.match(source, /Offered in \$\{frequency\}% of recent terms/);
+    assert.match(source, /Last offered \$\{offering\.last_offered_label\}/);
     assert.match(source, /const detailsPromise =/);
     assert.match(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
     assert.match(source, /detailsPromise\s*\.then\(details =>/);

@@ -195,12 +195,15 @@ def analyze_offering_pattern(history_data, as_of_term=None):
         return {
             "pattern": "unknown",
             "label": "No offering history available",
+            "pattern_label": "No offering history available",
             "semesters_offered": [],
             "frequency": 0,
             "avg_gap": None,
             "confidence": 0,
             "total_terms_checked": 0,
             "times_offered": 0,
+            "last_offered_term": None,
+            "last_offered_label": None,
             "enrollment": None,
         }
 
@@ -241,13 +244,16 @@ def analyze_offering_pattern(history_data, as_of_term=None):
     if total_offered == 0:
         return {
             "pattern": "unknown",
-            "label": "Not offered in recent terms",
+            "label": f"Not offered in {total_terms} recent terms",
+            "pattern_label": "Not offered in recent terms",
             "semesters_offered": [],
             "frequency": 0,
             "avg_gap": None,
             "confidence": 0.5,
             "total_terms_checked": total_terms,
             "times_offered": 0,
+            "last_offered_term": None,
+            "last_offered_label": None,
             "enrollment": summarize_enrollment(terms),
         }
 
@@ -302,20 +308,22 @@ def analyze_offering_pattern(history_data, as_of_term=None):
         pattern = f"every_{gap_rounded}_semesters"
         confidence = 0.5
 
-    # Generate label
-    label = _pattern_label(pattern, semesters_offered, avg_gap)
-
     frequency = total_offered / total_terms if total_terms > 0 else 0
+    frequency_percent = round(frequency * 100)
+    last_offered_term = max(offered_terms, key=term_sort_key)
 
     return {
         "pattern": pattern,
-        "label": label,
+        "label": f"Offered in {frequency_percent}% of recent terms",
+        "pattern_label": _pattern_label(pattern, semesters_offered, avg_gap),
         "semesters_offered": semesters_offered,
         "frequency": round(frequency, 2),
         "avg_gap": round(avg_gap, 1) if avg_gap else None,
         "confidence": round(confidence, 2),
         "total_terms_checked": total_terms,
         "times_offered": total_offered,
+        "last_offered_term": last_offered_term,
+        "last_offered_label": term_label(last_offered_term),
         "enrollment": summarize_enrollment(terms),
     }
 

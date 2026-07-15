@@ -370,10 +370,14 @@ const Scheduler = {
         const visibleInstructors = instructors.slice(0, 4);
         const courseGpa = Number(gradeData.average_gpa);
         const hasGrades = Number.isFinite(courseGpa) && Number(gradeData.graded_students) > 0;
-        const hasOffering = Number.isFinite(Number(offering.frequency));
+        const hasOffering = Number.isFinite(Number(offering.frequency))
+            && Number(offering.total_terms_checked) > 0;
         const frequency = hasOffering
             ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
             : 0;
+        const offeringCount = offering.total_terms_checked
+            ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms${offering.last_offered_label ? ` · Last offered ${offering.last_offered_label}` : ''}`
+            : '';
 
         const gradeStrip = buckets.map(bucket => bucket.percent > 0
             ? `<span class="quick-grade-segment ${bucket.className}" style="width:${bucket.percent}%" title="${bucket.label}: ${bucket.percent}%"></span>`
@@ -425,7 +429,7 @@ const Scheduler = {
                     </section>
                     <section class="quick-offering-card">
                         <div id="quick-frequency-ring" class="quick-frequency-ring" style="--frequency:${frequency * 3.6}deg"><strong>${hasOffering ? `${frequency}%` : '…'}</strong></div>
-                        <div><h3>How often it runs</h3><p id="quick-offering-label">${this.escapeHtml(offering.label || 'Checking offering history')}</p><small id="quick-offering-count">${offering.total_terms_checked ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms` : ''}</small></div>
+                        <div><h3>How often it runs</h3><p id="quick-offering-label">${this.escapeHtml(hasOffering ? `Offered in ${frequency}% of recent terms` : 'Checking offering history')}</p><small id="quick-offering-count">${this.escapeHtml(offeringCount)}</small></div>
                     </section>
                 </div>
 
@@ -491,16 +495,21 @@ const Scheduler = {
         const label = document.getElementById('quick-offering-label');
         const count = document.getElementById('quick-offering-count');
         if (!ring || !label || !count) return;
-        const hasOffering = Number.isFinite(Number(offering.frequency));
+        const hasOffering = Number.isFinite(Number(offering.frequency))
+            && Number(offering.total_terms_checked) > 0;
         const frequency = hasOffering
             ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
             : 0;
         ring.style.setProperty('--frequency', `${frequency * 3.6}deg`);
         ring.querySelector('strong').textContent = hasOffering ? `${frequency}%` : '—';
-        label.textContent = offering.label || 'Offering history unavailable';
-        count.textContent = offering.total_terms_checked
-            ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms`
-            : '';
+        label.textContent = hasOffering
+            ? `Offered in ${frequency}% of recent terms`
+            : 'Offering history unavailable';
+        const countParts = offering.total_terms_checked
+            ? [`${offering.times_offered} of ${offering.total_terms_checked} recent terms`]
+            : [];
+        if (offering.last_offered_label) countParts.push(`Last offered ${offering.last_offered_label}`);
+        count.textContent = countParts.join(' · ');
     },
 
     async openCourseQuickView(group) {
