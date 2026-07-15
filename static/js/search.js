@@ -10,6 +10,8 @@ const Search = {
     _pcaParams: null,        // PCA mean + components
     _courseEmbeddings: null,  // pre-computed course embeddings (title+desc)
     _courseVecs: null,        // normalized float32 course vectors
+    _bulletinCourseCache: {},
+    _carolinaCoreCache: {},
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -328,16 +330,14 @@ const Search = {
             });
         }
 
-        // Update term label when term changes
-        const termSelect = document.getElementById('term-select');
-        if (termSelect) {
-            const updateTermLabel = () => {
-                const opt = termSelect.options[termSelect.selectedIndex];
-                const label = document.getElementById('filter-term-label');
-                if (label && opt) label.textContent = opt.textContent;
-            };
-            termSelect.addEventListener('change', updateTermLabel);
-            updateTermLabel();
+        const additionalToggle = document.getElementById('additional-filter-toggle');
+        const additionalPanel = document.getElementById('additional-filter-panel');
+        const additionalArrow = document.getElementById('additional-filter-arrow');
+        if (additionalToggle && additionalPanel) {
+            additionalToggle.addEventListener('click', () => {
+                additionalPanel.classList.toggle('hidden');
+                additionalArrow.classList.toggle('open');
+            });
         }
     },
 
@@ -346,7 +346,9 @@ const Search = {
         const rawInput = document.getElementById('keyword-input').value.trim();
         const openOnly = document.getElementById('filter-open').checked;
         const eligibleOnly = document.getElementById('filter-eligible').checked;
-        const currentTermOnly = document.getElementById('filter-current-term').checked;
+        const currentTermOnly = !document.getElementById('filter-show-all').checked;
+        const instructionalMethod = document.getElementById('filter-method').value;
+        const carolinaCore = document.getElementById('filter-carolina-core').value;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
         const levelMode = '';
@@ -501,52 +503,28 @@ const Search = {
 
                 // Cross-reference ALL results with live term data
                 const subjects = [...new Set(results.map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
-                const liveByCode = {};
                 const livePromises = subjects.map(s =>
                     API.searchCourses(State.term, [{ field: 'subject', value: s }])
                         .then(d => d.results || []).catch(() => [])
                 );
                 const liveAll = await Promise.all(livePromises);
                 if (searchId !== this._searchId) return;
-                for (const batch of liveAll) {
-                    for (const r of batch) {
-                        if (!liveByCode[r.code]) liveByCode[r.code] = { hasOpen: false, sections: 0 };
-                        liveByCode[r.code].sections++;
-                        if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
-                    }
-                }
-
-                if (availMode && availValue !== null) {
-                    const availableSections = await this.filterByAvailableSeats(liveAll.flat(), availMode, availValue);
-                    const availableCodes = new Set(availableSections.map(section => section.code));
-                    results = results.filter(course => availableCodes.has(course.code));
-                }
+                const liveByCode = this.buildLiveCourseIndex(liveAll.flat());
 
                 if (currentTermOnly) {
                     // Only show courses offered this term
                     results = results.filter(c => liveByCode[c.code]);
-                    if (openOnly) results = results.filter(c => liveByCode[c.code]?.hasOpen);
                 }
 
-                // Convert to catalog-style display with availability badges
-                results = results.map(c => {
-                    const live = liveByCode[c.code];
-                    return {
-                        code: c.code,
-                        title: c.title || c.name || '',
-                        crn: '',
-                        section: 'CAT',
-                        stat: live ? (live.hasOpen ? 'A' : 'F') : '',
-                        instr: '',
-                        meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
-                        meetingTimes: null,
-                        total: '',
-                        key: c.key,
-                        _isCatalog: true,
-                        _offeredThisTerm: !!live,
-                        _hasOpen: live ? live.hasOpen : false,
-                        _relevanceScore: c._relevanceScore,
-                    };
+                results = this.mergeCatalogWithLiveSections(results, liveByCode);
+                results = await this.applySectionFilters(results, {
+                    openOnly,
+                    instructionalMethod,
+                    carolinaCore,
+                    sizeMode,
+                    sizeValue,
+                    availMode,
+                    availValue,
                 });
 
                 if (searchId !== this._searchId) return;
@@ -590,34 +568,10 @@ const Search = {
                 const liveResults = liveData.results || [];
 
                 // Build a set of course codes offered this term + their open status
-                const liveByCode = {};
-                liveResults.forEach(r => {
-                    if (!liveByCode[r.code]) {
-                        liveByCode[r.code] = { hasOpen: false, sections: 0 };
-                    }
-                    liveByCode[r.code].sections++;
-                    if (r.stat === 'A') liveByCode[r.code].hasOpen = true;
-                });
+                const liveByCode = this.buildLiveCourseIndex(liveResults);
 
                 // Convert bulletin results, merging live availability info
-                results = bulletinCourses.map(c => {
-                    const live = liveByCode[c.code];
-                    return {
-                        code: c.code,
-                        title: c.title || c.name || '',
-                        crn: '',
-                        section: 'CAT',
-                        stat: live ? (live.hasOpen ? 'A' : 'F') : '',
-                        instr: '',
-                        meets: live ? `${live.sections} section${live.sections !== 1 ? 's' : ''} this term` : 'Not offered this term',
-                        meetingTimes: null,
-                        total: '',
-                        key: c.key,
-                        _isCatalog: true,
-                        _offeredThisTerm: !!live,
-                        _hasOpen: live ? live.hasOpen : false,
-                    };
-                });
+                results = this.mergeCatalogWithLiveSections(bulletinCourses, liveByCode);
                 totalCount = results.length;
 
                 // Apply keyword course number filter to catalog results
@@ -658,20 +612,15 @@ const Search = {
                 });
             }
 
-            // Size filter (total seats)
-            if (sizeMode && sizeValue) {
-                results = results.filter(r => {
-                    const total = parseInt(r.total) || 0;
-                    if (sizeMode === 'above') return total >= sizeValue;
-                    if (sizeMode === 'below') return total < sizeValue;
-                    return true;
-                });
-            }
-
-            // Availability requires section details because search results only expose open/full status.
-            if (availMode && availValue !== null) {
-                results = await this.filterByAvailableSeats(results, availMode, availValue);
-            }
+            results = await this.applySectionFilters(results, {
+                openOnly,
+                instructionalMethod,
+                carolinaCore,
+                sizeMode,
+                sizeValue,
+                availMode,
+                availValue,
+            });
 
             // If a newer search was started, discard these results
             if (searchId !== this._searchId) return;
@@ -684,6 +633,120 @@ const Search = {
         } catch (err) {
             this.showHint('Search failed. Try again.');
         }
+    },
+
+    buildLiveCourseIndex(sections) {
+        const index = {};
+        sections.forEach(section => {
+            if (!index[section.code]) index[section.code] = { hasOpen: false, records: [] };
+            index[section.code].records.push(section);
+            if (section.stat === 'A') index[section.code].hasOpen = true;
+        });
+        return index;
+    },
+
+    mergeCatalogWithLiveSections(courses, liveByCode) {
+        return courses.flatMap(course => {
+            const live = liveByCode[course.code];
+            if (live) {
+                return live.records.map(section => ({
+                    ...section,
+                    _offeredThisTerm: true,
+                    _hasOpen: live.hasOpen,
+                    _relevanceScore: course._relevanceScore || 0,
+                }));
+            }
+            return [{
+                code: course.code,
+                title: course.title || course.name || '',
+                crn: '',
+                section: 'CAT',
+                stat: '',
+                instr: '',
+                meets: 'Not offered this term',
+                meetingTimes: null,
+                total: '',
+                key: course.key,
+                _isCatalog: true,
+                _offeredThisTerm: false,
+                _hasOpen: false,
+                _relevanceScore: course._relevanceScore || 0,
+            }];
+        });
+    },
+
+    matchesInstructionalMethod(section, selectedMethod) {
+        if (!selectedMethod) return true;
+        const method = String(
+            section.inst_mthd || section.instructionalMethod || section.instructional_method || '',
+        ).toLowerCase();
+        if (selectedMethod === 'online') return /online|web|distance|remote/.test(method);
+        if (selectedMethod === 'hybrid') return /hybrid|blended/.test(method);
+        if (selectedMethod === 'face-to-face') {
+            return /face-to-face|face to face|in-person|in person|traditional/.test(method);
+        }
+        return true;
+    },
+
+    async fetchCarolinaCoreCodes(courseCode) {
+        if (this._carolinaCoreCache[courseCode]) return this._carolinaCoreCache[courseCode];
+        const subject = courseCode.split(' ')[0];
+        if (!this._bulletinCourseCache[subject]) {
+            this._bulletinCourseCache[subject] = API.bulletinSearch(subject)
+                .then(data => data.results || [])
+                .catch(() => []);
+        }
+        const courses = await this._bulletinCourseCache[subject];
+        const target = courses.find(course => course.code === courseCode);
+        if (!target) return [];
+        try {
+            const details = await API.bulletinDetails(target.key);
+            const text = String(details.carolinacore || '').replace(/<[^>]+>/g, ' ');
+            const codes = text.match(/\b(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/g) || [];
+            this._carolinaCoreCache[courseCode] = [...new Set(codes)];
+        } catch (error) {
+            this._carolinaCoreCache[courseCode] = [];
+        }
+        return this._carolinaCoreCache[courseCode];
+    },
+
+    async filterByCarolinaCore(results, selectedCore) {
+        if (!selectedCore) return results;
+        const courseCodes = [...new Set(results.map(result => result.code).filter(Boolean))];
+        const matches = await Promise.all(courseCodes.map(async code => {
+            const coreCodes = await this.fetchCarolinaCoreCodes(code);
+            return coreCodes.includes(selectedCore) ? code : null;
+        }));
+        const allowed = new Set(matches.filter(Boolean));
+        return results.filter(result => allowed.has(result.code));
+    },
+
+    async applySectionFilters(results, filters) {
+        let filtered = results;
+        if (filters.openOnly) filtered = filtered.filter(section => section.stat === 'A');
+        if (filters.instructionalMethod) {
+            filtered = filtered.filter(section => this.matchesInstructionalMethod(
+                section,
+                filters.instructionalMethod,
+            ));
+        }
+        if (filters.sizeMode && filters.sizeValue) {
+            filtered = filtered.filter(section => {
+                const total = parseInt(section.total);
+                if (!Number.isFinite(total)) return false;
+                return filters.sizeMode === 'above'
+                    ? total >= filters.sizeValue
+                    : total < filters.sizeValue;
+            });
+        }
+        if (filters.availMode && filters.availValue !== null) {
+            filtered = await this.filterByAvailableSeats(
+                filtered,
+                filters.availMode,
+                filters.availValue,
+            );
+        }
+        return this.filterByCarolinaCore(filtered, filters.carolinaCore);
     },
 
     async fetchPrereqForCourse(courseCode) {
@@ -815,7 +878,7 @@ const Search = {
                     badgeText = 'FULL';
                 } else {
                     badgeClass = 'badge-na';
-                    badgeText = 'N/A';
+                    badgeText = 'NOT OFFERED';
                 }
             } else {
                 const hasOpen = group.sections.some(s => s.stat === 'A');

@@ -868,11 +868,14 @@ const ScheduleSidebar = {
                         : (lockedCrn ? '<div class="selected-course-detail">Locked section will be required</div>' : '')}
                 </div>
             `;
-            totalCredits += parseInt((course.sections || [])[0]?.hours || '3', 10);
+            const creditValues = String(
+                course.credits ?? (course.sections || [])[0]?.hours ?? 3,
+            ).match(/\d+(?:\.\d+)?/g) || ['3'];
+            totalCredits += Math.max(...creditValues.map(Number));
         });
 
         list.innerHTML = html;
-        if (creditsEl) creditsEl.textContent = `${totalCredits} estimated credits`;
+        if (creditsEl) creditsEl.textContent = `${totalCredits} credits`;
 
         list.querySelectorAll('.btn-remove').forEach(btn => {
             btn.addEventListener('click', () => {

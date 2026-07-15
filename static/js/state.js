@@ -87,6 +87,7 @@ const State = {
         this.selectedCourses[group.code] = JSON.parse(JSON.stringify({
             code: group.code,
             title: group.title || group.code,
+            credits: group.credits,
             sections: group.sections || [],
         }));
         this.emit('courses-changed', this.selectedCourses);

@@ -1295,9 +1295,20 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .filter-toggle:hover { color: #5a0008; }
 #filter-arrow { font-size: 0.65rem; transition: transform 0.2s; }
 #filter-arrow.open { transform: rotate(180deg); }
+#additional-filter-arrow { font-size: 0.65rem; transition: transform 0.2s; }
+#additional-filter-arrow.open { transform: rotate(180deg); }
 .filter-panel {
     padding: 6px 0;
     border-top: 1px solid #ECECEC;
+}
+.additional-filter-toggle {
+    margin-top: 2px;
+    padding-top: 7px;
+}
+.additional-filter-panel {
+    border-left: 2px solid #C7C7C7;
+    margin-bottom: 4px;
+    padding: 7px 0 1px 9px;
 }
 .filter-group {
     margin-bottom: 8px;
@@ -1312,6 +1323,15 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin-bottom: 3px;
 }
 .filter-group input[type="checkbox"] { accent-color: #73000A; }
+.filter-select {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 0;
+    color: #000000;
+    font-size: 0.78rem;
+    padding: 5px 6px;
+    width: 100%;
+}
 .filter-label {
     font-size: 0.75rem;
     font-weight: 700;
@@ -1391,6 +1411,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .badge-open { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
 .badge-full { background: #ffebee; color: #c62828; border-color: #c62828; }
 .badge-na { background: #ECECEC; color: #5C5C5C; border-color: #C7C7C7; }
+.course-header .badge-na { padding-inline: 4px; width: auto; }
 .badge-eligible { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; font-size: 0.65rem; }
 .badge-prereq-missing { background: #fff3e0; color: #e65100; border-color: #e65100; font-size: 0.65rem; }
 .course-sections { display: none; padding: 0; }

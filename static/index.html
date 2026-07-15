@@ -261,8 +261,7 @@
                         <div class="filter-toggle" id="filter-toggle">Filters <span id="filter-arrow">&#9660;</span></div>
                         <div class="filter-panel hidden" id="filter-panel">
                             <div class="filter-group">
-                                <label class="filter-label">Semester</label>
-                                <label><input type="checkbox" id="filter-current-term" checked> Offered in <span id="filter-term-label">Fall 2026</span></label>
+                                <label><input type="checkbox" id="filter-show-all"> Show all courses, including those not offered this term</label>
                             </div>
                             <div class="filter-group">
                                 <label class="filter-label">Availability</label>
@@ -270,25 +269,53 @@
                                 <label><input type="checkbox" id="filter-eligible"> I can take (prereqs met)</label>
                             </div>
                             <div class="filter-group">
-                                <label class="filter-label">Class Size</label>
-                                <div class="filter-row">
-                                    <select id="filter-size-mode" style="width:auto;flex:1">
-                                        <option value="">Any size</option>
-                                        <option value="above">More than</option>
-                                        <option value="below">Less than</option>
-                                    </select>
-                                    <input type="number" id="filter-size-value" placeholder="total seats" min="1" style="width:80px">
-                                </div>
+                                <label class="filter-label" for="filter-method">Instructional Method</label>
+                                <select id="filter-method" class="filter-select">
+                                    <option value="">Any method</option>
+                                    <option value="face-to-face">Face-to-face</option>
+                                    <option value="hybrid">Hybrid</option>
+                                    <option value="online">Online</option>
+                                </select>
                             </div>
                             <div class="filter-group">
-                                <label class="filter-label">Seats Available</label>
-                                <div class="filter-row">
-                                    <select id="filter-avail-mode" style="width:auto;flex:1">
-                                        <option value="">Any</option>
-                                        <option value="above">At least</option>
-                                        <option value="below">Fewer than</option>
-                                    </select>
-                                    <input type="number" id="filter-avail-value" placeholder="seats left" min="0" style="width:80px">
+                                <label class="filter-label" for="filter-carolina-core">Carolina Core</label>
+                                <select id="filter-carolina-core" class="filter-select">
+                                    <option value="">Any Carolina Core</option>
+                                    <option value="AIU">AIU — Aesthetic and Interpretive Understanding</option>
+                                    <option value="ARP">ARP — Analytical Reasoning and Problem-Solving</option>
+                                    <option value="CMS">CMS — Communication, Spoken</option>
+                                    <option value="CMW">CMW — Communication, Written</option>
+                                    <option value="GFL">GFL — Foreign Language</option>
+                                    <option value="GHS">GHS — Historical Thinking</option>
+                                    <option value="GSS">GSS — Social Sciences</option>
+                                    <option value="INF">INF — Information Literacy</option>
+                                    <option value="SCI">SCI — Scientific Literacy</option>
+                                    <option value="VSR">VSR — Values, Ethics, and Social Responsibility</option>
+                                </select>
+                            </div>
+                            <div class="filter-toggle additional-filter-toggle" id="additional-filter-toggle">Additional Filters <span id="additional-filter-arrow">&#9660;</span></div>
+                            <div class="additional-filter-panel hidden" id="additional-filter-panel">
+                                <div class="filter-group">
+                                    <label class="filter-label">Class Size</label>
+                                    <div class="filter-row">
+                                        <select id="filter-size-mode" style="width:auto;flex:1">
+                                            <option value="">Any size</option>
+                                            <option value="above">More than</option>
+                                            <option value="below">Less than</option>
+                                        </select>
+                                        <input type="number" id="filter-size-value" placeholder="total seats" min="1" style="width:80px">
+                                    </div>
+                                </div>
+                                <div class="filter-group">
+                                    <label class="filter-label">Seats Available</label>
+                                    <div class="filter-row">
+                                        <select id="filter-avail-mode" style="width:auto;flex:1">
+                                            <option value="">Any</option>
+                                            <option value="above">At least</option>
+                                            <option value="below">Fewer than</option>
+                                        </select>
+                                        <input type="number" id="filter-avail-value" placeholder="seats left" min="0" style="width:80px">
+                                    </div>
                                 </div>
                             </div>
                         </div>

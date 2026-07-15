@@ -128,6 +128,35 @@ const Scheduler = {
         status.className = `schedule-course-status ${kind}`.trim();
     },
 
+    parseCreditHours(value) {
+        const matches = String(value ?? '').match(/\d+(?:\.\d+)?/g) || [];
+        if (matches.length === 0) return null;
+        return Math.max(...matches.map(Number));
+    },
+
+    async hydrateCourseCredits(group) {
+        let credits = this.parseCreditHours(group.credits);
+        if (credits === null) {
+            credits = this.parseCreditHours((group.sections || []).find(section => section.hours)?.hours);
+        }
+        const firstCrn = (group.sections || []).find(section => section.crn)?.crn;
+        if (credits === null && firstCrn && API.getDetails) {
+            try {
+                const details = await API.getDetails(firstCrn, State.term);
+                credits = this.parseCreditHours(details.hours_html);
+            } catch (error) {
+                credits = null;
+            }
+        }
+        if (credits !== null) {
+            group.credits = credits;
+            (group.sections || []).forEach(section => {
+                if (!section.hours) section.hours = credits;
+            });
+        }
+        return group;
+    },
+
     async lookupCourseGroup(courseCode) {
         const code = this.normalizeCourseCode(courseCode);
         const match = code.match(/^([A-Z]{2,4})\s+(\d{3}[A-Z]?)$/);
@@ -156,6 +185,7 @@ const Scheduler = {
             if (sections.length === 0 || sections.every(section => section._isCatalog || !section.crn)) {
                 liveGroup = await this.lookupCourseGroup(group.code);
             }
+            await this.hydrateCourseCredits(liveGroup);
             State.addCourse(liveGroup);
             this.setCourseStatus(`${liveGroup.code} added. The solver will choose its section.`, 'success');
             return liveGroup;
@@ -167,6 +197,7 @@ const Scheduler = {
 
     async addCourseByCode(courseCode) {
         const group = await this.lookupCourseGroup(courseCode);
+        await this.hydrateCourseCredits(group);
         State.addCourse(group);
         return group;
     },

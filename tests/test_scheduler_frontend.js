@@ -62,6 +62,115 @@ test('full sections remain selectable as an explicit planning override', () => {
     assert.match(elements['selected-courses-list'].innerHTML, /Full section selected\. Planning only/);
 });
 
+test('schedule sidebar totals actual one, four, and three credit courses', () => {
+    const elements = {
+        'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },
+        'selected-credits': { textContent: '' },
+        'schedule-selected-count': { textContent: '' },
+    };
+    const sidebar = loadObject('static/js/degree-plan.js', 'ScheduleSidebar', {
+        State: {
+            selectedCourses: {
+                'CSCE 190': { title: 'Computing in the Modern World', credits: 1, sections: [] },
+                'CSCE 145': { title: 'Algorithmic Design I', credits: 4, sections: [] },
+                'CSCE 211': { title: 'Digital Logic Design', credits: 3, sections: [] },
+            },
+            selectedSections: {},
+            sectionLocks: {},
+        },
+        document: { getElementById: id => elements[id] || null },
+    });
+
+    sidebar.render();
+
+    assert.equal(elements['selected-credits'].textContent, '8 credits');
+});
+
+test('course credit hydration stores detail credits on every live section', async () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        API: { async getDetails() { return { hours_html: '4 Credit Hours' }; } },
+        State: { term: '202608' },
+    });
+    const group = {
+        code: 'CSCE 145',
+        sections: [{ crn: '10868' }, { crn: '10869' }],
+    };
+
+    await scheduler.hydrateCourseCredits(group);
+
+    assert.equal(group.credits, 4);
+    assert.equal(group.sections[0].hours, 4);
+    assert.equal(group.sections[1].hours, 4);
+});
+
+test('semantic catalog matches retain complete live section records', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const liveSection = {
+        code: 'CSCE 145',
+        title: 'Algorithmic Design I',
+        crn: '10868',
+        section: '001',
+        instr: 'Example Professor',
+        meets: 'MW 10:00-11:15a',
+        inst_mthd: 'Face-to-Face Instruction',
+        stat: 'A',
+    };
+    const index = search.buildLiveCourseIndex([liveSection]);
+
+    const merged = search.mergeCatalogWithLiveSections([
+        { code: 'CSCE 145', title: 'Algorithmic Design I', key: '1407', _relevanceScore: 0.9 },
+    ], index);
+
+    assert.equal(merged.length, 1);
+    assert.equal(merged[0].crn, '10868');
+    assert.equal(merged[0].instr, 'Example Professor');
+    assert.equal(merged[0].inst_mthd, 'Face-to-Face Instruction');
+    assert.equal(merged[0]._isCatalog, undefined);
+
+    const catalogOnly = search.mergeCatalogWithLiveSections([
+        { code: 'CSCE 999', title: 'Future Course', key: '1999' },
+    ], index);
+    assert.equal(catalogOnly[0].meets, 'Not offered this term');
+    assert.equal(catalogOnly[0]._isCatalog, true);
+});
+
+test('browse filters separate primary and additional course choices', () => {
+    const source = fs.readFileSync('static/index.html', 'utf8');
+
+    assert.match(source, /id="filter-show-all"/);
+    assert.doesNotMatch(source, /id="filter-current-term"/);
+    assert.match(source, /id="filter-method"/);
+    assert.match(source, /id="filter-carolina-core"/);
+    assert.match(source, /value="CMW"/);
+    assert.match(source, /value="VSR"/);
+    assert.match(source, /id="additional-filter-toggle"/);
+    const additionalStart = source.indexOf('id="additional-filter-panel"');
+    assert.ok(source.indexOf('id="filter-size-mode"') > additionalStart);
+    assert.ok(source.indexOf('id="filter-avail-mode"') > additionalStart);
+});
+
+test('instructional method and Carolina Core filters use section and bulletin data', async () => {
+    const search = loadObject('static/js/search.js', 'Search', {
+        API: {
+            async bulletinSearch() {
+                return { results: [{ code: 'ENGL 101', key: '3001' }] };
+            },
+            async bulletinDetails() {
+                return { carolinacore: '<strong>Carolina Core:</strong> CMW, INF' };
+            },
+        },
+    });
+    const results = [
+        { code: 'ENGL 101', crn: '10001', inst_mthd: 'Face-to-Face Instruction' },
+        { code: 'TEST 101', crn: '10002', inst_mthd: '100% Web Asynchronous' },
+    ];
+
+    assert.equal(search.matchesInstructionalMethod(results[0], 'face-to-face'), true);
+    assert.equal(search.matchesInstructionalMethod(results[1], 'online'), true);
+    const coreResults = await search.filterByCarolinaCore(results, 'INF');
+    assert.deepEqual(Array.from(coreResults, result => result.code), ['ENGL 101']);
+});
+
 test('solver uses course-level choices instead of applied sections', async () => {
     let solvedCourses;
     let requestedResults;
