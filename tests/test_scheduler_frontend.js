@@ -423,7 +423,8 @@ test('route interface uses neutral travel language', () => {
     const schedulerSource = fs.readFileSync('static/js/scheduler.js', 'utf8');
 
     assert.match(source, /Routes Between Classes/);
-    assert.match(source, /Travel-time estimates currently use pedestrian routing/);
+    assert.doesNotMatch(source, /Travel-time estimates currently use pedestrian routing/);
+    assert.doesNotMatch(source, /walking-map-note/);
     assert.match(source, /min route/);
     assert.doesNotMatch(source, />Walking Between Classes</);
     assert.match(schedulerSource, /Minutes remaining after travel/);

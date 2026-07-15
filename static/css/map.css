@@ -48,8 +48,7 @@
 }
 
 .walking-map-header p,
-.walking-map-empty,
-.walking-map-note {
+.walking-map-empty {
     margin: 0;
     color: var(--map-muted);
     font-size: 0.86rem;
@@ -229,11 +228,6 @@ button.walking-transition.is-previewed {
 
 .walking-transition-status {
     font-weight: 700;
-}
-
-.walking-map-note {
-    padding: 10px 12px;
-    border-top: 1px solid var(--map-line);
 }
 
 .walking-map-marker {

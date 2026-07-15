@@ -65,7 +65,6 @@ const WalkingMap = {
                         <div class="walking-map-list" aria-live="polite"></div>
                     </div>
                 </div>
-                <p class="walking-map-note">Travel-time estimates currently use pedestrian routing when available. Allow extra time for accessibility needs, elevators, construction, and entering buildings.</p>
             </section>
         `;
 
