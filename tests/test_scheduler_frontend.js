@@ -983,6 +983,8 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
         .map(match => (match[1].match(/<i><\/i>/g) || []).length);
     assert.deepEqual(networkLayerCounts, [6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6]);
     assert.match(html, /<canvas class="smart-search-network-links"><\/canvas>/);
+    assert.match(html, /id="smart-search-query-list"/);
+    assert.match(html, /id="smart-search-aggregate"/);
     assert.match(source, /prepareSmartSearch\(5000\)/);
     assert.match(source, /this\._smartLoadingUntil - Date\.now\(\)/);
     assert.match(source, /if \(status\) status\.hidden = true;/);
@@ -998,6 +1000,24 @@ test('Browse teaches structured searches and exposes visible Smart Search progre
     assert.match(source, /drawSmartSearchNetwork\(\)/);
     assert.match(source, /for \(const source of sources\)[\s\S]*for \(const target of targets\)/);
     assert.match(source, /context\.createLinearGradient\(startX, startY, endX, endY\)/);
+    assert.match(source, /this\.showSmartSearchQueries\(searches\)/);
+    assert.match(source, /this\.updateSmartSearchQuery\(index, results\.length\)/);
+    assert.match(source, /item\.addEventListener\('click', \(\) => this\.openRegularSearch\(term\)\)/);
+    assert.match(source, /openRegularSearch\(term\)/);
+    assert.match(source, /smartToggle\.checked = false;[\s\S]*regularInput\.value = term;[\s\S]*this\.doSearch\(\);/);
+    assert.match(source, /semantic\.searches\?\.length \? semantic\.searches : null/);
+    assert.match(source, /class="semantic-search-term" data-regular-search-index/);
+    assert.match(source, /showSmartSearchAggregation\(/);
+    assert.match(source, /waitForSmartSearchPhase\(understandingStartedAt, 650\)/);
+    assert.match(source, /waitForSmartSearchPhase\(expandingStartedAt, 650\)/);
+    assert.match(source, /waitForSmartSearchPhase\(queryPhaseStartedAt, 1800\)/);
+    assert.match(source, /aggregationDelay = 1500 - \(Date\.now\(\) - aggregationStartedAt\)/);
+    assert.match(styles, /\.smart-search-query-list\s*{[^}]*grid-template-columns:\s*repeat\(3,/s);
+    assert.match(styles, /@keyframes smart-search-combine/);
+    assert.match(styles, /@keyframes smart-search-query-enter/);
+    assert.match(styles, /@keyframes smart-search-stage-in/);
+    assert.match(styles, /\.smart-search-query-item:not\(:disabled\)\s*{\s*cursor:\s*pointer;/);
+    assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
 });
 
 test('cached Smart Search still shows the testing loader for five seconds and then removes the status', async () => {

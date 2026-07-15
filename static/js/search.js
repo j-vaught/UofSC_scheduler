@@ -134,16 +134,22 @@ const Search = {
         // Load model + phrase data concurrently
         await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
         if (searchId !== this._searchId) return null;
+        this.resetSmartSearchTrace();
 
         // Step 1: Embed query
+        const understandingStartedAt = Date.now();
         this.setSmartSearchStatus(`Understanding “${query}”`, 'searching', 'Comparing the search with course language.');
         const queryVec = await this._embedQuery(query);
+        await this.waitForSmartSearchPhase(understandingStartedAt, 650);
         if (searchId !== this._searchId) return null;
 
         // Step 2: Find nearest academic phrases
+        const expandingStartedAt = Date.now();
         this.setSmartSearchStatus('Expanding academic concepts', 'searching', 'Finding related subjects and course terminology.');
         const nearestPhrases = this._findNearestPhrases(queryVec, 8, query);
         const expandedTerms = nearestPhrases.map(n => n.phrase);
+        await this.waitForSmartSearchPhase(expandingStartedAt, 650);
+        if (searchId !== this._searchId) return null;
 
         // Step 3: Build search list — original query + expanded phrases
         const searches = [query, ...expandedTerms];
@@ -151,19 +157,36 @@ const Search = {
 
         // Step 4: Fire all searches concurrently
         this.setSmartSearchStatus('Checking course matches', 'searching', `Searching “${query}” and ${expandedTerms.length} related concepts.`);
-        const promises = searches.map(term => {
-            if (currentTermOnly) {
-                return API.searchCourses(State.term, [{ field: 'keyword', value: term }])
-                    .then(d => d.results || []).catch(() => []);
-            } else {
-                return API.post('/api/bulletin/search', {
+        const queryPhaseStartedAt = Date.now();
+        this.showSmartSearchQueries(searches);
+        const promises = searches.map(async (term, index) => {
+            let results = [];
+            try {
+                if (currentTermOnly) {
+                    const data = await API.searchCourses(State.term, [{ field: 'keyword', value: term }]);
+                    results = data.results || [];
+                } else {
+                    const data = await API.post('/api/bulletin/search', {
                     other: { srcdb: '2026' },
                     criteria: [{ field: 'keyword', value: term }],
-                }).then(d => d.results || []).catch(() => []);
+                    });
+                    results = data.results || [];
+                }
+            } catch (error) {
+                console.warn(`[Semantic] Search failed for “${term}”:`, error);
             }
+            this.updateSmartSearchQuery(index, results.length);
+            return results;
         });
         const allResults = await Promise.all(promises);
+        await this.waitForSmartSearchPhase(queryPhaseStartedAt, 1800);
         if (searchId !== this._searchId) return null;
+        const rawMatchCount = allResults.reduce((total, batch) => total + batch.length, 0);
+        const aggregationStartedAt = Date.now();
+        this.showSmartSearchAggregation(
+            'Combining search results',
+            `${rawMatchCount.toLocaleString()} matches across ${searches.length} searches`,
+        );
 
         // Step 5: Local course search — find top matches from pre-computed
         // course embeddings (title+description). These catch courses the API
@@ -212,6 +235,10 @@ const Search = {
             }
         }
         console.log(`[Semantic] ${deduped.length} total unique (${localAdded} added from local database)`);
+        this.showSmartSearchAggregation(
+            'Ranking combined courses',
+            `${deduped.length.toLocaleString()} unique courses after removing duplicates`,
+        );
 
         // Step 7: Score each result title by embedding similarity to query
         // Batch-embed all titles at once for performance
@@ -256,7 +283,9 @@ const Search = {
         const top = scored.slice(0, 50);
 
         console.log(`[Semantic] ${deduped.length} candidates → ${scored.length} above threshold → top ${top.length}`);
-        return { results: top, expandedTerms };
+        const aggregationDelay = 1500 - (Date.now() - aggregationStartedAt);
+        if (aggregationDelay > 0) await new Promise(resolve => setTimeout(resolve, aggregationDelay));
+        return { results: top, expandedTerms, searches };
     },
 
     // Levenshtein edit distance between two strings
@@ -647,6 +676,11 @@ const Search = {
         }
         status.hidden = false;
         status.dataset.state = mode;
+        if (mode === 'loading') {
+            status.dataset.phase = 'model';
+            const trace = document.getElementById('smart-search-trace');
+            if (trace) trace.hidden = true;
+        }
         document.getElementById('browse-workspace')?.classList.toggle(
             'smart-search-busy',
             mode === 'loading' || mode === 'searching',
@@ -660,6 +694,99 @@ const Search = {
                 this.drawSmartSearchNetwork();
             }
         }
+    },
+
+    resetSmartSearchTrace() {
+        const status = document.getElementById('smart-search-status');
+        const trace = document.getElementById('smart-search-trace');
+        const list = document.getElementById('smart-search-query-list');
+        const aggregate = document.getElementById('smart-search-aggregate');
+        if (status) status.dataset.phase = 'thinking';
+        if (trace) trace.hidden = true;
+        if (list) list.replaceChildren();
+        if (aggregate) aggregate.hidden = true;
+    },
+
+    showSmartSearchQueries(searches) {
+        const status = document.getElementById('smart-search-status');
+        const trace = document.getElementById('smart-search-trace');
+        const list = document.getElementById('smart-search-query-list');
+        const phase = document.getElementById('smart-search-trace-phase');
+        const summary = document.getElementById('smart-search-trace-summary');
+        const aggregate = document.getElementById('smart-search-aggregate');
+        if (!status || !trace || !list || !phase || !summary || !aggregate) return;
+        status.dataset.phase = 'queries';
+        trace.hidden = false;
+        aggregate.hidden = true;
+        phase.textContent = `${searches.length} searches generated`;
+        summary.textContent = `0 of ${searches.length} complete`;
+        list.replaceChildren();
+        searches.forEach((term, index) => {
+            const item = document.createElement('button');
+            item.type = 'button';
+            item.className = 'smart-search-query-item';
+            item.dataset.queryIndex = String(index);
+            item.dataset.state = 'searching';
+            item.disabled = true;
+            item.style.setProperty('--query-delay', `${index * 55}ms`);
+            const label = document.createElement('span');
+            label.textContent = term;
+            const count = document.createElement('strong');
+            count.textContent = 'SEARCHING';
+            item.append(label, count);
+            item.addEventListener('click', () => this.openRegularSearch(term));
+            list.append(item);
+        });
+    },
+
+    updateSmartSearchQuery(index, resultCount) {
+        const list = document.getElementById('smart-search-query-list');
+        const summary = document.getElementById('smart-search-trace-summary');
+        const item = list?.querySelector(`[data-query-index="${index}"]`);
+        if (!list || !summary || !item) return;
+        item.dataset.state = 'complete';
+        item.disabled = false;
+        item.setAttribute('aria-label', `Search regular results for ${item.querySelector('span')?.textContent || 'this term'}`);
+        const count = item.querySelector('strong');
+        if (count) count.textContent = `${resultCount.toLocaleString()} ${resultCount === 1 ? 'RESULT' : 'RESULTS'}`;
+        const completed = list.querySelectorAll('[data-state="complete"]').length;
+        const total = list.children.length;
+        summary.textContent = `${completed} of ${total} complete`;
+    },
+
+    openRegularSearch(term) {
+        const smartToggle = document.getElementById('smart-search-toggle');
+        const regularInput = document.getElementById('keyword-input');
+        if (!smartToggle || !regularInput) return;
+        this._searchId += 1;
+        smartToggle.checked = false;
+        regularInput.value = term;
+        this.setSmartSearchMode(false);
+        regularInput.focus();
+        this.doSearch();
+    },
+
+    showSmartSearchAggregation(title, detail) {
+        const status = document.getElementById('smart-search-status');
+        const trace = document.getElementById('smart-search-trace');
+        const phase = document.getElementById('smart-search-trace-phase');
+        const summary = document.getElementById('smart-search-trace-summary');
+        const aggregate = document.getElementById('smart-search-aggregate');
+        const aggregateTitle = document.getElementById('smart-search-aggregate-title');
+        const aggregateDetail = document.getElementById('smart-search-aggregate-detail');
+        if (!status || !trace || !phase || !summary || !aggregate || !aggregateTitle || !aggregateDetail) return;
+        status.dataset.phase = 'aggregating';
+        trace.hidden = false;
+        phase.textContent = 'Searches complete';
+        summary.textContent = 'Combining matches';
+        aggregate.hidden = false;
+        aggregateTitle.textContent = title;
+        aggregateDetail.textContent = detail;
+    },
+
+    async waitForSmartSearchPhase(startedAt, minimumMs) {
+        const remaining = minimumMs - (Date.now() - startedAt);
+        if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
     },
 
     drawSmartSearchNetwork() {
@@ -1039,7 +1166,7 @@ const Search = {
                 if (searchId !== this._searchId) return;
                 const eligibleOnly2 = document.getElementById('filter-eligible').checked;
                 const prereqData = eligibleOnly2 ? await this.loadPrereqsForResults(results) : {};
-                const searchInfo = semantic.expandedTerms?.length ? semantic.expandedTerms : null;
+                const searchInfo = semantic.searches?.length ? semantic.searches : null;
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
                 this.setSmartSearchStatus(
                     `${new Set(results.map(result => result.code)).size} courses found`,
@@ -1630,12 +1757,18 @@ const Search = {
         // Header with search info
         let header = `<p style="font-size:0.75rem;color:#555;margin-bottom:6px;font-weight:600">${groupList.length} courses (${count} total sections)</p>`;
         if (searchTerms && searchTerms.length) {
-            const expandedTags = searchTerms.map(t =>
-                `<span style="background:#e8f0fe;color:#466A9F;padding:1px 6px;border-radius:2px;font-size:0.7rem">${t}</span>`
+            const expandedTags = searchTerms.map((term, index) =>
+                `<button type="button" class="semantic-search-term" data-regular-search-index="${index}">${this.escapeText(term)}</button>`
             ).join(' ');
-            header += `<p style="font-size:0.7rem;color:#777;margin-bottom:8px">Also searched: ${expandedTags}</p>`;
+            header += `<div class="semantic-search-terms"><span>Generated searches</span>${expandedTags}</div>`;
         }
         container.innerHTML = header;
+        container.querySelectorAll('[data-regular-search-index]').forEach(button => {
+            button.addEventListener('click', () => {
+                const term = searchTerms[Number(button.dataset.regularSearchIndex)];
+                if (term) this.openRegularSearch(term);
+            });
+        });
 
         groupList.forEach(group => {
             const div = document.createElement('div');
