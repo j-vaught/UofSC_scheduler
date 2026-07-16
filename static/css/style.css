@@ -2231,23 +2231,47 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 }
 
 /* === History === */
+.history-loading-card {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    padding: 14px;
+}
+.history-loading-heading {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+}
+.history-loading-heading strong { color: #73000A; font-size: 0.8rem; text-transform: uppercase; }
+.history-loading-heading span { color: #000000; font-size: 1rem; font-weight: 800; }
 .history-progress-bar {
-    height: 16px;
     background: #ECECEC;
-    border: 2px solid #000000;
-    margin-bottom: 8px;
+    border: 1px solid #000000;
+    height: 14px;
+    margin: 9px 0 8px;
     overflow: hidden;
 }
 .history-progress-fill {
-    height: 100%;
     background: #73000A;
-    transition: width 0.2s;
+    display: block;
+    height: 100%;
+    transition: width 0.2s ease;
 }
+.history-progress-bar.indeterminate .history-progress-fill { animation: history-progress-scan 1.2s ease-in-out infinite alternate; }
 .history-status {
-    font-size: 0.85rem;
-    font-weight: 600;
+    align-items: baseline;
     color: #363636;
-    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    gap: 4px 14px;
+    justify-content: space-between;
+    margin: 0;
+}
+.history-status strong { color: #000000; }
+.history-status span { color: #5C5C5C; }
+@keyframes history-progress-scan { from { transform: translateX(-100%); } to { transform: translateX(360%); } }
+@media (prefers-reduced-motion: reduce) {
+    .history-progress-bar.indeterminate .history-progress-fill { animation: none; opacity: 0.35; transform: none; width: 100% !important; }
 }
 .history-results-live {
     max-height: 260px;

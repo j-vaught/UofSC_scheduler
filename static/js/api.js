@@ -54,8 +54,50 @@ const API = {
         });
     },
 
-    async getHistory(courseCode) {
-        return this.post('/api/history', { code: courseCode });
+    async getHistory(courseCode, onProgress = null) {
+        if (typeof onProgress !== 'function') {
+            return this.post('/api/history', { code: courseCode });
+        }
+
+        const resp = await fetch('/api/history-stream', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: courseCode }),
+        });
+        if (!resp.ok) throw new Error(`Request failed with status ${resp.status}`);
+
+        let result = null;
+        const consumeLine = rawLine => {
+            const line = String(rawLine || '').trim();
+            if (!line) return;
+            const event = JSON.parse(line);
+            if (event.type === 'progress') onProgress(event);
+            else if (event.type === 'result') result = event.data;
+        };
+
+        if (resp.body?.getReader) {
+            const reader = resp.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = '';
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+                lines.forEach(consumeLine);
+            }
+            buffer += decoder.decode();
+            consumeLine(buffer);
+        } else {
+            const payload = await resp.text();
+            payload.split('\n').forEach(consumeLine);
+        }
+
+        if (!result || typeof result !== 'object' || Array.isArray(result) || result.error) {
+            throw new Error(result?.error || 'Offering history is unavailable');
+        }
+        return result;
     },
 
     async solve(courses, preferences, maxResults = 10) {

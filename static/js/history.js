@@ -33,20 +33,58 @@ const History = {
         return node.innerHTML;
     },
 
+    renderLoading(courseCode, progress = {}, container = document.getElementById('history-container')) {
+        if (!container) return;
+        const total = Math.max(0, Number(progress.total) || 0);
+        const completed = Math.min(total, Math.max(0, Number(progress.completed) || 0));
+        const percent = total ? Math.round(completed / total * 100) : 0;
+        const determinate = total > 0;
+        const label = String(progress.label || '');
+        const section = Math.max(0, Number(progress.section) || 0);
+        const sectionTotal = Math.max(0, Number(progress.section_total) || 0);
+        let detail = label ? `Checking ${label}` : 'Preparing completed terms';
+        if (progress.phase === 'enrollment' && label) {
+            detail = sectionTotal
+                ? `Reading enrollment for ${label} · ${section} of ${sectionTotal} sections`
+                : `Reading enrollment for ${label}`;
+        }
+        const countText = determinate
+            ? `${completed} of ${total} terms checked`
+            : 'Connecting to offering records';
+        const progressText = determinate
+            ? `${percent}%`
+            : 'Starting';
+        const ariaValue = determinate ? ` aria-valuenow="${percent}"` : '';
+        const ariaText = determinate
+            ? ` aria-valuetext="${this._escape(`${countText}. ${detail}`)}"`
+            : ' aria-valuetext="Preparing offering history"';
+
+        container.innerHTML = `
+            <div class="history-detail-heading">
+                <div><h2>Offering history</h2><p>${this._escape(courseCode)}</p></div>
+            </div>
+            <section class="history-loading-card" aria-busy="true">
+                <div class="history-loading-heading"><strong>Loading offering history</strong><span>${progressText}</span></div>
+                <div class="history-progress-bar ${determinate ? '' : 'indeterminate'}" role="progressbar" aria-label="Offering history loading progress" aria-valuemin="0" aria-valuemax="100"${ariaValue}${ariaText}>
+                    <i class="history-progress-fill" style="width:${determinate ? percent : 28}%"></i>
+                </div>
+                <p class="history-status" role="status" aria-live="polite" aria-atomic="true"><strong>${countText}</strong><span>${this._escape(detail)}</span></p>
+            </section>
+        `;
+    },
+
     async loadForCourse(courseCode) {
         const container = document.getElementById('history-container');
         if (!container) return;
 
         const loadId = ++this._loadId;
-        container.innerHTML = `
-            <div class="history-detail-heading">
-                <div><h2>Offering history</h2><p>${this._escape(courseCode)}</p></div>
-            </div>
-            <p class="loading" role="status" aria-live="polite">Loading offering history</p>
-        `;
+        this.renderLoading(courseCode, {}, container);
 
         try {
-            const data = await API.getHistory(courseCode);
+            const data = await API.getHistory(courseCode, progress => {
+                if (loadId !== this._loadId) return;
+                this.renderLoading(courseCode, progress, container);
+            });
             if (loadId !== this._loadId) return;
             if (!data || typeof data !== 'object' || Array.isArray(data) || data.error) {
                 throw new Error('Offering history is unavailable');

@@ -117,7 +117,32 @@ def _upstream_payload(data):
     return payload
 
 
-def handle_history(body):
+def _history_term_label(term):
+    term_names = {
+        "01": "Spring",
+        "05": "Summer",
+        "08": "Fall",
+    }
+    return f"{term_names.get(term[4:], term[4:])} {term[:4]}"
+
+
+def _emit_history_progress(progress, phase, completed, total, term, **details):
+    if progress is None:
+        return
+    progress(
+        {
+            "type": "progress",
+            "phase": phase,
+            "completed": completed,
+            "total": total,
+            "term": term,
+            "label": _history_term_label(term),
+            **details,
+        }
+    )
+
+
+def handle_history(body, progress=None):
     params = json.loads(body)
     course_code = " ".join(str(params.get("code", "")).upper().split())
     if not course_code or " " not in course_code:
@@ -133,7 +158,9 @@ def handle_history(body):
 
     results: dict[str, dict[str, object]] = {}
     complete = True
-    for term in history_terms:
+    total_terms = len(history_terms)
+    for term_index, term in enumerate(history_terms):
+        _emit_history_progress(progress, "terms", term_index, total_terms, term)
         payload = json.dumps(
             {
                 "other": {"srcdb": term},
@@ -154,6 +181,7 @@ def handle_history(body):
                 "complete": False,
                 "error": True,
             }
+            _emit_history_progress(progress, "terms", term_index + 1, total_terms, term)
             time.sleep(0.2)
             continue
 
@@ -170,7 +198,7 @@ def handle_history(body):
             capacity = 0
             enrollment_sections = 0
             enrollment_error = False
-            for section in matches:
+            for section_index, section in enumerate(matches, start=1):
                 detail_payload = json.dumps(
                     {
                         "group": f"crn:{section.get('crn', '')}",
@@ -186,15 +214,24 @@ def handle_history(body):
                 if details is None:
                     complete = False
                     enrollment_error = True
-                    continue
-                seats_html = details.get("seats", "")
-                maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
-                available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
-                if maximum and available:
-                    section_capacity = int(maximum.group(1))
-                    capacity += section_capacity
-                    enrollment += max(0, section_capacity - int(available.group(1)))
-                    enrollment_sections += 1
+                else:
+                    seats_html = details.get("seats", "")
+                    maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
+                    available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
+                    if maximum and available:
+                        section_capacity = int(maximum.group(1))
+                        capacity += section_capacity
+                        enrollment += max(0, section_capacity - int(available.group(1)))
+                        enrollment_sections += 1
+                _emit_history_progress(
+                    progress,
+                    "enrollment",
+                    term_index,
+                    total_terms,
+                    term,
+                    section=section_index,
+                    section_total=len(matches),
+                )
 
             results[term] = {
                 "available": True,
@@ -220,21 +257,15 @@ def handle_history(body):
                 "complete": True,
                 "offered": False,
             }
+        _emit_history_progress(progress, "terms", term_index + 1, total_terms, term)
         time.sleep(0.2)
 
-    term_names = {
-        "01": "Spring",
-        "05": "Summer",
-        "08": "Fall",
-    }
     summary = []
     for term in history_terms:
-        year = term[:4]
-        semester = term_names.get(term[4:], term[4:])
         summary.append(
             {
                 "term": term,
-                "label": f"{semester} {year}",
+                "label": _history_term_label(term),
                 **results[term],
             }
         )
@@ -306,6 +337,30 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if isinstance(data, str):
             data = data.encode()
         self.wfile.write(data)
+
+    def _send_history_stream(self, body):
+        connected = True
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/x-ndjson")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+        except (OSError, ValueError):
+            connected = False
+
+        def write_event(event):
+            nonlocal connected
+            if not connected:
+                return
+            try:
+                self.wfile.write(json.dumps(event, separators=(",", ":")).encode() + b"\n")
+                self.wfile.flush()
+            except (OSError, ValueError):
+                connected = False
+
+        data = handle_history(body, progress=write_event)
+        write_event({"type": "result", "data": json.loads(data)})
 
     def _send_file(self, filepath):
         resolved = os.path.realpath(filepath)
@@ -388,6 +443,9 @@ class Handler(http.server.BaseHTTPRequestHandler):
         elif path == "/api/history":
             data = handle_history(body)
             self._send_json(data)
+
+        elif path == "/api/history-stream":
+            self._send_history_stream(body)
 
         elif path == "/api/solve":
             from scheduler import solve

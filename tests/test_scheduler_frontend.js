@@ -1512,6 +1512,47 @@ test('A browser reload requests fresh live data without changing historical cach
     assert.equal(requests[1].options.headers['X-UofSC-Refresh-Live'], undefined);
 });
 
+test('Offering history stream reports real progress before returning its aggregate', async () => {
+    const events = [
+        JSON.stringify({ type: 'progress', phase: 'terms', completed: 0, total: 8, label: 'Fall 2023' }),
+        JSON.stringify({ type: 'progress', phase: 'terms', completed: 3, total: 8, label: 'Fall 2024' }),
+        JSON.stringify({ type: 'result', data: { code: 'CSCE 145', terms: [] } }),
+    ].join('\n') + '\n';
+    const encoded = new TextEncoder().encode(events);
+    const chunks = [encoded.slice(0, 47), encoded.slice(47, 121), encoded.slice(121)];
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        TextDecoder,
+        fetch: async (path, options) => {
+            requests.push({ path, options });
+            let index = 0;
+            return {
+                ok: true,
+                status: 200,
+                body: {
+                    getReader() {
+                        return {
+                            async read() {
+                                if (index >= chunks.length) return { done: true };
+                                return { done: false, value: chunks[index++] };
+                            },
+                        };
+                    },
+                },
+            };
+        },
+    });
+    const progress = [];
+
+    const result = await api.getHistory('CSCE 145', event => progress.push(event));
+
+    assert.equal(requests[0].path, '/api/history-stream');
+    assert.equal(requests[0].options.method, 'POST');
+    assert.deepEqual(JSON.parse(requests[0].options.body), { code: 'CSCE 145' });
+    assert.deepEqual(progress.map(event => [event.completed, event.total]), [[0, 8], [3, 8]]);
+    assert.equal(result.code, 'CSCE 145');
+});
+
 test('AI-assisted search can be disabled and related searches remain direct', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
@@ -1898,7 +1939,9 @@ test('Course detail fills its pane and uses visual section, grade, and history s
 
 test('Offering history uses one aggregate request and ignores stale loads', async () => {
     const container = { innerHTML: '' };
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
     const pending = new Map();
+    const progressCallbacks = new Map();
     const calls = [];
     const document = {
         getElementById: id => id === 'history-container' ? container : null,
@@ -1918,8 +1961,9 @@ test('Offering history uses one aggregate request and ignores stale loads', asyn
     };
     const history = loadObject('static/js/history.js', 'History', {
         API: {
-            getHistory(code) {
+            getHistory(code, onProgress) {
                 calls.push(code);
+                progressCallbacks.set(code, onProgress);
                 return new Promise(resolve => pending.set(code, resolve));
             },
             getDetails() { throw new Error('Per-section history request should not run'); },
@@ -1932,12 +1976,55 @@ test('Offering history uses one aggregate request and ignores stale loads', asyn
 
     const first = history.loadForCourse('CSCE 145');
     assert.deepEqual(calls, ['CSCE 145']);
-    assert.match(container.innerHTML, /role="status"/);
+    assert.match(container.innerHTML, /role="progressbar"/);
+    assert.match(container.innerHTML, /aria-valuemin="0"/);
+    assert.match(container.innerHTML, /aria-valuemax="100"/);
+    assert.doesNotMatch(container.innerHTML, /aria-valuenow=/);
+    assert.match(container.innerHTML, /role="status" aria-live="polite" aria-atomic="true"/);
     assert.match(container.innerHTML, /Loading offering history/);
-    assert.doesNotMatch(container.innerHTML, /history-progress|Checking/);
+    assert.match(container.innerHTML, /Connecting to offering records/);
+    assert.match(styles, /\.history-loading-card\s*{[^}]*border:\s*1px solid #000000;/s);
+    assert.match(styles, /@media \(prefers-reduced-motion:\s*reduce\)/);
+
+    progressCallbacks.get('CSCE 145')({
+        phase: 'terms',
+        completed: 3,
+        total: 8,
+        label: 'Fall 2024',
+    });
+    assert.match(container.innerHTML, /3 of 8 terms checked/);
+    assert.match(container.innerHTML, /38%/);
+    assert.match(container.innerHTML, /aria-valuenow="38"/);
+    assert.match(container.innerHTML, /Checking Fall 2024/);
+
+    progressCallbacks.get('CSCE 145')({
+        phase: 'enrollment',
+        completed: 3,
+        total: 8,
+        label: 'Fall 2024',
+        section: 2,
+        section_total: 5,
+    });
+    assert.match(container.innerHTML, /Reading enrollment for Fall 2024 · 2 of 5 sections/);
 
     const second = history.loadForCourse('CSCE 146');
     assert.deepEqual(calls, ['CSCE 145', 'CSCE 146']);
+    progressCallbacks.get('CSCE 145')({
+        phase: 'terms',
+        completed: 7,
+        total: 8,
+        label: 'Spring 2026',
+    });
+    assert.match(container.innerHTML, /CSCE 146/);
+    assert.doesNotMatch(container.innerHTML, /Spring 2026|88%/);
+    progressCallbacks.get('CSCE 146')({
+        phase: 'terms',
+        completed: 4,
+        total: 8,
+        label: 'Spring 2025',
+    });
+    assert.match(container.innerHTML, /4 of 8 terms checked/);
+    assert.match(container.innerHTML, /50%/);
     pending.get('CSCE 146')({
         code: 'CSCE 146',
         as_of_term: '202708',

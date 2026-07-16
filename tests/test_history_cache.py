@@ -165,6 +165,113 @@ def test_history_cache_key_includes_boundary_and_exact_term_list(monkeypatch):
     assert calls[1][1]["terms"] == ["202401", "202405"]
 
 
+def test_history_progress_reports_completed_terms_and_section_details(monkeypatch):
+    events = []
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405", "202408"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202408")
+    monkeypatch.setattr(app.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *_args, **_kwargs: None)
+
+    def proxy_request(url, body, ttl):
+        assert ttl == app.HISTORY_CACHE_TTL
+        payload = json.loads(body)
+        if url.endswith("details"):
+            return b'{"seats":"<span class=\\"seats_max\\">30</span><span class=\\"seats_avail\\">5</span>"}'
+        if payload["other"]["srcdb"] == "202401":
+            return json.dumps(
+                {
+                    "results": [
+                        {"code": "CSCE 145", "crn": "10001"},
+                        {"code": "CSCE 145", "crn": "10002"},
+                    ]
+                }
+            ).encode()
+        return b'{"results":[]}'
+
+    monkeypatch.setattr(app, "proxy_request", proxy_request)
+
+    result = json.loads(app.handle_history(b'{"code":"CSCE 145"}', progress=events.append))
+
+    assert result["total_terms"] == 2
+    assert [event["completed"] for event in events] == [0, 0, 0, 1, 1, 2]
+    assert [event["completed"] for event in events] == sorted(
+        event["completed"] for event in events
+    )
+    assert events[0] == {
+        "type": "progress",
+        "phase": "terms",
+        "completed": 0,
+        "total": 2,
+        "term": "202401",
+        "label": "Spring 2024",
+    }
+    assert [event for event in events if event["phase"] == "enrollment"] == [
+        {
+            "type": "progress",
+            "phase": "enrollment",
+            "completed": 0,
+            "total": 2,
+            "term": "202401",
+            "label": "Spring 2024",
+            "section": 1,
+            "section_total": 2,
+        },
+        {
+            "type": "progress",
+            "phase": "enrollment",
+            "completed": 0,
+            "total": 2,
+            "term": "202401",
+            "label": "Spring 2024",
+            "section": 2,
+            "section_total": 2,
+        },
+    ]
+    assert events[-1]["completed"] == events[-1]["total"] == 2
+
+
+def test_history_cache_hit_emits_no_progress(monkeypatch):
+    cached = b'{"code":"CSCE 145","complete":true,"terms":[]}'
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202405")
+    monkeypatch.setattr(app.cache, "get", lambda _key: cached)
+    monkeypatch.setattr(
+        app,
+        "proxy_request",
+        lambda *_args, **_kwargs: pytest.fail("cache hit should not call upstream"),
+    )
+    events = []
+
+    result = app.handle_history(b'{"code":"CSCE 145"}', progress=events.append)
+
+    assert result == cached
+    assert events == []
+
+
+def test_failed_term_still_advances_loading_progress(monkeypatch):
+    events = []
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202405")
+    monkeypatch.setattr(app.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *_args, **_kwargs: None)
+
+    def proxy_request(url, _body, ttl):
+        assert ttl == app.HISTORY_CACHE_TTL
+        if url.endswith("search"):
+            return b'{"results":[{"code":"CSCE 145","crn":"10001"}]}'
+        return b'{"error":"temporary failure"}'
+
+    monkeypatch.setattr(app, "proxy_request", proxy_request)
+
+    result = json.loads(app.handle_history(b'{"code":"CSCE 145"}', progress=events.append))
+
+    assert result["complete"] is False
+    assert events
+    assert events[-1]["completed"] == events[-1]["total"] == 1
+
+
 @pytest.mark.parametrize("failure_at", ["search", "details"])
 def test_partial_history_is_returned_but_not_cached(monkeypatch, failure_at):
     writes = []
@@ -258,3 +365,94 @@ def test_history_route_ignores_live_refresh_header(monkeypatch):
 
     assert calls == [b'{"code":"CSCE 145"}']
     assert responses == [b'{"complete":true}']
+
+
+class _StreamWriter:
+    def __init__(self, fail_after=None):
+        self.chunks = []
+        self.fail_after = fail_after
+        self.flushes = 0
+
+    def write(self, data):
+        if self.fail_after is not None and len(self.chunks) >= self.fail_after:
+            raise BrokenPipeError("client disconnected")
+        self.chunks.append(data)
+
+    def flush(self):
+        self.flushes += 1
+
+
+def _history_stream_handler(writer):
+    handler = app.Handler.__new__(app.Handler)
+    handler.path = "/api/history-stream"
+    handler.headers = {}
+    handler._read_body = lambda: b'{"code":"CSCE 145"}'
+    handler.wfile = writer
+    handler.statuses = []
+    handler.response_headers = []
+    handler.send_response = handler.statuses.append
+    handler.send_header = lambda key, value: handler.response_headers.append((key, value))
+    handler.end_headers = lambda: None
+    return handler
+
+
+def test_history_stream_route_ends_with_exactly_one_result_event(monkeypatch):
+    writer = _StreamWriter()
+    handler = _history_stream_handler(writer)
+
+    def handle_history(body, progress=None):
+        assert body == b'{"code":"CSCE 145"}'
+        assert progress is not None
+        progress(
+            {
+                "type": "progress",
+                "phase": "terms",
+                "completed": 1,
+                "total": 2,
+                "term": "202401",
+                "label": "Spring 2024",
+            }
+        )
+        return b'{"code":"CSCE 145","complete":true,"terms":[]}'
+
+    monkeypatch.setattr(app, "handle_history", handle_history)
+
+    handler.do_POST()
+
+    events = [json.loads(chunk) for chunk in writer.chunks]
+    assert handler.statuses == [200]
+    assert ("Content-Type", "application/x-ndjson") in handler.response_headers
+    assert writer.flushes == len(events)
+    assert events[-1] == {
+        "type": "result",
+        "data": {"code": "CSCE 145", "complete": True, "terms": []},
+    }
+    assert sum(event["type"] == "result" for event in events) == 1
+
+
+def test_history_stream_disconnect_does_not_interrupt_history_work(monkeypatch):
+    writer = _StreamWriter(fail_after=1)
+    handler = _history_stream_handler(writer)
+    work_finished = []
+
+    def handle_history(_body, progress=None):
+        assert progress is not None
+        event = {
+            "type": "progress",
+            "phase": "terms",
+            "completed": 0,
+            "total": 1,
+            "term": "202401",
+            "label": "Spring 2024",
+        }
+        progress(event)
+        progress({**event, "completed": 1})
+        work_finished.append(True)
+        return b'{"complete":true}'
+
+    monkeypatch.setattr(app, "handle_history", handle_history)
+
+    handler.do_POST()
+
+    assert work_finished == [True]
+    assert len(writer.chunks) == 1
