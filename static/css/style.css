@@ -2334,8 +2334,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     overflow: hidden;
     padding: 14px;
 }
-.prereq-tree-groups,
-.prereq-tree-companions {
+.prereq-tree-groups {
     align-items: stretch;
     display: grid;
     gap: 18px;
@@ -2344,8 +2343,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     position: relative;
     width: 100%;
 }
-.prereq-tree-groups:not(.single)::before,
-.prereq-tree-companions:not(.single)::before {
+.prereq-tree-groups:not(.single)::before {
     border-top: 2px solid #000000;
     content: '';
     left: 12%;
@@ -2353,9 +2351,8 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     right: 12%;
 }
 .prereq-tree-groups:not(.single)::before { bottom: 0; }
-.prereq-tree-companions:not(.single)::before { border-top-style: dashed; top: 0; }
-.prereq-tree-branch,
-.prereq-tree-companion {
+.prereq-tree-groups.companions-only:not(.single)::before { border-top-style: dashed; }
+.prereq-tree-branch {
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -2368,11 +2365,8 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     min-height: 14px;
     width: 2px;
 }
-.prereq-tree-companion-rise {
-    align-self: center;
+.prereq-tree-branch.companion .prereq-tree-branch-drop {
     background: repeating-linear-gradient(to bottom, #000000 0, #000000 4px, transparent 4px, transparent 8px);
-    flex: 0 0 14px;
-    width: 2px;
 }
 .prereq-tree-branch-label {
     color: #5C5C5C;
@@ -3494,12 +3488,9 @@ body.app-modal-open { overflow: hidden; }
     .course-section-picker-wrap,
     .course-detail-panels { padding-inline: 12px; }
     .course-detail-tabs { padding-inline: 6px; }
-    .prereq-tree-groups,
-    .prereq-tree-companions { gap: 10px; grid-template-columns: 1fr; }
+    .prereq-tree-groups { gap: 10px; grid-template-columns: 1fr; }
     .prereq-tree-groups::before,
-    .prereq-tree-companions::before,
     .prereq-tree-branch-drop,
-    .prereq-tree-companion-rise,
     .prereq-tree-connector { display: none; }
     .prereq-course-card { flex: 1 1 125px; }
 }

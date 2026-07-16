@@ -242,41 +242,38 @@ const Prereqs = {
         if (!groups.length && !visibleCompanions.length) return '';
         const safeTarget = this.escapeHtml(target);
         let html = `<div class="prereq-tree" role="group" aria-label="Prerequisite and corequisite tree for ${safeTarget}">`;
-
-        if (groups.length) {
-            const groupMarkup = groups.map(group => {
+        const prerequisiteBranches = groups.map(group => {
+            const groupMet = this.groupIsMet(group, completed);
+            const label = group.courses.length > 1 ? 'Complete one' : 'Required';
+            const courses = group.courses
+                .map(code => this.renderCourseCard(code, completed, 'Needed'))
+                .join('');
+            const optionClass = group.courses.length > 1 ? ' alternatives' : '';
+            return `<section class="prereq-tree-branch prerequisite ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${label}</span><div class="prereq-course-options${optionClass}">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
+        });
+        const companionBranches = visibleCompanions.flatMap(item => {
+            const isEither = item.mode === 'either';
+            const modeLabel = isEither ? 'Before or with this course' : 'Take with this course';
+            const pendingLabel = isEither ? 'Before or with' : 'Take together';
+            return item.groups.map(group => {
                 const groupMet = this.groupIsMet(group, completed);
-                const label = group.courses.length > 1 ? 'Complete one' : 'Required';
+                const chooseOne = group.courses.length > 1 ? ' · choose one' : '';
                 const courses = group.courses
-                    .map(code => this.renderCourseCard(code, completed, 'Needed'))
+                    .map(code => this.renderCourseCard(code, completed, pendingLabel))
                     .join('');
                 const optionClass = group.courses.length > 1 ? ' alternatives' : '';
-                return `<section class="prereq-tree-branch ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${label}</span><div class="prereq-course-options${optionClass}">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
-            }).join('');
-            html += `<div class="prereq-tree-groups${groups.length === 1 ? ' single' : ''}">${groupMarkup}</div><span class="prereq-tree-connector" aria-hidden="true"></span>`;
-        }
-
+                return `<section class="prereq-tree-branch companion ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${modeLabel}${chooseOne}</span><div class="prereq-course-options${optionClass}">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
+            });
+        });
+        const branches = [...prerequisiteBranches, ...companionBranches];
+        const groupClasses = [
+            'prereq-tree-groups',
+            branches.length === 1 ? 'single' : '',
+            prerequisiteBranches.length ? '' : 'companions-only',
+        ].filter(Boolean).join(' ');
+        const connectorClass = prerequisiteBranches.length ? '' : ' companion';
+        html += `<div class="${groupClasses}">${branches.join('')}</div><span class="prereq-tree-connector${connectorClass}" aria-hidden="true"></span>`;
         html += `<div class="prereq-course-card target" aria-label="${safeTarget}, this course"><strong>${safeTarget}</strong><span>This course</span></div>`;
-
-        if (visibleCompanions.length) {
-            const companionMarkup = visibleCompanions.flatMap(item => {
-                const isEither = item.mode === 'either';
-                const modeLabel = isEither ? 'Before or with this course' : 'Take with this course';
-                const pendingLabel = isEither ? 'Before or with' : 'Take together';
-                return item.groups.map(group => {
-                    const chooseOne = group.courses.length > 1 ? ' · choose one' : '';
-                    const courses = group.courses
-                        .map(code => this.renderCourseCard(code, completed, pendingLabel))
-                        .join('');
-                    const optionClass = group.courses.length > 1 ? ' alternatives' : '';
-                    return `<section class="prereq-tree-companion"><span class="prereq-tree-companion-rise" aria-hidden="true"></span><span class="prereq-tree-branch-label">${modeLabel}${chooseOne}</span><div class="prereq-course-options${optionClass}">${courses}</div></section>`;
-                });
-            }).join('');
-            const companionGroupCount = visibleCompanions
-                .reduce((count, item) => count + item.groups.length, 0);
-            html += `<span class="prereq-tree-connector companion" aria-hidden="true"></span><div class="prereq-tree-companions${companionGroupCount === 1 ? ' single' : ''}">${companionMarkup}</div>`;
-        }
-
         return `${html}</div>`;
     },
 

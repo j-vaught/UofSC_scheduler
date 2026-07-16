@@ -413,6 +413,12 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(pathway, /prereq-tree-groups/);
     assert.match(pathway, /Take with this course/);
     assert.match(pathway, /Before or with this course/);
+    const targetIndex = pathway.indexOf('prereq-course-card target');
+    assert.ok(pathway.indexOf('Take with this course') < targetIndex);
+    assert.ok(pathway.indexOf('Before or with this course') < targetIndex);
+    assert.match(alternativeTree, /prereq-tree-groups single companions-only/);
+    assert.match(alternativeTree, /prereq-tree-connector companion/);
+    assert.doesNotMatch(pathway, /prereq-tree-companions|prereq-tree-companion-rise/);
     assert.match(unevenPathway, /prereq-course-options alternatives/);
     assert.equal((unevenPathway.match(/prereq-tree-branch-drop/g) || []).length, 3);
     assert.equal((unevenPathway.match(/class="prereq-link prereq-course-card/g) || []).length, 6);
@@ -443,7 +449,7 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(styles, /\.prereq-status-card\.missing/);
     assert.match(styles, /\.prereq-course-card\.target/);
     assert.match(styles, /\.prereq-tree-groups/);
-    assert.match(styles, /\.prereq-tree-branch\s*,[\s\S]*display:\s*flex;[\s\S]*flex-direction:\s*column;/);
+    assert.match(styles, /\.prereq-tree-branch\s*{[^}]*display:\s*flex;[^}]*flex-direction:\s*column;/s);
     assert.match(styles, /\.prereq-tree-branch-drop\s*{[^}]*flex:\s*1 1 14px;[^}]*width:\s*2px;/s);
     assert.match(styles, /\.prereq-tree-connector\s*{[^}]*background:\s*#000000;[^}]*width:\s*2px;/s);
     assert.doesNotMatch(styles, /\.prereq-tree-connector\s*{[^}]*border-left:/s);
