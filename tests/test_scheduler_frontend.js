@@ -2113,6 +2113,9 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.doesNotMatch(source, /class="course-resource-card"/);
     assert.doesNotMatch(source, /course-resource-group-heading/);
     assert.match(styles, /\.course-resource-layout\s*{[^}]*grid-template-columns:/s);
+    assert.match(styles, /\.course-resource-link\s*{[^}]*font-weight:\s*400;/s);
+    assert.match(styles, /\.course-resource-link small\s*{[^}]*font-weight:\s*400;/s);
+    assert.match(styles, /\.course-resource-link > b\s*{[^}]*font-weight:\s*700;/s);
     assert.match(styles, /\.course-resource-link:hover/);
     assert.match(source, /primaryFaculty\?\.professor_id/);
     assert.doesNotMatch(source, /uscbookstore\.com/);

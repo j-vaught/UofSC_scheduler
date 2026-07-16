@@ -3425,6 +3425,7 @@ button:hover { background: #f0f0f0; }
     cursor: pointer;
     display: flex;
     font-family: inherit;
+    font-weight: 400;
     justify-content: space-between;
     min-height: 68px;
     padding: 10px 9px;
@@ -3436,9 +3437,9 @@ button:hover { background: #f0f0f0; }
 .course-resource-link:hover,
 .course-resource-link:focus-visible { background: #ECECEC; box-shadow: inset 4px 0 #73000A; outline: 2px solid #73000A; outline-offset: -2px; }
 .course-resource-link > span { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.course-resource-link strong { color: #73000A; font-size: 0.8rem; }
-.course-resource-link small { color: #5C5C5C; font-size: 0.66rem; line-height: 1.35; }
-.course-resource-link > b { color: #000000; flex: 0 0 auto; font-size: 1rem; margin-left: 12px; }
+.course-resource-link strong { color: #73000A; font-size: 0.8rem; font-weight: 700; }
+.course-resource-link small { color: #5C5C5C; font-size: 0.66rem; font-weight: 400; line-height: 1.35; }
+.course-resource-link > b { color: #000000; flex: 0 0 auto; font-size: 1rem; font-weight: 700; margin-left: 12px; }
 body.app-modal-open { overflow: hidden; }
 #modal.professor-profile-modal { max-height: 90dvh; max-width: 860px; overflow-y: auto; padding: 0; width: min(860px, calc(100vw - 40px)); }
 #modal.professor-profile-modal #modal-close {
