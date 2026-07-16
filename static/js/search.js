@@ -883,7 +883,10 @@ const Search = {
         const honors = document.getElementById('filter-honors').value;
         const meetingPattern = document.getElementById('filter-meeting-pattern').value;
         const aiAssisted = document.getElementById('filter-ai-search')?.checked !== false;
-        const useDirectSearch = !aiAssisted || this._directSearchOnce || this._semanticFallbackOnce;
+        const useDirectSearch = !aiAssisted
+            || Boolean(this._relatedSearchOrigin)
+            || this._directSearchOnce
+            || this._semanticFallbackOnce;
         this._directSearchOnce = false;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it

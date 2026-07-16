@@ -1038,14 +1038,15 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(styles, /\.semantic-search-terms-toggle\[aria-expanded="true"\] i\s*{\s*transform:\s*rotate\(180deg\);/s);
 });
 
-test('AI-assisted search can be disabled and related searches bypass it once', () => {
+test('AI-assisted search can be disabled and related searches remain direct', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
 
     assert.match(html, /id="filter-ai-search" type="checkbox" checked/);
-    assert.match(source, /const useDirectSearch = !aiAssisted \|\| this\._directSearchOnce \|\| this\._semanticFallbackOnce/);
+    assert.match(source, /const useDirectSearch = !aiAssisted[\s\S]*Boolean\(this\._relatedSearchOrigin\)[\s\S]*this\._directSearchOnce[\s\S]*this\._semanticFallbackOnce/);
     assert.match(source, /if \(aiToggle\) aiToggle\.checked = true/);
     assert.match(source, /openRegularSearch\(term\)[\s\S]*this\._directSearchOnce = true/);
+    assert.match(source, /writeSearchHistory\(rawInput,[\s\S]*origin: this\._relatedSearchOrigin/);
     assert.match(source, /Meaning-based matching is unavailable\. Showing direct matches\./);
 });
 
