@@ -994,6 +994,7 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
 });
 
 test('Browse filters open as a centered modal and applying closes them', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
@@ -1002,7 +1003,11 @@ test('Browse filters open as a centered modal and applying closes them', () => {
     assert.match(source, /filterBackdrop\?\.classList\.remove\('hidden'\)/);
     assert.match(source, /document\.getElementById\('btn-apply-filters'\)\?\.addEventListener\('click',[\s\S]*?this\.closeFilters\(\);/);
     assert.match(source, /if \(event\.key === 'Escape'[\s\S]*?event\.stopImmediatePropagation\(\);[\s\S]*?this\.closeFilters\(\);/);
+    assert.match(source, /if \(event\.key !== 'Tab'\) return;[\s\S]*filterPanel\.querySelectorAll/);
+    assert.match(source, /this\._filterPreviousFocus = document\.activeElement/);
     assert.match(source, /document\.getElementById\('filter-panel'\)\?\.classList\.contains\('hidden'\)/);
+    assert.match(html, /id="additional-filter-toggle" type="button" aria-expanded="false" aria-controls="additional-filter-panel"/);
+    assert.match(source, /additionalToggle\.setAttribute\('aria-expanded', String\(willExpand\)\)/);
 });
 
 test('Browse teaches structured searches and presents generated searches compactly', () => {
@@ -1071,6 +1076,9 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(tabs, /btn\.dataset\.tab === 'semester'[\s\S]*search-tab-reset-requested/);
+    assert.match(tabs, /writeTabHistory\(tabName, historyMode\)/);
+    assert.match(tabs, /url\.searchParams\.set\('tab', tabName\)/);
+    assert.match(tabs, /window\.addEventListener\('popstate', \(\) => this\.restoreFromLocation\(\)\)/);
     assert.match(search, /resetToCleanSearch\(\{ historyMode: 'push' \}\)/);
     assert.match(search, /history\.pushState\(state, '', next\)/);
     assert.match(search, /window\.addEventListener\('popstate', \(\) => this\.restoreFromLocation\(\)\)/);
@@ -1081,8 +1089,22 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(search, /State\.term = term/);
     assert.match(search, /class="related-search-back"/);
     assert.match(search, /history\.state\?\.relatedSearch/);
+    assert.match(fs.readFileSync('static/index.html', 'utf8'), /id="keyword-input" aria-label="Search courses"/);
     assert.match(styles, /\.search-clear\s*{[^}]*right:\s*7px;/s);
     assert.match(styles, /@media \(max-width: 700px\)[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\) 44px 88px;/s);
+    assert.match(styles, /@media \(max-width: 420px\)[\s\S]*--search-side-gap:\s*8px;/s);
+});
+
+test('Direct search ignores stale prerequisite completions and errors', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
+    const render = source.indexOf('this.renderResults(results, totalCount || results.length', prereqLoad);
+    const staleGuard = source.lastIndexOf('if (searchId !== this._searchId) return;', render);
+    const catchStart = source.indexOf('} catch (err) {', render);
+
+    assert.ok(prereqLoad > 0 && render > prereqLoad);
+    assert.ok(staleGuard > prereqLoad && staleGuard < render);
+    assert.match(source.slice(catchStart, catchStart + 180), /if \(searchId !== this\._searchId\) return;/);
 });
 
 test('Course and professor close controls remain available while scrolling', () => {

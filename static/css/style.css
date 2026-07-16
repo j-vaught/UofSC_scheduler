@@ -2963,6 +2963,13 @@ button:hover { background: #f0f0f0; }
 .filter-ai-control input:checked + i { background: #73000A; border-color: #73000A; }
 .filter-ai-control input:checked + i::after { background: #FFFFFF; transform: translateX(18px); }
 .filter-ai-control input:focus-visible + i { outline: 3px solid #466A9F; outline-offset: 2px; }
+.additional-filter-toggle {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #C7C7C7;
+    text-align: left;
+    width: 100%;
+}
 .browse-results-summary {
     align-items: baseline;
     color: #363636;
@@ -3255,6 +3262,7 @@ body.app-modal-open { overflow: hidden; }
     .course-detail-tabs { padding-inline: 6px; }
 }
 @media (max-width: 420px) {
+    #browse-workspace { --search-side-gap: 8px; }
     .browse-search-shell { padding-inline: 8px; }
     .browse-search-form,
     .browse-empty .browse-search-form { gap: 6px; grid-template-columns: minmax(0, 1fr) 42px 78px; }

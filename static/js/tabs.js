@@ -16,12 +16,43 @@ const Tabs = {
             this.switchTo(btn.dataset.tab);
         });
 
-        // Restore last tab or default to profile
+        // Restore the URL tab first, then the last tab used on this device.
+        const urlTab = this.tabFromUrl(new URL(window.location.href).searchParams.get('tab'));
         const saved = localStorage.getItem('uosc-active-tab');
-        this.switchTo(saved || 'home');
+        const initial = urlTab || saved || 'home';
+        this.switchTo(initial, { historyMode: 'none' });
+        if (!urlTab) {
+            history.replaceState({ ...(history.state || {}), tab: initial }, '', window.location.href);
+        }
+        window.addEventListener('popstate', () => this.restoreFromLocation());
     },
 
-    switchTo(tabName) {
+    tabFromUrl(value) {
+        if (value === 'search') return 'semester';
+        return ['home', 'degree', 'schedule', 'profile', 'export'].includes(value) ? value : '';
+    },
+
+    writeTabHistory(tabName, mode = 'push') {
+        if (mode === 'none' || tabName === 'semester') return;
+        const url = new URL(window.location.href);
+        url.search = '';
+        url.hash = '';
+        url.searchParams.set('tab', tabName);
+        if (globalThis.State?.term) url.searchParams.set('term', State.term);
+        const next = `${url.pathname}${url.search}`;
+        const current = `${window.location.pathname}${window.location.search}`;
+        const state = { tab: tabName };
+        if (mode === 'replace' || next === current) history.replaceState(state, '', next);
+        else history.pushState(state, '', next);
+    },
+
+    restoreFromLocation() {
+        const urlTab = this.tabFromUrl(new URL(window.location.href).searchParams.get('tab'));
+        const stateTab = this.tabFromUrl(history.state?.tab);
+        this.switchTo(urlTab || stateTab || 'home', { historyMode: 'none' });
+    },
+
+    switchTo(tabName, { historyMode = 'push' } = {}) {
         // Hide all tabs
         document.querySelectorAll('.main-tab').forEach(el => {
             el.classList.remove('active');
@@ -46,6 +77,7 @@ const Tabs = {
 
         this._current = tabName;
         localStorage.setItem('uosc-active-tab', tabName);
+        this.writeTabHistory(tabName, historyMode);
 
         // Notify listeners
         this._listeners.forEach(fn => fn(tabName));

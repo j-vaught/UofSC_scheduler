@@ -31,6 +31,7 @@ const Search = {
     _relatedSearchOrigin: '',
     _restoringHistory: false,
     _detailMap: null,
+    _filterPreviousFocus: null,
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -497,6 +498,7 @@ const Search = {
                 event.stopPropagation();
                 const shouldOpen = filterPanel.classList.contains('hidden');
                 if (shouldOpen) {
+                    this._filterPreviousFocus = document.activeElement;
                     filterPanel.classList.remove('hidden');
                     filterBackdrop?.classList.remove('hidden');
                     document.body?.classList.add('filter-modal-open');
@@ -510,10 +512,25 @@ const Search = {
             filterPanel.addEventListener('click', event => event.stopPropagation());
             document.addEventListener('click', () => this.closeFilters());
             document.addEventListener('keydown', event => {
-                if (event.key === 'Escape' && !filterPanel.classList.contains('hidden')) {
+                if (filterPanel.classList.contains('hidden')) return;
+                if (event.key === 'Escape') {
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     this.closeFilters();
+                    return;
+                }
+                if (event.key !== 'Tab') return;
+                const focusable = [...filterPanel.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+                    .filter(element => !element.hidden && element.offsetParent !== null);
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
                 }
             });
         }
@@ -551,8 +568,10 @@ const Search = {
         const additionalArrow = document.getElementById('additional-filter-arrow');
         if (additionalToggle && additionalPanel) {
             additionalToggle.addEventListener('click', () => {
-                additionalPanel.classList.toggle('hidden');
-                additionalArrow.classList.toggle('open');
+                const willExpand = additionalPanel.classList.contains('hidden');
+                additionalPanel.classList.toggle('hidden', !willExpand);
+                additionalArrow.classList.toggle('open', willExpand);
+                additionalToggle.setAttribute('aria-expanded', String(willExpand));
             });
         }
 
@@ -788,7 +807,14 @@ const Search = {
         document.body?.classList.remove('filter-modal-open');
         arrow?.classList.remove('open');
         toggle?.setAttribute('aria-expanded', 'false');
-        if (wasOpen) requestAnimationFrame(() => toggle?.focus());
+        if (wasOpen) {
+            const restore = this._filterPreviousFocus;
+            this._filterPreviousFocus = null;
+            requestAnimationFrame(() => {
+                if (restore?.isConnected) restore.focus();
+                else toggle?.focus();
+            });
+        }
     },
 
     activeFilterEntries() {
@@ -1237,8 +1263,10 @@ const Search = {
                 ? await this.loadPrereqsForResults(results)
                 : (this._prereqCache[subject] || {});
 
+            if (searchId !== this._searchId) return;
             this.renderResults(results, totalCount || results.length, prereqData, eligibleOnly);
         } catch (err) {
+            if (searchId !== this._searchId) return;
             this.showHint('Search failed. Try again.');
         }
     },

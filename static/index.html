@@ -251,7 +251,7 @@
                     </div>
                     <div class="search-form browse-search-form">
                         <div class="search-input-wrap">
-                            <input type="text" id="keyword-input" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input type="text" id="keyword-input" aria-label="Search courses" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                             <div id="smart-model-loading" class="smart-model-loading hidden" role="status" aria-live="polite">
                                 <span id="smart-model-loading-stage">Preparing AI-assisted search</span>
                             </div>
@@ -324,7 +324,7 @@
                             </div>
                             </div>
                             </div>
-                            <div class="filter-toggle additional-filter-toggle" id="additional-filter-toggle">Additional Filters <span id="additional-filter-arrow">&#9660;</span></div>
+                            <button class="filter-toggle additional-filter-toggle" id="additional-filter-toggle" type="button" aria-expanded="false" aria-controls="additional-filter-panel">Additional Filters <span id="additional-filter-arrow" aria-hidden="true">&#9660;</span></button>
                             <div class="additional-filter-panel hidden" id="additional-filter-panel">
                                 <div class="filter-group">
                                     <label class="filter-label" for="filter-part-of-term">Part of Term</label>
