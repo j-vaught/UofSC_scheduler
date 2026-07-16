@@ -250,7 +250,7 @@ const Prereqs = {
                 const courses = group.courses
                     .map(code => this.renderCourseCard(code, completed, 'Needed'))
                     .join('');
-                return `<section class="prereq-tree-branch ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${label}</span><div class="prereq-course-options">${courses}</div></section>`;
+                return `<section class="prereq-tree-branch ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${label}</span><div class="prereq-course-options">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
             }).join('');
             html += `<div class="prereq-tree-groups${groups.length === 1 ? ' single' : ''}">${groupMarkup}</div><span class="prereq-tree-connector" aria-hidden="true"></span>`;
         }
@@ -267,7 +267,7 @@ const Prereqs = {
                     const courses = group.courses
                         .map(code => this.renderCourseCard(code, completed, pendingLabel))
                         .join('');
-                    return `<section class="prereq-tree-companion"><span class="prereq-tree-branch-label">${modeLabel}${chooseOne}</span><div class="prereq-course-options">${courses}</div></section>`;
+                    return `<section class="prereq-tree-companion"><span class="prereq-tree-companion-rise" aria-hidden="true"></span><span class="prereq-tree-branch-label">${modeLabel}${chooseOne}</span><div class="prereq-course-options">${courses}</div></section>`;
                 });
             }).join('');
             const companionGroupCount = visibleCompanions

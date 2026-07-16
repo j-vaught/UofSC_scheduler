@@ -395,6 +395,11 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     const requiredTogether = prereqs.parsePrereqGroups('C or better in ACCT 401 and MGSC 290.');
     const alternatives = prereqs.parsePrereqGroups('D or better in ENCP 200, ECIV 200, EMCH 200, or ECHE 300.');
     const mixed = prereqs.parsePrereqGroups('D or better in EMCH 290 or ENCP 290 and AESP 265.');
+    const unevenPathway = prereqs.renderPathways('CSCE 350', [
+        { courses: ['CSCE 240'], type: 'and' },
+        { courses: ['MATH 174', 'MATH 374', 'MATH 574'], type: 'or' },
+        { courses: ['MATH 141', 'MATH 122'], type: 'or' },
+    ], [], completed);
 
     assert.match(status, /1 prerequisite requirement remaining/);
     assert.match(companionStatus, /2 companion courses to plan/);
@@ -408,6 +413,9 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(pathway, /prereq-tree-groups/);
     assert.match(pathway, /Take with this course/);
     assert.match(pathway, /Before or with this course/);
+    assert.equal((unevenPathway.match(/prereq-tree-branch-drop/g) || []).length, 3);
+    assert.equal((unevenPathway.match(/class="prereq-link prereq-course-card/g) || []).length, 6);
+    assert.match(unevenPathway, /prereq-course-options[^>]*>[\s\S]*prereq-tree-branch-drop/);
     assert.doesNotMatch(pathway, /<svg/);
     assert.match(catalog, /<details class="prereq-catalog-note">/);
     assert.match(catalog, /Catalog wording/);
@@ -434,6 +442,10 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(styles, /\.prereq-status-card\.missing/);
     assert.match(styles, /\.prereq-course-card\.target/);
     assert.match(styles, /\.prereq-tree-groups/);
+    assert.match(styles, /\.prereq-tree-branch\s*,[\s\S]*display:\s*flex;[\s\S]*flex-direction:\s*column;/);
+    assert.match(styles, /\.prereq-tree-branch-drop\s*{[^}]*flex:\s*1 1 14px;[^}]*width:\s*2px;/s);
+    assert.match(styles, /\.prereq-tree-connector\s*{[^}]*background:\s*#000000;[^}]*width:\s*2px;/s);
+    assert.doesNotMatch(styles, /\.prereq-tree-connector\s*{[^}]*border-left:/s);
 });
 
 test('browse filters separate primary and additional course choices', () => {
