@@ -375,6 +375,7 @@ test('course time and location correlates numbered colors across calendar and ma
     assert.doesNotMatch(source, /<button[^>]*class="section-calendar-event"/);
     assert.match(styles, /\.section-mini-calendar-grid\s*{[^}]*height:\s*360px;/s);
     assert.match(styles, /\.course-section-map\s*{[^}]*height:\s*360px;/s);
+    assert.match(styles, /\.course-section-map\s*{[^}]*isolation:\s*isolate;[^}]*z-index:\s*0;/s);
     assert.match(styles, /\.leaflet-marker-icon\.is-location-highlighted/);
 });
 
