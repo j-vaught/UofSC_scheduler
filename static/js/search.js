@@ -30,6 +30,7 @@ const Search = {
     _mainSearchQuery: '',
     _relatedSearchOrigin: '',
     _restoringHistory: false,
+    _detailMap: null,
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -1586,6 +1587,7 @@ const Search = {
 
     closeCourseDetail() {
         this._detailToken = (this._detailToken || 0) + 1;
+        this.destroyDetailMap();
         this.setBrowseState('results');
         document.querySelectorAll('#search-results .course-group').forEach(card => {
             card.classList.remove('active');
@@ -1613,7 +1615,7 @@ const Search = {
     },
 
     setCourseDetailTab(tab, focus = false) {
-        const allowed = new Set(['overview', 'sections', 'grades', 'history', 'resources']);
+        const allowed = new Set(['overview', 'grades', 'history', 'resources']);
         const active = allowed.has(tab) ? tab : 'overview';
         this._detailTab = active;
         document.querySelectorAll('[data-course-tab]').forEach(button => {
@@ -1664,6 +1666,7 @@ const Search = {
         const detailsTab = document.getElementById('tab-details');
         if (!detailsTab || !group) return;
         this._detailToken = (this._detailToken || 0) + 1;
+        this.destroyDetailMap();
         const token = this._detailToken;
         this._detailTerm = State.term;
         this._detailGroup = group;
@@ -1722,7 +1725,7 @@ const Search = {
             </div>
             ${description ? `<p class="course-detail-description">${this.escapeText(description)}</p>` : '<p class="course-detail-description loading">Loading course description</p>'}
             <div class="course-detail-primary-actions">
-                <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
+                <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unavailable ? 'This course has no sections in the selected term' : 'Add this course so the scheduler can choose a section'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
             </div>
         `;
         header.querySelector('#btn-course-toggle')?.addEventListener('click', async () => {
@@ -1739,14 +1742,24 @@ const Search = {
         const container = document.getElementById('course-overview-content');
         if (!container || !this._detailGroup) return;
         const details = this._detailDetails || {};
+        const sectionDetails = this._detailSectionData?.[this._detailSectionCrn]?.details || {};
         const attributes = [details.attributes, details.carolina_core, details.course_attributes]
             .map(value => this.stripHtml(value)).filter(Boolean);
-        container.innerHTML = attributes.length ? `
-            <section class="course-detail-card">
+        const requirements = [
+            ['Corequisites', details.corequisite || details.corequisites || sectionDetails.course_coreqs],
+            ['Prerequisite or corequisite', details.prerequisite_or_corequisite],
+            ['Registration restrictions', details.registration_restrictions || details.restrictions],
+        ].map(([label, value]) => [label, this.stripHtml(value)]).filter(([, value]) => value);
+        container.innerHTML = `
+            ${attributes.length ? `<section class="course-detail-card">
                 <div class="course-detail-card-heading"><h2>Course attributes</h2></div>
                 <p>${this.escapeText(attributes.join(' · '))}</p>
-            </section>
-        ` : '';
+            </section>` : ''}
+            ${requirements.length ? `<section class="course-detail-card">
+                <div class="course-detail-card-heading"><h2>Course requirements</h2></div>
+                <div class="course-requirement-list">${requirements.map(([label, value]) => `<p><strong>${this.escapeText(label)}</strong><span>${this.escapeText(value)}</span></p>`).join('')}</div>
+            </section>` : ''}
+        `;
     },
 
     currentDetailSection() {
@@ -1760,37 +1773,22 @@ const Search = {
         const wrap = document.getElementById('course-section-picker-wrap');
         const picker = document.getElementById('course-section-picker');
         const count = document.getElementById('course-section-picker-count');
-        const panel = document.getElementById('course-sections-panel');
-        if (!wrap || !picker || !panel) return;
+        if (!wrap || !picker) return;
         wrap.hidden = sections.length === 0;
         if (count) count.textContent = `${sections.length} this term`;
         if (!sections.length) {
-            panel.innerHTML = '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
+            picker.innerHTML = '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
             return;
         }
         picker.innerHTML = sections.map(section => `
-            <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}">
-                <span><i aria-hidden="true"></i>Section ${this.escapeText(section.section || '—')}</span>
+            <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}" title="View Section ${this.escapeText(section.section || '—')} details">
+                <span><i aria-hidden="true"></i>Section ${this.escapeText(section.section || '—')}<b>${section.stat === 'A' ? 'Open' : 'Full'}</b></span>
                 <small>${this.escapeText(section.meets || 'Time TBA')}</small>
+                <em>${this.escapeText(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA')} · CRN ${this.escapeText(section.crn)}</em>
             </button>
         `).join('');
-        panel.innerHTML = `
-            <div class="course-sections-comparison">
-                ${sections.map(section => `
-                    <button type="button" class="course-section-card ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}">
-                        <span class="course-section-card-title"><strong>Section ${this.escapeText(section.section || '—')}</strong><em>${section.stat === 'A' ? 'Open' : 'Full'}</em></span>
-                        <span>${this.escapeText(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA')}</span>
-                        <span>${this.escapeText(section.meets || 'Time TBA')}</span>
-                        <small>CRN ${this.escapeText(section.crn)}</small>
-                    </button>
-                `).join('')}
-            </div>
-        `;
         picker.querySelectorAll('[data-detail-crn]').forEach(button => {
             button.addEventListener('click', () => this.selectDetailSection(button.dataset.detailCrn));
-        });
-        panel.querySelectorAll('[data-detail-crn]').forEach(button => {
-            button.addEventListener('click', () => this.selectDetailSection(button.dataset.detailCrn, false));
         });
     },
 
@@ -1799,6 +1797,7 @@ const Search = {
             || this.preferredDetailSection(this._detailGroup);
         this._detailSectionCrn = String(section?.crn || '');
         this._detailFaculty = [];
+        this.destroyDetailMap();
         document.querySelectorAll('[data-detail-crn]').forEach(button => {
             const selected = String(button.dataset.detailCrn) === this._detailSectionCrn;
             button.setAttribute('aria-pressed', String(selected));
@@ -1822,6 +1821,7 @@ const Search = {
             this._detailSectionData[this._detailSectionCrn] = { details, faculty };
             this._detailFaculty = faculty;
             this.renderSectionSummary(section, details, faculty);
+            this.renderCourseOverview();
             this.renderCourseResources(section, faculty);
             this.refreshDetailGrades();
         });
@@ -1844,6 +1844,131 @@ const Search = {
         return this._facultyCache[key];
     },
 
+    detailMeetingEvents(section, details = null) {
+        let events = [];
+        if (typeof WalkingMap !== 'undefined' && WalkingMap.parseMeetingTimes) {
+            events = WalkingMap.parseMeetingTimes(section?.meetingTimes || '');
+        }
+        if (!events.length && details?.meeting_html && typeof WalkingMap !== 'undefined') {
+            const parsed = WalkingMap.parseMeetingDetails(details.meeting_html);
+            events = parsed.flatMap(meeting => meeting.days.map(day => ({
+                day,
+                start: meeting.start,
+                end: meeting.end,
+            })));
+        }
+        return events.filter(event => Number.isFinite(event.day)
+            && Number.isFinite(event.start)
+            && Number.isFinite(event.end)
+            && event.end > event.start);
+    },
+
+    renderSectionCalendar(section, details = null) {
+        const events = this.detailMeetingEvents(section, details);
+        if (!events.length) {
+            return '<div class="section-visual-empty">No scheduled meeting pattern is listed.</div>';
+        }
+        const dayCount = events.some(event => event.day > 4) ? 7 : 5;
+        const dayNames = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].slice(0, dayCount);
+        const dayLabels = dayNames.map((day, index) => `<strong style="grid-column:${index + 2};grid-row:1">${day}</strong>`).join('');
+        const dayTracks = dayNames.map((day, index) => `<i class="section-calendar-track" aria-hidden="true" style="grid-column:${index + 2};grid-row:2 / span 28"></i>`).join('');
+        const timeLabels = [8, 10, 12, 14, 16, 18, 20].map(hour => {
+            const label = hour === 12 ? '12 PM' : `${hour > 12 ? hour - 12 : hour} ${hour >= 12 ? 'PM' : 'AM'}`;
+            return `<span class="section-calendar-time" style="grid-column:1;grid-row:${2 + (hour - 8) * 2} / span 2">${label}</span>`;
+        }).join('');
+        const blocks = events.map(event => {
+            const start = Math.max(480, Math.min(1319, event.start));
+            const end = Math.max(start + 1, Math.min(1320, event.end));
+            const row = 2 + Math.floor((start - 480) / 30);
+            const span = Math.max(2, Math.ceil((end - start) / 30));
+            const format = minutes => typeof WalkingMap !== 'undefined'
+                ? WalkingMap.formatTime(minutes)
+                : `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, '0')}`;
+            const title = `${dayNames[event.day]} ${format(event.start)}–${format(event.end)}`;
+            return `<span class="section-calendar-event" title="${this.escapeText(title)}" aria-label="${this.escapeText(title)}" style="grid-column:${event.day + 2};grid-row:${row} / span ${span}">${this.escapeText(format(event.start).replace(' ', ''))}</span>`;
+        }).join('');
+        return `<div class="section-mini-calendar-grid" role="img" aria-label="Weekly meeting calendar from 8 AM to 10 PM" style="grid-template-columns:42px repeat(${dayCount}, minmax(0, 1fr))">${dayLabels}${timeLabels}${dayTracks}${blocks}</div>`;
+    },
+
+    sectionRegistrationNotes(details = null) {
+        if (!details) return '';
+        const clean = value => this.stripHtml(value);
+        const restrictions = typeof Scheduler !== 'undefined'
+            ? Scheduler.registrationRestrictionText(details.registration_restrictions)
+            : clean(details.registration_restrictions);
+        const rows = [
+            ['Section corequisites', clean(details.section_coreqs)],
+            ['Registration restrictions', restrictions],
+            ['Class notes', clean(details.clssnotes)],
+            ['Part of term', clean(details.part_of_term)],
+        ].filter(([, value]) => value && !/^none listed$/i.test(value));
+        if (!rows.length) return '';
+        return `<section class="course-section-registration"><div class="course-detail-card-heading"><h3>Registration notes for this section</h3></div><div>${rows.map(([label, value]) => {
+            const attention = label === 'Class notes'
+                || label === 'Section corequisites'
+                || (label === 'Registration restrictions' && typeof Scheduler !== 'undefined' && Scheduler.registrationRestrictionNeedsAttention(value));
+            return `<p class="${attention ? 'attention' : ''}"><strong>${this.escapeText(label)}</strong><span>${this.escapeText(value)}</span></p>`;
+        }).join('')}</div></section>`;
+    },
+
+    destroyDetailMap() {
+        if (!this._detailMap) return;
+        try { this._detailMap.remove(); } catch (error) { /* Map cleanup is best effort. */ }
+        this._detailMap = null;
+    },
+
+    async renderSectionMap(section, details = null) {
+        const container = document.getElementById('course-section-map');
+        if (!container || !section || typeof WalkingMap === 'undefined') return;
+        const request = this._sectionDetailToken;
+        const crn = String(section.crn || '');
+        if (!WalkingMap.buildings?.length && WalkingMap.loadBuildings) {
+            await WalkingMap.loadBuildings();
+            if (request !== this._sectionDetailToken || crn !== this._detailSectionCrn) return;
+        }
+        const meetings = details?.meeting_html ? WalkingMap.parseMeetingDetails(details.meeting_html) : [];
+        let building = meetings.map(meeting => meeting.building).find(item => item?.kind === 'known');
+        if (!building) {
+            const rawLocation = meetings.find(meeting => meeting.rawLocation)?.rawLocation
+                || section.location
+                || section.building
+                || '';
+            building = WalkingMap.resolveBuilding(rawLocation);
+        }
+        if (!building || building.kind !== 'known') {
+            container.innerHTML = '<div class="section-visual-empty">No campus map location is available for this section.</div>';
+            return;
+        }
+        try {
+            await WalkingMap.loadLeaflet();
+            if (request !== this._sectionDetailToken
+                || crn !== this._detailSectionCrn
+                || !container.isConnected) return;
+            this.destroyDetailMap();
+            this._detailMap = L.map(container, {
+                attributionControl: true,
+                dragging: true,
+                scrollWheelZoom: false,
+                zoomControl: true,
+            }).setView([building.lat, building.lon], 17);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; OpenStreetMap contributors',
+            }).addTo(this._detailMap);
+            L.marker([building.lat, building.lon], {
+                icon: L.divIcon({
+                    className: '',
+                    html: '<span class="course-section-map-pin" aria-hidden="true"></span>',
+                    iconSize: [22, 22],
+                    iconAnchor: [11, 11],
+                }),
+            }).bindPopup(`<strong>${this.escapeText(building.name)}</strong>`).addTo(this._detailMap);
+            setTimeout(() => this._detailMap?.invalidateSize(), 0);
+        } catch (error) {
+            if (container.isConnected) container.innerHTML = '<div class="section-visual-empty">The campus map could not load.</div>';
+        }
+    },
+
     renderSectionSummary(section, details = null, faculty = []) {
         const container = document.getElementById('course-section-summary');
         const group = this._detailGroup;
@@ -1851,6 +1976,7 @@ const Search = {
             if (container) container.innerHTML = '';
             return;
         }
+        this.destroyDetailMap();
         const meeting = this.parseMeetingHtml(details?.meeting_html || '');
         const times = meeting.times.length ? meeting.times.join('; ') : (section.meets || 'TBA');
         const locations = meeting.locations.length ? meeting.locations.join('; ') : 'TBA';
@@ -1866,28 +1992,41 @@ const Search = {
             : courseSelected
                 ? 'USE THIS SECTION'
                 : 'ADD COURSE AND USE THIS SECTION';
-        const fullNotice = section.stat === 'A' ? '' : '<p class="course-section-full-note">Full section. You can still use it for planning.</p>';
+        const seatKind = seatsAvailable !== undefined
+            ? (Number(seatsAvailable) > 0 ? 'open' : 'full')
+            : (section.stat === 'A' ? 'open' : 'full');
+        const seatPrimary = seatsAvailable !== undefined
+            ? (Number(seatsAvailable) > 0 ? `${seatsAvailable} seats available` : 'No seats available')
+            : (section.stat === 'A' ? 'Seats available' : 'Section full');
+        const seatSecondary = seatsMax ? `${seatsAvailable || 0} of ${seatsMax} seats` : (section.stat === 'A' ? 'Listed as open' : 'Listed as full');
+        const fullNotice = seatKind === 'open' ? '' : '<p class="course-section-full-note">You can still use this full section for planning.</p>';
         container.innerHTML = `
             <div class="course-section-summary-heading">
                 <div><span>Viewing</span><strong>Section ${this.escapeText(section.section || '—')}</strong></div>
-                <span class="course-section-status ${section.stat === 'A' ? 'open' : 'full'}">${section.stat === 'A' ? 'Open' : 'Full'}</span>
+                <div class="course-section-seat-count ${seatKind}"><strong>${this.escapeText(seatPrimary)}</strong><span>${this.escapeText(seatSecondary)}</span></div>
             </div>
             <div class="course-section-facts">
                 <div><span>Instructor</span>${instructorName === 'Instructor TBA'
                     ? `<strong>${instructorName}</strong>`
-                    : `<button type="button" id="btn-section-professor">${this.escapeText(instructorName)}</button>${primaryFaculty?.email ? `<a href="mailto:${this.escapeText(primaryFaculty.email)}">${this.escapeText(primaryFaculty.email)}</a>` : ''}`}</div>
+                    : `<button type="button" id="btn-section-professor" title="Open this instructor's profile">${this.escapeText(instructorName)}</button>${primaryFaculty?.email ? `<a href="mailto:${this.escapeText(primaryFaculty.email)}">${this.escapeText(primaryFaculty.email)}</a>` : ''}`}</div>
                 <div><span>Meeting</span><strong>${this.escapeText(times)}</strong></div>
                 <div><span>Location</span><strong>${this.escapeText(locations)}</strong></div>
-                <div><span>Seats</span><strong>${seatsAvailable !== undefined ? `${seatsAvailable} of ${seatsMax || '—'} available` : (section.stat === 'A' ? 'Available' : 'Full')}</strong></div>
                 <div><span>CRN</span><strong>${this.escapeText(section.crn)}</strong></div>
                 <div><span>Method</span><strong>${this.escapeText(details?.inst_mthd || section.inst_mthd || 'Not listed')}</strong></div>
+                <div><span>Course dates</span><strong>${this.escapeText(section.start_date && section.end_date ? `${section.start_date}–${section.end_date}` : 'Full-term dates')}</strong></div>
             </div>
             ${fullNotice}
             <div class="course-section-actions">
-                <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}">${actionLabel}</button>
-                <button id="btn-view-schedule" type="button" class="btn-secondary">VIEW SCHEDULE</button>
+                <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}" title="${locked ? 'Let the scheduler choose any open section for this course' : 'Require this exact section in every generated schedule'}">${actionLabel}</button>
+                <button id="btn-view-schedule" type="button" class="btn-secondary" title="Open the semester schedule builder">VIEW SCHEDULE</button>
             </div>
+            <div class="course-section-visuals">
+                <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Weekly meeting pattern</strong><span>8 AM–10 PM</span></div>${this.renderSectionCalendar(section, details)}</section>
+                <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Campus location</strong><span>${this.escapeText(locations)}</span></div><div id="course-section-map" class="course-section-map" role="region" aria-label="Selected section campus location"></div></section>
+            </div>
+            ${this.sectionRegistrationNotes(details)}
         `;
+        requestAnimationFrame(() => this.renderSectionMap(section, details));
         container.querySelector('#btn-use-detail-section')?.addEventListener('click', async () => {
             if (!State.isCourseSelected(group.code)) await Scheduler.addCourseGroup(this._detailGroup);
             State.setSectionLock(group.code, locked ? null : section.crn);
@@ -2131,7 +2270,7 @@ const Search = {
         };
         if (this._detailGroup?.code !== sec.code) this.showCourseDetail(group);
         this.selectDetailSection(sec.crn);
-        this.setCourseDetailTab('sections');
+        document.getElementById('course-section-picker-wrap')?.scrollIntoView({ block: 'start' });
     },
 
     parseMeetingHtml(meetingHtml) {

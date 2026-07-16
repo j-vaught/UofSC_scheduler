@@ -33,12 +33,14 @@
 .history-exact-disclosure { border: 1px solid #A2A2A2; margin-top: 9px; }
 .grade-exact-disclosure summary,
 .history-exact-disclosure summary { cursor: pointer; font-size: 0.7rem; font-weight: 700; padding: 8px 10px; text-transform: uppercase; }
-.grade-exact-grid { border-top: 1px solid #C7C7C7; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
-.grade-exact-grid > span { border-right: 1px solid #C7C7C7; display: grid; gap: 2px; padding: 8px; text-align: center; }
-.grade-exact-grid > span:last-child { border-right: 0; }
-.grade-exact-grid strong { color: #73000A; font-size: 0.75rem; }
-.grade-exact-grid em { font-size: 0.72rem; font-style: normal; }
-.grade-exact-grid small { color: #5C5C5C; font-size: 0.6rem; }
+.grade-distribution-plot { align-items: end; border-top: 1px solid #C7C7C7; display: grid; gap: 6px; grid-template-columns: repeat(9, minmax(34px, 1fr)); min-height: 190px; overflow-x: auto; padding: 14px 10px 10px; }
+.grade-distribution-column { align-items: center; display: grid; gap: 2px; grid-template-rows: 118px auto auto auto; min-width: 34px; outline: none; text-align: center; }
+.grade-distribution-column:focus-visible { box-shadow: inset 0 0 0 2px #466A9F; }
+.grade-distribution-bar-wrap { align-items: end; border-bottom: 2px solid #000000; display: flex; height: 118px; justify-content: center; width: 100%; }
+.grade-distribution-bar-wrap i { background: #73000A; display: block; min-height: 2px; width: min(32px, 68%); }
+.grade-distribution-column strong { color: #73000A; font-size: 0.75rem; }
+.grade-distribution-column em { font-size: 0.68rem; font-style: normal; font-weight: 700; }
+.grade-distribution-column small { color: #5C5C5C; font-size: 0.58rem; }
 .grade-instructors { border: 1px solid #C7C7C7; margin-top: 16px; padding: 14px; }
 .grade-instructor-grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grade-instructor-card { background: #FFFFFF; border: 1px solid #A2A2A2; display: flex; flex-direction: column; min-height: 94px; padding: 9px; text-align: left; }
@@ -98,14 +100,12 @@
 .history-detail-row span { color: #5C5C5C; font-size: 0.66rem; }
 @media (max-width: 760px) {
     .grade-instructor-grid { grid-template-columns: 1fr; }
-    .grade-exact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .history-summary-grid,
     .history-term-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .professor-detail-header { flex-direction: column; }
 }
 @media (max-width: 430px) {
     .grade-summary-grid { grid-template-columns: 1fr; }
-    .grade-exact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .professor-course-row { grid-template-columns: 68px minmax(0, 1fr); }
     .professor-course-row em { grid-column: 2; }
 }

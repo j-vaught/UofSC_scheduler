@@ -106,10 +106,17 @@ const Grades = {
                 </button>
             `;
         }).join('');
-        const exactGrades = Object.entries(data.grade_counts || {}).map(([grade, count]) => {
+        const gradeOrder = ['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'F', 'FN'];
+        const gradePoints = gradeOrder.map(grade => {
+            const count = Number(data.grade_counts?.[grade] || 0);
             const total = Number(data.graded_students || 0);
-            const percent = total ? Number(count || 0) / total * 100 : 0;
-            return `<span><strong>${this.escape(grade)}</strong><em>${Number(count).toLocaleString()}</em><small>${percent.toFixed(1)}%</small></span>`;
+            return { grade, count, percent: total ? count / total * 100 : 0 };
+        });
+        const maxPercent = Math.max(1, ...gradePoints.map(point => point.percent));
+        const exactGrades = gradePoints.map(point => {
+            const height = Math.max(2, point.percent / maxPercent * 100);
+            const title = `${point.grade}: ${point.count.toLocaleString()} grades, ${point.percent.toFixed(1)}%`;
+            return `<span class="grade-distribution-column" title="${this.escape(title)}" tabindex="0"><span class="grade-distribution-bar-wrap"><i style="height:${height.toFixed(2)}%"></i></span><strong>${this.escape(point.grade)}</strong><em>${point.count.toLocaleString()}</em><small>${point.percent.toFixed(1)}%</small></span>`;
         }).join('');
 
         container.innerHTML = `
@@ -120,7 +127,7 @@ const Grades = {
                 <div class="grade-stat"><strong>${Number(data.sections || 0).toLocaleString()}</strong><span>Historical sections</span></div>
             </div>
             ${this.gradeStrip(data.grade_counts)}
-            <details class="grade-exact-disclosure"><summary>View exact grade counts</summary><div class="grade-exact-grid">${exactGrades}</div></details>
+            <details class="grade-exact-disclosure"><summary>View exact grade counts</summary><div class="grade-distribution-plot" aria-label="Exact historical grade distribution">${exactGrades}</div></details>
             <section class="grade-instructors">
                 <div class="course-detail-card-heading"><h2>Current instructors</h2><span>Offering this course this term. Select one for their full history.</span></div>
                 <div class="grade-instructor-grid">${instructorCards || '<p class="hint">Instructor assignments have not been posted.</p>'}</div>

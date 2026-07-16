@@ -206,9 +206,12 @@ test('browse section details add and lock the specific section', () => {
     assert.match(source, /USE THIS SECTION/);
     assert.match(source, /USE ANY OPEN SECTION/);
     assert.match(source, /State\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
-    assert.match(source, /Full section\. You can still use it for planning\./);
+    assert.match(source, /You can still use this full section for planning\./);
     assert.match(source, /this\._detailSectionData\[this\._detailSectionCrn\] = \{ details, faculty \}/);
-    assert.match(source, /panel\.querySelectorAll\('\[data-detail-crn\]'\)[\s\S]*selectDetailSection\(button\.dataset\.detailCrn, false\)/);
+    assert.match(source, /picker\.querySelectorAll\('\[data-detail-crn\]'\)[\s\S]*selectDetailSection\(button\.dataset\.detailCrn\)/);
+    assert.match(source, /class="course-section-visuals"/);
+    assert.match(source, /id="course-section-map"/);
+    assert.match(source, /Registration notes for this section/);
 });
 
 test('browse filters separate primary and additional course choices', () => {
@@ -970,7 +973,8 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
     assert.match(html, /id="browse-close-details"/);
     assert.match(html, /id="course-detail-tabs"[^>]*role="tablist"/);
     assert.match(html, /data-course-tab="overview"/);
-    assert.match(html, /data-course-tab="sections"/);
+    assert.doesNotMatch(html, /data-course-tab="sections"/);
+    assert.doesNotMatch(html, /id="course-panel-sections"/);
     assert.match(html, /data-course-tab="grades"/);
     assert.match(html, /data-course-tab="history"/);
     assert.match(html, /data-course-tab="resources"/);
@@ -1089,6 +1093,27 @@ test('Course and professor close controls remain available while scrolling', () 
     assert.match(source, /openProfessorLoading\(name/);
     assert.match(source, /professorDetailContextIsCurrent/);
 });
+
+test('Course detail fills its pane and uses visual section, grade, and history summaries', () => {
+    const search = fs.readFileSync('static/js/search.js', 'utf8');
+    const grades = fs.readFileSync('static/js/grades.js', 'utf8');
+    const history = fs.readFileSync('static/js/history.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const gradeStyles = fs.readFileSync('static/css/grades.css', 'utf8');
+
+    assert.match(styles, /\.course-detail-shell\s*{[^}]*max-width:\s*none;[^}]*width:\s*100%;/s);
+    assert.match(search, /renderSectionCalendar\(section, details/);
+    assert.match(search, /WalkingMap\.resolveBuilding/);
+    assert.match(search, /L\.marker\(\[building\.lat, building\.lon\]/);
+    assert.match(search, /details\.section_coreqs/);
+    assert.match(search, /details\.registration_restrictions/);
+    assert.match(grades, /class="grade-distribution-plot"/);
+    assert.doesNotMatch(grades, /class="grade-exact-grid"/);
+    assert.match(gradeStyles, /\.grade-distribution-bar-wrap i\s*{[^}]*background:\s*#73000A;/s);
+    assert.doesNotMatch(history, /View instructors and term details/);
+    assert.doesNotMatch(history, /term\.instructors \|\|/);
+});
+
 test('Browse result cards lazily add descriptions and historical grades', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');

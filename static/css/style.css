@@ -3048,11 +3048,12 @@ button:hover { background: #f0f0f0; }
 .course-header .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .course-result-summary { border-bottom: 0; min-height: 72px; padding: 8px 10px 9px; }
 .course-detail-shell {
-    margin: 0 auto;
-    max-width: var(--detail-panel-max);
+    margin: 0;
+    max-width: none;
     min-height: 100%;
     padding-bottom: 30px;
     position: relative;
+    width: 100%;
 }
 .course-detail-shell h1,
 .course-detail-shell h2,
@@ -3100,26 +3101,31 @@ button:hover { background: #f0f0f0; }
     background: #FFFFFF;
     border: 1px solid #A2A2A2;
     flex: 0 0 var(--detail-section-width);
-    min-height: 52px;
+    min-height: 68px;
     padding: 7px 8px;
     text-align: left;
 }
 .course-section-option > span { align-items: center; display: flex; font-size: 0.72rem; font-weight: 700; gap: 5px; }
+.course-section-option > span b { color: #65780B; font-size: 0.55rem; margin-left: auto; text-transform: uppercase; }
+.course-section-option.full > span b { color: #CC2E40; }
 .course-section-option i { background: #A2A2A2; height: 7px; width: 7px; }
 .course-section-option.open i { background: #65780B; }
 .course-section-option.full i { background: #CC2E40; }
 .course-section-option small { color: #5C5C5C; display: block; font-size: 0.62rem; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.course-section-option em { color: #363636; display: block; font-size: 0.6rem; font-style: normal; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .course-section-option.selected { background: #ECECEC; border: 2px solid #000000; padding: 6px 7px; }
-.course-section-summary { background: #ECECEC; border: 1px solid #C7C7C7; margin-top: 8px; padding: 12px; }
+.course-section-summary { background: #FFFFFF; border: 1px solid #000000; margin-top: 8px; padding: 16px; }
 .course-section-summary:empty { display: none; }
 .course-section-summary-heading { align-items: center; display: flex; justify-content: space-between; }
 .course-section-summary-heading > div { display: flex; flex-direction: column; }
 .course-section-summary-heading span { color: #5C5C5C; font-size: 0.62rem; text-transform: uppercase; }
 .course-section-summary-heading strong { font-size: 0.9rem; }
-.course-section-status { border: 1px solid currentColor; font-weight: 800; padding: 3px 6px; }
-.course-section-status.open { color: #65780B; }
-.course-section-status.full { color: #CC2E40; }
-.course-section-facts { display: grid; gap: 10px 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
+.course-section-seat-count { display: flex; flex-direction: column; text-align: right; }
+.course-section-seat-count strong { font-size: 1rem; }
+.course-section-seat-count.open strong { color: #65780B; }
+.course-section-seat-count.full strong { color: #CC2E40; }
+.course-section-seat-count span { margin-top: 2px; }
+.course-section-facts { display: grid; gap: 10px 14px; grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: 14px; }
 .course-section-facts > div { min-width: 0; }
 .course-section-facts span { color: #5C5C5C; display: block; font-size: 0.59rem; font-weight: 700; text-transform: uppercase; }
 .course-section-facts strong,
@@ -3129,6 +3135,33 @@ button:hover { background: #f0f0f0; }
 .course-section-full-note { color: #CC2E40; font-size: 0.68rem; font-weight: 700; margin: 10px 0 0; }
 .course-section-actions { display: flex; gap: 7px; margin-top: 12px; }
 .course-section-actions button { min-height: 34px; }
+.course-section-visuals { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
+.course-section-visual-card { border: 1px solid #000000; min-width: 0; }
+.course-section-visual-heading { align-items: baseline; background: #000000; color: #FFFFFF; display: flex; gap: 8px; justify-content: space-between; min-height: 34px; padding: 8px 10px; }
+.course-section-visual-heading strong { font-size: 0.72rem; text-transform: uppercase; }
+.course-section-visual-heading span { color: #C7C7C7; font-size: 0.58rem; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.section-mini-calendar-grid {
+    background: #FFFFFF;
+    display: grid;
+    grid-template-rows: 24px repeat(28, 8px);
+    min-height: 248px;
+    overflow: hidden;
+    padding: 7px;
+}
+.section-mini-calendar-grid > strong { align-items: center; color: #73000A; display: flex; font-size: 0.56rem; justify-content: center; z-index: 3; }
+.section-calendar-time { align-items: flex-start; color: #5C5C5C; display: flex; font-size: 0.48rem; padding-right: 4px; text-align: right; z-index: 3; }
+.section-calendar-track { background: repeating-linear-gradient(to bottom, #FFFFFF 0, #FFFFFF 15px, #ECECEC 15px, #ECECEC 16px); border-left: 1px solid #C7C7C7; border-right: 1px solid #C7C7C7; z-index: 1; }
+.section-calendar-event { align-items: flex-start; background: #73000A; border: 1px solid #000000; color: #FFFFFF; display: flex; font-size: 0.48rem; font-weight: 800; justify-content: center; margin: 1px 2px; min-height: 14px; overflow: hidden; padding: 2px; z-index: 4; }
+.course-section-map { background: #ECECEC; height: 248px; position: relative; width: 100%; }
+.course-section-map .leaflet-control-attribution { font-size: 8px; }
+.course-section-map-pin { background: #73000A; border: 3px solid #FFFFFF; box-shadow: 0 0 0 2px #000000; display: block; height: 18px; width: 18px; }
+.section-visual-empty { align-items: center; color: #5C5C5C; display: flex; font-size: 0.7rem; justify-content: center; min-height: 248px; padding: 18px; text-align: center; }
+.course-section-registration { border: 1px solid #000000; margin-top: 14px; padding: 14px; }
+.course-section-registration > div:last-child { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.course-section-registration p { border-left: 3px solid #A2A2A2; display: flex; flex-direction: column; gap: 3px; margin: 0; padding: 7px 9px; }
+.course-section-registration p.attention { background: #fffde7; border-left-color: #f2c200; }
+.course-section-registration p strong { color: #73000A; font-size: 0.63rem; text-transform: uppercase; }
+.course-section-registration p span { color: #363636; font-size: 0.69rem; line-height: 1.35; }
 .btn-secondary { background: #FFFFFF; border: 2px solid #000000; color: #000000; }
 .btn-secondary:hover { background: #000000; color: #FFFFFF; }
 .course-detail-tabs {
@@ -3150,6 +3183,10 @@ button:hover { background: #f0f0f0; }
 .course-detail-card-heading h2,
 .course-detail-card-heading h3 { color: #73000A; font-size: 0.82rem; text-transform: uppercase; }
 .course-detail-card-heading span { color: #5C5C5C; font-size: 0.65rem; }
+.course-requirement-list { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.course-requirement-list p { display: flex; flex-direction: column; gap: 3px; margin: 0; }
+.course-requirement-list strong { color: #73000A; font-size: 0.65rem; text-transform: uppercase; }
+.course-requirement-list span { color: #363636; font-size: 0.74rem; line-height: 1.4; }
 .prereq-requirement { display: flex; flex-direction: column; gap: 3px; margin-bottom: 10px; }
 .prereq-requirement strong { color: #73000A; font-size: 0.7rem; text-transform: uppercase; }
 .prereq-requirement span { font-size: 0.78rem; }
@@ -3194,6 +3231,7 @@ body.app-modal-open { overflow: hidden; }
     .browse-detail #semester-search { display: none; }
     .browse-detail #semester-content { display: block; width: 100%; }
     .course-detail-shell { max-width: none; }
+    .course-section-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
     #browse-workspace { --search-side-gap: 10px; }
@@ -3203,7 +3241,10 @@ body.app-modal-open { overflow: hidden; }
     .browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 44px 88px; }
     .semantic-search-term-list,
     .course-sections-comparison,
-    .course-resource-grid { grid-template-columns: 1fr; }
+    .course-resource-grid,
+    .course-section-visuals,
+    .course-section-registration > div:last-child,
+    .course-requirement-list { grid-template-columns: 1fr; }
     .course-section-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .course-detail-header { padding: 16px 68px 16px 14px; }
     .course-section-picker-wrap,

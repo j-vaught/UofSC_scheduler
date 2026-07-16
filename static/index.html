@@ -430,11 +430,10 @@
                             <div id="course-section-summary" class="course-section-summary"></div>
                         </section>
                         <nav id="course-detail-tabs" class="course-detail-tabs" role="tablist" aria-label="Course details">
-                            <button id="course-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="course-panel-overview" data-course-tab="overview">Overview</button>
-                            <button id="course-tab-sections" type="button" role="tab" aria-selected="false" aria-controls="course-panel-sections" data-course-tab="sections">Sections</button>
-                            <button id="course-tab-grades" type="button" role="tab" aria-selected="false" aria-controls="course-panel-grades" data-course-tab="grades">Grades</button>
-                            <button id="course-tab-history" type="button" role="tab" aria-selected="false" aria-controls="course-panel-history" data-course-tab="history">History</button>
-                            <button id="course-tab-resources" type="button" role="tab" aria-selected="false" aria-controls="course-panel-resources" data-course-tab="resources">Resources</button>
+                            <button id="course-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="course-panel-overview" data-course-tab="overview" title="Course requirements and attributes">Overview</button>
+                            <button id="course-tab-grades" type="button" role="tab" aria-selected="false" aria-controls="course-panel-grades" data-course-tab="grades" title="Historical grades and current instructors">Grades</button>
+                            <button id="course-tab-history" type="button" role="tab" aria-selected="false" aria-controls="course-panel-history" data-course-tab="history" title="When this course has been offered">History</button>
+                            <button id="course-tab-resources" type="button" role="tab" aria-selected="false" aria-controls="course-panel-resources" data-course-tab="resources" title="Official course links and external reviews">Resources</button>
                         </nav>
                         <div class="course-detail-panels">
                             <section id="course-panel-overview" class="course-detail-panel" data-course-panel="overview" role="tabpanel" aria-labelledby="course-tab-overview">
@@ -443,9 +442,6 @@
                                     <div class="course-detail-card-heading"><h2>Prerequisites</h2></div>
                                     <div id="prereq-container"><p class="hint">Prerequisite information will appear here.</p></div>
                                 </section>
-                            </section>
-                            <section id="course-panel-sections" class="course-detail-panel" data-course-panel="sections" role="tabpanel" aria-labelledby="course-tab-sections" hidden>
-                                <div id="course-sections-panel"></div>
                             </section>
                             <section id="semester-grades" class="course-detail-panel" data-course-panel="grades" role="tabpanel" aria-labelledby="course-tab-grades" hidden>
                                 <div id="grades-container"><p class="hint">Historical grade information will appear here.</p></div>
