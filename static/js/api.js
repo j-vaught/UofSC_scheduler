@@ -6,7 +6,11 @@ const API = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
-        return resp.json();
+        const data = await resp.json();
+        if (!resp.ok || (data && typeof data === 'object' && data.error)) {
+            throw new Error(data?.error || `Request failed with status ${resp.status}`);
+        }
+        return data;
     },
 
     async searchCourses(term, criteria) {

@@ -32,8 +32,10 @@ const Search = {
     _restoringHistory: false,
     _detailMap: null,
     _filterPreviousFocus: null,
+    // Intentionally memory-only so a browser reload forces fresh search data.
     _searchViewCache: new Map(),
-    _searchCacheTtlMs: 120000,
+    _searchCacheTtlMs: 60 * 60 * 1000,
+    _searchCacheMaxEntries: 30,
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -167,26 +169,27 @@ const Search = {
 
         // Step 4: Fire all searches concurrently
         const promises = searches.map(async term => {
-            let results = [];
             try {
                 if (currentTermOnly) {
                     const criteria = [{ field: 'keyword', value: term }];
                     if (openOnly) criteria.push({ field: 'stat', value: 'A' });
                     const data = await API.searchCourses(State.term, criteria);
-                    results = data.results || [];
+                    return { results: data.results || [], failed: false };
                 } else {
                     const data = await API.post('/api/bulletin/search', {
-                    other: { srcdb: '2026' },
-                    criteria: [{ field: 'keyword', value: term }],
+                        other: { srcdb: '2026' },
+                        criteria: [{ field: 'keyword', value: term }],
                     });
-                    results = data.results || [];
+                    return { results: data.results || [], failed: false };
                 }
             } catch (error) {
                 console.warn(`[Semantic] Search failed for “${term}”:`, error);
+                return { results: [], failed: true };
             }
-            return results;
         });
-        const allResults = await Promise.all(promises);
+        const searchResponses = await Promise.all(promises);
+        const allResults = searchResponses.map(response => response.results);
+        const hadRequestFailure = searchResponses.some(response => response.failed);
         if (searchId !== this._searchId) return null;
 
         // Step 5: Local course search — find top matches from pre-computed
@@ -289,6 +292,7 @@ const Search = {
             searches: searchMetrics,
             searchResults: allResults,
             searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
+            hadRequestFailure,
         };
     },
 
@@ -664,9 +668,36 @@ const Search = {
         return url;
     },
 
+    canonicalSearchQuery(query) {
+        const normalized = String(query || '')
+            .trim()
+            .replace(/[–—]/g, '-')
+            .replace(/\s+/g, ' ');
+        const subjectQuery = normalized.match(/^([A-Za-z]{3,4})\s*(.*)$/);
+        if (subjectQuery) {
+            const subject = subjectQuery[1].toUpperCase();
+            const rest = subjectQuery[2].trim();
+            if (!rest) return subject;
+            if (/[\dXx*#_?%]/.test(rest)) {
+                return `${subject} ${rest.toUpperCase().replace(/\s*-\s*/g, '-')}`;
+            }
+        }
+        return normalized.toLowerCase();
+    },
+
     searchCacheKey({ query = '', direct = false, origin = '' } = {}) {
-        const url = this.searchUrl({ query, direct, origin });
-        return `${url.pathname}${url.search}`;
+        const url = this.searchUrl({
+            query: this.canonicalSearchQuery(query),
+            direct,
+            origin,
+        });
+        const completedCourses = document.getElementById('filter-eligible')?.checked
+            ? [...(State.completedCourses || [])].map(code => String(code).toUpperCase()).sort()
+            : [];
+        const eligibilityState = completedCourses.length
+            ? `|completed=${completedCourses.join(',')}`
+            : '';
+        return `${url.pathname}${url.search}${eligibilityState}`;
     },
 
     renderAndCacheSearch(cacheKey, results, count, prereqData, eligibleOnly, searchTerms = null) {
@@ -681,10 +712,12 @@ const Search = {
             relatedSearchOrigin: this._relatedSearchOrigin,
             storedAt: Date.now(),
         };
-        this._searchViewCache.delete(cacheKey);
-        this._searchViewCache.set(cacheKey, view);
-        while (this._searchViewCache.size > 12) {
-            this._searchViewCache.delete(this._searchViewCache.keys().next().value);
+        if (cacheKey) {
+            this._searchViewCache.delete(cacheKey);
+            this._searchViewCache.set(cacheKey, view);
+            while (this._searchViewCache.size > this._searchCacheMaxEntries) {
+                this._searchViewCache.delete(this._searchViewCache.keys().next().value);
+            }
         }
         this.renderResults(results, count, prereqData, eligibleOnly, searchTerms);
     },
@@ -946,7 +979,7 @@ const Search = {
         if (this.activeSearchInput()?.value.trim()) this.doSearch();
     },
 
-    async doSearch({ historyMode = 'push' } = {}) {
+    async doSearch({ historyMode = 'push', bypassCache = false } = {}) {
         const searchInput = this.activeSearchInput();
         const rawInput = searchInput.value.trim();
         const openOnly = document.getElementById('filter-open').checked;
@@ -998,7 +1031,8 @@ const Search = {
             direct: historyDirect,
             origin: this._relatedSearchOrigin,
         });
-        if (historyMode === 'none' && this.restoreCachedSearch(searchCacheKey)) return;
+        if (!bypassCache && !this._semanticFallbackOnce
+            && this.restoreCachedSearch(searchCacheKey)) return;
 
         const kw = rawInput.trim();
         const criteria = [];
@@ -1141,7 +1175,15 @@ const Search = {
                 if (!semantic || searchId !== this._searchId) return;
 
                 if (semantic.results.length === 0) {
-                    this.showHint(`No matching courses found for "${kw}".`);
+                    this._mainSearchQuery = kw;
+                    this._relatedSearchOrigin = '';
+                    this.renderAndCacheSearch(
+                        semantic.hadRequestFailure ? null : searchCacheKey,
+                        [],
+                        0,
+                        {},
+                        eligibleOnly,
+                    );
                     return;
                 }
 
@@ -1151,11 +1193,21 @@ const Search = {
                 const relatedResults = currentTermOnly ? [] : (semantic.searchResults || []).flat();
                 const subjects = [...new Set([...results, ...relatedResults]
                     .map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
-                const livePromises = subjects.map(s =>
-                    API.searchCourses(State.term, [{ field: 'subject', value: s }])
-                        .then(d => d.results || []).catch(() => [])
-                );
-                const liveAll = await Promise.all(livePromises);
+                const livePromises = subjects.map(async subjectCode => {
+                    try {
+                        const data = await API.searchCourses(
+                            State.term,
+                            [{ field: 'subject', value: subjectCode }],
+                        );
+                        return { results: data.results || [], failed: false };
+                    } catch (error) {
+                        return { results: [], failed: true };
+                    }
+                });
+                const liveResponses = await Promise.all(livePromises);
+                const liveAll = liveResponses.map(response => response.results);
+                const incompleteSearch = semantic.hadRequestFailure
+                    || liveResponses.some(response => response.failed);
                 if (searchId !== this._searchId) return;
                 const liveByCode = this.buildLiveCourseIndex(liveAll.flat());
 
@@ -1204,7 +1256,7 @@ const Search = {
                 this._mainSearchQuery = kw;
                 this._relatedSearchOrigin = '';
                 this.renderAndCacheSearch(
-                    searchCacheKey,
+                    incompleteSearch ? null : searchCacheKey,
                     results,
                     results.length,
                     prereqData,
@@ -1220,7 +1272,7 @@ const Search = {
                 this.setSmartModelLoading(false);
                 this._semanticFallbackNotice = 'Meaning-based matching is unavailable. Showing direct matches.';
                 this._semanticFallbackOnce = true;
-                await this.doSearch();
+                await this.doSearch({ bypassCache: true });
                 this._semanticFallbackOnce = false;
             }
             return;
@@ -1259,7 +1311,7 @@ const Search = {
                 const liveResults = (await Promise.all(subjects.map(code => API.searchCourses(
                     State.term,
                     [{ field: 'subject', value: code }],
-                ).then(data => data.results || []).catch(() => [])))).flat();
+                ).then(data => data.results || [])))).flat();
 
                 // Build a set of course codes offered this term + their open status
                 const liveByCode = this.buildLiveCourseIndex(liveResults);
@@ -1329,7 +1381,7 @@ const Search = {
 
             if (searchId !== this._searchId) return;
             this.renderAndCacheSearch(
-                searchCacheKey,
+                this._semanticFallbackOnce ? null : searchCacheKey,
                 results,
                 totalCount || results.length,
                 prereqData,
@@ -1426,14 +1478,20 @@ const Search = {
         if (!this._bulletinCourseCache[subject]) {
             this._bulletinCourseCache[subject] = API.bulletinSearch(subject)
                 .then(data => data.results || [])
-                .catch(() => []);
+                .catch(error => {
+                    delete this._bulletinCourseCache[subject];
+                    throw error;
+                });
         }
         this._bulletinDetailsCache[courseCode] = this._bulletinCourseCache[subject]
             .then(courses => {
                 const target = courses.find(course => course.code === courseCode);
                 return target ? API.bulletinDetails(target.key) : {};
             })
-            .catch(() => ({}));
+            .catch(error => {
+                delete this._bulletinDetailsCache[courseCode];
+                throw error;
+            });
         return this._bulletinDetailsCache[courseCode];
     },
 
@@ -1442,7 +1500,10 @@ const Search = {
         const key = `${State.term}:${section.crn}`;
         if (!this._sectionDetailCache[key]) {
             this._sectionDetailCache[key] = API.getDetails(section.crn, State.term)
-                .catch(() => null);
+                .catch(error => {
+                    delete this._sectionDetailCache[key];
+                    throw error;
+                });
         }
         return this._sectionDetailCache[key];
     },
@@ -1600,8 +1661,8 @@ const Search = {
             };
             this._prereqCache[subject][courseCode] = result;
             return result;
-        } catch (e) {
-            return { prereqs: [], raw: '' };
+        } catch (error) {
+            throw error;
         }
     },
 
@@ -1626,15 +1687,11 @@ const Search = {
         if (!mode || value === null || value === undefined) return results;
         const checked = await Promise.all(results.map(async result => {
             if (!result.crn) return null;
-            try {
-                const details = await this.fetchSectionFilterDetails(result);
-                if (!details) return null;
-                const match = (details.seats || '').match(/seats_avail[^>]*>(\d+)/);
-                if (!match) return null;
-                return { result, available: Number(match[1]) };
-            } catch (error) {
-                return null;
-            }
+            const details = await this.fetchSectionFilterDetails(result);
+            if (!details) return null;
+            const match = (details.seats || '').match(/seats_avail[^>]*>(\d+)/);
+            if (!match) return null;
+            return { result, available: Number(match[1]) };
         }));
         return checked
             .filter(item => item && (mode === 'above' ? item.available >= value : item.available < value))

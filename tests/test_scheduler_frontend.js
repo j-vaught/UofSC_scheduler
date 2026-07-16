@@ -1164,8 +1164,9 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(styles, /\.related-search-back\s*{[^}]*border:\s*2px solid #000000;[^}]*grid-template-columns:\s*38px minmax\(0, 1fr\);/s);
 });
 
-test('Returning from a related search can restore the parent view from a short-lived cache', () => {
+test('Repeated and historical searches reuse a bounded one-hour in-memory cache', () => {
     const search = loadObject('static/js/search.js', 'Search', {});
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
     const rendered = [];
     search.renderResults = (...args) => rendered.push(args);
     search._searchViewCache = new Map();
@@ -1183,6 +1184,73 @@ test('Returning from a related search can restore the parent view from a short-l
     assert.equal(search._relatedSearchOrigin, '');
     assert.equal(rendered.length, 2);
     assert.equal(rendered[1][0][0].code, 'CSCE 883');
+    assert.equal(search._searchCacheTtlMs, 60 * 60 * 1000);
+    assert.equal(search._searchCacheMaxEntries, 30);
+    assert.match(source, /if \(!bypassCache && !this\._semanticFallbackOnce[\s\S]*this\.restoreCachedSearch\(searchCacheKey\)\) return;/);
+    assert.match(source, /await this\.doSearch\(\{ bypassCache: true \}\)/);
+    assert.match(source, /this\._semanticFallbackOnce \? null : searchCacheKey/);
+    const emptySemanticStart = source.indexOf('if (semantic.results.length === 0)');
+    const emptySemanticEnd = source.indexOf('let results = semantic.results;', emptySemanticStart);
+    const emptySemanticBlock = source.slice(emptySemanticStart, emptySemanticEnd);
+    assert.match(emptySemanticBlock, /semantic\.hadRequestFailure \? null : searchCacheKey/);
+    assert.match(emptySemanticBlock, /renderAndCacheSearch/);
+    assert.match(source, /const hadRequestFailure = searchResponses\.some\(response => response\.failed\)/);
+    assert.match(source, /const incompleteSearch = semantic\.hadRequestFailure[\s\S]*liveResponses\.some\(response => response\.failed\)/);
+    assert.match(source, /incompleteSearch \? null : searchCacheKey/);
+    const catalogLiveStart = source.indexOf('// Also fetch live term data to cross-reference availability');
+    const catalogLiveEnd = source.indexOf('// Build a set of course codes offered this term', catalogLiveStart);
+    assert.doesNotMatch(source.slice(catalogLiveStart, catalogLiveEnd), /catch\(/);
+
+    for (let index = 0; index < 32; index += 1) {
+        search.renderAndCacheSearch(`query-${index}`, [], 0, {}, false);
+    }
+    assert.equal(search._searchViewCache.size, 30);
+    search.renderAndCacheSearch(null, [], 0, {}, false);
+    assert.equal(search._searchViewCache.size, 30);
+
+    const expired = search._searchViewCache.get('query-31');
+    expired.storedAt = Date.now() - search._searchCacheTtlMs - 1;
+    assert.equal(search.restoreCachedSearch('query-31'), false);
+
+    const profileState = { term: '202608', completedCourses: ['CSCE 145'] };
+    const filters = { 'filter-eligible': { checked: true } };
+    const profileSearch = loadObject('static/js/search.js', 'Search', {
+        URL,
+        State: profileState,
+        document: { getElementById: id => filters[id] || null },
+        window: { location: { href: 'http://localhost/?tab=search' } },
+    });
+    const firstProfileKey = profileSearch.searchCacheKey({ query: 'algorithms' });
+    assert.equal(
+        profileSearch.searchCacheKey({ query: 'csce145' }),
+        profileSearch.searchCacheKey({ query: 'CSCE 145' }),
+    );
+    assert.equal(
+        profileSearch.searchCacheKey({ query: 'csce 140 – 150' }),
+        profileSearch.searchCacheKey({ query: 'CSCE140-150' }),
+    );
+    assert.equal(
+        profileSearch.searchCacheKey({ query: 'Machine Learning' }),
+        profileSearch.searchCacheKey({ query: 'machine learning' }),
+    );
+    profileState.completedCourses = ['CSCE 211'];
+    const secondProfileKey = profileSearch.searchCacheKey({ query: 'algorithms' });
+    assert.notEqual(firstProfileKey, secondProfileKey);
+});
+
+test('API error payloads reject so failed searches are never cached as empty results', async () => {
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async () => ({
+            ok: true,
+            status: 200,
+            async json() { return { error: 'upstream unavailable' }; },
+        }),
+    });
+
+    await assert.rejects(
+        () => api.post('/api/search', {}),
+        /upstream unavailable/,
+    );
 });
 
 test('AI-assisted search can be disabled and related searches remain direct', () => {
