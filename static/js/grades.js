@@ -72,13 +72,16 @@ const Grades = {
         if (!container) return;
         const loadId = ++this._courseLoadId;
         container.innerHTML = '<p class="loading">Loading historical grades</p>';
+        const facultyKey = this.courseFacultyKey(code);
         const facultyPromise = this.currentFacultyForCourse(code);
         try {
             const data = await this.courseData(code);
             if (loadId !== this._courseLoadId || Search?._detailGroup?.code !== code) return;
             this.renderCourse(container, data, this.courseFacultyRecords(code));
             facultyPromise.then(faculty => {
-                if (loadId !== this._courseLoadId || Search?._detailGroup?.code !== code) return;
+                if (loadId !== this._courseLoadId
+                    || Search?._detailGroup?.code !== code
+                    || this.courseFacultyKey(code) !== facultyKey) return;
                 this.renderCourse(container, data, faculty);
             });
         } catch (error) {

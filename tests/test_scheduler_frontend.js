@@ -1253,6 +1253,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /Teaching span in available records/);
     assert.match(source, /currentFacultyForCourse\(code\)/);
     assert.match(source, /return `\$\{term\}:\$\{code\}:\$\{crns\.join\(','\)\}`/);
+    assert.match(source, /const facultyKey = this\.courseFacultyKey\(code\)[\s\S]*this\.courseFacultyKey\(code\) !== facultyKey/);
     assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /Grades\.refreshCourseFaculty\(group\.code\)/);
     assert.match(styles, /\.professor-year-segment\.down/);
     assert.match(styles, /\.professor-year-point\s*{[^}]*border-radius:\s*50% !important;/s);
