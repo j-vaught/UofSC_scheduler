@@ -618,7 +618,7 @@
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
             if (Tabs.current() === 'semester') {
-                if (Search._browseState === 'detail') Search.closeCourseDetail();
+                if (Search._browseState === 'detail') Search.closeCourseDetail({ historyMode: 'none' });
                 if (Search.activeSearchInput()?.value.trim()) Search.doSearch();
                 else Search.writeSearchHistory('', { mode: 'replace' });
             } else {

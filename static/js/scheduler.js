@@ -1079,15 +1079,12 @@ const Scheduler = {
             });
     },
 
-    openCourseInBrowse(group) {
+    async openCourseInBrowse(group) {
         if (window.AppModal) AppModal.close();
         else document.getElementById('modal-overlay')?.classList.add('hidden');
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
-        const input = document.getElementById('keyword-input');
-        if (input) input.value = group.code;
         if (typeof Search === 'undefined') return;
-        Search.renderResults(group.sections || [], (group.sections || []).length, {}, false, null);
-        document.querySelector(`#search-results .course-group[data-course-code="${group.code}"]`)?.click();
+        await Search.openCourseFromExternal(group);
     },
 
     scheduleCourseAvailability(group) {

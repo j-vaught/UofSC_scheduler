@@ -30,6 +30,7 @@ const Search = {
     _mainSearchQuery: '',
     _relatedSearchOrigin: '',
     _restoringHistory: false,
+    _restoreId: 0,
     _detailMap: null,
     _filterPreviousFocus: null,
     // Intentionally memory-only so a browser reload forces fresh search data.
@@ -612,14 +613,18 @@ const Search = {
     },
 
     submitSearch() {
+        this.cancelLocationRestore();
+        if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = '';
         return this.doSearch();
     },
 
     resetToCleanSearch({ historyMode = 'push' } = {}) {
+        if (historyMode !== 'none') this.cancelLocationRestore();
         this._searchId += 1;
         this._detailToken = (this._detailToken || 0) + 1;
+        if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = '';
         this._directSearchOnce = false;
@@ -755,6 +760,109 @@ const Search = {
         else history.pushState(state, '', next);
     },
 
+    normalizeCourseCode(value) {
+        const match = String(value || '').trim().toUpperCase()
+            .match(/^([A-Z]{3,4})\s*(\d{3}[A-Z]?)$/);
+        return match ? `${match[1]} ${match[2]}` : '';
+    },
+
+    writeCourseDetailHistory({
+        mode = 'replace',
+        course = this._detailGroup?.code || '',
+        crn = this._detailSectionCrn,
+        panel = this._detailTab,
+    } = {}) {
+        if (this._restoringHistory || mode === 'none') return;
+        const url = new URL(window.location.href);
+        const normalizedCourse = this.normalizeCourseCode(course);
+        const state = { ...(history.state || {}), search: true };
+        if (normalizedCourse) {
+            url.searchParams.set('tab', 'search');
+            url.searchParams.set('term', State.term);
+            url.searchParams.set('course', normalizedCourse);
+            if (crn) url.searchParams.set('crn', String(crn));
+            else url.searchParams.delete('crn');
+            if (panel && panel !== 'overview') url.searchParams.set('panel', panel);
+            else url.searchParams.delete('panel');
+            state.courseDetail = true;
+            state.course = normalizedCourse;
+            if (mode === 'push') {
+                state.detailFromRelatedSearch = Boolean(state.relatedSearch);
+                delete state.relatedSearch;
+                const parent = new URL(url.href);
+                parent.searchParams.delete('course');
+                parent.searchParams.delete('crn');
+                parent.searchParams.delete('panel');
+                state.detailParent = `${parent.pathname}${parent.search}`;
+            }
+        } else {
+            url.searchParams.delete('course');
+            url.searchParams.delete('crn');
+            url.searchParams.delete('panel');
+            delete state.courseDetail;
+            delete state.course;
+            delete state.detailParent;
+            delete state.detailFromRelatedSearch;
+        }
+        const next = `${url.pathname}${url.search}`;
+        const current = `${window.location.pathname}${window.location.search}`;
+        if (mode === 'push' && next !== current) history.pushState(state, '', next);
+        else history.replaceState(state, '', next);
+    },
+
+    async courseDetailGroup(courseCode, requestedCrn = '') {
+        const normalized = this.normalizeCourseCode(courseCode);
+        if (!normalized) return null;
+        const existing = (State.courseGroups || []).find(group => group.code === normalized);
+        if (existing && (!requestedCrn || existing.sections.some(section => (
+            String(section.crn) === String(requestedCrn)
+        )))) return existing;
+
+        const subject = normalized.split(' ')[0];
+        const [liveResult, bulletinResult] = await Promise.allSettled([
+            API.searchCourses(State.term, [{ field: 'subject', value: subject }]),
+            API.bulletinSearch(subject),
+        ]);
+        const sections = liveResult.status === 'fulfilled'
+            ? (liveResult.value.results || []).filter(section => section.code === normalized)
+            : [];
+        const catalog = bulletinResult.status === 'fulfilled'
+            ? (bulletinResult.value.results || []).find(course => course.code === normalized)
+            : null;
+        if (!sections.length && !catalog) return existing || null;
+        return {
+            code: normalized,
+            title: sections[0]?.title || catalog?.title || normalized,
+            sections: sections.length ? sections : [{
+                code: normalized,
+                title: catalog?.title || normalized,
+                key: catalog?.key,
+                _isCatalog: true,
+            }],
+        };
+    },
+
+    async restoreCourseDetail(params, restoreId) {
+        const course = this.normalizeCourseCode(params.get('course'));
+        if (!course) return false;
+        const crn = String(params.get('crn') || '');
+        const panel = params.get('panel') || 'overview';
+        const group = await this.courseDetailGroup(course, crn);
+        if (restoreId !== this._restoreId || !group) return false;
+        this.showCourseDetail(group, {
+            sectionCrn: crn,
+            panel,
+            historyMode: 'none',
+        });
+        return true;
+    },
+
+    cancelLocationRestore() {
+        this._restoreId += 1;
+        this._restoringHistory = false;
+        API.setForceRefreshLive?.(false);
+    },
+
     applyFiltersFromLocation(params) {
         const checked = [
             ['filter-show-all', 'all'],
@@ -788,8 +896,12 @@ const Search = {
 
     async restoreFromLocation({ initial = false } = {}) {
         const params = new URL(window.location.href).searchParams;
-        if (params.get('tab') !== 'search' && !params.has('q')) return;
-        const query = params.get('q') || '';
+        if (params.get('tab') !== 'search' && !params.has('q') && !params.has('course')) return;
+        const restoreId = ++this._restoreId;
+        const refreshLiveData = initial && API.shouldRefreshAfterReload?.();
+        if (refreshLiveData) API.setForceRefreshLive(true);
+        const requestedCourse = this.normalizeCourseCode(params.get('course'));
+        const query = params.get('q') || requestedCourse;
         this._restoringHistory = true;
         const term = params.get('term');
         const termSelect = document.getElementById('term-select');
@@ -800,19 +912,27 @@ const Search = {
         this.applyFiltersFromLocation(params);
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = params.get('from') || '';
-        this._directSearchOnce = params.get('direct') === '1';
+        this._directSearchOnce = params.get('direct') === '1'
+            || (!params.has('q') && Boolean(requestedCourse));
         const input = this.activeSearchInput();
         if (input) input.value = query;
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
         if (!query) {
             this.resetToCleanSearch({ historyMode: 'none' });
-            this._restoringHistory = false;
+            if (refreshLiveData) API.setForceRefreshLive(false);
+            if (restoreId === this._restoreId) this._restoringHistory = false;
             return;
         }
         try {
+            if (!requestedCourse && this._browseState === 'detail') {
+                this.closeCourseDetail({ historyMode: 'none' });
+            }
             await this.doSearch({ historyMode: 'none' });
+            if (restoreId !== this._restoreId) return;
+            if (requestedCourse) await this.restoreCourseDetail(params, restoreId);
         } finally {
-            this._restoringHistory = false;
+            if (refreshLiveData) API.setForceRefreshLive(false);
+            if (restoreId === this._restoreId) this._restoringHistory = false;
         }
     },
 
@@ -830,6 +950,10 @@ const Search = {
     },
 
     returnToMainSearch() {
+        if (history.state?.detailFromRelatedSearch) {
+            history.go(-2);
+            return;
+        }
         if (history.state?.relatedSearch) {
             history.back();
             return;
@@ -841,6 +965,18 @@ const Search = {
         const input = this.activeSearchInput();
         if (input) input.value = origin;
         this.doSearch({ historyMode: 'replace' });
+    },
+
+    async openCourseFromExternal(group, sectionCrn = '') {
+        if (!group?.code) return;
+        const input = this.activeSearchInput();
+        if (input) input.value = group.code;
+        this._mainSearchQuery = '';
+        this._relatedSearchOrigin = '';
+        this._directSearchOnce = true;
+        await this.doSearch({ historyMode: 'push' });
+        const freshGroup = (State.courseGroups || []).find(item => item.code === group.code) || group;
+        this.showCourseDetail(freshGroup, { sectionCrn, historyMode: 'push' });
     },
 
     setSmartModelLoading(active, stage = '') {
@@ -980,6 +1116,8 @@ const Search = {
     },
 
     async doSearch({ historyMode = 'push', bypassCache = false } = {}) {
+        if (historyMode !== 'none') this.cancelLocationRestore();
+        if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
         const searchInput = this.activeSearchInput();
         const rawInput = searchInput.value.trim();
         const openOnly = document.getElementById('filter-open').checked;
@@ -1743,8 +1881,9 @@ const Search = {
             || null;
     },
 
-    closeCourseDetail() {
+    leaveCourseDetail({ focus = true } = {}) {
         this._detailToken = (this._detailToken || 0) + 1;
+        this._sectionDetailToken = (this._sectionDetailToken || 0) + 1;
         this.destroyDetailMap();
         this.setBrowseState('results');
         document.querySelectorAll('#search-results .course-group').forEach(card => {
@@ -1752,9 +1891,31 @@ const Search = {
             card.removeAttribute('aria-current');
         });
         const trigger = this._lastDetailTrigger;
+        if (!focus) return;
         requestAnimationFrame(() => {
             if (trigger?.isConnected) trigger.focus();
             else document.getElementById('keyword-input')?.focus();
+        });
+    },
+
+    closeCourseDetail({ historyMode = 'auto' } = {}) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('course');
+        url.searchParams.delete('crn');
+        url.searchParams.delete('panel');
+        const resultUrl = `${url.pathname}${url.search}`;
+        const canReturnToParent = historyMode === 'auto'
+            && history.state?.courseDetail
+            && history.state?.detailParent === resultUrl;
+        this.leaveCourseDetail();
+        if (historyMode === 'none') return;
+        if (canReturnToParent) {
+            history.back();
+            return;
+        }
+        this.writeCourseDetailHistory({
+            mode: historyMode === 'auto' ? 'replace' : historyMode,
+            course: '',
         });
     },
 
@@ -1772,7 +1933,7 @@ const Search = {
         this.setCourseDetailTab(tabs[nextIndex].dataset.courseTab, true);
     },
 
-    setCourseDetailTab(tab, focus = false) {
+    setCourseDetailTab(tab, focus = false, historyMode = 'replace') {
         const allowed = new Set(['overview', 'grades', 'history', 'resources']);
         const active = allowed.has(tab) ? tab : 'overview';
         this._detailTab = active;
@@ -1786,6 +1947,9 @@ const Search = {
             panel.hidden = panel.dataset.coursePanel !== active;
         });
         this.loadCourseDetailTab(active);
+        if (this._browseState === 'detail') {
+            this.writeCourseDetailHistory({ mode: historyMode });
+        }
     },
 
     loadCourseDetailTab(tab) {
@@ -1817,15 +1981,20 @@ const Search = {
             }
             this.renderCourseDetailHeader(this._detailDetails);
             this.renderDetailSections();
-            this.selectDetailSection(this._detailSectionCrn, false);
+            this.selectDetailSection(this._detailSectionCrn, false, 'replace');
         } catch (error) {
             // The filtered result sections remain usable if full-course hydration fails.
         }
     },
 
-    showCourseDetail(group) {
+    showCourseDetail(group, {
+        sectionCrn = '',
+        panel = 'overview',
+        historyMode = 'push',
+    } = {}) {
         const detailsTab = document.getElementById('tab-details');
         if (!detailsTab || !group) return;
+        if (historyMode !== 'none') this.cancelLocationRestore();
         this._detailToken = (this._detailToken || 0) + 1;
         this.destroyDetailMap();
         const token = this._detailToken;
@@ -1835,7 +2004,12 @@ const Search = {
         this._detailFaculty = [];
         this._detailSectionData = {};
         this._detailLoads = {};
-        this._detailSectionCrn = String(this.preferredDetailSection(group)?.crn || '');
+        const requestedSection = this.detailLiveSections(group).find(section => (
+            String(section.crn) === String(sectionCrn)
+        ));
+        this._detailSectionCrn = String(
+            requestedSection?.crn || this.preferredDetailSection(group)?.crn || '',
+        );
         if (document.activeElement?.closest?.('.course-group')) {
             this._lastDetailTrigger = document.activeElement.closest('.course-group');
         }
@@ -1849,8 +2023,12 @@ const Search = {
 
         this.renderCourseDetailHeader(null);
         this.renderDetailSections();
-        this.selectDetailSection(this._detailSectionCrn, false);
-        this.setCourseDetailTab('overview');
+        this.selectDetailSection(this._detailSectionCrn, false, 'none');
+        this.setCourseDetailTab(panel, false, 'none');
+        const currentHasDetail = new URL(window.location.href).searchParams.has('course');
+        this.writeCourseDetailHistory({
+            mode: historyMode === 'push' && currentHasDetail ? 'replace' : historyMode,
+        });
         if (typeof Prereqs !== 'undefined') Prereqs.loadForCourse(group.code);
         this.hydrateFullDetailGroup(group, token, this._detailTerm);
         this.fetchBulletinDetailsForCourse(group.code).then(details => {
@@ -1978,7 +2156,7 @@ const Search = {
         this.selectDetailSection(buttons[nextIndex].dataset.detailCrn, true);
     },
 
-    selectDetailSection(crn, focusPicker = true) {
+    selectDetailSection(crn, focusPicker = true, historyMode = 'replace') {
         const section = this.detailLiveSections().find(item => String(item.crn) === String(crn))
             || this.preferredDetailSection(this._detailGroup);
         this._detailSectionCrn = String(section?.crn || '');
@@ -1995,6 +2173,9 @@ const Search = {
         this.renderSectionSummary(section);
         this.renderCourseResources();
         this.refreshDetailGrades();
+        if (this._browseState === 'detail') {
+            this.writeCourseDetailHistory({ mode: historyMode });
+        }
         requestAnimationFrame(() => {
             selectedButton?.scrollIntoView({ block: 'nearest', inline: 'center' });
             if (focusPicker) selectedButton?.focus();
@@ -2431,6 +2612,7 @@ const Search = {
         this._semanticFallbackNotice = '';
 
         if (results.length === 0) {
+            State.courseGroups = [];
             container.innerHTML = `${fallbackNotice ? `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>` : ''}<p class="hint">No results found.</p>`;
             return;
         }
