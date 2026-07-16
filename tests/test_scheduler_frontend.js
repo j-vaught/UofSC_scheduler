@@ -1196,6 +1196,287 @@ test('schedule splitter keeps calendar and map within the available height', () 
     assert.equal(calendarExpanded.map, 260);
 });
 
+test('schedule map divider is centered between the calendar and map', () => {
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const rule = styles.match(/\.schedule-vertical-resizer\s*\{([^}]*)\}/)?.[1] || '';
+
+    assert.match(rule, /align-self:\s*center;/);
+    assert.match(rule, /margin:\s*-7px auto;/);
+    assert.match(rule, /width:\s*calc\(100%\s*-\s*20px\);/);
+    assert.match(rule, /justify-content:\s*center;/);
+});
+
+test('schedule course tools have an accessible persistent collapse rail', () => {
+    const source = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const asideStart = source.indexOf('<aside id="schedule-sidebar">');
+    const aside = source.slice(asideStart, source.indexOf('</aside>', asideStart));
+
+    assert.match(
+        source,
+        /id="btn-toggle-schedule-sidebar"[^>]*aria-controls="schedule-sidebar"[^>]*aria-expanded="true"/,
+    );
+    assert.match(
+        source,
+        /id="schedule-sidebar-resize-handle"[^>]*role="separator"[^>]*aria-orientation="vertical"/,
+    );
+    assert.doesNotMatch(aside, /btn-toggle-schedule-sidebar/);
+    assert.doesNotMatch(source, /schedule-sidebar-toggle-text/);
+    assert.match(
+        styles,
+        /\.schedule-layout\.schedule-sidebar-collapsed #schedule-sidebar\s*\{[^}]*display:\s*none;/s,
+    );
+    assert.match(styles, /\.schedule-sidebar-toggle-rail\s*\{[^}]*flex:\s*0 0 10px;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle-rail\s*\{[^}]*border-left:\s*2px solid #000000;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle-rail\s*\{[^}]*background:\s*#ffffff;/s);
+    assert.doesNotMatch(
+        styles.match(/\.schedule-sidebar-toggle-rail\s*\{([^}]*)\}/)?.[1] || '',
+        /border-right/,
+    );
+    assert.match(styles, /\.schedule-sidebar-toggle\s*\{[^}]*background:\s*transparent;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle\s*\{[^}]*width:\s*24px;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle::before\s*\{[^}]*background:\s*#000000;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle::before\s*\{[^}]*width:\s*10px;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle\s*\{[^}]*color:\s*#ffffff;/s);
+    assert.match(styles, /\.schedule-sidebar-toggle-icon\s*\{[^}]*left:\s*50%;/s);
+    assert.match(
+        styles,
+        /\.schedule-sidebar-collapsed \.schedule-sidebar-toggle-icon\s*\{[^}]*left:\s*calc\(50% - 1px\);/s,
+    );
+    assert.match(styles, /\.schedule-sidebar-resize-handle\s*\{[^}]*cursor:\s*col-resize;/s);
+    assert.match(styles, /#schedule-sidebar\s*\{[^}]*width:\s*var\(--schedule-sidebar-width, 340px\);/s);
+    assert.match(styles, /@media \(max-width:\s*760px\)[\s\S]*#schedule-sidebar\s*\{[^}]*max-width:\s*none;/);
+    assert.match(styles, /#schedule-content\s*\{[^}]*min-width:\s*0;/s);
+    assert.match(styles, /@media \(max-width:\s*760px\)[\s\S]*\.schedule-sidebar-toggle-rail\s*\{/);
+    assert.match(source, /class="schedule-search-button-wide">SEARCH COURSES<\/span>/);
+    assert.match(source, /class="schedule-search-button-compact">SEARCH<\/span>/);
+    assert.match(source, /id="schedule-selected-heading"[^>]*>Your Courses<\/h2>/);
+    assert.match(styles, /@container schedule-sidebar \(max-width:\s*240px\)/);
+});
+
+test('schedule course tools collapse, restore, persist, and resize the map', () => {
+    const classes = new Set();
+    const attributes = { 'aria-expanded': 'true' };
+    const listeners = {};
+    const layout = {
+        classList: {
+            toggle(name, enabled) {
+                if (enabled) classes.add(name);
+                else classes.delete(name);
+            },
+        },
+    };
+    const sidebar = {
+        style: { width: '340px' },
+        getBoundingClientRect() { return { width: 340 }; },
+        setAttribute(name, value) { this[name] = value; },
+    };
+    const button = {
+        dataset: {},
+        title: '',
+        addEventListener(type, listener) { listeners[type] = listener; },
+        getAttribute(name) { return attributes[name]; },
+        setAttribute(name, value) { attributes[name] = value; },
+    };
+    const values = new Map();
+    const localStorage = {
+        getItem(key) { return values.get(key) || null; },
+        setItem(key, value) { values.set(key, value); },
+    };
+    let mapInvalidations = 0;
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        document: {
+            getElementById(id) {
+                return {
+                    'btn-toggle-schedule-sidebar': button,
+                    'schedule-sidebar': sidebar,
+                }[id] || null;
+            },
+            querySelector(selector) {
+                return selector === '#tab-schedule .schedule-layout' ? layout : null;
+            },
+        },
+        localStorage,
+        requestAnimationFrame(callback) { callback(); },
+        WalkingMap: { _map: { invalidateSize() { mapInvalidations += 1; } } },
+    });
+
+    scheduler.initScheduleSidebarCollapse();
+    assert.equal(classes.has('schedule-sidebar-collapsed'), false);
+    assert.equal(attributes['aria-expanded'], 'true');
+    assert.equal(sidebar['aria-hidden'], 'false');
+
+    button.dataset.ignoreNextClick = 'true';
+    listeners.click();
+    assert.equal(classes.has('schedule-sidebar-collapsed'), false);
+    assert.equal(button.dataset.ignoreNextClick, undefined);
+
+    listeners.click();
+    assert.equal(classes.has('schedule-sidebar-collapsed'), true);
+    assert.equal(attributes['aria-expanded'], 'false');
+    assert.equal(sidebar['aria-hidden'], 'true');
+    assert.equal(values.get('uofsc-schedule-sidebar-collapsed-v1'), 'true');
+
+    listeners.click();
+    assert.equal(classes.has('schedule-sidebar-collapsed'), false);
+    assert.equal(attributes['aria-expanded'], 'true');
+    assert.equal(sidebar['aria-hidden'], 'false');
+    assert.equal(values.get('uofsc-schedule-sidebar-collapsed-v1'), 'false');
+    assert.equal(mapInvalidations, 3);
+});
+
+test('schedule course tools resize from the rail or arrow and snap closed below 160 pixels', () => {
+    const layoutClasses = new Set();
+    const handleClasses = new Set();
+    const bodyClasses = new Set();
+    const handleListeners = {};
+    const buttonListeners = {};
+    const documentListeners = {};
+    const scheduledTimers = [];
+    const values = new Map([['uofsc-schedule-sidebar-width-v1', '320']]);
+    const attributes = { 'aria-expanded': 'true' };
+    const layout = {
+        classList: {
+            contains(name) { return layoutClasses.has(name); },
+            toggle(name, enabled) {
+                if (enabled) layoutClasses.add(name);
+                else layoutClasses.delete(name);
+            },
+        },
+        getBoundingClientRect() { return { width: 1000 }; },
+    };
+    const sidebarProperties = new Map();
+    const sidebar = {
+        style: {
+            setProperty(name, value) { sidebarProperties.set(name, value); },
+        },
+        getBoundingClientRect() {
+            return {
+                width: Number.parseFloat(sidebarProperties.get('--schedule-sidebar-width')) || 340,
+            };
+        },
+        setAttribute(name, value) { this[name] = value; },
+    };
+    const handle = {
+        classList: {
+            add(name) { handleClasses.add(name); },
+            remove(name) { handleClasses.delete(name); },
+        },
+        addEventListener(type, listener) { handleListeners[type] = listener; },
+        setAttribute(name, value) { this[name] = value; },
+    };
+    const button = {
+        dataset: {},
+        title: '',
+        addEventListener(type, listener) { buttonListeners[type] = listener; },
+        getAttribute(name) { return attributes[name]; },
+        setAttribute(name, value) { attributes[name] = value; },
+    };
+    const localStorage = {
+        getItem(key) { return values.get(key) || null; },
+        setItem(key, value) { values.set(key, value); },
+    };
+    const document = {
+        body: {
+            classList: {
+                add(name) { bodyClasses.add(name); },
+                remove(name) { bodyClasses.delete(name); },
+            },
+        },
+        addEventListener(type, listener) { documentListeners[type] = listener; },
+        removeEventListener(type) { delete documentListeners[type]; },
+        getElementById(id) {
+            return {
+                'btn-toggle-schedule-sidebar': button,
+                'schedule-sidebar': sidebar,
+                'schedule-sidebar-resize-handle': handle,
+            }[id] || null;
+        },
+        querySelector(selector) {
+            return selector === '#tab-schedule .schedule-layout' ? layout : null;
+        },
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        document,
+        localStorage,
+        requestAnimationFrame(callback) { callback(); },
+        WalkingMap: { _map: { invalidateSize() {} } },
+        window: {
+            innerWidth: 1200,
+            addEventListener() {},
+            setTimeout(callback) { scheduledTimers.push(callback); },
+        },
+    });
+
+    scheduler.initScheduleSidebarResize();
+    assert.equal(sidebarProperties.get('--schedule-sidebar-width'), '320px');
+    assert.equal(handle['aria-valuenow'], '320');
+
+    handleListeners.pointerdown({ clientX: 320, preventDefault() {} });
+    assert.equal(handleClasses.has('active'), true);
+    assert.equal(bodyClasses.has('resizing-schedule-sidebar'), true);
+
+    documentListeners.pointermove({ clientX: 300 });
+    assert.equal(layoutClasses.has('schedule-sidebar-collapsed'), false);
+    assert.equal(sidebarProperties.get('--schedule-sidebar-width'), '300px');
+
+    documentListeners.pointermove({ clientX: 159 });
+    assert.equal(documentListeners.pointerup, undefined);
+    assert.equal(values.get('uofsc-schedule-sidebar-width-v1'), '300');
+    assert.equal(values.get('uofsc-schedule-sidebar-collapsed-v1'), 'true');
+    assert.equal(layoutClasses.has('schedule-sidebar-collapsed'), true);
+    assert.equal(attributes['aria-expanded'], 'false');
+    assert.equal(handle['aria-valuenow'], '0');
+    assert.equal(handleClasses.has('active'), false);
+    assert.equal(bodyClasses.has('resizing-schedule-sidebar'), false);
+
+    scheduler.setScheduleSidebarCollapsed(false);
+    assert.equal(layoutClasses.has('schedule-sidebar-collapsed'), false);
+    assert.equal(sidebarProperties.get('--schedule-sidebar-width'), '300px');
+    assert.equal(values.get('uofsc-schedule-sidebar-collapsed-v1'), 'false');
+
+    buttonListeners.pointerdown({ clientX: 300 });
+    documentListeners.pointermove({ clientX: 270, cancelable: true, preventDefault() {} });
+    documentListeners.pointerup();
+    assert.equal(sidebarProperties.get('--schedule-sidebar-width'), '270px');
+    assert.equal(button.dataset.ignoreNextClick, 'true');
+    scheduledTimers.shift()();
+    assert.equal(button.dataset.ignoreNextClick, undefined);
+
+    buttonListeners.pointerdown({ clientX: 270 });
+    documentListeners.pointermove({ clientX: 159, cancelable: true, preventDefault() {} });
+    assert.equal(layoutClasses.has('schedule-sidebar-collapsed'), true);
+    assert.equal(button.dataset.ignoreNextClick, 'true');
+    documentListeners.pointerup();
+    scheduledTimers.shift()();
+    assert.equal(button.dataset.ignoreNextClick, undefined);
+    scheduler.setScheduleSidebarCollapsed(false);
+
+    scheduler.setScheduleSidebarWidth(200, true);
+    let prevented = 0;
+    handleListeners.keydown({ key: 'ArrowLeft', preventDefault() { prevented += 1; } });
+    assert.equal(layoutClasses.has('schedule-sidebar-collapsed'), true);
+    assert.equal(prevented, 1);
+});
+
+test('schedule sidebar width fitting preserves the calendar and rejects invalid values', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+
+    assert.deepEqual(
+        { ...scheduler.fitScheduleSidebarWidth(340, 1000) },
+        { collapseAt: 160, maximum: 550, minimum: 200, width: 340 },
+    );
+    assert.equal(scheduler.fitScheduleSidebarWidth(200, 1000).width, 200);
+    assert.equal(scheduler.fitScheduleSidebarWidth(900, 1600).width, 560);
+    assert.equal(scheduler.fitScheduleSidebarWidth('invalid', 1000).width, 340);
+    assert.equal(scheduler.fitScheduleSidebarWidth(340, 800).width, 340);
+    assert.equal(scheduler.fitScheduleSidebarWidth(500, 1200).width, 500);
+    assert.equal(
+        scheduler.fitScheduleSidebarWidth(560, 1100).width,
+        scheduler.fitScheduleSidebarWidth(560, 1101).width,
+    );
+});
+
 test('schedule splitter uses a safe default when initialized in a hidden tab', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
 

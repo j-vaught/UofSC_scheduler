@@ -512,7 +512,7 @@
                     <div class="schedule-search-section">
                         <h2>Find Courses</h2>
                         <input id="schedule-course-input" type="text" placeholder="Course, CRN, or range (CSCE 140-199)" autocomplete="off" aria-label="Schedule course search">
-                        <button id="btn-search-schedule-courses" class="btn-garnet">SEARCH COURSES</button>
+                        <button id="btn-search-schedule-courses" class="btn-garnet"><span class="schedule-search-button-wide">SEARCH COURSES</span><span class="schedule-search-button-compact">SEARCH</span></button>
                         <p id="schedule-course-status" class="schedule-course-status" aria-live="polite"></p>
                     </div>
                     <div id="schedule-search-results" class="schedule-search-results">
@@ -520,13 +520,20 @@
                     </div>
                     <div id="schedule-course-divider" class="schedule-course-divider" role="separator" aria-label="Resize course results and selected courses" aria-orientation="horizontal" tabindex="0"></div>
                     <section class="schedule-selected-section" aria-labelledby="schedule-selected-heading">
-                        <h2 id="schedule-selected-heading" class="schedule-selected-heading">Courses in This Schedule</h2>
+                        <h2 id="schedule-selected-heading" class="schedule-selected-heading">Your Courses</h2>
                         <div id="selected-courses-list" class="selected-courses-list">
                             <p class="hint">Add courses from the results above.</p>
                         </div>
                         <div id="selected-credits" class="selected-credits"></div>
                     </section>
                 </aside>
+
+                <div class="schedule-sidebar-toggle-rail">
+                    <div id="schedule-sidebar-resize-handle" class="schedule-sidebar-resize-handle" role="separator" aria-label="Resize course tools" aria-controls="schedule-sidebar" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="560" aria-valuenow="340" tabindex="0"></div>
+                    <button id="btn-toggle-schedule-sidebar" class="schedule-sidebar-toggle" type="button" aria-controls="schedule-sidebar" aria-expanded="true" aria-label="Hide course tools" title="Hide course tools">
+                        <span class="schedule-sidebar-toggle-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
 
                 <!-- Right: Preview + Solver Results -->
                 <section id="schedule-content">

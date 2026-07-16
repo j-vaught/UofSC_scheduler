@@ -27,6 +27,8 @@ const Scheduler = {
         State.on('preferences-changed', () => this.clearResults());
         this.renderCourseSearchResults();
         this.initCourseDivider();
+        this.initScheduleSidebarResize();
+        this.initScheduleSidebarCollapse();
         this.initVerticalResizer();
         this.initScheduleScrollPreview();
         this.updateRegistrationButton();
@@ -1189,6 +1191,273 @@ const Scheduler = {
         });
         window.addEventListener('resize', () => {
             if (sidebar.clientHeight > 0) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+        });
+    },
+
+    setScheduleSidebarCollapsed(collapsed, persist = true) {
+        const layout = document.querySelector('#tab-schedule .schedule-layout');
+        const sidebar = document.getElementById('schedule-sidebar');
+        const button = document.getElementById('btn-toggle-schedule-sidebar');
+        const handle = document.getElementById('schedule-sidebar-resize-handle');
+        if (!layout || !sidebar || !button) return;
+
+        const isCollapsed = Boolean(collapsed);
+        layout.classList.toggle('schedule-sidebar-collapsed', isCollapsed);
+        sidebar.setAttribute('aria-hidden', String(isCollapsed));
+        button.setAttribute('aria-expanded', String(!isCollapsed));
+        button.setAttribute('aria-label', isCollapsed ? 'Show course tools' : 'Hide course tools');
+        button.title = isCollapsed ? 'Show course tools' : 'Hide course tools';
+        if (!isCollapsed && this._scheduleSidebarPreferredWidth) {
+            this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
+        }
+        if (handle) {
+            const expandedWidth = Math.round(
+                sidebar.getBoundingClientRect().width
+                || this.scheduleSidebarWidthLimits(this._scheduleSidebarPreferredWidth).width
+                || 340,
+            );
+            handle.setAttribute('aria-valuenow', String(isCollapsed ? 0 : expandedWidth));
+            handle.setAttribute('aria-valuetext', isCollapsed ? 'Collapsed' : `${expandedWidth} pixels`);
+            handle.setAttribute('tabindex', isCollapsed ? '-1' : '0');
+        }
+
+        if (persist && typeof localStorage !== 'undefined') {
+            try {
+                localStorage.setItem(
+                    'uofsc-schedule-sidebar-collapsed-v1',
+                    String(isCollapsed),
+                );
+            } catch (error) {
+                // Device storage can be unavailable without affecting the layout control.
+            }
+        }
+
+        const refreshLayout = () => {
+            if (!isCollapsed) {
+                const results = document.getElementById('schedule-search-results');
+                if (results) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+            }
+            if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
+                WalkingMap._map.invalidateSize();
+            }
+        };
+        if (typeof requestAnimationFrame === 'function') requestAnimationFrame(refreshLayout);
+        else refreshLayout();
+    },
+
+    initScheduleSidebarCollapse() {
+        const button = document.getElementById('btn-toggle-schedule-sidebar');
+        if (!button) return;
+
+        let collapsed = false;
+        if (typeof localStorage !== 'undefined') {
+            try {
+                collapsed = localStorage.getItem('uofsc-schedule-sidebar-collapsed-v1') === 'true';
+            } catch (error) {
+                collapsed = false;
+            }
+        }
+        this.setScheduleSidebarCollapsed(collapsed, false);
+        button.addEventListener('click', () => {
+            if (button.dataset?.ignoreNextClick === 'true') {
+                delete button.dataset.ignoreNextClick;
+                return;
+            }
+            const expanded = button.getAttribute('aria-expanded') === 'true';
+            this.setScheduleSidebarCollapsed(expanded);
+        });
+    },
+
+    fitScheduleSidebarWidth(width, availableWidth) {
+        const minimum = 200;
+        const collapseAt = 160;
+        const available = Number(availableWidth) > 0 ? Number(availableWidth) : 1024;
+        const contentReserve = 420;
+        const maximum = Math.max(
+            minimum,
+            Math.min(
+                560,
+                Math.round(available * 0.55),
+                Math.round(available - 10 - contentReserve),
+            ),
+        );
+        const requested = Number(width);
+        const safeWidth = Number.isFinite(requested) && requested > 0 ? requested : 340;
+        return {
+            collapseAt,
+            maximum,
+            minimum,
+            width: Math.max(minimum, Math.min(maximum, Math.round(safeWidth))),
+        };
+    },
+
+    scheduleSidebarWidthLimits(width = 340) {
+        const layout = document.querySelector('#tab-schedule .schedule-layout');
+        const available = layout?.getBoundingClientRect().width || window.innerWidth || 1024;
+        return this.fitScheduleSidebarWidth(width, available);
+    },
+
+    setScheduleSidebarWidth(width, persist = true) {
+        const sidebar = document.getElementById('schedule-sidebar');
+        const handle = document.getElementById('schedule-sidebar-resize-handle');
+        if (!sidebar) return 0;
+
+        const { maximum, width: nextWidth } = this.scheduleSidebarWidthLimits(width);
+        sidebar.style.setProperty('--schedule-sidebar-width', `${nextWidth}px`);
+        if (handle) {
+            handle.setAttribute('aria-valuemin', '0');
+            handle.setAttribute('aria-valuemax', String(maximum));
+            handle.setAttribute('aria-valuenow', String(nextWidth));
+            handle.setAttribute('aria-valuetext', `${nextWidth} pixels`);
+        }
+        if (persist && typeof localStorage !== 'undefined') {
+            try {
+                localStorage.setItem('uofsc-schedule-sidebar-width-v1', String(nextWidth));
+            } catch (error) {
+                // Device storage can be unavailable without affecting sidebar resizing.
+            }
+        }
+        if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(() => {
+                if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
+                    WalkingMap._map.invalidateSize();
+                }
+            });
+        }
+        return nextWidth;
+    },
+
+    initScheduleSidebarResize() {
+        const layout = document.querySelector('#tab-schedule .schedule-layout');
+        const sidebar = document.getElementById('schedule-sidebar');
+        const handle = document.getElementById('schedule-sidebar-resize-handle');
+        const button = document.getElementById('btn-toggle-schedule-sidebar');
+        if (!layout || !sidebar || !handle || !button) return;
+
+        let preferredWidth = 340;
+        if (typeof localStorage !== 'undefined') {
+            try {
+                const savedWidth = Number(localStorage.getItem('uofsc-schedule-sidebar-width-v1'));
+                if (Number.isFinite(savedWidth) && savedWidth >= 200) preferredWidth = savedWidth;
+            } catch (error) {
+                preferredWidth = 340;
+            }
+        }
+        this._scheduleSidebarPreferredWidth = preferredWidth;
+        this.setScheduleSidebarWidth(preferredWidth, false);
+
+        let startX = 0;
+        let startWidth = preferredWidth;
+        let pendingCollapse = false;
+        let pointerStartedOnButton = false;
+        let pointerMoved = false;
+        const move = event => {
+            const delta = event.clientX - startX;
+            if (pointerStartedOnButton && !pointerMoved && Math.abs(delta) < 4) return;
+            pointerMoved = true;
+            if (event.cancelable) event.preventDefault();
+            const requestedWidth = startWidth + delta;
+            const { collapseAt } = this.scheduleSidebarWidthLimits();
+            pendingCollapse = requestedWidth < collapseAt;
+            if (pendingCollapse) {
+                finish(true);
+                return;
+            }
+            const fitted = this.scheduleSidebarWidthLimits(requestedWidth);
+            this.setScheduleSidebarWidth(requestedWidth, false);
+            if (requestedWidth >= fitted.minimum) {
+                this._scheduleSidebarPreferredWidth = fitted.width;
+            }
+        };
+        const finish = commit => {
+            document.removeEventListener('pointermove', move);
+            document.removeEventListener('pointerup', stop);
+            document.removeEventListener('pointercancel', cancel);
+            handle.classList.remove('active');
+            document.body.classList.remove('resizing-schedule-sidebar');
+            if (commit && pointerStartedOnButton && pointerMoved) {
+                button.dataset.ignoreNextClick = 'true';
+                const clearIgnoredClick = () => {
+                    const clear = () => {
+                        if (button.dataset.ignoreNextClick === 'true') {
+                            delete button.dataset.ignoreNextClick;
+                        }
+                    };
+                    if (typeof window.setTimeout === 'function') window.setTimeout(clear, 0);
+                    else clear();
+                };
+                if (pendingCollapse) {
+                    const clearAfterRelease = () => {
+                        document.removeEventListener('pointerup', clearAfterRelease);
+                        document.removeEventListener('pointercancel', clearAfterRelease);
+                        clearIgnoredClick();
+                    };
+                    document.addEventListener('pointerup', clearAfterRelease, { once: true });
+                    document.addEventListener('pointercancel', clearAfterRelease, { once: true });
+                } else {
+                    clearIgnoredClick();
+                }
+            }
+            if (!commit) {
+                pendingCollapse = false;
+                this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
+                pointerStartedOnButton = false;
+                pointerMoved = false;
+                return;
+            }
+            if (pendingCollapse) {
+                this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, true);
+                this.setScheduleSidebarCollapsed(true);
+            } else {
+                this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, true);
+            }
+            pendingCollapse = false;
+            pointerStartedOnButton = false;
+            pointerMoved = false;
+        };
+        const stop = () => finish(true);
+        const cancel = () => finish(false);
+        const begin = (event, fromButton) => {
+            if (
+                window.innerWidth <= 760
+                || layout.classList.contains('schedule-sidebar-collapsed')
+            ) return;
+            startX = event.clientX;
+            startWidth = sidebar.getBoundingClientRect().width;
+            pendingCollapse = false;
+            pointerStartedOnButton = fromButton;
+            pointerMoved = false;
+            handle.classList.add('active');
+            document.body.classList.add('resizing-schedule-sidebar');
+            document.addEventListener('pointermove', move);
+            document.addEventListener('pointerup', stop);
+            document.addEventListener('pointercancel', cancel);
+            if (!fromButton) event.preventDefault();
+        };
+
+        handle.addEventListener('pointerdown', event => begin(event, false));
+        button.addEventListener('pointerdown', event => begin(event, true));
+        handle.addEventListener('keydown', event => {
+            if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || window.innerWidth <= 760) return;
+            if (layout.classList.contains('schedule-sidebar-collapsed')) return;
+            const currentWidth = sidebar.getBoundingClientRect().width;
+            const limits = this.scheduleSidebarWidthLimits(currentWidth);
+            if (event.key === 'ArrowLeft' && currentWidth <= limits.minimum) {
+                this.setScheduleSidebarCollapsed(true);
+                event.preventDefault();
+                return;
+            }
+            const requestedWidth = currentWidth + (event.key === 'ArrowRight' ? 24 : -24);
+            if (requestedWidth < limits.collapseAt) {
+                this.setScheduleSidebarCollapsed(true);
+            } else {
+                this._scheduleSidebarPreferredWidth = this.setScheduleSidebarWidth(requestedWidth, true);
+            }
+            event.preventDefault();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 760 || layout.classList.contains('schedule-sidebar-collapsed')) return;
+            this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
         });
     },
 
