@@ -1114,6 +1114,45 @@ test('Course detail fills its pane and uses visual section, grade, and history s
     assert.doesNotMatch(history, /term\.instructors \|\|/);
 });
 
+test('Professor names use the first comma as the sole first and last name delimiter', () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {});
+
+    assert.equal(grades.displayProfessorName('KANAPALA, NEEMA'), 'NEEMA KANAPALA');
+    assert.equal(grades.displayProfessorName('DE LA CRUZ, MARIA JOSE'), 'MARIA JOSE DE LA CRUZ');
+    assert.equal(grades.displayProfessorName('Mary Ann Smith'), 'Mary Ann Smith');
+});
+
+test('Professor profiles use alphabetical GPA rows and a full-year connected timeline', () => {
+    const source = fs.readFileSync('static/js/grades.js', 'utf8');
+    const styles = fs.readFileSync('static/css/grades.css', 'utf8');
+    const html = fs.readFileSync('static/index.html', 'utf8');
+
+    assert.match(source, /localeCompare\(String\(right\.code \|\| ''\), undefined, \{ numeric: true \}\)/);
+    assert.match(source, /class="professor-course-gpa-dot/);
+    assert.doesNotMatch(source, /<i><b style="width:\$\{width\}%"><\/b><\/i>/);
+    assert.match(source, /class="professor-primary-gpa"/);
+    assert.match(source, /class="professor-year-segment \$\{direction\}"/);
+    assert.match(source, /\$\{point\.year\}: \$\{this\.formatGpa\(point\.gpa\)\} GPA/);
+    assert.match(styles, /\.professor-year-segment\.down/);
+    assert.match(styles, /\.professor-year-point\s*{[^}]*border-radius:\s*50% !important;/s);
+    assert.match(html, /update\(markup, options = \{\}\)/);
+    assert.match(source, /AppModal\.update\(markup/);
+});
+
+test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+
+    assert.match(source, /action\.hostname !== 'sc\.bncollege\.com'/);
+    assert.match(source, /\['catalogId', 'storeId', 'termMapping', 'courseXml'\]/);
+    assert.match(source, /details&srcdb=\$\{encodeURIComponent\(this\._detailTerm \|\| State\.term\)\}&crn=/);
+    assert.match(source, /https:\/\/www\.sc\.edu\/syllabusarchive\//);
+    assert.match(source, /academicbulletins\.sc\.edu\/undergraduate\/course-descriptions\/\$\{subject\}\//);
+    assert.match(source, /academicbulletins\.sc\.edu\/graduate\/course-descriptions\/\$\{subject\}\//);
+    assert.match(source, /https:\/\/sc\.edu\/about\/directory\//);
+    assert.doesNotMatch(source, /uscbookstore\.com/);
+    assert.doesNotMatch(source, /Official course information and useful searches open in a new tab/);
+});
+
 test('Browse result cards lazily add descriptions and historical grades', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');

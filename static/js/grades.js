@@ -38,6 +38,24 @@ const Grades = {
         return value === null || value === undefined ? 'N/A' : Number(value).toFixed(2);
     },
 
+    displayProfessorName(value) {
+        const raw = String(value || '').trim();
+        const comma = raw.indexOf(',');
+        if (comma < 0) return raw;
+        const last = raw.slice(0, comma).trim();
+        const first = raw.slice(comma + 1).trim();
+        return `${first} ${last}`.replace(/\s+/g, ' ').trim();
+    },
+
+    professorGpaKind(value) {
+        const gpa = Number(value);
+        if (!Number.isFinite(gpa)) return 'unknown';
+        if (gpa >= 3.5) return 'high';
+        if (gpa >= 3.0) return 'strong';
+        if (gpa >= 2.5) return 'middle';
+        return 'low';
+    },
+
     gradeBuckets(counts = {}) {
         const number = grade => Number(counts[grade] || 0);
         const buckets = [
@@ -91,7 +109,7 @@ const Grades = {
         });
         const instructorCards = instructors.map((instructor, index) => {
             const grade = instructor.grade;
-            const displayName = instructor.displayName || instructor.name;
+            const displayName = this.displayProfessorName(instructor.displayName || instructor.name);
             const current = normalizedViewed && this.normalizeName(displayName) === normalizedViewed;
             const gpa = Number(grade?.average_gpa);
             const width = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
@@ -170,6 +188,7 @@ const Grades = {
                     currentCourse: code,
                     detailToken,
                     detailCode,
+                    loadingOpen: true,
                 });
                 return;
             }
@@ -190,30 +209,32 @@ const Grades = {
     },
 
     openProfessorLoading(name = 'Instructor') {
+        const displayName = this.displayProfessorName(name);
         const markup = `
             <div class="professor-detail">
-                <header class="professor-detail-header"><div><span>Instructor profile</span><h2>${this.escape(name)}</h2></div></header>
+                <header class="professor-detail-header"><div><span>Instructor profile</span><h2>${this.escape(displayName)}</h2></div></header>
                 <p class="professor-loading loading" role="status">Loading instructor profile</p>
             </div>
         `;
-        if (window.AppModal) AppModal.open(markup, { className: 'professor-profile-modal', label: `Loading instructor ${name}` });
+        if (window.AppModal) AppModal.open(markup, { className: 'professor-profile-modal', label: `Loading instructor ${displayName}` });
     },
 
     showUnmatchedProfessor(name, email = '') {
+        const displayName = this.displayProfessorName(name);
         const markup = `
             <div class="professor-detail">
-                <header class="professor-detail-header"><div><span>Instructor</span><h2>${this.escape(name)}</h2>${email ? `<a href="mailto:${this.escape(email)}">${this.escape(email)}</a>` : ''}</div></header>
+                <header class="professor-detail-header"><div><span>Instructor</span><h2>${this.escape(displayName)}</h2>${email ? `<a href="mailto:${this.escape(email)}">${this.escape(email)}</a>` : ''}</div></header>
                 <p class="hint">A unique historical grade record could not be matched to this instructor.</p>
             </div>
         `;
-        if (window.AppModal) AppModal.open(markup, { className: 'professor-profile-modal', label: `Instructor ${name}` });
+        if (window.AppModal) AppModal.update(markup, { className: 'professor-profile-modal', label: `Instructor ${displayName}` });
     },
 
     async showProfessor(professorId, context = {}) {
         const loadId = ++this._professorLoadId;
         const detailToken = context.detailToken ?? Search?._detailToken;
         const detailCode = context.detailCode ?? Search?._detailGroup?.code ?? context.currentCourse;
-        this.openProfessorLoading(context.displayName || 'Instructor');
+        if (!context.loadingOpen) this.openProfessorLoading(context.displayName || 'Instructor');
         const modalVersion = window.AppModal?.version || 0;
         try {
             let data = this._professorCache[professorId];
@@ -231,7 +252,7 @@ const Grades = {
                 || (window.AppModal?.version || 0) !== modalVersion
                 || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
             const markup = this.professorMarkup(data, context);
-            if (window.AppModal) AppModal.open(markup, { className: 'professor-profile-modal', label: `Professor ${data.name}` });
+            if (window.AppModal) AppModal.update(markup, { className: 'professor-profile-modal', label: `Professor ${this.displayProfessorName(data.name)}` });
         } catch (error) {
             if (loadId !== this._professorLoadId || (window.AppModal?.version || 0) !== modalVersion) return;
             const markup = `
@@ -240,42 +261,69 @@ const Grades = {
                     <p class="hint">Instructor details are temporarily unavailable.</p>
                 </div>
             `;
-            if (window.AppModal) AppModal.open(markup, { className: 'professor-profile-modal', label: 'Instructor details unavailable' });
+            if (window.AppModal) AppModal.update(markup, { className: 'professor-profile-modal', label: 'Instructor details unavailable' });
         }
     },
 
+    professorYearMarkup(years = []) {
+        const points = years
+            .map(year => ({ year: Number(year.academic_year), gpa: Number(year.average_gpa) }))
+            .filter(point => Number.isFinite(point.year) && Number.isFinite(point.gpa))
+            .sort((left, right) => left.year - right.year);
+        if (!points.length) return '';
+        const positioned = points.map((point, index) => ({
+            ...point,
+            x: points.length === 1 ? 50 : 5 + index * 90 / (points.length - 1),
+            y: 10 + (4 - Math.max(0, Math.min(4, point.gpa))) / 4 * 72,
+        }));
+        const segments = positioned.slice(0, -1).map((point, index) => {
+            const next = positioned[index + 1];
+            const difference = next.y - point.y;
+            const top = Math.min(point.y, next.y);
+            const height = Math.max(2, Math.abs(difference));
+            const direction = Math.abs(difference) < 1 ? 'flat' : difference > 0 ? 'down' : 'up';
+            return `<i class="professor-year-segment ${direction}" style="left:${point.x}%;top:${top}%;width:${next.x - point.x}%;height:${height}%"></i>`;
+        }).join('');
+        const markers = positioned.map(point => `<button type="button" class="professor-year-point" style="left:${point.x}%;top:${point.y}%" title="${point.year}: ${this.formatGpa(point.gpa)} GPA" aria-label="${point.year}, ${this.formatGpa(point.gpa)} GPA"><span>${this.formatGpa(point.gpa)}</span></button>`).join('');
+        const labels = positioned.map(point => `<span>${point.year}</span>`).join('');
+        return `
+            <div class="professor-year-plot">
+                <div class="professor-year-axis" aria-hidden="true"><span>4.0</span><span>3.0</span><span>2.0</span><span>1.0</span></div>
+                ${segments}${markers}
+            </div>
+            <div class="professor-year-labels" style="grid-template-columns:repeat(${positioned.length}, minmax(0, 1fr))">${labels}</div>
+        `;
+    },
+
     professorMarkup(data, context = {}) {
-        const courses = (data.courses || []).map(course => {
-            const width = Math.max(0, Math.min(100, Number(course.average_gpa || 0) / 4 * 100));
+        const courses = [...(data.courses || [])]
+            .sort((left, right) => String(left.code || '').localeCompare(String(right.code || ''), undefined, { numeric: true }))
+            .map(course => {
+            const gpa = this.formatGpa(course.average_gpa);
             return `
                 <div class="professor-course-row${context.currentCourse === course.code ? ' current' : ''}">
+                    <i class="professor-course-gpa-dot ${this.professorGpaKind(course.average_gpa)}" aria-hidden="true"></i>
                     <strong>${this.escape(course.code)}</strong>
-                    <span>${course.sections} sections · ${Number(course.graded_students || 0).toLocaleString()} grades</span>
-                    <em>${this.formatGpa(course.average_gpa)} GPA</em>
-                    <i><b style="width:${width}%"></b></i>
+                    <em>${gpa} GPA</em>
                 </div>
             `;
         }).join('');
-        const years = data.years || [];
-        const yearly = years.map(year => {
-            const width = Math.max(0, Math.min(100, Number(year.average_gpa || 0) / 4 * 100));
-            return `<span title="${year.academic_year - 1}-${String(year.academic_year).slice(-2)}: ${this.formatGpa(year.average_gpa)} GPA"><i style="height:${width}%"></i><small>${String(year.academic_year).slice(-2)}</small></span>`;
-        }).join('');
-        const reviewQuery = encodeURIComponent(`${data.name} University of South Carolina professor`);
+        const yearly = this.professorYearMarkup(data.years || []);
+        const displayName = this.displayProfessorName(data.name);
+        const reviewQuery = encodeURIComponent(`${displayName} University of South Carolina professor`);
         return `
             <div class="professor-detail">
                 <header class="professor-detail-header">
-                    <div><span>Instructor profile</span><h2>${this.escape(data.name)}</h2>${context.email ? `<a href="mailto:${this.escape(context.email)}">${this.escape(context.email)}</a>` : ''}</div>
+                    <div><span>Instructor profile</span><h2>${this.escape(displayName)}</h2>${context.email ? `<a href="mailto:${this.escape(context.email)}">${this.escape(context.email)}</a>` : ''}</div>
                     <a class="professor-review-link" href="https://www.ratemyprofessors.com/search/professors?q=${reviewQuery}" target="_blank" rel="noopener noreferrer">SEARCH REVIEWS</a>
                 </header>
-                <div class="grade-summary-grid professor-summary-grid">
-                    <div class="grade-stat"><strong>${this.formatGpa(data.average_gpa)}</strong><span>Historical GPA</span></div>
-                    <div class="grade-stat"><strong>${data.typical_sections_per_year ?? '—'}</strong><span>Typical sections per active year</span></div>
-                    <div class="grade-stat"><strong>${this.escape(data.experience_label || `${data.observed_teaching_semesters || '—'} semesters`)}</strong><span>Semesters observed</span></div>
+                <div class="professor-profile-summary">
+                    <div class="professor-primary-gpa"><span>Overall historical GPA</span><strong>${this.formatGpa(data.average_gpa)}</strong><small>${Number(data.graded_students || 0).toLocaleString()} counted grades</small></div>
+                    <div class="professor-profile-fact"><strong>${data.typical_sections_per_year ?? '—'}</strong><span>Typical sections per active year</span></div>
+                    <div class="professor-profile-fact"><strong>${this.escape(data.experience_label || `${data.observed_teaching_semesters || '—'} semesters`)}</strong><span>Semesters observed</span></div>
                 </div>
-                ${this.gradeStrip(data.grade_counts)}
-                <section class="professor-section"><div class="course-detail-card-heading"><h3>Courses taught</h3><span>${Number(data.graded_students || 0).toLocaleString()} counted grades overall</span></div><div class="professor-course-list">${courses || '<p class="hint">No course history available.</p>'}</div></section>
-                ${yearly ? `<section class="professor-section"><div class="course-detail-card-heading"><h3>GPA by academic year</h3><span>Each bar is scaled from 0 to 4.0.</span></div><div class="professor-year-chart">${yearly}</div></section>` : ''}
+                <section class="professor-section"><div class="course-detail-card-heading"><h3>Courses taught</h3><span>Alphabetical by course code</span></div><div class="professor-course-list">${courses || '<p class="hint">No course history available.</p>'}</div></section>
+                ${yearly ? `<section class="professor-section"><div class="course-detail-card-heading"><h3>GPA by year</h3><span>Hover over a point for the exact value.</span></div>${yearly}</section>` : ''}
                 <p class="grade-note">Observed teaching history is limited to available records. “&gt;=” means the instructor appears in the earliest available semester and may have taught longer.</p>
             </div>
         `;

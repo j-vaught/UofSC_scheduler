@@ -1945,6 +1945,7 @@ const Search = {
                 || crn !== this._detailSectionCrn
                 || !container.isConnected) return;
             this.destroyDetailMap();
+            container.replaceChildren();
             this._detailMap = L.map(container, {
                 attributionControl: true,
                 dragging: true,
@@ -1983,8 +1984,13 @@ const Search = {
         const seatsAvailable = String(details?.seats || '').match(/seats_avail[^>]*>(\d+)/)?.[1];
         const seatsMax = String(details?.seats || '').match(/seats_max[^>]*>(\d+)/)?.[1];
         const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
-        const instructorName = primaryFaculty?.name
+        const instructorRawName = primaryFaculty?.name
             || (section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA');
+        const instructorName = instructorRawName === 'Instructor TBA'
+            ? instructorRawName
+            : (typeof Grades !== 'undefined' && Grades.displayProfessorName
+                ? Grades.displayProfessorName(instructorRawName)
+                : instructorRawName);
         const locked = String(State.sectionLocks?.[group.code] || '') === String(section.crn);
         const courseSelected = State.isCourseSelected(group.code);
         const actionLabel = locked
@@ -2040,24 +2046,103 @@ const Search = {
         });
     },
 
+    parseBookstoreOrder(html) {
+        if (!html) return null;
+        try {
+            const documentNode = new DOMParser().parseFromString(html, 'text/html');
+            const sourceForm = documentNode.querySelector('form');
+            if (!sourceForm) return null;
+            const action = new URL(sourceForm.getAttribute('action') || '', window.location.href);
+            if (action.hostname !== 'sc.bncollege.com') return null;
+            const allowed = ['catalogId', 'storeId', 'termMapping', 'courseXml'];
+            const fields = {};
+            allowed.forEach(name => {
+                const input = sourceForm.querySelector(`input[name="${name}"]`);
+                if (input?.value) fields[name] = input.value;
+            });
+            if (!fields.courseXml) return null;
+            return { action: action.href, fields };
+        } catch (error) {
+            return null;
+        }
+    },
+
+    submitBookstoreOrder(order) {
+        if (!order?.action || !order.fields) return;
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = order.action;
+        form.target = '_blank';
+        Object.entries(order.fields).forEach(([name, value]) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            form.appendChild(input);
+        });
+        document.body.appendChild(form);
+        form.submit();
+        form.remove();
+    },
+
+    bulletinResourceCards(courseCode) {
+        const match = String(courseCode || '').match(/^([A-Z]+)\s*(\d{3})/i);
+        if (!match) return '';
+        const subject = match[1].toLowerCase();
+        const number = Number(match[2]);
+        const undergraduate = `https://academicbulletins.sc.edu/undergraduate/course-descriptions/${subject}/`;
+        const graduate = `https://academicbulletins.sc.edu/graduate/course-descriptions/${subject}/`;
+        if (number < 500) {
+            return `<a class="course-resource-card" href="${undergraduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} undergraduate bulletin page"><small>Official</small><strong>Academic Bulletin</strong><span>${match[1].toUpperCase()} undergraduate course descriptions</span></a>`;
+        }
+        if (number < 600) {
+            return `
+                <a class="course-resource-card" href="${undergraduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} undergraduate bulletin page"><small>Official</small><strong>Undergraduate Bulletin</strong><span>${match[1].toUpperCase()} 500-level course descriptions</span></a>
+                <a class="course-resource-card" href="${graduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} graduate bulletin page"><small>Official</small><strong>Graduate Bulletin</strong><span>${match[1].toUpperCase()} 500-level course descriptions</span></a>`;
+        }
+        return `<a class="course-resource-card" href="${graduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} graduate bulletin page"><small>Official</small><strong>Academic Bulletin</strong><span>${match[1].toUpperCase()} graduate course descriptions</span></a>`;
+    },
+
     renderCourseResources(section = this.currentDetailSection(), faculty = this._detailFaculty || []) {
         const container = document.getElementById('course-resource-links');
         const group = this._detailGroup;
         if (!container || !group) return;
         const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
-        const professor = primaryFaculty?.name || (section?.instr && section.instr !== 'Staff' ? section.instr : '');
-        const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina`);
-        const professorQuery = encodeURIComponent(`${professor} University of South Carolina`);
+        const professorRaw = primaryFaculty?.name || (section?.instr && section.instr !== 'Staff' ? section.instr : '');
+        const professor = typeof Grades !== 'undefined' && Grades.displayProfessorName
+            ? Grades.displayProfessorName(professorRaw)
+            : professorRaw;
+        const subject = String(group.code || '').split(' ')[0];
+        const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina course review`);
+        const professorQuery = encodeURIComponent(`${professor} University of South Carolina professor`);
+        const sectionDetails = this._detailSectionData?.[String(section?.crn || '')]?.details || null;
+        const bookstoreOrder = this.parseBookstoreOrder(sectionDetails?.bn_order_books_html);
+        const classDetailsUrl = section?.crn
+            ? `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&crn=${encodeURIComponent(section.crn)}`
+            : `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&code=${encodeURIComponent(group.code)}`;
+        const bookstoreCard = bookstoreOrder
+            ? '<button id="btn-resource-bookstore" type="button" class="course-resource-card" title="Open official materials for the selected section in a new tab"><small>Official</small><strong>Bookstore materials</strong><span>Open the selected section’s required and recommended materials</span></button>'
+            : `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open official class details and use Order Books"><small>Official</small><strong>Bookstore materials</strong><span>Open class details, then choose Order Books</span></a>`;
         container.innerHTML = `
-            <div class="course-resource-intro"><h2>Course resources</h2><p>Official course information and useful searches open in a new tab.</p></div>
-            <div class="course-resource-grid">
-                <a href="https://academicbulletins.sc.edu/undergraduate/course-descriptions/" target="_blank" rel="noopener noreferrer"><strong>Academic bulletin</strong><span>Official description and requirements</span></a>
-                <a href="https://www.uscbookstore.com/" target="_blank" rel="noopener noreferrer"><strong>USC Bookstore</strong><span>Find assigned course materials</span></a>
-                <a href="https://www.google.com/search?q=${query}%20syllabus%20site%3Asc.edu" target="_blank" rel="noopener noreferrer"><strong>Find a syllabus</strong><span>Search university pages for this course</span></a>
-                <a href="https://www.google.com/search?q=${query}%20course%20reviews" target="_blank" rel="noopener noreferrer"><strong>Course reviews</strong><span>Search independent course feedback</span></a>
-                ${professor ? `<a href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer"><strong>Professor reviews</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
-            </div>
+            <section class="course-resource-group">
+                <div class="course-resource-group-heading"><h2>Official university resources</h2><span>Selected section ${this.escapeText(section?.section || '')}</span></div>
+                <div class="course-resource-grid">
+                    <a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open the official class-search record for this section"><small>Official</small><strong>Class details</strong><span>Meeting, registration, deadline, and final-exam information</span></a>
+                    ${bookstoreCard}
+                    ${this.bulletinResourceCards(group.code)}
+                    <a class="course-resource-card" href="https://www.sc.edu/syllabusarchive/" target="_blank" rel="noopener noreferrer" title="Open the official syllabus archive"><small>Official · Sign-in required</small><strong>Syllabus archive</strong><span>Search for ${this.escapeText(subject)}${professor ? ` and ${this.escapeText(professor)}` : ''}</span></a>
+                    ${professor ? `<a class="course-resource-card" href="https://sc.edu/about/directory/" target="_blank" rel="noopener noreferrer" title="Open the official faculty and staff directory"><small>Official</small><strong>Faculty directory</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
+                </div>
+            </section>
+            <section class="course-resource-group external">
+                <div class="course-resource-group-heading"><h2>External reviews</h2><span>Independent sites</span></div>
+                <div class="course-resource-grid">
+                    <a class="course-resource-card" href="https://www.google.com/search?q=${query}" target="_blank" rel="noopener noreferrer" title="Search the web for independent course feedback"><small>External</small><strong>Course reviews</strong><span>Search independent feedback for ${this.escapeText(group.code)}</span></a>
+                    ${professor ? `<a class="course-resource-card" href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer" title="Search Rate My Professors for ${this.escapeText(professor)}"><small>External</small><strong>Professor reviews</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
+                </div>
+            </section>
         `;
+        container.querySelector('#btn-resource-bookstore')?.addEventListener('click', () => this.submitBookstoreOrder(bookstoreOrder));
     },
 
     escapeText(value) {

@@ -804,6 +804,18 @@
                 document.body.classList.add('app-modal-open');
                 requestAnimationFrame(() => document.getElementById('modal-close')?.focus());
             },
+            update(markup, options = {}) {
+                if (modalOverlay.classList.contains('hidden')) {
+                    this.open(markup, options);
+                    return;
+                }
+                modal.classList.remove(...modalClasses);
+                if (options.className) modal.classList.add(options.className);
+                modal.setAttribute('role', 'dialog');
+                modal.setAttribute('aria-modal', 'true');
+                modal.setAttribute('aria-label', options.label || 'Details');
+                modalContent.innerHTML = markup;
+            },
             close: closeModal,
         };
         document.getElementById('modal-close').addEventListener('click', closeModal);
