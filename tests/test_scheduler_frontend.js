@@ -395,6 +395,13 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     const requiredTogether = prereqs.parsePrereqGroups('C or better in ACCT 401 and MGSC 290.');
     const alternatives = prereqs.parsePrereqGroups('D or better in ENCP 200, ECIV 200, EMCH 200, or ECHE 300.');
     const mixed = prereqs.parsePrereqGroups('D or better in EMCH 290 or ENCP 290 and AESP 265.');
+    const placementAlternative = prereqs.parsePrereqGroups(
+        'Prerequisites: C or better in MATH 112, MATH 115, MATH 116, or through placement exam.',
+    );
+    const placementTree = prereqs.renderPathways('MATH 141', placementAlternative, [], completed);
+    const mixedPlacement = prereqs.parsePrereqGroups(
+        'C or better in MATH 111 and MATH 112, or placement exam.',
+    );
     const unevenPathway = prereqs.renderPathways('CSCE 350', [
         { courses: ['CSCE 240'], type: 'and' },
         { courses: ['MATH 174', 'MATH 374', 'MATH 574'], type: 'or' },
@@ -442,12 +449,30 @@ test('prerequisite details use a compact status-first requirement tree', () => {
         JSON.parse(JSON.stringify(mixed.map(group => [...group.courses]))),
         [['EMCH 290', 'ENCP 290'], ['AESP 265']],
     );
+    assert.deepEqual(
+        JSON.parse(JSON.stringify(placementAlternative[0].courses)),
+        ['MATH 112', 'MATH 115', 'MATH 116'],
+    );
+    assert.equal(placementAlternative.length, 1);
+    assert.equal(placementAlternative[0].type, 'or');
+    assert.equal(placementAlternative[0].conditions[0].label, 'Placement exam');
+    assert.equal(prereqs.groupIsMet(placementAlternative[0], new Set(['MATH 115'])), true);
+    assert.equal(prereqs.evaluateGroups(placementAlternative, new Set()).eligible, true);
+    assert.equal(prereqs.evaluateGroups(placementAlternative, new Set()).uncertain, true);
+    assert.equal(prereqs.evaluateGroups(placementAlternative, new Set(['MATH 115'])).satisfied, true);
+    assert.equal(mixedPlacement.length, 2);
+    assert.ok(mixedPlacement.every(group => !(group.conditions || []).length));
+    assert.match(placementTree, /Complete one/);
+    assert.match(placementTree, /Placement exam/);
+    assert.match(placementTree, /prereq-course-card condition/);
+    assert.doesNotMatch(placementTree, /prereq-tree-branch-label">Required/);
     assert.doesNotMatch(source, /Prerequisite Status|Some prerequisites are missing|Required before this course/);
     assert.match(source, /\{ html: details\.corequisite, mode: 'corequisite' \}/);
     assert.match(source, /\{ html: details\.prerequisite_or_corequisite, mode: 'either' \}/);
     assert.match(source, /getElementById\('browse-close-details'\)\?\.focus\(\)/);
     assert.match(styles, /\.prereq-status-card\.missing/);
     assert.match(styles, /\.prereq-course-card\.target/);
+    assert.match(styles, /\.prereq-course-card\.condition\s*{[^}]*border-color:\s*#f2c200;/s);
     assert.match(styles, /\.prereq-tree-groups/);
     assert.match(styles, /\.prereq-tree-branch\s*{[^}]*display:\s*flex;[^}]*flex-direction:\s*column;/s);
     assert.match(styles, /\.prereq-tree-branch-drop\s*{[^}]*flex:\s*1 1 14px;[^}]*width:\s*2px;/s);
@@ -455,6 +480,24 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.doesNotMatch(styles, /\.prereq-tree-connector\s*{[^}]*border-left:/s);
     assert.match(styles, /\.prereq-course-options\.alternatives\s*{[^}]*flex-direction:\s*column;[^}]*flex-wrap:\s*nowrap;/s);
     assert.match(styles, /\.prereq-course-options\.alternatives \.prereq-course-card\s*{[^}]*width:\s*min\(150px, 100%\);/s);
+
+    const eligibleSearch = loadObject('static/js/search.js', 'Search', {
+        Prereqs: prereqs,
+        State: { completedCourses: ['MATH 115'] },
+    });
+    assert.equal(eligibleSearch.checkEligibility('MATH 141', {
+        'MATH 141': { prereqs: placementAlternative[0].courses, groups: placementAlternative },
+    }).eligible, true);
+    const unknownSearch = loadObject('static/js/search.js', 'Search', {
+        Prereqs: prereqs,
+        State: { completedCourses: [] },
+    });
+    const unknownEligibility = unknownSearch.checkEligibility('MATH 141', {
+        'MATH 141': { prereqs: placementAlternative[0].courses, groups: placementAlternative },
+    });
+    assert.equal(unknownEligibility.eligible, true);
+    assert.equal(unknownEligibility.unknown, true);
+    assert.deepEqual(JSON.parse(JSON.stringify(unknownEligibility.missing)), []);
 });
 
 test('browse filters separate primary and additional course choices', () => {
@@ -794,7 +837,8 @@ test('course and registration dialogs close when the backdrop is pressed', () =>
 
 test('registration prerequisite warnings account for completed alternatives', () => {
     const state = { profile: { majorData: { major: 'Mechanical Engineering' } } };
-    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', { State: state });
+    const prereqs = loadObject('static/js/prereqs.js', 'Prereqs', {});
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', { State: state, Prereqs: prereqs });
     scheduler.stripHtml = value => String(value || '');
 
     assert.equal(
@@ -803,6 +847,20 @@ test('registration prerequisite warnings account for completed alternatives', ()
             new Set(['EMCH 260']),
         ),
         true,
+    );
+    assert.equal(
+        scheduler.registrationRequirementSatisfied(
+            'C or better in MATH 112, MATH 115, MATH 116, or through placement exam.',
+            new Set(['MATH 115']),
+        ),
+        true,
+    );
+    assert.equal(
+        scheduler.registrationRequirementSatisfied(
+            'C or better in MATH 112, MATH 115, MATH 116, or through placement exam.',
+            new Set(),
+        ),
+        false,
     );
     assert.equal(
         scheduler.registrationRequirementSatisfied(

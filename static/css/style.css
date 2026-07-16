@@ -2399,6 +2399,8 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .prereq-course-card.needed span { color: #CC2E40; }
 .prereq-course-card.met { border-color: #65780B; }
 .prereq-course-card.met span { color: #65780B; }
+.prereq-course-card.condition { background: #fffde7; border-color: #f2c200; }
+.prereq-course-card.condition span { color: #000000; }
 .prereq-course-card.target { background: #000000; border-color: #000000; color: #FFFFFF; flex: 0 0 auto; width: min(180px, 100%); }
 .prereq-course-card.target span { color: #C7C7C7; }
 .prereq-link { cursor: pointer; }

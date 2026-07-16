@@ -124,8 +124,13 @@ const Prereqs = {
         andParts.forEach(part => {
             const matches = [...part.matchAll(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g)];
             if (!matches.length) return;
+            const trailingConditions = this.trailingRequirementAlternatives(part, matches.at(-1));
             if (matches.length === 1) {
-                groups.push({ courses: [matches[0][0]], type: 'and' });
+                groups.push({
+                    courses: [matches[0][0]],
+                    type: trailingConditions.length ? 'or' : 'and',
+                    ...(trailingConditions.length ? { conditions: trailingConditions } : {}),
+                });
                 return;
             }
 
@@ -140,7 +145,9 @@ const Prereqs = {
                 if (logic.includes(',')) return 'comma';
                 return 'and';
             });
-            const commaMeansOr = connectors.includes('or') && !connectors.includes('and');
+            const usableTrailingConditions = connectors.includes('and') ? [] : trailingConditions;
+            const commaMeansOr = (connectors.includes('or') || usableTrailingConditions.length)
+                && !connectors.includes('and');
             let current = [matches[0][0]];
 
             connectors.forEach((connector, index) => {
@@ -155,13 +162,24 @@ const Prereqs = {
                 });
                 current = [nextCode];
             });
-            groups.push({
+            const finalGroup = {
                 courses: [...new Set(current)],
-                type: current.length > 1 ? 'or' : 'and',
-            });
+                type: current.length > 1 || usableTrailingConditions.length ? 'or' : 'and',
+            };
+            if (usableTrailingConditions.length) finalGroup.conditions = usableTrailingConditions;
+            groups.push(finalGroup);
         });
 
         return groups;
+    },
+
+    trailingRequirementAlternatives(part, lastCourseMatch) {
+        if (!lastCourseMatch) return [];
+        const tail = String(part).slice(lastCourseMatch.index + lastCourseMatch[0].length);
+        if (/\bor\b[^.;]*\bplacement\b(?:\s+(?:exam|examination|test))?/i.test(tail)) {
+            return [{ label: 'Placement exam', kind: 'manual' }];
+        }
+        return [];
     },
 
     cleanRequirementText(html) {
@@ -191,9 +209,21 @@ const Prereqs = {
     },
 
     groupIsMet(group, completed) {
-        return group.courses.length > 1
+        return group.type === 'or'
             ? group.courses.some(code => completed.has(code))
             : group.courses.every(code => completed.has(code));
+    },
+
+    evaluateGroups(groups, completed) {
+        const unmet = groups.filter(group => !this.groupIsMet(group, completed));
+        const uncertain = unmet.filter(group => (group.conditions || []).length);
+        const definite = unmet.filter(group => !(group.conditions || []).length);
+        return {
+            satisfied: unmet.length === 0,
+            eligible: definite.length === 0,
+            uncertain: uncertain.length > 0,
+            missing: [...new Set(definite.flatMap(group => group.courses))],
+        };
     },
 
     renderStatus(groups, companions, completed, hasCatalogPrerequisite, needsReview) {
@@ -237,6 +267,11 @@ const Prereqs = {
         return `<a href="#" class="prereq-link prereq-course-card ${met ? 'met' : 'needed'}" data-code="${safeCode}" title="View ${safeCode} course details" aria-label="${safeCode}, ${state}"><strong>${safeCode}</strong><span>${state}</span></a>`;
     },
 
+    renderRequirementCondition(condition) {
+        const label = this.escapeHtml(condition?.label || 'Catalog condition');
+        return `<div class="prereq-course-card condition" role="note" aria-label="${label}, can satisfy this requirement"><strong>${label}</strong><span>Can satisfy</span></div>`;
+    },
+
     renderPathways(target, groups, companions, completed) {
         const visibleCompanions = companions.filter(item => item.groups.length);
         if (!groups.length && !visibleCompanions.length) return '';
@@ -244,11 +279,14 @@ const Prereqs = {
         let html = `<div class="prereq-tree" role="group" aria-label="Prerequisite and corequisite tree for ${safeTarget}">`;
         const prerequisiteBranches = groups.map(group => {
             const groupMet = this.groupIsMet(group, completed);
-            const label = group.courses.length > 1 ? 'Complete one' : 'Required';
+            const optionCount = group.courses.length + (group.conditions || []).length;
+            const label = optionCount > 1 ? 'Complete one' : 'Required';
             const courses = group.courses
                 .map(code => this.renderCourseCard(code, completed, 'Needed'))
+                .join('') + (group.conditions || [])
+                .map(condition => this.renderRequirementCondition(condition))
                 .join('');
-            const optionClass = group.courses.length > 1 ? ' alternatives' : '';
+            const optionClass = optionCount > 1 ? ' alternatives' : '';
             return `<section class="prereq-tree-branch prerequisite ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${label}</span><div class="prereq-course-options${optionClass}">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
         });
         const companionBranches = visibleCompanions.flatMap(item => {
@@ -257,11 +295,14 @@ const Prereqs = {
             const pendingLabel = isEither ? 'Before or with' : 'Take together';
             return item.groups.map(group => {
                 const groupMet = this.groupIsMet(group, completed);
-                const chooseOne = group.courses.length > 1 ? ' · choose one' : '';
+                const optionCount = group.courses.length + (group.conditions || []).length;
+                const chooseOne = optionCount > 1 ? ' · choose one' : '';
                 const courses = group.courses
                     .map(code => this.renderCourseCard(code, completed, pendingLabel))
+                    .join('') + (group.conditions || [])
+                    .map(condition => this.renderRequirementCondition(condition))
                     .join('');
-                const optionClass = group.courses.length > 1 ? ' alternatives' : '';
+                const optionClass = optionCount > 1 ? ' alternatives' : '';
                 return `<section class="prereq-tree-branch companion ${groupMet ? 'met' : 'missing'}"><span class="prereq-tree-branch-label">${modeLabel}${chooseOne}</span><div class="prereq-course-options${optionClass}">${courses}</div><span class="prereq-tree-branch-drop" aria-hidden="true"></span></section>`;
             });
         });

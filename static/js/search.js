@@ -1795,8 +1795,12 @@ const Search = {
             const details = await API.bulletinDetails(target.key);
             const prereqHtml = details.prereq || '';
             const codes = (prereqHtml.match(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g) || []);
+            const groups = typeof Prereqs !== 'undefined' && Prereqs.parsePrereqGroups
+                ? Prereqs.parsePrereqGroups(prereqHtml)
+                : [];
             const result = {
                 prereqs: [...new Set(codes)],
+                groups,
                 raw: prereqHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
             };
             this._prereqCache[subject][courseCode] = result;
@@ -1808,9 +1812,22 @@ const Search = {
 
     checkEligibility(courseCode, prereqData) {
         const info = prereqData[courseCode];
-        if (!info || info.prereqs.length === 0) return { eligible: true, missing: [], noData: !info };
+        if (!info) return { eligible: true, missing: [], noData: true };
         const completed = new Set(State.completedCourses);
-        const missing = info.prereqs.filter(p => !completed.has(p));
+        if (info.groups?.length
+            && typeof Prereqs !== 'undefined'
+            && Prereqs.evaluateGroups) {
+            const evaluation = Prereqs.evaluateGroups(info.groups, completed);
+            return {
+                eligible: evaluation.eligible,
+                missing: evaluation.missing,
+                noData: false,
+                unknown: evaluation.uncertain,
+            };
+        }
+        const prerequisites = info.prereqs || [];
+        if (!prerequisites.length) return { eligible: true, missing: [], noData: false };
+        const missing = prerequisites.filter(p => !completed.has(p));
         return { eligible: missing.length === 0, missing, noData: false };
     },
 

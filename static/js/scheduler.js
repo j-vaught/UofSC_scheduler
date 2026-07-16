@@ -88,6 +88,12 @@ const Scheduler = {
             .replace(/\s+/g, '')
             .replace(/^([A-Z]{2,4})(\d)/, '$1 $2');
         const text = this.stripHtml(value || '').toUpperCase();
+        if (typeof Prereqs !== 'undefined'
+            && Prereqs.parsePrereqGroups
+            && Prereqs.evaluateGroups) {
+            const groups = Prereqs.parsePrereqGroups(text);
+            if (groups.length) return Prereqs.evaluateGroups(groups, eligibleCourses).satisfied;
+        }
         const rawCodes = text.match(/\b[A-Z]{2,4}\s*\d{3}[A-Z]?\b/g) || [];
         if (rawCodes.length === 0) return false;
         const normalized = rawCodes.map(normalizeCode);
