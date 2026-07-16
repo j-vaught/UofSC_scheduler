@@ -1085,6 +1085,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     overflow: hidden;
 }
 #solver-section {
+    container-name: schedule-options;
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1124,6 +1126,11 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     gap: 6px;
     justify-content: flex-start;
     padding: 8px 10px;
+}
+.schedule-action-label-compact { display: none; }
+@container schedule-options (max-width: 390px) {
+    .schedule-action-label-wide { display: none; }
+    .schedule-action-label-compact { display: inline; }
 }
 .btn-panel-primary,
 .btn-panel-secondary,

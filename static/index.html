@@ -543,11 +543,17 @@
                                 <h3>Schedule Options</h3>
                             </div>
                             <div class="schedule-panel-actions">
-                                <button id="btn-solve" class="btn-panel-primary" type="button">GENERATE SCHEDULES</button>
+                                <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules">
+                                    <span class="schedule-action-label-wide" aria-hidden="true">GENERATE SCHEDULES</span>
+                                    <span class="schedule-action-label-compact" aria-hidden="true">GENERATE</span>
+                                </button>
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary schedule-preferences-button" type="button" aria-label="Schedule preferences" title="Schedule preferences" aria-haspopup="dialog" aria-controls="modal">
                                     <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
                                 </button>
-                                <button id="btn-registration-info" class="btn-panel-registration" type="button" disabled>REGISTRATION INFO</button>
+                                <button id="btn-registration-info" class="btn-panel-registration" type="button" aria-label="Registration info" title="Registration info" disabled>
+                                    <span class="schedule-action-label-wide" aria-hidden="true">REGISTRATION INFO</span>
+                                    <span class="schedule-action-label-compact" aria-hidden="true">REGISTER</span>
+                                </button>
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>

@@ -801,6 +801,12 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.match(optionsHeading, /id="btn-schedule-preferences"[\s\S]*?<span class="filter-sliders-icon" aria-hidden="true">/);
     assert.doesNotMatch(optionsHeading, />PREFERENCES<\/button>/);
     assert.match(optionsHeading, /id="btn-solve"/);
+    assert.match(optionsHeading, /id="btn-solve"[^>]*aria-label="Generate schedules"[^>]*title="Generate schedules"/);
+    assert.match(optionsHeading, /class="schedule-action-label-wide" aria-hidden="true">GENERATE SCHEDULES/);
+    assert.match(optionsHeading, /class="schedule-action-label-compact" aria-hidden="true">GENERATE/);
+    assert.match(optionsHeading, /id="btn-registration-info"[^>]*aria-label="Registration info"[^>]*title="Registration info"[^>]*disabled/);
+    assert.match(optionsHeading, /class="schedule-action-label-wide" aria-hidden="true">REGISTRATION INFO/);
+    assert.match(optionsHeading, /class="schedule-action-label-compact" aria-hidden="true">REGISTER/);
     assert.match(optionsHeading, /<div class="schedule-panel-heading">\s*<h3>Schedule Options<\/h3>\s*<\/div>\s*<div class="schedule-panel-actions">/);
     assert.ok(optionsHeading.indexOf('id="btn-solve"') < optionsHeading.indexOf('id="btn-schedule-preferences"'));
     assert.doesNotMatch(source, /id="btn-export-quick"/);
@@ -809,6 +815,8 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.match(styles, /#solver-section\s*{[^}]*display:\s*flex;[^}]*overflow:\s*hidden;/s);
     assert.match(styles, /#solver-container\s*{[^}]*flex:\s*1 1 auto;[^}]*overflow-y:\s*auto;/s);
     assert.match(styles, /\.schedule-panel-heading\s*{[^}]*position:\s*sticky;/s);
+    assert.match(styles, /#solver-section\s*{[^}]*container-name:\s*schedule-options;[^}]*container-type:\s*inline-size;/s);
+    assert.match(styles, /@container schedule-options \(max-width:\s*390px\)[\s\S]*\.schedule-action-label-wide\s*{\s*display:\s*none;\s*}[\s\S]*\.schedule-action-label-compact\s*{\s*display:\s*inline;/);
     assert.match(styles, /\.schedule-preferences-button\s*{[^}]*display:\s*flex;[^}]*height:\s*28px;[^}]*width:\s*32px;/s);
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
@@ -832,7 +840,7 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     const html = fs.readFileSync('static/index.html', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(html, /id="btn-registration-info"[^>]*disabled>REGISTRATION INFO/);
+    assert.match(html, /id="btn-registration-info"[^>]*aria-label="Registration info"[^>]*disabled>[\s\S]*schedule-action-label-wide[^>]*>REGISTRATION INFO/);
     assert.match(source, /button\.disabled = this\.registrationSections\(\)\.length === 0;/);
     assert.match(source, /data-registration-copy="\$\{this\.escapeHtml\(section\.crn\)\}">COPY CRN/);
     assert.match(source, /copyRegistrationCrn\(section, button, copyStatus\)/);
