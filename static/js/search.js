@@ -2458,8 +2458,10 @@ const Search = {
             if (minute > range.start) labelMinutes.push(minute);
         }
         labelMinutes.forEach(minute => {
-            const row = 2 + Math.floor((minute - range.start) / 5);
-            timeLabels.push(`<span class="section-calendar-time" style="grid-column:1;grid-row:${row} / span 6">${this.escapeText(this.formatSectionTime(minute))}</span>`);
+            const rowOffset = Math.floor((minute - range.start) / 5);
+            const row = 2 + rowOffset;
+            const span = Math.max(1, Math.min(6, rowCount - rowOffset));
+            timeLabels.push(`<span class="section-calendar-time" style="grid-column:1;grid-row:${row} / span ${span}">${this.escapeText(this.formatSectionTime(minute))}</span>`);
         });
         const blocks = events.map(event => {
             const start = Math.max(range.start, event.start);

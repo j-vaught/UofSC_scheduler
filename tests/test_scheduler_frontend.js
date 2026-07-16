@@ -316,6 +316,35 @@ test('course calendar uses exact padded bounds with a four-hour minimum', () => 
     assert.equal(late.end, 1260);
 });
 
+test('course calendar keeps the final time label inside its explicit grid', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    search.escapeText = value => String(value);
+    const calendar = search.renderSectionCalendar({}, null, {
+        dayCount: 5,
+        range: { start: 670, end: 910 },
+        events: [{
+            color: '#73000A',
+            day: 1,
+            end: 790,
+            foreground: '#FFFFFF',
+            locationIndex: null,
+            locationNumber: null,
+            rawLocation: '',
+            start: 700,
+        }],
+    });
+
+    assert.match(calendar, /grid-template-rows:28px repeat\(48, minmax\(2px, 1fr\)\)/);
+    assert.match(calendar, /section-calendar-track[^>]*grid-row:2 \/ span 48/);
+    assert.match(calendar, /section-calendar-half-hour hour[^>]*grid-row:48/);
+    assert.match(calendar, /section-calendar-time[^>]*grid-row:48 \/ span 2[^>]*>3:00 PM/);
+    assert.doesNotMatch(calendar, /grid-row:48 \/ span 6/);
+    assert.match(calendar, /aria-label="Weekly meeting calendar from 11:10 AM to 3:10 PM"/);
+    const labelRows = [...calendar.matchAll(/section-calendar-time[^>]*grid-row:(\d+) \/ span (\d+)/g)];
+    assert.ok(labelRows.length > 0);
+    assert.ok(labelRows.every(match => Number(match[1]) + Number(match[2]) <= 50));
+});
+
 test('course time and location correlates numbered colors across calendar and map', () => {
     const buildings = {
         Gambrell: { kind: 'known', code: 'GAMBRL', name: 'Gambrell Hall', lat: 34, lon: -81 },
