@@ -1082,11 +1082,35 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(source, /\$\{searchTerms\.length\} Related searches/);
     assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
     assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
+    assert.match(source, /class="related-search-back-icon"/);
+    assert.match(source, /class="related-search-back-copy"/);
     assert.match(styles, /\.smart-model-loading\s*{[^}]*position:\s*absolute;/s);
     assert.match(styles, /\.semantic-search-term\s*{[^}]*cursor:\s*pointer;/s);
     assert.match(styles, /\.semantic-search-term strong\s*{[^}]*background:\s*#466A9F;/s);
     assert.match(styles, /\.semantic-search-terms-toggle\s*{[^}]*width:\s*100%;/s);
     assert.match(styles, /\.semantic-search-terms-toggle\[aria-expanded="true"\] i\s*{\s*transform:\s*rotate\(180deg\);/s);
+    assert.match(styles, /\.related-search-back\s*{[^}]*border:\s*2px solid #000000;[^}]*grid-template-columns:\s*38px minmax\(0, 1fr\);/s);
+});
+
+test('Returning from a related search can restore the parent view from a short-lived cache', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const rendered = [];
+    search.renderResults = (...args) => rendered.push(args);
+    search._searchViewCache = new Map();
+    search._mainSearchQuery = 'Machine Learning';
+    search._relatedSearchOrigin = '';
+
+    search.renderAndCacheSearch('parent', [{ code: 'CSCE 883' }], 1, {}, false, [
+        { term: 'deep learning', count: 3 },
+    ]);
+    search._mainSearchQuery = '';
+    search._relatedSearchOrigin = 'Machine Learning';
+
+    assert.equal(search.restoreCachedSearch('parent'), true);
+    assert.equal(search._mainSearchQuery, 'Machine Learning');
+    assert.equal(search._relatedSearchOrigin, '');
+    assert.equal(rendered.length, 2);
+    assert.equal(rendered[1][0][0].code, 'CSCE 883');
 });
 
 test('AI-assisted search can be disabled and related searches remain direct', () => {
@@ -1185,7 +1209,7 @@ test('Changing terms does not run a hidden Search query from another tab', () =>
 test('Direct search ignores stale prerequisite completions and errors', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
-    const render = source.indexOf('this.renderResults(results, totalCount || results.length', prereqLoad);
+    const render = source.indexOf('this.renderAndCacheSearch(', prereqLoad);
     const staleGuard = source.lastIndexOf('if (searchId !== this._searchId) return;', render);
     const catchStart = source.indexOf('} catch (err) {', render);
 
@@ -1262,7 +1286,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /if \(response\.status === 404\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
 });
 
-test('Professor GPA timeline uses calendar-year spacing and an aligned one-to-four scale', () => {
+test('Professor GPA timeline uses calendar-year spacing and an aligned zero-to-four scale', () => {
     const grades = loadObject('static/js/grades.js', 'Grades', {});
     const markup = grades.professorYearMarkup([
         { academic_year: 2018, average_gpa: 4 },

@@ -32,6 +32,8 @@ const Search = {
     _restoringHistory: false,
     _detailMap: null,
     _filterPreviousFocus: null,
+    _searchViewCache: new Map(),
+    _searchCacheTtlMs: 120000,
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -662,6 +664,54 @@ const Search = {
         return url;
     },
 
+    searchCacheKey({ query = '', direct = false, origin = '' } = {}) {
+        const url = this.searchUrl({ query, direct, origin });
+        return `${url.pathname}${url.search}`;
+    },
+
+    renderAndCacheSearch(cacheKey, results, count, prereqData, eligibleOnly, searchTerms = null) {
+        const view = {
+            results,
+            count,
+            prereqData,
+            eligibleOnly,
+            searchTerms,
+            fallbackNotice: this._semanticFallbackNotice,
+            mainSearchQuery: this._mainSearchQuery,
+            relatedSearchOrigin: this._relatedSearchOrigin,
+            storedAt: Date.now(),
+        };
+        this._searchViewCache.delete(cacheKey);
+        this._searchViewCache.set(cacheKey, view);
+        while (this._searchViewCache.size > 12) {
+            this._searchViewCache.delete(this._searchViewCache.keys().next().value);
+        }
+        this.renderResults(results, count, prereqData, eligibleOnly, searchTerms);
+    },
+
+    restoreCachedSearch(cacheKey) {
+        const view = this._searchViewCache.get(cacheKey);
+        if (!view) return false;
+        if (Date.now() - view.storedAt > this._searchCacheTtlMs) {
+            this._searchViewCache.delete(cacheKey);
+            return false;
+        }
+        this._searchViewCache.delete(cacheKey);
+        this._searchViewCache.set(cacheKey, view);
+        this._searchId += 1;
+        this._mainSearchQuery = view.mainSearchQuery;
+        this._relatedSearchOrigin = view.relatedSearchOrigin;
+        this._semanticFallbackNotice = view.fallbackNotice || '';
+        this.renderResults(
+            view.results,
+            view.count,
+            view.prereqData,
+            view.eligibleOnly,
+            view.searchTerms,
+        );
+        return true;
+    },
+
     writeSearchHistory(query, { mode = 'push', direct = false, origin = '' } = {}) {
         if (this._restoringHistory || mode === 'none') return;
         const url = this.searchUrl({ query, direct, origin });
@@ -913,6 +963,7 @@ const Search = {
             || Boolean(this._relatedSearchOrigin)
             || this._directSearchOnce
             || this._semanticFallbackOnce;
+        const historyDirect = !aiAssisted || Boolean(this._relatedSearchOrigin);
         this._directSearchOnce = false;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
@@ -935,13 +986,19 @@ const Search = {
 
         this.writeSearchHistory(rawInput, {
             mode: historyMode,
-            direct: !aiAssisted || Boolean(this._relatedSearchOrigin),
+            direct: historyDirect,
             origin: this._relatedSearchOrigin,
         });
 
         this.setBrowseState('results');
         this.updateActiveFilterChips();
         this.closeFilters();
+        const searchCacheKey = this.searchCacheKey({
+            query: rawInput,
+            direct: historyDirect,
+            origin: this._relatedSearchOrigin,
+        });
+        if (historyMode === 'none' && this.restoreCachedSearch(searchCacheKey)) return;
 
         const kw = rawInput.trim();
         const criteria = [];
@@ -1146,7 +1203,14 @@ const Search = {
                     : null;
                 this._mainSearchQuery = kw;
                 this._relatedSearchOrigin = '';
-                this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
+                this.renderAndCacheSearch(
+                    searchCacheKey,
+                    results,
+                    results.length,
+                    prereqData,
+                    eligibleOnly2,
+                    searchInfo,
+                );
             } catch (err) {
                 if (searchId !== this._searchId) return;
                 if (this.activeSearchInput()?.value.trim() !== kw) return;
@@ -1264,7 +1328,13 @@ const Search = {
                 : (this._prereqCache[subject] || {});
 
             if (searchId !== this._searchId) return;
-            this.renderResults(results, totalCount || results.length, prereqData, eligibleOnly);
+            this.renderAndCacheSearch(
+                searchCacheKey,
+                results,
+                totalCount || results.length,
+                prereqData,
+                eligibleOnly,
+            );
         } catch (err) {
             if (searchId !== this._searchId) return;
             this.showHint('Search failed. Try again.');
@@ -2347,7 +2417,8 @@ const Search = {
         const sectionLabel = count === 1 ? 'section' : 'sections';
         let header = `<div class="browse-results-summary"><strong>${groupList.length} ${courseLabel}</strong><span>${count} total ${sectionLabel}</span></div>`;
         if (this._relatedSearchOrigin) {
-            header = `<button type="button" class="related-search-back">&larr; Back to ${this.escapeText(this._relatedSearchOrigin)}</button>${header}`;
+            const origin = this.escapeText(this._relatedSearchOrigin);
+            header = `<button type="button" class="related-search-back" aria-label="Back to search for ${origin}"><span class="related-search-back-icon" aria-hidden="true">&larr;</span><span class="related-search-back-copy"><small>Back to search</small><strong>${origin}</strong></span></button>${header}`;
         }
         if (fallbackNotice) {
             header += `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>`;

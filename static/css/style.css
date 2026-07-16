@@ -3000,17 +3000,33 @@ button:hover { background: #f0f0f0; }
 .semantic-search-terms-toggle strong { background: #363636; font-size: 0.6rem; }
 .related-search-back {
     background: #FFFFFF;
-    border: 0;
-    color: #73000A;
+    border: 2px solid #000000;
+    color: #000000;
     cursor: pointer;
-    font-size: 0.7rem;
-    font-weight: 800;
-    margin: 0 0 8px;
-    padding: 2px 0;
+    display: inline-grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    margin: 0 0 10px;
+    max-width: 100%;
+    min-height: 42px;
+    padding: 0;
     text-align: left;
 }
 .related-search-back:hover,
-.related-search-back:focus-visible { color: #000000; text-decoration: underline; }
+.related-search-back:focus-visible { background: #ECECEC; border-color: #73000A; color: #000000; }
+.related-search-back:focus-visible { outline: 3px solid #466A9F; outline-offset: 2px; }
+.related-search-back-icon {
+    align-items: center;
+    align-self: stretch;
+    background: #73000A;
+    color: #FFFFFF;
+    display: flex;
+    font-size: 1.15rem;
+    font-weight: 800;
+    justify-content: center;
+}
+.related-search-back-copy { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 6px 10px; }
+.related-search-back-copy small { color: #5C5C5C; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.2px; text-transform: uppercase; }
+.related-search-back-copy strong { color: #000000; font-size: 0.72rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .semantic-search-term-list { display: grid; gap: 5px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 6px; }
 .semantic-search-term {
     background: #FFFFFF;
