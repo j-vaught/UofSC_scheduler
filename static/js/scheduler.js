@@ -3,6 +3,7 @@ const Scheduler = {
     _lastSearchGroups: [],
     _searchPageSize: 30,
     _searchVisibleCount: 30,
+    _courseSearchRequestId: 0,
     _preferredWorkspaceHeight: 620,
     _quickViewRequestId: 0,
 
@@ -635,6 +636,7 @@ const Scheduler = {
     },
 
     async searchFromInput() {
+        const requestId = ++this._courseSearchRequestId;
         const input = document.getElementById('schedule-course-input');
         const button = document.getElementById('btn-search-schedule-courses');
         button.disabled = true;
@@ -642,7 +644,9 @@ const Scheduler = {
         const results = document.getElementById('schedule-search-results');
         results.innerHTML = '<p class="loading">Searching courses</p>';
         try {
-            this._lastSearchGroups = await this.searchCourseGroups(input.value);
+            const groups = await this.searchCourseGroups(input.value);
+            if (requestId !== this._courseSearchRequestId) return;
+            this._lastSearchGroups = groups;
             this._searchVisibleCount = this._searchPageSize;
             if (this._lastSearchGroups.length === 0) {
                 this.setCourseStatus('No courses found in the selected term.', 'error');
@@ -651,10 +655,11 @@ const Scheduler = {
             }
             this.renderCourseSearchResults();
         } catch (error) {
+            if (requestId !== this._courseSearchRequestId) return;
             this.setCourseStatus(error.message, 'error');
             results.innerHTML = `<p class="hint">${error.message}</p>`;
         } finally {
-            button.disabled = false;
+            if (requestId === this._courseSearchRequestId) button.disabled = false;
         }
     },
 

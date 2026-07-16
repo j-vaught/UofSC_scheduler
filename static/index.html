@@ -251,7 +251,7 @@
                     </div>
                     <div class="search-form browse-search-form">
                         <div class="search-input-wrap">
-                            <input type="text" id="keyword-input" aria-label="Search courses" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                            <input type="text" id="keyword-input" aria-label="Search courses" aria-describedby="search-input-error" placeholder="Try CSCE 145, 16759, or courses about cybersecurity" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
                             <div id="smart-model-loading" class="smart-model-loading hidden" role="status" aria-live="polite">
                                 <span id="smart-model-loading-stage">Preparing AI-assisted search</span>
                             </div>
@@ -262,6 +262,7 @@
                         </button>
                         <button id="btn-search" class="btn-garnet">SEARCH</button>
                     </div>
+                    <p id="search-input-error" class="search-input-error hidden" role="alert"></p>
                     <div class="browse-search-examples" aria-label="Search examples">
                         <span>Try</span>
                         <div class="regular-search-examples">
@@ -271,6 +272,7 @@
                             <button type="button" data-search-example="CSCE 500+">CSCE 500+</button>
                             <button type="button" data-search-example="CSCE 5xx">CSCE 5xx</button>
                             <button type="button" data-search-example="CSCE 140–199">CSCE 140–199</button>
+                            <button type="button" id="search-syntax-open" class="search-helper-link" aria-haspopup="dialog" aria-controls="filter-panel">Syntax examples</button>
                         </div>
                     </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
@@ -285,6 +287,49 @@
                                 <input id="filter-ai-search" type="checkbox" checked>
                                 <i aria-hidden="true"></i>
                             </label>
+                            <details id="search-syntax-guide" class="search-syntax-guide search-syntax-intro">
+                                <summary>Syntax examples</summary>
+                                <p>Type a topic in plain English. To limit it, put <code>::</code> between the course scope and topic.</p>
+                                <div class="search-syntax-grid">
+                                    <strong class="search-syntax-group" role="heading" aria-level="3">Course codes and ranges</strong>
+                                    <span><code>CSCE</code><small>Courses in a subject</small></span>
+                                    <span><code>CSCE 145</code><small>Exact course</small></span>
+                                    <span><code>CSCE 140–199</code><small>Number range</small></span>
+                                    <span><code>CSCE 5xx</code><small>500-level courses</small></span>
+                                    <span><code>CSCE 500+</code><small>500 and above</small></span>
+                                    <span><code>EMCH CSCE MATH 500+</code><small>Multiple subjects without a topic</small></span>
+                                    <strong class="search-syntax-group" role="heading" aria-level="3">Natural language</strong>
+                                    <span><code>courses about machine learning for healthcare</code><small>Natural-language topic</small></span>
+                                    <span><code>design safer medical devices</code><small>Natural-language topic</small></span>
+                                    <span><code>how cities shape public health</code><small>Natural-language topic</small></span>
+                                    <strong class="search-syntax-group" role="heading" aria-level="3">Scoped natural language</strong>
+                                    <span><code>EMCH :: how heat moves through machines</code><small>Subject and a natural-language topic</small></span>
+                                    <span><code>500+ :: advanced courses about climate modeling</code><small>Number scope without a subject</small></span>
+                                    <span><code>EMCH 500+ :: designing quieter and more efficient engines</code><small>Subject and number scope with a topic</small></span>
+                                    <span><code>EMCH CSCE MATH 500+ :: using machine learning to model physical systems</code><small>Multiple subjects with a topic</small></span>
+                                    <strong class="search-syntax-group" role="heading" aria-level="3">Exact lookup</strong>
+                                    <span><code>16759</code><small>Exact Course Reference Number (CRN)</small></span>
+                                </div>
+                            </details>
+                            <section class="course-scope-filter" aria-labelledby="course-scope-title">
+                                <div class="course-scope-heading">
+                                    <strong id="course-scope-title">Course scope</strong>
+                                    <span>Optional</span>
+                                </div>
+                                <div class="course-scope-fields">
+                                    <label>
+                                        <span>Subjects</span>
+                                        <input id="filter-scope-subjects" type="text" aria-describedby="filter-scope-error" placeholder="CSCE; MATH; EMCH" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+                                        <small>Separate subjects with spaces or semicolons.</small>
+                                    </label>
+                                    <label>
+                                        <span>Course number or range</span>
+                                        <input id="filter-scope-numbers" type="text" aria-describedby="filter-scope-error" placeholder="Any course number" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                        <small>Try 500+, 5xx, 100–500, or 100 to 500.</small>
+                                    </label>
+                                </div>
+                                <p id="filter-scope-error" class="filter-scope-error hidden" role="alert"></p>
+                            </section>
                             <div class="filter-primary-grid">
                             <div class="filter-primary-column filter-primary-checkboxes">
                             <div class="filter-group">

@@ -1266,6 +1266,42 @@ test('schedule search groups live sections into course-level results', async () 
     assert.equal(groups[0].sections.length, 2);
 });
 
+test('schedule search UI keeps the newest concurrent result', async () => {
+    const input = { value: 'old search' };
+    const button = { disabled: false };
+    const results = { innerHTML: '' };
+    const pending = {};
+    const rendered = [];
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        document: {
+            getElementById(id) {
+                return {
+                    'schedule-course-input': input,
+                    'btn-search-schedule-courses': button,
+                    'schedule-search-results': results,
+                }[id] || null;
+            },
+        },
+    });
+    scheduler.setCourseStatus = () => {};
+    scheduler.searchCourseGroups = query => new Promise(resolve => { pending[query] = resolve; });
+    scheduler.renderCourseSearchResults = () => {
+        rendered.push(Array.from(scheduler._lastSearchGroups, group => group.code));
+    };
+
+    const olderSearch = scheduler.searchFromInput();
+    input.value = 'new search';
+    const newerSearch = scheduler.searchFromInput();
+    pending['new search']([{ code: 'NEW 101' }]);
+    await newerSearch;
+    pending['old search']([{ code: 'OLD 101' }]);
+    await olderSearch;
+
+    assert.deepEqual(Array.from(scheduler._lastSearchGroups, group => group.code), ['NEW 101']);
+    assert.deepEqual(rendered, [['NEW 101']]);
+    assert.equal(button.disabled, false);
+});
+
 test('schedule search shares browse CRN, range, partial, and semantic query behavior', async () => {
     const calls = [];
     const search = loadObject('static/js/search.js', 'Search', {
@@ -1312,6 +1348,28 @@ test('schedule search shares browse CRN, range, partial, and semantic query beha
     assert.equal(semantic.results[0].crn, '10550');
 });
 
+test('a newer schedule search cancels an older semantic search', async () => {
+    let finishSemantic;
+    const search = loadObject('static/js/search.js', 'Search', {
+        State: { term: '202608' },
+        API: {
+            async searchCourses() {
+                return { results: [{ code: 'CSCE 145', crn: '10145' }] };
+            },
+        },
+    });
+    search._doSemanticSearch = () => new Promise(resolve => { finishSemantic = resolve; });
+
+    const olderSearch = search.searchLiveCourses('graph algorithms');
+    await Promise.resolve();
+    const newerSearch = await search.searchLiveCourses('CSCE');
+    finishSemantic({ results: [{ code: 'CSCE 585' }] });
+    const staleSearch = await olderSearch;
+
+    assert.equal(newerSearch.results[0].code, 'CSCE 145');
+    assert.deepEqual(Array.from(staleSearch.results), []);
+});
+
 test('adding a CRN search result locks and confirms its exact section', async () => {
     let locked;
     const status = { textContent: '', className: '' };
@@ -1348,6 +1406,164 @@ test('numeric course ranges are parsed before semantic search in Browse', () => 
     assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140–199\)/);
 });
 
+test('scoped search accepts flexible subject separators and canonical number limits', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const variants = [
+        'CSCE MATH EMCH 500+ :: machine learning',
+        'CSCE; MATH; EMCH 500+ :: machine learning',
+        'CSCE,MATH,EMCH 500+ :: machine learning',
+        'CSCE/MATH|EMCH 500+ :: machine learning',
+        'CSCE & MATH & EMCH 500+ :: machine learning',
+    ];
+
+    variants.forEach(value => {
+        const parsed = search.parseCompactScopedQuery(value);
+        assert.deepEqual(Array.from(parsed.subjects), ['CSCE', 'MATH', 'EMCH']);
+        assert.equal(parsed.subjectText, 'CSCE; MATH; EMCH');
+        assert.equal(parsed.numberText, '500+');
+        assert.equal(parsed.topic, 'machine learning');
+    });
+
+    const wordRange = search.parseCompactScopedQuery('CSCE MATH 100 to 500 :: data analysis');
+    assert.equal(wordRange.numberText, '100–500');
+    const subjectTopic = search.parseCompactScopedQuery('EMCH :: fluid mechanics');
+    assert.deepEqual(Array.from(subjectTopic.subjects), ['EMCH']);
+    assert.equal(subjectTopic.numberText, '');
+    const numberTopic = search.parseCompactScopedQuery('500+ :: fluid mechanics');
+    assert.deepEqual(Array.from(numberTopic.subjects), []);
+    assert.equal(numberTopic.numberText, '500+');
+    const standalone = search.parseStandaloneCourseScope('EMCH CSCE MATH 500+');
+    assert.deepEqual(Array.from(standalone.subjects), ['EMCH', 'CSCE', 'MATH']);
+    assert.equal(standalone.numberText, '500+');
+    assert.equal(search.parseStandaloneCourseScope('CSCE 500+'), null);
+    assert.equal(search.parseStandaloneCourseScope('history 101'), null);
+    assert.equal(search.parseStandaloneCourseScope('COVID 19'), null);
+    assert.equal(search.parseStandaloneCourseScope('World War 2'), null);
+    assert.equal(search.parseStandaloneCourseScope('AI, law'), null);
+    assert.equal(search.parseStandaloneCourseScope('AI LAW'), null);
+    const wildcard = search.buildCourseScope('CSCE; MATH', '5xx');
+    assert.equal(wildcard.matches('CSCE 585'), true);
+    assert.equal(wildcard.matches('MATH 524'), true);
+    assert.equal(wildcard.matches('EMCH 585'), false);
+    assert.equal(wildcard.matches('CSCE 499'), false);
+    const minimum = search.buildCourseScope('', '500+');
+    assert.equal(minimum.matches('HIST 700'), true);
+    assert.equal(minimum.matches('HIST 499'), false);
+    const multiSubjectScope = search.buildCourseScope('CSCE; MATH', '500+');
+    assert.deepEqual(Array.from(search.scopedSubjectsForQuery('CSCE', multiSubjectScope)), ['CSCE']);
+    assert.deepEqual(Array.from(search.scopedSubjectsForQuery('EMCH', multiSubjectScope)), []);
+    assert.throws(() => search.parseCompactScopedQuery('CSCE 600-500 :: controls'), /lower than the last/);
+    assert.throws(() => search.buildCourseScope('CSCE', '5$$'), /Use a course number/);
+    assert.throws(
+        () => search.buildCourseScope('AAA BBB CCC DDD EEE FFF GGG HHH III JJJ KKK LLL MMM', ''),
+        /12 or fewer subjects/,
+    );
+    search._subjects = ['CSCE', 'MATH', 'EMCH'];
+    assert.throws(() => search.buildCourseScope('CSEC', ''), /Unknown subject "CSEC"\. Try CSCE/);
+});
+
+test('course scope is a hard filter for API, local, and merged candidates', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const scope = search.buildCourseScope('CSCE MATH', '500+');
+    const filtered = search.filterByCourseScope([
+        { code: 'CSCE 585' },
+        { code: 'MATH 524' },
+        { code: 'CSCE 350' },
+        { code: 'EMCH 585' },
+    ], scope);
+
+    assert.deepEqual(Array.from(filtered, result => result.code), ['CSCE 585', 'MATH 524']);
+});
+
+test('semantic scope filters every batch and reports the adaptive search count', async () => {
+    let calls = 0;
+    const progress = [];
+    const extractor = async values => ({ data: new Float32Array(values.map(() => 1)) });
+    const search = loadObject('static/js/search.js', 'Search', {
+        API: {
+            async post() {
+                calls += 1;
+                return {
+                    results: [
+                        { code: 'CSCE 585', title: 'Machine Learning Systems' },
+                        { code: 'EMCH 585', title: 'Fluid Systems' },
+                    ],
+                };
+            },
+        },
+        State: { term: '202608' },
+        console,
+    });
+    search._searchId = 1;
+    search._loadExtractor = async () => extractor;
+    search._loadPhraseData = async () => {};
+    search._embedQuery = async () => new Float32Array([1]);
+    search._findNearestPhrases = () => Array.from(
+        { length: 19 },
+        (_, index) => ({ phrase: `generated ${index + 1}`, sim: 0.9 }),
+    );
+    search._courseEmbeddings = { courses: [] };
+    search._courseVecs = [];
+    search._pcaParams = { mean: [0], components: [[1]], dims: 1 };
+
+    const result = await search._doSemanticSearch(
+        'machine learning',
+        false,
+        false,
+        1,
+        search.buildCourseScope('CSCE', '500+'),
+        state => progress.push({ ...state }),
+    );
+
+    assert.equal(calls, 10);
+    assert.equal(result.searches.length, 10);
+    assert.deepEqual(Array.from(result.results, item => item.code), ['CSCE 585']);
+    assert.deepEqual(Array.from(result.searchResults.flat(), item => item.code), Array(10).fill('CSCE 585'));
+    assert.equal(progress[0].total, 20);
+    assert.equal(progress.some(state => state.completed === 10 && state.total === 20), true);
+});
+
+test('semantic search continues past ten when a narrow scope has no matches yet', async () => {
+    let calls = 0;
+    const extractor = async values => ({ data: new Float32Array(values.map(() => 1)) });
+    const search = loadObject('static/js/search.js', 'Search', {
+        API: {
+            async post() {
+                calls += 1;
+                return {
+                    results: calls <= 10
+                        ? [{ code: 'EMCH 585', title: 'Fluid Systems' }]
+                        : [{ code: 'CSCE 585', title: 'Machine Learning Systems' }],
+                };
+            },
+        },
+        State: { term: '202608' },
+        console,
+    });
+    search._searchId = 1;
+    search._loadExtractor = async () => extractor;
+    search._loadPhraseData = async () => {};
+    search._embedQuery = async () => new Float32Array([1]);
+    search._findNearestPhrases = () => Array.from(
+        { length: 19 },
+        (_, index) => ({ phrase: `generated ${index + 1}`, sim: 0.9 }),
+    );
+    search._courseEmbeddings = { courses: [] };
+    search._courseVecs = [];
+    search._pcaParams = { mean: [0], components: [[1]], dims: 1 };
+
+    const result = await search._doSemanticSearch(
+        'machine learning',
+        false,
+        false,
+        1,
+        search.buildCourseScope('CSCE', '500+'),
+    );
+
+    assert.equal(calls, 20);
+    assert.deepEqual(Array.from(result.results, item => item.code), ['CSCE 585']);
+});
+
 test('Browse uses progressive states with AI-assisted search on by default', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
@@ -1371,7 +1587,7 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
     assert.doesNotMatch(html, /<span>Results<\/span>/);
     assert.match(source, /setBrowseState\('results'\)/);
     assert.match(source, /setBrowseState\('detail'\)/);
-    assert.match(source, /const aiAssisted = document\.getElementById\('filter-ai-search'\)\?\.checked !== false/);
+    assert.match(source, /let aiAssisted = document\.getElementById\('filter-ai-search'\)\?\.checked !== false/);
     assert.match(source, /requestIdleCallback\(preload, \{ timeout: 3500 \}\)/);
     assert.match(styles, /\.browse-empty \.browse-body\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
@@ -1384,10 +1600,11 @@ test('Browse filters open as a centered modal and applying closes them', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(styles, /\.filter-backdrop\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*240;/s);
-    assert.match(styles, /\.browse-search-shell > \.filter-panel\s*\{[^}]*left:\s*50%;[^}]*position:\s*fixed;[^}]*top:\s*50%;[^}]*transform:\s*translate\(-50%, -50%\);[^}]*width:\s*min\(720px,/s);
-    assert.match(source, /filterBackdrop\?\.classList\.remove\('hidden'\)/);
-    assert.match(source, /document\.getElementById\('btn-apply-filters'\)\?\.addEventListener\('click',[\s\S]*?this\.closeFilters\(\);/);
+    assert.match(styles, /\.filter-backdrop\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*2040;/s);
+    assert.match(styles, /#filter-panel\s*\{[^}]*left:\s*50%;[^}]*position:\s*fixed;[^}]*top:\s*50%;[^}]*transform:\s*translate\(-50%, -50%\);[^}]*width:\s*min\(720px,/s);
+    assert.match(source, /document\.body\.append\(filterBackdrop, filterPanel\)/);
+    assert.match(source, /openFilters\([\s\S]*backdrop\?\.classList\.remove\('hidden'\)/);
+    assert.match(source, /document\.getElementById\('btn-apply-filters'\)\?\.addEventListener\('click',[\s\S]*?this\.doSearch\(\)/);
     assert.match(source, /if \(event\.key === 'Escape'[\s\S]*?event\.stopImmediatePropagation\(\);[\s\S]*?this\.closeFilters\(\);/);
     assert.match(source, /if \(event\.key !== 'Tab'\) return;[\s\S]*filterPanel\.querySelectorAll/);
     assert.match(source, /this\._filterPreviousFocus = document\.activeElement/);
@@ -1405,6 +1622,43 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(html, /data-search-example="CSCE 500\+"/);
     assert.match(html, /data-search-example="CSCE 5xx"/);
     assert.match(html, /data-search-example="CSCE 140–199"/);
+    assert.match(html, /id="filter-scope-subjects"/);
+    assert.match(html, /id="filter-scope-numbers"/);
+    assert.match(html, /EMCH :: how heat moves through machines/);
+    assert.doesNotMatch(html, /CSCE; MATH; EMCH 500\+ :: machine learning/);
+    assert.match(html, /id="search-syntax-open"/);
+    assert.match(html, />Syntax examples</);
+    assert.match(html, /courses about machine learning for healthcare/);
+    assert.match(html, /EMCH 500\+ :: designing quieter and more efficient engines/);
+    assert.match(html, /500\+ :: advanced courses about climate modeling/);
+    assert.match(html, /EMCH CSCE MATH 500\+<\/code><small>Multiple subjects without a topic/);
+    assert.match(html, /EMCH CSCE MATH 500\+ :: using machine learning to model physical systems/);
+    assert.match(html, /Exact Course Reference Number \(CRN\)/);
+    const orderedExamples = [
+        '>CSCE<',
+        '>CSCE 145<',
+        '>CSCE 140–199<',
+        '>CSCE 5xx<',
+        '>CSCE 500+<',
+        '>EMCH CSCE MATH 500+<',
+        '>courses about machine learning for healthcare<',
+        '>design safer medical devices<',
+        '>how cities shape public health<',
+        '>EMCH :: how heat moves through machines<',
+        '>500+ :: advanced courses about climate modeling<',
+        '>EMCH 500+ :: designing quieter and more efficient engines<',
+        '>EMCH CSCE MATH 500+ :: using machine learning to model physical systems<',
+        '>16759<',
+    ];
+    const syntaxMarkup = html.slice(
+        html.indexOf('<div class="search-syntax-grid">'),
+        html.indexOf('<section class="course-scope-filter"'),
+    );
+    orderedExamples.slice(1).forEach((example, index) => {
+        assert.ok(syntaxMarkup.indexOf(orderedExamples[index]) < syntaxMarkup.indexOf(example));
+    });
+    assert.ok(html.indexOf('id="search-syntax-guide"') < html.indexOf('class="course-scope-filter"'));
+    assert.doesNotMatch(html, /search-syntax-wide/);
     assert.match(html, /class="filter-sliders-icon"/);
     assert.match(html, /id="smart-model-loading-stage">Preparing AI-assisted search/);
     assert.doesNotMatch(html, /id="smart-search-status"/);
@@ -1413,13 +1667,14 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(source, /input\.disabled = active/);
     assert.match(source, /openRegularSearch\(term\)/);
     assert.match(source, /this\._relatedSearchOrigin = origin;[\s\S]*this\._directSearchOnce = true;[\s\S]*this\.doSearch\(\);/);
-    assert.match(source, /class="semantic-search-term" data-regular-search-index/);
+    assert.match(source, /class="semantic-search-term\$\{failedClass\}" data-regular-search-index/);
     assert.match(source, /const relatedBatches = await Promise\.all/);
-    assert.match(source, /this\.applySectionFilters\(candidates, semanticFilters\)/);
+    assert.match(source, /this\.filterByCourseScope\(candidates, courseScope\)/);
+    assert.match(source, /const treatAsTopic = this\._topicSearchMode \|\| scopedShortTopic/);
     assert.match(source, /count: new Set\(matchingCodes\)\.size/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
-    assert.match(source, /\$\{searchTerms\.length\} Related searches/);
+    assert.match(source, /\$\{searchTerms\.length\} Generated searches/);
     assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
     assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
     assert.match(source, /class="related-search-back-icon"/);
@@ -1430,6 +1685,12 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(styles, /\.semantic-search-terms-toggle\s*{[^}]*width:\s*100%;/s);
     assert.match(styles, /\.semantic-search-terms-toggle\[aria-expanded="true"\] i\s*{\s*transform:\s*rotate\(180deg\);/s);
     assert.match(styles, /\.related-search-back\s*{[^}]*border:\s*2px solid #000000;[^}]*grid-template-columns:\s*38px minmax\(0, 1fr\);/s);
+    assert.match(source, /onProgress\?\.\(\{[\s\S]*completed: usedSearches\.length,[\s\S]*total: searches\.length/);
+    assert.match(source, /failed: usedSearchFailures\[index\]/);
+    assert.match(source, /No results found\.[\s\S]*generatedSearchesMarkup\(searchTerms\)/);
+    assert.match(styles, /\.semantic-search-term\.is-failed\s*\{[^}]*border-color:\s*#CC2E40;/s);
+    assert.match(source, /_findNearestPhrases\(queryVec, 19, query\)/);
+    assert.match(styles, /\.search-progress\s*{[^}]*border:\s*2px solid #000000;/s);
 });
 
 test('Repeated and historical searches reuse a bounded one-hour in-memory cache', () => {
@@ -1462,7 +1723,8 @@ test('Repeated and historical searches reuse a bounded one-hour in-memory cache'
     const emptySemanticBlock = source.slice(emptySemanticStart, emptySemanticEnd);
     assert.match(emptySemanticBlock, /semantic\.hadRequestFailure \? null : searchCacheKey/);
     assert.match(emptySemanticBlock, /renderAndCacheSearch/);
-    assert.match(source, /const hadRequestFailure = searchResponses\.some\(response => response\.failed\)/);
+    assert.match(emptySemanticBlock, /semantic\.searches/);
+    assert.match(source, /hadRequestFailure \|\|= response\.failed/);
     assert.match(source, /const incompleteSearch = semantic\.hadRequestFailure[\s\S]*liveResponses\.some\(response => response\.failed\)/);
     assert.match(source, /incompleteSearch \? null : searchCacheKey/);
     const catalogLiveStart = source.indexOf('// Also fetch live term data to cross-reference availability');
@@ -1695,7 +1957,7 @@ test('AI-assisted search can be disabled and related searches remain direct', ()
     assert.match(source, /const useDirectSearch = !aiAssisted[\s\S]*Boolean\(this\._relatedSearchOrigin\)[\s\S]*this\._directSearchOnce[\s\S]*this\._semanticFallbackOnce/);
     assert.match(source, /if \(aiToggle\) aiToggle\.checked = true/);
     assert.match(source, /openRegularSearch\(term\)[\s\S]*this\._directSearchOnce = true/);
-    assert.match(source, /writeSearchHistory\(rawInput,[\s\S]*origin: this\._relatedSearchOrigin/);
+    assert.match(source, /writeSearchHistory\(searchQuery,[\s\S]*origin: this\._relatedSearchOrigin/);
     assert.match(source, /Meaning-based matching is unavailable\. Showing direct matches\./);
 });
 
@@ -1708,7 +1970,7 @@ test('Browse uses one search field for direct and AI-assisted queries', () => {
     assert.doesNotMatch(html, /id="smart-keyword-input"/);
     assert.doesNotMatch(html, /id="smart-search-submit"/);
     assert.equal((html.match(/data-search-example=/g) || []).length, 6);
-    assert.match(source, /getElementById\('keyword-input'\)\.addEventListener\('keydown',[\s\S]*if \(e\.key === 'Enter'\) this\.submitSearch\(\)/);
+    assert.match(source, /keywordInput\.addEventListener\('keydown',[\s\S]*if \(e\.key === 'Enter'\) this\.submitSearch\(\)/);
     assert.doesNotMatch(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-empty \.browse-search-form\s*{\s*grid-template-columns:\s*minmax\(0, 1fr\) 44px 102px;/);
     assert.doesNotMatch(styles, /\.smart-search-active/);
@@ -1729,6 +1991,8 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(search, /url\.searchParams\.set\('q', query\)/);
     assert.match(search, /url\.searchParams\.set\('term', State\.term\)/);
     assert.match(search, /url\.searchParams\.set\('from', origin\)/);
+    assert.match(search, /if \(topic\) url\.searchParams\.set\('topic', '1'\)/);
+    assert.match(search, /this\._topicSearchMode = params\.get\('topic'\) === '1'/);
     assert.match(search, /params\.get\('tab'\) !== 'search' && !params\.has\('q'\)/);
     assert.match(search, /State\.term = term/);
     assert.match(search, /class="related-search-back"/);
@@ -1737,6 +2001,63 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(styles, /\.search-clear\s*{[^}]*right:\s*7px;/s);
     assert.match(styles, /@media \(max-width: 700px\)[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\) 44px 88px;/s);
     assert.match(styles, /@media \(max-width: 420px\)[\s\S]*--search-side-gap:\s*8px;/s);
+});
+
+test('scope-only search URLs restore results but clean scoped URLs stay empty', async () => {
+    const input = { value: '' };
+    let searches = 0;
+    let resets = 0;
+    const window = {
+        location: {
+            href: 'http://localhost/?tab=search&term=202608&subjects=CSCE%3B+MATH&numbers=500%2B&scopeSearch=1',
+        },
+    };
+    const search = loadObject('static/js/search.js', 'Search', {
+        API: { shouldRefreshAfterReload: () => false, setForceRefreshLive() {} },
+        State: { term: '202608' },
+        Tabs: { switchTo() {} },
+        URL,
+        document: { getElementById: () => null },
+        window,
+    });
+    search.applyFiltersFromLocation = () => {};
+    search.activeSearchInput = () => input;
+    search.doSearch = async () => { searches += 1; };
+    search.resetToCleanSearch = () => { resets += 1; };
+
+    await search.restoreFromLocation();
+    assert.equal(searches, 1);
+    assert.equal(resets, 0);
+
+    window.location.href = 'http://localhost/?tab=search&term=202608&subjects=CSCE%3B+MATH&numbers=500%2B';
+    await search.restoreFromLocation();
+    assert.equal(searches, 1);
+    assert.equal(resets, 1);
+});
+
+test('URL restoration preserves explicit natural-language topic mode', async () => {
+    const input = { value: '' };
+    const window = {
+        location: {
+            href: 'http://localhost/?tab=search&term=202608&q=heat&subjects=EMCH&numbers=500%2B&topic=1',
+        },
+    };
+    const search = loadObject('static/js/search.js', 'Search', {
+        API: { shouldRefreshAfterReload: () => false, setForceRefreshLive() {} },
+        State: { term: '202608' },
+        Tabs: { switchTo() {} },
+        URL,
+        document: { getElementById: () => null },
+        window,
+    });
+    search.applyFiltersFromLocation = () => {};
+    search.activeSearchInput = () => input;
+    search.doSearch = async () => {};
+
+    await search.restoreFromLocation();
+
+    assert.equal(input.value, 'heat');
+    assert.equal(search._topicSearchMode, true);
 });
 
 test('Course detail routes persist search context while section and panel changes replace history', () => {

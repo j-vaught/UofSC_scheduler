@@ -3,6 +3,7 @@ const Search = {
     _prereqCache: {},
     _searchId: 0,
     _subjects: [],
+    _subjectsPromise: null,
     _extractor: null,       // Transformers.js pipeline (lazy-loaded)
     _extractorLoading: null,
     _phraseData: null,       // pre-computed phrase embeddings
@@ -25,6 +26,7 @@ const Search = {
     _lastDetailTrigger: null,
     _facultyCache: {},
     _directSearchOnce: false,
+    _topicSearchMode: false,
     _semanticFallbackOnce: false,
     _semanticFallbackNotice: '',
     _mainSearchQuery: '',
@@ -39,6 +41,28 @@ const Search = {
     _searchViewCache: new Map(),
     _searchCacheTtlMs: 60 * 60 * 1000,
     _searchCacheMaxEntries: 30,
+
+    loadSubjects() {
+        if (this._subjects.length) return Promise.resolve(this._subjects);
+        if (this._subjectsPromise) return this._subjectsPromise;
+        if (typeof fetch !== 'function') return Promise.resolve(this._subjects);
+        this._subjectsPromise = fetch('/api/subjects')
+            .then(response => {
+                if (response.ok === false) throw new Error('Subject list unavailable.');
+                return response.json();
+            })
+            .then(list => {
+                this._subjects = Array.isArray(list)
+                    ? [...new Set(list.map(subject => String(subject).toUpperCase()))]
+                    : [];
+                return this._subjects;
+            })
+            .catch(error => {
+                console.warn('[Search] Subject list unavailable:', error);
+                return this._subjects;
+            });
+        return this._subjectsPromise;
+    },
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -152,7 +176,14 @@ const Search = {
     // 3. Search live API with those phrases (concurrent)
     // 4. Score results by embedding similarity to query
     // 5. Filter noise, sort by relevance
-    async _doSemanticSearch(query, currentTermOnly, openOnly, searchId) {
+    async _doSemanticSearch(
+        query,
+        currentTermOnly,
+        openOnly,
+        searchId,
+        scope = null,
+        onProgress = null,
+    ) {
         // Load model + phrase data concurrently
         await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
         if (searchId !== this._searchId) return null;
@@ -162,37 +193,71 @@ const Search = {
         if (searchId !== this._searchId) return null;
 
         // Step 2: Find nearest academic phrases
-        const nearestPhrases = this._findNearestPhrases(queryVec, 8, query);
+        const nearestPhrases = this._findNearestPhrases(queryVec, 19, query);
         const expandedTerms = nearestPhrases.map(n => n.phrase);
         if (searchId !== this._searchId) return null;
 
         // Step 3: Build search list — original query + expanded phrases
         const searches = [query, ...expandedTerms];
-        console.log(`[Semantic] "${query}" → ${searches.length} API calls:`, searches);
+        console.log(`[Semantic] "${query}" → up to ${searches.length} API calls:`, searches);
+        onProgress?.({ phase: 'planned', completed: 0, total: searches.length, candidates: 0 });
 
-        // Step 4: Fire all searches concurrently
-        const promises = searches.map(async term => {
-            try {
-                if (currentTermOnly) {
-                    const criteria = [{ field: 'keyword', value: term }];
-                    if (openOnly) criteria.push({ field: 'stat', value: 'A' });
-                    const data = await API.searchCourses(State.term, criteria);
-                    return { results: data.results || [], failed: false };
-                } else {
+        // Step 4: Search in small concurrent batches. Once at least ten searches
+        // have run, stop early when a batch produces no new scoped courses.
+        const allResults = [];
+        const usedSearches = [];
+        const usedSearchFailures = [];
+        const seenCodes = new Set();
+        let hadRequestFailure = false;
+        const batchSize = 5;
+        for (let offset = 0; offset < searches.length; offset += batchSize) {
+            const batchTerms = searches.slice(offset, offset + batchSize);
+            const responses = await Promise.all(batchTerms.map(async term => {
+                try {
+                    if (currentTermOnly) {
+                        const criteria = [{ field: 'keyword', value: term }];
+                        if (openOnly) criteria.push({ field: 'stat', value: 'A' });
+                        const data = await API.searchCourses(State.term, criteria);
+                        return { results: data.results || [], failed: false };
+                    }
                     const data = await API.post('/api/bulletin/search', {
                         other: { srcdb: '2026' },
                         criteria: [{ field: 'keyword', value: term }],
                     });
                     return { results: data.results || [], failed: false };
+                } catch (error) {
+                    console.warn(`[Semantic] Search failed for “${term}”:`, error);
+                    return { results: [], failed: true };
                 }
-            } catch (error) {
-                console.warn(`[Semantic] Search failed for “${term}”:`, error);
-                return { results: [], failed: true };
-            }
-        });
-        const searchResponses = await Promise.all(promises);
-        const allResults = searchResponses.map(response => response.results);
-        const hadRequestFailure = searchResponses.some(response => response.failed);
+            }));
+            if (searchId !== this._searchId) return null;
+
+            let newCodes = 0;
+            const batchFailed = responses.some(response => response.failed);
+            responses.forEach((response, index) => {
+                const scopedResults = this.filterByCourseScope(response.results, scope);
+                allResults.push(scopedResults);
+                usedSearches.push(batchTerms[index]);
+                usedSearchFailures.push(response.failed);
+                hadRequestFailure ||= response.failed;
+                scopedResults.forEach(result => {
+                    if (result.code && !seenCodes.has(result.code)) {
+                        seenCodes.add(result.code);
+                        newCodes += 1;
+                    }
+                });
+            });
+            onProgress?.({
+                phase: 'running',
+                completed: usedSearches.length,
+                total: searches.length,
+                candidates: seenCodes.size,
+            });
+            if (usedSearches.length >= 10
+                && seenCodes.size > 0
+                && newCodes === 0
+                && !batchFailed) break;
+        }
         if (searchId !== this._searchId) return null;
 
         // Step 5: Local course search — find top matches from pre-computed
@@ -205,7 +270,8 @@ const Search = {
             let dot = 0;
             const cv = this._courseVecs[i];
             for (let j = 0; j < queryVec.length; j++) dot += queryVec[j] * cv[j];
-            if (dot >= LOCAL_SIM_THRESHOLD) {
+            if (dot >= LOCAL_SIM_THRESHOLD
+                && (!scope?.active || scope.matches(coursesData[i].code))) {
                 localMatches.push({ idx: i, sim: dot });
             }
         }
@@ -243,10 +309,33 @@ const Search = {
         }
         console.log(`[Semantic] ${deduped.length} total unique (${localAdded} added from local database)`);
 
+        const titledResults = deduped.filter(result => result.title || result.name);
+        if (!titledResults.length) {
+            const searchMetrics = usedSearches.map((term, index) => ({
+                term,
+                count: new Set((allResults[index] || []).map(result => result.code).filter(Boolean)).size,
+                failed: usedSearchFailures[index],
+            }));
+            return {
+                results: [],
+                expandedTerms: usedSearches.slice(1),
+                searches: searchMetrics,
+                searchResults: allResults,
+                searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
+                hadRequestFailure,
+            };
+        }
+
         // Step 7: Score each result title by embedding similarity to query
         // Batch-embed all titles at once for performance
+        onProgress?.({
+            phase: 'combining',
+            completed: usedSearches.length,
+            total: usedSearches.length,
+            candidates: deduped.length,
+        });
         const extractor = await this._loadExtractor();
-        const titles = deduped.map(r => r.title || r.name || '').filter(Boolean);
+        const titles = titledResults.map(r => r.title || r.name || '');
         const titleOutputs = await extractor(titles, { pooling: 'mean', normalize: true });
 
         const mean = this._pcaParams.mean;
@@ -256,9 +345,8 @@ const Search = {
 
         const SIM_THRESHOLD = 0.15;
         const scored = [];
-        for (let i = 0; i < deduped.length; i++) {
-            const title = deduped[i].title || deduped[i].name || '';
-            if (!title) continue;
+        for (let i = 0; i < titledResults.length; i++) {
+            const title = titledResults[i].title || titledResults[i].name || '';
             // Extract this title's 384-dim vector from batch output
             const offset = i * embDim;
             const raw384 = titleOutputs.data.slice(offset, offset + embDim);
@@ -276,7 +364,7 @@ const Search = {
 
             const sim = this._cosineSim(queryVec, pca);
             if (sim >= SIM_THRESHOLD) {
-                scored.push({ ...deduped[i], _relevanceScore: sim });
+                scored.push({ ...titledResults[i], _relevanceScore: sim });
             }
         }
 
@@ -285,13 +373,14 @@ const Search = {
         const top = scored.slice(0, 50);
 
         console.log(`[Semantic] ${deduped.length} candidates → ${scored.length} above threshold → top ${top.length}`);
-        const searchMetrics = searches.map((term, index) => ({
+        const searchMetrics = usedSearches.map((term, index) => ({
             term,
             count: new Set(allResults[index].map(result => result.code).filter(Boolean)).size,
+            failed: usedSearchFailures[index],
         }));
         return {
             results: top,
-            expandedTerms,
+            expandedTerms: usedSearches.slice(1),
             searches: searchMetrics,
             searchResults: allResults,
             searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
@@ -404,9 +493,209 @@ const Search = {
         };
     },
 
+    parseCourseCodeParts(value) {
+        const match = String(value || '').trim().toUpperCase()
+            .match(/^([A-Z]{2,5})\s+([A-Z]?)(\d{3})([A-Z]?)$/);
+        if (!match) return null;
+        return {
+            subject: match[1],
+            prefix: match[2],
+            number: Number(match[3]),
+            digits: match[3],
+            suffix: match[4],
+        };
+    },
+
+    parseSubjectScope(rawValue) {
+        const raw = String(rawValue || '').trim();
+        if (!raw) return { subjects: [], normalized: '' };
+        const tokens = raw
+            .split(/[\s,;|\/&]+/)
+            .map(token => token.trim().toUpperCase())
+            .filter(Boolean);
+        const invalid = tokens.find(token => !/^[A-Z]{2,5}$/.test(token));
+        if (invalid) {
+            throw new Error('Subject codes use only 2–5 letters. Separate multiple subjects with spaces or semicolons.');
+        }
+        const subjects = [...new Set(tokens)];
+        const unknown = this._subjects.length
+            ? subjects.find(subject => !this._subjects.includes(subject))
+            : null;
+        if (unknown) {
+            const suggestions = this._fuzzyMatchSubject(unknown).map(match => match.code);
+            const guidance = suggestions.length
+                ? ` Try ${suggestions.join(', ')}.`
+                : ' Check the code and try again.';
+            throw new Error(`Unknown subject "${unknown}".${guidance}`);
+        }
+        if (subjects.length > 12) {
+            throw new Error('Use 12 or fewer subjects in one search.');
+        }
+        return { subjects, normalized: subjects.join('; ') };
+    },
+
+    parseNumberScope(rawValue) {
+        const raw = String(rawValue || '')
+            .trim()
+            .replace(/[–—]/g, '-')
+            .replace(/\s+/g, ' ')
+            .toUpperCase();
+        if (!raw) return { kind: 'any', normalized: '', matches: () => true };
+
+        const range = raw.match(/^(\d{3})\s*(?:-|TO)\s*(\d{3})$/);
+        if (range) {
+            const lower = Number(range[1]);
+            const upper = Number(range[2]);
+            if (lower > upper) {
+                throw new Error('The first course number must be lower than the last.');
+            }
+            return {
+                kind: 'range',
+                normalized: `${range[1]}–${range[2]}`,
+                matches: parts => parts.number >= lower && parts.number <= upper,
+            };
+        }
+
+        if (/^\d{1,3}\+$/.test(raw)) {
+            const lower = Number(raw.slice(0, -1));
+            return {
+                kind: 'minimum',
+                normalized: `${lower}+`,
+                matches: parts => parts.number >= lower,
+            };
+        }
+
+        const wildcard = raw.match(/^([\dX*#_?%]{1,3})([A-Z]?)$/);
+        if (wildcard && /[X*#_?%]/.test(wildcard[1])) {
+            const pattern = (wildcard[1] + 'XXX').slice(0, 3);
+            const numberPattern = new RegExp(`^${pattern.replace(/[X*#_?%]/g, '\\d')}$`);
+            const suffix = wildcard[2];
+            return {
+                kind: 'wildcard',
+                normalized: `${pattern.replace(/[X*#_?%]/g, 'x')}${suffix}`,
+                matches: parts => numberPattern.test(parts.digits)
+                    && (!suffix || parts.suffix === suffix),
+            };
+        }
+
+        const exact = raw.match(/^(\d{3})([A-Z]?)$/);
+        if (exact) {
+            const suffix = exact[2];
+            return {
+                kind: 'exact',
+                normalized: `${exact[1]}${suffix}`,
+                matches: parts => parts.digits === exact[1]
+                    && (!suffix || parts.suffix === suffix),
+            };
+        }
+
+        throw new Error('Use a course number such as 585, 500+, 5xx, or 100–500.');
+    },
+
+    parseCompactScopedQuery(rawValue) {
+        const raw = String(rawValue || '').trim();
+        if (!raw.includes('::')) return null;
+        if ((raw.match(/::/g) || []).length !== 1) {
+            throw new Error('Use one “::” between the course scope and topic.');
+        }
+        const delimiterIndex = raw.indexOf('::');
+        const scopeText = raw.slice(0, delimiterIndex).trim();
+        const topic = raw.slice(delimiterIndex + 2).trim();
+        if (!scopeText) throw new Error('Add subjects or course numbers before “::”.');
+        if (!topic) throw new Error('Add what you want to learn after “::”.');
+
+        const normalizedScope = scopeText.replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+        const numberMatch = normalizedScope.match(
+            /(\d{3}\s*(?:-|to)\s*\d{3}|[\dXx*#_?%]{1,3}\+?[A-Za-z]?)$/i,
+        );
+        const numberText = numberMatch ? numberMatch[1] : '';
+        const subjectText = numberMatch
+            ? normalizedScope.slice(0, numberMatch.index).trim().replace(/[;,|\/&\s]+$/, '')
+            : normalizedScope;
+        const subjectScope = this.parseSubjectScope(subjectText);
+        const numberScope = this.parseNumberScope(numberText);
+        if (!subjectScope.subjects.length && numberScope.kind === 'any') {
+            throw new Error('Add at least one subject or course-number limit before “::”.');
+        }
+        return {
+            compact: true,
+            topic,
+            subjects: subjectScope.subjects,
+            subjectText: subjectScope.normalized,
+            numberText: numberScope.normalized,
+        };
+    },
+
+    parseStandaloneCourseScope(rawValue) {
+        const raw = String(rawValue || '').trim();
+        if (!raw || raw.includes('::')) return null;
+        const subjectTokens = raw
+            .replace(/(\d{3}\s*(?:-|–|—|to)\s*\d{3}|[\dXx*#_?%]{1,3}\+?[A-Za-z]?)$/i, '')
+            .trim()
+            .split(/[\s,;|\/&]+/)
+            .filter(Boolean);
+        const validSubjectShape = subjectTokens.length > 1
+            && subjectTokens.every(token => /^[A-Za-z]{2,5}$/.test(token));
+        const uppercaseSubjects = subjectTokens.length > 1
+            && subjectTokens.every(token => /^[A-Z]{2,5}$/.test(token));
+        const knownSubjects = this._subjects.length > 0
+            && subjectTokens.length > 1
+            && subjectTokens.every(token => this._subjects.includes(token.toUpperCase()));
+        const hasNumberLimit = /(\d{3}\s*(?:-|–|—|to)\s*\d{3}|[\dXx*#_?%]{1,3}\+?[A-Za-z]?)$/i
+            .test(raw);
+        const deliberateSubjectList = this._subjects.length
+            ? knownSubjects
+            : uppercaseSubjects && hasNumberLimit;
+        if (!validSubjectShape || !deliberateSubjectList) {
+            return null;
+        }
+
+        const parsed = this.parseCompactScopedQuery(`${raw} :: scope`);
+        if (parsed.subjects.length === 1) return null;
+        return {
+            subjects: parsed.subjects,
+            subjectText: parsed.subjectText,
+            numberText: parsed.numberText,
+        };
+    },
+
+    buildCourseScope(subjectValue = '', numberValue = '') {
+        const subjectScope = this.parseSubjectScope(subjectValue);
+        const numberScope = this.parseNumberScope(numberValue);
+        const subjectSet = new Set(subjectScope.subjects);
+        return {
+            subjects: subjectScope.subjects,
+            subjectText: subjectScope.normalized,
+            numberText: numberScope.normalized,
+            numberKind: numberScope.kind,
+            active: subjectScope.subjects.length > 0 || numberScope.kind !== 'any',
+            matches: code => {
+                const parts = this.parseCourseCodeParts(code);
+                if (!parts) return false;
+                if (subjectSet.size && !subjectSet.has(parts.subject)) return false;
+                return numberScope.matches(parts);
+            },
+        };
+    },
+
+    filterByCourseScope(results, scope) {
+        if (!scope?.active) return results;
+        return (results || []).filter(result => scope.matches(result.code));
+    },
+
+    scopedSubjectsForQuery(querySubject, scope) {
+        const normalizedSubject = String(querySubject || '').toUpperCase();
+        if (!normalizedSubject) return [...(scope?.subjects || [])];
+        if (!scope?.subjects?.length) return [normalizedSubject];
+        return scope.subjects.includes(normalizedSubject) ? [normalizedSubject] : [];
+    },
+
     async searchLiveCourses(rawInput) {
         const query = String(rawInput || '').trim();
         if (!query) throw new Error('Enter a subject code, course number, CRN, range, or keyword.');
+        const searchId = ++this._searchId;
+        await this.loadSubjects();
+        if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
 
         const wildcardPattern = /[xX*#_?%]/;
         const criteria = [];
@@ -451,7 +740,6 @@ const Search = {
         } else if (query.length < 5) {
             throw new Error('Keywords must be at least 5 characters.');
         } else {
-            const searchId = ++this._searchId;
             const semantic = await this._doSemanticSearch(query, true, false, searchId);
             if (!semantic || searchId !== this._searchId) return { results: [], semantic: true };
             const subjects = [...new Set(semantic.results
@@ -469,6 +757,7 @@ const Search = {
         }
 
         const data = await API.searchCourses(State.term, criteria);
+        if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
         const results = resultFilter
             ? (data.results || []).filter(result => resultFilter(result.code || ''))
             : (data.results || []);
@@ -482,12 +771,14 @@ const Search = {
 
     init() {
         // Load subject list for fuzzy matching
-        fetch('/api/subjects').then(r => r.json()).then(list => { this._subjects = list; });
+        this.loadSubjects();
 
         document.getElementById('btn-search').addEventListener('click', () => this.submitSearch());
-        document.getElementById('keyword-input').addEventListener('keydown', (e) => {
+        const keywordInput = document.getElementById('keyword-input');
+        keywordInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') this.submitSearch();
         });
+        keywordInput.addEventListener('input', () => { this._topicSearchMode = false; });
 
         // Clear button
         const clearBtn = document.getElementById('search-clear');
@@ -502,18 +793,15 @@ const Search = {
         const filterPanel = document.getElementById('filter-panel');
         const filterBackdrop = document.getElementById('filter-backdrop');
         const filterArrow = document.getElementById('filter-arrow');
+        if (filterPanel && filterBackdrop && filterPanel.parentElement !== document.body) {
+            document.body.append(filterBackdrop, filterPanel);
+        }
         if (filterToggle && filterPanel) {
             filterToggle.addEventListener('click', event => {
                 event.stopPropagation();
                 const shouldOpen = filterPanel.classList.contains('hidden');
                 if (shouldOpen) {
-                    this._filterPreviousFocus = document.activeElement;
-                    filterPanel.classList.remove('hidden');
-                    filterBackdrop?.classList.remove('hidden');
-                    document.body?.classList.add('filter-modal-open');
-                    filterArrow?.classList.add('open');
-                    filterToggle.setAttribute('aria-expanded', 'true');
-                    document.getElementById('btn-close-filters')?.focus();
+                    this.openFilters();
                 } else {
                     this.closeFilters();
                 }
@@ -529,7 +817,7 @@ const Search = {
                     return;
                 }
                 if (event.key !== 'Tab') return;
-                const focusable = [...filterPanel.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+                const focusable = [...filterPanel.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]:not([tabindex="-1"])')]
                     .filter(element => !element.hidden && element.offsetParent !== null);
                 if (!focusable.length) return;
                 const first = focusable[0];
@@ -566,6 +854,12 @@ const Search = {
                 this.submitSearch();
             });
         });
+        document.getElementById('search-syntax-open')?.addEventListener('click', event => {
+            event.stopPropagation();
+            const guide = document.getElementById('search-syntax-guide');
+            if (guide) guide.open = true;
+            this.openFilters({ focusId: 'search-syntax-guide' });
+        });
 
         document.addEventListener('search-tab-reset-requested', () => {
             this.resetToCleanSearch({ historyMode: 'push' });
@@ -586,8 +880,8 @@ const Search = {
 
         document.getElementById('btn-apply-filters')?.addEventListener('click', () => {
             this.updateActiveFilterChips();
-            this.closeFilters();
-            if (this.activeSearchInput()?.value.trim()) this.doSearch();
+            if (this.activeSearchInput()?.value.trim() || this.hasCourseScopeInput()) this.doSearch();
+            else this.closeFilters();
         });
         document.getElementById('btn-clear-filters')?.addEventListener('click', () => this.clearFilters());
         this.setBrowseState('empty');
@@ -606,6 +900,13 @@ const Search = {
         return document.getElementById('keyword-input');
     },
 
+    hasCourseScopeInput() {
+        return Boolean(
+            document.getElementById('filter-scope-subjects')?.value.trim()
+            || document.getElementById('filter-scope-numbers')?.value.trim(),
+        );
+    },
+
     setBrowseState(state) {
         const workspace = document.getElementById('browse-workspace');
         if (!workspace) return;
@@ -619,6 +920,7 @@ const Search = {
         if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = '';
+        this._topicSearchMode = false;
         return this.doSearch();
     },
 
@@ -630,15 +932,23 @@ const Search = {
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = '';
         this._directSearchOnce = false;
+        this._topicSearchMode = false;
         const input = this.activeSearchInput();
         if (input) input.value = '';
+        this.clearSearchErrors();
         document.getElementById('search-results').innerHTML = '<p class="hint">Search a subject above to see available courses.</p>';
         this.setBrowseState('empty');
         if (historyMode !== 'none') this.writeSearchHistory('', { mode: historyMode });
         requestAnimationFrame(() => input?.focus());
     },
 
-    searchUrl({ query = '', direct = false, origin = '' } = {}) {
+    searchUrl({
+        query = '',
+        direct = false,
+        origin = '',
+        scopeOnly = false,
+        topic = false,
+    } = {}) {
         const url = new URL(window.location.href);
         url.search = '';
         url.hash = '';
@@ -647,6 +957,8 @@ const Search = {
         if (query) url.searchParams.set('q', query);
         if (direct) url.searchParams.set('direct', '1');
         if (origin) url.searchParams.set('from', origin);
+        if (scopeOnly) url.searchParams.set('scopeSearch', '1');
+        if (topic) url.searchParams.set('topic', '1');
 
         const checkboxParams = [
             ['filter-show-all', 'all'],
@@ -670,6 +982,14 @@ const Search = {
         ];
         selectParams.forEach(([id, parameter]) => {
             const value = document.getElementById(id)?.value;
+            if (value) url.searchParams.set(parameter, value);
+        });
+        const textParams = [
+            ['filter-scope-subjects', 'subjects'],
+            ['filter-scope-numbers', 'numbers'],
+        ];
+        textParams.forEach(([id, parameter]) => {
+            const value = document.getElementById(id)?.value.trim();
             if (value) url.searchParams.set(parameter, value);
         });
         return url;
@@ -697,6 +1017,7 @@ const Search = {
             query: this.canonicalSearchQuery(query),
             direct,
             origin,
+            topic: this._topicSearchMode,
         });
         const completedCourses = document.getElementById('filter-eligible')?.checked
             ? [...(State.completedCourses || [])].map(code => String(code).toUpperCase()).sort()
@@ -752,12 +1073,18 @@ const Search = {
         return true;
     },
 
-    writeSearchHistory(query, { mode = 'push', direct = false, origin = '' } = {}) {
+    writeSearchHistory(query, {
+        mode = 'push',
+        direct = false,
+        origin = '',
+        scopeOnly = false,
+        topic = this._topicSearchMode,
+    } = {}) {
         if (this._restoringHistory || mode === 'none') return;
-        const url = this.searchUrl({ query, direct, origin });
+        const url = this.searchUrl({ query, direct, origin, scopeOnly, topic });
         const next = `${url.pathname}${url.search}`;
         const current = `${window.location.pathname}${window.location.search}`;
-        const state = { search: true, relatedSearch: Boolean(origin), query, origin };
+        const state = { search: true, relatedSearch: Boolean(origin), query, origin, topic };
         if (mode === 'replace' || next === current) history.replaceState(state, '', next);
         else history.pushState(state, '', next);
     },
@@ -891,6 +1218,14 @@ const Search = {
             const element = document.getElementById(id);
             if (element) element.value = params.get(parameter) || '';
         });
+        const textValues = [
+            ['filter-scope-subjects', 'subjects'],
+            ['filter-scope-numbers', 'numbers'],
+        ];
+        textValues.forEach(([id, parameter]) => {
+            const element = document.getElementById(id);
+            if (element) element.value = params.get(parameter) || '';
+        });
         const aiToggle = document.getElementById('filter-ai-search');
         if (aiToggle) aiToggle.checked = !(params.get('direct') === '1' && !params.get('from'));
         this.updateActiveFilterChips();
@@ -904,6 +1239,8 @@ const Search = {
         if (refreshLiveData) API.setForceRefreshLive(true);
         const requestedCourse = this.normalizeCourseCode(params.get('course'));
         const query = params.get('q') || requestedCourse;
+        const hasScopeQuery = params.get('scopeSearch') === '1'
+            && Boolean(params.get('subjects') || params.get('numbers'));
         this._restoringHistory = true;
         const term = params.get('term');
         const termSelect = document.getElementById('term-select');
@@ -914,12 +1251,13 @@ const Search = {
         this.applyFiltersFromLocation(params);
         this._mainSearchQuery = '';
         this._relatedSearchOrigin = params.get('from') || '';
+        this._topicSearchMode = params.get('topic') === '1';
         this._directSearchOnce = params.get('direct') === '1'
             || (!params.has('q') && Boolean(requestedCourse));
         const input = this.activeSearchInput();
         if (input) input.value = query;
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
-        if (!query) {
+        if (!query && !hasScopeQuery) {
             this.resetToCleanSearch({ historyMode: 'none' });
             if (refreshLiveData) API.setForceRefreshLive(false);
             if (restoreId === this._restoreId) this._restoringHistory = false;
@@ -947,6 +1285,7 @@ const Search = {
         regularInput.value = term;
         this._relatedSearchOrigin = origin;
         this._directSearchOnce = true;
+        this._topicSearchMode = false;
         regularInput.focus();
         this.doSearch();
     },
@@ -1017,6 +1356,25 @@ const Search = {
         return this._smartModelPromise;
     },
 
+    openFilters({ focusId = 'btn-close-filters' } = {}) {
+        const panel = document.getElementById('filter-panel');
+        const backdrop = document.getElementById('filter-backdrop');
+        const toggle = document.getElementById('filter-toggle');
+        const arrow = document.getElementById('filter-arrow');
+        if (!panel) return;
+        this._filterPreviousFocus = document.activeElement;
+        panel.classList.remove('hidden');
+        backdrop?.classList.remove('hidden');
+        document.body?.classList.add('filter-modal-open');
+        arrow?.classList.add('open');
+        toggle?.setAttribute('aria-expanded', 'true');
+        const target = document.getElementById(focusId);
+        requestAnimationFrame(() => {
+            if (target?.tagName === 'DETAILS') target.querySelector('summary')?.focus();
+            else target?.focus();
+        });
+    },
+
     closeFilters() {
         const panel = document.getElementById('filter-panel');
         const backdrop = document.getElementById('filter-backdrop');
@@ -1055,6 +1413,14 @@ const Search = {
         if (document.getElementById('filter-ai-search')?.checked === false) {
             entries.push({ ids: ['filter-ai-search'], label: 'Direct search only', restore: true });
         }
+        const subjectScope = document.getElementById('filter-scope-subjects')?.value.trim();
+        const numberScope = document.getElementById('filter-scope-numbers')?.value.trim();
+        if (subjectScope) {
+            entries.push({ ids: ['filter-scope-subjects'], label: `Subjects: ${subjectScope}` });
+        }
+        if (numberScope) {
+            entries.push({ ids: ['filter-scope-numbers'], label: `Course numbers: ${numberScope}` });
+        }
         selected('filter-method', 'Method');
         selected('filter-carolina-core', 'Core');
         selected('filter-part-of-term', 'Term');
@@ -1078,13 +1444,22 @@ const Search = {
         const container = document.getElementById('active-filter-chips');
         if (!container) return;
         const entries = this.activeFilterEntries();
-        document.getElementById('filter-toggle')?.classList.toggle('has-active-filters', entries.length > 0);
+        const filterToggle = document.getElementById('filter-toggle');
+        filterToggle?.classList.toggle('has-active-filters', entries.length > 0);
+        filterToggle?.setAttribute(
+            'aria-label',
+            entries.length ? `Filters, ${entries.length} active` : 'Filters',
+        );
         container.innerHTML = '';
         entries.forEach(entry => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'active-filter-chip';
-            button.innerHTML = `${entry.label}<span aria-hidden="true">&times;</span>`;
+            button.appendChild(document.createTextNode(entry.label));
+            const remove = document.createElement('span');
+            remove.setAttribute('aria-hidden', 'true');
+            remove.textContent = '×';
+            button.appendChild(remove);
             button.setAttribute('aria-label', `Remove filter ${entry.label}`);
             button.addEventListener('click', () => {
                 entry.ids.forEach(id => {
@@ -1094,7 +1469,8 @@ const Search = {
                     else element.value = '';
                 });
                 this.updateActiveFilterChips();
-                if (this.activeSearchInput()?.value.trim()) this.doSearch();
+                if (this.activeSearchInput()?.value.trim() || this.hasCourseScopeInput()) this.doSearch();
+                else this.resetToCleanSearch({ historyMode: 'push' });
             });
             container.appendChild(button);
         });
@@ -1112,14 +1488,22 @@ const Search = {
         document.querySelectorAll('#filter-panel input[type="number"]').forEach(input => {
             input.value = '';
         });
+        document.querySelectorAll('#filter-panel input[type="text"]').forEach(input => {
+            input.value = '';
+        });
         this.updateActiveFilterChips();
         this.closeFilters();
         if (this.activeSearchInput()?.value.trim()) this.doSearch();
+        else this.resetToCleanSearch({ historyMode: 'push' });
     },
 
     async doSearch({ historyMode = 'push', bypassCache = false } = {}) {
         if (historyMode !== 'none') this.cancelLocationRestore();
+        const initialSearchId = ++this._searchId;
+        await this.loadSubjects();
+        if (initialSearchId !== this._searchId) return;
         if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
+        this.clearSearchErrors();
         const searchInput = this.activeSearchInput();
         const rawInput = searchInput.value.trim();
         const openOnly = document.getElementById('filter-open').checked;
@@ -1131,13 +1515,7 @@ const Search = {
         const courseAttribute = document.getElementById('filter-course-attribute').value;
         const honors = document.getElementById('filter-honors').value;
         const meetingPattern = document.getElementById('filter-meeting-pattern').value;
-        const aiAssisted = document.getElementById('filter-ai-search')?.checked !== false;
-        const useDirectSearch = !aiAssisted
-            || Boolean(this._relatedSearchOrigin)
-            || this._directSearchOnce
-            || this._semanticFallbackOnce;
-        const historyDirect = !aiAssisted || Boolean(this._relatedSearchOrigin);
-        this._directSearchOnce = false;
+        let aiAssisted = document.getElementById('filter-ai-search')?.checked !== false;
 
         // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
         const levelMode = '';
@@ -1152,29 +1530,87 @@ const Search = {
         const availRaw = document.getElementById('filter-avail-value').value.trim();
         const availValue = availRaw === '' ? null : Number(availRaw);
 
-        if (!rawInput) {
+        let compactQuery = null;
+        let searchQuery = rawInput;
+        let courseScope;
+        try {
+            compactQuery = this.parseCompactScopedQuery(rawInput);
+            if (compactQuery) {
+                this._topicSearchMode = true;
+                const subjectInput = document.getElementById('filter-scope-subjects');
+                const numberInput = document.getElementById('filter-scope-numbers');
+                if (subjectInput) subjectInput.value = compactQuery.subjectText;
+                if (numberInput) numberInput.value = compactQuery.numberText;
+                const aiToggle = document.getElementById('filter-ai-search');
+                if (aiToggle) aiToggle.checked = true;
+                aiAssisted = true;
+                searchQuery = compactQuery.topic;
+                searchInput.value = searchQuery;
+            } else {
+                const standaloneScope = this.parseStandaloneCourseScope(rawInput);
+                if (standaloneScope) {
+                    this._topicSearchMode = false;
+                    const subjectInput = document.getElementById('filter-scope-subjects');
+                    const numberInput = document.getElementById('filter-scope-numbers');
+                    if (subjectInput) subjectInput.value = standaloneScope.subjectText;
+                    if (numberInput) numberInput.value = standaloneScope.numberText;
+                    searchQuery = '';
+                    searchInput.value = '';
+                }
+            }
+            courseScope = this.buildCourseScope(
+                document.getElementById('filter-scope-subjects')?.value,
+                document.getElementById('filter-scope-numbers')?.value,
+            );
+            const subjectInput = document.getElementById('filter-scope-subjects');
+            const numberInput = document.getElementById('filter-scope-numbers');
+            if (subjectInput) subjectInput.value = courseScope.subjectText;
+            if (numberInput) numberInput.value = courseScope.numberText;
+        } catch (error) {
+            const scopePanelOpen = !document.getElementById('filter-panel')?.classList.contains('hidden');
+            this.showSearchError(error.message, { scope: scopePanelOpen });
+            return;
+        }
+
+        const useDirectSearch = !aiAssisted
+            || Boolean(this._relatedSearchOrigin)
+            || this._directSearchOnce
+            || this._semanticFallbackOnce
+            || !searchQuery;
+        const historyDirect = !aiAssisted || Boolean(this._relatedSearchOrigin);
+        this._directSearchOnce = false;
+
+        if (!searchQuery && !courseScope.active) {
             this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140–199), or keyword.');
             return;
         }
 
-        this.writeSearchHistory(rawInput, {
+        this.writeSearchHistory(searchQuery, {
             mode: historyMode,
             direct: historyDirect,
             origin: this._relatedSearchOrigin,
+            scopeOnly: !searchQuery && courseScope.active,
+            topic: this._topicSearchMode,
         });
 
         this.setBrowseState('results');
         this.updateActiveFilterChips();
         this.closeFilters();
         const searchCacheKey = this.searchCacheKey({
-            query: rawInput,
+            query: searchQuery,
             direct: historyDirect,
             origin: this._relatedSearchOrigin,
         });
         if (!bypassCache && !this._semanticFallbackOnce
             && this.restoreCachedSearch(searchCacheKey)) return;
 
-        const kw = rawInput.trim();
+        const kw = searchQuery.trim();
+        const normalizedShortTopic = kw.toUpperCase();
+        const scopedShortTopic = courseScope.active
+            && /^[A-Za-z]{2,4}$/i.test(kw)
+            && !this._subjects.includes(normalizedShortTopic)
+            && !courseScope.subjects.includes(normalizedShortTopic);
+        const treatAsTopic = this._topicSearchMode || scopedShortTopic;
         const criteria = [];
         let subject = '';
         let courseNumberFilter = null;   // exact match (e.g. "145" or "145L")
@@ -1217,15 +1653,19 @@ const Search = {
 
         // Parse the input to determine what the user wants
 
+        // A scope without a topic lists all courses inside the selected bounds.
+        if (!kw && courseScope.active) {
+            // Scope is applied to API results below.
+
         // 3-4 letter subject code only (e.g. "CSCE", "MATH")
-        if (/^[A-Za-z]{3,4}$/i.test(kw)) {
+        } else if (!treatAsTopic && /^[A-Za-z]{3,4}$/i.test(kw)) {
             subject = this._resolveSubject(kw);
             if (!subject) return;
             searchInput.value = subject;
             criteria.push({ field: 'subject', value: subject });
 
         // Inclusive numeric range: "CSCE 140-150", "CSCE 140–150", or "CSCE 140 to 150"
-        } else if (/^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
+        } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
             subject = this._resolveSubject(m[1]);
             if (!subject) return;
@@ -1238,7 +1678,7 @@ const Search = {
             criteria.push({ field: 'subject', value: subject });
 
         // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
-        } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
+        } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
                    (kw.includes('+') || hasWildcard(kw))) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/i);
             subject = this._resolveSubject(m[1]);
@@ -1252,7 +1692,7 @@ const Search = {
             criteria.push({ field: 'subject', value: subject });
 
         // Partial course number: "CSCE 5" or "CSCE 55" → prefix match (implicit wildcards)
-        } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
+        } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/i);
             subject = this._resolveSubject(m[1]);
             if (!subject) return;
@@ -1267,7 +1707,7 @@ const Search = {
             criteria.push({ field: 'subject', value: subject });
 
         // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
-        } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
+        } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i);
             subject = this._resolveSubject(m[1]);
             if (!subject) return;
@@ -1277,26 +1717,26 @@ const Search = {
             criteria.push({ field: 'alias', value: normalized });
 
         // 5-digit CRN
-        } else if (/^\d{5}$/.test(kw)) {
+        } else if (!treatAsTopic && /^\d{5}$/.test(kw)) {
             criteria.push({ field: 'crn', value: kw });
 
         // 4 digits — invalid
-        } else if (/^\d{4}$/.test(kw)) {
+        } else if (!treatAsTopic && /^\d{4}$/.test(kw)) {
             this.showHint('4-digit numbers are not valid. Enter a 3-digit course number (e.g. CSCE 101) or a 5-digit CRN.');
             return;
 
         // 3 digits + optional letter — need subject prefix
-        } else if (/^\d{3}\s?[A-Za-z]?$/.test(kw)) {
+        } else if (!treatAsTopic && /^\d{3}\s?[A-Za-z]?$/.test(kw)) {
             this.showHint('Include the subject code (e.g. CSCE 101, not just 101).');
             return;
 
         // 1-2 digits
-        } else if (/^\d{1,2}$/.test(kw)) {
+        } else if (!treatAsTopic && /^\d{1,2}$/.test(kw)) {
             this.showHint('Enter a subject code (e.g. CSCE) or full course number (e.g. CSCE 101).');
             return;
 
         // Text keyword — require 5+ characters
-        } else if (kw.length < 5) {
+        } else if (kw.length < 5 && !courseScope.active) {
             this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
             return;
 
@@ -1306,13 +1746,27 @@ const Search = {
 
         // Meaning-based search via Transformers.js
         } else {
-            this.showLoading();
+            this.showLoading('Preparing search plan');
             const searchId = ++this._searchId;
             try {
                 await this.prepareSmartSearch();
                 if (searchId !== this._searchId) return;
-                const semantic = await this._doSemanticSearch(kw, currentTermOnly, openOnly, searchId);
+                const semantic = await this._doSemanticSearch(
+                    kw,
+                    currentTermOnly,
+                    openOnly,
+                    searchId,
+                    courseScope,
+                    progress => this.showSearchProgress(progress),
+                );
                 if (!semantic || searchId !== this._searchId) return;
+
+                this.showSearchProgress({
+                    phase: 'filtering',
+                    completed: semantic.searches?.length || 0,
+                    total: semantic.searches?.length || 0,
+                    candidates: semantic.results.length,
+                });
 
                 if (semantic.results.length === 0) {
                     this._mainSearchQuery = kw;
@@ -1323,6 +1777,7 @@ const Search = {
                         0,
                         {},
                         eligibleOnly,
+                        semantic.searches,
                     );
                     return;
                 }
@@ -1331,8 +1786,10 @@ const Search = {
 
                 // Cross-reference ALL results with live term data
                 const relatedResults = currentTermOnly ? [] : (semantic.searchResults || []).flat();
-                const subjects = [...new Set([...results, ...relatedResults]
-                    .map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
+                const subjects = courseScope.subjects.length
+                    ? courseScope.subjects
+                    : [...new Set([...results, ...relatedResults]
+                        .map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
                 const livePromises = subjects.map(async subjectCode => {
                     try {
                         const data = await API.searchCourses(
@@ -1356,7 +1813,10 @@ const Search = {
                     results = results.filter(c => liveByCode[c.code]);
                 }
 
-                results = this.mergeCatalogWithLiveSections(results, liveByCode);
+                results = this.filterByCourseScope(
+                    this.mergeCatalogWithLiveSections(results, liveByCode),
+                    courseScope,
+                );
                 const semanticFilters = {
                     openOnly,
                     instructionalMethod,
@@ -1371,6 +1831,7 @@ const Search = {
                     availValue,
                 };
                 results = await this.applySectionFilters(results, semanticFilters);
+                results = this.filterByCourseScope(results, courseScope);
 
                 if (searchId !== this._searchId) return;
                 const eligibleOnly2 = eligibleOnly;
@@ -1378,7 +1839,10 @@ const Search = {
                     const candidates = currentTermOnly
                         ? batch
                         : this.mergeCatalogWithLiveSections(batch, liveByCode);
-                    return this.applySectionFilters(candidates, semanticFilters);
+                    return this.applySectionFilters(
+                        this.filterByCourseScope(candidates, courseScope),
+                        semanticFilters,
+                    );
                 }));
                 if (searchId !== this._searchId) return;
                 const prereqData = eligibleOnly2
@@ -1393,7 +1857,7 @@ const Search = {
                         return { ...search, count: new Set(matchingCodes).size };
                     })
                     : null;
-                this._mainSearchQuery = kw;
+                this._mainSearchQuery = searchQuery;
                 this._relatedSearchOrigin = '';
                 this.renderAndCacheSearch(
                     incompleteSearch ? null : searchCacheKey,
@@ -1426,32 +1890,79 @@ const Search = {
         try {
             let results = [];
             let totalCount = 0;
+            const scopedRequestSubjects = this.scopedSubjectsForQuery(subject, courseScope);
+            const subjectScopeConflict = Boolean(
+                subject
+                && courseScope.subjects.length
+                && !scopedRequestSubjects.length,
+            );
 
-            if (currentTermOnly) {
+            if (subjectScopeConflict) {
+                results = [];
+                totalCount = 0;
+            } else if (currentTermOnly) {
                 // Search live class offerings for the selected term
-                const data = await API.searchCourses(State.term, criteria);
-                results = data.results || [];
-                totalCount = data.count || 0;
+                if (courseScope.subjects.length) {
+                    const batches = await Promise.all(scopedRequestSubjects.map(scopeSubject => (
+                        API.searchCourses(State.term, [
+                            ...criteria.filter(item => item.field !== 'subject'),
+                            { field: 'subject', value: scopeSubject },
+                        ])
+                    )));
+                    results = batches.flatMap(data => data.results || []);
+                    totalCount = results.length;
+                } else {
+                    const data = await API.searchCourses(State.term, criteria);
+                    results = data.results || [];
+                    totalCount = data.count || 0;
+                }
             } else {
                 // Search the bulletin catalog (all courses, not term-specific)
-                const bulletinData = subject
-                    ? await API.bulletinSearch(subject)
-                    : await API.post('/api/bulletin/search', {
+                let bulletinCourses;
+                if (subject) {
+                    const bulletinData = await API.bulletinSearch(subject);
+                    bulletinCourses = bulletinData.results || [];
+                } else if (courseScope.subjects.length) {
+                    const batches = await Promise.all(courseScope.subjects.map(async scopeSubject => {
+                        if (!criteria.length) {
+                            const data = await API.bulletinSearch(scopeSubject);
+                            return data.results || [];
+                        }
+                        const data = await API.post('/api/bulletin/search', {
+                            other: { srcdb: '2026' },
+                            criteria: [
+                                ...criteria.filter(item => item.field !== 'subject'),
+                                { field: 'subject', value: scopeSubject },
+                            ],
+                        });
+                        return data.results || [];
+                    }));
+                    bulletinCourses = batches.flat();
+                } else {
+                    const bulletinData = await API.post('/api/bulletin/search', {
                         other: { srcdb: '2026' },
                         criteria,
                     });
-                const bulletinCourses = bulletinData.results || [];
+                    bulletinCourses = bulletinData.results || [];
+                }
+                bulletinCourses = this.filterByCourseScope(bulletinCourses, courseScope);
 
                 // Also fetch live term data to cross-reference availability
-                const subjects = subject
-                    ? [subject]
-                    : [...new Set(bulletinCourses
-                        .map(course => String(course.code || '').split(' ')[0])
-                        .filter(Boolean))];
-                const liveResults = (await Promise.all(subjects.map(code => API.searchCourses(
-                    State.term,
-                    [{ field: 'subject', value: code }],
-                ).then(data => data.results || [])))).flat();
+                const liveSubjects = subjectScopeConflict
+                    ? []
+                    : subject
+                        ? scopedRequestSubjects
+                    : courseScope.subjects.length
+                        ? courseScope.subjects
+                        : [...new Set(bulletinCourses
+                            .map(course => String(course.code || '').split(' ')[0])
+                            .filter(Boolean))];
+                const liveResults = courseScope.active && !courseScope.subjects.length
+                    ? (await API.searchCourses(State.term, [])).results || []
+                    : (await Promise.all(liveSubjects.map(code => API.searchCourses(
+                        State.term,
+                        [{ field: 'subject', value: code }],
+                    ).then(data => data.results || [])))).flat();
 
                 // Build a set of course codes offered this term + their open status
                 const liveByCode = this.buildLiveCourseIndex(liveResults);
@@ -1485,6 +1996,8 @@ const Search = {
                 });
             }
 
+            results = this.filterByCourseScope(results, courseScope);
+
             // Level filter
             if (levelMode && levelValue) {
                 results = results.filter(r => {
@@ -1511,6 +2024,8 @@ const Search = {
                 availMode,
                 availValue,
             });
+            results = this.filterByCourseScope(results, courseScope);
+            if (courseScope.active) totalCount = results.length;
 
             // If a newer search was started, discard these results
             if (searchId !== this._searchId) return;
@@ -2966,6 +3481,50 @@ const Search = {
         `;
     },
 
+    generatedSearchesMarkup(searchTerms) {
+        if (!searchTerms?.length) return '';
+        const expandedTags = searchTerms.map((search, index) => {
+            const term = typeof search === 'string' ? search : search.term;
+            const failed = typeof search === 'object' && Boolean(search.failed);
+            const resultCount = typeof search === 'string' ? null : Number(search.count);
+            const countLabel = failed
+                ? 'Search failed'
+                : Number.isFinite(resultCount)
+                    ? `${resultCount.toLocaleString()} ${resultCount === 1 ? 'course' : 'courses'}`
+                    : '';
+            const disabled = !failed && Number.isFinite(resultCount) && resultCount === 0
+                ? ' disabled'
+                : '';
+            const failedClass = failed ? ' is-failed' : '';
+            const dataCount = failed ? -1 : (resultCount || 0);
+            return `<button type="button" class="semantic-search-term${failedClass}" data-regular-search-index="${index}" data-result-count="${dataCount}"${disabled}><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
+        }).join(' ');
+        return `
+            <div class="semantic-search-terms">
+                <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
+                    <span><b>${searchTerms.length} Generated searches</b></span><i aria-hidden="true">&#9660;</i>
+                </button>
+                <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
+            </div>`;
+    },
+
+    bindGeneratedSearches(container, searchTerms) {
+        const searchTermsToggle = container.querySelector('.semantic-search-terms-toggle');
+        const searchTermsList = container.querySelector('.semantic-search-term-list');
+        searchTermsToggle?.addEventListener('click', () => {
+            const willExpand = searchTermsList?.classList.contains('hidden');
+            searchTermsList?.classList.toggle('hidden', !willExpand);
+            searchTermsToggle.setAttribute('aria-expanded', String(willExpand));
+        });
+        container.querySelectorAll('[data-regular-search-index]').forEach(button => {
+            button.addEventListener('click', () => {
+                const search = searchTerms[Number(button.dataset.regularSearchIndex)];
+                const term = typeof search === 'string' ? search : search?.term;
+                if (term) this.openRegularSearch(term);
+            });
+        });
+    },
+
     renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
         const container = document.getElementById('search-results');
         this.setBrowseState('results');
@@ -2974,7 +3533,8 @@ const Search = {
 
         if (results.length === 0) {
             State.courseGroups = [];
-            container.innerHTML = `${fallbackNotice ? `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>` : ''}<p class="hint">No results found.</p>`;
+            container.innerHTML = `${fallbackNotice ? `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>` : ''}<p class="hint">No results found.</p>${this.generatedSearchesMarkup(searchTerms)}`;
+            this.bindGeneratedSearches(container, searchTerms || []);
             return;
         }
 
@@ -3022,40 +3582,10 @@ const Search = {
         if (fallbackNotice) {
             header += `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>`;
         }
-        if (searchTerms && searchTerms.length) {
-            const expandedTags = searchTerms.map((search, index) => {
-                const term = typeof search === 'string' ? search : search.term;
-                const resultCount = typeof search === 'string' ? null : Number(search.count);
-                const countLabel = Number.isFinite(resultCount)
-                    ? `${resultCount.toLocaleString()} ${resultCount === 1 ? 'course' : 'courses'}`
-                    : '';
-                const disabled = Number.isFinite(resultCount) && resultCount === 0 ? ' disabled' : '';
-                return `<button type="button" class="semantic-search-term" data-regular-search-index="${index}" data-result-count="${resultCount || 0}"${disabled}><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
-            }).join(' ');
-            header += `
-                <div class="semantic-search-terms">
-                    <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
-                        <span><b>${searchTerms.length} Related searches</b></span><i aria-hidden="true">&#9660;</i>
-                    </button>
-                    <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
-                </div>`;
-        }
+        header += this.generatedSearchesMarkup(searchTerms);
         container.innerHTML = header;
-        const searchTermsToggle = container.querySelector('.semantic-search-terms-toggle');
-        const searchTermsList = container.querySelector('.semantic-search-term-list');
-        searchTermsToggle?.addEventListener('click', () => {
-            const willExpand = searchTermsList?.classList.contains('hidden');
-            searchTermsList?.classList.toggle('hidden', !willExpand);
-            searchTermsToggle.setAttribute('aria-expanded', String(willExpand));
-        });
+        this.bindGeneratedSearches(container, searchTerms || []);
         container.querySelector('.related-search-back')?.addEventListener('click', () => this.returnToMainSearch());
-        container.querySelectorAll('[data-regular-search-index]').forEach(button => {
-            button.addEventListener('click', () => {
-                const search = searchTerms[Number(button.dataset.regularSearchIndex)];
-                const term = typeof search === 'string' ? search : search?.term;
-                if (term) this.openRegularSearch(term);
-            });
-        });
 
         groupList.forEach(group => {
             const div = document.createElement('div');
@@ -3226,11 +3756,72 @@ const Search = {
         return `${semLabel}${year}`;
     },
 
-    showLoading() {
-        document.getElementById('search-results').innerHTML = '<p class="loading">Searching courses</p>';
+    showSearchProgress({ phase, completed = 0, total = 0, candidates = 0 }) {
+        if (typeof document === 'undefined') return;
+        const container = document.getElementById('search-results');
+        if (!container) return;
+        const safeTotal = Math.max(total, completed, 1);
+        let title = `${completed} of up to ${total} searches complete`;
+        let detail = candidates
+            ? `${candidates.toLocaleString()} candidate ${candidates === 1 ? 'course' : 'courses'} found`
+            : 'Finding relevant course matches';
+        if (phase === 'planned') {
+            title = `Preparing up to ${total} generated searches`;
+            detail = 'Building search variations';
+        } else if (phase === 'combining') {
+            title = `${completed} searches complete`;
+            detail = `Combining ${candidates.toLocaleString()} candidate courses`;
+        } else if (phase === 'filtering') {
+            title = `${completed} searches complete`;
+            detail = `Applying filters to ${candidates.toLocaleString()} candidate courses`;
+        }
+        container.innerHTML = `
+            <div class="search-progress" role="status" aria-live="polite">
+                <div><strong>${title}</strong><span>${detail}</span></div>
+                <progress value="${Math.min(completed, safeTotal)}" max="${safeTotal}">${completed} of ${safeTotal}</progress>
+            </div>`;
+    },
+
+    showLoading(label = 'Searching courses') {
+        document.getElementById('search-results').innerHTML = `<p class="loading">${label}</p>`;
+    },
+
+    clearSearchErrors() {
+        ['search-input-error', 'filter-scope-error'].forEach(id => {
+            const element = document.getElementById(id);
+            if (!element) return;
+            element.textContent = '';
+            element.classList.add('hidden');
+        });
+        ['filter-scope-subjects', 'filter-scope-numbers'].forEach(id => {
+            document.getElementById(id)?.removeAttribute('aria-invalid');
+        });
+        document.getElementById('keyword-input')?.removeAttribute('aria-invalid');
+    },
+
+    showSearchError(message, { scope = false } = {}) {
+        const topError = document.getElementById('search-input-error');
+        if (topError) {
+            topError.textContent = message;
+            topError.classList.remove('hidden');
+        }
+        if (!scope) document.getElementById('keyword-input')?.setAttribute('aria-invalid', 'true');
+        if (!scope) return;
+        const scopeError = document.getElementById('filter-scope-error');
+        if (scopeError) {
+            scopeError.textContent = message;
+            scopeError.classList.remove('hidden');
+        }
+        const numberError = /course number|first course/i.test(message);
+        const target = document.getElementById(
+            numberError ? 'filter-scope-numbers' : 'filter-scope-subjects',
+        );
+        target?.setAttribute('aria-invalid', 'true');
+        requestAnimationFrame(() => target?.focus());
     },
 
     showHint(msg) {
+        this.setBrowseState('results');
         document.getElementById('search-results').innerHTML = `<p class="hint">${msg}</p>`;
     },
 };
