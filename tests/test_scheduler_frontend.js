@@ -745,6 +745,9 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /min="1"/);
     assert.match(styles, /input:checked \+ \.schedule-preference-mode-track \.require\s*{[^}]*background:\s*#000000;/s);
     assert.match(styles, /\.schedule-preference-mode\s*{[^}]*top:\s*-14px;[^}]*transform:\s*translateY\(-50%\);/s);
+    assert.match(styles, /\.schedule-advanced-calendar\s*{[^}]*grid-auto-rows:\s*16px;[^}]*grid-template-rows:\s*auto;[^}]*row-gap:\s*0;/s);
+    assert.match(styles, /\.schedule-advanced-cell:nth-child\(16n \+ 18\)[\s\S]*\.schedule-advanced-cell:nth-child\(16n \+ 24\)/);
+    assert.doesNotMatch(styles, /\.schedule-advanced-cell:nth-child\(16n \+ 10\)/);
     assert.doesNotMatch(styles, /schedule-preference-mode[^}]*#73000A/s);
 });
 
@@ -1946,7 +1949,11 @@ test('Browse teaches structured searches and presents generated searches compact
     });
     assert.ok(html.indexOf('id="search-syntax-guide"') < html.indexOf('class="course-scope-filter"'));
     assert.doesNotMatch(html, /search-syntax-wide/);
-    assert.match(html, /class="filter-sliders-icon"/);
+    assert.equal((html.match(/class="filter-sliders-icon"/g) || []).length, 2);
+    assert.match(styles, /\.filter-sliders-icon\s*{[^}]*width:\s*24px;/s);
+    assert.match(styles, /\.filter-sliders-icon > span\s*{[^}]*height:\s*2px;/s);
+    assert.match(styles, /\.filter-sliders-icon i\s*{[^}]*height:\s*8px;[^}]*transform:\s*translateY\(-50%\);[^}]*width:\s*8px;/s);
+    assert.match(styles, /\.filter-sliders-icon > span:nth-child\(2\) i\s*{\s*left:\s*13px;/);
     assert.match(html, /id="smart-model-loading-stage">Preparing AI-assisted search/);
     assert.doesNotMatch(html, /id="smart-search-status"/);
     assert.doesNotMatch(html, /id="smart-search-query-list"/);
