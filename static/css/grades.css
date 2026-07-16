@@ -85,22 +85,23 @@
 .professor-course-gpa-dot.middle { background: #A49137; }
 .professor-course-gpa-dot.low { background: #CC2E40; }
 .professor-course-gpa-dot.unknown { background: #A2A2A2; }
-.professor-year-plot { background: #FFFFFF; border-bottom: 2px solid #000000; border-left: 2px solid #000000; height: 190px; margin: 8px 8px 0 34px; position: relative; }
+.professor-year-plot { background: #FFFFFF; border-bottom: 2px solid #000000; border-left: 2px solid #000000; box-sizing: border-box; height: clamp(160px, 24vw, 210px); margin: 8px 8px 0 34px; position: relative; }
 .professor-year-axis { bottom: 0; color: #5C5C5C; font-size: 0.56rem; left: -31px; position: absolute; top: 0; width: 25px; }
 .professor-year-axis span { left: 0; position: absolute; transform: translateY(-50%); }
-.professor-year-gridline { border-top: 1px solid #ECECEC; left: 0; position: absolute; right: 0; z-index: 0; }
-.professor-year-segment { position: absolute; z-index: 1; }
-.professor-year-segment.down { background: linear-gradient(to bottom right, transparent 47%, #73000A 48%, #73000A 52%, transparent 53%); }
-.professor-year-segment.up { background: linear-gradient(to top right, transparent 47%, #73000A 48%, #73000A 52%, transparent 53%); }
-.professor-year-segment.flat { background: #73000A; height: 2px !important; }
-.professor-year-point { background: #FFFFFF; border: 3px solid #73000A; border-radius: 50% !important; height: 14px; padding: 0; position: absolute; transform: translate(-50%, -50%); width: 14px; z-index: 2; }
+.professor-year-chart { display: block; height: 100%; inset: 0; overflow: visible; pointer-events: none; position: absolute; width: 100%; z-index: 0; }
+.professor-year-gridline { stroke: #ECECEC; stroke-width: 1; }
+.professor-year-line { fill: none; stroke: #73000A; stroke-linecap: butt; stroke-linejoin: miter; stroke-width: 2.5; }
+.professor-year-point { background: #FFFFFF; border: 3px solid #73000A; border-radius: 50% !important; box-sizing: border-box; cursor: help; height: 14px; padding: 0; position: absolute; transform: translate(-50%, -50%); width: 14px; z-index: 2; }
 .professor-year-point:hover,
-.professor-year-point:focus-visible { background: #73000A; outline: 2px solid #000000; outline-offset: 2px; }
-.professor-year-point span { background: #000000; color: #FFFFFF; display: none; font-size: 0.58rem; left: 50%; padding: 3px 5px; position: absolute; top: -28px; transform: translateX(-50%); white-space: nowrap; }
+.professor-year-point:focus { background: #73000A; outline: 2px solid #000000; outline-offset: 2px; }
+.professor-year-point span { background: #000000; color: #FFFFFF; display: none; font-size: 0.58rem; left: 50%; padding: 3px 5px; position: absolute; top: -28px; transform: translateX(-50%); white-space: nowrap; z-index: 3; }
 .professor-year-point:hover span,
-.professor-year-point:focus-visible span { display: block; }
-.professor-year-labels { color: #363636; font-size: 0.58rem; font-weight: 700; height: 18px; margin: 5px 8px 0 34px; position: relative; }
+.professor-year-point:focus span { display: block; }
+.professor-year-labels { border-left: 2px solid transparent; box-sizing: border-box; color: #363636; font-size: 0.58rem; font-weight: 700; height: 18px; margin: 5px 8px 0 34px; position: relative; }
 .professor-year-labels span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+@media (max-width: 520px) {
+    .professor-year-labels .professor-year-label:not(.compact-visible) { display: none; }
+}
 .history-summary-grid { display: grid; gap: 8px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .history-summary-grid > div { border: 1px solid #000000; min-height: 66px; padding: 9px; }
 .history-summary-grid strong { color: #73000A; display: block; font-size: 0.95rem; }

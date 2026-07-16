@@ -1942,7 +1942,10 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /class="professor-course-gpa-dot/);
     assert.doesNotMatch(source, /<i><b style="width:\$\{width\}%"><\/b><\/i>/);
     assert.match(source, /class="professor-primary-gpa"/);
-    assert.match(source, /class="professor-year-segment \$\{direction\}"/);
+    assert.match(source, /class="professor-year-line"/);
+    assert.match(source, /preserveAspectRatio="none"/);
+    assert.match(source, /vector-effect="non-scaling-stroke"/);
+    assert.doesNotMatch(source, /professor-year-segment/);
     assert.match(source, /\$\{point\.year\}: \$\{this\.formatGpa\(point\.gpa\)\} GPA/);
     assert.match(source, /\(point\.year - firstYear\) \* 90 \/ yearSpan/);
     assert.match(source, /Teaching span in available records/);
@@ -1950,8 +1953,15 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /return `\$\{term\}:\$\{code\}:\$\{crns\.join\(','\)\}`/);
     assert.match(source, /const facultyKey = this\.courseFacultyKey\(code\)[\s\S]*this\.courseFacultyKey\(code\) !== facultyKey/);
     assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /Grades\.refreshCourseFaculty\(group\.code\)/);
-    assert.match(styles, /\.professor-year-segment\.down/);
+    assert.match(styles, /\.professor-year-line\s*{[^}]*stroke:\s*#73000A;[^}]*stroke-linecap:\s*butt;[^}]*stroke-linejoin:\s*miter;/s);
+    assert.doesNotMatch(styles, /\.professor-year-segment/);
+    assert.match(styles, /\.professor-year-plot\s*{[^}]*height:\s*clamp\(160px, 24vw, 210px\);/s);
+    assert.match(styles, /\.professor-year-labels\s*{[^}]*border-left:\s*2px solid transparent;/s);
     assert.match(styles, /\.professor-year-point\s*{[^}]*border-radius:\s*50% !important;/s);
+    assert.match(source, /class="professor-year-point" role="img" tabindex="0"/);
+    assert.doesNotMatch(source, /<button[^>]*class="professor-year-point"/);
+    assert.match(styles, /\.professor-year-point:focus\s*{/);
+    assert.match(styles, /@media \(max-width: 520px\)[\s\S]*\.professor-year-label:not\(\.compact-visible\)/);
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
     assert.match(source, /if \(response\.status === 404\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
@@ -1968,9 +1978,12 @@ test('Professor GPA timeline uses calendar-year spacing and an aligned zero-to-f
     assert.match(markup, /left:5%;top:6%/);
     assert.match(markup, /left:35%;top:28%/);
     assert.match(markup, /left:95%;top:50%/);
+    assert.match(markup, /class="professor-year-line" points="5,6 35,28 95,50"/);
+    assert.doesNotMatch(markup, /professor-year-segment|stroke-dasharray/);
     assert.match(markup, /top:6%">4\.0/);
     assert.match(markup, /top:94%">0\.0/);
-    assert.match(markup, /class="professor-year-gridline" style="top:28%/);
+    assert.match(markup, /class="professor-year-gridline" x1="0" y1="28" x2="100" y2="28"/);
+    assert.equal((markup.match(/class="professor-year-point"/g) || []).length, 3);
     assert.doesNotMatch(markup, /grid-template-columns/);
 });
 
@@ -1982,6 +1995,7 @@ test('Professor GPA timeline plots values below one instead of pinning them to o
 
     assert.match(markup, /left:50%;top:80\.25%/);
     assert.match(markup, /2021, 0\.63 GPA/);
+    assert.doesNotMatch(markup, /class="professor-year-line"/);
 });
 
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {

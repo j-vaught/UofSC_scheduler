@@ -349,25 +349,30 @@ const Grades = {
             x: yearSpan === 0 ? 50 : 5 + (point.year - firstYear) * 90 / yearSpan,
             y: positionGpa(point.gpa),
         }));
-        const segments = positioned.slice(0, -1).map((point, index) => {
-            const next = positioned[index + 1];
-            const difference = next.y - point.y;
-            const top = Math.min(point.y, next.y);
-            const height = Math.max(2, Math.abs(difference));
-            const direction = Math.abs(difference) < 1 ? 'flat' : difference > 0 ? 'down' : 'up';
-            return `<i class="professor-year-segment ${direction}" style="left:${point.x}%;top:${top}%;width:${next.x - point.x}%;height:${height}%"></i>`;
-        }).join('');
-        const markers = positioned.map(point => `<button type="button" class="professor-year-point" style="left:${point.x}%;top:${point.y}%" title="${point.year}: ${this.formatGpa(point.gpa)} GPA" aria-label="${point.year}, ${this.formatGpa(point.gpa)} GPA"><span>${this.formatGpa(point.gpa)}</span></button>`).join('');
         const axisValues = [4, 3, 2, 1, 0];
         const axis = axisValues
             .map(value => `<span style="top:${positionGpa(value)}%">${value.toFixed(1)}</span>`).join('');
         const gridLines = axisValues
-            .map(value => `<i class="professor-year-gridline" style="top:${positionGpa(value)}%"></i>`).join('');
-        const labels = positioned.map(point => `<span style="left:${point.x}%">${point.year}</span>`).join('');
+            .map(value => `<line class="professor-year-gridline" x1="0" y1="${positionGpa(value)}" x2="100" y2="${positionGpa(value)}" vector-effect="non-scaling-stroke"></line>`).join('');
+        const linePoints = positioned.map(point => `${point.x},${point.y}`).join(' ');
+        const line = positioned.length > 1
+            ? `<polyline class="professor-year-line" points="${linePoints}" vector-effect="non-scaling-stroke"></polyline>`
+            : '';
+        const markers = positioned.map(point => `<span class="professor-year-point" role="img" tabindex="0" style="left:${point.x}%;top:${point.y}%" title="${point.year}: ${this.formatGpa(point.gpa)} GPA" aria-label="${point.year}, ${this.formatGpa(point.gpa)} GPA"><span>${point.year} · ${this.formatGpa(point.gpa)} GPA</span></span>`).join('');
+        const middleLabelIndex = Math.floor((positioned.length - 1) / 2);
+        const labels = positioned.map((point, index) => {
+            const compactVisible = index === 0
+                || index === positioned.length - 1
+                || index === middleLabelIndex;
+            return `<span class="professor-year-label${compactVisible ? ' compact-visible' : ''}" style="left:${point.x}%">${point.year}</span>`;
+        }).join('');
         return `
-            <div class="professor-year-plot">
+            <div class="professor-year-plot" role="group" aria-label="Historical GPA by academic year">
                 <div class="professor-year-axis" aria-hidden="true">${axis}</div>
-                ${gridLines}${segments}${markers}
+                <svg class="professor-year-chart" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                    ${gridLines}${line}
+                </svg>
+                ${markers}
             </div>
             <div class="professor-year-labels">${labels}</div>
         `;
@@ -401,7 +406,7 @@ const Grades = {
                     <div class="professor-profile-fact"><strong>${this.escape(data.experience_label || `${data.observed_teaching_semesters || '—'} semesters`)}</strong><span>Teaching span in available records</span></div>
                 </div>
                 <section class="professor-section"><div class="course-detail-card-heading"><h3>Courses taught</h3><span>Alphabetical by course code</span></div><div class="professor-course-list">${courses || '<p class="hint">No course history available.</p>'}</div></section>
-                ${yearly ? `<section class="professor-section"><div class="course-detail-card-heading"><h3>GPA by year</h3><span>Hover over a point for the exact value.</span></div>${yearly}</section>` : ''}
+                ${yearly ? `<section class="professor-section"><div class="course-detail-card-heading"><h3>GPA by year</h3><span>Hover or focus a point for the exact value.</span></div>${yearly}</section>` : ''}
                 <p class="grade-note">Observed teaching history is limited to available records. “&gt;=” means the instructor appears in the earliest available semester and may have taught longer.</p>
             </div>
         `;
