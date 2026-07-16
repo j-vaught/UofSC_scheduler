@@ -1955,12 +1955,28 @@ const Search = {
     setCourseDetailTab(tab, focus = false, historyMode = 'replace') {
         const allowed = new Set(['overview', 'grades', 'history', 'resources']);
         const active = allowed.has(tab) ? tab : 'overview';
+        const scrollContainer = document.getElementById('semester-content');
+        const savedScrollTop = Number(scrollContainer?.scrollTop) || 0;
+        const panelHost = document.querySelector?.('.course-detail-panels');
+        if (scrollContainer && panelHost) {
+            const viewportHeight = Math.max(0, Number(scrollContainer.clientHeight) || 0);
+            const scrollRect = scrollContainer.getBoundingClientRect?.();
+            const panelRect = panelHost.getBoundingClientRect?.();
+            const panelTop = scrollRect && panelRect
+                ? savedScrollTop + panelRect.top - scrollRect.top
+                : Number(panelHost.offsetTop) || 0;
+            const requiredHeight = Math.max(
+                viewportHeight,
+                savedScrollTop + viewportHeight - panelTop,
+            );
+            if (requiredHeight > 0) panelHost.style.minHeight = `${Math.ceil(requiredHeight)}px`;
+        }
         this._detailTab = active;
         document.querySelectorAll('[data-course-tab]').forEach(button => {
             const selected = button.dataset.courseTab === active;
             button.setAttribute('aria-selected', String(selected));
             button.tabIndex = selected ? 0 : -1;
-            if (selected && focus) button.focus();
+            if (selected && focus) button.focus({ preventScroll: true });
         });
         document.querySelectorAll('[data-course-panel]').forEach(panel => {
             panel.hidden = panel.dataset.coursePanel !== active;
@@ -1969,6 +1985,14 @@ const Search = {
         if (this._browseState === 'detail') {
             this.writeCourseDetailHistory({ mode: historyMode });
         }
+        const restoreScroll = () => {
+            if (!scrollContainer
+                || scrollContainer.isConnected === false
+                || this._detailTab !== active) return;
+            scrollContainer.scrollTop = savedScrollTop;
+        };
+        restoreScroll();
+        if (typeof requestAnimationFrame === 'function') requestAnimationFrame(restoreScroll);
     },
 
     loadCourseDetailTab(tab) {

@@ -1694,6 +1694,73 @@ test('Course detail routes persist search context while section and panel change
     assert.equal(history.state.detailParent, historyCalls[0].state.detailParent);
 });
 
+test('Course detail tab changes preserve the detail pane scroll position', () => {
+    const animationFrames = [];
+    const scrollContainer = {
+        clientHeight: 800,
+        getBoundingClientRect: () => ({ top: 0 }),
+        isConnected: true,
+        scrollTop: 640,
+    };
+    const panelHost = {
+        getBoundingClientRect: () => ({ top: 180 }),
+        offsetTop: 820,
+        style: {},
+    };
+    const focusCalls = [];
+    const tabs = ['overview', 'grades', 'history', 'resources'].map(tab => ({
+        dataset: { courseTab: tab },
+        focus(options) {
+            focusCalls.push({ options, tab });
+            if (!options?.preventScroll) scrollContainer.scrollTop = 0;
+        },
+        setAttribute(name, value) { this[name] = value; },
+        tabIndex: -1,
+    }));
+    const panels = ['overview', 'grades', 'history', 'resources'].map(tab => {
+        let hidden = tab !== 'overview';
+        return {
+            dataset: { coursePanel: tab },
+            get hidden() { return hidden; },
+            set hidden(value) {
+                hidden = value;
+                if (tab === 'overview' && value) scrollContainer.scrollTop = 0;
+            },
+        };
+    });
+    const search = loadObject('static/js/search.js', 'Search', {
+        document: {
+            getElementById: id => id === 'semester-content' ? scrollContainer : null,
+            querySelector: selector => selector === '.course-detail-panels' ? panelHost : null,
+            querySelectorAll(selector) {
+                if (selector === '[data-course-tab]') return tabs;
+                if (selector === '[data-course-panel]') return panels;
+                return [];
+            },
+        },
+        requestAnimationFrame: callback => animationFrames.push(callback),
+    });
+    search._browseState = 'detail';
+    search._detailTab = 'overview';
+    search.loadCourseDetailTab = () => {};
+    search.writeCourseDetailHistory = () => {};
+
+    search.setCourseDetailTab('history', true);
+    animationFrames.splice(0).forEach(callback => callback());
+
+    assert.equal(scrollContainer.scrollTop, 640);
+    assert.equal(panelHost.style.minHeight, '800px');
+    assert.equal(focusCalls.length, 1);
+    assert.equal(focusCalls[0].tab, 'history');
+    assert.equal(focusCalls[0].options.preventScroll, true);
+    assert.equal(
+        tabs.find(tab => tab.dataset.courseTab === 'history')['aria-selected'],
+        'true',
+    );
+    assert.equal(panels.find(panel => panel.dataset.coursePanel === 'overview').hidden, true);
+    assert.equal(panels.find(panel => panel.dataset.coursePanel === 'history').hidden, false);
+});
+
 test('A refreshed course detail URL restores its term, section, and active panel', async () => {
     const location = {
         href: 'http://127.0.0.1:8765/?tab=search&term=202608&course=CSCE%20145&crn=10869&panel=grades',
