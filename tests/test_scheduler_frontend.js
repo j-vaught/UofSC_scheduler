@@ -794,6 +794,9 @@ test('schedule actions live in the options panel and quick ICS export is removed
     const optionsHeading = source.slice(optionsStart, optionsEnd);
 
     assert.match(optionsHeading, /id="btn-schedule-preferences"/);
+    assert.match(optionsHeading, /id="btn-schedule-preferences"[^>]*aria-label="Schedule preferences"[^>]*title="Schedule preferences"[^>]*aria-haspopup="dialog"[^>]*aria-controls="modal"/);
+    assert.match(optionsHeading, /id="btn-schedule-preferences"[\s\S]*?<span class="filter-sliders-icon" aria-hidden="true">/);
+    assert.doesNotMatch(optionsHeading, />PREFERENCES<\/button>/);
     assert.match(optionsHeading, /id="btn-solve"/);
     assert.match(optionsHeading, /<div class="schedule-panel-heading">\s*<h3>Schedule Options<\/h3>\s*<\/div>\s*<div class="schedule-panel-actions">/);
     assert.ok(optionsHeading.indexOf('id="btn-solve"') < optionsHeading.indexOf('id="btn-schedule-preferences"'));
@@ -803,6 +806,7 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.match(styles, /#solver-section\s*{[^}]*display:\s*flex;[^}]*overflow:\s*hidden;/s);
     assert.match(styles, /#solver-container\s*{[^}]*flex:\s*1 1 auto;[^}]*overflow-y:\s*auto;/s);
     assert.match(styles, /\.schedule-panel-heading\s*{[^}]*position:\s*sticky;/s);
+    assert.match(styles, /\.schedule-preferences-button\s*{[^}]*display:\s*flex;[^}]*height:\s*28px;[^}]*width:\s*32px;/s);
     assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
 });
 

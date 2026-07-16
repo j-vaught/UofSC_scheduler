@@ -1157,6 +1157,15 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     outline: 2px solid #000000;
     outline-offset: 1px;
 }
+.schedule-preferences-button {
+    align-items: center;
+    display: flex;
+    flex: 0 0 32px;
+    height: 28px;
+    justify-content: center;
+    padding: 0;
+    width: 32px;
+}
 .btn-panel-registration {
     background: #2e7d32;
     color: #FFFFFF;
