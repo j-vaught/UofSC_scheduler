@@ -617,8 +617,13 @@
         // Term change
         document.getElementById('term-select').addEventListener('change', (e) => {
             State.term = e.target.value;
-            if (Search._browseState === 'detail') Search.closeCourseDetail();
-            if (Search.activeSearchInput()?.value.trim()) Search.doSearch();
+            if (Tabs.current() === 'semester') {
+                if (Search._browseState === 'detail') Search.closeCourseDetail();
+                if (Search.activeSearchInput()?.value.trim()) Search.doSearch();
+                else Search.writeSearchHistory('', { mode: 'replace' });
+            } else {
+                Tabs.writeTabHistory(Tabs.current(), 'replace');
+            }
         });
 
         // Home tab: path cards

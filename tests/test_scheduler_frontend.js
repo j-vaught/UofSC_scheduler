@@ -1176,6 +1176,12 @@ test('Top-level tab history preserves Search when returning to an unparameterize
     assert.equal(tabs.current(), 'semester');
 });
 
+test('Changing terms does not run a hidden Search query from another tab', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+
+    assert.match(html, /if \(Tabs\.current\(\) === 'semester'\) \{[\s\S]*Search\.doSearch\(\);[\s\S]*\} else \{[\s\S]*Tabs\.writeTabHistory\(Tabs\.current\(\), 'replace'\);/);
+});
+
 test('Direct search ignores stale prerequisite completions and errors', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
