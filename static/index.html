@@ -417,10 +417,13 @@
                 <!-- Right: Course Details + Mini Calendar -->
                 <section id="semester-content">
                     <div id="course-detail-shell" class="course-detail-shell">
-                        <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
-                        <header id="tab-details" class="course-detail-header">
-                            <p class="hint">Choose a course to see its details.</p>
-                        </header>
+                        <div class="course-detail-header-sticky">
+                            <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
+                            <header id="tab-details" class="course-detail-header">
+                                <p class="hint">Choose a course to see its details.</p>
+                            </header>
+                        </div>
+                        <div id="course-detail-description-wrap" class="course-detail-description-wrap"></div>
                         <section id="course-section-picker-wrap" class="course-section-picker-wrap" hidden>
                             <div class="course-section-picker-heading">
                                 <h2>Choose a section</h2>

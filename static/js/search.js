@@ -32,7 +32,9 @@ const Search = {
     _restoringHistory: false,
     _restoreId: 0,
     _detailMap: null,
+    _detailLocationMarkers: [],
     _filterPreviousFocus: null,
+    _detailTimeLocationPreferenceKey: 'uofsc-course-time-location-expanded-v1',
     // Intentionally memory-only so a browser reload forces fresh search data.
     _searchViewCache: new Map(),
     _searchCacheTtlMs: 60 * 60 * 1000,
@@ -2046,6 +2048,7 @@ const Search = {
 
     renderCourseDetailHeader(details) {
         const header = document.getElementById('tab-details');
+        const descriptionWrap = document.getElementById('course-detail-description-wrap');
         const group = this._detailGroup;
         if (!header || !group) return;
         const availability = this.courseAvailability(group);
@@ -2060,20 +2063,32 @@ const Search = {
             : details === null
                 ? '<p class="course-detail-description loading">Loading course description</p>'
                 : '<p class="course-detail-description unavailable">Course description is unavailable.</p>';
+        const selectedSection = this.currentDetailSection();
+        const sectionContext = selectedSection
+            ? `Section ${selectedSection.section || '—'} · CRN ${selectedSection.crn}`
+            : 'No section selected';
         header.innerHTML = `
-            <div class="course-detail-kicker">Course details</div>
-            <div class="course-detail-title-row">
-                <div>
-                    <h1><span>${this.escapeText(group.code)}</span>${this.escapeText(details?.title || group.title || '')}</h1>
-                    <p class="course-detail-availability ${availability.kind}">${availability.text}</p>
+            <div class="course-detail-header-topline">
+                <div class="course-detail-kicker">Course details</div>
+                <div class="course-detail-header-controls">
+                    <div class="course-detail-primary-actions">
+                        <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unavailable ? 'This course has no sections in the selected term' : 'Add this course so the scheduler can choose a section'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
+                        <button id="btn-course-view-schedule" type="button" class="btn-header-secondary" title="Open the semester schedule builder">VIEW SCHEDULE</button>
+                    </div>
+                    <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
                 </div>
-                <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
             </div>
-            ${descriptionMarkup}
-            <div class="course-detail-primary-actions">
-                <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unavailable ? 'This course has no sections in the selected term' : 'Add this course so the scheduler can choose a section'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
+            <div class="course-detail-title-row">
+                <div class="course-detail-title-copy">
+                    <h1><span>${this.escapeText(group.code)}</span>${this.escapeText(details?.title || group.title || '')}</h1>
+                    <div class="course-detail-header-meta">
+                        <p class="course-detail-availability ${availability.kind}">${availability.text}</p>
+                        <span>${this.escapeText(sectionContext)}</span>
+                    </div>
+                </div>
             </div>
         `;
+        if (descriptionWrap) descriptionWrap.innerHTML = descriptionMarkup;
         header.querySelector('#btn-course-toggle')?.addEventListener('click', async () => {
             if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
             else await Scheduler.addCourseGroup(this._detailGroup);
@@ -2081,6 +2096,9 @@ const Search = {
             this.renderCourseDetailHeader(this._detailDetails);
             const cached = this._detailSectionData?.[this._detailSectionCrn];
             this.renderSectionSummary(this.currentDetailSection(), cached?.details, cached?.faculty || []);
+        });
+        header.querySelector('#btn-course-view-schedule')?.addEventListener('click', () => {
+            Tabs.switchTo('schedule');
         });
     },
 
@@ -2162,6 +2180,7 @@ const Search = {
         this._detailSectionCrn = String(section?.crn || '');
         this._detailFaculty = [];
         this.destroyDetailMap();
+        if (this._browseState === 'detail') this.renderCourseDetailHeader(this._detailDetails);
         let selectedButton = null;
         document.querySelectorAll('[data-detail-crn]').forEach(button => {
             const selected = String(button.dataset.detailCrn) === this._detailSectionCrn;
@@ -2218,16 +2237,41 @@ const Search = {
     },
 
     detailMeetingEvents(section, details = null) {
-        let events = [];
-        if (typeof WalkingMap !== 'undefined' && WalkingMap.parseMeetingTimes) {
-            events = WalkingMap.parseMeetingTimes(section?.meetingTimes || '');
-        }
-        if (!events.length && details?.meeting_html && typeof WalkingMap !== 'undefined') {
-            const parsed = WalkingMap.parseMeetingDetails(details.meeting_html);
-            events = parsed.flatMap(meeting => meeting.days.map(day => ({
+        const canUseWalkingMap = typeof WalkingMap !== 'undefined';
+        const detailMeetings = details?.meeting_html && canUseWalkingMap && WalkingMap.parseMeetingDetails
+            ? WalkingMap.parseMeetingDetails(details.meeting_html)
+            : [];
+        const listedEvents = canUseWalkingMap && WalkingMap.parseMeetingTimes
+            ? WalkingMap.parseMeetingTimes(section?.meetingTimes || '')
+            : [];
+        const fallbackLocation = section?.location || section?.building || '';
+        const resolveBuilding = rawLocation => (
+            canUseWalkingMap && WalkingMap.resolveBuilding
+                ? WalkingMap.resolveBuilding(rawLocation)
+                : null
+        );
+        let events = listedEvents.map(event => {
+            const exact = detailMeetings.find(meeting => (
+                meeting.days?.includes(event.day)
+                && Number.isFinite(meeting.start)
+                && Math.abs(meeting.start - event.start) <= 5
+            ));
+            const sameDay = detailMeetings.find(meeting => meeting.days?.includes(event.day));
+            const meeting = exact || sameDay || detailMeetings[0] || null;
+            const rawLocation = meeting?.rawLocation || fallbackLocation;
+            return {
+                ...event,
+                rawLocation,
+                building: meeting?.building || resolveBuilding(rawLocation),
+            };
+        });
+        if (!events.length) {
+            events = detailMeetings.flatMap(meeting => (meeting.days || []).map(day => ({
                 day,
                 start: meeting.start,
                 end: meeting.end,
+                rawLocation: meeting.rawLocation || fallbackLocation,
+                building: meeting.building || resolveBuilding(meeting.rawLocation || fallbackLocation),
             })));
         }
         return events.filter(event => Number.isFinite(event.day)
@@ -2236,31 +2280,264 @@ const Search = {
             && event.end > event.start);
     },
 
-    renderSectionCalendar(section, details = null) {
-        const events = this.detailMeetingEvents(section, details);
+    sectionCalendarRange(events) {
+        const earliestAllowed = 8 * 60;
+        const latestAllowed = 21 * 60;
+        const minimumSpan = 4 * 60;
+        if (!events.length) return { start: earliestAllowed, end: earliestAllowed + minimumSpan };
+        const earliest = Math.min(...events.map(event => event.start));
+        const latest = Math.max(...events.map(event => event.end));
+        let start = Math.max(earliestAllowed, earliest - 30);
+        let end = Math.min(latestAllowed, latest + 30);
+        if (end <= start) return { start: earliestAllowed, end: earliestAllowed + minimumSpan };
+        if (end - start < minimumSpan) {
+            end = start + minimumSpan;
+            if (end > latestAllowed) {
+                end = latestAllowed;
+                start = Math.max(earliestAllowed, end - minimumSpan);
+            }
+        }
+        return { start, end };
+    },
+
+    formatSectionTime(minutes) {
+        if (typeof WalkingMap !== 'undefined' && WalkingMap.formatTime) {
+            return WalkingMap.formatTime(minutes);
+        }
+        const hour24 = Math.floor(minutes / 60);
+        const minute = minutes % 60;
+        const hour12 = hour24 % 12 || 12;
+        return `${hour12}:${String(minute).padStart(2, '0')} ${hour24 >= 12 ? 'PM' : 'AM'}`;
+    },
+
+    sectionLocationStyle(index) {
+        const palette = [
+            { color: '#73000A', foreground: '#FFFFFF' },
+            { color: '#466A9F', foreground: '#FFFFFF' },
+            { color: '#1F414D', foreground: '#FFFFFF' },
+            { color: '#65780B', foreground: '#FFFFFF' },
+            { color: '#CC2E40', foreground: '#FFFFFF' },
+            { color: '#000000', foreground: '#FFFFFF' },
+        ];
+        return palette[index % palette.length];
+    },
+
+    sectionTimeLocationData(section, details = null) {
+        const locations = [];
+        const locationIndexes = new Map();
+        const events = this.detailMeetingEvents(section, details).map((event, eventIndex) => {
+            const rawLocation = String(
+                event.rawLocation || section?.location || section?.building || '',
+            ).trim();
+            let building = event.building || null;
+            if ((!building || building.kind === 'unknown')
+                && rawLocation
+                && typeof WalkingMap !== 'undefined'
+                && WalkingMap.resolveBuilding) {
+                building = WalkingMap.resolveBuilding(rawLocation);
+            }
+            const isOnline = building?.kind === 'online'
+                || /\bonline\b|\bweb\b|\bremote\b|\bvirtual\b/i.test(rawLocation);
+            let locationIndex = null;
+            if (rawLocation && !isOnline) {
+                const normalized = typeof WalkingMap !== 'undefined' && WalkingMap.normalizeLocation
+                    ? WalkingMap.normalizeLocation(rawLocation)
+                    : rawLocation.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+                const buildingKey = building?.kind === 'known'
+                    ? building.code || building.id || `${building.lat}:${building.lon}`
+                    : normalized;
+                const key = `${building?.kind === 'known' ? 'building' : 'location'}:${buildingKey}`;
+                if (!locationIndexes.has(key)) {
+                    locationIndex = locations.length;
+                    locationIndexes.set(key, locationIndex);
+                    locations.push({
+                        index: locationIndex,
+                        number: locationIndex + 1,
+                        label: rawLocation || building?.name || 'Campus location',
+                        building,
+                        ...this.sectionLocationStyle(locationIndex),
+                    });
+                } else {
+                    locationIndex = locationIndexes.get(key);
+                }
+            }
+            const style = Number.isInteger(locationIndex)
+                ? this.sectionLocationStyle(locationIndex)
+                : { color: '#5C5C5C', foreground: '#FFFFFF' };
+            return {
+                ...event,
+                eventIndex,
+                rawLocation,
+                building,
+                locationIndex,
+                locationNumber: Number.isInteger(locationIndex) ? locationIndex + 1 : null,
+                ...style,
+            };
+        });
+        const range = this.sectionCalendarRange(events);
+        const dayCount = events.some(event => event.day > 4) ? 7 : 5;
+        return {
+            events,
+            locations,
+            range,
+            dayCount,
+            rangeLabel: `${this.formatSectionTime(range.start)}–${this.formatSectionTime(range.end)}`,
+        };
+    },
+
+    renderSectionLocationKey(timeLocation) {
+        if (!timeLocation.locations.length) {
+            return '<li class="section-location-key-empty">No campus location is listed.</li>';
+        }
+        return timeLocation.locations.map(location => {
+            const unavailable = location.building?.kind !== 'known';
+            return `<li style="--location-color:${location.color};--location-foreground:${location.foreground}"><b>${location.number}</b><span>${this.escapeText(location.label)}</span>${unavailable ? '<em>Map location unavailable</em>' : ''}</li>`;
+        }).join('');
+    },
+
+    renderSectionCalendar(section, details = null, timeLocation = null) {
+        const view = timeLocation || this.sectionTimeLocationData(section, details);
+        const { events, range, dayCount } = view;
         if (!events.length) {
             return '<div class="section-visual-empty">No scheduled meeting pattern is listed.</div>';
         }
-        const dayCount = events.some(event => event.day > 4) ? 7 : 5;
         const dayNames = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'].slice(0, dayCount);
         const dayLabels = dayNames.map((day, index) => `<strong style="grid-column:${index + 2};grid-row:1">${day}</strong>`).join('');
-        const dayTracks = dayNames.map((day, index) => `<i class="section-calendar-track" aria-hidden="true" style="grid-column:${index + 2};grid-row:2 / span 28"></i>`).join('');
-        const timeLabels = [8, 10, 12, 14, 16, 18, 20].map(hour => {
-            const label = hour === 12 ? '12 PM' : `${hour > 12 ? hour - 12 : hour} ${hour >= 12 ? 'PM' : 'AM'}`;
-            return `<span class="section-calendar-time" style="grid-column:1;grid-row:${2 + (hour - 8) * 2} / span 2">${label}</span>`;
-        }).join('');
+        const rowCount = Math.max(1, Math.ceil((range.end - range.start) / 5));
+        const dayTracks = dayNames.map((day, index) => `<i class="section-calendar-track" aria-hidden="true" style="grid-column:${index + 2};grid-row:2 / span ${rowCount}"></i>`).join('');
+        const halfHourLines = [];
+        for (let minute = Math.ceil(range.start / 30) * 30; minute < range.end; minute += 30) {
+            const hourClass = minute % 60 === 0 ? ' hour' : '';
+            const row = 2 + Math.floor((minute - range.start) / 5);
+            halfHourLines.push(`<i class="section-calendar-half-hour${hourClass}" aria-hidden="true" style="grid-column:2 / -1;grid-row:${row}"></i>`);
+        }
+        const timeLabels = [];
+        const labelMinutes = [range.start];
+        for (let minute = Math.ceil(range.start / 60) * 60; minute < range.end; minute += 60) {
+            if (minute > range.start) labelMinutes.push(minute);
+        }
+        labelMinutes.forEach(minute => {
+            const row = 2 + Math.floor((minute - range.start) / 5);
+            timeLabels.push(`<span class="section-calendar-time" style="grid-column:1;grid-row:${row} / span 6">${this.escapeText(this.formatSectionTime(minute))}</span>`);
+        });
         const blocks = events.map(event => {
-            const start = Math.max(480, Math.min(1319, event.start));
-            const end = Math.max(start + 1, Math.min(1320, event.end));
-            const row = 2 + Math.floor((start - 480) / 30);
-            const span = Math.max(2, Math.ceil((end - start) / 30));
-            const format = minutes => typeof WalkingMap !== 'undefined'
-                ? WalkingMap.formatTime(minutes)
-                : `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, '0')}`;
-            const title = `${dayNames[event.day]} ${format(event.start)}–${format(event.end)}`;
-            return `<span class="section-calendar-event" title="${this.escapeText(title)}" aria-label="${this.escapeText(title)}" style="grid-column:${event.day + 2};grid-row:${row} / span ${span}">${this.escapeText(format(event.start).replace(' ', ''))}</span>`;
+            const start = Math.max(range.start, event.start);
+            const end = Math.min(range.end, event.end);
+            if (end <= start || event.day < 0 || event.day >= dayCount) return '';
+            const row = 2 + Math.floor((start - range.start) / 5);
+            const span = Math.max(1, Math.ceil((end - start) / 5));
+            const location = event.rawLocation ? ` · ${event.rawLocation}` : '';
+            const title = `${dayNames[event.day]} ${this.formatSectionTime(event.start)}–${this.formatSectionTime(event.end)}${location}`;
+            const locationAttribute = Number.isInteger(event.locationIndex)
+                ? ` data-location-index="${event.locationIndex}"`
+                : '';
+            const locationNumber = event.locationNumber
+                ? `<b class="section-calendar-location-number" aria-hidden="true">${event.locationNumber}</b>`
+                : '';
+            const focusable = event.locationNumber ? ' tabindex="0"' : '';
+            return `<span${focusable} class="section-calendar-event"${locationAttribute} title="${this.escapeText(title)}" aria-label="${this.escapeText(title)}" style="--event-color:${event.color};--event-foreground:${event.foreground};grid-column:${event.day + 2};grid-row:${row} / span ${span}">${locationNumber}<span>${this.escapeText(this.formatSectionTime(event.start).replace(' ', ''))}</span></span>`;
         }).join('');
-        return `<div class="section-mini-calendar-grid" role="img" aria-label="Weekly meeting calendar from 8 AM to 10 PM" style="grid-template-columns:42px repeat(${dayCount}, minmax(0, 1fr))">${dayLabels}${timeLabels}${dayTracks}${blocks}</div>`;
+        const label = `Weekly meeting calendar from ${this.formatSectionTime(range.start)} to ${this.formatSectionTime(range.end)}`;
+        return `<div class="section-mini-calendar-grid" role="group" aria-label="${this.escapeText(label)}" style="grid-template-columns:48px repeat(${dayCount}, minmax(0, 1fr));grid-template-rows:28px repeat(${rowCount}, minmax(2px, 1fr))">${dayLabels}${timeLabels.join('')}${dayTracks}${halfHourLines.join('')}${blocks}</div>`;
+    },
+
+    bindSectionTimeLocationInteractions(root) {
+        root?.querySelectorAll?.('.section-calendar-event[data-location-index]').forEach(block => {
+            const locationIndex = Number(block.dataset.locationIndex);
+            block.addEventListener('mouseenter', () => this.setSectionLocationInteractionState(block, locationIndex, 'hover', true));
+            block.addEventListener('mouseleave', () => this.setSectionLocationInteractionState(block, locationIndex, 'hover', false));
+            block.addEventListener('focus', () => this.setSectionLocationInteractionState(block, locationIndex, 'focus', true));
+            block.addEventListener('blur', () => this.setSectionLocationInteractionState(block, locationIndex, 'focus', false));
+        });
+    },
+
+    setSectionLocationInteractionState(element, locationIndex, state, active) {
+        if (!element) return;
+        const property = state === 'focus' ? 'locationFocus' : 'locationHover';
+        if (active) element.dataset[property] = 'true';
+        else delete element.dataset[property];
+        this.syncSectionLocationHighlight(locationIndex);
+    },
+
+    syncSectionLocationHighlight(locationIndex) {
+        const root = document.getElementById('course-section-summary');
+        const blocks = [...(root?.querySelectorAll?.(`.section-calendar-event[data-location-index="${locationIndex}"]`) || [])];
+        const markerElement = this._detailLocationMarkers?.[locationIndex]?.getElement?.();
+        const sources = markerElement ? [...blocks, markerElement] : blocks;
+        const active = sources.some(element => (
+            element.dataset.locationHover === 'true'
+            || element.dataset.locationFocus === 'true'
+        ));
+        this.setSectionLocationHighlight(locationIndex, active);
+    },
+
+    setSectionLocationHighlight(locationIndex, active) {
+        const root = document.getElementById('course-section-summary');
+        root?.querySelectorAll?.(`.section-calendar-event[data-location-index="${locationIndex}"]`)
+            .forEach(block => block.classList.toggle('is-location-highlighted', active));
+        const marker = this._detailLocationMarkers?.[locationIndex];
+        const markerElement = marker?.getElement?.();
+        markerElement?.classList.toggle('is-location-highlighted', active);
+        marker?.setZIndexOffset?.(active ? 1000 : 0);
+    },
+
+    detailTimeLocationExpanded() {
+        try {
+            if (typeof localStorage === 'undefined') return true;
+            return localStorage.getItem(this._detailTimeLocationPreferenceKey) !== 'false';
+        } catch (error) {
+            return true;
+        }
+    },
+
+    setDetailTimeLocationExpanded(expanded) {
+        try {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem(this._detailTimeLocationPreferenceKey, String(Boolean(expanded)));
+            }
+        } catch (error) {
+            // A blocked preference store should not prevent the control from working.
+        }
+    },
+
+    bindDetailTimeLocationPreference(root, { onExpand, onCollapse } = {}) {
+        const disclosure = root?.querySelector?.('[data-time-location-toggle]');
+        const content = root?.querySelector?.('[data-time-location-content]');
+        const expanded = this.detailTimeLocationExpanded();
+        if (!disclosure || !content) return expanded;
+        const isDetails = String(disclosure.tagName || '').toUpperCase() === 'DETAILS';
+        const control = isDetails ? disclosure.querySelector('summary') : disclosure;
+        const reflect = value => {
+            if (isDetails) disclosure.open = value;
+            content.hidden = !value;
+            control?.setAttribute('aria-expanded', String(value));
+        };
+        const changed = value => {
+            content.hidden = !value;
+            control?.setAttribute('aria-expanded', String(value));
+            this.setDetailTimeLocationExpanded(value);
+            if (value) onExpand?.();
+            else onCollapse?.();
+        };
+        reflect(expanded);
+        if (isDetails) {
+            disclosure.addEventListener('toggle', () => changed(Boolean(disclosure.open)));
+        } else {
+            disclosure.addEventListener('click', () => {
+                const next = control?.getAttribute('aria-expanded') !== 'true';
+                reflect(next);
+                changed(next);
+            });
+        }
+        return expanded;
+    },
+
+    detailTimeLocationVisible(container) {
+        const content = container?.closest?.('[data-time-location-content]');
+        if (!content) return true;
+        if (content.hidden) return false;
+        const details = content.closest?.('details[data-time-location-toggle]');
+        return !details || details.open;
     },
 
     sectionRegistrationNotes(details = null) {
@@ -2284,6 +2561,7 @@ const Search = {
     },
 
     destroyDetailMap() {
+        this._detailLocationMarkers = [];
         if (!this._detailMap) return;
         try { this._detailMap.remove(); } catch (error) { /* Map cleanup is best effort. */ }
         this._detailMap = null;
@@ -2292,30 +2570,33 @@ const Search = {
     async renderSectionMap(section, details = null) {
         const container = document.getElementById('course-section-map');
         if (!container || !section || typeof WalkingMap === 'undefined') return;
+        if (!this.detailTimeLocationVisible(container)) return;
         const request = this._sectionDetailToken;
         const crn = String(section.crn || '');
         if (!WalkingMap.buildings?.length && WalkingMap.loadBuildings) {
             await WalkingMap.loadBuildings();
-            if (request !== this._sectionDetailToken || crn !== this._detailSectionCrn) return;
+            if (request !== this._sectionDetailToken
+                || crn !== this._detailSectionCrn
+                || !this.detailTimeLocationVisible(container)) return;
         }
-        const meetings = details?.meeting_html ? WalkingMap.parseMeetingDetails(details.meeting_html) : [];
-        const buildings = [];
-        const seenBuildings = new Set();
-        meetings.map(meeting => meeting.building).filter(item => item?.kind === 'known').forEach(building => {
-            const key = building.code || building.id || `${building.lat}:${building.lon}`;
-            if (seenBuildings.has(key)) return;
-            seenBuildings.add(key);
-            buildings.push(building);
-        });
-        if (!buildings.length) {
-            const rawLocation = meetings.find(meeting => meeting.rawLocation)?.rawLocation
-                || section.location
-                || section.building
-                || '';
-            const building = WalkingMap.resolveBuilding(rawLocation);
-            if (building?.kind === 'known') buildings.push(building);
+        const timeLocation = this.sectionTimeLocationData(section, details);
+        const timeLocationRoot = container.closest?.('.course-time-location');
+        const calendarHost = timeLocationRoot?.querySelector?.('[data-section-calendar]');
+        if (calendarHost) {
+            calendarHost.innerHTML = this.renderSectionCalendar(section, details, timeLocation);
+            const rangeLabel = timeLocationRoot.querySelector?.('[data-calendar-range]');
+            if (rangeLabel) rangeLabel.textContent = timeLocation.rangeLabel;
+            this.bindSectionTimeLocationInteractions(timeLocationRoot);
         }
-        if (!buildings.length) {
+        const locationKey = timeLocationRoot?.querySelector?.('[data-location-key]');
+        if (locationKey) locationKey.innerHTML = this.renderSectionLocationKey(timeLocation);
+        const locations = timeLocation.locations.filter(location => (
+            location.building?.kind === 'known'
+            && Number.isFinite(Number(location.building.lat))
+            && Number.isFinite(Number(location.building.lon))
+        ));
+        this._detailLocationMarkers = [];
+        if (!locations.length) {
             container.innerHTML = '<div class="section-visual-empty">No campus map location is available for this section.</div>';
             return;
         }
@@ -2323,7 +2604,8 @@ const Search = {
             await WalkingMap.loadLeaflet();
             if (request !== this._sectionDetailToken
                 || crn !== this._detailSectionCrn
-                || !container.isConnected) return;
+                || !container.isConnected
+                || !this.detailTimeLocationVisible(container)) return;
             this.destroyDetailMap();
             container.replaceChildren();
             this._detailMap = L.map(container, {
@@ -2337,18 +2619,39 @@ const Search = {
                 attribution: '&copy; OpenStreetMap contributors',
             }).addTo(this._detailMap);
             const bounds = L.latLngBounds([]);
-            buildings.forEach(building => {
+            locations.forEach(location => {
+                const { building } = location;
                 bounds.extend([building.lat, building.lon]);
-                L.marker([building.lat, building.lon], {
+                const markerLabel = `Location ${location.number}: ${location.label || building.name}`;
+                const meetingLabels = [...new Set(timeLocation.events
+                    .filter(event => event.locationIndex === location.index)
+                    .map(event => {
+                        const day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][event.day] || '';
+                        return `${day} ${this.formatSectionTime(event.start)}–${this.formatSectionTime(event.end)}`;
+                    }))];
+                const marker = L.marker([building.lat, building.lon], {
+                    alt: markerLabel,
+                    title: markerLabel,
+                    keyboard: true,
+                    riseOnHover: true,
                     icon: L.divIcon({
                         className: '',
-                        html: '<span class="course-section-map-pin" aria-hidden="true"></span>',
-                        iconSize: [22, 22],
-                        iconAnchor: [11, 11],
+                        html: `<span class="course-section-map-pin" aria-hidden="true" style="--location-color:${location.color};--location-foreground:${location.foreground}">${location.number}</span>`,
+                        iconSize: [30, 30],
+                        iconAnchor: [15, 15],
                     }),
-                }).bindPopup(`<strong>${this.escapeText(building.name)}</strong>`).addTo(this._detailMap);
+                }).bindPopup(`<strong>${this.escapeText(markerLabel)}</strong>${meetingLabels.length ? `<span>${this.escapeText(meetingLabels.join(' · '))}</span>` : ''}`).addTo(this._detailMap);
+                this._detailLocationMarkers[location.index] = marker;
+                const markerElement = marker.getElement?.();
+                markerElement?.addEventListener('mouseenter', () => this.setSectionLocationInteractionState(markerElement, location.index, 'hover', true));
+                markerElement?.addEventListener('mouseleave', () => this.setSectionLocationInteractionState(markerElement, location.index, 'hover', false));
+                markerElement?.addEventListener('focus', () => this.setSectionLocationInteractionState(markerElement, location.index, 'focus', true));
+                markerElement?.addEventListener('blur', () => this.setSectionLocationInteractionState(markerElement, location.index, 'focus', false));
             });
-            if (buildings.length === 1) this._detailMap.setView([buildings[0].lat, buildings[0].lon], 17);
+            if (locations.length === 1) {
+                const building = locations[0].building;
+                this._detailMap.setView([building.lat, building.lon], 17);
+            }
             else this._detailMap.fitBounds(bounds, { maxZoom: 17, padding: [32, 32] });
             setTimeout(() => this._detailMap?.invalidateSize(), 0);
         } catch (error) {
@@ -2378,12 +2681,13 @@ const Search = {
                 ? Grades.displayProfessorName(instructorRawName)
                 : instructorRawName);
         const locked = String(State.sectionLocks?.[group.code] || '') === String(section.crn);
-        const courseSelected = State.isCourseSelected(group.code);
+        const sectionLabel = this.escapeText(section.section || '—');
         const actionLabel = locked
-            ? 'USE ANY OPEN SECTION'
-            : courseSelected
-                ? 'USE THIS SECTION'
-                : 'ADD COURSE AND USE THIS SECTION';
+            ? 'LET SCHEDULER CHOOSE'
+            : 'ADD THIS SECTION TO SCHEDULE';
+        const actionTitle = locked
+            ? 'Allow the scheduler to choose any eligible section'
+            : `Use Section ${sectionLabel} in every generated schedule`;
         const seatKind = seatsAvailable !== undefined
             ? (Number(seatsAvailable) > 0 ? 'open' : 'full')
             : (section.stat === 'A' ? 'open' : 'full');
@@ -2392,6 +2696,7 @@ const Search = {
             : (section.stat === 'A' ? 'Seats available' : 'Section full');
         const seatSecondary = seatsMax ? `${seatsAvailable || 0} of ${seatsMax} seats` : (section.stat === 'A' ? 'Listed as open' : 'Listed as full');
         const fullNotice = seatKind === 'open' ? '' : '<p class="course-section-full-note">You can still use this full section for planning.</p>';
+        const timeLocation = this.sectionTimeLocationData(section, details);
         container.innerHTML = `
             <div class="course-section-summary-heading">
                 <div><span>Viewing</span><strong>Section ${this.escapeText(section.section || '—')}</strong></div>
@@ -2409,16 +2714,28 @@ const Search = {
             </div>
             ${fullNotice}
             <div class="course-section-actions">
-                <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}" title="${locked ? 'Let the scheduler choose any open section for this course' : 'Require this exact section in every generated schedule'}">${actionLabel}</button>
-                <button id="btn-view-schedule" type="button" class="btn-secondary" title="Open the semester schedule builder">VIEW SCHEDULE</button>
-            </div>
-            <div class="course-section-visuals">
-                <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Weekly meeting pattern</strong><span>8 AM–10 PM</span></div>${this.renderSectionCalendar(section, details)}</section>
-                <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Campus location</strong><span>${this.escapeText(locations)}</span></div><div id="course-section-map" class="course-section-map" role="region" aria-label="Selected section campus location"></div></section>
+                <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}" title="${actionTitle}">${actionLabel}</button>
             </div>
             ${this.sectionRegistrationNotes(details)}
+            <details class="course-time-location" data-time-location-toggle open>
+                <summary id="course-time-location-toggle" class="course-time-location-toggle" aria-expanded="true" aria-controls="course-time-location-content">
+                    <span><strong>Time &amp; location</strong><small>Weekly meeting pattern and campus map</small></span>
+                    <i aria-hidden="true"></i>
+                </summary>
+                <div id="course-time-location-content" class="course-time-location-content" data-time-location-content>
+                    <div class="course-section-visuals">
+                        <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Weekly meeting pattern</strong><span data-calendar-range>${this.escapeText(timeLocation.rangeLabel)}</span></div><div data-section-calendar>${this.renderSectionCalendar(section, details, timeLocation)}</div></section>
+                        <section class="course-section-visual-card"><div class="course-section-visual-heading"><strong>Campus locations</strong><span>${this.escapeText(locations)}</span></div><div id="course-section-map" class="course-section-map" role="region" aria-label="All listed section campus locations"></div><ol class="course-section-location-key" data-location-key aria-label="Meeting location key">${this.renderSectionLocationKey(timeLocation)}</ol></section>
+                    </div>
+                </div>
+            </details>
         `;
-        requestAnimationFrame(() => this.renderSectionMap(section, details));
+        this.bindSectionTimeLocationInteractions(container);
+        const initialTimeLocationExpanded = this.bindDetailTimeLocationPreference(container, {
+            onExpand: () => requestAnimationFrame(() => this.renderSectionMap(section, details)),
+            onCollapse: () => this.destroyDetailMap(),
+        });
+        if (initialTimeLocationExpanded) requestAnimationFrame(() => this.renderSectionMap(section, details));
         container.querySelector('#btn-use-detail-section')?.addEventListener('click', async () => {
             if (!State.isCourseSelected(group.code)) await Scheduler.addCourseGroup(this._detailGroup);
             State.setSectionLock(group.code, locked ? null : section.crn);
@@ -2426,7 +2743,6 @@ const Search = {
             this.renderCourseDetailHeader(this._detailDetails);
             this.renderSectionSummary(section, details, faculty);
         });
-        container.querySelector('#btn-view-schedule')?.addEventListener('click', () => Tabs.switchTo('schedule'));
         container.querySelector('#btn-section-professor')?.addEventListener('click', () => {
             if (typeof Grades === 'undefined') return;
             if (primaryFaculty?.professor_id) {
@@ -2485,22 +2801,21 @@ const Search = {
         form.remove();
     },
 
-    bulletinResourceCards(courseCode) {
-        const match = String(courseCode || '').match(/^([A-Z]+)\s*(\d{3})/i);
-        if (!match) return '';
-        const subject = match[1].toLowerCase();
-        const number = Number(match[2]);
-        const undergraduate = `https://academicbulletins.sc.edu/undergraduate/course-descriptions/${subject}/`;
-        const graduate = `https://academicbulletins.sc.edu/graduate/course-descriptions/${subject}/`;
-        if (number < 500) {
-            return `<a class="course-resource-card" href="${undergraduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} undergraduate bulletin page"><small>Official</small><strong>Academic Bulletin</strong><span>${match[1].toUpperCase()} undergraduate course descriptions</span></a>`;
-        }
-        if (number < 600) {
-            return `
-                <a class="course-resource-card" href="${undergraduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} undergraduate bulletin page"><small>Official</small><strong>Undergraduate Bulletin</strong><span>${match[1].toUpperCase()} 500-level course descriptions</span></a>
-                <a class="course-resource-card" href="${graduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} graduate bulletin page"><small>Official</small><strong>Graduate Bulletin</strong><span>${match[1].toUpperCase()} 500-level course descriptions</span></a>`;
-        }
-        return `<a class="course-resource-card" href="${graduate}" target="_blank" rel="noopener noreferrer" title="Open the ${match[1].toUpperCase()} graduate bulletin page"><small>Official</small><strong>Academic Bulletin</strong><span>${match[1].toUpperCase()} graduate course descriptions</span></a>`;
+    bulletinResourceUrl(courseCode) {
+        const url = new URL('https://academicbulletins.sc.edu/search/');
+        url.searchParams.set('P', String(courseCode || '').trim());
+        return url.href;
+    },
+
+    syllabusResourceUrl(courseCode) {
+        const match = String(courseCode || '').trim().match(/^([A-Z]{2,4})\s*(\d{3}[A-Z]?)/i);
+        if (!match) return 'https://www.sc.edu/syllabusarchive/';
+        const url = new URL('https://www.sc.edu/syllabusarchive/studentcourselist.php');
+        url.searchParams.set('designator', match[1].toUpperCase());
+        url.searchParams.set('courseNumber', match[2].toUpperCase());
+        url.searchParams.set('instructor', '');
+        url.searchParams.set('term', 'all');
+        return url.href;
     },
 
     renderCourseResources(section = this.currentDetailSection(), faculty = this._detailFaculty || []) {
@@ -2512,7 +2827,6 @@ const Search = {
         const professor = typeof Grades !== 'undefined' && Grades.displayProfessorName
             ? Grades.displayProfessorName(professorRaw)
             : professorRaw;
-        const subject = String(group.code || '').split(' ')[0];
         const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina course review`);
         const professorQuery = encodeURIComponent(`${professor} University of South Carolina professor`);
         const sectionDetails = this._detailSectionData?.[String(section?.crn || '')]?.details || null;
@@ -2521,29 +2835,33 @@ const Search = {
         const classDetailsUrl = section?.crn
             ? `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&crn=${encodeURIComponent(section.crn)}`
             : `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&code=${encodeURIComponent(group.code)}`;
+        const bulletinUrl = this.bulletinResourceUrl(group.code);
+        const syllabusUrl = this.syllabusResourceUrl(group.code);
         const bookstoreCard = bookstoreOrder
-            ? '<button id="btn-resource-bookstore" type="button" class="course-resource-card" title="Open official materials for the selected section in a new tab"><small>Official</small><strong>Bookstore materials</strong><span>Open the selected section’s required and recommended materials</span></button>'
+            ? '<button id="btn-resource-bookstore" type="button" class="course-resource-link" title="Open official materials for the selected section in a new tab"><span><strong>Bookstore materials</strong><small>Required and recommended materials for this section</small></span><b aria-hidden="true">↗</b></button>'
             : hasSelectedSection
-                ? `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open official class details and use Order Books"><small>Official</small><strong>Bookstore materials</strong><span>Open class details, then choose Order Books</span></a>`
-                : `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Find a current section before opening its books"><small>Official</small><strong>Bookstore materials</strong><span>Choose a current section, then use Order Books</span></a>`;
+                ? `<a class="course-resource-link" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open official class details and use Order Books"><span><strong>Bookstore materials</strong><small>Open class details, then choose Order Books</small></span><b aria-hidden="true">↗</b></a>`
+                : `<a class="course-resource-link" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Find a current section before opening its books"><span><strong>Bookstore materials</strong><small>Choose a current section, then use Order Books</small></span><b aria-hidden="true">↗</b></a>`;
         container.innerHTML = `
-            <section class="course-resource-group">
-                <div class="course-resource-group-heading"><h2>Official university resources</h2><span>${hasSelectedSection ? `Selected section ${this.escapeText(section.section || '—')}` : 'Course-wide links'}</span></div>
-                <div class="course-resource-grid">
-                    <a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open the official class-search record for this section"><small>Official</small><strong>Class details</strong><span>Meeting, registration, deadline, and final-exam information</span></a>
+            <div class="course-resource-layout">
+            <section class="course-resource-section official">
+                <header><div><span>Official university</span><h2>Course resources</h2></div><small>${hasSelectedSection ? `Section ${this.escapeText(section.section || '—')}` : 'Course-wide'}</small></header>
+                <div class="course-resource-list">
+                    <a class="course-resource-link" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open the official class-search record for this section"><span><strong>Class details</strong><small>Meeting, registration, deadlines, and final-exam information</small></span><b aria-hidden="true">↗</b></a>
                     ${bookstoreCard}
-                    ${this.bulletinResourceCards(group.code)}
-                    <a class="course-resource-card" href="https://www.sc.edu/syllabusarchive/" target="_blank" rel="noopener noreferrer" title="Open the official syllabus archive"><small>Official · Sign-in required</small><strong>Syllabus archive</strong><span>Search for ${this.escapeText(subject)}${professor ? ` and ${this.escapeText(professor)}` : ''}</span></a>
-                    ${professor ? `<a class="course-resource-card" href="https://sc.edu/about/directory/" target="_blank" rel="noopener noreferrer" title="Open the official faculty and staff directory"><small>Official</small><strong>Faculty directory</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
+                    <a class="course-resource-link" href="${bulletinUrl}" target="_blank" rel="noopener noreferrer" title="Open exact Academic Bulletin results for ${this.escapeText(group.code)}"><span><strong>Academic Bulletin</strong><small>Official catalog entry for ${this.escapeText(group.code)}</small></span><b aria-hidden="true">↗</b></a>
+                    <a class="course-resource-link" href="${syllabusUrl}" target="_blank" rel="noopener noreferrer" title="Open all archived syllabi for ${this.escapeText(group.code)}"><span><strong>Syllabus archive</strong><small>All available terms and instructors · Sign-in may be required</small></span><b aria-hidden="true">↗</b></a>
+                    ${professor ? `<a class="course-resource-link" href="https://sc.edu/about/directory/" target="_blank" rel="noopener noreferrer" title="Open the official faculty and staff directory"><span><strong>Faculty directory</strong><small>Find ${this.escapeText(professor)} in the university directory</small></span><b aria-hidden="true">↗</b></a>` : ''}
                 </div>
             </section>
-            <section class="course-resource-group external">
-                <div class="course-resource-group-heading"><h2>External reviews</h2><span>Independent sites</span></div>
-                <div class="course-resource-grid">
-                    <a class="course-resource-card" href="https://www.google.com/search?q=${query}" target="_blank" rel="noopener noreferrer" title="Search the web for independent course feedback"><small>External</small><strong>Course reviews</strong><span>Search independent feedback for ${this.escapeText(group.code)}</span></a>
-                    ${professor ? `<a class="course-resource-card" href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer" title="Search Rate My Professors for ${this.escapeText(professor)}"><small>External</small><strong>Professor reviews</strong><span>Search for ${this.escapeText(professor)}</span></a>` : ''}
+            <section class="course-resource-section external">
+                <header><div><span>Independent sites</span><h2>Reviews</h2></div></header>
+                <div class="course-resource-list">
+                    <a class="course-resource-link" href="https://www.google.com/search?q=${query}" target="_blank" rel="noopener noreferrer" title="Search the web for independent course feedback"><span><strong>Course reviews</strong><small>Search the web for feedback about ${this.escapeText(group.code)}</small></span><b aria-hidden="true">↗</b></a>
+                    ${professor ? `<a class="course-resource-link" href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer" title="Search Rate My Professors for ${this.escapeText(professor)}"><span><strong>Professor reviews</strong><small>Search Rate My Professors for ${this.escapeText(professor)}</small></span><b aria-hidden="true">↗</b></a>` : ''}
                 </div>
             </section>
+            </div>
         `;
         container.querySelector('#btn-resource-bookstore')?.addEventListener('click', () => this.submitBookstoreOrder(bookstoreOrder));
     },

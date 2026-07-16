@@ -206,9 +206,9 @@ test('browse section details add and lock the specific section', () => {
         source.indexOf('destroyDetailMap()'),
     );
 
-    assert.match(source, /ADD COURSE AND USE THIS SECTION/);
-    assert.match(source, /USE THIS SECTION/);
-    assert.match(source, /USE ANY OPEN SECTION/);
+    assert.match(source, /ADD THIS SECTION TO SCHEDULE/);
+    assert.match(source, /LET SCHEDULER CHOOSE/);
+    assert.match(source, /Use Section \$\{sectionLabel\} in every generated schedule/);
     assert.match(source, /State\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
     assert.match(source, /You can still use this full section for planning\./);
     assert.match(source, /this\._detailSectionData\[this\._detailSectionCrn\] = \{ details, faculty \}/);
@@ -216,7 +216,157 @@ test('browse section details add and lock the specific section', () => {
     assert.match(source, /class="course-section-visuals"/);
     assert.match(source, /id="course-section-map"/);
     assert.match(source, /Registration notes for this section/);
+    assert.match(source, /\$\{this\.sectionRegistrationNotes\(details\)\}[\s\S]*<details class="course-time-location"/);
+    assert.doesNotMatch(source, /id="btn-view-schedule"/);
+    assert.match(source, /id="btn-course-view-schedule"/);
     assert.doesNotMatch(registrationNotes, /part_of_term|Part of term/);
+});
+
+test('course time and location collapse preference persists locally and defaults expanded', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const values = new Map();
+    const localStorage = {
+        getItem(key) { return values.has(key) ? values.get(key) : null; },
+        setItem(key, value) { values.set(key, String(value)); },
+    };
+    const firstLoad = loadObject('static/js/search.js', 'Search', { localStorage });
+
+    assert.equal(firstLoad.detailTimeLocationExpanded(), true);
+    firstLoad.setDetailTimeLocationExpanded(false);
+    assert.equal(values.get('uofsc-course-time-location-expanded-v1'), 'false');
+
+    const reloaded = loadObject('static/js/search.js', 'Search', { localStorage });
+    assert.equal(reloaded.detailTimeLocationExpanded(), false);
+    reloaded.setDetailTimeLocationExpanded(true);
+    assert.equal(reloaded.detailTimeLocationExpanded(), true);
+
+    reloaded.setDetailTimeLocationExpanded(false);
+    const listeners = {};
+    const attributes = {};
+    const summary = { setAttribute(name, value) { attributes[name] = value; } };
+    const content = { hidden: false };
+    const details = {
+        tagName: 'DETAILS',
+        open: true,
+        querySelector: selector => selector === 'summary' ? summary : null,
+        addEventListener(type, listener) { listeners[type] = listener; },
+    };
+    const root = {
+        querySelector(selector) {
+            if (selector === '[data-time-location-toggle]') return details;
+            if (selector === '[data-time-location-content]') return content;
+            return null;
+        },
+    };
+    let expandedCalls = 0;
+    let collapsedCalls = 0;
+    assert.equal(reloaded.bindDetailTimeLocationPreference(root, {
+        onExpand: () => { expandedCalls += 1; },
+        onCollapse: () => { collapsedCalls += 1; },
+    }), false);
+    assert.equal(details.open, false);
+    assert.equal(content.hidden, true);
+    assert.equal(attributes['aria-expanded'], 'false');
+    details.open = true;
+    listeners.toggle();
+    assert.equal(content.hidden, false);
+    assert.equal(attributes['aria-expanded'], 'true');
+    assert.equal(reloaded.detailTimeLocationExpanded(), true);
+    assert.equal(expandedCalls, 1);
+    assert.equal(collapsedCalls, 0);
+
+    const blockedStorage = loadObject('static/js/search.js', 'Search', {
+        localStorage: {
+            getItem() { throw new Error('Storage unavailable'); },
+            setItem() { throw new Error('Storage unavailable'); },
+        },
+    });
+    assert.equal(blockedStorage.detailTimeLocationExpanded(), true);
+    assert.doesNotThrow(() => blockedStorage.setDetailTimeLocationExpanded(false));
+
+    assert.match(source, /data-time-location-toggle/);
+    assert.match(source, /data-time-location-content/);
+    assert.match(source, /bindDetailTimeLocationPreference\(root, \{ onExpand, onCollapse \} = \{\}\)/);
+    assert.match(source, /content\.hidden = !value/);
+    assert.match(source, /control\?\.setAttribute\('aria-expanded', String\(value\)\)/);
+    assert.match(source, /this\.setDetailTimeLocationExpanded\(value\)/);
+    assert.match(source, /this\.bindDetailTimeLocationPreference\(container/);
+});
+
+test('course calendar uses exact padded bounds with a four-hour minimum', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+
+    const broad = search.sectionCalendarRange([{ start: 510, end: 810 }]);
+    assert.equal(broad.start, 480);
+    assert.equal(broad.end, 840);
+    const minimum = search.sectionCalendarRange([{ start: 650, end: 700 }]);
+    assert.equal(minimum.start, 620);
+    assert.equal(minimum.end, 860);
+    const late = search.sectionCalendarRange([{ start: 1200, end: 1230 }]);
+    assert.equal(late.start, 1020);
+    assert.equal(late.end, 1260);
+});
+
+test('course time and location correlates numbered colors across calendar and map', () => {
+    const buildings = {
+        Gambrell: { kind: 'known', code: 'GAMBRL', name: 'Gambrell Hall', lat: 34, lon: -81 },
+        CloseHipp: { kind: 'known', code: 'CLHIPP', name: 'Close-Hipp Building', lat: 34.01, lon: -81.01 },
+    };
+    const walkingMap = {
+        parseMeetingTimes() {
+            return [
+                { day: 0, start: 510, end: 560 },
+                { day: 2, start: 630, end: 680 },
+            ];
+        },
+        parseMeetingDetails() {
+            return [
+                { days: [0], start: 510, end: 560, rawLocation: 'Gambrell 152', building: buildings.Gambrell },
+                { days: [2], start: 630, end: 680, rawLocation: 'Close-Hipp 750', building: buildings.CloseHipp },
+            ];
+        },
+        resolveBuilding(value) { return value.includes('Gambrell') ? buildings.Gambrell : buildings.CloseHipp; },
+        normalizeLocation(value) { return value.toLowerCase(); },
+        formatTime(minutes) {
+            const hour24 = Math.floor(minutes / 60);
+            const minute = minutes % 60;
+            return `${hour24 % 12 || 12}:${String(minute).padStart(2, '0')} ${hour24 >= 12 ? 'PM' : 'AM'}`;
+        },
+    };
+    const search = loadObject('static/js/search.js', 'Search', { WalkingMap: walkingMap });
+    search.escapeText = value => String(value);
+    const view = search.sectionTimeLocationData(
+        { meetingTimes: 'listed' },
+        { meeting_html: '<div>meetings</div>' },
+    );
+
+    assert.equal(view.locations.length, 2);
+    assert.deepEqual(view.events.map(event => event.locationNumber), [1, 2]);
+    assert.notEqual(view.locations[0].color, view.locations[1].color);
+    assert.equal(view.range.start, 480);
+    assert.equal(view.range.end, 720);
+
+    const calendar = search.renderSectionCalendar({}, null, view);
+    assert.match(calendar, /data-location-index="0"/);
+    assert.match(calendar, /data-location-index="1"/);
+    assert.match(calendar, /section-calendar-location-number[^>]*>1</);
+    assert.match(calendar, /section-calendar-location-number[^>]*>2</);
+    assert.match(calendar, /repeat\(48, minmax\(2px, 1fr\)\)/);
+    const key = search.renderSectionLocationKey(view);
+    assert.match(key, /Gambrell 152/);
+    assert.match(key, /Close-Hipp 750/);
+
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    assert.match(source, /markerElement\?\.addEventListener\('mouseenter'/);
+    assert.match(source, /section-calendar-event\[data-location-index/);
+    assert.match(source, /setSectionLocationInteractionState\(block, locationIndex, 'hover', true\)/);
+    assert.match(source, /element\.dataset\.locationHover === 'true'/);
+    assert.match(source, /element\.dataset\.locationFocus === 'true'/);
+    assert.doesNotMatch(source, /<button[^>]*class="section-calendar-event"/);
+    assert.match(styles, /\.section-mini-calendar-grid\s*{[^}]*height:\s*360px;/s);
+    assert.match(styles, /\.course-section-map\s*{[^}]*height:\s*360px;/s);
+    assert.match(styles, /\.leaflet-marker-icon\.is-location-highlighted/);
 });
 
 test('prerequisite details use a compact status-first requirement tree', () => {
@@ -1378,6 +1528,7 @@ test('Course detail routes persist search context while section and panel change
         },
         API: { getDetails: () => new Promise(() => {}) },
         document: {
+            getElementById() { return null; },
             querySelectorAll(selector) {
                 return selector === '[data-detail-crn]' ? buttons : [];
             },
@@ -1622,7 +1773,9 @@ test('Course and professor close controls remain available while scrolling', () 
     const source = fs.readFileSync('static/js/grades.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(styles, /\.browse-close-details\s*{[^}]*position:\s*sticky;/s);
+    assert.match(styles, /\.course-detail-header-sticky\s*{[^}]*position:\s*sticky;/s);
+    assert.match(styles, /\.course-detail-header-sticky \.browse-close-details\s*{[^}]*position:\s*absolute;/s);
+    assert.match(styles, /\.browse-close-details:hover,[\s\S]*background:\s*#FFFFFF;[\s\S]*color:\s*#73000A;/);
     assert.match(styles, /#modal\.professor-profile-modal #modal-close\s*{[^}]*height:\s*44px;[^}]*position:\s*sticky;/s);
     assert.match(source, /openProfessorLoading\(name/);
     assert.match(source, /professorDetailContextIsCurrent/);
@@ -1833,6 +1986,8 @@ test('Professor GPA timeline plots values below one instead of pinning them to o
 
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const search = loadObject('static/js/search.js', 'Search', { URL });
 
     assert.match(source, /action\.protocol !== 'https:'/);
     assert.match(source, /action\.hostname !== 'sc\.bncollege\.com'/);
@@ -1840,14 +1995,43 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.match(source, /\['catalogId', 'storeId', 'termMapping', 'courseXml'\]/);
     assert.match(source, /form\.rel = 'noopener noreferrer'/);
     assert.match(source, /details&srcdb=\$\{encodeURIComponent\(this\._detailTerm \|\| State\.term\)\}&crn=/);
-    assert.match(source, /https:\/\/www\.sc\.edu\/syllabusarchive\//);
-    assert.match(source, /academicbulletins\.sc\.edu\/undergraduate\/course-descriptions\/\$\{subject\}\//);
-    assert.match(source, /academicbulletins\.sc\.edu\/graduate\/course-descriptions\/\$\{subject\}\//);
+    const syllabus = new URL(search.syllabusResourceUrl('ACCT 222'));
+    assert.equal(syllabus.pathname, '/syllabusarchive/studentcourselist.php');
+    assert.equal(syllabus.searchParams.get('designator'), 'ACCT');
+    assert.equal(syllabus.searchParams.get('courseNumber'), '222');
+    assert.equal(syllabus.searchParams.get('instructor'), '');
+    assert.equal(syllabus.searchParams.get('term'), 'all');
+    const bulletin = new URL(search.bulletinResourceUrl('CSCE 883'));
+    assert.equal(bulletin.origin, 'https://academicbulletins.sc.edu');
+    assert.equal(bulletin.pathname, '/search/');
+    assert.equal(bulletin.searchParams.get('P'), 'CSCE 883');
     assert.match(source, /https:\/\/sc\.edu\/about\/directory\//);
-    assert.match(source, /'Course-wide links'/);
+    assert.match(source, /class="course-resource-layout"/);
+    assert.doesNotMatch(source, /class="course-resource-card"/);
+    assert.doesNotMatch(source, /course-resource-group-heading/);
+    assert.match(styles, /\.course-resource-layout\s*{[^}]*grid-template-columns:/s);
+    assert.match(styles, /\.course-resource-link:hover/);
     assert.match(source, /primaryFaculty\?\.professor_id/);
     assert.doesNotMatch(source, /uscbookstore\.com/);
     assert.doesNotMatch(source, /Official course information and useful searches open in a new tab/);
+});
+
+test('Course identity and actions stay together in a sticky black header', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(html, /class="course-detail-header-sticky"[\s\S]*id="browse-close-details"[\s\S]*id="tab-details"/);
+    assert.match(html, /id="course-detail-description-wrap"/);
+    assert.match(source, /class="course-detail-header-topline"[\s\S]*class="course-detail-header-controls"[\s\S]*class="course-detail-credit"/);
+    assert.match(source, /id="btn-course-toggle"[\s\S]*id="btn-course-view-schedule"/);
+    assert.match(source, /Tabs\.switchTo\('schedule'\)/);
+    assert.match(source, /Section \$\{selectedSection\.section \|\| '—'\} · CRN \$\{selectedSection\.crn\}/);
+    assert.match(styles, /\.course-detail-header-sticky\s*{[^}]*position:\s*sticky;[^}]*z-index:\s*1000;/s);
+    assert.match(styles, /\.course-detail-header-sticky \.browse-close-details\s*{[^}]*position:\s*absolute;/s);
+    assert.match(styles, /\.course-detail-tabs\s*{[^}]*position:\s*relative;/s);
+    assert.match(styles, /\.course-detail-header-controls\s*{[^}]*overflow-x:\s*auto;/s);
+    assert.match(styles, /\.course-detail-primary-actions\s*{[^}]*flex-wrap:\s*nowrap;/s);
 });
 
 test('Browse result cards lazily add descriptions and historical grades', () => {
