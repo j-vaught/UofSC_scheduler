@@ -978,11 +978,12 @@ test('course results remain visible with useful empty states', () => {
     });
 
     scheduler.renderCourseSearchResults();
-    assert.match(results.innerHTML, /Search for a course to see results/);
+    assert.match(results.innerHTML, /Use the Search tab for the full search experience/);
 
     input.value = 'NO MATCH';
     scheduler.renderCourseSearchResults();
-    assert.match(results.innerHTML, /No courses found for this search/);
+    assert.match(results.innerHTML, /No direct matches/);
+    assert.match(results.innerHTML, /Search tab for broader results/);
 });
 
 test('schedule search results use compact availability summaries', () => {
@@ -1598,7 +1599,7 @@ test('schedule search UI keeps the newest concurrent result', async () => {
     assert.equal(button.disabled, false);
 });
 
-test('schedule search shares browse CRN, range, partial, and semantic query behavior', async () => {
+test('schedule search shares browse CRN, range, partial, and direct keyword behavior', async () => {
     const calls = [];
     const search = loadObject('static/js/search.js', 'Search', {
         State: { term: '202608' },
@@ -1635,35 +1636,95 @@ test('schedule search shares browse CRN, range, partial, and semantic query beha
     const partial = await search.searchLiveCourses('CSCE 5');
     assert.deepEqual(Array.from(partial.results, result => result.code), ['CSCE 501', 'CSCE 550']);
 
-    search._doSemanticSearch = async () => ({
-        results: [{ code: 'CSCE 550', title: 'Data Structures' }],
-        expandedTerms: [],
-    });
-    const semantic = await search.searchLiveCourses('graph algorithms');
-    assert.equal(semantic.semantic, true);
-    assert.equal(semantic.results[0].crn, '10550');
+    search._doSemanticSearch = async () => {
+        throw new Error('Schedule search must not start semantic search.');
+    };
+    const keyword = await search.searchLiveCourses('graph algorithms');
+    assert.equal(calls.at(-1).length, 1);
+    assert.equal(calls.at(-1)[0].field, 'keyword');
+    assert.equal(calls.at(-1)[0].value, 'graph algorithms');
+    assert.equal(keyword.semantic, false);
+    assert.equal(keyword.queryType, 'keyword');
 });
 
-test('a newer schedule search cancels an older semantic search', async () => {
-    let finishSemantic;
+test('schedule search applies multi-subject and number scopes without semantic search', async () => {
+    const calls = [];
     const search = loadObject('static/js/search.js', 'Search', {
         State: { term: '202608' },
         API: {
-            async searchCourses() {
+            async searchCourses(term, criteria) {
+                calls.push(criteria);
+                const subject = criteria.find(item => item.field === 'subject')?.value || 'HIST';
+                return {
+                    results: [
+                        { code: `${subject} 510`, crn: `${subject}510` },
+                        { code: `${subject} 410`, crn: `${subject}410` },
+                        { code: 'HIST 610', crn: 'HIST610' },
+                    ],
+                };
+            },
+        },
+    });
+    search._subjects = ['EMCH', 'CSCE', 'MATH'];
+    search._doSemanticSearch = async () => {
+        throw new Error('Schedule search must not start semantic search.');
+    };
+
+    const scoped = await search.searchLiveCourses(
+        'EMCH; CSCE; MATH 500+ :: machine learning',
+    );
+
+    assert.equal(scoped.semantic, false);
+    assert.equal(scoped.queryType, 'scoped');
+    assert.deepEqual(
+        Array.from(scoped.results, result => result.code),
+        ['EMCH 510', 'CSCE 510', 'MATH 510'],
+    );
+    assert.deepEqual(
+        calls.map(criteria => criteria.find(item => item.field === 'subject')?.value),
+        ['EMCH', 'CSCE', 'MATH'],
+    );
+    calls.forEach(criteria => {
+        const keyword = criteria.find(item => item.field === 'keyword');
+        assert.equal(keyword?.field, 'keyword');
+        assert.equal(keyword?.value, 'machine learning');
+    });
+
+    calls.length = 0;
+    const scopeOnly = await search.searchLiveCourses('EMCH CSCE MATH 500+');
+    assert.deepEqual(
+        Array.from(scopeOnly.results, result => result.code),
+        ['EMCH 510', 'CSCE 510', 'MATH 510'],
+    );
+    calls.forEach(criteria => assert.equal(
+        criteria.some(item => item.field === 'keyword'),
+        false,
+    ));
+});
+
+test('a newer schedule search cancels an older direct request', async () => {
+    let finishDirect;
+    const search = loadObject('static/js/search.js', 'Search', {
+        State: { term: '202608' },
+        API: {
+            async searchCourses(term, criteria) {
+                if (criteria.some(item => item.field === 'keyword')) {
+                    return new Promise(resolve => { finishDirect = resolve; });
+                }
                 return { results: [{ code: 'CSCE 145', crn: '10145' }] };
             },
         },
     });
-    search._doSemanticSearch = () => new Promise(resolve => { finishSemantic = resolve; });
 
     const olderSearch = search.searchLiveCourses('graph algorithms');
     await Promise.resolve();
     const newerSearch = await search.searchLiveCourses('CSCE');
-    finishSemantic({ results: [{ code: 'CSCE 585' }] });
+    finishDirect({ results: [{ code: 'CSCE 585' }] });
     const staleSearch = await olderSearch;
 
     assert.equal(newerSearch.results[0].code, 'CSCE 145');
     assert.deepEqual(Array.from(staleSearch.results), []);
+    assert.equal(staleSearch.stale, true);
 });
 
 test('adding a CRN search result locks and confirms its exact section', async () => {

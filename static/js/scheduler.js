@@ -651,7 +651,7 @@ const Scheduler = {
             this._lastSearchGroups = groups;
             this._searchVisibleCount = this._searchPageSize;
             if (this._lastSearchGroups.length === 0) {
-                this.setCourseStatus('No courses found in the selected term.', 'error');
+                this.setCourseStatus('No direct matches in the selected term. Try the Search tab for broader results.', 'error');
             } else {
                 this.setCourseStatus(`${this._lastSearchGroups.length} course${this._lastSearchGroups.length === 1 ? '' : 's'} found.`);
             }
@@ -670,7 +670,10 @@ const Scheduler = {
         if (!container) return;
         if (this._lastSearchGroups.length === 0) {
             const query = document.getElementById('schedule-course-input')?.value.trim();
-            container.innerHTML = `<p class="hint schedule-results-empty">${query ? 'No courses found for this search.' : 'Search for a course to see results.'}</p>`;
+            const message = query
+                ? 'No direct matches. Try the Search tab for broader results.'
+                : 'Search here by course, CRN, range, or keyword. Use the Search tab for the full search experience.';
+            container.innerHTML = `<p class="hint schedule-results-empty">${message}</p>`;
             return;
         }
 

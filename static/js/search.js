@@ -697,27 +697,37 @@ const Search = {
         await this.loadSubjects();
         if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
 
+        const compactQuery = this.parseCompactScopedQuery(query);
+        const standaloneScope = compactQuery ? null : this.parseStandaloneCourseScope(query);
+        const scopedSearch = Boolean(compactQuery || standaloneScope);
+        const directQuery = compactQuery?.topic || (standaloneScope ? '' : query);
+        const courseScope = this.buildCourseScope(
+            compactQuery?.subjectText || standaloneScope?.subjectText || '',
+            compactQuery?.numberText || standaloneScope?.numberText || '',
+        );
         const wildcardPattern = /[xX*#_?%]/;
         const criteria = [];
         let resultFilter = null;
 
-        if (/^[A-Za-z]{3,4}$/.test(query)) {
-            const subject = this._resolveSubjectForLiveSearch(query);
+        if (scopedSearch) {
+            if (directQuery) criteria.push({ field: 'keyword', value: directQuery });
+        } else if (/^[A-Za-z]{3,4}$/.test(directQuery)) {
+            const subject = this._resolveSubjectForLiveSearch(directQuery);
             criteria.push({ field: 'subject', value: subject });
-        } else if (/^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(query)) {
-            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(directQuery)) {
+            const match = directQuery.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
             const subject = this._resolveSubjectForLiveSearch(match[1]);
             resultFilter = this.courseNumberRangeFilter(subject, match[2], match[3]);
             criteria.push({ field: 'subject', value: subject });
-        } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/.test(query)
-            && (query.includes('+') || wildcardPattern.test(query))) {
-            const match = query.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/);
+        } else if (/^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/.test(directQuery)
+            && (directQuery.includes('+') || wildcardPattern.test(directQuery))) {
+            const match = directQuery.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/);
             const subject = this._resolveSubjectForLiveSearch(match[1]);
             resultFilter = this.liveCourseRangeFilter(match[2]);
             if (!resultFilter) throw new Error('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
             criteria.push({ field: 'subject', value: subject });
-        } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/.test(query)) {
-            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/);
+        } else if (/^[A-Za-z]{3,4}\s*\d{1,2}$/.test(directQuery)) {
+            const match = directQuery.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/);
             const subject = this._resolveSubjectForLiveSearch(match[1]);
             const prefix = match[2];
             resultFilter = code => {
@@ -725,47 +735,45 @@ const Search = {
                 return Boolean(number && number[1].startsWith(prefix));
             };
             criteria.push({ field: 'subject', value: subject });
-        } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/.test(query)) {
-            const match = query.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/);
+        } else if (/^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/.test(directQuery)) {
+            const match = directQuery.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/);
             const subject = this._resolveSubjectForLiveSearch(match[1]);
             criteria.push({ field: 'alias', value: `${subject} ${match[2].toUpperCase()}` });
-        } else if (/^\d{5}$/.test(query)) {
-            criteria.push({ field: 'crn', value: query });
-        } else if (/^\d{4}$/.test(query)) {
+        } else if (/^\d{5}$/.test(directQuery)) {
+            criteria.push({ field: 'crn', value: directQuery });
+        } else if (/^\d{4}$/.test(directQuery)) {
             throw new Error('A CRN has 5 digits. For a course, include its subject, such as CSCE 145.');
-        } else if (/^\d{3}\s?[A-Za-z]?$/.test(query)) {
+        } else if (/^\d{3}\s?[A-Za-z]?$/.test(directQuery)) {
             throw new Error('Include the subject code, such as CSCE 145.');
-        } else if (/^\d{1,2}$/.test(query)) {
+        } else if (/^\d{1,2}$/.test(directQuery)) {
             throw new Error('Enter a subject code or full course number, such as CSCE 145.');
-        } else if (query.length < 5) {
+        } else if (directQuery.length < 5) {
             throw new Error('Keywords must be at least 5 characters.');
         } else {
-            const semantic = await this._doSemanticSearch(query, true, false, searchId);
-            if (!semantic || searchId !== this._searchId) return { results: [], semantic: true };
-            const subjects = [...new Set(semantic.results
-                .map(result => String(result.code || '').split(' ')[0])
-                .filter(Boolean))];
-            const liveBatches = await Promise.all(subjects.map(subject => API.searchCourses(
-                State.term,
-                [{ field: 'subject', value: subject }],
-            ).then(data => data.results || []).catch(() => [])));
-            if (searchId !== this._searchId) return { results: [], semantic: true };
-            const liveByCode = this.buildLiveCourseIndex(liveBatches.flat());
-            const liveResults = this.mergeCatalogWithLiveSections(semantic.results, liveByCode)
-                .filter(result => !result._isCatalog);
-            return { results: liveResults, semantic: true };
+            criteria.push({ field: 'keyword', value: directQuery });
         }
 
-        const data = await API.searchCourses(State.term, criteria);
+        const batches = courseScope.subjects.length
+            ? await Promise.all(courseScope.subjects.map(subject => API.searchCourses(
+                State.term,
+                [...criteria, { field: 'subject', value: subject }],
+            )))
+            : [await API.searchCourses(State.term, criteria)];
         if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
-        const results = resultFilter
-            ? (data.results || []).filter(result => resultFilter(result.code || ''))
-            : (data.results || []);
+        let results = batches.flatMap(data => data.results || []);
+        if (resultFilter) {
+            results = results.filter(result => resultFilter(result.code || ''));
+        }
+        results = this.filterByCourseScope(results, courseScope);
         return {
             results,
             semantic: false,
-            queryType: /^\d{5}$/.test(query) ? 'crn' : 'structured',
-            crn: /^\d{5}$/.test(query) ? query : null,
+            queryType: /^\d{5}$/.test(directQuery)
+                ? 'crn'
+                : scopedSearch
+                    ? 'scoped'
+                    : criteria.some(item => item.field === 'keyword') ? 'keyword' : 'structured',
+            crn: /^\d{5}$/.test(directQuery) ? directQuery : null,
         };
     },
 
