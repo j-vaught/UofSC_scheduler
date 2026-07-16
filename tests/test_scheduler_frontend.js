@@ -219,6 +219,73 @@ test('browse section details add and lock the specific section', () => {
     assert.doesNotMatch(registrationNotes, /part_of_term|Part of term/);
 });
 
+test('prerequisite details use a compact status-first requirement tree', () => {
+    const prereqs = loadObject('static/js/prereqs.js', 'Prereqs', {});
+    const source = fs.readFileSync('static/js/prereqs.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const groups = [{ courses: ['CSCE 580'], type: 'and' }];
+    const companions = [
+        { mode: 'corequisite', text: 'CSCE 884.', groups: [{ courses: ['CSCE 884'], type: 'and' }] },
+        { mode: 'either', text: 'CSCE 585.', groups: [{ courses: ['CSCE 585'], type: 'and' }] },
+    ];
+    const completed = new Set();
+
+    const status = prereqs.renderStatus(groups, [], completed, true, false);
+    const companionStatus = prereqs.renderStatus([], companions, completed, false, false);
+    const reviewStatus = prereqs.renderStatus(groups, [], completed, true, true);
+    const pathway = prereqs.renderPathways('CSCE 883', groups, companions, completed);
+    const alternativeCompanions = [{
+        mode: 'either',
+        text: 'MATH 111 or MATH 115.',
+        groups: prereqs.parsePrereqGroups('MATH 111 or MATH 115.'),
+    }];
+    const alternativeStatus = prereqs.renderStatus([], alternativeCompanions, completed, false, false);
+    const alternativeTree = prereqs.renderPathways('CSCE 145', [], alternativeCompanions, completed);
+    const catalog = prereqs.renderCatalogNote('CSCE 580.', companions, false);
+    const requiredTogether = prereqs.parsePrereqGroups('C or better in ACCT 401 and MGSC 290.');
+    const alternatives = prereqs.parsePrereqGroups('D or better in ENCP 200, ECIV 200, EMCH 200, or ECHE 300.');
+    const mixed = prereqs.parsePrereqGroups('D or better in EMCH 290 or ENCP 290 and AESP 265.');
+
+    assert.match(status, /1 prerequisite requirement remaining/);
+    assert.match(companionStatus, /2 companion courses to plan/);
+    assert.match(alternativeStatus, /1 companion course to plan/);
+    assert.match(alternativeTree, /choose one/);
+    assert.match(reviewStatus, /Review these requirements/);
+    assert.match(pathway, /CSCE 580/);
+    assert.match(pathway, /Needed/);
+    assert.match(pathway, /CSCE 883/);
+    assert.match(pathway, /This course/);
+    assert.match(pathway, /prereq-tree-groups/);
+    assert.match(pathway, /Take with this course/);
+    assert.match(pathway, /Before or with this course/);
+    assert.doesNotMatch(pathway, /<svg/);
+    assert.match(catalog, /<details class="prereq-catalog-note">/);
+    assert.match(catalog, /Catalog wording/);
+    assert.equal(prereqs.requirementNeedsReview('CSCE 580.'), false);
+    assert.equal(prereqs.requirementNeedsReview('C or better in CSCE 580.'), true);
+    assert.equal(prereqs.requirementNeedsReview('CSCE 101 or above.'), true);
+    assert.equal(prereqs.requirementNeedsReview('MATH 141 or placement.'), true);
+    assert.deepEqual(
+        JSON.parse(JSON.stringify(requiredTogether.map(group => [...group.courses]))),
+        [['ACCT 401'], ['MGSC 290']],
+    );
+    assert.deepEqual(
+        JSON.parse(JSON.stringify(alternatives[0].courses)),
+        ['ENCP 200', 'ECIV 200', 'EMCH 200', 'ECHE 300'],
+    );
+    assert.deepEqual(
+        JSON.parse(JSON.stringify(mixed.map(group => [...group.courses]))),
+        [['EMCH 290', 'ENCP 290'], ['AESP 265']],
+    );
+    assert.doesNotMatch(source, /Prerequisite Status|Some prerequisites are missing|Required before this course/);
+    assert.match(source, /\{ html: details\.corequisite, mode: 'corequisite' \}/);
+    assert.match(source, /\{ html: details\.prerequisite_or_corequisite, mode: 'either' \}/);
+    assert.match(source, /getElementById\('browse-close-details'\)\?\.focus\(\)/);
+    assert.match(styles, /\.prereq-status-card\.missing/);
+    assert.match(styles, /\.prereq-course-card\.target/);
+    assert.match(styles, /\.prereq-tree-groups/);
+});
+
 test('browse filters separate primary and additional course choices', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
