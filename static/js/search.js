@@ -551,7 +551,7 @@ const Search = {
             }
             return {
                 kind: 'range',
-                normalized: `${range[1]}–${range[2]}`,
+                normalized: `${range[1]}-${range[2]}`,
                 matches: parts => parts.number >= lower && parts.number <= upper,
             };
         }
@@ -589,7 +589,7 @@ const Search = {
             };
         }
 
-        throw new Error('Use a course number such as 585, 500+, 5xx, or 100–500.');
+        throw new Error('Use a course number such as 585, 500+, 5xx, or 100-500.');
     },
 
     parseCompactScopedQuery(rawValue) {
@@ -1581,7 +1581,7 @@ const Search = {
         this._directSearchOnce = false;
 
         if (!searchQuery && !courseScope.active) {
-            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140–199), or keyword.');
+            this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140-199), or keyword.');
             return;
         }
 
@@ -1664,7 +1664,7 @@ const Search = {
             searchInput.value = subject;
             criteria.push({ field: 'subject', value: subject });
 
-        // Inclusive numeric range: "CSCE 140-150", "CSCE 140–150", or "CSCE 140 to 150"
+        // Inclusive numeric range: "CSCE 140-150" or "CSCE 140 - 150"
         } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
             const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
             subject = this._resolveSubject(m[1]);

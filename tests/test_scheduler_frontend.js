@@ -1402,8 +1402,8 @@ test('numeric course ranges are parsed before semantic search in Browse', () => 
 
     assert.ok(numericRange > 0);
     assert.ok(numericRange < semanticSearch);
-    assert.match(source, /CSCE 140–150/);
-    assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140–199\)/);
+    assert.match(source, /CSCE 140-150/);
+    assert.match(fs.readFileSync('static/index.html', 'utf8'), /range \(CSCE 140-199\)/);
 });
 
 test('scoped search accepts flexible subject separators and canonical number limits', () => {
@@ -1425,7 +1425,7 @@ test('scoped search accepts flexible subject separators and canonical number lim
     });
 
     const wordRange = search.parseCompactScopedQuery('CSCE MATH 100 to 500 :: data analysis');
-    assert.equal(wordRange.numberText, '100–500');
+    assert.equal(wordRange.numberText, '100-500');
     const subjectTopic = search.parseCompactScopedQuery('EMCH :: fluid mechanics');
     assert.deepEqual(Array.from(subjectTopic.subjects), ['EMCH']);
     assert.equal(subjectTopic.numberText, '');
@@ -1621,7 +1621,9 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(html, /data-search-example="Machine Learning"/);
     assert.match(html, /data-search-example="CSCE 500\+"/);
     assert.match(html, /data-search-example="CSCE 5xx"/);
-    assert.match(html, /data-search-example="CSCE 140–199"/);
+    assert.match(html, /data-search-example="CSCE 140-199"/);
+    assert.doesNotMatch(html, /\d{3}\s+to\s+\d{3}/i);
+    assert.doesNotMatch(html, /CSCE 140–199/);
     assert.match(html, /id="filter-scope-subjects"/);
     assert.match(html, /id="filter-scope-numbers"/);
     assert.match(html, /EMCH :: how heat moves through machines/);
@@ -1637,7 +1639,7 @@ test('Browse teaches structured searches and presents generated searches compact
     const orderedExamples = [
         '>CSCE<',
         '>CSCE 145<',
-        '>CSCE 140–199<',
+        '>CSCE 140-199<',
         '>CSCE 5xx<',
         '>CSCE 500+<',
         '>EMCH CSCE MATH 500+<',
