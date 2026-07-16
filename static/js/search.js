@@ -1685,6 +1685,9 @@ const Search = {
             if (!sections.some(section => String(section.crn) === viewedCrn)) {
                 this._detailSectionCrn = String(this.preferredDetailSection(this._detailGroup)?.crn || '');
             }
+            if (this._detailTab === 'grades' && typeof Grades !== 'undefined') {
+                Grades.refreshCourseFaculty(group.code);
+            }
             this.renderCourseDetailHeader(this._detailDetails);
             this.renderDetailSections();
             this.selectDetailSection(this._detailSectionCrn, false);

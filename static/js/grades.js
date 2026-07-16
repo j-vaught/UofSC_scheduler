@@ -20,18 +20,21 @@ const Grades = {
         return data;
     },
 
-    courseFacultyKey(code) {
+    courseFacultyKey(code, group = Search?._detailGroup || { sections: [] }) {
         const term = Search?._detailTerm || globalThis.State?.term || '';
-        return `${term}:${code}`;
+        const crns = typeof Scheduler !== 'undefined'
+            ? Scheduler.currentInstructorCrns(group).slice().sort()
+            : [];
+        return `${term}:${code}:${crns.join(',')}`;
     },
 
     currentFacultyForCourse(code) {
         const group = Search?._detailGroup || { sections: [] };
-        const key = this.courseFacultyKey(code);
-        const cached = this._courseFacultyCache[key];
-        if (cached) return Promise.resolve(cached);
         if (typeof Scheduler === 'undefined' || typeof API === 'undefined') return Promise.resolve([]);
         const crns = Scheduler.currentInstructorCrns(group);
+        const key = this.courseFacultyKey(code, group);
+        const cached = this._courseFacultyCache[key];
+        if (cached) return Promise.resolve(cached);
         if (!crns.length) {
             this._courseFacultyCache[key] = [];
             return Promise.resolve([]);
@@ -45,6 +48,17 @@ const Grades = {
             });
         this._courseFacultyCache[key] = request;
         return request;
+    },
+
+    refreshCourseFaculty(code) {
+        return this.currentFacultyForCourse(code).then(faculty => {
+            const data = this._courseCache[code];
+            const container = document.getElementById('grades-container');
+            if (data && container && Search?._detailGroup?.code === code) {
+                this.renderCourse(container, data, faculty);
+            }
+            return faculty;
+        });
     },
 
     courseFacultyRecords(code) {
@@ -287,6 +301,13 @@ const Grades = {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: professorId }),
                 });
+                if (response.status === 404) {
+                    if (loadId !== this._professorLoadId
+                        || (window.AppModal?.version || 0) !== modalVersion
+                        || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
+                    this.showUnmatchedProfessor(context.displayName || 'Instructor', context.email || '');
+                    return;
+                }
                 if (!response.ok) throw new Error('Professor lookup failed');
                 data = await response.json();
                 this._professorCache[professorId] = data;
@@ -319,7 +340,7 @@ const Grades = {
         const yearSpan = lastYear - firstYear;
         const plotTop = 6;
         const plotHeight = 88;
-        const positionGpa = gpa => plotTop + (4 - Math.max(1, Math.min(4, gpa))) / 3 * plotHeight;
+        const positionGpa = gpa => plotTop + (4 - Math.max(0, Math.min(4, gpa))) / 4 * plotHeight;
         const positioned = points.map(point => ({
             ...point,
             x: yearSpan === 0 ? 50 : 5 + (point.year - firstYear) * 90 / yearSpan,
@@ -334,7 +355,7 @@ const Grades = {
             return `<i class="professor-year-segment ${direction}" style="left:${point.x}%;top:${top}%;width:${next.x - point.x}%;height:${height}%"></i>`;
         }).join('');
         const markers = positioned.map(point => `<button type="button" class="professor-year-point" style="left:${point.x}%;top:${point.y}%" title="${point.year}: ${this.formatGpa(point.gpa)} GPA" aria-label="${point.year}, ${this.formatGpa(point.gpa)} GPA"><span>${this.formatGpa(point.gpa)}</span></button>`).join('');
-        const axisValues = [4, 3, 2, 1];
+        const axisValues = [4, 3, 2, 1, 0];
         const axis = axisValues
             .map(value => `<span style="top:${positionGpa(value)}%">${value.toFixed(1)}</span>`).join('');
         const gridLines = axisValues

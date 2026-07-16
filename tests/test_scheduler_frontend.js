@@ -1252,10 +1252,13 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /\(point\.year - firstYear\) \* 90 \/ yearSpan/);
     assert.match(source, /Teaching span in available records/);
     assert.match(source, /currentFacultyForCourse\(code\)/);
+    assert.match(source, /return `\$\{term\}:\$\{code\}:\$\{crns\.join\(','\)\}`/);
+    assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /Grades\.refreshCourseFaculty\(group\.code\)/);
     assert.match(styles, /\.professor-year-segment\.down/);
     assert.match(styles, /\.professor-year-point\s*{[^}]*border-radius:\s*50% !important;/s);
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
+    assert.match(source, /if \(response\.status === 404\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
 });
 
 test('Professor GPA timeline uses calendar-year spacing and an aligned one-to-four scale', () => {
@@ -1267,12 +1270,22 @@ test('Professor GPA timeline uses calendar-year spacing and an aligned one-to-fo
     ]);
 
     assert.match(markup, /left:5%;top:6%/);
-    assert.match(markup, /left:35%;top:35\.3/);
-    assert.match(markup, /left:95%;top:64\.6/);
+    assert.match(markup, /left:35%;top:28%/);
+    assert.match(markup, /left:95%;top:50%/);
     assert.match(markup, /top:6%">4\.0/);
-    assert.match(markup, /top:94%">1\.0/);
-    assert.match(markup, /class="professor-year-gridline" style="top:35\.3/);
+    assert.match(markup, /top:94%">0\.0/);
+    assert.match(markup, /class="professor-year-gridline" style="top:28%/);
     assert.doesNotMatch(markup, /grid-template-columns/);
+});
+
+test('Professor GPA timeline plots values below one instead of pinning them to one', () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {});
+    const markup = grades.professorYearMarkup([
+        { academic_year: 2021, average_gpa: 0.625 },
+    ]);
+
+    assert.match(markup, /left:50%;top:80\.25%/);
+    assert.match(markup, /2021, 0\.63 GPA/);
 });
 
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
