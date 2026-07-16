@@ -1582,6 +1582,111 @@ test('Offering history stream reports real progress before returning its aggrega
     assert.equal(result.code, 'CSCE 145');
 });
 
+test('Offering history falls back when its progress stream is unavailable', async () => {
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async (path, options) => {
+            requests.push({ path, options });
+            if (path === '/api/history-stream') {
+                return { ok: false, status: 404 };
+            }
+            return {
+                ok: true,
+                status: 200,
+                async json() {
+                    return {
+                        code: 'CSCE 883',
+                        complete: true,
+                        terms: [{ term: '202508', offered: true }],
+                    };
+                },
+            };
+        },
+    });
+
+    const result = await api.getHistory('CSCE 883', () => {});
+
+    assert.deepEqual(requests.map(request => request.path), [
+        '/api/history-stream',
+        '/api/history',
+    ]);
+    assert.deepEqual(JSON.parse(requests[1].options.body), { code: 'CSCE 883' });
+    assert.equal(result.code, 'CSCE 883');
+    assert.equal(result.terms[0].offered, true);
+});
+
+test('Offering history does not retry genuine progress-stream failures', async () => {
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async path => {
+            requests.push(path);
+            return { ok: false, status: 500 };
+        },
+    });
+
+    await assert.rejects(
+        () => api.getHistory('CSCE 883', () => {}),
+        /status 500/,
+    );
+    assert.deepEqual(requests, ['/api/history-stream']);
+});
+
+test('Offering history falls back from a malformed progress response', async () => {
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async (path, options) => {
+            requests.push({ path, options });
+            if (path === '/api/history-stream') {
+                return {
+                    ok: true,
+                    status: 200,
+                    body: null,
+                    async text() { return '<html>not a progress stream</html>'; },
+                };
+            }
+            return {
+                ok: true,
+                status: 200,
+                async json() { return { code: 'CSCE 883', complete: true, terms: [] }; },
+            };
+        },
+    });
+
+    const result = await api.getHistory('CSCE 883', () => {});
+
+    assert.deepEqual(requests.map(request => request.path), [
+        '/api/history-stream',
+        '/api/history',
+    ]);
+    assert.equal(result.code, 'CSCE 883');
+});
+
+test('Offering history preserves errors returned by a valid progress stream', async () => {
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async path => {
+            requests.push(path);
+            return {
+                ok: true,
+                status: 200,
+                body: null,
+                async text() {
+                    return `${JSON.stringify({
+                        type: 'result',
+                        data: { error: 'upstream unavailable' },
+                    })}\n`;
+                },
+            };
+        },
+    });
+
+    await assert.rejects(
+        () => api.getHistory('CSCE 883', () => {}),
+        /upstream unavailable/,
+    );
+    assert.deepEqual(requests, ['/api/history-stream']);
+});
+
 test('AI-assisted search can be disabled and related searches remain direct', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');

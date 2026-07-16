@@ -64,13 +64,23 @@ const API = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: courseCode }),
         });
-        if (!resp.ok) throw new Error(`Request failed with status ${resp.status}`);
+        if (!resp.ok) {
+            if (resp.status === 404) return this.post('/api/history', { code: courseCode });
+            throw new Error(`Request failed with status ${resp.status}`);
+        }
 
         let result = null;
+        let malformed = false;
         const consumeLine = rawLine => {
             const line = String(rawLine || '').trim();
             if (!line) return;
-            const event = JSON.parse(line);
+            let event;
+            try {
+                event = JSON.parse(line);
+            } catch (error) {
+                malformed = true;
+                return;
+            }
             if (event.type === 'progress') onProgress(event);
             else if (event.type === 'result') result = event.data;
         };
@@ -80,7 +90,13 @@ const API = {
             const decoder = new TextDecoder();
             let buffer = '';
             while (true) {
-                const { done, value } = await reader.read();
+                let chunk;
+                try {
+                    chunk = await reader.read();
+                } catch (error) {
+                    return this.post('/api/history', { code: courseCode });
+                }
+                const { done, value } = chunk;
                 if (done) break;
                 buffer += decoder.decode(value, { stream: true });
                 const lines = buffer.split('\n');
@@ -90,11 +106,17 @@ const API = {
             buffer += decoder.decode();
             consumeLine(buffer);
         } else {
-            const payload = await resp.text();
+            let payload;
+            try {
+                payload = await resp.text();
+            } catch (error) {
+                return this.post('/api/history', { code: courseCode });
+            }
             payload.split('\n').forEach(consumeLine);
         }
 
-        if (!result || typeof result !== 'object' || Array.isArray(result) || result.error) {
+        if (malformed || !result) return this.post('/api/history', { code: courseCode });
+        if (typeof result !== 'object' || Array.isArray(result) || result.error) {
             throw new Error(result?.error || 'Offering history is unavailable');
         }
         return result;
