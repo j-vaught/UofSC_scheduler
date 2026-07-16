@@ -724,18 +724,6 @@ main {
     color: #73000A;
     margin-bottom: 8px;
 }
-.results-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 8px 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #73000A;
-    text-transform: uppercase;
-}
-.results-header:has(.pick-count:empty) { display: none; }
-.pick-count { font-size: 0.75rem; font-weight: 400; color: #363636; }
 #semester-content {
     flex: 1;
     overflow-y: auto;
@@ -1966,9 +1954,6 @@ body.filter-modal-open { overflow: hidden; }
     background: #FFFFFF;
     color: #73000A;
 }
-.browse-detail .results-header,
-.browse-results .results-header { padding-inline: 2px; }
-
 @media (max-width: 760px) {
     .browse-search-shell { padding: 10px; }
     .browse-empty .browse-search-shell { padding: 20px 12px; transform: translateY(-4vh); }

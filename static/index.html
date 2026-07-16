@@ -405,9 +405,6 @@
                 <aside id="semester-search">
                     <div class="resize-handle" id="search-resize-handle"></div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
-                        <div class="results-header">
-                            <span id="pick-count" class="pick-count"></span>
-                        </div>
                         <div id="search-results" class="results-list">
                             <p class="hint">Search a subject above to see available courses.</p>
                         </div>
@@ -606,13 +603,7 @@
         Export.init();
         DegreePlan.init();
 
-        // Track picked courses count
-        State.on('courses-changed', () => {
-            const count = Object.keys(State.selectedCourses).length;
-            const el = document.getElementById('pick-count');
-            if (el) el.textContent = count > 0 ? `(${count} selected)` : '';
-            ScheduleSidebar.render();
-        });
+        State.on('courses-changed', () => ScheduleSidebar.render());
         State.on('sections-changed', () => ScheduleSidebar.render());
         State.on('section-locks-changed', () => ScheduleSidebar.render());
         ScheduleSidebar.render();

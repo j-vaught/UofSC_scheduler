@@ -199,6 +199,15 @@ test('browse results reserve course add actions for the details pane', () => {
     assert.match(styles, /\.course-availability\.unavailable[^}]*color:\s*#5C5C5C/s);
 });
 
+test('Search results do not display a selected-course counter', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.doesNotMatch(html, /id="pick-count"|\(\$\{count\} selected\)/);
+    assert.doesNotMatch(styles, /\.pick-count|\.results-header:has\(\.pick-count/);
+    assert.match(html, /State\.on\('courses-changed', \(\) => ScheduleSidebar\.render\(\)\)/);
+});
+
 test('browse section details add and lock the specific section', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const registrationNotes = source.slice(
