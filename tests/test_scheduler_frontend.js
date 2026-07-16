@@ -201,6 +201,10 @@ test('browse results reserve course add actions for the details pane', () => {
 
 test('browse section details add and lock the specific section', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const registrationNotes = source.slice(
+        source.indexOf('sectionRegistrationNotes(details = null)'),
+        source.indexOf('destroyDetailMap()'),
+    );
 
     assert.match(source, /ADD COURSE AND USE THIS SECTION/);
     assert.match(source, /USE THIS SECTION/);
@@ -212,6 +216,7 @@ test('browse section details add and lock the specific section', () => {
     assert.match(source, /class="course-section-visuals"/);
     assert.match(source, /id="course-section-map"/);
     assert.match(source, /Registration notes for this section/);
+    assert.doesNotMatch(registrationNotes, /part_of_term|Part of term/);
 });
 
 test('browse filters separate primary and additional course choices', () => {

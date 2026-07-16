@@ -2035,7 +2035,6 @@ const Search = {
             ['Section corequisites', clean(details.section_coreqs)],
             ['Registration restrictions', restrictions],
             ['Class notes', clean(details.clssnotes)],
-            ['Part of term', clean(details.part_of_term)],
         ].filter(([, value]) => value && !/^none listed$/i.test(value));
         if (!rows.length) return '';
         return `<section class="course-section-registration"><div class="course-detail-card-heading"><h3>Registration notes for this section</h3></div><div>${rows.map(([label, value]) => {
