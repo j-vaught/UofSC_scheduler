@@ -413,6 +413,7 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(pathway, /prereq-tree-groups/);
     assert.match(pathway, /Take with this course/);
     assert.match(pathway, /Before or with this course/);
+    assert.match(unevenPathway, /prereq-course-options alternatives/);
     assert.equal((unevenPathway.match(/prereq-tree-branch-drop/g) || []).length, 3);
     assert.equal((unevenPathway.match(/class="prereq-link prereq-course-card/g) || []).length, 6);
     assert.match(unevenPathway, /prereq-course-options[^>]*>[\s\S]*prereq-tree-branch-drop/);
@@ -446,6 +447,8 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     assert.match(styles, /\.prereq-tree-branch-drop\s*{[^}]*flex:\s*1 1 14px;[^}]*width:\s*2px;/s);
     assert.match(styles, /\.prereq-tree-connector\s*{[^}]*background:\s*#000000;[^}]*width:\s*2px;/s);
     assert.doesNotMatch(styles, /\.prereq-tree-connector\s*{[^}]*border-left:/s);
+    assert.match(styles, /\.prereq-course-options\.alternatives\s*{[^}]*flex-direction:\s*column;[^}]*flex-wrap:\s*nowrap;/s);
+    assert.match(styles, /\.prereq-course-options\.alternatives \.prereq-course-card\s*{[^}]*width:\s*min\(150px, 100%\);/s);
 });
 
 test('browse filters separate primary and additional course choices', () => {

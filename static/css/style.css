@@ -2385,6 +2385,8 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     text-transform: uppercase;
 }
 .prereq-course-options { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.prereq-course-options.alternatives { align-items: center; flex-direction: column; flex-wrap: nowrap; }
+.prereq-course-options.alternatives .prereq-course-card { flex: 0 0 auto; width: min(150px, 100%); }
 .prereq-course-card {
     background: #FFFFFF;
     border: 2px solid #A2A2A2;
