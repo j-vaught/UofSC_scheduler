@@ -1,27 +1,6 @@
-/* Historical offering and enrollment display with per-term progress */
+/* Historical offering and enrollment display */
 const History = {
     _loadId: 0,
-    TERMS: [
-        { code: '202308', label: 'Fall 2023' },
-        { code: '202401', label: 'Spring 2024' },
-        { code: '202405', label: 'Summer 2024' },
-        { code: '202408', label: 'Fall 2024' },
-        { code: '202501', label: 'Spring 2025' },
-        { code: '202505', label: 'Summer 2025' },
-        { code: '202508', label: 'Fall 2025' },
-        { code: '202601', label: 'Spring 2026' },
-        { code: '202605', label: 'Summer 2026' },
-        { code: '202608', label: 'Fall 2026' },
-        { code: '202701', label: 'Spring 2027' },
-        { code: '202705', label: 'Summer 2027' },
-        { code: '202708', label: 'Fall 2027' },
-        { code: '202801', label: 'Spring 2028' },
-        { code: '202805', label: 'Summer 2028' },
-        { code: '202808', label: 'Fall 2028' },
-        { code: '202901', label: 'Spring 2029' },
-        { code: '202905', label: 'Summer 2029' },
-        { code: '202908', label: 'Fall 2029' },
-    ],
 
     _activeTerm(date = new Date()) {
         const year = date.getFullYear();
@@ -31,65 +10,21 @@ const History = {
         return `${year}08`;
     },
 
-    _historyBoundary() {
+    _historyBoundary(serverAsOfTerm = '') {
         const selected = (typeof State !== 'undefined' && State.term) || this._activeTerm();
         const active = this._activeTerm();
-        return selected < active ? selected : active;
+        const localBoundary = selected < active ? selected : active;
+        const serverBoundary = String(serverAsOfTerm || '');
+        if (/^\d{6}$/.test(serverBoundary) && serverBoundary < localBoundary) {
+            return serverBoundary;
+        }
+        return localBoundary;
     },
 
     _number(value) {
         if (value === null || value === undefined || value === '' || typeof value === 'boolean') return null;
         const number = Number(String(value).replaceAll(',', '').trim());
         return Number.isFinite(number) ? number : null;
-    },
-
-    _sumMetric(rows, names) {
-        let found = false;
-        let total = 0;
-        rows.forEach(row => {
-            for (const name of names) {
-                const value = this._number(row[name]);
-                if (value !== null) {
-                    found = true;
-                    total += value;
-                    break;
-                }
-            }
-        });
-        return found ? total : null;
-    },
-
-    _enrollmentMetrics(rows) {
-        let enrollment = this._sumMetric(rows, ['enrollment', 'enrolled', 'actualEnrollment', 'actual_enrollment']);
-        const capacity = this._sumMetric(rows, ['capacity', 'maxEnrollment', 'maximumEnrollment', 'max_enrollment']);
-        const available = this._sumMetric(rows, ['seatsAvailable', 'seats_available']);
-        if (enrollment === null && capacity !== null && available !== null) {
-            enrollment = Math.max(0, capacity - available);
-        }
-        return { enrollment, capacity };
-    },
-
-    async _sectionEnrollment(rows, term) {
-        const existing = this._enrollmentMetrics(rows);
-        if (existing.enrollment !== null && existing.capacity !== null) return existing;
-        const details = await Promise.all(rows.map(row => (
-            row.crn ? API.getDetails(row.crn, term).catch(() => null) : null
-        )));
-        let enrollment = 0;
-        let capacity = 0;
-        let found = false;
-        details.forEach(detail => {
-            const seats = detail?.seats || '';
-            const maximum = seats.match(/seats_max[^>]*>(\d+)/);
-            const available = seats.match(/seats_avail[^>]*>(\d+)/);
-            if (maximum && available) {
-                const sectionCapacity = Number(maximum[1]);
-                capacity += sectionCapacity;
-                enrollment += Math.max(0, sectionCapacity - Number(available[1]));
-                found = true;
-            }
-        });
-        return found ? { enrollment, capacity } : existing;
     },
 
     _escape(value) {
@@ -103,98 +38,34 @@ const History = {
         if (!container) return;
 
         const loadId = ++this._loadId;
-        const subject = courseCode.split(' ')[0];
-        const boundary = this._historyBoundary();
-        const historyTerms = this.TERMS.filter(term => term.code < boundary);
-        const total = historyTerms.length;
-
-        if (total === 0) {
-            this.render({ code: courseCode, terms: [] }, container);
-            return;
-        }
-
         container.innerHTML = `
-            <h3>${this._escape(courseCode)} — Offering History</h3>
-            <div id="history-progress">
-                <div class="history-progress-bar">
-                    <div class="history-progress-fill" id="history-fill" style="width:0%"></div>
-                </div>
-                <div id="history-status" class="history-status">Checking ${historyTerms[0].label}...</div>
+            <div class="history-detail-heading">
+                <div><h2>Offering history</h2><p>${this._escape(courseCode)}</p></div>
             </div>
-            <div id="history-results-live" class="history-results-live"></div>
+            <p class="loading" role="status" aria-live="polite">Loading offering history</p>
         `;
 
-        const statusEl = document.getElementById('history-status');
-        const fillEl = document.getElementById('history-fill');
-        const liveEl = document.getElementById('history-results-live');
-        const results = [];
-
-        for (let i = 0; i < total; i++) {
+        try {
+            const data = await API.getHistory(courseCode);
             if (loadId !== this._loadId) return;
-
-            const term = historyTerms[i];
-            const pct = Math.round(((i + 1) / total) * 100);
-            statusEl.textContent = `Checking ${term.label}... (${i + 1}/${total})`;
-            fillEl.style.width = pct + '%';
-
-            try {
-                const data = await API.searchCourses(term.code, [
-                    { field: 'subject', value: subject }
-                ]);
-                const matches = (data.results || []).filter(
-                    row => row.code === courseCode && !row.isCancelled
-                );
-                const rawTimes = matches.map(row => (row.meets || 'TBA').replace(/\s+/g, ' ').trim());
-                const metrics = await this._sectionEnrollment(matches, term.code);
-                const result = {
-                    term: term.code,
-                    label: term.label,
-                    offered: matches.length > 0,
-                    sections: matches.length,
-                    instructors: [...new Set(matches.map(row => (row.instr || 'Staff').trim()))],
-                    times: [...new Set(rawTimes)],
-                    enrollment: metrics.enrollment,
-                    capacity: metrics.capacity,
-                };
-                results.push(result);
-
-                const row = document.createElement('div');
-                row.className = 'history-live-row ' + (result.offered ? 'found' : 'not-found');
-                if (result.offered) {
-                    const enrollment = this._number(result.enrollment);
-                    const capacity = this._number(result.capacity);
-                    const enrollmentText = enrollment !== null
-                        ? `${Math.round(enrollment)} enrolled${capacity > 0 ? ` of ${Math.round(capacity)}` : ''}`
-                        : '';
-                    row.innerHTML = `<span class="history-live-term">${this._escape(term.label)}</span>
-                        <span class="offered">Yes</span>
-                        <span>${result.sections} section${result.sections !== 1 ? 's' : ''}</span>
-                        ${enrollmentText ? `<span>${this._escape(enrollmentText)}</span>` : ''}`;
-                } else {
-                    row.innerHTML = `<span class="history-live-term">${this._escape(term.label)}</span>
-                        <span class="not-offered">Not offered</span>`;
-                }
-                liveEl.appendChild(row);
-                liveEl.scrollTop = liveEl.scrollHeight;
-            } catch (err) {
-                results.push({
-                    term: term.code,
-                    label: term.label,
-                    offered: false,
-                    sections: 0,
-                    instructors: [],
-                    times: [],
-                    error: true,
-                });
+            if (!data || typeof data !== 'object' || Array.isArray(data) || data.error) {
+                throw new Error('Offering history is unavailable');
             }
+            this.render({ ...data, code: data.code || courseCode }, container);
+        } catch (error) {
+            if (loadId !== this._loadId) return;
+            container.innerHTML = `
+                <div class="history-detail-heading">
+                    <div><h2>Offering history</h2><p>${this._escape(courseCode)}</p></div>
+                </div>
+                <p class="hint" role="alert">Offering history is temporarily unavailable. Try again later.</p>
+            `;
         }
-
-        this.render({ code: courseCode, terms: results }, container);
     },
 
     render(data, container) {
         const code = data.code || '';
-        const boundary = data.as_of_term || this._historyBoundary();
+        const boundary = this._historyBoundary(data.as_of_term);
         const terms = (data.terms || []).filter(term => term.term < boundary && term.complete !== false && !term.future);
         const availableTerms = terms.filter(term => !term.error && term.available !== false);
         const offeredCount = availableTerms.filter(term => term.offered).length;

@@ -1253,6 +1253,26 @@ test('API error payloads reject so failed searches are never cached as empty res
     );
 });
 
+test('A browser reload requests fresh live data without changing historical cache behavior', async () => {
+    const requests = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        performance: { getEntriesByType: () => [{ type: 'reload' }] },
+        fetch: async (path, options) => {
+            requests.push({ path, options });
+            return { ok: true, status: 200, async json() { return {}; } };
+        },
+    });
+
+    assert.equal(api.shouldRefreshAfterReload(), true);
+    api.setForceRefreshLive(true);
+    await api.post('/api/search', {});
+    api.setForceRefreshLive(false);
+    await api.post('/api/history', { code: 'CSCE 145' });
+
+    assert.equal(requests[0].options.headers['X-UofSC-Refresh-Live'], '1');
+    assert.equal(requests[1].options.headers['X-UofSC-Refresh-Live'], undefined);
+});
+
 test('AI-assisted search can be disabled and related searches remain direct', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = fs.readFileSync('static/js/search.js', 'utf8');
@@ -1303,6 +1323,246 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(styles, /\.search-clear\s*{[^}]*right:\s*7px;/s);
     assert.match(styles, /@media \(max-width: 700px\)[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\) 44px 88px;/s);
     assert.match(styles, /@media \(max-width: 420px\)[\s\S]*--search-side-gap:\s*8px;/s);
+});
+
+test('Course detail routes persist search context while section and panel changes replace history', () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/?tab=search&term=202608&q=machine%20learning&open=1',
+        pathname: '/',
+        search: '?tab=search&term=202608&q=machine%20learning&open=1',
+    };
+    const historyCalls = [];
+    const applyLocation = value => {
+        const next = new URL(value, location.href);
+        location.href = next.href;
+        location.pathname = next.pathname;
+        location.search = next.search;
+    };
+    const history = {
+        state: { search: true, query: 'machine learning' },
+        pushState(state, _title, url) {
+            this.state = state;
+            historyCalls.push({ mode: 'push', state, url });
+            applyLocation(url);
+        },
+        replaceState(state, _title, url) {
+            this.state = state;
+            historyCalls.push({ mode: 'replace', state, url });
+            applyLocation(url);
+        },
+    };
+    const buttons = ['10868', '10869'].map(crn => ({
+        dataset: { detailCrn: crn },
+        classList: { toggle() {} },
+        setAttribute() {},
+        scrollIntoView() {},
+        focus() {},
+        tabIndex: -1,
+    }));
+    const group = {
+        code: 'CSCE 145',
+        sections: [
+            { code: 'CSCE 145', crn: '10868', stat: 'A' },
+            { code: 'CSCE 145', crn: '10869', stat: 'A' },
+        ],
+    };
+    const search = loadObject('static/js/search.js', 'Search', {
+        URL,
+        window: { location },
+        history,
+        State: {
+            term: '202608',
+            courseGroups: [group],
+            sectionLocks: {},
+            selectedSections: {},
+        },
+        API: { getDetails: () => new Promise(() => {}) },
+        document: {
+            querySelectorAll(selector) {
+                return selector === '[data-detail-crn]' ? buttons : [];
+            },
+        },
+        requestAnimationFrame(callback) { callback(); },
+    });
+    search._browseState = 'detail';
+    search._detailGroup = group;
+    search._detailSectionCrn = '10868';
+    search._detailTab = 'overview';
+    search._detailLoads = {};
+    search._detailToken = 1;
+    search.destroyDetailMap = () => {};
+    search.renderSectionSummary = () => {};
+    search.renderCourseResources = () => {};
+    search.refreshDetailGrades = () => {};
+    search.loadSectionFaculty = () => new Promise(() => {});
+
+    search.writeCourseDetailHistory({ mode: 'push' });
+    search.setCourseDetailTab('grades');
+    search.selectDetailSection('10869', false);
+
+    assert.deepEqual(historyCalls.map(call => call.mode), ['push', 'replace', 'replace']);
+    const opened = new URL(historyCalls[0].url, 'http://127.0.0.1:8765');
+    assert.equal(opened.searchParams.get('q'), 'machine learning');
+    assert.equal(opened.searchParams.get('open'), '1');
+    assert.equal(opened.searchParams.get('course'), 'CSCE 145');
+    assert.equal(historyCalls[0].state.detailParent, '/?tab=search&term=202608&q=machine+learning&open=1');
+    const final = new URL(location.href);
+    assert.equal(final.searchParams.get('course'), 'CSCE 145');
+    assert.equal(final.searchParams.get('crn'), '10869');
+    assert.equal(final.searchParams.get('panel'), 'grades');
+    assert.equal(history.state.detailParent, historyCalls[0].state.detailParent);
+});
+
+test('A refreshed course detail URL restores its term, section, and active panel', async () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/?tab=search&term=202608&course=CSCE%20145&crn=10869&panel=grades',
+        pathname: '/',
+        search: '?tab=search&term=202608&course=CSCE%20145&crn=10869&panel=grades',
+    };
+    const termSelect = {
+        value: '',
+        querySelector(selector) {
+            return selector === 'option[value="202608"]' ? {} : null;
+        },
+    };
+    const input = { value: '' };
+    const group = {
+        code: 'CSCE 145',
+        sections: [{ code: 'CSCE 145', crn: '10869', stat: 'A' }],
+    };
+    const events = [];
+    const state = { term: '202601', courseGroups: [] };
+    const search = loadObject('static/js/search.js', 'Search', {
+        URL,
+        window: { location },
+        State: state,
+        API: { shouldRefreshAfterReload() { return false; } },
+        Tabs: { switchTo(tab) { events.push(`tab:${tab}`); } },
+        document: {
+            getElementById(id) {
+                return id === 'term-select' ? termSelect : null;
+            },
+        },
+    });
+    let shown;
+    search.applyFiltersFromLocation = () => events.push('filters');
+    search.activeSearchInput = () => input;
+    search.doSearch = async options => events.push(`search:${options.historyMode}`);
+    search.courseDetailGroup = async (code, crn) => {
+        events.push(`detail:${code}:${crn}`);
+        return group;
+    };
+    search.showCourseDetail = (detailGroup, options) => { shown = { detailGroup, options }; };
+
+    await search.restoreFromLocation({ initial: true });
+
+    assert.equal(state.term, '202608');
+    assert.equal(termSelect.value, '202608');
+    assert.equal(input.value, 'CSCE 145');
+    assert.equal(search._directSearchOnce, true);
+    assert.deepEqual(events, [
+        'filters',
+        'tab:semester',
+        'search:none',
+        'detail:CSCE 145:10869',
+    ]);
+    assert.equal(shown.detailGroup, group);
+    assert.equal(shown.options.sectionCrn, '10869');
+    assert.equal(shown.options.panel, 'grades');
+    assert.equal(shown.options.historyMode, 'none');
+    assert.equal(search._restoringHistory, false);
+});
+
+test('A new search cancels a pending course-detail URL restoration', async () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/?tab=search&term=202608&course=CSCE%20145&crn=10869',
+        pathname: '/',
+        search: '?tab=search&term=202608&course=CSCE%20145&crn=10869',
+    };
+    const input = { value: '' };
+    let releaseRestoration;
+    const restorationSearch = new Promise(resolve => { releaseRestoration = resolve; });
+    let detailOpenCount = 0;
+    const search = loadObject('static/js/search.js', 'Search', {
+        URL,
+        window: { location },
+        State: { term: '202608', courseGroups: [] },
+        API: { shouldRefreshAfterReload() { return false; } },
+        Tabs: { switchTo() {} },
+        document: { getElementById() { return null; } },
+    });
+    search.applyFiltersFromLocation = () => {};
+    search.activeSearchInput = () => input;
+    search.doSearch = ({ historyMode = 'push' } = {}) => (
+        historyMode === 'none' ? restorationSearch : Promise.resolve()
+    );
+    search.courseDetailGroup = async () => ({
+        code: 'CSCE 145',
+        sections: [{ code: 'CSCE 145', crn: '10869', stat: 'A' }],
+    });
+    search.showCourseDetail = () => { detailOpenCount += 1; };
+
+    const restoration = search.restoreFromLocation();
+    await Promise.resolve();
+    input.value = 'MATH 141';
+    await search.submitSearch();
+    releaseRestoration();
+    await restoration;
+
+    assert.equal(detailOpenCount, 0);
+});
+
+test('Back to the main search skips a related-search course detail entry', () => {
+    const movements = [];
+    const search = loadObject('static/js/search.js', 'Search', {
+        history: {
+            state: { courseDetail: true, detailFromRelatedSearch: true },
+            go(distance) { movements.push(distance); },
+            back() { movements.push(-1); },
+        },
+    });
+
+    search.returnToMainSearch();
+
+    assert.deepEqual(movements, [-2]);
+});
+
+test('Scheduler course details navigate through Search and preserve its detail route flow', async () => {
+    const input = { value: '' };
+    const staleGroup = {
+        code: 'CSCE 145',
+        sections: [{ code: 'CSCE 145', crn: '10868' }],
+    };
+    const freshGroup = {
+        code: 'CSCE 145',
+        sections: [{ code: 'CSCE 145', crn: '10869' }],
+    };
+    const events = [];
+    const search = loadObject('static/js/search.js', 'Search', {
+        State: { courseGroups: [freshGroup] },
+    });
+    let detail;
+    search.activeSearchInput = () => input;
+    search.doSearch = async options => { events.push(`search:${options.historyMode}`); };
+    search.showCourseDetail = (group, options) => {
+        detail = { group, options };
+        events.push('detail');
+    };
+    const modal = { close() { events.push('modal'); } };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        window: { AppModal: modal },
+        AppModal: modal,
+        Tabs: { switchTo(tab) { events.push(`tab:${tab}`); } },
+        Search: search,
+        document: { getElementById() { return null; } },
+    });
+
+    await scheduler.openCourseInBrowse(staleGroup);
+
+    assert.deepEqual(events, ['modal', 'tab:semester', 'search:push', 'detail']);
+    assert.equal(input.value, 'CSCE 145');
+    assert.equal(detail.group, freshGroup);
+    assert.equal(detail.options.historyMode, 'push');
 });
 
 test('Top-level tab history preserves Search when returning to an unparameterized page', () => {
@@ -1392,6 +1652,124 @@ test('Course detail fills its pane and uses visual section, grade, and history s
     assert.match(gradeStyles, /\.grade-distribution-bar-wrap i\s*{[^}]*background:\s*#73000A;/s);
     assert.doesNotMatch(history, /View instructors and term details/);
     assert.doesNotMatch(history, /term\.instructors \|\|/);
+});
+
+test('Offering history uses one aggregate request and ignores stale loads', async () => {
+    const container = { innerHTML: '' };
+    const pending = new Map();
+    const calls = [];
+    const document = {
+        getElementById: id => id === 'history-container' ? container : null,
+        createElement() {
+            let value = '';
+            return {
+                set textContent(text) { value = String(text); },
+                get innerHTML() {
+                    return value
+                        .replaceAll('&', '&amp;')
+                        .replaceAll('<', '&lt;')
+                        .replaceAll('>', '&gt;')
+                        .replaceAll('"', '&quot;');
+                },
+            };
+        },
+    };
+    const history = loadObject('static/js/history.js', 'History', {
+        API: {
+            getHistory(code) {
+                calls.push(code);
+                return new Promise(resolve => pending.set(code, resolve));
+            },
+            getDetails() { throw new Error('Per-section history request should not run'); },
+            searchCourses() { throw new Error('Per-term history request should not run'); },
+        },
+        State: { term: '202708' },
+        document,
+    });
+    history._activeTerm = () => '202708';
+
+    const first = history.loadForCourse('CSCE 145');
+    assert.deepEqual(calls, ['CSCE 145']);
+    assert.match(container.innerHTML, /role="status"/);
+    assert.match(container.innerHTML, /Loading offering history/);
+    assert.doesNotMatch(container.innerHTML, /history-progress|Checking/);
+
+    const second = history.loadForCourse('CSCE 146');
+    assert.deepEqual(calls, ['CSCE 145', 'CSCE 146']);
+    pending.get('CSCE 146')({
+        code: 'CSCE 146',
+        as_of_term: '202708',
+        terms: [{
+            term: '202601',
+            label: 'Spring 2026',
+            available: true,
+            complete: true,
+            offered: true,
+            sections: 2,
+        }],
+    });
+    await second;
+    assert.match(container.innerHTML, /Spring 2026/);
+    const currentMarkup = container.innerHTML;
+
+    pending.get('CSCE 145')({
+        code: 'CSCE 145',
+        as_of_term: '202708',
+        terms: [{
+            term: '202508',
+            label: 'Fall 2025',
+            available: true,
+            complete: true,
+            offered: true,
+            sections: 1,
+        }],
+    });
+    await first;
+    assert.equal(container.innerHTML, currentMarkup);
+    assert.doesNotMatch(container.innerHTML, /Fall 2025/);
+});
+
+test('Offering history applies the earlier boundary and renders API errors safely', async () => {
+    const container = { innerHTML: '' };
+    const document = {
+        getElementById: id => id === 'history-container' ? container : null,
+        createElement() {
+            let value = '';
+            return {
+                set textContent(text) { value = String(text); },
+                get innerHTML() {
+                    return value
+                        .replaceAll('&', '&amp;')
+                        .replaceAll('<', '&lt;')
+                        .replaceAll('>', '&gt;')
+                        .replaceAll('"', '&quot;');
+                },
+            };
+        },
+    };
+    const history = loadObject('static/js/history.js', 'History', {
+        API: { getHistory: async () => { throw new Error('<script>unsafe</script>'); } },
+        State: { term: '202708' },
+        document,
+    });
+    history._activeTerm = () => '202608';
+
+    assert.equal(history._historyBoundary('202605'), '202605');
+    assert.equal(history._historyBoundary('202801'), '202608');
+    history.render({
+        as_of_term: '202605',
+        terms: [
+            { term: '202501', label: 'Spring 2025', complete: true, available: true, offered: true, sections: 1 },
+            { term: '202605', label: 'Summer 2026', complete: true, available: true, offered: true, sections: 1 },
+        ],
+    }, container);
+    assert.match(container.innerHTML, /Spring 2025/);
+    assert.doesNotMatch(container.innerHTML, /Summer 2026/);
+
+    await history.loadForCourse('CSCE 145');
+    assert.match(container.innerHTML, /role="alert"/);
+    assert.match(container.innerHTML, /temporarily unavailable/);
+    assert.doesNotMatch(container.innerHTML, /script|unsafe/);
 });
 
 test('Professor names use the first comma as the sole first and last name delimiter', () => {

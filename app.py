@@ -20,6 +20,10 @@ import grade_analytics
 PORT = 8765
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
+LIVE_CACHE_TTL = 300
+HISTORY_CACHE_TTL = 30 * 24 * 60 * 60
+HISTORY_CACHE_VERSION = 2
+
 CLASSES_API = "https://classes.sc.edu/api/?page=fose&route="
 BULLETIN_API = "https://academicbulletins.sc.edu/course-search/api/?page=fose&route="
 
@@ -56,9 +60,14 @@ MIME_TYPES = {
 }
 
 
-def proxy_request(upstream_url, body_bytes, ttl=300):
+def proxy_request(
+    upstream_url,
+    body_bytes,
+    ttl=LIVE_CACHE_TTL,
+    force_refresh=False,
+):
     key = cache.make_key(upstream_url, body_bytes.decode())
-    cached = cache.get(key)
+    cached = None if force_refresh else cache.get(key)
     if cached:
         return cached
 
@@ -71,7 +80,12 @@ def proxy_request(upstream_url, body_bytes, ttl=300):
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = resp.read()
-        cache.put(key, data, ttl)
+        try:
+            parsed = json.loads(data)
+        except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
+            parsed = None
+        if parsed is not None and not (isinstance(parsed, dict) and parsed.get("error")):
+            cache.put(key, data, ttl)
         return data
     except urllib.error.HTTPError as e:
         return json.dumps({"error": str(e), "code": e.code}).encode()
@@ -79,71 +93,133 @@ def proxy_request(upstream_url, body_bytes, ttl=300):
         return json.dumps({"error": str(e)}).encode()
 
 
+def _history_cache_key(course_code, as_of_term, terms):
+    cache_spec = json.dumps(
+        {
+            "version": HISTORY_CACHE_VERSION,
+            "code": course_code,
+            "as_of_term": as_of_term,
+            "terms": terms,
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return cache.make_key(f"course-history-v{HISTORY_CACHE_VERSION}", cache_spec)
+
+
+def _upstream_payload(data):
+    try:
+        payload = json.loads(data)
+    except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
+        return None
+    if not isinstance(payload, dict) or payload.get("error"):
+        return None
+    return payload
+
+
 def handle_history(body):
     params = json.loads(body)
-    course_code = params.get("code", "")
-    subject = course_code.split()[0] if " " in course_code else course_code
+    course_code = " ".join(str(params.get("code", "")).upper().split())
+    if not course_code or " " not in course_code:
+        return json.dumps({"error": "invalid course code"}).encode()
+
+    subject = course_code.split()[0]
+    as_of_term = offering_analyzer.current_academic_term()
+    history_terms = [term for term in TERM_CODES if term < as_of_term]
+    history_cache_key = _history_cache_key(course_code, as_of_term, history_terms)
+    cached = cache.get(history_cache_key)
+    if cached:
+        return cached
 
     results: dict[str, dict[str, object]] = {}
-    for term in TERM_CODES:
+    complete = True
+    for term in history_terms:
         payload = json.dumps(
             {
                 "other": {"srcdb": term},
                 "criteria": [{"field": "subject", "value": subject}],
             }
         ).encode()
-        data = proxy_request(CLASSES_API + "search", payload, ttl=86400)
-        try:
-            parsed = json.loads(data)
-            matches = [
-                r
-                for r in parsed.get("results", [])
-                if r.get("code", "") == course_code and not r.get("isCancelled")
-            ]
-            if matches:
-                instructors = list(set(r.get("instr", "Staff") for r in matches))
-                times = list(set(r.get("meets", "TBA") for r in matches))
-                enrollment = 0
-                capacity = 0
-                enrollment_sections = 0
-                for section in matches:
-                    detail_payload = json.dumps(
-                        {
-                            "group": f"crn:{section.get('crn', '')}",
-                            "srcdb": term,
-                        }
-                    ).encode()
-                    detail_data = proxy_request(CLASSES_API + "details", detail_payload, ttl=86400)
-                    try:
-                        details = json.loads(detail_data)
-                        seats_html = details.get("seats", "")
-                        maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
-                        available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
-                        if maximum and available:
-                            section_capacity = int(maximum.group(1))
-                            capacity += section_capacity
-                            enrollment += max(0, section_capacity - int(available.group(1)))
-                            enrollment_sections += 1
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-                results[term] = {
-                    "offered": True,
-                    "sections": len(matches),
-                    "instructors": instructors,
-                    "times": times,
-                }
-                if enrollment_sections:
-                    results[term].update(
-                        {
-                            "enrollment": enrollment,
-                            "capacity": capacity,
-                            "enrollment_sections": enrollment_sections,
-                        }
-                    )
-            else:
-                results[term] = {"offered": False}
-        except json.JSONDecodeError:
-            results[term] = {"offered": False, "error": "parse_error"}
+        data = proxy_request(
+            CLASSES_API + "search",
+            payload,
+            ttl=HISTORY_CACHE_TTL,
+        )
+        parsed = _upstream_payload(data)
+        rows = parsed.get("results") if parsed is not None else None
+        if not isinstance(rows, list):
+            complete = False
+            results[term] = {
+                "available": False,
+                "complete": False,
+                "error": True,
+            }
+            time.sleep(0.2)
+            continue
+
+        matches = [
+            row
+            for row in rows
+            if " ".join(str(row.get("code", "")).upper().split()) == course_code
+            and not row.get("isCancelled")
+        ]
+        if matches:
+            instructors = sorted(set(row.get("instr", "Staff") for row in matches))
+            times = sorted(set(row.get("meets", "TBA") for row in matches))
+            enrollment = 0
+            capacity = 0
+            enrollment_sections = 0
+            enrollment_error = False
+            for section in matches:
+                detail_payload = json.dumps(
+                    {
+                        "group": f"crn:{section.get('crn', '')}",
+                        "srcdb": term,
+                    }
+                ).encode()
+                detail_data = proxy_request(
+                    CLASSES_API + "details",
+                    detail_payload,
+                    ttl=HISTORY_CACHE_TTL,
+                )
+                details = _upstream_payload(detail_data)
+                if details is None:
+                    complete = False
+                    enrollment_error = True
+                    continue
+                seats_html = details.get("seats", "")
+                maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
+                available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
+                if maximum and available:
+                    section_capacity = int(maximum.group(1))
+                    capacity += section_capacity
+                    enrollment += max(0, section_capacity - int(available.group(1)))
+                    enrollment_sections += 1
+
+            results[term] = {
+                "available": True,
+                "complete": True,
+                "offered": True,
+                "sections": len(matches),
+                "instructors": instructors,
+                "times": times,
+            }
+            if enrollment_error:
+                results[term]["enrollment_error"] = True
+            elif enrollment_sections:
+                results[term].update(
+                    {
+                        "enrollment": enrollment,
+                        "capacity": capacity,
+                        "enrollment_sections": enrollment_sections,
+                    }
+                )
+        else:
+            results[term] = {
+                "available": True,
+                "complete": True,
+                "offered": False,
+            }
         time.sleep(0.2)
 
     term_names = {
@@ -152,26 +228,30 @@ def handle_history(body):
         "08": "Fall",
     }
     summary = []
-    for t in TERM_CODES:
-        year = t[:4]
-        sem = term_names.get(t[4:], t[4:])
+    for term in history_terms:
+        year = term[:4]
+        semester = term_names.get(term[4:], term[4:])
         summary.append(
             {
-                "term": t,
-                "label": f"{sem} {year}",
-                **results.get(t, {"offered": False}),
+                "term": term,
+                "label": f"{semester} {year}",
+                **results[term],
             }
         )
 
-    offered_count = sum(1 for s in summary if s.get("offered"))
-    return json.dumps(
+    response = json.dumps(
         {
             "code": course_code,
-            "total_terms": len(TERM_CODES),
-            "offered_count": offered_count,
+            "as_of_term": as_of_term,
+            "complete": complete,
+            "total_terms": len(history_terms),
+            "offered_count": sum(1 for term in summary if term.get("offered")),
             "terms": summary,
         }
     ).encode()
+    if complete:
+        cache.put(history_cache_key, response, ttl=HISTORY_CACHE_TTL)
+    return response
 
 
 def handle_faculty(body):
@@ -251,7 +331,10 @@ class Handler(http.server.BaseHTTPRequestHandler):
         self.send_response(204)
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header(
+            "Access-Control-Allow-Headers",
+            "Content-Type, X-UofSC-Refresh-Live",
+        )
         self.end_headers()
 
     def do_GET(self):
@@ -274,13 +357,24 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         path = self.path.split("?")[0]
         body = self._read_body()
+        refresh_live = self.headers.get("X-UofSC-Refresh-Live") == "1"
 
         if path == "/api/search":
-            data = proxy_request(CLASSES_API + "search", body, ttl=300)
+            data = proxy_request(
+                CLASSES_API + "search",
+                body,
+                ttl=LIVE_CACHE_TTL,
+                force_refresh=refresh_live,
+            )
             self._send_json(data)
 
         elif path == "/api/details":
-            data = proxy_request(CLASSES_API + "details", body, ttl=300)
+            data = proxy_request(
+                CLASSES_API + "details",
+                body,
+                ttl=LIVE_CACHE_TTL,
+                force_refresh=refresh_live,
+            )
             self._send_json(data)
 
         elif path == "/api/bulletin/search":

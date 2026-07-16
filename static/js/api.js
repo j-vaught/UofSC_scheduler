@@ -1,9 +1,22 @@
 /* API wrapper for backend proxy */
 const API = {
+    _forceRefreshLive: false,
+
+    shouldRefreshAfterReload() {
+        if (typeof performance === 'undefined' || !performance.getEntriesByType) return false;
+        return performance.getEntriesByType('navigation')[0]?.type === 'reload';
+    },
+
+    setForceRefreshLive(active) {
+        this._forceRefreshLive = Boolean(active);
+    },
+
     async post(path, body) {
+        const headers = { 'Content-Type': 'application/json' };
+        if (this._forceRefreshLive) headers['X-UofSC-Refresh-Live'] = '1';
         const resp = await fetch(path, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify(body),
         });
         const data = await resp.json();
