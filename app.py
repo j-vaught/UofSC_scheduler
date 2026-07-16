@@ -192,12 +192,15 @@ def handle_faculty(body):
 
             _, _, members = fetch_faculty((term, crn))
             cache.put(cache_key, json.dumps(members).encode(), ttl=86400)
+        from grade_pipeline import public_instructor_id
+
         return [
             {
                 "crn": crn,
                 "name": member.get("name", ""),
                 "email": member.get("email", ""),
                 "primary": bool(member.get("primary")),
+                "professor_id": public_instructor_id(member),
             }
             for member in members
             if member.get("name")

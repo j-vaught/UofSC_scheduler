@@ -2118,7 +2118,18 @@ const Search = {
         });
         container.querySelector('#btn-view-schedule')?.addEventListener('click', () => Tabs.switchTo('schedule'));
         container.querySelector('#btn-section-professor')?.addEventListener('click', () => {
-            if (typeof Grades !== 'undefined') Grades.showProfessorForCourseName(group.code, instructorName, primaryFaculty?.email || '');
+            if (typeof Grades === 'undefined') return;
+            if (primaryFaculty?.professor_id) {
+                Grades.showProfessor(primaryFaculty.professor_id, {
+                    displayName: instructorName,
+                    email: primaryFaculty.email || '',
+                    currentCourse: group.code,
+                    detailToken: this._detailToken,
+                    detailCode: group.code,
+                });
+            } else {
+                Grades.showProfessorForCourseName(group.code, instructorName, primaryFaculty?.email || '');
+            }
         });
     },
 
@@ -2129,7 +2140,9 @@ const Search = {
             const sourceForm = documentNode.querySelector('form');
             if (!sourceForm) return null;
             const action = new URL(sourceForm.getAttribute('action') || '', window.location.href);
-            if (action.hostname !== 'sc.bncollege.com') return null;
+            if (action.protocol !== 'https:'
+                || action.hostname !== 'sc.bncollege.com'
+                || action.port) return null;
             const allowed = ['catalogId', 'storeId', 'termMapping', 'courseXml'];
             const fields = {};
             allowed.forEach(name => {
@@ -2149,6 +2162,7 @@ const Search = {
         form.method = 'POST';
         form.action = order.action;
         form.target = '_blank';
+        form.rel = 'noopener noreferrer';
         Object.entries(order.fields).forEach(([name, value]) => {
             const input = document.createElement('input');
             input.type = 'hidden';
@@ -2193,15 +2207,18 @@ const Search = {
         const professorQuery = encodeURIComponent(`${professor} University of South Carolina professor`);
         const sectionDetails = this._detailSectionData?.[String(section?.crn || '')]?.details || null;
         const bookstoreOrder = this.parseBookstoreOrder(sectionDetails?.bn_order_books_html);
+        const hasSelectedSection = Boolean(section?.crn);
         const classDetailsUrl = section?.crn
             ? `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&crn=${encodeURIComponent(section.crn)}`
             : `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&code=${encodeURIComponent(group.code)}`;
         const bookstoreCard = bookstoreOrder
             ? '<button id="btn-resource-bookstore" type="button" class="course-resource-card" title="Open official materials for the selected section in a new tab"><small>Official</small><strong>Bookstore materials</strong><span>Open the selected section’s required and recommended materials</span></button>'
-            : `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open official class details and use Order Books"><small>Official</small><strong>Bookstore materials</strong><span>Open class details, then choose Order Books</span></a>`;
+            : hasSelectedSection
+                ? `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open official class details and use Order Books"><small>Official</small><strong>Bookstore materials</strong><span>Open class details, then choose Order Books</span></a>`
+                : `<a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Find a current section before opening its books"><small>Official</small><strong>Bookstore materials</strong><span>Choose a current section, then use Order Books</span></a>`;
         container.innerHTML = `
             <section class="course-resource-group">
-                <div class="course-resource-group-heading"><h2>Official university resources</h2><span>Selected section ${this.escapeText(section?.section || '')}</span></div>
+                <div class="course-resource-group-heading"><h2>Official university resources</h2><span>${hasSelectedSection ? `Selected section ${this.escapeText(section.section || '—')}` : 'Course-wide links'}</span></div>
                 <div class="course-resource-grid">
                     <a class="course-resource-card" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open the official class-search record for this section"><small>Official</small><strong>Class details</strong><span>Meeting, registration, deadline, and final-exam information</span></a>
                     ${bookstoreCard}

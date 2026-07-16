@@ -735,49 +735,89 @@ const Scheduler = {
 
     currentInstructorSummaries(group, gradeData = {}, facultyData = []) {
         const instructors = {};
-        const uniqueFaculty = Object.values((facultyData || []).reduce((records, member) => {
-            const key = this.normalizeInstructorName(member.email || member.name);
-            if (key && !records[key]) records[key] = member;
+        const historical = gradeData.instructors || [];
+        const facultyKey = member => {
+            const professorId = String(member?.professor_id || '').trim();
+            if (professorId) return `id:${professorId}`;
+            const name = this.normalizeInstructorName(member?.name);
+            return name ? `name:${name}` : '';
+        };
+        const facultyByKey = (facultyData || []).reduce((records, member) => {
+            const key = facultyKey(member);
+            if (!key) return records;
+            const existing = records[key] || {};
+            records[key] = {
+                ...existing,
+                ...member,
+                name: member.name || existing.name || '',
+                email: String(member.email || existing.email || '').trim().toLowerCase(),
+                professor_id: member.professor_id || existing.professor_id || '',
+            };
             return records;
-        }, {}));
+        }, {});
+        const uniqueFaculty = Object.values(facultyByKey);
+        const matchingNames = (records, normalized) => records.filter(record => {
+            const candidate = this.normalizeInstructorName(record.name);
+            return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
+        });
+        const resolveFaculty = name => {
+            const normalized = this.normalizeInstructorName(name);
+            if (!normalized) return null;
+            const exact = uniqueFaculty.filter(member => this.normalizeInstructorName(member.name) === normalized);
+            if (exact.length === 1) return exact[0];
+            if (exact.length > 1) return null;
+            const partial = matchingNames(uniqueFaculty, normalized);
+            const historicalMatches = matchingNames(historical, normalized);
+            return partial.length === 1 && historicalMatches.length === 1 ? partial[0] : null;
+        };
         (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
-            const liveFaculty = (facultyData || []).filter(member => String(member.crn) === String(section.crn));
+            const liveFaculty = Object.values((facultyData || [])
+                .filter(member => String(member.crn) === String(section.crn))
+                .reduce((records, member) => {
+                    const key = facultyKey(member);
+                    if (key) records[key] = facultyByKey[key] || member;
+                    return records;
+                }, {}));
             const identities = liveFaculty.length > 0
                 ? liveFaculty
                 : String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
                     const name = rawName.trim();
-                    const normalized = this.normalizeInstructorName(name);
-                    const matches = uniqueFaculty.filter(member => {
-                        const candidate = this.normalizeInstructorName(member.name);
-                        return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
-                    });
-                    return matches.length === 1 ? matches[0] : { name, email: '' };
+                    return resolveFaculty(name) || { name, email: '' };
                 });
             identities.forEach(identity => {
                 const name = String(identity.name || '').trim();
                 if (!name || ['staff', 'undecided', 'tba'].includes(name.toLowerCase())) return;
-                const key = this.normalizeInstructorName(identity.email || name);
+                const professorId = String(identity.professor_id || '').trim();
+                const key = professorId
+                    ? `id:${professorId}`
+                    : `name:${this.normalizeInstructorName(name)}`;
                 if (!instructors[key]) {
                     instructors[key] = {
                         name,
                         displayName: name,
                         email: String(identity.email || '').trim().toLowerCase(),
+                        professorId,
                         sections: 0,
                         open: 0,
                         grade: null,
+                        matchStatus: 'unmatched',
                     };
+                } else if (!instructors[key].email && identity.email) {
+                    instructors[key].email = String(identity.email).trim().toLowerCase();
                 }
                 instructors[key].sections += 1;
                 if (this.isOpenSection(section)) instructors[key].open += 1;
             });
         });
-        const historical = gradeData.instructors || [];
         Object.values(instructors).forEach(summary => {
             const normalized = this.normalizeInstructorName(summary.name);
-            summary.grade = historical.find(record => {
-                const candidate = this.normalizeInstructorName(record.name);
-                return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
-            }) || null;
+            const idMatches = summary.professorId
+                ? historical.filter(record => String(record.id || '') === summary.professorId)
+                : [];
+            const nameMatches = matchingNames(historical, normalized);
+            const matches = idMatches.length === 1 ? idMatches : nameMatches;
+            summary.grade = matches.length === 1 ? matches[0] : null;
+            summary.matchStatus = summary.grade ? 'matched' : matches.length > 1 ? 'ambiguous' : 'unmatched';
             summary.displayName = summary.name.includes(',')
                 ? summary.name
                 : summary.grade?.name || summary.name;
@@ -804,7 +844,7 @@ const Scheduler = {
                             <span style="width:${gpaPosition}%"></span>
                         </div>
                         <small>${gpa.toFixed(2)} historical course GPA · ${Number(grade.graded_students || 0).toLocaleString()} grades</small>
-                    ` : '<small>No matched grade history for this course.</small>'}
+                    ` : `<small>${instructor.matchStatus === 'ambiguous' ? 'Multiple historical records share this name.' : 'No matched grade history for this course.'}</small>`}
                 </article>
             `;
         }).join('');

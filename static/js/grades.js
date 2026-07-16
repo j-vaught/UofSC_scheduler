@@ -5,6 +5,7 @@ const Grades = {
     _courseLoadId: 0,
     _professorLoadId: 0,
     _professorLookupId: 0,
+    _courseFacultyCache: {},
 
     async courseData(code) {
         if (this._courseCache[code]) return this._courseCache[code];
@@ -19,15 +20,53 @@ const Grades = {
         return data;
     },
 
+    courseFacultyKey(code) {
+        const term = Search?._detailTerm || globalThis.State?.term || '';
+        return `${term}:${code}`;
+    },
+
+    currentFacultyForCourse(code) {
+        const group = Search?._detailGroup || { sections: [] };
+        const key = this.courseFacultyKey(code);
+        const cached = this._courseFacultyCache[key];
+        if (cached) return Promise.resolve(cached);
+        if (typeof Scheduler === 'undefined' || typeof API === 'undefined') return Promise.resolve([]);
+        const crns = Scheduler.currentInstructorCrns(group);
+        if (!crns.length) {
+            this._courseFacultyCache[key] = [];
+            return Promise.resolve([]);
+        }
+        const request = API.getFaculty(Search?._detailTerm || State.term, crns)
+            .then(data => data.faculty || [])
+            .catch(() => [])
+            .then(faculty => {
+                this._courseFacultyCache[key] = faculty;
+                return faculty;
+            });
+        this._courseFacultyCache[key] = request;
+        return request;
+    },
+
+    courseFacultyRecords(code) {
+        const cached = this._courseFacultyCache[this.courseFacultyKey(code)];
+        if (Array.isArray(cached)) return cached;
+        return Search?._detailFaculty || [];
+    },
+
     async loadForCourse(code) {
         const container = document.getElementById('grades-container');
         if (!container) return;
         const loadId = ++this._courseLoadId;
         container.innerHTML = '<p class="loading">Loading historical grades</p>';
+        const facultyPromise = this.currentFacultyForCourse(code);
         try {
             const data = await this.courseData(code);
             if (loadId !== this._courseLoadId || Search?._detailGroup?.code !== code) return;
-            this.renderCourse(container, data);
+            this.renderCourse(container, data, this.courseFacultyRecords(code));
+            facultyPromise.then(faculty => {
+                if (loadId !== this._courseLoadId || Search?._detailGroup?.code !== code) return;
+                this.renderCourse(container, data, faculty);
+            });
         } catch (error) {
             if (loadId !== this._courseLoadId) return;
             container.innerHTML = '<p class="hint">No Columbia grade history is available for this course.</p>';
@@ -82,10 +121,14 @@ const Grades = {
         return String(value || '').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean).sort().join(' ');
     },
 
-    currentInstructorRecords(data) {
+    currentInstructorRecords(data, facultyData = null) {
         const group = Search?._detailGroup || { sections: [] };
         if (typeof Scheduler !== 'undefined' && Scheduler.currentInstructorSummaries) {
-            return Scheduler.currentInstructorSummaries(group, data, Search?._detailFaculty || []);
+            return Scheduler.currentInstructorSummaries(
+                group,
+                data,
+                facultyData === null ? this.courseFacultyRecords(group.code || '') : facultyData,
+            );
         }
         const historical = data.instructors || [];
         const currentNames = [...new Set((group.sections || [])
@@ -99,10 +142,10 @@ const Grades = {
         });
     },
 
-    renderCourse(container, data) {
+    renderCourse(container, data, facultyData = null) {
         const viewedInstructor = Search?.currentDetailSection?.()?.instr || '';
         const normalizedViewed = this.normalizeName(viewedInstructor);
-        const instructors = this.currentInstructorRecords(data).sort((a, b) => {
+        const instructors = this.currentInstructorRecords(data, facultyData).sort((a, b) => {
             const aCurrent = this.normalizeName(a.displayName || a.name) === normalizedViewed ? 1 : 0;
             const bCurrent = this.normalizeName(b.displayName || b.name) === normalizedViewed ? 1 : 0;
             return bCurrent - aCurrent || Number(b.open || 0) - Number(a.open || 0);
@@ -271,10 +314,16 @@ const Grades = {
             .filter(point => Number.isFinite(point.year) && Number.isFinite(point.gpa))
             .sort((left, right) => left.year - right.year);
         if (!points.length) return '';
-        const positioned = points.map((point, index) => ({
+        const firstYear = points[0].year;
+        const lastYear = points[points.length - 1].year;
+        const yearSpan = lastYear - firstYear;
+        const plotTop = 6;
+        const plotHeight = 88;
+        const positionGpa = gpa => plotTop + (4 - Math.max(1, Math.min(4, gpa))) / 3 * plotHeight;
+        const positioned = points.map(point => ({
             ...point,
-            x: points.length === 1 ? 50 : 5 + index * 90 / (points.length - 1),
-            y: 10 + (4 - Math.max(0, Math.min(4, point.gpa))) / 4 * 72,
+            x: yearSpan === 0 ? 50 : 5 + (point.year - firstYear) * 90 / yearSpan,
+            y: positionGpa(point.gpa),
         }));
         const segments = positioned.slice(0, -1).map((point, index) => {
             const next = positioned[index + 1];
@@ -285,13 +334,18 @@ const Grades = {
             return `<i class="professor-year-segment ${direction}" style="left:${point.x}%;top:${top}%;width:${next.x - point.x}%;height:${height}%"></i>`;
         }).join('');
         const markers = positioned.map(point => `<button type="button" class="professor-year-point" style="left:${point.x}%;top:${point.y}%" title="${point.year}: ${this.formatGpa(point.gpa)} GPA" aria-label="${point.year}, ${this.formatGpa(point.gpa)} GPA"><span>${this.formatGpa(point.gpa)}</span></button>`).join('');
-        const labels = positioned.map(point => `<span>${point.year}</span>`).join('');
+        const axisValues = [4, 3, 2, 1];
+        const axis = axisValues
+            .map(value => `<span style="top:${positionGpa(value)}%">${value.toFixed(1)}</span>`).join('');
+        const gridLines = axisValues
+            .map(value => `<i class="professor-year-gridline" style="top:${positionGpa(value)}%"></i>`).join('');
+        const labels = positioned.map(point => `<span style="left:${point.x}%">${point.year}</span>`).join('');
         return `
             <div class="professor-year-plot">
-                <div class="professor-year-axis" aria-hidden="true"><span>4.0</span><span>3.0</span><span>2.0</span><span>1.0</span></div>
-                ${segments}${markers}
+                <div class="professor-year-axis" aria-hidden="true">${axis}</div>
+                ${gridLines}${segments}${markers}
             </div>
-            <div class="professor-year-labels" style="grid-template-columns:repeat(${positioned.length}, minmax(0, 1fr))">${labels}</div>
+            <div class="professor-year-labels">${labels}</div>
         `;
     },
 
@@ -320,7 +374,7 @@ const Grades = {
                 <div class="professor-profile-summary">
                     <div class="professor-primary-gpa"><span>Overall historical GPA</span><strong>${this.formatGpa(data.average_gpa)}</strong><small>${Number(data.graded_students || 0).toLocaleString()} counted grades</small></div>
                     <div class="professor-profile-fact"><strong>${data.typical_sections_per_year ?? '—'}</strong><span>Typical sections per active year</span></div>
-                    <div class="professor-profile-fact"><strong>${this.escape(data.experience_label || `${data.observed_teaching_semesters || '—'} semesters`)}</strong><span>Semesters observed</span></div>
+                    <div class="professor-profile-fact"><strong>${this.escape(data.experience_label || `${data.observed_teaching_semesters || '—'} semesters`)}</strong><span>Teaching span in available records</span></div>
                 </div>
                 <section class="professor-section"><div class="course-detail-card-heading"><h3>Courses taught</h3><span>Alphabetical by course code</span></div><div class="professor-course-list">${courses || '<p class="hint">No course history available.</p>'}</div></section>
                 ${yearly ? `<section class="professor-section"><div class="course-detail-card-heading"><h3>GPA by year</h3><span>Hover over a point for the exact value.</span></div>${yearly}</section>` : ''}

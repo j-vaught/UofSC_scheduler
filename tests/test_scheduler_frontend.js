@@ -745,6 +745,52 @@ test('current faculty records replace surname-only labels and add email', () => 
     assert.equal(summaries[0].grade.average_gpa, 3.04);
 });
 
+test('current faculty records prefer stable professor IDs over duplicate names', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const summaries = scheduler.currentInstructorSummaries({
+        sections: [{ crn: '70501', instr: 'Johnson, Rhonda', stat: 'A' }],
+    }, {
+        instructors: [
+            { id: 'prof_other', name: 'Johnson, Rhonda', average_gpa: 2.4 },
+            { id: 'prof_selected', name: 'Johnson, Rhonda', average_gpa: 3.6 },
+        ],
+    }, [
+        { crn: '70501', professor_id: 'prof_selected', name: 'Johnson, Rhonda', email: 'rhonda@sc.edu' },
+    ]);
+
+    assert.equal(summaries.length, 1);
+    assert.equal(summaries[0].professorId, 'prof_selected');
+    assert.equal(summaries[0].grade.id, 'prof_selected');
+    assert.equal(summaries[0].grade.average_gpa, 3.6);
+});
+
+test('current faculty deduplicates mixed email records and refuses ambiguous name matches', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const deduplicated = scheduler.currentInstructorSummaries({
+        sections: [
+            { crn: '1', instr: 'Hoskins, William', stat: 'A' },
+            { crn: '2', instr: 'Hoskins, William', stat: 'A' },
+        ],
+    }, { instructors: [] }, [
+        { crn: '1', name: 'Hoskins, William', email: '' },
+        { crn: '2', name: 'Hoskins, William', email: 'hoskinsw@cec.sc.edu' },
+    ]);
+    const ambiguous = scheduler.currentInstructorSummaries({
+        sections: [{ crn: '3', instr: 'Nichols, Hannah', stat: 'A' }],
+    }, {
+        instructors: [
+            { id: 'prof_one', name: 'Nichols, Hannah', average_gpa: 3.1 },
+            { id: 'prof_two', name: 'Nichols, Hannah', average_gpa: 3.8 },
+        ],
+    });
+
+    assert.equal(deduplicated.length, 1);
+    assert.equal(deduplicated[0].sections, 2);
+    assert.equal(deduplicated[0].email, 'hoskinsw@cec.sc.edu');
+    assert.equal(ambiguous[0].grade, null);
+    assert.equal(ambiguous[0].matchStatus, 'ambiguous');
+});
+
 test('quick view grade diagram groups outcomes into readable bands', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
     const buckets = scheduler.gradeBuckets({
@@ -1162,22 +1208,47 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /class="professor-primary-gpa"/);
     assert.match(source, /class="professor-year-segment \$\{direction\}"/);
     assert.match(source, /\$\{point\.year\}: \$\{this\.formatGpa\(point\.gpa\)\} GPA/);
+    assert.match(source, /\(point\.year - firstYear\) \* 90 \/ yearSpan/);
+    assert.match(source, /Teaching span in available records/);
+    assert.match(source, /currentFacultyForCourse\(code\)/);
     assert.match(styles, /\.professor-year-segment\.down/);
     assert.match(styles, /\.professor-year-point\s*{[^}]*border-radius:\s*50% !important;/s);
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
 });
 
+test('Professor GPA timeline uses calendar-year spacing and an aligned one-to-four scale', () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {});
+    const markup = grades.professorYearMarkup([
+        { academic_year: 2018, average_gpa: 4 },
+        { academic_year: 2020, average_gpa: 3 },
+        { academic_year: 2024, average_gpa: 2 },
+    ]);
+
+    assert.match(markup, /left:5%;top:6%/);
+    assert.match(markup, /left:35%;top:35\.3/);
+    assert.match(markup, /left:95%;top:64\.6/);
+    assert.match(markup, /top:6%">4\.0/);
+    assert.match(markup, /top:94%">1\.0/);
+    assert.match(markup, /class="professor-year-gridline" style="top:35\.3/);
+    assert.doesNotMatch(markup, /grid-template-columns/);
+});
+
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
 
+    assert.match(source, /action\.protocol !== 'https:'/);
     assert.match(source, /action\.hostname !== 'sc\.bncollege\.com'/);
+    assert.match(source, /\|\| action\.port/);
     assert.match(source, /\['catalogId', 'storeId', 'termMapping', 'courseXml'\]/);
+    assert.match(source, /form\.rel = 'noopener noreferrer'/);
     assert.match(source, /details&srcdb=\$\{encodeURIComponent\(this\._detailTerm \|\| State\.term\)\}&crn=/);
     assert.match(source, /https:\/\/www\.sc\.edu\/syllabusarchive\//);
     assert.match(source, /academicbulletins\.sc\.edu\/undergraduate\/course-descriptions\/\$\{subject\}\//);
     assert.match(source, /academicbulletins\.sc\.edu\/graduate\/course-descriptions\/\$\{subject\}\//);
     assert.match(source, /https:\/\/sc\.edu\/about\/directory\//);
+    assert.match(source, /'Course-wide links'/);
+    assert.match(source, /primaryFaculty\?\.professor_id/);
     assert.doesNotMatch(source, /uscbookstore\.com/);
     assert.doesNotMatch(source, /Official course information and useful searches open in a new tab/);
 });
