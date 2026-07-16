@@ -27,6 +27,9 @@ const Search = {
     _directSearchOnce: false,
     _semanticFallbackOnce: false,
     _semanticFallbackNotice: '',
+    _mainSearchQuery: '',
+    _relatedSearchOrigin: '',
+    _restoringHistory: false,
 
     // Lazy-load Transformers.js embedding model
     async _loadExtractor() {
@@ -470,18 +473,16 @@ const Search = {
         // Load subject list for fuzzy matching
         fetch('/api/subjects').then(r => r.json()).then(list => { this._subjects = list; });
 
-        document.getElementById('btn-search').addEventListener('click', () => this.doSearch());
+        document.getElementById('btn-search').addEventListener('click', () => this.submitSearch());
         document.getElementById('keyword-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') this.doSearch();
+            if (e.key === 'Enter') this.submitSearch();
         });
 
         // Clear button
         const clearBtn = document.getElementById('search-clear');
         if (clearBtn) {
             clearBtn.addEventListener('click', () => {
-                const input = this.activeSearchInput();
-                input.value = '';
-                input.focus();
+                this.resetToCleanSearch({ historyMode: 'push' });
             });
         }
 
@@ -535,9 +536,14 @@ const Search = {
             button.addEventListener('click', () => {
                 const input = this.activeSearchInput();
                 input.value = button.dataset.searchExample || '';
-                this.doSearch();
+                this.submitSearch();
             });
         });
+
+        document.addEventListener('search-tab-reset-requested', () => {
+            this.resetToCleanSearch({ historyMode: 'push' });
+        });
+        window.addEventListener('popstate', () => this.restoreFromLocation());
 
         const additionalToggle = document.getElementById('additional-filter-toggle');
         const additionalPanel = document.getElementById('additional-filter-panel');
@@ -564,6 +570,7 @@ const Search = {
         };
         if (typeof requestIdleCallback === 'function') requestIdleCallback(preload, { timeout: 3500 });
         else setTimeout(preload, 1500);
+        requestAnimationFrame(() => this.restoreFromLocation({ initial: true }));
     },
 
     activeSearchInput() {
@@ -578,15 +585,159 @@ const Search = {
         workspace.classList.add(`browse-${state}`);
     },
 
+    submitSearch() {
+        this._mainSearchQuery = '';
+        this._relatedSearchOrigin = '';
+        return this.doSearch();
+    },
+
+    resetToCleanSearch({ historyMode = 'push' } = {}) {
+        this._searchId += 1;
+        this._detailToken = (this._detailToken || 0) + 1;
+        this._mainSearchQuery = '';
+        this._relatedSearchOrigin = '';
+        this._directSearchOnce = false;
+        const input = this.activeSearchInput();
+        if (input) input.value = '';
+        document.getElementById('search-results').innerHTML = '<p class="hint">Search a subject above to see available courses.</p>';
+        this.setBrowseState('empty');
+        if (historyMode !== 'none') this.writeSearchHistory('', { mode: historyMode });
+        requestAnimationFrame(() => input?.focus());
+    },
+
+    searchUrl({ query = '', direct = false, origin = '' } = {}) {
+        const url = new URL(window.location.href);
+        url.search = '';
+        url.hash = '';
+        url.searchParams.set('tab', 'search');
+        url.searchParams.set('term', State.term);
+        if (query) url.searchParams.set('q', query);
+        if (direct) url.searchParams.set('direct', '1');
+        if (origin) url.searchParams.set('from', origin);
+
+        const checkboxParams = [
+            ['filter-show-all', 'all'],
+            ['filter-open', 'open'],
+            ['filter-eligible', 'eligible'],
+        ];
+        checkboxParams.forEach(([id, parameter]) => {
+            if (document.getElementById(id)?.checked) url.searchParams.set(parameter, '1');
+        });
+        const selectParams = [
+            ['filter-method', 'method'],
+            ['filter-carolina-core', 'core'],
+            ['filter-part-of-term', 'part'],
+            ['filter-course-attribute', 'attribute'],
+            ['filter-honors', 'honors'],
+            ['filter-meeting-pattern', 'meetings'],
+            ['filter-size-mode', 'sizeMode'],
+            ['filter-size-value', 'size'],
+            ['filter-avail-mode', 'seatMode'],
+            ['filter-avail-value', 'seats'],
+        ];
+        selectParams.forEach(([id, parameter]) => {
+            const value = document.getElementById(id)?.value;
+            if (value) url.searchParams.set(parameter, value);
+        });
+        return url;
+    },
+
+    writeSearchHistory(query, { mode = 'push', direct = false, origin = '' } = {}) {
+        if (this._restoringHistory || mode === 'none') return;
+        const url = this.searchUrl({ query, direct, origin });
+        const next = `${url.pathname}${url.search}`;
+        const current = `${window.location.pathname}${window.location.search}`;
+        const state = { search: true, relatedSearch: Boolean(origin), query, origin };
+        if (mode === 'replace' || next === current) history.replaceState(state, '', next);
+        else history.pushState(state, '', next);
+    },
+
+    applyFiltersFromLocation(params) {
+        const checked = [
+            ['filter-show-all', 'all'],
+            ['filter-open', 'open'],
+            ['filter-eligible', 'eligible'],
+        ];
+        checked.forEach(([id, parameter]) => {
+            const element = document.getElementById(id);
+            if (element) element.checked = params.get(parameter) === '1';
+        });
+        const values = [
+            ['filter-method', 'method'],
+            ['filter-carolina-core', 'core'],
+            ['filter-part-of-term', 'part'],
+            ['filter-course-attribute', 'attribute'],
+            ['filter-honors', 'honors'],
+            ['filter-meeting-pattern', 'meetings'],
+            ['filter-size-mode', 'sizeMode'],
+            ['filter-size-value', 'size'],
+            ['filter-avail-mode', 'seatMode'],
+            ['filter-avail-value', 'seats'],
+        ];
+        values.forEach(([id, parameter]) => {
+            const element = document.getElementById(id);
+            if (element) element.value = params.get(parameter) || '';
+        });
+        const aiToggle = document.getElementById('filter-ai-search');
+        if (aiToggle) aiToggle.checked = !(params.get('direct') === '1' && !params.get('from'));
+        this.updateActiveFilterChips();
+    },
+
+    async restoreFromLocation({ initial = false } = {}) {
+        const params = new URL(window.location.href).searchParams;
+        if (params.get('tab') !== 'search' && !params.has('q')) return;
+        const query = params.get('q') || '';
+        this._restoringHistory = true;
+        const term = params.get('term');
+        const termSelect = document.getElementById('term-select');
+        if (term && termSelect?.querySelector(`option[value="${term}"]`)) {
+            State.term = term;
+            termSelect.value = term;
+        }
+        this.applyFiltersFromLocation(params);
+        this._mainSearchQuery = '';
+        this._relatedSearchOrigin = params.get('from') || '';
+        this._directSearchOnce = params.get('direct') === '1';
+        const input = this.activeSearchInput();
+        if (input) input.value = query;
+        if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
+        if (!query) {
+            this.resetToCleanSearch({ historyMode: 'none' });
+            this._restoringHistory = false;
+            return;
+        }
+        try {
+            await this.doSearch({ historyMode: 'none' });
+        } finally {
+            this._restoringHistory = false;
+        }
+    },
+
 
     openRegularSearch(term) {
         const regularInput = document.getElementById('keyword-input');
         if (!regularInput) return;
+        const origin = this._mainSearchQuery || regularInput.value.trim();
         this._searchId += 1;
         regularInput.value = term;
+        this._relatedSearchOrigin = origin;
         this._directSearchOnce = true;
         regularInput.focus();
         this.doSearch();
+    },
+
+    returnToMainSearch() {
+        if (history.state?.relatedSearch) {
+            history.back();
+            return;
+        }
+        const origin = this._relatedSearchOrigin;
+        if (!origin) return;
+        this._relatedSearchOrigin = '';
+        this._mainSearchQuery = '';
+        const input = this.activeSearchInput();
+        if (input) input.value = origin;
+        this.doSearch({ historyMode: 'replace' });
     },
 
     setSmartModelLoading(active, stage = '') {
@@ -718,7 +869,7 @@ const Search = {
         if (this.activeSearchInput()?.value.trim()) this.doSearch();
     },
 
-    async doSearch() {
+    async doSearch({ historyMode = 'push' } = {}) {
         const searchInput = this.activeSearchInput();
         const rawInput = searchInput.value.trim();
         const openOnly = document.getElementById('filter-open').checked;
@@ -751,6 +902,12 @@ const Search = {
             this.showHint('Enter a subject code (CSCE), course number (CSCE 145), range (CSCE 140–199), or keyword.');
             return;
         }
+
+        this.writeSearchHistory(rawInput, {
+            mode: historyMode,
+            direct: !aiAssisted || Boolean(this._relatedSearchOrigin),
+            origin: this._relatedSearchOrigin,
+        });
 
         this.setBrowseState('results');
         this.updateActiveFilterChips();
@@ -957,6 +1114,8 @@ const Search = {
                         return { ...search, count: new Set(matchingCodes).size };
                     })
                     : null;
+                this._mainSearchQuery = kw;
+                this._relatedSearchOrigin = '';
                 this.renderResults(results, results.length, prereqData, eligibleOnly2, searchInfo);
             } catch (err) {
                 if (searchId !== this._searchId) return;
@@ -1867,6 +2026,9 @@ const Search = {
         const courseLabel = groupList.length === 1 ? 'course' : 'courses';
         const sectionLabel = count === 1 ? 'section' : 'sections';
         let header = `<div class="browse-results-summary"><strong>${groupList.length} ${courseLabel}</strong><span>${count} total ${sectionLabel}</span></div>`;
+        if (this._relatedSearchOrigin) {
+            header = `<button type="button" class="related-search-back">&larr; Back to ${this.escapeText(this._relatedSearchOrigin)}</button>${header}`;
+        }
         if (fallbackNotice) {
             header += `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>`;
         }
@@ -1883,7 +2045,7 @@ const Search = {
             header += `
                 <div class="semantic-search-terms">
                     <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
-                        <span><b>Related searches</b><small>Select a phrase to view its direct matches.</small></span><strong>${searchTerms.length} terms</strong><i aria-hidden="true">&#9660;</i>
+                        <span><b>${searchTerms.length} Related searches</b></span><i aria-hidden="true">&#9660;</i>
                     </button>
                     <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
                 </div>`;
@@ -1896,6 +2058,7 @@ const Search = {
             searchTermsList?.classList.toggle('hidden', !willExpand);
             searchTermsToggle.setAttribute('aria-expanded', String(willExpand));
         });
+        container.querySelector('.related-search-back')?.addEventListener('click', () => this.returnToMainSearch());
         container.querySelectorAll('[data-regular-search-index]').forEach(button => {
             button.addEventListener('click', () => {
                 const search = searchTerms[Number(button.dataset.regularSearchIndex)];

@@ -1017,13 +1017,14 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.doesNotMatch(html, /id="smart-search-aggregate"/);
     assert.match(source, /input\.disabled = active/);
     assert.match(source, /openRegularSearch\(term\)/);
-    assert.match(source, /this\._directSearchOnce = true;[\s\S]*this\.doSearch\(\);/);
+    assert.match(source, /this\._relatedSearchOrigin = origin;[\s\S]*this\._directSearchOnce = true;[\s\S]*this\.doSearch\(\);/);
     assert.match(source, /class="semantic-search-term" data-regular-search-index/);
     assert.match(source, /const relatedBatches = await Promise\.all/);
     assert.match(source, /this\.applySectionFilters\(candidates, semanticFilters\)/);
     assert.match(source, /count: new Set\(matchingCodes\)\.size/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
+    assert.match(source, /\$\{searchTerms\.length\} Related searches/);
     assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
     assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
     assert.match(styles, /\.smart-model-loading\s*{[^}]*position:\s*absolute;/s);
@@ -1053,10 +1054,30 @@ test('Browse uses one search field for direct and AI-assisted queries', () => {
     assert.doesNotMatch(html, /id="smart-keyword-input"/);
     assert.doesNotMatch(html, /id="smart-search-submit"/);
     assert.equal((html.match(/data-search-example=/g) || []).length, 6);
-    assert.match(source, /getElementById\('keyword-input'\)\.addEventListener\('keydown',[\s\S]*if \(e\.key === 'Enter'\) this\.doSearch\(\)/);
+    assert.match(source, /getElementById\('keyword-input'\)\.addEventListener\('keydown',[\s\S]*if \(e\.key === 'Enter'\) this\.submitSearch\(\)/);
     assert.doesNotMatch(styles, /\.browse-empty \.browse-filter-button\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-empty \.browse-search-form\s*{\s*grid-template-columns:\s*minmax\(0, 1fr\) 44px 102px;/);
     assert.doesNotMatch(styles, /\.smart-search-active/);
+});
+
+test('Search navigation resets cleanly and URL history restores prior searches', () => {
+    const search = fs.readFileSync('static/js/search.js', 'utf8');
+    const tabs = fs.readFileSync('static/js/tabs.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(tabs, /btn\.dataset\.tab === 'semester'[\s\S]*search-tab-reset-requested/);
+    assert.match(search, /resetToCleanSearch\(\{ historyMode: 'push' \}\)/);
+    assert.match(search, /history\.pushState\(state, '', next\)/);
+    assert.match(search, /window\.addEventListener\('popstate', \(\) => this\.restoreFromLocation\(\)\)/);
+    assert.match(search, /url\.searchParams\.set\('q', query\)/);
+    assert.match(search, /url\.searchParams\.set\('term', State\.term\)/);
+    assert.match(search, /url\.searchParams\.set\('from', origin\)/);
+    assert.match(search, /params\.get\('tab'\) !== 'search' && !params\.has\('q'\)/);
+    assert.match(search, /State\.term = term/);
+    assert.match(search, /class="related-search-back"/);
+    assert.match(search, /history\.state\?\.relatedSearch/);
+    assert.match(styles, /\.search-clear\s*{[^}]*right:\s*7px;/s);
+    assert.match(styles, /@media \(max-width: 700px\)[\s\S]*grid-template-columns:\s*minmax\(0, 1fr\) 44px 88px;/s);
 });
 
 test('Course and professor close controls remain available while scrolling', () => {

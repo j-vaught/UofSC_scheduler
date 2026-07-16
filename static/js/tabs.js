@@ -10,6 +10,9 @@ const Tabs = {
         nav.addEventListener('click', (e) => {
             const btn = e.target.closest('[data-tab]');
             if (!btn) return;
+            if (btn.dataset.tab === 'semester') {
+                document.dispatchEvent(new CustomEvent('search-tab-reset-requested'));
+            }
             this.switchTo(btn.dataset.tab);
         });
 
