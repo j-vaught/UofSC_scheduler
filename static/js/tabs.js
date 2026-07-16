@@ -28,7 +28,7 @@ const Tabs = {
     },
 
     tabFromUrl(value) {
-        if (value === 'search') return 'semester';
+        if (value === 'search' || value === 'semester') return 'semester';
         return ['home', 'degree', 'schedule', 'profile', 'export'].includes(value) ? value : '';
     },
 

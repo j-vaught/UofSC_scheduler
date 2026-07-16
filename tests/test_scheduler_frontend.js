@@ -1141,6 +1141,41 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(styles, /@media \(max-width: 420px\)[\s\S]*--search-side-gap:\s*8px;/s);
 });
 
+test('Top-level tab history preserves Search when returning to an unparameterized page', () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/',
+        pathname: '/',
+        search: '',
+    };
+    const historyCalls = [];
+    const history = {
+        state: { tab: 'semester' },
+        pushState(state, _title, url) { historyCalls.push({ state, url }); },
+        replaceState(state, _title, url) { historyCalls.push({ state, url, replace: true }); },
+    };
+    const tabs = loadObject('static/js/tabs.js', 'Tabs', {
+        State: { term: '202608' },
+        URL,
+        window: { location },
+        history,
+        localStorage: { setItem() {}, getItem() { return null; } },
+        document: {
+            querySelectorAll() { return []; },
+            querySelector() { return null; },
+            getElementById() { return null; },
+            dispatchEvent() {},
+        },
+        CustomEvent: class {},
+    });
+
+    tabs.switchTo('schedule');
+    assert.equal(historyCalls[0].state.tab, 'schedule');
+    assert.equal(historyCalls[0].url, '/?tab=schedule&term=202608');
+    history.state = { tab: 'semester' };
+    tabs.restoreFromLocation();
+    assert.equal(tabs.current(), 'semester');
+});
+
 test('Direct search ignores stale prerequisite completions and errors', () => {
     const source = fs.readFileSync('static/js/search.js', 'utf8');
     const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
