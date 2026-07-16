@@ -1128,6 +1128,12 @@ test('Course detail fills its pane and uses visual section, grade, and history s
     assert.match(search, /renderSectionCalendar\(section, details/);
     assert.match(search, /WalkingMap\.resolveBuilding/);
     assert.match(search, /L\.marker\(\[building\.lat, building\.lon\]/);
+    assert.match(search, /const bounds = L\.latLngBounds\(\[\]\)/);
+    assert.match(search, /this\._detailMap\.fitBounds\(bounds, \{ maxZoom: 17, padding: \[32, 32\] \}\)/);
+    assert.match(search, /button\.tabIndex = selected \? 0 : -1/);
+    assert.match(search, /handleSectionPickerKeydown\(event\)/);
+    assert.match(search, /selectedButton\?\.scrollIntoView\(\{ block: 'nearest', inline: 'center' \}\)/);
+    assert.match(search, /Course description is unavailable\./);
     assert.match(search, /details\.section_coreqs/);
     assert.match(search, /details\.registration_restrictions/);
     assert.match(grades, /class="grade-distribution-plot"/);

@@ -1730,7 +1730,9 @@ const Search = {
             this.renderCourseOverview();
             this.renderCourseResources();
         }).catch(() => {
-            if (token === this._detailToken) this.renderCourseDetailHeader({});
+            if (token !== this._detailToken) return;
+            this._detailDetails = {};
+            this.renderCourseDetailHeader(this._detailDetails);
         });
     },
 
@@ -1745,6 +1747,11 @@ const Search = {
             ? Scheduler.parseCreditHours(details?.hours_html || group.credits || this.detailLiveSections(group)[0]?.hours)
             : null;
         const description = this.stripHtml(details?.description);
+        const descriptionMarkup = description
+            ? `<p class="course-detail-description">${this.escapeText(description)}</p>`
+            : details === null
+                ? '<p class="course-detail-description loading">Loading course description</p>'
+                : '<p class="course-detail-description unavailable">Course description is unavailable.</p>';
         header.innerHTML = `
             <div class="course-detail-kicker">Course details</div>
             <div class="course-detail-title-row">
@@ -1754,7 +1761,7 @@ const Search = {
                 </div>
                 <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
             </div>
-            ${description ? `<p class="course-detail-description">${this.escapeText(description)}</p>` : '<p class="course-detail-description loading">Loading course description</p>'}
+            ${descriptionMarkup}
             <div class="course-detail-primary-actions">
                 <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unavailable ? 'This course has no sections in the selected term' : 'Add this course so the scheduler can choose a section'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
             </div>
@@ -1763,7 +1770,7 @@ const Search = {
             if (State.isCourseSelected(group.code)) State.removeCourse(group.code);
             else await Scheduler.addCourseGroup(this._detailGroup);
             this.updateCourseSelectionStyles(group.code);
-            this.renderCourseDetailHeader(this._detailDetails || {});
+            this.renderCourseDetailHeader(this._detailDetails);
             const cached = this._detailSectionData?.[this._detailSectionCrn];
             this.renderSectionSummary(this.currentDetailSection(), cached?.details, cached?.faculty || []);
         });
@@ -1811,16 +1818,34 @@ const Search = {
             picker.innerHTML = '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
             return;
         }
-        picker.innerHTML = sections.map(section => `
-            <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${String(section.crn) === this._detailSectionCrn}" title="View Section ${this.escapeText(section.section || '—')} details">
+        picker.innerHTML = sections.map(section => {
+            const selected = String(section.crn) === this._detailSectionCrn;
+            return `
+            <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${selected}" tabindex="${selected ? '0' : '-1'}" title="View Section ${this.escapeText(section.section || '—')} details">
                 <span><i aria-hidden="true"></i>Section ${this.escapeText(section.section || '—')}<b>${section.stat === 'A' ? 'Open' : 'Full'}</b></span>
                 <small>${this.escapeText(section.meets || 'Time TBA')}</small>
                 <em>${this.escapeText(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA')} · CRN ${this.escapeText(section.crn)}</em>
             </button>
-        `).join('');
+        `;
+        }).join('');
         picker.querySelectorAll('[data-detail-crn]').forEach(button => {
             button.addEventListener('click', () => this.selectDetailSection(button.dataset.detailCrn));
+            button.addEventListener('keydown', event => this.handleSectionPickerKeydown(event));
         });
+    },
+
+    handleSectionPickerKeydown(event) {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        const buttons = [...document.querySelectorAll('#course-section-picker [data-detail-crn]')];
+        const index = buttons.indexOf(event.currentTarget);
+        if (index < 0) return;
+        event.preventDefault();
+        const nextIndex = event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+                ? buttons.length - 1
+                : (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+        this.selectDetailSection(buttons[nextIndex].dataset.detailCrn, true);
     },
 
     selectDetailSection(crn, focusPicker = true) {
@@ -1829,15 +1854,21 @@ const Search = {
         this._detailSectionCrn = String(section?.crn || '');
         this._detailFaculty = [];
         this.destroyDetailMap();
+        let selectedButton = null;
         document.querySelectorAll('[data-detail-crn]').forEach(button => {
             const selected = String(button.dataset.detailCrn) === this._detailSectionCrn;
             button.setAttribute('aria-pressed', String(selected));
+            button.tabIndex = selected ? 0 : -1;
             button.classList.toggle('selected', selected);
+            if (selected) selectedButton = button;
         });
         this.renderSectionSummary(section);
         this.renderCourseResources();
         this.refreshDetailGrades();
-        if (focusPicker) document.querySelector(`#course-section-picker [data-detail-crn="${this._detailSectionCrn}"]`)?.focus();
+        requestAnimationFrame(() => {
+            selectedButton?.scrollIntoView({ block: 'nearest', inline: 'center' });
+            if (focusPicker) selectedButton?.focus();
+        });
         if (!section) return;
         const request = (this._sectionDetailToken || 0) + 1;
         this._sectionDetailToken = request;
@@ -1958,15 +1989,23 @@ const Search = {
             if (request !== this._sectionDetailToken || crn !== this._detailSectionCrn) return;
         }
         const meetings = details?.meeting_html ? WalkingMap.parseMeetingDetails(details.meeting_html) : [];
-        let building = meetings.map(meeting => meeting.building).find(item => item?.kind === 'known');
-        if (!building) {
+        const buildings = [];
+        const seenBuildings = new Set();
+        meetings.map(meeting => meeting.building).filter(item => item?.kind === 'known').forEach(building => {
+            const key = building.code || building.id || `${building.lat}:${building.lon}`;
+            if (seenBuildings.has(key)) return;
+            seenBuildings.add(key);
+            buildings.push(building);
+        });
+        if (!buildings.length) {
             const rawLocation = meetings.find(meeting => meeting.rawLocation)?.rawLocation
                 || section.location
                 || section.building
                 || '';
-            building = WalkingMap.resolveBuilding(rawLocation);
+            const building = WalkingMap.resolveBuilding(rawLocation);
+            if (building?.kind === 'known') buildings.push(building);
         }
-        if (!building || building.kind !== 'known') {
+        if (!buildings.length) {
             container.innerHTML = '<div class="section-visual-empty">No campus map location is available for this section.</div>';
             return;
         }
@@ -1982,19 +2021,25 @@ const Search = {
                 dragging: true,
                 scrollWheelZoom: false,
                 zoomControl: true,
-            }).setView([building.lat, building.lon], 17);
+            });
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; OpenStreetMap contributors',
             }).addTo(this._detailMap);
-            L.marker([building.lat, building.lon], {
-                icon: L.divIcon({
-                    className: '',
-                    html: '<span class="course-section-map-pin" aria-hidden="true"></span>',
-                    iconSize: [22, 22],
-                    iconAnchor: [11, 11],
-                }),
-            }).bindPopup(`<strong>${this.escapeText(building.name)}</strong>`).addTo(this._detailMap);
+            const bounds = L.latLngBounds([]);
+            buildings.forEach(building => {
+                bounds.extend([building.lat, building.lon]);
+                L.marker([building.lat, building.lon], {
+                    icon: L.divIcon({
+                        className: '',
+                        html: '<span class="course-section-map-pin" aria-hidden="true"></span>',
+                        iconSize: [22, 22],
+                        iconAnchor: [11, 11],
+                    }),
+                }).bindPopup(`<strong>${this.escapeText(building.name)}</strong>`).addTo(this._detailMap);
+            });
+            if (buildings.length === 1) this._detailMap.setView([buildings[0].lat, buildings[0].lon], 17);
+            else this._detailMap.fitBounds(bounds, { maxZoom: 17, padding: [32, 32] });
             setTimeout(() => this._detailMap?.invalidateSize(), 0);
         } catch (error) {
             if (container.isConnected) container.innerHTML = '<div class="section-visual-empty">The campus map could not load.</div>';
@@ -2068,7 +2113,7 @@ const Search = {
             if (!State.isCourseSelected(group.code)) await Scheduler.addCourseGroup(this._detailGroup);
             State.setSectionLock(group.code, locked ? null : section.crn);
             this.updateCourseSelectionStyles(group.code);
-            this.renderCourseDetailHeader(this._detailDetails || {});
+            this.renderCourseDetailHeader(this._detailDetails);
             this.renderSectionSummary(section, details, faculty);
         });
         container.querySelector('#btn-view-schedule')?.addEventListener('click', () => Tabs.switchTo('schedule'));

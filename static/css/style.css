@@ -3096,6 +3096,7 @@ button:hover { background: #f0f0f0; }
 .course-detail-credit strong { display: block; font-size: 1.55rem; line-height: 1; }
 .course-detail-credit span { color: #C7C7C7; font-size: 0.58rem; font-weight: 700; text-transform: uppercase; }
 .course-detail-description { color: #ECECEC; font-size: 0.78rem; line-height: 1.45; margin: 12px 0 0; max-width: 820px; }
+.course-detail-description.unavailable { color: #C7C7C7; font-style: italic; }
 .course-detail-primary-actions { margin-top: 12px; }
 .course-detail-primary-actions button { min-height: 36px; }
 .course-section-picker-wrap { border-bottom: 1px solid #C7C7C7; padding: 14px 20px 16px; }
