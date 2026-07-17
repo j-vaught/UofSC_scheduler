@@ -261,7 +261,6 @@ const Scheduler = {
             card.querySelector('[data-registration-seats]').className = `registration-value registration-seats ${seats.kind}`;
             card.querySelector('[data-registration-seat-row]').classList.toggle('attention', seats.kind === 'full');
             card.querySelector('[data-registration-credits]').textContent = credits === null ? 'Credits unavailable' : `${credits} credit${credits === 1 ? '' : 's'}`;
-            card.querySelector('[data-registration-term]').textContent = details.part_of_term || 'Part of term unavailable';
             card.querySelector('[data-registration-dates]').textContent = section.start_date && section.end_date
                 ? `${section.start_date} through ${section.end_date}`
                 : 'Course dates unavailable';
@@ -278,7 +277,6 @@ const Scheduler = {
             card.classList.toggle('has-registration-warning', attention.length > 0);
         } catch (error) {
             if (!document.body.contains(card)) return;
-            card.querySelector('[data-registration-term]').textContent = 'Registration details unavailable';
             card.querySelector('[data-registration-seats]').textContent = this.isOpenSection(section) ? 'Listed as open' : 'Listed as full';
         }
     },
@@ -320,10 +318,6 @@ const Scheduler = {
                         <div data-registration-seat-row${open ? '' : ' class="attention"'}>
                             <span class="registration-label">LIVE SEAT STATUS</span>
                             <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Checking available seats' : 'Listed as full — planning only'}</span>
-                        </div>
-                        <div>
-                            <span class="registration-label">PART OF TERM</span>
-                            <span class="registration-value" data-registration-term>Checking details</span>
                         </div>
                         <div class="registration-detail-wide">
                             <span class="registration-label">COURSE DATES</span>

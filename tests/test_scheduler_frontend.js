@@ -867,6 +867,7 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(source, /registrationRestrictionText\(details\.registration_restrictions\)/);
     assert.doesNotMatch(source, /data-registration-schedule/);
     assert.doesNotMatch(source, /data-registration-status/);
+    assert.doesNotMatch(source, /data-registration-term|PART OF TERM|part_of_term/);
     assert.match(source, /banner\.onecarolina\.sc\.edu\/StudentRegistrationSsb\/ssb\/classRegistration\/classRegistration#" target="_blank"/);
     assert.match(styles, /\.btn-panel-registration\s*{[^}]*margin-left:\s*auto;/s);
     assert.match(styles, /\.btn-panel-registration:disabled\s*{[^}]*background:\s*#C7C7C7;/s);
