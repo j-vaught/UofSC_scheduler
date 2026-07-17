@@ -197,6 +197,7 @@ const Scheduler = {
 
     registrationRestrictionText(value) {
         return this.stripHtml(value || '')
+            .replace(/([.!?])(?=[A-Z])/g, '$1 ')
             .split(/(?<=[.!?])\s+/)
             .filter(sentence => !/columbia campus/i.test(sentence)
                 || /major|concentration|program|college|school|student level/i.test(sentence))

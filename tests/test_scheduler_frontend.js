@@ -964,6 +964,12 @@ test('registration prerequisite warnings account for completed alternatives', ()
         ),
         '',
     );
+    assert.equal(
+        scheduler.registrationRestrictionText(
+            'Enrollment is limited to students with a Electrical Engineering Major.Enrollment limited to students in the Molinaroli College of Engineering and Computing college.Enrollment limited to students in the USC Columbia campus.',
+        ),
+        'Enrollment is limited to students with a Electrical Engineering Major. Enrollment limited to students in the Molinaroli College of Engineering and Computing college.',
+    );
 });
 
 test('registration info omits cross-listed course information', () => {
