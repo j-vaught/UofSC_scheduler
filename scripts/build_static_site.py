@@ -202,8 +202,6 @@ async function relayRequest(request, url, route) {
                 'Content-Type': 'application/json',
             },
             body: parsed.text,
-            credentials: 'omit',
-            redirect: 'error',
         });
         if (!response.ok) {
             return jsonResponse({
@@ -225,6 +223,11 @@ async function relayRequest(request, url, route) {
             'X-Scheduler-Relay': 'sites-worker',
         });
     } catch (error) {
+        console.error('Live relay upstream failure', {
+            route: url.pathname,
+            name: String(error?.name || 'Error'),
+            message: String(error?.message || 'Unknown error').slice(0, 300),
+        });
         const timedOut = error?.name === 'AbortError';
         return jsonResponse({
             error: timedOut ? 'Live data request timed out' : 'Live data request failed',

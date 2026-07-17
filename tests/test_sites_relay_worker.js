@@ -75,9 +75,12 @@ test('Sites worker relays a valid course search to the fixed upstream', async ()
         'https://classes.sc.edu/api/?page=fose&route=search',
     );
     assert.equal(upstreamCalls[0].options.method, 'POST');
-    assert.equal(upstreamCalls[0].options.credentials, 'omit');
-    assert.equal(upstreamCalls[0].options.redirect, 'error');
+    assert.deepEqual(Object.keys(upstreamCalls[0].options.headers).sort(), [
+        'Accept',
+        'Content-Type',
+    ]);
     assert.equal(upstreamCalls[0].options.headers.Cookie, undefined);
+    assert.equal(upstreamCalls[0].options.headers.Authorization, undefined);
     assert.deepEqual(JSON.parse(upstreamCalls[0].options.body), payload);
 });
 
