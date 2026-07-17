@@ -100,7 +100,7 @@ node --test tests/*.js
 uv run python scripts/build_static_site.py
 ```
 
-The current release passes 72 Python tests and 170 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers.
+The current release passes 72 Python tests and 175 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, and rejected cross-origin and unsupported-method requests.
 
 ## Application Structure
 
