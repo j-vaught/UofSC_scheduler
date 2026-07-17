@@ -3148,6 +3148,11 @@ test('Static catalog fallbacks never claim that an unverified course is not offe
     assert.match(styles, /\.course-availability\.unknown[\s\S]*#466A9F/);
 });
 
+test('Smart model startup skips nonexistent local model probes', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    assert.match(source, /env\.allowLocalModels = false/);
+});
+
 test('Professor GPA timeline uses calendar-year spacing and an aligned zero-to-four scale', () => {
     const grades = loadObject('static/js/grades.js', 'Grades', {});
     const markup = grades.professorYearMarkup([

@@ -69,7 +69,12 @@ const Search = {
         if (this._extractorLoading) return this._extractorLoading;
         console.log('[Semantic] Loading Transformers.js model (first time only, ~23MB)...');
         this._extractorLoading = import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2')
-            .then(({ pipeline }) => pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', { quantized: true }))
+            .then(({ pipeline, env }) => {
+                env.allowLocalModels = false;
+                return pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', {
+                    quantized: true,
+                });
+            })
             .then(ext => { this._extractor = ext; console.log('[Semantic] Model loaded.'); return ext; })
             .catch(error => {
                 this._extractorLoading = null;

@@ -93,6 +93,7 @@ test('direct client retries transient HTTP failures but identifies browser acces
 
 test('static API uses only browser data and workers and never requests a same-origin API route', async () => {
     const fetchCalls = [];
+    const artifactCalls = [];
     const catalog = {
         'CSCE 145': {
             code: 'CSCE 145',
@@ -104,13 +105,17 @@ test('static API uses only browser data and workers and never requests a same-or
         },
     };
     const artifacts = {
-        'catalog/subjects': { subjects: ['CSCE'] },
+        'catalog/subjects': { subjects: ['CSCE', 'MATH'] },
         'catalog/courses/CSCE': { courses: catalog },
+        'catalog/courses/MATH': { courses: {} },
         'major-maps/index': { maps: [{ id: 'test-map', major: 'Test' }] },
         'major-maps/test-map': { id: 'test-map', required_courses: [] },
     };
     const dataStore = {
-        async getArtifact(name) { return artifacts[name]; },
+        async getArtifact(name) {
+            artifactCalls.push(name);
+            return artifacts[name];
+        },
         async getOfferingHistory(code) {
             return { code, as_of_term: '202608', terms: [{ term: '202601', offered: true }] };
         },
@@ -143,7 +148,7 @@ test('static API uses only browser data and workers and never requests a same-or
         },
     });
 
-    assert.deepEqual(plain(await api.getSubjects()), ['CSCE']);
+    assert.deepEqual(plain(await api.getSubjects()), ['CSCE', 'MATH']);
     assert.deepEqual(plain(await api.getMajorMaps()), [{ id: 'test-map', major: 'Test' }]);
     assert.equal((await api.getMajorMap('test-map')).id, 'test-map');
     assert.equal((await api.getCourseGrades('CSCE 145')).average_gpa, 3.25);
@@ -163,6 +168,15 @@ test('static API uses only browser data and workers and never requests a same-or
     assert.equal(fallback.results[0].availability_unknown, true);
     assert.equal(fallback.availability_unknown, true);
     assert.equal(fallback._live_error.code, 'DIRECT_ACCESS_BLOCKED');
+    const exactFallback = await api.searchCourses('202608', [
+        { field: 'alias', value: 'CSCE 145' },
+    ]);
+    assert.equal(exactFallback.results[0].code, 'CSCE 145');
+    assert.equal(
+        artifactCalls.includes('catalog/courses/MATH'),
+        false,
+        'an exact course code loads only its inferred subject shard',
+    );
     assert.equal((await api.bulletinDetails('145-key')).prereq, 'Prerequisite: MATH 111.');
     assert.deepEqual(fetchCalls, []);
 

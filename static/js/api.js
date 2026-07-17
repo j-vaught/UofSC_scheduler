@@ -304,7 +304,16 @@ const API = {
             .filter(item => item?.field === 'subject')
             .map(item => String(item.value || '').trim().toUpperCase())
             .filter(Boolean);
-        const subjects = requestedSubjects.length ? requestedSubjects : await this.getSubjects();
+        const inferredSubjects = criteria
+            .filter(item => ['alias', 'keyword'].includes(String(item?.field || '')))
+            .map(item => String(item.value || '').trim().toUpperCase()
+                .match(/^([A-Z]{2,8})\s*\d{3}[A-Z]?$/)?.[1] || '')
+            .filter(Boolean);
+        const subjects = requestedSubjects.length
+            ? requestedSubjects
+            : inferredSubjects.length
+                ? [...new Set(inferredSubjects)]
+                : await this.getSubjects();
         const store = this._getDataStore();
         const names = [...new Set(subjects.map(subject => `catalog/courses/${subject}`))];
         let artifacts = {};
