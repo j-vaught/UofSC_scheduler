@@ -56,7 +56,7 @@
   step(8.58, 2.12, 4.45, 3.52, [2], [Port runtime logic], [Move scheduling and analysis into browser-safe cores and Web Workers while keeping the existing UI modules.], fill: pale-blue, stroke: atlantic)
   step(13.44, 2.12, 4.45, 3.52, [3], [Add static data store], [Introduce the release manifest, immutable shards, service worker, Cache Storage, and IndexedDB indexes.], fill: pale-green, stroke: horseshoe)
   step(18.3, 2.12, 4.45, 3.52, [4], [Establish live API access], [Validate the final deployment origin for direct current-term search, details, and faculty requests.], fill: sandstorm, stroke: garnet)
-  step(23.16, 2.12, 5.45, 3.52, [5], [Validate and cut over], [Run parity, accessibility, request-count, bundle, and desktop screenshot checks before removing the Python runtime path.], fill: white, stroke: black90)
+  step(23.16, 2.12, 5.45, 3.52, [5], [Validate and ship static build], [Run parity, accessibility, request-count, bundle, offline, and desktop screenshot checks. Keep Python for offline generation and comparison only.], fill: white, stroke: black90)
   arrow(8.17, 3.88, 8.58, 3.88)
   arrow(13.03, 3.88, 13.44, 3.88, color: atlantic)
   arrow(17.89, 3.88, 18.3, 3.88, color: horseshoe)

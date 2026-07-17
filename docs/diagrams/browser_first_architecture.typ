@@ -50,7 +50,7 @@
   }
 
   rect((0, 0), (29.6, 1.18), fill: garnet, stroke: none, radius: 0pt)
-  content((0.45, 0.4), anchor: "west", text(size: 15pt, weight: "bold", fill: white)[Target Browser-First Architecture])
+  content((0.45, 0.4), anchor: "west", text(size: 15pt, weight: "bold", fill: white)[Browser-First Static Architecture])
   content((29.15, 0.4), anchor: "east", text(size: 7pt, fill: white)[UofSC Course Scheduler · J.C. Vaught])
 
   lane(0.45, 1.62, 8.25, 12.28, [OFFLINE OR SCHEDULED BUILD], black10, black90)
@@ -61,7 +61,7 @@
   card(4.65, 2.78, 3.62, 2.05, [Build entry points], [grade_pipeline.py; scrape_courses.py; build_embeddings.py; sync_campus_buildings.py], fill: white, stroke: black70)
   arrow(4.2, 3.8, 4.65, 3.8)
 
-  card(0.85, 5.35, 3.35, 2.2, [Planned release tools], [build_offering_history.py; build_static_release.py; build_data_manifest.py], fill: pale-green, stroke: horseshoe, title-color: horseshoe)
+  card(0.85, 5.35, 3.35, 2.2, [Static release tools], [build_offering_history.py; build_catalog_shards.py; build_grade_shards.py; build_static_release.py; build_static_site.py], fill: pale-green, stroke: horseshoe, title-color: horseshoe)
   card(4.65, 5.35, 3.62, 2.2, [Validation], [Schema and privacy checks; coverage and duplicate checks; parity fixtures; bundle-size and hash checks], fill: pale-green, stroke: horseshoe, title-color: horseshoe)
   arrow(4.2, 6.45, 4.65, 6.45, color: horseshoe)
 
@@ -77,13 +77,13 @@
   arrow(8.27, 9.34, 9.42, 9.34, color: horseshoe)
 
   card(17.86, 2.78, 3.32, 2.02, [Interface shell], [Search and course details; schedule options and map; grades and history; registration handoff], fill: white, stroke: atlantic, title-color: atlantic)
-  card(21.58, 2.78, 3.32, 2.02, [Background data loader], [Render first, then fetch the manifest and prioritize the selected subject before continuing the background queue.], fill: white, stroke: atlantic, title-color: atlantic)
-  card(25.3, 2.78, 3.42, 2.02, [Local persistence], [Cache Storage for immutable files; IndexedDB for parsed indexes; local storage for plans and preferences], fill: white, stroke: atlantic, title-color: atlantic)
+  card(21.58, 2.78, 3.32, 2.02, [Background data loader], [Render first, load the manifest, warm semantic search, and fetch selected-subject artifacts on demand.], fill: white, stroke: atlantic, title-color: atlantic)
+  card(25.3, 2.78, 3.42, 2.02, [Local persistence], [Cache Storage for immutable files; IndexedDB for release metadata and fallback records; local storage for plans and preferences], fill: white, stroke: atlantic, title-color: atlantic)
   arrow(21.18, 3.79, 21.58, 3.79, color: atlantic)
   arrow(24.9, 3.79, 25.3, 3.79, color: atlantic)
 
-  card(17.86, 5.38, 5.13, 2.38, [Browser workers], [search-worker.js for semantic ranking; solver-worker.js for schedule generation; transcript and degree-planning workers; prerequisite and offering analysis], fill: pale-blue, stroke: atlantic, title-color: atlantic)
-  card(23.4, 5.38, 5.32, 2.38, [Current application modules], [search.js · scheduler.js · grades.js · history.js · map.js · api.js. The interface remains on the main thread.], fill: white, stroke: atlantic, title-color: atlantic)
+  card(17.86, 5.38, 5.13, 2.38, [Browser workers], [solver-worker.js for schedule generation; transcript-worker.js; degree-planner-worker.js; offering-analysis-worker.js], fill: pale-blue, stroke: atlantic, title-color: atlantic)
+  card(23.4, 5.38, 5.32, 2.38, [Interface modules], [search.js · scheduler.js · grades.js · history.js · map.js · api.js. The interface and semantic-result orchestration remain on the main thread.], fill: white, stroke: atlantic, title-color: atlantic)
   arrow(23.0, 6.57, 23.4, 6.57, color: atlantic)
 
   card(17.86, 8.25, 5.13, 2.32, [Live current-term overlay], [Sections, seats, CRNs, meeting times, locations, instructors, and registration restrictions], fill: sandstorm, stroke: garnet, title-color: garnet)

@@ -1,142 +1,144 @@
 # UofSC Course Scheduler
 
-The UofSC Course Scheduler is a local-first semester planning tool for University of South Carolina students. It searches live course offerings, checks prerequisites, builds conflict-free schedules, compares historical course and professor grade outcomes, summarizes offering and enrollment history, and estimates travel transitions between consecutive classes.
+The UofSC Course Scheduler is a desktop-first semester planning tool for University of South Carolina students. The production build is a process-free static application. Search ranking, schedule generation, transcript parsing, prerequisite evaluation, historical-grade lookup, offering analysis, and degree-plan calculations run in the student's browser.
 
-The application focuses on planning one semester effectively. The degree-planning code remains available for later work, but it is not the primary workflow.
+The primary workflow remains planning one semester effectively. Degree planning is available as a secondary browser-local tool.
 
 ![A generated semester schedule with the weekly calendar, campus routes, and ranked schedule options](docs/screenshots/05-schedule-and-routes.png)
 
 ## Feature Tour
 
-Course discovery combines direct subject, number, range, and Course Reference Number searches with optional semantic ranking. Results show current availability, concise descriptions, historical grade context, and generated related searches without expanding sections inline.
+Course discovery supports subject codes, exact courses, ranges, Course Reference Numbers, descriptive phrases, and scoped natural-language searches. The semantic model begins warming in the background on the first visit. Structured searches remain available without semantic ranking.
 
-![Course search results for machine learning](docs/screenshots/01-course-search.png)
+![Browser-local semantic search over the static course catalog](docs/screenshots/08-static-smart-search.png)
 
-Selecting a course opens its full workspace. Students can compare open and full sections, meeting patterns, instructors, locations, seats, Course Reference Numbers, registration restrictions, prerequisites, historical grades, offering history, and official resources before adding a course or exact section.
+Selecting a course opens a persistent detail workspace. The live overlay supplies sections, seats, instructors, meeting details, and registration restrictions when the deployed origin is allowed to read the University endpoints. Catalog, prerequisite, historical-grade, and offering-history data remain available from immutable static releases when live access is unavailable.
 
-![Detailed CSCE 145 course and section view](docs/screenshots/02-course-details.png)
+![Static course workspace with historical grade summaries](docs/screenshots/09-static-course-grades.png)
+
+Completed-term history shows observed offering frequency, seasons, section counts, enrollment, and fill rates. Course and professor grade summaries suppress small aggregates and expose no source identifiers.
+
+![Static completed-term offering history](docs/screenshots/10-static-offering-history.png)
+
+The semester solver generates and ranks conflict-free schedules in a browser worker. Applied schedules drive the calendar, campus route view, and registration checklist. The registration handoff includes section-specific checks, individual Course Reference Number copy actions, and a link to the official shopping cart.
 
 <details>
-<summary>Professor and historical grade context</summary>
+<summary>Schedule, routes, and registration</summary>
 
-Professor profiles summarize the available teaching span in semesters, typical annual section load, courses taught, and year-by-year grade point average without exposing source identifiers.
+![Schedule calendar, route map, and ranked options](docs/screenshots/05-schedule-and-routes.png)
 
-![Professor profile with courses taught and grade point average by year](docs/screenshots/03-grades-and-professors.png)
+![Registration checklist for an applied schedule](docs/screenshots/06-registration-info.png)
 
 </details>
 
-<details>
-<summary>Offering and enrollment history</summary>
+The degree planner also runs in a browser worker and stores student-entered progress locally.
 
-Completed-term history shows recent offering frequency, observed seasons, section counts, enrollment, and fill rates with explicit coverage progress.
+![Browser-local degree plan](docs/screenshots/07-static-degree-plan.png)
 
-![Completed-term offering and enrollment history for CSCE 145](docs/screenshots/04-offering-history.png)
+The screenshots show a Fall 2026 desktop session. Live sections, seats, instructors, and restrictions can change after capture.
 
-</details>
+## Static Build
 
-<details>
-<summary>Registration handoff</summary>
-
-An applied schedule unlocks a registration checklist with section-specific seat status, course dates, highlighted registration checks, individual Course Reference Number copy actions, and a direct handoff to the official shopping cart.
-
-![Registration checklist for an applied five-course schedule](docs/screenshots/06-registration-info.png)
-
-</details>
-
-The screenshots show a Fall 2026 local session at a desktop viewport. Live sections, seats, instructors, and restrictions can change after capture.
-
-## Local Setup
-
-Install [uv](https://docs.astral.sh/uv/), clone the repository, and prepare the development environment.
+Install [uv](https://docs.astral.sh/uv/), clone the repository, and build the static distribution.
 
 ```bash
 git clone https://github.com/j-vaught/UofSC_scheduler.git
 cd UofSC_scheduler
 uv sync
+uv run python scripts/build_static_site.py
 ```
 
-Start the local server with the following command.
+The generated `dist/` directory contains only static files. Any ordinary static host can serve it from the domain root. A local file server is sufficient for testing.
 
 ```bash
-uv run python app.py
+uv run python -m http.server 8766 --directory dist
 ```
 
-Open `http://127.0.0.1:8765` in a browser. Live search, seat checks, offering history, and campus routes require an internet connection. Saved plans stay in the browser through local storage.
+Open `http://127.0.0.1:8766` in a desktop browser. The Python process in this command only serves files during local testing. It is not part of the deployed application.
 
-## Semester Planning
+The older comparison runtime remains available with `uv run python app.py`. It is useful for parity checks and local live-data testing, but it is not required by the static application shell, workers, solver, historical data, or degree planner.
 
-Search by subject, course number, range, or descriptive phrase. Filters can restrict results to open sections, sections with a specified number of remaining seats, or courses whose known prerequisites appear in the completed-course profile. Selected courses remain available to the solver across successive searches.
+## Live University Data
 
-The schedule solver applies hard constraints for meeting conflicts, blocked times, and maximum credits. It ranks valid schedules using time-window, instructor, gap, compactness, and consecutive-class preferences. Asynchronous sections remain eligible, while physical sections with unknown meeting times are rejected because their conflicts cannot be verified. Previewing a candidate changes only the calendar until the student explicitly applies it.
+The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. The final deployment origin must therefore receive Cross-Origin Resource Sharing permission from the University, be served under an already allowed University origin, or retain a small relay for live sections, seats, faculty, and registration details.
 
-The schedule view also evaluates transitions between consecutive classes. It reports available time, route distance, estimated travel time, and remaining buffer. Known campus buildings use pedestrian routing when available and a straight-line estimate as a fallback. Online, same-building, unknown-location, and overlapping transitions receive explicit statuses.
+The direct browser client is already implemented. It coalesces duplicate requests, limits concurrency, applies short freshness windows, supports cancellation, and starts working automatically from an allowed origin. If browser policy blocks a request, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered.
 
-## Historical Data
+## Browser Data and Caching
 
-Official registrar grade workbooks remain unchanged in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data`. The generated `data/grade_analytics.json` file contains only the normalized course and professor summaries required by the application. It does not expose Banner IDs or email addresses.
+The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 213 offering-history subject shards, 4,605 publishable course-grade records, and 6,442 professor aggregates. The immutable release artifacts total about 40 MB, but the browser loads subject and feature shards on demand.
 
-Professor matching uses the instructor identity attached to each Banner section. A privacy-safe derived identifier separates professors who share the same display name. Grade outcomes are section-level, so team-taught classes are labeled and cannot be attributed to one instructor independently.
+The service worker caches the application shell and content-hashed artifacts. Cache Storage retains immutable files. IndexedDB stores release metadata and fallback records. Local storage retains user-owned plans, pane sizes, collapsed panels, and preferences. A page refresh revalidates the manifest and current live requests while preserving the selected search, course, section, and detail tab in the URL.
 
-Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded from the grade point average denominator. The professor experience label measures the available-semester span between the first and last observed section. A label beginning with `>=` means the professor appears in the earliest available semester and may have taught longer. Typical annual teaching load is the median number of section assignments across active academic years.
+The official registrar workbooks remain unchanged in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data`. Generated public artifacts suppress aggregates with fewer than ten counted grades. Banner identifiers, source email addresses, and the private matching database are excluded from the static release.
 
-Rebuild the generated analytics file after adding an official registrar workbook.
+Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded. Team-taught sections remain labeled because section-level outcomes cannot be attributed to one instructor independently.
 
-```bash
-uv run python grade_pipeline.py
-```
+## Release Generation
 
-The pipeline is resumable. It keeps the raw Banner matching cache in `data/grade_matching_cache.sqlite`, which is excluded from version control because it contains source identifiers used only during processing.
+The one-time migration and periodic release flow are shown below. Python remains an offline build tool for pulling source data, matching registrar records, generating embeddings, validating privacy, and publishing content-hashed releases. No visitor executes that Python code.
+
+![One-time browser migration and periodic static-data generation](docs/diagrams/data_generation_workflow.png)
+
+Completed-term section data is pulled once and reused for grade matching, professor summaries, enrollment statistics, capacity, and offering history. Catalog records and embeddings regenerate only when bulletin text or the model changes. Campus aliases, curriculum maps, and notices update independently. Immutable artifacts publish before the small mutable manifest so browsers never activate a partial release.
+
+The complete architecture, current file tree, cache policy, deployment dependency, and release cadence are documented in [Browser-First Architecture](docs/ARCHITECTURE.md).
+
+![Current browser-first static architecture](docs/diagrams/browser_first_architecture.png)
 
 ## Quality Checks
 
-Run the complete formatting, linting, type, Python test, and browser-module checks locally.
+Run the full formatting, linting, type, Python, JavaScript, static-build, and integrity checks locally.
 
 ```bash
+uv sync
 uv run ruff format .
 uv run ruff check . --fix
 uv run ty check .
-uv run pytest
-node tests/test_scheduler_frontend.js
+uv run pytest -q
+node --test tests/*.js
+uv run python scripts/build_static_site.py
 ```
+
+The current release passes 72 Python tests and 170 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes process files from `dist/`, and emits deployment security and cache headers.
 
 ## Application Structure
 
 ```text
-app.py                    Local HTTP server and upstream API proxy.
-grade_pipeline.py         Registrar and Banner matching pipeline.
-grade_analytics.py        Read-only historical analytics repository.
-offering_analyzer.py      Offering and enrollment history analysis.
-scheduler.py              Constraint-based semester schedule solver.
-data/grade_analytics.json Generated privacy-safe analytics dataset.
-static/                    Browser application, styles, and campus data.
-docs/                      Architecture diagrams and feature screenshots.
-tests/                     Python and JavaScript regression tests.
+static/
+├── index.html                     Browser application shell.
+├── service-worker.js              Offline shell and immutable-data cache.
+├── css/                           Search, schedule, grade, map, and modal styles.
+├── js/
+│   ├── api.js                     Static data boundary and legacy comparison switch.
+│   ├── live-university-client.js  Bounded direct current-term client.
+│   ├── data-store.js              Manifest, integrity, Cache Storage, and IndexedDB.
+│   ├── solver-core.js             Browser-safe semester solver.
+│   ├── solver-worker.js           Schedule-generation worker.
+│   ├── runtime/                    Transcript, degree, and offering-analysis cores.
+│   └── workers/                    Transcript, degree, and offering-analysis workers.
+└── data/
+    ├── manifest.json              Mutable active-release pointer.
+    ├── releases/                  Immutable catalog, grade, history, and major-map shards.
+    ├── course_embeddings.json     Browser semantic-search data.
+    ├── phrase_embeddings.json     Generated search phrases.
+    ├── pca_params.json            Search projection parameters.
+    ├── campus_buildings.json      Campus aliases and coordinates.
+    └── site_notices.json          Static maintenance and action banners.
+
+scripts/                           Offline release and static-site builders.
+tests/                             Python and JavaScript parity and regression checks.
+dist/                              Generated process-free deployment directory.
+app.py                             Optional legacy comparison runtime.
+grade_pipeline.py                  Offline registrar and section matching pipeline.
 ```
-
-The local web runtime uses the Python standard library. The data preparation workflow uses pandas, openpyxl, and requests through uv. The browser interface is vanilla HTML, CSS, and JavaScript.
-
-## Target Architecture
-
-The documented target moves production computation into the student's desktop browser while retaining Python as an offline data-generation tool. Static hosting provides the application shell, a small release manifest, and immutable historical-data shards. University systems remain the live source for current sections, seats, meeting patterns, and registration details.
-
-![Target browser-first architecture](docs/diagrams/browser_first_architecture.png)
-
-The target file layout, browser cache design, current-to-target module map, deployment dependencies, and migration gates are documented in [Browser-First Architecture](docs/ARCHITECTURE.md). This is a design direction. The current application still uses the local Python runtime described above.
-
-## Data Generation
-
-Completed-term section data is pulled once and reused to build privacy-safe course grades, professor summaries, enrollment statistics, capacity, and offering history. Offering history retains complete section coverage and is not inferred only from published grade workbooks. Catalog embeddings, campus buildings, curriculum maps, and notices update on their own schedules.
-
-![One-time migration and periodic data-generation workflow](docs/diagrams/data_generation_workflow.png)
-
-Immutable, content-hashed files publish before the release manifest. Publishing the manifest last prevents browsers from activating a partial release. The detailed cadence and validation rules are included in [Browser-First Architecture](docs/ARCHITECTURE.md#periodic-data-generation).
 
 ## Site Notices
 
-Maintenance, help, and student-action banners are configured in `static/data/site_notices.json`. Set a notice to active and optionally provide ISO-formatted start and end times. Dismissals are stored by notice identifier and revision, so increasing the revision shows an updated notice again. This configuration remains a static file and does not require an application endpoint.
+Maintenance, help, and student-action banners are configured in `static/data/site_notices.json`. Each notice can have an active window and revision. Dismissals are stored by notice identifier and revision, so an updated notice can appear again without an application endpoint.
 
 ## Data Sources and License
 
-The application reads public course information from `classes.sc.edu`, catalog and prerequisite information from `academicbulletins.sc.edu`, section and instructor information from Banner, official grade-spread workbooks from the University Registrar, and map data from OpenStreetMap services.
+The application reads course information from `classes.sc.edu`, catalog and prerequisite information from `academicbulletins.sc.edu`, section and instructor information from Banner, official grade-spread workbooks from the University Registrar, and map data from OpenStreetMap services.
 
 The project is maintained by J.C. Vaught and distributed under the MIT license.
