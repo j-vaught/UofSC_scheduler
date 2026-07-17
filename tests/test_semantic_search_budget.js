@@ -141,6 +141,67 @@ test('search source accounting includes courses supplied by the semantic catalog
     assert.equal((markup.match(/data-regular-search-index=/g) || []).length, 2);
 });
 
+test('search source accounting excludes batch courses absent from visible results', () => {
+    const search = loadSearch({});
+    search.checkEligibility = () => ({ eligible: true });
+    const info = search.buildSemanticSearchInfo(
+        {
+            searches: [{ term: 'machine learning', count: 3, failed: false }],
+            localResultCodes: [],
+        },
+        [[
+            { code: 'CSCE 580' },
+            { code: 'CSCE 585' },
+            { code: 'UNRELATED 999' },
+        ]],
+        [{ code: 'CSCE 580' }],
+        false,
+        {},
+    );
+
+    assert.equal(info.length, 1);
+    assert.equal(info[0].count, 1);
+    assert.deepEqual(Array.from(info[0].codes), ['CSCE 580']);
+});
+
+test('search source accounting covers only the final visible course union', () => {
+    const search = loadSearch({});
+    search.checkEligibility = code => ({ eligible: code !== 'CSCE 999' });
+    const visibleResults = [
+        { code: 'CSCE 580' },
+        { code: 'CSCE 585' },
+        { code: 'STAT 515' },
+        { code: 'CSCE 999' },
+    ];
+    const info = search.buildSemanticSearchInfo(
+        {
+            searches: [
+                { term: 'machine learning', count: 3, failed: false },
+                { term: 'neural networks', count: 3, failed: false },
+            ],
+            localResultCodes: ['STAT 515', 'MATH 546', 'CSCE 999'],
+        },
+        [
+            [{ code: 'CSCE 580' }, { code: 'HIDDEN 500' }, { code: 'CSCE 999' }],
+            [{ code: 'CSCE 580' }, { code: 'CSCE 585' }, { code: 'HIDDEN 501' }],
+        ],
+        visibleResults,
+        true,
+        {},
+    );
+
+    const attributedCodes = new Set(info.flatMap(source => Array.from(source.codes || [])));
+    const eligibleVisibleCodes = new Set(['CSCE 580', 'CSCE 585', 'STAT 515']);
+    assert.deepEqual(
+        [...attributedCodes].sort(),
+        [...eligibleVisibleCodes].sort(),
+    );
+    assert.equal(
+        info.every(source => source.codes.every(code => eligibleVisibleCodes.has(code))),
+        true,
+    );
+});
+
 test('scoped semantic searches use a larger but bounded ten-request plan', async () => {
     let keywordCalls = 0;
     let subjectCalls = 0;

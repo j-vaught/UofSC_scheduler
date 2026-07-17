@@ -1596,6 +1596,11 @@ test('schedule splitter uses a safe default when initialized in a hidden tab', (
     assert.equal(scheduler.initialPanelHeight(0, 0), 0);
     assert.equal(scheduler.initialPanelHeight(540, 0), 540);
     assert.equal(scheduler.initialPanelHeight(null, 575), 575);
+    assert.equal(scheduler.preferredPanelHeight(700, null, 575), 575);
+    assert.equal(scheduler.preferredPanelHeight(700, undefined, 575), 575);
+    assert.equal(scheduler.preferredPanelHeight(700, 0, 575), 0);
+    assert.equal(scheduler.preferredPanelHeight(700, 1, 575), 700);
+    assert.equal(scheduler.preferredPanelHeight(700, 0.5, 575), 350);
 });
 
 test('schedule splitter recalculates when the schedule tab becomes visible', () => {
@@ -1606,8 +1611,10 @@ test('schedule splitter recalculates when the schedule tab becomes visible', () 
     assert.match(source, /if \(available <= 0\) return;/);
     assert.match(source, /workspaceRatio:\s*Number\.isFinite\(Number\(this\._preferredWorkspaceRatio\)\)/);
     assert.match(source, /availableAtInit \* storedRatio/);
-    assert.match(source, /available \* ratio : workspace\.getBoundingClientRect\(\)\.height/);
+    assert.match(source, /this\.preferredPanelHeight\(/);
+    assert.match(source, /preferredRatio !== null && preferredRatio !== undefined/);
     assert.match(source, /this\._preferredWorkspaceRatio = available > 0 \? workspace \/ available : null/);
+    assert.match(source, /addEventListener\('pointercancel', stop\)/);
 });
 
 test('adding a course code stores every live section without choosing one', async () => {
@@ -2136,7 +2143,8 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(source, /const relatedBatches = await Promise\.all/);
     assert.match(source, /this\.filterByCourseScope\(candidates, courseScope\)/);
     assert.match(source, /const treatAsTopic = this\._topicSearchMode \|\| scopedShortTopic/);
-    assert.match(source, /count: new Set\(matchingCodes\)\.size/);
+    assert.match(source, /\.filter\(code => visibleCodes\.has\(code\)\)/);
+    assert.match(source, /count: matchingCodes\.length/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
     assert.match(source, /\$\{searchTerms\.length\} Search sources/);

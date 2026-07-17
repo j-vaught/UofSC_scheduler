@@ -501,29 +501,30 @@ const Search = {
             code
             && (!eligibleOnly || this.checkEligibility(code, prereqData).eligible)
         );
-        const generatedSearches = (semantic.searches || []).map((search, index) => {
-            const matchingCodes = (relatedBatches[index] || [])
-                .map(result => result.code)
-                .filter(isVisible);
-            return {
-                ...search,
-                kind: 'generated',
-                count: new Set(matchingCodes).size,
-            };
-        });
-
         const visibleCodes = new Set((visibleResults || [])
             .map(result => result.code)
             .filter(isVisible));
+        const generatedSearches = (semantic.searches || []).map((search, index) => {
+            const matchingCodes = [...new Set((relatedBatches[index] || [])
+                .map(result => result.code)
+                .filter(code => visibleCodes.has(code)))];
+            return {
+                ...search,
+                kind: 'generated',
+                count: matchingCodes.length,
+                codes: matchingCodes,
+            };
+        });
+
         const catalogCodes = new Set(semantic.localResultCodes || []);
-        const catalogCount = [...visibleCodes]
-            .filter(code => catalogCodes.has(code))
-            .length;
-        if (catalogCount) {
+        const visibleCatalogCodes = [...visibleCodes]
+            .filter(code => catalogCodes.has(code));
+        if (visibleCatalogCodes.length) {
             generatedSearches.push({
                 term: 'Meaning-based catalog matches',
                 kind: 'semantic-catalog',
-                count: catalogCount,
+                count: visibleCatalogCodes.length,
+                codes: visibleCatalogCodes,
             });
         }
         return generatedSearches.length ? generatedSearches : null;

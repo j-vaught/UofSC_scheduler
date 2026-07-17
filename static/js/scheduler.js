@@ -1376,9 +1376,31 @@ const Scheduler = {
             stored = null;
         }
         let initialSizeApplied = false;
+        let preferredRatio = Number(stored?.version) >= 2
+            && Number.isFinite(Number(stored?.resultsRatio))
+            ? Number(stored.resultsRatio)
+            : null;
         const availableHeight = () => sidebar.clientHeight
             - search.getBoundingClientRect().height
             - divider.getBoundingClientRect().height;
+        const rememberRatio = () => {
+            const available = availableHeight();
+            const resultsHeight = results.getBoundingClientRect().height;
+            preferredRatio = available > 0 ? resultsHeight / available : preferredRatio;
+            return { available, resultsHeight };
+        };
+        const savePosition = () => {
+            const { available, resultsHeight } = rememberRatio();
+            try {
+                localStorage.setItem('uofsc-course-divider-v1', JSON.stringify({
+                    version: 2,
+                    resultsHeight,
+                    resultsRatio: available > 0 ? resultsHeight / available : null,
+                }));
+            } catch (error) {
+                // Resizing should remain usable when browser storage is unavailable.
+            }
+        };
         const applyInitialSize = () => {
             const available = availableHeight();
             if (available <= 0) {
@@ -1386,6 +1408,7 @@ const Scheduler = {
                 return;
             }
             this.setCoursePanelSizes(this.initialCourseResultsHeight(stored, available));
+            rememberRatio();
             initialSizeApplied = true;
         };
         applyInitialSize();
@@ -1396,15 +1419,10 @@ const Scheduler = {
         const stop = () => {
             document.removeEventListener('pointermove', move);
             document.removeEventListener('pointerup', stop);
+            document.removeEventListener('pointercancel', stop);
             divider.classList.remove('active');
             document.body.classList.remove('resizing-course-divider');
-            const available = availableHeight();
-            const resultsHeight = results.getBoundingClientRect().height;
-            localStorage.setItem('uofsc-course-divider-v1', JSON.stringify({
-                version: 2,
-                resultsHeight,
-                resultsRatio: available > 0 ? resultsHeight / available : null,
-            }));
+            savePosition();
         };
 
         divider.addEventListener('pointerdown', event => {
@@ -1414,20 +1432,32 @@ const Scheduler = {
             document.body.classList.add('resizing-course-divider');
             document.addEventListener('pointermove', move);
             document.addEventListener('pointerup', stop);
+            document.addEventListener('pointercancel', stop);
             event.preventDefault();
         });
         divider.addEventListener('keydown', event => {
             if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
             const delta = event.key === 'ArrowDown' ? 24 : -24;
             this.setCoursePanelSizes(results.getBoundingClientRect().height + delta);
+            savePosition();
             event.preventDefault();
         });
         window.addEventListener('resize', () => {
-            if (sidebar.clientHeight > 0) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+            const available = availableHeight();
+            if (available <= 0) return;
+            const ratio = preferredRatio;
+            this.setCoursePanelSizes(Number.isFinite(ratio)
+                ? available * ratio
+                : results.getBoundingClientRect().height);
         });
         document.addEventListener('tab-changed', event => {
             if (event.detail?.tab !== 'schedule') return;
-            if (initialSizeApplied) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+            if (initialSizeApplied) {
+                const available = availableHeight();
+                this.setCoursePanelSizes(Number.isFinite(preferredRatio) && available > 0
+                    ? available * preferredRatio
+                    : results.getBoundingClientRect().height);
+            }
             else applyInitialSize();
         });
     },
@@ -1741,8 +1771,11 @@ const Scheduler = {
         document.addEventListener('tab-changed', event => {
             if (event.detail?.tab === 'schedule') {
                 const available = this.availablePanelHeight(content, handle);
-                const ratio = Number(this._preferredWorkspaceRatio);
-                this.setVerticalSizes(Number.isFinite(ratio) ? available * ratio : this._preferredWorkspaceHeight);
+                this.setVerticalSizes(this.preferredPanelHeight(
+                    available,
+                    this._preferredWorkspaceRatio,
+                    this._preferredWorkspaceHeight,
+                ));
             }
         });
 
@@ -1755,6 +1788,7 @@ const Scheduler = {
         const stop = () => {
             document.removeEventListener('pointermove', move);
             document.removeEventListener('pointerup', stop);
+            document.removeEventListener('pointercancel', stop);
             handle.classList.remove('active');
             document.body.classList.remove('resizing-schedule');
             this.saveVerticalSizes();
@@ -1768,6 +1802,7 @@ const Scheduler = {
             document.body.classList.add('resizing-schedule');
             document.addEventListener('pointermove', move);
             document.addEventListener('pointerup', stop);
+            document.addEventListener('pointercancel', stop);
             event.preventDefault();
         });
         handle.addEventListener('keydown', event => {
@@ -1788,8 +1823,11 @@ const Scheduler = {
         });
         this._verticalResizeHandler = () => {
             const available = this.availablePanelHeight(content, handle);
-            const ratio = Number(this._preferredWorkspaceRatio);
-            this.setVerticalSizes(Number.isFinite(ratio) ? available * ratio : workspace.getBoundingClientRect().height);
+            this.setVerticalSizes(this.preferredPanelHeight(
+                available,
+                this._preferredWorkspaceRatio,
+                workspace.getBoundingClientRect().height,
+            ));
         };
         window.addEventListener('resize', this._verticalResizeHandler);
     },
@@ -1819,6 +1857,16 @@ const Scheduler = {
         const measured = Number(measuredHeight);
         if (Number.isFinite(measured) && measured > 0) return measured;
         return 620;
+    },
+
+    preferredPanelHeight(availableHeight, preferredRatio, fallbackHeight) {
+        const available = Math.max(0, Number(availableHeight) || 0);
+        if (preferredRatio !== null && preferredRatio !== undefined) {
+            const ratio = Number(preferredRatio);
+            if (Number.isFinite(ratio) && ratio >= 0 && ratio <= 1) return available * ratio;
+        }
+        const fallback = Number(fallbackHeight);
+        return Number.isFinite(fallback) ? fallback : available * 0.62;
     },
 
     availablePanelHeight(content, handle) {
@@ -1867,13 +1915,17 @@ const Scheduler = {
             ?.getBoundingClientRect().height);
         if (!Number.isFinite(workspace)) return;
         const available = content && handle ? this.availablePanelHeight(content, handle) : 0;
-        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({
-            version: 2,
-            workspace,
-            workspaceRatio: Number.isFinite(Number(this._preferredWorkspaceRatio))
-                ? this._preferredWorkspaceRatio
-                : (available > 0 ? workspace / available : null),
-        }));
+        try {
+            localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({
+                version: 2,
+                workspace,
+                workspaceRatio: Number.isFinite(Number(this._preferredWorkspaceRatio))
+                    ? this._preferredWorkspaceRatio
+                    : (available > 0 ? workspace / available : null),
+            }));
+        } catch (error) {
+            // A denied or full storage area must not break schedule resizing.
+        }
     },
 
     isSchedulableSection(section) {
