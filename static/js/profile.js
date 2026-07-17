@@ -11,8 +11,7 @@ const Profile = {
 
     async loadMajorMaps() {
         try {
-            const resp = await fetch('/api/major-maps');
-            const maps = await resp.json();
+            const maps = await API.getMajorMaps();
             const select = document.getElementById('major-select');
             maps.forEach(m => {
                 const opt = document.createElement('option');
@@ -54,12 +53,7 @@ const Profile = {
         }
 
         try {
-            const resp = await fetch('/api/major-map', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: mapId })
-            });
-            const data = await resp.json();
+            const data = await API.getMajorMap(mapId);
             State.profile.major = mapId;
             State.profile.majorData = data;
 
@@ -117,12 +111,7 @@ const Profile = {
             const reader = new FileReader();
             reader.onload = async (ev) => {
                 try {
-                    const resp = await fetch('/api/parse-transcript', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ csv: ev.target.result })
-                    });
-                    const data = await resp.json();
+                    const data = await API.parseTranscriptCSV(ev.target.result);
                     if (data.courses) {
                         data.courses.forEach(c => {
                             if (!State.completedCourses.includes(c.code)) {
@@ -145,12 +134,7 @@ const Profile = {
 
     async parseAndAddCourses(text) {
         try {
-            const resp = await fetch('/api/parse-transcript', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: text })
-            });
-            const data = await resp.json();
+            const data = await API.parseTranscript(text);
             if (data.courses) {
                 data.courses.forEach(c => {
                     if (!State.completedCourses.includes(c.code)) {

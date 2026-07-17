@@ -14,6 +14,7 @@ const SHELL_ASSETS = [
     '/static/js/data-store.js',
     '/static/js/solver-core.js',
     '/static/js/solver-worker.js',
+    '/static/js/live-university-client.js',
     '/static/js/api.js',
     '/static/js/state.js',
     '/static/js/tabs.js',

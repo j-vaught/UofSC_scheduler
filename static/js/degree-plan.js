@@ -40,22 +40,16 @@ const DegreePlan = {
         btn.disabled = true;
 
         try {
-            const resp = await fetch('/api/degree-plan', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    map_id: State.profile.major,
-                    completed: State.completedCourses,
-                    mode: State.profile.planMode,
-                    pins: State.degreePlan.pins || {},
-                    start_term: State.term || '202608',
-                    include_summer: State.profile.includeSummer,
-                    custom_credits: State.profile.planMode === 'custom' ? State.profile.customCredits : null,
-                    concentration: State.profile.concentration,
-                })
+            const plan = await API.getDegreePlan({
+                map_id: State.profile.major,
+                completed: State.completedCourses,
+                mode: State.profile.planMode,
+                pins: State.degreePlan.pins || {},
+                start_term: State.term || '202608',
+                include_summer: State.profile.includeSummer,
+                custom_credits: State.profile.planMode === 'custom' ? State.profile.customCredits : null,
+                concentration: State.profile.concentration,
             });
-
-            const plan = await resp.json();
 
             if (plan.error) {
                 alert('Error: ' + plan.error);
@@ -75,7 +69,7 @@ const DegreePlan = {
             State.emit('degree-plan-updated');
         } catch (e) {
             console.error('Degree plan generation failed:', e);
-            alert('Failed to generate degree plan. Is the server running?');
+            alert('Failed to generate degree plan. Please try again.');
         } finally {
             btn.textContent = 'GENERATE DEGREE PLAN';
             btn.disabled = false;
@@ -689,12 +683,7 @@ const DegreePlan = {
                 const code = btn.dataset.code;
                 btn.textContent = '...';
                 try {
-                    const resp = await fetch('/api/offering-analysis', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ code: code, current_term: State.term })
-                    });
-                    const analysis = await resp.json();
+                    const analysis = await API.getOfferingAnalysis(code, State.term);
                     const parent = btn.closest('.elective-option');
                     let infoEl = parent.querySelector('.elective-info');
                     if (!infoEl) {

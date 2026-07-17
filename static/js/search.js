@@ -46,12 +46,10 @@ const Search = {
     loadSubjects() {
         if (this._subjects.length) return Promise.resolve(this._subjects);
         if (this._subjectsPromise) return this._subjectsPromise;
-        if (typeof fetch !== 'function') return Promise.resolve(this._subjects);
-        this._subjectsPromise = fetch('/api/subjects')
-            .then(response => {
-                if (response.ok === false) throw new Error('Subject list unavailable.');
-                return response.json();
-            })
+        if (typeof API === 'undefined' || typeof API.getSubjects !== 'function') {
+            return Promise.resolve(this._subjects);
+        }
+        this._subjectsPromise = API.getSubjects()
             .then(list => {
                 this._subjects = Array.isArray(list)
                     ? [...new Set(list.map(subject => String(subject).toUpperCase()))]

@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="/static/css/map.css">
 </head>
 <body>
+    <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title">
+        <div class="desktop-only-gate-card">
+            <h2 id="desktop-only-title">Desktop browser required</h2>
+            <p>The course planning workspace currently needs a larger screen. Please open this site on a laptop or desktop computer.</p>
+        </div>
+    </section>
     <header>
         <h1>Course Scheduler</h1>
         <nav id="main-tabs" aria-label="Main navigation">
@@ -639,7 +645,12 @@
         </div>
     </div>
 
+    <script src="/static/js/data-store.js"></script>
+    <script src="/static/js/runtime/offering-analyzer.js"></script>
+    <script src="/static/js/runtime/transcript-parser.js"></script>
+    <script src="/static/js/runtime/degree-planner.js"></script>
     <script src="/static/js/solver-core.js"></script>
+    <script src="/static/js/live-university-client.js"></script>
     <script src="/static/js/api.js"></script>
     <script src="/static/js/state.js"></script>
     <script src="/static/js/tabs.js"></script>
@@ -694,7 +705,7 @@
         });
 
         // Home tab: quick start major dropdown
-        fetch('/api/major-maps').then(r => r.json()).then(maps => {
+        API.getMajorMaps().then(maps => {
             const sel = document.getElementById('home-major-select');
             maps.forEach(m => {
                 const opt = document.createElement('option');
@@ -723,12 +734,7 @@
 
             try {
                 // Load the major map
-                const mapResp = await fetch('/api/major-map', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: mapId })
-                });
-                const majorData = await mapResp.json();
+                const majorData = await API.getMajorMap(mapId);
 
                 // Estimate completed courses based on year using the major map's typical_year
                 const yearNum = { freshman: 1, sophomore: 2, junior: 3, senior: 4 }[year] || 0;
@@ -765,18 +771,13 @@
                 }
 
                 // Generate the degree plan
-                const planResp = await fetch('/api/degree-plan', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        map_id: mapId,
-                        completed: State.completedCourses,
-                        mode: 'full_time',
-                        start_term: State.term,
-                        concentration: 'general',
-                    })
+                const plan = await API.getDegreePlan({
+                    map_id: mapId,
+                    completed: State.completedCourses,
+                    mode: 'full_time',
+                    start_term: State.term,
+                    concentration: 'general',
                 });
-                const plan = await planResp.json();
 
                 // Store plan in state
                 State.degreePlan.semesters = plan.semesters || [];
@@ -793,7 +794,7 @@
                 Tabs.switchTo('degree');
                 resultEl.innerHTML = '';
             } catch (e) {
-                resultEl.innerHTML = '<p class="hint">Failed to generate plan. Is the server running?</p>';
+                resultEl.innerHTML = '<p class="hint">The plan could not be generated. Please try again.</p>';
             }
         });
 
@@ -923,6 +924,21 @@
             }
         });
     });
+
+    // The built static release has a rendered root worker. The local legacy
+    // runtime does not, so this probe keeps registration specific to static builds.
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+        window.addEventListener('load', () => {
+            void fetch('/service-worker.js', { cache: 'no-store' })
+                .then(async response => {
+                    if (!response.ok) return;
+                    const source = await response.clone().text();
+                    if (source.includes('__STATIC_BUILD_ID__')) return;
+                    await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+                })
+                .catch(() => {});
+        }, { once: true });
+    }
     </script>
 </body>
 </html>

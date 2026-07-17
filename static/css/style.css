@@ -4057,8 +4057,42 @@ select:disabled,
 .schedule-card[aria-disabled="true"],
 .semantic-search-term:disabled { cursor: not-allowed; }
 
+/* The current planning workspace is intentionally desktop-only. */
+.desktop-only-gate { display: none; }
+
+@media screen and (max-width: 720px) {
+    body > header,
+    body > main,
+    body > #site-notices,
+    body > #modal-overlay { visibility: hidden; }
+
+    .desktop-only-gate {
+        align-items: center;
+        background: #FFFFFF;
+        display: flex;
+        inset: 0;
+        justify-content: center;
+        padding: 24px;
+        position: fixed;
+        visibility: visible;
+        z-index: 10000;
+    }
+
+    .desktop-only-gate-card {
+        border: 3px solid #000000;
+        border-top: 12px solid #73000A;
+        max-width: 440px;
+        padding: 28px;
+        width: 100%;
+    }
+
+    .desktop-only-gate-card h2 { color: #73000A; margin: 0 0 12px; }
+    .desktop-only-gate-card p { line-height: 1.5; margin: 0; }
+}
+
 /* === Print Styles === */
 @media print {
+    .desktop-only-gate { display: none !important; }
     header, #main-tabs, #schedule-sidebar, .schedule-sidebar-toggle-rail, #degree-sidebar, #semester-search { display: none; }
     main { height: auto; }
     .main-tab { display: block !important; height: auto; }

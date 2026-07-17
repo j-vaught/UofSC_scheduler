@@ -9,13 +9,8 @@ const Grades = {
 
     async courseData(code) {
         if (this._courseCache[code]) return this._courseCache[code];
-        const response = await fetch('/api/course-grades', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code }),
-        });
-        if (!response.ok) throw new Error(`Grade lookup failed (${response.status})`);
-        const data = await response.json();
+        const data = await API.getCourseGrades(code);
+        if (!data) throw new Error('Historical grades are unavailable for this course');
         this._courseCache[code] = data;
         return data;
     },
@@ -304,20 +299,14 @@ const Grades = {
         try {
             let data = this._professorCache[professorId];
             if (!data) {
-                const response = await fetch('/api/professor-grades', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: professorId }),
-                });
-                if (response.status === 404) {
+                data = await API.getProfessorGrades(professorId);
+                if (!data) {
                     if (loadId !== this._professorLoadId
                         || (window.AppModal?.version || 0) !== modalVersion
                         || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
                     this.showUnmatchedProfessor(context.displayName || 'Instructor', context.email || '');
                     return;
                 }
-                if (!response.ok) throw new Error('Professor lookup failed');
-                data = await response.json();
                 this._professorCache[professorId] = data;
             }
             if (loadId !== this._professorLoadId
@@ -327,6 +316,10 @@ const Grades = {
             if (window.AppModal) AppModal.update(markup, { className: 'professor-profile-modal', label: `Professor ${this.displayProfessorName(data.name)}` });
         } catch (error) {
             if (loadId !== this._professorLoadId || (window.AppModal?.version || 0) !== modalVersion) return;
+            if (error?.code === 'STATIC_PROFESSOR_NOT_FOUND') {
+                this.showUnmatchedProfessor(context.displayName || 'Instructor', context.email || '');
+                return;
+            }
             const markup = `
                 <div class="professor-detail">
                     <header class="professor-detail-header"><div><span>Instructor profile</span><h2>${this.escape(context.displayName || 'Instructor')}</h2></div></header>

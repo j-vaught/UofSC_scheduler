@@ -3130,7 +3130,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(styles, /@media \(max-width: 520px\)[\s\S]*\.professor-year-label:not\(\.compact-visible\)/);
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
-    assert.match(source, /if \(response\.status === 404\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
+    assert.match(source, /data = await API\.getProfessorGrades\(professorId\)[\s\S]*if \(!data\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
 });
 
 test('Professor GPA timeline uses calendar-year spacing and an aligned zero-to-four scale', () => {
