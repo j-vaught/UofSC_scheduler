@@ -1,4 +1,4 @@
-/* Direct, bounded access to live University course data from a static browser app. */
+/* Bounded same-origin access to live University course data. */
 (function exposeLiveUniversityClient(global, factory) {
     'use strict';
 
@@ -11,8 +11,8 @@
     'use strict';
 
     const DEFAULT_ENDPOINTS = Object.freeze({
-        courseSearch: 'https://classes.sc.edu/api/?page=fose&route=search',
-        courseDetails: 'https://classes.sc.edu/api/?page=fose&route=details',
+        courseSearch: '/api/search',
+        courseDetails: '/api/details',
         bulletinSearch: 'https://academicbulletins.sc.edu/course-search/api/?page=fose&route=search',
         bulletinDetails: 'https://academicbulletins.sc.edu/course-search/api/?page=fose&route=details',
         faculty: 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb/searchResults/getFacultyMeetingTimes',
@@ -57,8 +57,8 @@
     class UniversityAccessBlockedError extends UniversityRequestError {
         constructor(endpoint, cause = null, corsBlocked = true) {
             super(
-                'Live University data could not be read directly. The browser or network blocked '
-                + 'the request; the University API must allow this site origin for static live access.',
+                'Live University data is temporarily unavailable. The site relay, network, or '
+                + 'upstream service did not complete the request.',
                 {
                     code: 'DIRECT_ACCESS_BLOCKED',
                     endpoint,

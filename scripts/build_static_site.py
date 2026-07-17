@@ -21,12 +21,28 @@ DEFAULT_OUTPUT = ROOT / "dist"
 INDEX_ASSET_RE = re.compile(r"(?:href|src)=[\"'](/static/[^\"']+)[\"']")
 FORBIDDEN_SUFFIXES = {".db", ".py", ".pyc", ".sqlite", ".sqlite3"}
 SITES_WORKER = """const SECURITY_HEADERS = Object.freeze({
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://classes.sc.edu https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
     'X-Content-Type-Options': 'nosniff',
+    'Cross-Origin-Resource-Policy': 'same-origin',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
 });
+
+const RELAY_ROUTES = Object.freeze({
+    '/api/search': Object.freeze({
+        upstream: 'https://classes.sc.edu/api/?page=fose&route=search',
+        kind: 'search',
+    }),
+    '/api/details': Object.freeze({
+        upstream: 'https://classes.sc.edu/api/?page=fose&route=details',
+        kind: 'details',
+    }),
+});
+
+const SEARCH_FIELDS = new Set(['alias', 'crn', 'keyword', 'stat', 'subject']);
+const MAX_RELAY_BODY_BYTES = 16 * 1024;
+const UPSTREAM_TIMEOUT_MS = 10_000;
 
 function cachePolicy(pathname) {
     if (pathname === '/service-worker.js' || pathname === '/static/data/manifest.json') {
@@ -50,9 +66,178 @@ function withHeaders(response, pathname) {
     });
 }
 
+function jsonResponse(payload, status, pathname, extraHeaders = {}) {
+    return withHeaders(new Response(JSON.stringify(payload), {
+        status,
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            ...extraHeaders,
+        },
+    }), pathname);
+}
+
+function validTerm(value) {
+    return /^\\d{4}(?:01|05|08)$/.test(String(value || ''));
+}
+
+function validateSearchPayload(payload) {
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
+    if (Object.keys(payload).some(key => !['other', 'criteria'].includes(key))) return false;
+    if (!payload.other || typeof payload.other !== 'object' || Array.isArray(payload.other)) {
+        return false;
+    }
+    if (Object.keys(payload.other).some(key => key !== 'srcdb')) return false;
+    if (!validTerm(payload.other.srcdb)) return false;
+    if (!Array.isArray(payload.criteria)
+        || payload.criteria.length < 1
+        || payload.criteria.length > 6) return false;
+    const fields = new Set();
+    for (const criterion of payload.criteria) {
+        if (!criterion || typeof criterion !== 'object' || Array.isArray(criterion)) return false;
+        if (Object.keys(criterion).some(key => !['field', 'value'].includes(key))) return false;
+        const field = String(criterion.field || '');
+        if (!SEARCH_FIELDS.has(field) || fields.has(field)) return false;
+        if (typeof criterion.value !== 'string'
+            || criterion.value.length < 1
+            || criterion.value.length > 120) return false;
+        fields.add(field);
+    }
+    return payload.criteria.some(criterion => criterion.field !== 'stat');
+}
+
+function validateDetailsPayload(payload) {
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
+    if (Object.keys(payload).some(key => !['group', 'srcdb'].includes(key))) return false;
+    if (!validTerm(payload.srcdb)) return false;
+    const group = String(payload.group || '');
+    return /^crn:\\d{5}$/.test(group);
+}
+
+async function parseRelayBody(request, route, pathname) {
+    const contentType = String(request.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.startsWith('application/json')) {
+        return { error: jsonResponse({ error: 'Expected a JSON request body' }, 415, pathname) };
+    }
+    const declaredLength = Number(request.headers.get('content-length') || 0);
+    if (declaredLength > MAX_RELAY_BODY_BYTES) {
+        return { error: jsonResponse({ error: 'Request body is too large' }, 413, pathname) };
+    }
+    let text;
+    try {
+        text = await request.text();
+    } catch (error) {
+        return { error: jsonResponse({ error: 'Could not read request body' }, 400, pathname) };
+    }
+    if (new TextEncoder().encode(text).byteLength > MAX_RELAY_BODY_BYTES) {
+        return { error: jsonResponse({ error: 'Request body is too large' }, 413, pathname) };
+    }
+    let payload;
+    try {
+        payload = JSON.parse(text);
+    } catch (error) {
+        return { error: jsonResponse({ error: 'Request body is not valid JSON' }, 400, pathname) };
+    }
+    const valid = route.kind === 'search'
+        ? validateSearchPayload(payload)
+        : validateDetailsPayload(payload);
+    if (!valid) {
+        return { error: jsonResponse({ error: 'Request body is invalid for this operation' }, 400, pathname) };
+    }
+    return { payload, text };
+}
+
+async function readJsonResponse(response, maxBytes) {
+    const contentType = String(response.headers.get('content-type') || '').toLowerCase();
+    if (!contentType.startsWith('application/json')) {
+        const error = new Error('Upstream response was not JSON');
+        error.code = 'INVALID_UPSTREAM_CONTENT_TYPE';
+        throw error;
+    }
+    const bytes = await response.arrayBuffer();
+    if (bytes.byteLength > maxBytes) {
+        const error = new Error('Upstream response was too large');
+        error.code = 'UPSTREAM_RESPONSE_TOO_LARGE';
+        throw error;
+    }
+    const text = new TextDecoder().decode(bytes);
+    try {
+        return text ? JSON.parse(text) : {};
+    } catch (cause) {
+        const error = new Error('Upstream response was not valid JSON', { cause });
+        error.code = 'INVALID_UPSTREAM_RESPONSE';
+        throw error;
+    }
+}
+
+async function fetchWithTimeout(url, options) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+    try {
+        return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+async function relayRequest(request, url, route) {
+    if (request.method !== 'POST') {
+        return jsonResponse({ error: 'Method not allowed' }, 405, url.pathname, {
+            Allow: 'POST',
+        });
+    }
+    const origin = request.headers.get('origin');
+    if (origin && origin !== url.origin) {
+        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, 403, url.pathname);
+    }
+    if (request.headers.get('sec-fetch-site') === 'cross-site') {
+        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, 403, url.pathname);
+    }
+    const parsed = await parseRelayBody(request, route, url.pathname);
+    if (parsed.error) return parsed.error;
+    try {
+        const response = await fetchWithTimeout(route.upstream, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: parsed.text,
+            credentials: 'omit',
+            redirect: 'error',
+        });
+        if (!response.ok) {
+            return jsonResponse({
+                error: 'Live data provider returned an error',
+                upstream_status: response.status,
+            }, response.status === 429 ? 429 : 502, url.pathname);
+        }
+        const maxBytes = route.kind === 'search' ? 1024 * 1024 : 256 * 1024;
+        const data = await readJsonResponse(response, maxBytes);
+        if (data && typeof data === 'object' && data.error) {
+            return jsonResponse({ error: String(data.error) }, 502, url.pathname);
+        }
+        if (!data || typeof data !== 'object' || Array.isArray(data)
+            || (route.kind === 'search' && !Array.isArray(data.results))) {
+            return jsonResponse({ error: 'Live data provider returned an unexpected response' }, 502, url.pathname);
+        }
+        return jsonResponse(data, 200, url.pathname, {
+            'Cache-Control': 'no-store, max-age=0',
+            'X-Scheduler-Relay': 'sites-worker',
+        });
+    } catch (error) {
+        const timedOut = error?.name === 'AbortError';
+        return jsonResponse({
+            error: timedOut ? 'Live data request timed out' : 'Live data request failed',
+            code: timedOut ? 'UPSTREAM_TIMEOUT' : String(error?.code || 'UPSTREAM_FAILED'),
+        }, timedOut ? 504 : 502, url.pathname);
+    }
+}
+
 const worker = {
     async fetch(request, env) {
         const url = new URL(request.url);
+        const relayRoute = RELAY_ROUTES[url.pathname];
+        if (relayRoute) return relayRequest(request, url, relayRoute);
         if (!['GET', 'HEAD'].includes(request.method)) {
             return withHeaders(new Response('Method not allowed', {
                 status: 405,
@@ -137,10 +322,11 @@ def write_headers(output: Path) -> None:
   Cache-Control: public, max-age=3600
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://classes.sc.edu https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Content-Type-Options: nosniff
+  Cross-Origin-Resource-Policy: same-origin
   Referrer-Policy: strict-origin-when-cross-origin
 """,
         encoding="utf-8",

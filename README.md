@@ -1,6 +1,6 @@
 # UofSC Course Scheduler
 
-The UofSC Course Scheduler is a desktop-first semester planning tool for University of South Carolina students. The production build is a process-free static application. Search ranking, schedule generation, transcript parsing, prerequisite evaluation, historical-grade lookup, offering analysis, and degree-plan calculations run in the student's browser.
+The UofSC Course Scheduler is a desktop-first semester planning tool for University of South Carolina students. The production build is browser-first. Search ranking, schedule generation, transcript parsing, prerequisite evaluation, historical-grade lookup, offering analysis, and degree-plan calculations run in the student's browser. Managed hosting adds a narrowly scoped relay for current course search and section details.
 
 The primary workflow remains planning one semester effectively. Degree planning is available as a secondary browser-local tool.
 
@@ -48,7 +48,7 @@ uv sync
 uv run python scripts/build_static_site.py
 ```
 
-The generated `dist/client/` directory contains the static application. Any ordinary static host can serve that directory from the domain root. `dist/server/index.js` is a minimal asset-serving entry point for managed static deployment and contains no application logic. A local file server is sufficient for testing.
+The generated `dist/client/` directory contains the browser application. Any ordinary static host can serve that directory from the domain root, but live course search and section details require the generated managed-host entry point in `dist/server/index.js`. That entry point serves assets and exposes only two fixed read-only relay operations. A local file server remains sufficient for testing browser-local features and static data.
 
 ```bash
 uv run python -m http.server 8766 --directory dist/client
@@ -60,9 +60,9 @@ The older comparison runtime remains available with `uv run python app.py`. It i
 
 ## Live University Data
 
-The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. The final deployment origin must therefore receive Cross-Origin Resource Sharing permission from the University, be served under an already allowed University origin, or retain a small relay for live sections, seats, faculty, and registration details.
+The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. Managed deployment therefore uses same-origin `POST /api/search` and `POST /api/details` routes. The hosting runtime forwards only validated course-search and Course Reference Number detail requests to fixed upstream addresses and returns fresh JSON without forwarding visitor cookies or upstream response headers.
 
-The direct browser client is already implemented. It coalesces duplicate requests, limits concurrency, applies short freshness windows, supports cancellation, and starts working automatically from an allowed origin. If browser policy blocks a request, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered.
+The live client coalesces duplicate requests, limits concurrency, applies short freshness windows, and supports cancellation. If the relay or upstream service is unavailable, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered. Bulletin and faculty lookups remain independent and continue to fall back to published static data when browser access is unavailable.
 
 ## Browser Data and Caching
 
@@ -129,7 +129,7 @@ static/
 scripts/                           Offline release and static-site builders.
 tests/                             Python and JavaScript parity and regression checks.
 dist/client/                       Generated static deployment directory.
-dist/server/index.js               Managed-host static asset entry point.
+dist/server/index.js               Managed asset server and fixed live-data relay.
 app.py                             Optional legacy comparison runtime.
 grade_pipeline.py                  Offline registrar and section matching pipeline.
 ```

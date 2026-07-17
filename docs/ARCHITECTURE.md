@@ -1,6 +1,6 @@
 # Browser-First Architecture
 
-The UofSC Course Scheduler now has a process-free static production build. The browser owns interactive state and computation. Static hosting supplies the application shell, search assets, a release manifest, and immutable historical-data shards. Python remains an offline data-generation tool and an optional comparison runtime.
+The UofSC Course Scheduler has a browser-first production build. The browser owns interactive state and computation. Hosting supplies the application shell, search assets, a release manifest, immutable historical-data shards, and a fixed read-only relay for current course search and section details. Python remains an offline data-generation tool and an optional comparison runtime.
 
 ![Browser-first static architecture](diagrams/browser_first_architecture.png)
 
@@ -10,7 +10,7 @@ The application shell renders before large data artifacts are needed. The browse
 
 The interface stays responsive because schedule generation, transcript parsing, degree planning, and offering analysis run through browser workers. The static API adapter can also execute the same cores without workers for test environments and older browsers. JavaScript parity fixtures protect the solver's conflicts, asynchronous sections, credit handling, preference ranking, and worst-route penalty behavior.
 
-Current-term information is an overlay rather than a generated snapshot. `live-university-client.js` requests sections, seats, Course Reference Numbers, meeting patterns, faculty, locations, and registration details with bounded concurrency, duplicate-request coalescing, cancellation, timeouts, and short in-memory freshness windows. A failed live request never turns into a false “not offered” claim. The interface reports that live availability is unavailable while retaining verified static catalog, grade, prerequisite, and offering information.
+Current-term information is an overlay rather than a generated snapshot. `live-university-client.js` sends course search and section-detail requests to same-origin managed routes with bounded concurrency, duplicate-request coalescing, cancellation, timeouts, and short in-memory freshness windows. The routes accept only validated University term, search-criteria, and Course Reference Number payloads and forward them to fixed upstream addresses. A failed live request never turns into a false “not offered” claim. The interface reports that live availability is unavailable while retaining verified static catalog, grade, prerequisite, and offering information.
 
 ## Current File Layout
 
@@ -77,11 +77,11 @@ scrape_courses.py                   Offline bulletin catalog generation.
 
 ## Execution Boundary
 
-The browser executes search parsing and ranking, schedule generation, prerequisite evaluation, transcript parsing, degree planning, offering summaries, grade rendering, maps, routing orchestration, export generation, and user-state persistence. Static hosting only returns files. The generated `dist/` tree contains no Python, database, or server application files.
+The browser executes search parsing and ranking, schedule generation, prerequisite evaluation, transcript parsing, degree planning, offering summaries, grade rendering, maps, routing orchestration, export generation, and user-state persistence. Managed hosting returns files and performs two bounded live-data requests. The generated `dist/` tree contains no Python or database files.
 
 Offline generation executes source pulls, registrar matching, privacy suppression, catalog normalization, embedding generation, offering-history aggregation, release sharding, manifest construction, integrity validation, and the final static build. These tasks run once per data release rather than once per visitor.
 
-The optional `app.py` runtime remains in the repository for parity comparison and environments that still need a same-origin relay. It is not copied into `dist/`. Managed deployment uses a minimal asset-serving entry point in `dist/server/index.js`; the scheduler itself remains entirely in `dist/client/` and the visitor's browser.
+The optional `app.py` runtime remains in the repository for parity comparison and local live-data testing. It is not copied into `dist/`. Managed deployment uses `dist/server/index.js` to serve assets and handle `POST /api/search` and `POST /api/details`. Every other application operation remains in `dist/client/` and the visitor's browser.
 
 ## Startup and Caching
 
@@ -97,7 +97,7 @@ The migration froze Python parity fixtures before runtime ports began. The semes
 
 The data layer now publishes a full manifest, immutable subject and professor shards, privacy metadata, byte lengths, and content hashes. The service worker, Cache Storage integration, IndexedDB fallback, static builder, deployment headers, desktop gate, URL restoration, and offline reload path are implemented.
 
-The remaining deployment dependency is live University browser authorization. The current `classes.sc.edu` preflight response returns no Cross-Origin Resource Sharing permission for an independent localhost origin. The API returns data to non-browser clients and to its own University page, but a browser will not expose that cross-origin response to a separately hosted scheduler. The final deployment must use an allowed University origin, obtain an allowlist entry, or keep a small relay for affected live calls.
+The course-search API returns data to non-browser clients and to its own University page, but its preflight response does not authorize an independently hosted browser origin. The managed relay moves that request to a server-side hosting boundary and returns the result through the scheduler's own origin. This removes the browser Cross-Origin Resource Sharing dependency for course search and section details while retaining static fallback behavior when the relay or upstream service is unavailable.
 
 ![One-time migration and periodic release workflow](diagrams/data_generation_workflow.png)
 
@@ -115,7 +115,7 @@ Public grade artifacts suppress aggregates below ten counted grades. The current
 
 ## Static Build and Deployment
 
-`scripts/build_static_release.py` creates content-hashed data and the manifest. `scripts/build_static_site.py` verifies the active release, copies the application into `dist/client/`, renders a build-specific service worker, emits root fallback files, adds cache and security headers, writes the managed-host asset entry point, and atomically replaces `dist/`.
+`scripts/build_static_release.py` creates content-hashed data and the manifest. `scripts/build_static_site.py` verifies the active release, copies the application into `dist/client/`, renders a build-specific service worker, emits root fallback files, adds cache and security headers, writes the managed-host asset and relay entry point, and atomically replaces `dist/`.
 
 The current distribution contains 621 files and about 52.5 MB. `dist/client/` must be served from a domain root because the interface uses absolute `/static/` paths and a root-scoped service worker. The generated headers define immutable caching for release artifacts, revalidation for the manifest and worker, Content Security Policy restrictions, frame protection, permissions restrictions, referrer handling, and transport security.
 

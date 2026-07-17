@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const test = require('node:test');
 const vm = require('node:vm');
 const {
+    DEFAULT_ENDPOINTS,
     LiveUniversityClient,
     UniversityAccessBlockedError,
 } = require('../static/js/live-university-client.js');
@@ -27,7 +28,33 @@ function loadApi(contextValues = {}) {
     return { api: context.__api, context };
 }
 
-test('direct client coalesces and caches requests without exceeding its concurrency limit', async () => {
+test('live client uses the same-origin relay for course search and details', async () => {
+    const calls = [];
+    const client = new LiveUniversityClient({
+        fetchImpl: async (url, options) => {
+            calls.push({ url, options });
+            return jsonResponse(url === '/api/search' ? { results: [] } : { code: 'CSCE 145' });
+        },
+    });
+
+    await client.searchCourses('202608', [{ field: 'alias', value: 'CSCE 145' }]);
+    await client.getDetails('10868', '202608');
+
+    assert.equal(DEFAULT_ENDPOINTS.courseSearch, '/api/search');
+    assert.equal(DEFAULT_ENDPOINTS.courseDetails, '/api/details');
+    assert.equal(calls[0].url, '/api/search');
+    assert.deepEqual(JSON.parse(calls[0].options.body), {
+        other: { srcdb: '202608' },
+        criteria: [{ field: 'alias', value: 'CSCE 145' }],
+    });
+    assert.equal(calls[1].url, '/api/details');
+    assert.deepEqual(JSON.parse(calls[1].options.body), {
+        group: 'crn:10868',
+        srcdb: '202608',
+    });
+});
+
+test('live client coalesces and caches requests without exceeding its concurrency limit', async () => {
     let active = 0;
     let maximum = 0;
     const releases = [];
@@ -65,7 +92,7 @@ test('direct client coalesces and caches requests without exceeding its concurre
     assert.equal(calls.length, 3, 'the duplicate and warm-cache calls share one network request');
 });
 
-test('direct client retries transient HTTP failures but identifies browser access blocking', async () => {
+test('live client retries transient HTTP failures and identifies cross-origin blocking', async () => {
     let attempts = 0;
     const retrying = new LiveUniversityClient({
         retries: 1,
@@ -81,6 +108,9 @@ test('direct client retries transient HTTP failures but identifies browser acces
 
     const blocked = new LiveUniversityClient({
         origin: 'https://scheduler.example',
+        endpoints: {
+            courseSearch: 'https://courses.example/api/search',
+        },
         fetchImpl: async () => { throw new TypeError('Failed to fetch'); },
     });
     await assert.rejects(
@@ -91,7 +121,7 @@ test('direct client retries transient HTTP failures but identifies browser acces
     );
 });
 
-test('static API uses only browser data and workers and never requests a same-origin API route', async () => {
+test('static API uses browser data and workers when the live overlay is unavailable', async () => {
     const fetchCalls = [];
     const artifactCalls = [];
     const catalog = {

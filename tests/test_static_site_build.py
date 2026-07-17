@@ -74,11 +74,20 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     assert "env.ASSETS.fetch" in worker
     assert "export default worker" in worker
     assert "Method not allowed" in worker
+    assert "'/api/search'" in worker
+    assert "'/api/details'" in worker
+    assert "https://classes.sc.edu/api/?page=fose&route=search" in worker
+    assert "https://classes.sc.edu/api/?page=fose&route=details" in worker
+    assert "X-Scheduler-Relay" in worker
+    assert "credentials: 'omit'" in worker
+    assert "redirect: 'error'" in worker
+    assert worker.index("if (relayRoute)") < worker.index("if (!['GET', 'HEAD'].includes")
     headers = (client / "_headers").read_text(encoding="utf-8")
     assert "immutable" in headers
     assert "Content-Security-Policy" in headers
     assert "frame-ancestors 'none'" in headers
     assert "Permissions-Policy" in headers
+    assert "Cross-Origin-Resource-Policy" in headers
 
     (output / "stale.txt").write_text("remove on rebuild", encoding="utf-8")
     build_site(source, output)
