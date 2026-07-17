@@ -262,10 +262,10 @@ const DegreePlan = {
 
             // Collapse bar
             html += `
-                <div class="completed-collapse-bar" id="completed-toggle">
+                <button type="button" class="completed-collapse-bar" id="completed-toggle" aria-expanded="${!collapsed}">
                     <span class="completed-collapse-arrow">${collapsed ? '&#9654;' : '&#9660;'}</span>
                     <span class="completed-collapse-label">COMPLETED: ${totalCompCredits} credits (${totalCompCourses} courses) across ${completedSemesters.length} semester${completedSemesters.length !== 1 ? 's' : ''}</span>
-                </div>
+                </button>
             `;
 
             if (!collapsed) {
@@ -273,10 +273,10 @@ const DegreePlan = {
 
                 // Add Semester button
                 html += `
-                    <div class="add-semester-btn" id="btn-add-completed-sem">
+                    <button type="button" class="add-semester-btn" id="btn-add-completed-sem">
                         <span>+</span>
                         <span style="font-size:0.7rem">ADD<br>SEMESTER</span>
-                    </div>
+                    </button>
                 `;
 
                 completedSemesters.forEach((sem, idx) => {
@@ -343,7 +343,7 @@ const DegreePlan = {
                 <div class="course-card completed-card" data-code="${course.code}" data-semester="${sem.term}" data-section="completed" draggable="true">
                     <div class="course-card-header">
                         <span class="course-card-code">${course.code}</span>
-                        <span class="card-remove-badge" data-code="${course.code}">REMOVE</span>
+                        <button type="button" class="card-remove-badge" data-code="${course.code}" aria-label="Remove ${course.code}">REMOVE</button>
                     </div>
                     <div class="course-card-title">${course.title} <span class="course-card-credits">${course.credits} cr</span></div>
                 </div>
@@ -351,7 +351,7 @@ const DegreePlan = {
         });
 
         const deleteBtn = sem.courses.length === 0
-            ? `<span class="sem-delete-btn" data-term="${sem.term}" title="Delete semester">&times;</span>`
+            ? `<button type="button" class="sem-delete-btn" data-term="${sem.term}" title="Delete semester" aria-label="Delete ${sem.label}">&times;</button>`
             : '';
 
         return `
@@ -838,9 +838,16 @@ const ScheduleSidebar = {
             const defaultSectionLabel = applied?.section
                 ? `Section ${applied.section} selected`
                 : `${openSections.length} open section${openSections.length === 1 ? '' : 's'}`;
-            const sortedSections = [...(course.sections || [])].sort((left, right) =>
-                String(left.section || '').localeCompare(String(right.section || ''), undefined, { numeric: true }),
-            );
+            const sortedSections = [...(course.sections || [])].sort((left, right) => {
+                const leftOpen = !left.stat || left.stat === 'A';
+                const rightOpen = !right.stat || right.stat === 'A';
+                if (leftOpen !== rightOpen) return leftOpen ? -1 : 1;
+                return String(left.section || '').localeCompare(
+                    String(right.section || ''),
+                    undefined,
+                    { numeric: true, sensitivity: 'base' },
+                );
+            });
             const sectionOptions = sortedSections.map(section => {
                 const instructor = section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided';
                 const availability = !section.stat || section.stat === 'A' ? '' : ' — FULL';
@@ -851,8 +858,8 @@ const ScheduleSidebar = {
             html += `
                 <div class="selected-course-item">
                     <div class="selected-course-header">
-                        <strong>${code}</strong>
-                        <button class="btn-remove" data-code="${code}">&times;</button>
+                        <button type="button" class="selected-course-open" data-code="${code}" title="View details for ${code}"><strong>${code}</strong></button>
+                        <button type="button" class="btn-remove" data-code="${code}" title="Remove ${code} from your courses">REMOVE</button>
                     </div>
                     <div class="selected-course-detail">${title}</div>
                     <label class="section-lock-label" for="section-lock-${code.replace(/\s+/g, '-')}">Section preference</label>
@@ -863,9 +870,10 @@ const ScheduleSidebar = {
                         </select>
                         <span class="section-lock-arrow" aria-hidden="true">▼</span>
                     </div>
+                    ${lockedCrn ? `<button type="button" class="btn-clear-section" data-code="${code}">CLEAR SECTION</button>` : ''}
                     ${lockedSectionIsFull
                         ? '<div class="section-lock-warning">Full section selected. Planning only; enrollment requires an opening or override.</div>'
-                        : (lockedCrn ? `<div class="selected-course-detail">Section ${lockedSection?.section || lockedCrn} will be used in all schedules</div>` : '')}
+                        : ''}
                 </div>
             `;
             const creditValues = String(
@@ -881,6 +889,18 @@ const ScheduleSidebar = {
             btn.addEventListener('click', () => {
                 State.removeCourse(btn.dataset.code);
             });
+        });
+        list.querySelectorAll('.selected-course-open').forEach(button => {
+            button.addEventListener('click', () => {
+                const course = State.selectedCourses[button.dataset.code];
+                if (!course || typeof Scheduler === 'undefined') return;
+                const crn = State.sectionLocks[button.dataset.code] || State.selectedSections[button.dataset.code]?.crn;
+                const section = (course.sections || []).find(candidate => String(candidate.crn) === String(crn));
+                Scheduler.openCourseQuickView(course, section || null);
+            });
+        });
+        list.querySelectorAll('.btn-clear-section').forEach(button => {
+            button.addEventListener('click', () => State.setSectionLock(button.dataset.code, ''));
         });
         list.querySelectorAll('.section-lock-select').forEach(select => {
             select.addEventListener('change', () => {

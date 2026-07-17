@@ -1,14 +1,23 @@
 /* Walking transitions for the selected semester schedule. */
 const WalkingMap = {
-    DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    DAYS: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     LEAFLET_JS: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
     LEAFLET_CSS: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
     ROUTE_URL: 'https://routing.openstreetmap.de/routed-foot/route/v1/driving',
     DEFAULT_CENTER: [33.9971, -81.0278],
-    ROUTE_COLORS: ['#73000A', '#466A9F', '#65780B', '#A49137', '#1F414D'],
+    ROUTE_COLORS: ['#73000A', '#466A9F', '#65780B', '#A49137', '#1F414D', '#CC2E40', '#000000'],
+    ROUTE_CACHE_KEY: 'uofsc-walking-routes-v2',
+    ROUTE_CACHE_TTL_MS: 30 * 24 * 60 * 60 * 1000,
+    ROUTE_CACHE_MAX_ENTRIES: 120,
+    DETAIL_RETRY_BASE_MS: 60 * 1000,
+    DETAIL_RETRY_MAX_MS: 15 * 60 * 1000,
     selectedDay: 'all',
     buildings: [],
+    catalogRevision: 'unknown',
     sectionDetails: new Map(),
+    sectionDetailRequests: new Map(),
+    sectionDetailFailures: new Map(),
+    sectionDetailPrefetchPauses: new Map(),
     routeCache: new Map(),
     _renderToken: 0,
     _map: null,
@@ -41,10 +50,21 @@ const WalkingMap = {
             const catalog = await response.json();
             this.buildings = catalog.buildings || [];
             this.DEFAULT_CENTER = catalog.center || this.DEFAULT_CENTER;
+            this.catalogRevision = this.buildingCatalogRevision(catalog);
         } catch (error) {
             console.warn('[WalkingMap] Building catalog unavailable.', error);
             this.buildings = [];
+            this.catalogRevision = 'unavailable';
         }
+    },
+
+    buildingCatalogRevision(catalog) {
+        const source = catalog?.source || {};
+        return String(catalog?.revision || catalog?.updated_at || [
+            source.map_id || 'map',
+            source.official_building_count || 0,
+            (catalog?.buildings || []).length,
+        ].join('-'));
     },
 
     renderShell() {
@@ -118,14 +138,31 @@ const WalkingMap = {
         this.listElement.setAttribute('aria-labelledby', `walking-map-day-${this.selectedDay}`);
     },
 
+    updateDayVisibility(sections) {
+        const hasWeekendMeeting = (sections || []).some(section => (
+            this.parseMeetingTimes(section.meetingTimes).some(meeting => meeting.day >= 5)
+        ));
+        this.dayContainer.querySelectorAll('[role="tab"]').forEach(button => {
+            const day = Number(button.dataset.day);
+            button.hidden = Number.isFinite(day) && day >= 5 && !hasWeekendMeeting;
+        });
+        this.dayContainer.style.gridTemplateColumns = `repeat(${hasWeekendMeeting ? 8 : 6}, minmax(0, 1fr))`;
+        if (!hasWeekendMeeting && Number(this.selectedDay) >= 5) this.selectedDay = 'all';
+    },
+
     async refresh() {
         if (!this.container) return;
         const token = ++this._renderToken;
+        const sections = typeof State !== 'undefined' ? Object.values(State.selectedSections || {}) : [];
+        this.updateDayVisibility(sections);
         this.updateDaySelection();
         this.listElement.innerHTML = '<p class="walking-map-empty">Loading class locations and campus routes.</p>';
 
-        const sections = typeof State !== 'undefined' ? Object.values(State.selectedSections || {}) : [];
-        await this.hydrateSectionDetails(sections);
+        await this.hydrateSectionDetails(sections, {
+            background: true,
+            concurrency: 1,
+            maxConsecutiveFailures: 2,
+        });
         if (token !== this._renderToken) return;
 
         let events = [];
@@ -148,17 +185,116 @@ const WalkingMap = {
         await this.renderMap(events, transitions);
     },
 
-    async hydrateSectionDetails(sections) {
-        if (typeof API === 'undefined' || !API.getDetails) return;
-        const missing = sections.filter(section => section.crn && !this.sectionDetails.has(String(section.crn)));
-        await Promise.all(missing.map(async section => {
-            try {
-                const detail = await API.getDetails(section.crn, State.term);
-                this.sectionDetails.set(String(section.crn), this.parseMeetingDetails(detail.meeting_html || ''));
-            } catch (error) {
-                this.sectionDetails.set(String(section.crn), []);
+    sectionDetailKey(section, term = State.term) {
+        return `${term}:${section?.crn || ''}`;
+    },
+
+    async hydrateSectionDetail(section, term = State.term, { foreground = true } = {}) {
+        if (typeof API === 'undefined' || !API.getDetails || !section?.crn) return { status: 'skipped' };
+        const key = this.sectionDetailKey(section, term);
+        if (this.sectionDetails.has(key)) return { status: 'cached' };
+        if (this.sectionDetailRequests.has(key)) return this.sectionDetailRequests.get(key);
+        const priorFailure = this.sectionDetailFailures.get(key);
+        if (!foreground && priorFailure?.retryAfter > Date.now()) {
+            return { status: 'backoff', retryAfter: priorFailure.retryAfter };
+        }
+        const request = API.getDetails(section.crn, term)
+            .then(detail => {
+                this.sectionDetails.set(key, this.parseMeetingDetails(detail.meeting_html || ''));
+                this.sectionDetailFailures.delete(key);
+                if (foreground) this.sectionDetailPrefetchPauses.delete(term);
+                return { status: 'loaded' };
+            })
+            .catch(() => {
+                const failures = (priorFailure?.failures || 0) + 1;
+                const backoff = Math.min(
+                    this.DETAIL_RETRY_MAX_MS,
+                    this.DETAIL_RETRY_BASE_MS * (2 ** Math.max(0, failures - 1)),
+                );
+                this.sectionDetailFailures.set(key, {
+                    failures,
+                    retryAfter: Date.now() + backoff,
+                });
+                return { status: 'failed' };
+            })
+            .finally(() => this.sectionDetailRequests.delete(key));
+        this.sectionDetailRequests.set(key, request);
+        return request;
+    },
+
+    sectionNeedsLocationDetail(section) {
+        return section?.crn
+            && !this.isOnline(section)
+            && this.parseMeetingTimes(section.meetingTimes).length > 0;
+    },
+
+    async hydrateSectionDetails(sections, {
+        background = false,
+        concurrency = 8,
+        delayMs = 0,
+        foreground = !background,
+        maxConsecutiveFailures = 2,
+        signal = null,
+    } = {}) {
+        const summary = { attempted: 0, loaded: 0, failed: 0, skipped: 0, stopped: false };
+        if (typeof API === 'undefined' || !API.getDetails) return summary;
+        const term = State.term;
+        const unique = [...new Map((sections || [])
+            .filter(section => this.sectionNeedsLocationDetail(section))
+            .map(section => [String(section.crn), section])).values()];
+        const record = result => {
+            const status = result?.status || 'skipped';
+            if (status === 'loaded') summary.loaded += 1;
+            else if (status === 'failed') summary.failed += 1;
+            else if (status === 'backoff' || status === 'skipped') summary.skipped += 1;
+        };
+        if (background) {
+            if ((this.sectionDetailPrefetchPauses.get(term) || 0) > Date.now()) {
+                summary.skipped = unique.length;
+                summary.stopped = unique.length > 0;
+                return summary;
             }
-        }));
+            this.sectionDetailPrefetchPauses.delete(term);
+            let consecutiveFailures = 0;
+            for (let index = 0; index < unique.length; index += 1) {
+                if (signal?.aborted) break;
+                const section = unique[index];
+                const key = this.sectionDetailKey(section, term);
+                const alreadyLoaded = this.sectionDetails.has(key);
+                const inBackoff = this.sectionDetailFailures.get(key)?.retryAfter > Date.now();
+                if (!alreadyLoaded && !inBackoff) summary.attempted += 1;
+                const result = await this.hydrateSectionDetail(section, term, { foreground: false });
+                record(result);
+                if (result?.status === 'failed') consecutiveFailures += 1;
+                else if (result?.status === 'loaded' || result?.status === 'cached') consecutiveFailures = 0;
+                if (consecutiveFailures >= Math.max(1, Number(maxConsecutiveFailures) || 1)) {
+                    summary.stopped = true;
+                    this.sectionDetailPrefetchPauses.set(term, Date.now() + this.DETAIL_RETRY_BASE_MS);
+                    break;
+                }
+                if (delayMs > 0 && index < unique.length - 1 && !signal?.aborted) {
+                    await new Promise(resolve => setTimeout(resolve, delayMs));
+                }
+            }
+            return summary;
+        }
+        let cursor = 0;
+        const worker = async () => {
+            while (cursor < unique.length && !signal?.aborted) {
+                const section = unique[cursor];
+                cursor += 1;
+                const key = this.sectionDetailKey(section, term);
+                if (!this.sectionDetails.has(key)) summary.attempted += 1;
+                const result = await this.hydrateSectionDetail(section, term, { foreground });
+                record(result);
+                if (delayMs > 0 && cursor < unique.length && !signal?.aborted) {
+                    await new Promise(resolve => setTimeout(resolve, delayMs));
+                }
+            }
+        };
+        const workerCount = Math.max(1, Math.min(Number(concurrency) || 1, unique.length || 1));
+        await Promise.all(Array.from({ length: workerCount }, () => worker()));
+        return summary;
     },
 
     parseMeetingDetails(meetingHtml) {
@@ -252,7 +388,7 @@ const WalkingMap = {
         const events = [];
         sections.forEach(section => {
             const online = this.isOnline(section);
-            const detailMeetings = this.sectionDetails.get(String(section.crn)) || [];
+            const detailMeetings = this.sectionDetails.get(this.sectionDetailKey(section)) || [];
             this.parseMeetingTimes(section.meetingTimes)
                 .filter(meeting => meeting.day === day)
                 .forEach(meeting => {
@@ -326,8 +462,9 @@ const WalkingMap = {
             return { kind: 'same', distance: 0, walkMinutes: 0, geometry: null };
         }
 
-        const key = `${from.code}>${to.code}`;
-        if (this.routeCache.has(key)) return this.routeCache.get(key);
+        const key = this.routeCacheKey(from, to);
+        const cached = this.getCachedRoute(key);
+        if (cached) return cached;
         try {
             const coordinates = `${from.lon},${from.lat};${to.lon},${to.lat}`;
             const url = `${this.ROUTE_URL}/${coordinates}?overview=full&geometries=geojson&steps=false`;
@@ -367,6 +504,26 @@ const WalkingMap = {
         return earthRadius * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
     },
 
+    routeCacheKey(from, to) {
+        const point = building => [building.code, building.lat, building.lon]
+            .map(value => typeof value === 'number' ? value.toFixed(6) : String(value || ''))
+            .join('@');
+        return `${this.catalogRevision}|${point(from)}>${point(to)}`;
+    },
+
+    getCachedRoute(key) {
+        const entry = this.routeCache.get(key);
+        if (!entry) return null;
+        if (!entry.route || Number(entry.expiresAt) <= Date.now()) {
+            this.routeCache.delete(key);
+            this.persistRoutes();
+            return null;
+        }
+        this.routeCache.delete(key);
+        this.routeCache.set(key, entry);
+        return entry.route;
+    },
+
     transitionStatus(transition) {
         if (transition.kind === 'online') return { className: 'neutral', label: 'No campus travel' };
         if (transition.kind === 'same') return { className: 'neutral', label: 'Same building' };
@@ -390,7 +547,15 @@ const WalkingMap = {
         const showingWeek = this.selectedDay === 'all';
         const periodLabel = showingWeek ? 'this week' : this.DAYS[this.selectedDay];
         if (events.length === 0) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">No scheduled classes ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
+            const selectedCount = typeof State === 'undefined'
+                ? 0
+                : Object.keys(State.selectedSections || {}).length;
+            const message = selectedCount > 0
+                ? (showingWeek
+                    ? 'All selected classes were processed, but none has a scheduled campus meeting to map. There are no transitions to check.'
+                    : `No selected class has a scheduled campus meeting on ${periodLabel}.`)
+                : `No classes are selected ${showingWeek ? 'for this week' : `on ${periodLabel}`}.`;
+            this.listElement.innerHTML = `<p class="walking-map-empty">${message}</p>`;
             return;
         }
         if (!showingWeek && events.length === 1) {
@@ -398,7 +563,10 @@ const WalkingMap = {
             return;
         }
         if (transitions.length === 0) {
-            this.listElement.innerHTML = `<p class="walking-map-empty">No between-class routes are available ${showingWeek ? 'this week' : `on ${periodLabel}`}.</p>`;
+            const message = showingWeek
+                ? 'Class locations are shown on the map. No two selected classes meet consecutively on the same day, so there are no transitions to check.'
+                : `The scheduled classes on ${periodLabel} do not create a between-class transition to check.`;
+            this.listElement.innerHTML = `<p class="walking-map-empty">${message}</p>`;
             return;
         }
 
@@ -477,12 +645,15 @@ const WalkingMap = {
         setTimeout(() => this._map.invalidateSize(), 0);
 
         const bounds = [];
-        const seen = new Set();
-        if (this.selectedDay !== 'all') knownEvents.forEach((event, index) => {
-            const position = [event.building.lat, event.building.lon];
+        const locations = new Map();
+        knownEvents.forEach(event => {
+            const key = event.building.code || `${event.building.lat},${event.building.lon}`;
+            if (!locations.has(key)) locations.set(key, { building: event.building, events: [] });
+            locations.get(key).events.push(event);
+        });
+        [...locations.values()].forEach((location, index) => {
+            const position = [location.building.lat, location.building.lon];
             bounds.push(position);
-            if (seen.has(event.building.code)) return;
-            seen.add(event.building.code);
             const marker = L.marker(position, {
                 icon: L.divIcon({
                     className: '',
@@ -491,7 +662,11 @@ const WalkingMap = {
                     iconAnchor: [12, 12],
                 }),
             });
-            marker.bindPopup(`<strong>${this.escapeHtml(event.code)}</strong><br>${this.escapeHtml(event.building.name)}`);
+            const classList = location.events
+                .sort((left, right) => left.day - right.day || left.start - right.start)
+                .map(event => `${this.DAYS[event.day]?.slice(0, 3).toUpperCase() || ''} ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}`)
+                .join('<br>');
+            marker.bindPopup(`<strong>${this.escapeHtml(location.building.name)}</strong><br>${classList}`);
             marker.addTo(this._layer);
         });
 
@@ -604,17 +779,41 @@ const WalkingMap = {
 
     loadStoredRoutes() {
         try {
-            const stored = JSON.parse(localStorage.getItem('uofsc-walking-routes-v1') || '{}');
-            Object.entries(stored).forEach(([key, route]) => this.routeCache.set(key, route));
+            const stored = JSON.parse(localStorage.getItem(this.ROUTE_CACHE_KEY) || '{}');
+            const entries = Object.entries(stored.entries || {})
+                .filter(([key, entry]) => (
+                    key.startsWith(`${this.catalogRevision}|`)
+                    && entry?.route
+                    && Number(entry.expiresAt) > Date.now()
+                ))
+                .sort((left, right) => Number(left[1].storedAt || 0) - Number(right[1].storedAt || 0))
+                .slice(-this.ROUTE_CACHE_MAX_ENTRIES);
+            this.routeCache = new Map(entries);
         } catch (error) {
             this.routeCache.clear();
         }
     },
 
     saveRoute(key, route) {
-        this.routeCache.set(key, route);
+        const storedAt = Date.now();
+        this.routeCache.delete(key);
+        this.routeCache.set(key, {
+            route,
+            storedAt,
+            expiresAt: storedAt + this.ROUTE_CACHE_TTL_MS,
+        });
+        while (this.routeCache.size > this.ROUTE_CACHE_MAX_ENTRIES) {
+            this.routeCache.delete(this.routeCache.keys().next().value);
+        }
+        this.persistRoutes();
+    },
+
+    persistRoutes() {
         try {
-            localStorage.setItem('uofsc-walking-routes-v1', JSON.stringify(Object.fromEntries(this.routeCache)));
+            localStorage.setItem(this.ROUTE_CACHE_KEY, JSON.stringify({
+                version: 2,
+                entries: Object.fromEntries(this.routeCache),
+            }));
         } catch (error) {
             // Route caching is optional.
         }

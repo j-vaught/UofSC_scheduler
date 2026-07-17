@@ -62,7 +62,7 @@ test('full sections remain selectable as an explicit planning override', () => {
     assert.match(elements['selected-courses-list'].innerHTML, /Full section selected\. Planning only/);
 });
 
-test('locked section helper explains that every generated schedule will use it', () => {
+test('locked section is shown in the dropdown with a clear-section action', () => {
     const elements = {
         'selected-courses-list': { innerHTML: '', querySelectorAll: () => [] },
         'selected-credits': { textContent: '' },
@@ -84,7 +84,9 @@ test('locked section helper explains that every generated schedule will use it',
 
     sidebar.render();
 
-    assert.match(elements['selected-courses-list'].innerHTML, /Section 001 will be used in all schedules/);
+    assert.match(elements['selected-courses-list'].innerHTML, /value="10868" selected>Section 001/);
+    assert.match(elements['selected-courses-list'].innerHTML, /class="btn-clear-section"/);
+    assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /will be used in all schedules/);
     assert.doesNotMatch(elements['selected-courses-list'].innerHTML, /Locked section will be required/);
 });
 
@@ -215,7 +217,7 @@ test('browse section details add and lock the specific section', () => {
         source.indexOf('destroyDetailMap()'),
     );
 
-    assert.match(source, /ADD THIS SECTION TO SCHEDULE/);
+    assert.match(source, /ADD SECTION \$\{sectionLabel\} TO SCHEDULE/);
     assert.match(source, /LET SCHEDULER CHOOSE/);
     assert.match(source, /Use Section \$\{sectionLabel\} in every generated schedule/);
     assert.match(source, /State\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
@@ -831,7 +833,9 @@ test('navigation is centered inside the single garnet header', () => {
     assert.match(header, /<nav id="main-tabs"/);
     assert.match(styles, /header\s*{[^}]*grid-template-columns:\s*minmax\(180px, 1fr\) auto minmax\(180px, 1fr\);/s);
     assert.match(styles, /#main-tabs\s*{[^}]*background:\s*transparent;[^}]*justify-content:\s*center;/s);
-    assert.match(styles, /main\s*{[^}]*height:\s*calc\(100vh - 58px\);/s);
+    assert.match(styles, /body\s*{[^}]*display:\s*flex;[^}]*flex-direction:\s*column;[^}]*height:\s*100dvh;/s);
+    assert.match(styles, /main\s*{[^}]*flex:\s*1 1 auto;[^}]*min-height:\s*0;/s);
+    assert.match(html, /id="site-notices"[^>]*hidden[^>]*aria-live="polite"/);
     assert.doesNotMatch(html, /UOFSC COURSE SCHEDULER/);
 });
 
@@ -1042,7 +1046,11 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /Offered in \$\{frequency\}% of recent terms/);
     assert.match(source, /Last offered \$\{offering\.last_offered_label\}/);
     assert.match(source, /const detailsPromise =/);
-    assert.match(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
+    assert.match(source, /const gradesPromise = API\.getCourseGrades\(group\.code\)/);
+    assert.match(source, /this\.renderCourseQuickView\(\s*group,\s*\{\},\s*\{\},\s*\{\},\s*true,/s);
+    assert.match(source, /gradesPromise\s*\.then\(result =>/);
+    assert.match(source, /this\.updateQuickGrades\(gradeData\)/);
+    assert.doesNotMatch(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
     assert.match(source, /detailsPromise\s*\.then\(details =>/);
     assert.match(api, /async getCourseGrades\(code\)/);
     assert.match(api, /async getFaculty\(term, crns\)/);
@@ -1832,7 +1840,7 @@ test('course scope is a hard filter for API, local, and merged candidates', () =
     assert.deepEqual(Array.from(filtered, result => result.code), ['CSCE 585', 'MATH 524']);
 });
 
-test('semantic scope filters every batch and reports the adaptive search count', async () => {
+test('semantic scope filters every bounded batch and reports the adaptive search count', async () => {
     let calls = 0;
     const progress = [];
     const extractor = async values => ({ data: new Float32Array(values.map(() => 1)) });
@@ -1872,15 +1880,16 @@ test('semantic scope filters every batch and reports the adaptive search count',
         state => progress.push({ ...state }),
     );
 
-    assert.equal(calls, 10);
-    assert.equal(result.searches.length, 10);
+    assert.equal(calls, 4);
+    assert.equal(result.searches.length, 4);
     assert.deepEqual(Array.from(result.results, item => item.code), ['CSCE 585']);
-    assert.deepEqual(Array.from(result.searchResults.flat(), item => item.code), Array(10).fill('CSCE 585'));
-    assert.equal(progress[0].total, 20);
-    assert.equal(progress.some(state => state.completed === 10 && state.total === 20), true);
+    assert.deepEqual(Array.from(result.searchResults.flat(), item => item.code), Array(4).fill('CSCE 585'));
+    assert.equal(progress[0].total, 6);
+    assert.equal(progress.some(state => state.completed === 4 && state.total === 6), true);
+    assert.equal(result.requestBudget.totalLimit, 10);
 });
 
-test('semantic search continues past ten when a narrow scope has no matches yet', async () => {
+test('semantic search uses its larger scoped budget when early batches have no matches', async () => {
     let calls = 0;
     const extractor = async values => ({ data: new Float32Array(values.map(() => 1)) });
     const search = loadObject('static/js/search.js', 'Search', {
@@ -1888,7 +1897,7 @@ test('semantic search continues past ten when a narrow scope has no matches yet'
             async post() {
                 calls += 1;
                 return {
-                    results: calls <= 10
+                    results: calls <= 4
                         ? [{ code: 'EMCH 585', title: 'Fluid Systems' }]
                         : [{ code: 'CSCE 585', title: 'Machine Learning Systems' }],
                 };
@@ -1917,8 +1926,9 @@ test('semantic search continues past ten when a narrow scope has no matches yet'
         search.buildCourseScope('CSCE', '500+'),
     );
 
-    assert.equal(calls, 20);
+    assert.equal(calls, 6);
     assert.deepEqual(Array.from(result.results, item => item.code), ['CSCE 585']);
+    assert.equal(result.requestBudget.totalLimit, 10);
 });
 
 test('Browse uses progressive states with AI-assisted search on by default', () => {
@@ -1945,7 +1955,7 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
     assert.match(source, /setBrowseState\('results'\)/);
     assert.match(source, /setBrowseState\('detail'\)/);
     assert.match(source, /let aiAssisted = document\.getElementById\('filter-ai-search'\)\?\.checked !== false/);
-    assert.match(source, /requestIdleCallback\(preload, \{ timeout: 3500 \}\)/);
+    assert.match(source, /preload\(\);\s*requestAnimationFrame/);
     assert.match(styles, /\.browse-empty \.browse-body\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-results #semester-content\s*{\s*display:\s*none;/);
     assert.match(styles, /\.browse-detail #semester-content\s*{[^}]*display:\s*block;/s);
@@ -2088,7 +2098,7 @@ test('Repeated and historical searches reuse a bounded one-hour in-memory cache'
     assert.match(emptySemanticBlock, /renderAndCacheSearch/);
     assert.match(emptySemanticBlock, /semantic\.searches/);
     assert.match(source, /hadRequestFailure \|\|= response\.failed/);
-    assert.match(source, /const incompleteSearch = semantic\.hadRequestFailure[\s\S]*liveResponses\.some\(response => response\.failed\)/);
+    assert.match(source, /const incompleteSearch = semantic\.hadRequestFailure[\s\S]*liveHydration\.hadRequestFailure/);
     assert.match(source, /incompleteSearch \? null : searchCacheKey/);
     const catalogLiveStart = source.indexOf('// Also fetch live term data to cross-reference availability');
     const catalogLiveEnd = source.indexOf('// Build a set of course codes offered this term', catalogLiveStart);
@@ -2144,6 +2154,69 @@ test('API error payloads reject so failed searches are never cached as empty res
         () => api.post('/api/search', {}),
         /upstream unavailable/,
     );
+});
+
+test('API coalesces duplicate live requests and reuses its short browser cache', async () => {
+    let release;
+    let calls = 0;
+    const gate = new Promise(resolve => { release = resolve; });
+    const api = loadObject('static/js/api.js', 'API', {
+        fetch: async () => {
+            calls += 1;
+            await gate;
+            return {
+                ok: true,
+                status: 200,
+                async json() { return { results: [{ code: 'CSCE 145' }] }; },
+            };
+        },
+    });
+
+    const first = api.searchCourses('202608', [{ field: 'subject', value: 'CSCE' }]);
+    const second = api.searchCourses('202608', [{ value: 'CSCE', field: 'subject' }]);
+    await Promise.resolve();
+    assert.equal(calls, 1);
+    release();
+    assert.deepEqual(await first, await second);
+    await api.searchCourses('202608', [{ field: 'subject', value: 'CSCE' }]);
+    assert.equal(calls, 1);
+});
+
+test('API browser cache keeps recently reused entries during eviction', () => {
+    const api = loadObject('static/js/api.js', 'API', {});
+    api._responseCacheMaxEntries = 2;
+    api._storeCached('older-hot', { value: 1 }, 60_000);
+    api._storeCached('newer-cold', { value: 2 }, 60_000);
+
+    assert.deepEqual(api._cached('older-hot'), { value: 1 });
+    api._storeCached('newest', { value: 3 }, 60_000);
+
+    assert.equal(api._responseCache.has('newer-cold'), false);
+    assert.equal(api._responseCache.has('older-hot'), true);
+    assert.equal(api._responseCache.has('newest'), true);
+});
+
+test('detail prefetch is sequential and stops after cancellation', async () => {
+    const controller = new AbortController();
+    const calls = [];
+    const api = loadObject('static/js/api.js', 'API', {
+        requestIdleCallback: callback => callback(),
+        setTimeout: callback => callback(),
+        fetch: async (_path, options) => {
+            const body = JSON.parse(options.body);
+            calls.push(body.group);
+            if (calls.length === 1) controller.abort();
+            return { ok: true, status: 200, async json() { return {}; } };
+        },
+    });
+
+    await api.prefetchCourseDetails(
+        [{ crn: '10001' }, { crn: '10001' }, { crn: '10002' }],
+        '202608',
+        { signal: controller.signal },
+    );
+
+    assert.deepEqual(calls, ['crn:10001']);
 });
 
 test('A browser reload requests fresh live data without changing historical cache behavior', async () => {
@@ -2731,6 +2804,37 @@ test('Scheduler course details navigate through Search and preserve its detail r
     assert.equal(detail.options.historyMode, 'push');
 });
 
+test('Scheduler detail navigation preserves an exact section excluded by active filters', async () => {
+    let viewed = null;
+    const keyword = { value: '' };
+    const State = {
+        courseGroups: [{
+            code: 'CSCE 145',
+            title: 'Algorithmic Design I',
+            sections: [{ crn: '10001', section: '001', stat: 'A' }],
+        }],
+    };
+    const search = loadObject('static/js/search.js', 'Search', {
+        State,
+        document: { getElementById: id => (id === 'keyword-input' ? keyword : null) },
+    });
+    search.doSearch = async () => {};
+    search.showCourseDetail = (group, options) => { viewed = { group, options }; };
+
+    await search.openCourseFromExternal({
+        code: 'CSCE 145',
+        title: 'Algorithmic Design I',
+        sections: [{ crn: '10002', section: '002', stat: 'C' }],
+    }, '10002');
+
+    assert.equal(keyword.value, 'CSCE 145');
+    assert.equal(viewed.options.sectionCrn, '10002');
+    assert.deepEqual(
+        Array.from(viewed.group.sections, section => section.crn),
+        ['10001', '10002'],
+    );
+});
+
 test('Top-level tab history preserves Search when returning to an unparameterized page', () => {
     const location = {
         href: 'http://127.0.0.1:8765/',
@@ -3076,11 +3180,28 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.equal(syllabus.searchParams.get('courseNumber'), '222');
     assert.equal(syllabus.searchParams.get('instructor'), '');
     assert.equal(syllabus.searchParams.get('term'), 'all');
+    assert.equal(search.syllabusSignInUrl(), 'https://www.sc.edu/syllabusarchive');
+    assert.equal(
+        search.rateMyProfessorsUrl('Hu, Ming'),
+        'https://www.ratemyprofessors.com/search/professors/1309?q=Ming+Hu',
+    );
+    assert.equal(
+        search.rateMyProfessorsUrl('De la Cruz, Ana Maria'),
+        'https://www.ratemyprofessors.com/search/professors/1309?q=Ana+Maria+De+la+Cruz',
+    );
+    assert.equal(
+        search.rateMyProfessorsUrl('Ming Hu'),
+        'https://www.ratemyprofessors.com/search/professors/1309?q=Ming+Hu',
+    );
     const bulletin = new URL(search.bulletinResourceUrl('CSCE 883'));
     assert.equal(bulletin.origin, 'https://academicbulletins.sc.edu');
     assert.equal(bulletin.pathname, '/search/');
     assert.equal(bulletin.searchParams.get('P'), 'CSCE 883');
     assert.match(source, /https:\/\/sc\.edu\/about\/directory\//);
+    assert.match(source, /class="course-resource-syllabus"/);
+    assert.match(source, /Sign in to the archive/);
+    assert.match(source, /try step 2 again/);
+    assert.match(source, /ratemyprofessors\.com\/search\/professors\/1309\?q=/);
     assert.match(source, /class="course-resource-layout"/);
     assert.doesNotMatch(source, /class="course-resource-card"/);
     assert.doesNotMatch(source, /course-resource-group-heading/);
@@ -3092,6 +3213,73 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.match(source, /primaryFaculty\?\.professor_id/);
     assert.doesNotMatch(source, /uscbookstore\.com/);
     assert.doesNotMatch(source, /Official course information and useful searches open in a new tab/);
+});
+
+test('Course detail sections sort open first and naturally within availability groups', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const group = {
+        sections: [
+            { crn: '4', section: '010', stat: 'C' },
+            { crn: '3', section: '002', stat: 'C' },
+            { crn: '2', section: '011', stat: 'A' },
+            { crn: '1', section: '003', stat: 'A' },
+        ],
+    };
+
+    assert.deepEqual(
+        Array.from(search.sortedDetailSections(group), section => `${section.stat}:${section.section}`),
+        ['A:003', 'A:011', 'C:002', 'C:010'],
+    );
+    assert.deepEqual(group.sections.map(section => section.crn), ['4', '3', '2', '1']);
+});
+
+test('Course detail section ordering preserves the active section for keyboard users', () => {
+    const picker = {
+        innerHTML: '',
+        querySelectorAll() { return []; },
+    };
+    const elements = {
+        'course-section-picker-wrap': { hidden: true },
+        'course-section-picker': picker,
+        'course-section-picker-count': { textContent: '' },
+    };
+    const document = {
+        getElementById(id) { return elements[id] || null; },
+        createElement() {
+            const element = { innerHTML: '' };
+            Object.defineProperty(element, 'textContent', {
+                set(value) { element.innerHTML = String(value); },
+            });
+            return element;
+        },
+    };
+    const search = loadObject('static/js/search.js', 'Search', { document });
+    search._detailGroup = {
+        sections: [
+            { crn: '10', section: '010', stat: 'C', meets: 'TBA', instr: 'Staff' },
+            { crn: '2', section: '002', stat: 'A', meets: 'MW', instr: 'Hu, Ming' },
+            { crn: '1', section: '001', stat: 'A', meets: 'TTh', instr: 'Staff' },
+        ],
+    };
+    search._detailSectionCrn = '10';
+
+    search.renderDetailSections();
+
+    assert.ok(picker.innerHTML.indexOf('data-detail-crn="1"') < picker.innerHTML.indexOf('data-detail-crn="2"'));
+    assert.ok(picker.innerHTML.indexOf('data-detail-crn="2"') < picker.innerHTML.indexOf('data-detail-crn="10"'));
+    assert.match(picker.innerHTML, /data-detail-crn="10" aria-pressed="true" tabindex="0"/);
+    assert.match(picker.innerHTML, /data-detail-crn="1" aria-pressed="false" tabindex="-1"/);
+});
+
+test('Professor profile review links use the UofSC Rate My Professors school search', () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {});
+
+    assert.equal(
+        grades.rateMyProfessorsUrl('Hu, Ming'),
+        'https://www.ratemyprofessors.com/search/professors/1309?q=Ming+Hu',
+    );
+    const markup = grades.professorMarkup({ name: 'Hu, Ming', courses: [], years: [] });
+    assert.match(markup, /href="https:\/\/www\.ratemyprofessors\.com\/search\/professors\/1309\?q=Ming\+Hu"/);
 });
 
 test('Course identity and actions stay together in a sticky black header', () => {
@@ -3177,6 +3365,13 @@ test('calendar expands to seven days only when a weekend meeting is present', ()
     assert.equal(calendar.visibleDayCount(saturdaySections), 7);
     assert.equal(calendar.visibleDayCount(sundaySections), 7);
     assert.deepEqual(Array.from(calendar.DAY_LABELS), ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']);
+});
+
+test('preview calendar blocks are disabled and do not open course details', () => {
+    const source = fs.readFileSync('static/js/calendar.js', 'utf8');
+
+    assert.match(source, /block\.disabled = Boolean\(options\.preview\)/);
+    assert.match(source, /if \(!options\.preview\) \{\s*block\.addEventListener\('click'/s);
 });
 
 test('hovering a schedule option previews it and leaving restores the calendar', () => {
@@ -3279,6 +3474,15 @@ test('applied schedule matching compares every selected CRN', () => {
     }), false);
 });
 
+test('schedule card containers do not disable or trap their interactive children', () => {
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+
+    assert.match(source, /card\.removeAttribute\('aria-disabled'\)/);
+    assert.match(source, /card\.removeAttribute\('tabindex'\)/);
+    assert.doesNotMatch(source, /card\.setAttribute\('aria-disabled', String\(applied\)\)/);
+    assert.match(source, /button\.disabled = applied/);
+});
+
 test('switching day patterns clears only automatic blocks', () => {
     function cell(day, manuallyBlocked = false) {
         const classes = new Set(manuallyBlocked ? ['blocked'] : []);
@@ -3312,6 +3516,161 @@ test('walking map defaults to the all-days view', () => {
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
 
     assert.equal(walkingMap.selectedDay, 'all');
+});
+
+test('scheduler background location prefetch only includes usable campus sections', () => {
+    const meetingTimes = '[{"meet_day":1,"start_time":900,"end_time":950}]';
+    const State = {
+        selectedCourses: {
+            'TEST 101': {
+                sections: [
+                    { crn: 'open-campus', stat: 'A', meetingTimes },
+                    { crn: 'full-campus', stat: 'C', meetingTimes },
+                    { crn: 'online', stat: 'A', meetingTimes, inst_mthd: 'Online' },
+                    { crn: 'tba', stat: 'A', meetingTimes: '' },
+                ],
+            },
+            'TEST 202': {
+                sections: [
+                    { crn: 'locked-full', stat: 'C', meetingTimes },
+                    { crn: 'unused-open', stat: 'A', meetingTimes },
+                ],
+            },
+        },
+        sectionLocks: { 'TEST 202': 'locked-full' },
+    };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', { State });
+
+    const crns = Array.from(scheduler.locationPrefetchSections(), section => section.crn);
+
+    assert.deepEqual(crns, ['open-campus', 'locked-full']);
+    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    assert.doesNotMatch(source, /API\.prefetchCourseDetails/);
+    assert.match(source, /background: true/);
+    assert.match(source, /foreground: true/);
+});
+
+test('walking map includes weekend meetings and term-specific section details', () => {
+    const State = { term: '202608' };
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', { State });
+    const section = {
+        code: 'TEST 101',
+        crn: '10001',
+        meetingTimes: '[{"meet_day":5,"start_time":900,"end_time":950}]',
+    };
+    walkingMap.sectionDetails.set(walkingMap.sectionDetailKey(section), [{
+        days: [5],
+        start: 540,
+        end: 590,
+        rawLocation: 'Test Building 101',
+        building: { kind: 'known', code: 'TEST', name: 'Test Building', lat: 34, lon: -81 },
+    }]);
+
+    assert.deepEqual(Array.from(walkingMap.DAYS.slice(-2)), ['Saturday', 'Sunday']);
+    assert.equal(walkingMap.buildEvents([section], 5).length, 1);
+    State.term = '202701';
+    assert.equal(walkingMap.buildEvents([section], 5)[0].building.kind, 'unknown');
+});
+
+test('failed background location details are retried by the foreground', async () => {
+    let calls = 0;
+    const State = { term: '202608' };
+    const section = { crn: '10001' };
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        State,
+        API: {
+            async getDetails() {
+                calls += 1;
+                if (calls === 1) throw new Error('temporary failure');
+                return { meeting_html: '' };
+            },
+        },
+    });
+
+    await walkingMap.hydrateSectionDetail(section);
+    assert.equal(walkingMap.sectionDetails.has(walkingMap.sectionDetailKey(section)), false);
+    await walkingMap.hydrateSectionDetail(section);
+
+    assert.equal(calls, 2);
+    assert.equal(walkingMap.sectionDetails.has(walkingMap.sectionDetailKey(section)), true);
+});
+
+test('background detail hydration pauses after consecutive failures and foreground bypasses backoff', async () => {
+    let calls = 0;
+    let recovered = false;
+    const State = { term: '202608' };
+    const sections = ['10001', '10002', '10003'].map(crn => ({
+        crn,
+        meetingTimes: '[{"meet_day":1,"start_time":900,"end_time":950}]',
+    }));
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        State,
+        API: {
+            async getDetails() {
+                calls += 1;
+                if (!recovered) throw new Error('temporary failure');
+                return { meeting_html: '' };
+            },
+        },
+    });
+
+    const first = await walkingMap.hydrateSectionDetails(sections, {
+        background: true,
+        delayMs: 0,
+        maxConsecutiveFailures: 2,
+    });
+    const second = await walkingMap.hydrateSectionDetails(sections, {
+        background: true,
+        delayMs: 0,
+        maxConsecutiveFailures: 2,
+    });
+
+    assert.equal(calls, 2);
+    assert.equal(first.failed, 2);
+    assert.equal(first.stopped, true);
+    assert.equal(second.attempted, 0);
+    assert.equal(second.stopped, true);
+
+    recovered = true;
+    const foreground = await walkingMap.hydrateSectionDetails([sections[0]], {
+        foreground: true,
+        concurrency: 1,
+    });
+
+    assert.equal(calls, 3);
+    assert.equal(foreground.loaded, 1);
+    assert.equal(walkingMap.sectionDetails.has(walkingMap.sectionDetailKey(sections[0])), true);
+});
+
+test('location detail hydration skips online and unscheduled sections', async () => {
+    let calls = 0;
+    const State = { term: '202608' };
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        State,
+        API: {
+            async getDetails() {
+                calls += 1;
+                return { meeting_html: '' };
+            },
+        },
+    });
+    const meetingTimes = '[{"meet_day":1,"start_time":900,"end_time":950}]';
+
+    const summary = await walkingMap.hydrateSectionDetails([
+        { crn: 'online', meetingTimes, inst_mthd: 'Online' },
+        { crn: 'unscheduled', meetingTimes: '' },
+        { crn: 'campus', meetingTimes, inst_mthd: 'Face-to-Face' },
+    ], { foreground: true });
+
+    assert.equal(calls, 1);
+    assert.equal(summary.loaded, 1);
+});
+
+test('walking map explains processed selections that have no campus meetings', () => {
+    const source = fs.readFileSync('static/js/map.js', 'utf8');
+
+    assert.match(source, /All selected classes were processed, but none has a scheduled campus meeting to map/);
+    assert.match(source, /No two selected classes meet consecutively on the same day/);
 });
 
 test('route interface uses neutral travel language', () => {
@@ -3541,4 +3900,58 @@ test('online and same-building transitions use disabled no-route cards', () => {
         assert.equal(route.kind, 'same');
         assert.equal(route.geometry, null);
     });
+});
+
+test('route cache keys include catalog revision and coordinates', async () => {
+    let calls = 0;
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        fetch: async () => {
+            calls += 1;
+            return {
+                ok: true,
+                async json() {
+                    return {
+                        routes: [{
+                            distance: 500,
+                            duration: 300,
+                            geometry: { coordinates: [[-81, 34], [-81.01, 34.01]] },
+                        }],
+                    };
+                },
+            };
+        },
+    });
+    const from = { kind: 'known', code: 'FROM', lat: 34, lon: -81 };
+    const to = { kind: 'known', code: 'TO', lat: 34.01, lon: -81.01 };
+    walkingMap.catalogRevision = 'catalog-a';
+
+    await walkingMap.routeBetween(from, to);
+    await walkingMap.routeBetween(from, to);
+    await walkingMap.routeBetween({ ...from, lat: 34.0005 }, to);
+    walkingMap.catalogRevision = 'catalog-b';
+    await walkingMap.routeBetween(from, to);
+
+    assert.equal(calls, 3);
+});
+
+test('route cache expires stale entries and evicts its oldest entry', () => {
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    walkingMap.ROUTE_CACHE_MAX_ENTRIES = 2;
+    walkingMap.ROUTE_CACHE_TTL_MS = 60_000;
+
+    walkingMap.saveRoute('first', { kind: 'routed' });
+    walkingMap.saveRoute('second', { kind: 'routed' });
+    walkingMap.saveRoute('third', { kind: 'estimated' });
+
+    assert.equal(walkingMap.routeCache.size, 2);
+    assert.equal(walkingMap.routeCache.has('first'), false);
+    assert.equal(walkingMap.getCachedRoute('third').kind, 'estimated');
+
+    walkingMap.routeCache.set('expired', {
+        route: { kind: 'routed' },
+        storedAt: Date.now() - 10,
+        expiresAt: Date.now() - 1,
+    });
+    assert.equal(walkingMap.getCachedRoute('expired'), null);
+    assert.equal(walkingMap.routeCache.has('expired'), false);
 });

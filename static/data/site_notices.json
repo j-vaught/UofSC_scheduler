@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "notices": [
+    {
+      "id": "maintenance-template",
+      "revision": 1,
+      "kind": "maintenance",
+      "active": false,
+      "dismissible": false,
+      "title": "Scheduled maintenance",
+      "message": "Some features may be briefly unavailable.",
+      "start": null,
+      "end": null
+    },
+    {
+      "id": "help-template",
+      "revision": 1,
+      "kind": "help",
+      "active": false,
+      "dismissible": true,
+      "title": "Need help?",
+      "message": "Report an issue or ask for help with the scheduler.",
+      "link": {
+        "url": "#",
+        "label": "Get help",
+        "new_tab": false
+      }
+    },
+    {
+      "id": "action-template",
+      "revision": 1,
+      "kind": "action",
+      "active": false,
+      "dismissible": true,
+      "title": "Student input requested",
+      "message": "Share feedback about a proposed change.",
+      "link": {
+        "url": "#",
+        "label": "Share feedback",
+        "new_tab": false
+      }
+    }
+  ]
+}

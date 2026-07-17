@@ -182,7 +182,14 @@ const Profile = {
         sorted.forEach(course => {
             const chip = document.createElement('span');
             chip.className = 'completed-chip';
-            chip.innerHTML = `${course} <span class="remove">&times;</span>`;
+            chip.append(document.createTextNode(`${course} `));
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'remove';
+            remove.setAttribute('aria-label', `Remove ${course}`);
+            remove.title = `Remove ${course}`;
+            remove.textContent = '×';
+            chip.appendChild(remove);
             chip.querySelector('.remove').addEventListener('click', () => {
                 State.completedCourses = State.completedCourses.filter(c => c !== course);
                 State.completedDetails = State.completedDetails.filter(c => c.code !== course);

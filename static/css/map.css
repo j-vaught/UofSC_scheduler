@@ -75,11 +75,17 @@
     cursor: pointer;
 }
 
-.walking-map-day:hover,
-.walking-map-day:focus-visible {
+.walking-map-day:hover {
     background: #FFF2E3;
     outline: 2px solid var(--map-garnet);
     outline-offset: -2px;
+}
+
+.walking-map-day:focus-visible {
+    outline: 3px solid #466A9F;
+    outline-offset: 2px;
+    position: relative;
+    z-index: 1;
 }
 
 .walking-map-day[aria-selected="true"] {
@@ -161,11 +167,16 @@ button.walking-transition {
     cursor: pointer;
 }
 
-button.walking-transition:hover,
-button.walking-transition:focus-visible {
+button.walking-transition:hover {
     border-color: var(--map-black);
     outline: 2px solid var(--map-garnet);
     outline-offset: 1px;
+}
+
+button.walking-transition:focus-visible {
+    border-color: var(--map-black);
+    outline: 3px solid #466A9F;
+    outline-offset: 2px;
 }
 
 button.walking-transition.is-selected {
@@ -246,6 +257,7 @@ button.walking-transition.is-previewed {
 }
 
 .walking-map-marker {
+    cursor: pointer;
     display: grid;
     place-items: center;
     width: 24px;
@@ -257,6 +269,11 @@ button.walking-transition.is-previewed {
     box-shadow: 0 0 0 1px var(--map-black);
     font-size: 11px;
     font-weight: 800;
+}
+
+.walking-map-canvas .leaflet-marker-icon:has(.walking-map-marker),
+.course-section-map .leaflet-marker-icon:has(.course-section-map-pin) {
+    cursor: pointer;
 }
 
 @media (max-width: 850px) {

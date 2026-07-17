@@ -12,6 +12,7 @@ const Preferences = {
         const cal = document.getElementById('block-calendar');
         if (!cal) return;
         cal.innerHTML = '';
+        const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
         // Header row
         const emptyCorner = document.createElement('div');
@@ -42,19 +43,24 @@ const Preferences = {
 
                 // Day cells
                 for (let day = 0; day < 5; day++) {
-                    const cell = document.createElement('div');
+                    const cell = document.createElement('button');
+                    cell.type = 'button';
                     cell.className = 'block-cell';
                     cell.dataset.day = day;
                     cell.dataset.start = timeVal;
                     cell.dataset.end = endVal;
+                    const startHour = h > 12 ? h - 12 : h;
+                    const startLabel = `${startHour}:${String(min).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`;
+                    cell.setAttribute('aria-label', `${dayNames[day]} at ${startLabel}`);
 
                     if (this.isBlocked(day, timeVal, endVal)) {
                         cell.classList.add('blocked');
                     }
+                    cell.setAttribute('aria-pressed', String(cell.classList.contains('blocked')));
 
                     cell.addEventListener('click', () => {
                         delete cell.dataset.dayPreferenceBlocked;
-                        cell.classList.toggle('blocked');
+                        this.setBlockedCell(cell, !cell.classList.contains('blocked'));
                         this.updateBlockedTimes();
                     });
 
@@ -66,7 +72,7 @@ const Preferences = {
                     cell.addEventListener('mouseenter', () => {
                         if (this._dragging) {
                             delete cell.dataset.dayPreferenceBlocked;
-                            cell.classList.toggle('blocked', this._dragState);
+                            this.setBlockedCell(cell, this._dragState);
                         }
                     });
 
@@ -81,6 +87,12 @@ const Preferences = {
                 this.updateBlockedTimes();
             }
         });
+    },
+
+    setBlockedCell(cell, blocked) {
+        if (blocked) cell.classList.add('blocked');
+        else cell.classList.remove('blocked');
+        cell.setAttribute?.('aria-pressed', String(blocked));
     },
 
     isBlocked(day, start, end) {
@@ -135,7 +147,7 @@ const Preferences = {
             item.innerHTML = `
                 <span>${name}</span>
                 <span style="color:${type === 'prefer' ? '#2e7d32' : '#c62828'}">${type}</span>
-                <span class="remove" title="Remove">&times;</span>
+                <button type="button" class="remove" title="Remove ${name}" aria-label="Remove ${name}">&times;</button>
             `;
             item.querySelector('.remove').addEventListener('click', () => {
                 delete State.preferredInstructors[name];
@@ -210,7 +222,7 @@ const Preferences = {
 
         cells.forEach(cell => {
             if (cell.dataset.dayPreferenceBlocked === 'true') {
-                cell.classList.remove('blocked');
+                this.setBlockedCell(cell, false);
                 delete cell.dataset.dayPreferenceBlocked;
             }
         });
@@ -218,7 +230,7 @@ const Preferences = {
         cells.forEach(cell => {
             const day = parseInt(cell.dataset.day);
             if (days.includes(day) && !cell.classList.contains('blocked')) {
-                cell.classList.add('blocked');
+                this.setBlockedCell(cell, true);
                 cell.dataset.dayPreferenceBlocked = 'true';
             }
         });
@@ -229,7 +241,7 @@ const Preferences = {
         document.querySelectorAll('#block-calendar .block-cell').forEach(cell => {
             const day = parseInt(cell.dataset.day);
             if (days.includes(day)) {
-                cell.classList.add('blocked');
+                this.setBlockedCell(cell, true);
             }
         });
         this.updateBlockedTimes();
@@ -239,7 +251,7 @@ const Preferences = {
         document.querySelectorAll('#block-calendar .block-cell').forEach(cell => {
             const day = parseInt(cell.dataset.day);
             if (days.includes(day)) {
-                cell.classList.remove('blocked');
+                this.setBlockedCell(cell, false);
             }
         });
         this.updateBlockedTimes();

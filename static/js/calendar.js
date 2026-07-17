@@ -159,22 +159,27 @@ const Calendar = {
                 const top = (startMin - this.START_HOUR * 60) * this.PX_PER_MIN;
                 const height = (endMin - startMin) * this.PX_PER_MIN;
 
-                const block = document.createElement('div');
+                const block = document.createElement('button');
+                block.type = 'button';
                 block.className = `cal-block${hasConflict ? ' conflict' : ''}${options.preview ? ' preview' : ''}`;
+                block.disabled = Boolean(options.preview);
+                block.setAttribute('aria-label', `${sec.code} ${sec.meets || ''}`.trim());
                 block.style.top = top + 'px';
                 block.style.height = height + 'px';
                 block.style.background = color;
 
                 block.style.color = '#ffffff';
                 block.innerHTML = `
-                    <div class="block-title">${sec.code}</div>
-                    <div class="block-info">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</div>
-                    ${height > 40 ? `<div class="block-info">${sec.meets || ''}</div>` : ''}
+                    <span class="block-title">${sec.code}</span>
+                    <span class="block-info">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</span>
+                    ${height > 40 ? `<span class="block-info">${sec.meets || ''}</span>` : ''}
                 `;
 
-                block.addEventListener('click', () => {
-                    Calendar.showCourseDetail(sec);
-                });
+                if (!options.preview) {
+                    block.addEventListener('click', () => {
+                        Calendar.showCourseDetail(sec);
+                    });
+                }
 
                 col.appendChild(block);
             });
@@ -184,6 +189,10 @@ const Calendar = {
 
 // Attach showCourseDetail as a Calendar method for use by other modules
 Calendar.showCourseDetail = function(section) {
+    if (typeof Scheduler !== 'undefined' && typeof Scheduler.openSectionQuickView === 'function') {
+        Scheduler.openSectionQuickView(section);
+        return;
+    }
     const tab = document.getElementById('tab-details');
     if (!tab) return;
 

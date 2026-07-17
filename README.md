@@ -73,6 +73,10 @@ tests/                     Python and JavaScript regression tests.
 
 The local web runtime uses the Python standard library. The data preparation workflow uses pandas, openpyxl, and requests through uv. The browser interface is vanilla HTML, CSS, and JavaScript.
 
+## Site Notices
+
+Maintenance, help, and student-action banners are configured in `static/data/site_notices.json`. Set a notice to active and optionally provide ISO-formatted start and end times. Dismissals are stored by notice identifier and revision, so increasing the revision shows an updated notice again. This configuration remains a static file and does not require an application endpoint.
+
 ## Data Sources and License
 
 The application reads public course information from `classes.sc.edu`, catalog and prerequisite information from `academicbulletins.sc.edu`, section and instructor information from Banner, official grade-spread workbooks from the University Registrar, and map data from OpenStreetMap services.

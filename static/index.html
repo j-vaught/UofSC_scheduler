@@ -35,6 +35,8 @@
         </div>
     </header>
 
+    <div id="site-notices" class="site-notices" hidden aria-live="polite"></div>
+
     <main>
         <!-- ===== HOME TAB ===== -->
         <div id="tab-home" class="main-tab active">
@@ -45,19 +47,19 @@
                 </div>
 
                 <div class="home-paths">
-                    <div class="home-card" id="home-degree-btn">
-                        <div class="home-card-icon">&#127891;</div>
-                        <h3>Plan My Degree</h3>
-                        <p>I want to see what classes I will take each semester through graduation.</p>
+                    <button type="button" class="home-card" id="home-degree-btn">
+                        <span class="home-card-icon" aria-hidden="true">&#127891;</span>
+                        <span class="home-card-title">Plan My Degree</span>
+                        <span class="home-card-copy">I want to see what classes I will take each semester through graduation.</span>
                         <span class="home-card-action">Get Started &rarr;</span>
-                    </div>
+                    </button>
 
-                    <div class="home-card" id="home-schedule-btn">
-                        <div class="home-card-icon">&#128197;</div>
-                        <h3>Build a Schedule</h3>
-                        <p>I know what courses I want to take. I just need to find sections, times, and professors.</p>
+                    <button type="button" class="home-card" id="home-schedule-btn">
+                        <span class="home-card-icon" aria-hidden="true">&#128197;</span>
+                        <span class="home-card-title">Build a Schedule</span>
+                        <span class="home-card-copy">I know what courses I want to take. I just need to find sections, times, and professors.</span>
                         <span class="home-card-action">Get Started &rarr;</span>
-                    </div>
+                    </button>
                 </div>
 
                 <div class="home-quickstart">
@@ -448,7 +450,7 @@
 
                 <div class="browse-body">
                 <aside id="semester-search">
-                    <div class="resize-handle" id="search-resize-handle"></div>
+                    <div class="resize-handle" id="search-resize-handle" role="separator" aria-label="Resize search results" aria-controls="semester-search" aria-orientation="vertical" aria-valuemin="200" aria-valuenow="350" tabindex="0"></div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
                         <div id="search-results" class="results-list">
                             <p class="hint">Search a subject above to see available courses.</p>
@@ -651,8 +653,10 @@
     <script src="/static/js/export.js"></script>
     <script src="/static/js/profile.js"></script>
     <script src="/static/js/degree-plan.js"></script>
+    <script src="/static/js/notices.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
+        SiteNotices.init();
         Tabs.init();
         Profile.init();
         Calendar.init();
@@ -797,6 +801,12 @@
         if (resizeHandle) {
             const panel = document.getElementById('semester-search');
             let startX, startW;
+            const setPanelWidth = requestedWidth => {
+                const newWidth = Math.max(200, Math.min(requestedWidth, window.innerWidth * 0.7));
+                panel.style.width = newWidth + 'px';
+                resizeHandle.setAttribute('aria-valuemax', String(Math.round(window.innerWidth * 0.7)));
+                resizeHandle.setAttribute('aria-valuenow', String(Math.round(newWidth)));
+            };
             resizeHandle.addEventListener('mousedown', (e) => {
                 e.preventDefault();
                 startX = e.clientX;
@@ -807,8 +817,7 @@
 
                 const onMove = (e) => {
                     const diff = e.clientX - startX;
-                    const newW = Math.max(200, Math.min(startW + diff, window.innerWidth * 0.7));
-                    panel.style.width = newW + 'px';
+                    setPanelWidth(startW + diff);
                 };
                 const onUp = () => {
                     document.removeEventListener('mousemove', onMove);
@@ -819,6 +828,16 @@
                 };
                 document.addEventListener('mousemove', onMove);
                 document.addEventListener('mouseup', onUp);
+            });
+            resizeHandle.addEventListener('keydown', event => {
+                const step = event.shiftKey ? 48 : 16;
+                const currentWidth = panel.getBoundingClientRect().width;
+                if (event.key === 'ArrowLeft') setPanelWidth(currentWidth - step);
+                else if (event.key === 'ArrowRight') setPanelWidth(currentWidth + step);
+                else if (event.key === 'Home') setPanelWidth(200);
+                else if (event.key === 'End') setPanelWidth(window.innerWidth * 0.7);
+                else return;
+                event.preventDefault();
             });
         }
 

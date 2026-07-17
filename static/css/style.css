@@ -6,7 +6,11 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: #ffffff;
     color: #000000;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 /* === Header === */
@@ -20,6 +24,7 @@ header {
     background: #73000A;
     color: #ffffff;
 }
+body > header { flex: 0 0 58px; }
 header h1 { font-size: 1.3rem; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; white-space: nowrap; }
 .header-controls { align-items: center; display: flex; gap: 12px; justify-self: end; }
 .header-controls label { color: #ffffff; font-size: 0.85rem; font-weight: 600; }
@@ -59,9 +64,53 @@ header h1 { font-size: 1.3rem; font-weight: 700; color: #ffffff; letter-spacing:
 
 /* === Main Layout === */
 main {
-    height: calc(100vh - 58px);
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
     overflow: hidden;
 }
+
+.site-notices {
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 2100;
+}
+.site-notices[hidden] { display: none; }
+.site-notice {
+    align-items: center;
+    border-bottom: 2px solid #000000;
+    display: flex;
+    gap: 12px;
+    min-height: 38px;
+    padding: 7px 18px;
+}
+.site-notice--maintenance { background: #FFF7B2; color: #000000; }
+.site-notice--help { background: #466A9F; color: #FFFFFF; }
+.site-notice--action { background: #73000A; color: #FFFFFF; }
+.site-notice__content { align-items: baseline; display: flex; flex: 1 1 auto; flex-wrap: wrap; gap: 5px 12px; min-width: 0; }
+.site-notice__title { font-size: 0.75rem; text-transform: uppercase; }
+.site-notice__message { font-size: 0.76rem; }
+.site-notice__link {
+    border-bottom: 1px solid currentColor;
+    color: inherit;
+    font-size: 0.73rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+.site-notice__link:hover { border-bottom-width: 2px; }
+.site-notice__dismiss {
+    background: transparent;
+    border: 1px solid currentColor;
+    color: inherit;
+    flex: 0 0 auto;
+    font-size: 1rem;
+    font-weight: 800;
+    height: 26px;
+    line-height: 20px;
+    padding: 0;
+    width: 26px;
+}
+.site-notice__dismiss:hover { background: #000000; border-color: #000000; color: #FFFFFF; }
 
 @media (max-width: 1050px) {
     header {
@@ -82,6 +131,7 @@ main {
         height: 84px;
         padding: 0 10px;
     }
+    body > header { flex-basis: 84px; }
     #main-tabs {
         grid-column: 1 / -1;
         grid-row: 2;
@@ -89,7 +139,9 @@ main {
         overflow-x: auto;
     }
     .main-tab-btn { flex: 1 0 auto; min-width: 70px; }
-    main { height: calc(100vh - 84px); }
+    main { height: auto; }
+    .site-notice { align-items: flex-start; padding-inline: 10px; }
+    .site-notice__content { align-items: flex-start; flex-direction: column; gap: 3px; }
 }
 .main-tab {
     display: none;
@@ -125,12 +177,17 @@ main {
     margin-bottom: 32px;
 }
 .home-card {
+    background: #FFFFFF;
     border: 3px solid #000000;
+    color: #000000;
+    font: inherit;
     padding: 28px 24px;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
     display: flex;
     flex-direction: column;
+    text-align: left;
+    width: 100%;
 }
 .home-card:hover {
     border-color: #73000A;
@@ -140,13 +197,17 @@ main {
     font-size: 2rem;
     margin-bottom: 12px;
 }
-.home-card h3 {
+.home-card h3,
+.home-card-title {
+    display: block;
     font-size: 1.1rem;
     font-weight: 700;
     color: #000000;
     margin-bottom: 8px;
 }
-.home-card p {
+.home-card p,
+.home-card-copy {
+    display: block;
     font-size: 0.85rem;
     color: #5C5C5C;
     flex: 1;
@@ -454,7 +515,10 @@ main {
     background: #ECECEC;
     border: 2px solid #C7C7C7;
     cursor: pointer;
+    font: inherit;
     margin-bottom: 8px;
+    text-align: left;
+    width: 100%;
 }
 .completed-collapse-bar:hover { background: #e0e0e0; }
 .completed-collapse-arrow { font-size: 0.7rem; color: #5C5C5C; }
@@ -489,9 +553,13 @@ main {
     font-weight: 700;
     cursor: pointer;
     flex-shrink: 0;
+    font-family: inherit;
 }
 .card-remove-badge:hover { background: #c62828; color: #ffffff; }
 .sem-delete-btn {
+    background: transparent;
+    border: 0;
+    color: inherit;
     cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
@@ -517,6 +585,7 @@ main {
     font-weight: 600;
 }
 .add-semester-btn {
+    background: #FFFFFF;
     width: 280px;
     min-width: 280px;
     max-width: 280px;
@@ -530,6 +599,7 @@ main {
     color: #5C5C5C;
     font-weight: 700;
     flex-shrink: 0;
+    font-family: inherit;
 }
 .add-semester-btn:hover { border-color: #73000A; color: #73000A; }
 .add-semester-btn span:first-child { font-size: 1.5rem; }
@@ -990,6 +1060,16 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     justify-content: space-between;
     align-items: center;
 }
+.selected-course-open {
+    background: transparent;
+    border: 0;
+    color: #73000A;
+    font: inherit;
+    min-width: 0;
+    padding: 0;
+    text-align: left;
+}
+.selected-course-open:hover { background: transparent; text-decoration: underline; }
 .selected-course-detail {
     font-size: 0.75rem;
     color: #5C5C5C;
@@ -1018,26 +1098,37 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     border: 2px solid #000000;
     color: #000000;
     font-size: 0.72rem;
-    margin-top: 3px;
+    margin-top: 0;
     max-width: 100%;
     padding: 5px 34px 5px 7px;
     width: 100%;
 }
-.section-lock-control { position: relative; }
+.section-lock-control { margin-top: 3px; position: relative; }
 .section-lock-arrow {
     align-items: center;
-    background: #ECECEC;
-    border-left: 2px solid #000000;
+    background: #000000;
+    border-left: 0;
     bottom: 2px;
+    color: #FFFFFF;
     display: flex;
     font-size: 0.72rem;
     justify-content: center;
     pointer-events: none;
     position: absolute;
     right: 2px;
-    top: 11px;
+    top: 2px;
     width: 28px;
 }
+.btn-clear-section {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    color: #000000;
+    font-size: 0.62rem;
+    font-weight: 800;
+    margin-top: 5px;
+    padding: 4px 7px;
+}
+.btn-clear-section:hover { background: #ECECEC; border-color: #73000A; color: #73000A; }
 .selected-credits {
     font-size: 0.85rem;
     font-weight: 600;
@@ -1045,15 +1136,15 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     margin: 0 12px 8px;
 }
 .btn-remove {
-    background: none;
-    border: none;
-    color: #c62828;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0 4px;
+    background: #FFFFFF;
+    border: 1px solid #CC2E40;
+    color: #CC2E40;
+    flex: 0 0 auto;
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 4px 7px;
 }
-.btn-remove:hover { color: #73000A; }
+.btn-remove:hover { background: #CC2E40; color: #FFFFFF; }
 #schedule-content {
     flex: 1;
     display: flex;
@@ -1578,6 +1669,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     overflow: hidden;
     z-index: 2;
     border: 2px solid #000000;
+    font-family: inherit;
+    text-align: left;
 }
 .cal-block:hover { filter: brightness(0.92); }
 .cal-block.preview {
@@ -1585,8 +1678,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     opacity: 0.58;
     pointer-events: none;
 }
-.cal-block .block-title { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cal-block .block-info { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
+.cal-block .block-title { display: block; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-block .block-info { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .cal-block.conflict { border: 3px solid #ff0000; }
 
 /* === Search Form === */
@@ -2352,6 +2445,7 @@ body.filter-modal-open { overflow: hidden; }
 .schedule-card.applied .score,
 .schedule-card.applied .sched-courses,
 .schedule-card.applied .sched-course span { color: #5C5C5C; }
+.schedule-card.applied .sched-course { background: transparent; }
 .schedule-card .score { font-size: 0.85rem; color: #73000A; font-weight: 700; }
 .schedule-card .sched-courses { font-size: 0.8rem; color: #333333; margin-top: 4px; }
 .solver-summary { color: #363636; font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
@@ -2431,12 +2525,20 @@ body.filter-modal-open { overflow: hidden; }
 }
 body.resizing-schedule { cursor: row-resize; user-select: none; }
 .sched-course {
+    background: #FFFFFF;
+    border: 0;
     border-top: 1px solid #C7C7C7;
+    color: #000000;
     display: grid;
+    font: inherit;
     gap: 2px;
     padding: 7px 0;
+    text-align: left;
+    width: 100%;
 }
 .sched-course:first-child { border-top: none; }
+.sched-course:hover { background: #ECECEC; }
+.sched-course strong { color: #73000A; text-decoration: underline; text-underline-offset: 2px; }
 .sched-course span { color: #5C5C5C; }
 .sched-course .sched-course-full { color: #73000A; font-weight: 700; }
 
@@ -2700,6 +2802,17 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     color: #2e7d32;
 }
 .completed-chip .remove { cursor: pointer; color: #c62828; font-weight: 700; }
+.completed-chip .remove,
+.prof-pref-item .remove {
+    background: transparent;
+    border: 0;
+    color: #CC2E40;
+    font: inherit;
+    line-height: 1;
+    padding: 1px 3px;
+}
+.completed-chip .remove:hover,
+.prof-pref-item .remove:hover { background: #CC2E40; color: #FFFFFF; }
 
 /* === Block Calendar (mini) === */
 #block-calendar {
@@ -2712,7 +2825,10 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     border: 2px solid #000000;
 }
 .block-cell {
+    border: 0;
     height: 16px;
+    min-width: 0;
+    padding: 0;
     background: #ffffff;
     cursor: pointer;
 }
@@ -2724,7 +2840,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 /* === Professor Preferences === */
 .prof-pref-add { display: flex; gap: 6px; margin-top: 6px; }
 .prof-pref-item { display: flex; gap: 8px; align-items: center; margin-bottom: 4px; font-size: 0.85rem; }
-.prof-pref-item .remove { cursor: pointer; color: #cc0000; font-weight: 700; }
+.prof-pref-item .remove { cursor: pointer; font-weight: 700; }
 
 /* === Elective Picker (Modal) === */
 .elective-options {
@@ -3740,6 +3856,21 @@ button:hover { background: #f0f0f0; }
 .course-resource-link strong { color: #73000A; font-size: 0.8rem; font-weight: 700; }
 .course-resource-link small { color: #5C5C5C; font-size: 0.66rem; font-weight: 400; line-height: 1.35; }
 .course-resource-link > b { color: #000000; flex: 0 0 auto; font-size: 1rem; font-weight: 700; margin-left: 12px; }
+.course-resource-syllabus { border-top: 1px solid #C7C7C7; padding: 12px 9px; }
+.course-resource-syllabus-heading > span { display: flex; flex-direction: column; gap: 4px; }
+.course-resource-syllabus-heading strong { color: #73000A; font-size: 0.8rem; }
+.course-resource-syllabus-heading small,
+.course-resource-syllabus > p { color: #5C5C5C; font-size: 0.66rem; line-height: 1.35; }
+.course-resource-syllabus-steps { display: grid; gap: 7px; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; margin: 10px 0 0; padding: 0; }
+.course-resource-syllabus-steps a { align-items: center; border: 1px solid #A2A2A2; color: #000000; display: grid; gap: 8px; grid-template-columns: 22px minmax(0, 1fr) auto; min-height: 58px; padding: 7px; text-decoration: none; }
+.course-resource-syllabus-steps a:hover,
+.course-resource-syllabus-steps a:focus-visible { background: #ECECEC; border-color: #73000A; outline: 2px solid #73000A; outline-offset: -2px; }
+.course-resource-syllabus-steps a > b { align-items: center; background: #000000; color: #FFFFFF; display: flex; font-size: 0.68rem; height: 22px; justify-content: center; width: 22px; }
+.course-resource-syllabus-steps a > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.course-resource-syllabus-steps a strong { color: #73000A; font-size: 0.7rem; }
+.course-resource-syllabus-steps a small { color: #5C5C5C; font-size: 0.61rem; line-height: 1.3; }
+.course-resource-syllabus-steps a > i { font-size: 0.9rem; font-style: normal; }
+.course-resource-syllabus > p { margin: 8px 0 0; }
 body.app-modal-open { overflow: hidden; }
 #modal.professor-profile-modal { max-height: 90dvh; max-width: 860px; overflow-y: auto; padding: 0; width: min(860px, calc(100vw - 40px)); }
 #modal.professor-profile-modal #modal-close {
@@ -3776,6 +3907,7 @@ body.app-modal-open { overflow: hidden; }
     .course-section-visuals,
     .course-section-registration > div:last-child,
     .course-requirement-list { grid-template-columns: 1fr; }
+    .course-resource-syllabus-steps { grid-template-columns: 1fr; }
     .course-section-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .course-detail-header { padding: 12px 12px 14px 14px; }
     .course-detail-description-wrap { padding-inline: 14px; }
@@ -3812,6 +3944,118 @@ body.app-modal-open { overflow: hidden; }
     .filter-ai-control { grid-template-columns: minmax(0, 1fr) 44px; }
     .prereq-catalog-note p { grid-template-columns: 1fr; }
 }
+
+/* === Interaction affordances ===
+   Keep mouse and keyboard feedback consistent for native controls and the
+   custom controls rendered by the search, schedule, and degree-plan views. */
+:where(
+    button:not(:disabled),
+    a[href],
+    select:not(:disabled),
+    summary,
+    [role="button"]:not([aria-disabled="true"]),
+    [role="tab"]:not([aria-disabled="true"]),
+    label[for],
+    label:has(input:not(:disabled)),
+    label:has(select:not(:disabled)),
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+    input[type="file"]:not(:disabled)
+) {
+    cursor: pointer;
+}
+
+input[type="range"]:not(:disabled) { cursor: ew-resize; }
+[draggable="true"] { cursor: grab; }
+[draggable="true"]:active { cursor: grabbing; }
+
+:where(
+    .resize-handle,
+    .schedule-sidebar-resize-handle,
+    [role="separator"][aria-orientation="vertical"]
+) { cursor: col-resize; }
+
+:where(
+    .schedule-course-divider,
+    .schedule-vertical-resizer,
+    [role="separator"][aria-orientation="horizontal"]
+) { cursor: row-resize; }
+
+:where(.block-cell, .schedule-advanced-cell) { cursor: crosshair; }
+.section-calendar-event[data-location-index] { cursor: crosshair; }
+
+button:focus-visible,
+a[href]:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="separator"]:focus-visible {
+    outline: 3px solid #466A9F;
+    outline-offset: 2px;
+}
+
+.home-card:focus-visible,
+.completed-collapse-bar:focus-visible,
+.add-semester-btn:focus-visible,
+.course-group:focus-visible,
+.schedule-search-course-copy:focus-visible,
+.schedule-card:focus-visible,
+.cal-block:focus-visible,
+.prereq-link:focus-visible {
+    box-shadow: 0 0 0 3px #466A9F;
+    outline: none;
+}
+
+:where(select:not(:disabled), .section-lock-select:not(:disabled)):hover {
+    border-color: #73000A;
+}
+
+:where(input[type="checkbox"], input[type="radio"]):not(:disabled):hover {
+    outline: 2px solid #73000A;
+    outline-offset: 1px;
+}
+
+:where(
+    .mode-option,
+    .schedule-day-options label,
+    .filter-ai-control,
+    .day-toggles label,
+    .filter-group label:has(input)
+):has(input:not(:disabled)):hover {
+    color: #73000A;
+}
+
+:where(
+    .mode-option,
+    .schedule-day-options label,
+    .filter-ai-control,
+    .day-toggles label,
+    .filter-group label:has(input)
+):has(input:focus-visible) {
+    outline: 3px solid #466A9F;
+    outline-offset: 2px;
+}
+
+.schedule-advanced-cell:hover { background: #FFF2E3; }
+.schedule-advanced-cell.selected:hover { background: #5a0008; }
+.course-section-option:hover { background: #ECECEC; border-color: #73000A; }
+.course-detail-tabs button:hover { border-bottom-color: #A2A2A2; color: #73000A; }
+.course-detail-tabs button[aria-selected="true"]:hover { border-bottom-color: #73000A; }
+.cal-block:focus-visible { box-shadow: inset 0 0 0 3px #FFFFFF, 0 0 0 3px #466A9F; }
+
+button:disabled,
+input:disabled,
+select:disabled,
+[role="button"][aria-disabled="true"],
+[role="tab"][aria-disabled="true"] {
+    cursor: not-allowed;
+}
+
+.schedule-card[aria-disabled="true"],
+.semantic-search-term:disabled { cursor: not-allowed; }
 
 /* === Print Styles === */
 @media print {

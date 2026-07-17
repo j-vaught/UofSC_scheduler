@@ -6,6 +6,9 @@ const Scheduler = {
     _courseSearchRequestId: 0,
     _preferredWorkspaceHeight: 620,
     _quickViewRequestId: 0,
+    _locationPrefetchGeneration: 0,
+    _locationPrefetchTimer: null,
+    _locationPrefetchController: null,
 
     init() {
         document.getElementById('btn-solve').addEventListener('click', () => this.solve());
@@ -18,6 +21,7 @@ const Scheduler = {
         State.on('courses-changed', () => {
             this.clearResults();
             this.renderCourseSearchResults();
+            this.scheduleLocationPrefetch();
         });
         State.on('section-locks-changed', () => this.clearResults());
         State.on('sections-changed', () => {
@@ -32,6 +36,77 @@ const Scheduler = {
         this.initVerticalResizer();
         this.initScheduleScrollPreview();
         this.updateRegistrationButton();
+        this.scheduleLocationPrefetch();
+        document.getElementById('term-select')?.addEventListener('change', () => {
+            Promise.resolve().then(() => {
+                this.scheduleLocationPrefetch();
+                if (typeof WalkingMap !== 'undefined') WalkingMap.refresh();
+            });
+        });
+    },
+
+    scheduleLocationPrefetch() {
+        const generation = ++this._locationPrefetchGeneration;
+        if (this._locationPrefetchTimer) clearTimeout(this._locationPrefetchTimer);
+        this._locationPrefetchController?.abort();
+        this._locationPrefetchController = null;
+        const sections = this.locationPrefetchSections();
+        if (sections.length === 0 || (typeof navigator !== 'undefined' && navigator.connection?.saveData)) return;
+        const controller = new AbortController();
+        this._locationPrefetchController = controller;
+        const run = async () => {
+            this._locationPrefetchTimer = null;
+            if (generation !== this._locationPrefetchGeneration || controller.signal.aborted) return;
+            try {
+                if (typeof WalkingMap !== 'undefined') {
+                    await WalkingMap.hydrateSectionDetails(sections, {
+                        background: true,
+                        concurrency: 1,
+                        delayMs: 400,
+                        maxConsecutiveFailures: 2,
+                        signal: controller.signal,
+                    });
+                }
+            } catch (error) {
+                // Background prefetch is optional. Generate retries unfinished details in the foreground.
+            }
+        };
+        this._locationPrefetchTimer = setTimeout(run, 75);
+    },
+
+    hasScheduledCampusMeeting(section) {
+        if (!section || !section.meetingTimes) return false;
+        const method = [
+            section.inst_mthd,
+            section.meets,
+            section.instructionalMethod,
+            section.instructional_method,
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (/online|web|remote|asynchronous|does not meet|distance/.test(method)) return false;
+        try {
+            const meetings = typeof section.meetingTimes === 'string'
+                ? JSON.parse(section.meetingTimes)
+                : section.meetingTimes;
+            return Array.isArray(meetings) && meetings.some(meeting => (
+                Number.isFinite(Number(meeting?.meet_day))
+                && Number.isFinite(Number(meeting?.start_time))
+                && Number.isFinite(Number(meeting?.end_time))
+            ));
+        } catch (error) {
+            return false;
+        }
+    },
+
+    locationPrefetchSections() {
+        return Object.entries(State.selectedCourses || {}).flatMap(([code, course]) => {
+            const lockedCrn = String(State.sectionLocks?.[code] || '');
+            return (course.sections || []).filter(section => {
+                const locked = lockedCrn && String(section?.crn || '') === lockedCrn;
+                return section?.crn
+                    && (lockedCrn ? locked : this.isOpenSection(section))
+                    && this.hasScheduledCampusMeeting(section);
+            });
+        });
     },
 
     registrationSections() {
@@ -897,7 +972,7 @@ const Scheduler = {
         }));
     },
 
-    renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}, detailsPending = false) {
+    renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}, detailsPending = false, selectedSection = null) {
         const content = document.getElementById('modal-content');
         if (!content) return;
         const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
@@ -936,6 +1011,7 @@ const Scheduler = {
                         <span class="course-quick-kicker">QUICK COURSE DETAILS</span>
                         <h2 id="course-quick-title">${this.escapeHtml(group.code)}</h2>
                         <p id="course-quick-name">${this.escapeHtml(details.title || group.title)}</p>
+                        ${selectedSection ? `<p class="course-quick-section-context">Section ${this.escapeHtml(selectedSection.section || '?')} · CRN ${this.escapeHtml(selectedSection.crn || '—')}</p>` : ''}
                     </div>
                     <div class="course-quick-credits"><strong id="course-quick-credit-value">${credits ?? '—'}</strong><span>CREDITS</span></div>
                 </header>
@@ -972,12 +1048,12 @@ const Scheduler = {
 
                 <section class="course-quick-section quick-grade-section">
                     <div class="quick-section-heading"><h3>Historical grades</h3>${hasGrades ? `<span>${courseGpa.toFixed(2)} GPA · ${Number(gradeData.graded_students).toLocaleString()} grades</span>` : ''}</div>
-                    ${hasGrades ? `<div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div><div class="quick-grade-legend">${gradeLegend}</div>` : '<p class="quick-empty">No historical grade data is available.</p>'}
+                    ${hasGrades ? `<div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div><div class="quick-grade-legend">${gradeLegend}</div>` : `<p class="quick-empty">${detailsPending ? 'Loading historical grade data' : 'No historical grade data is available.'}</p>`}
                 </section>
 
                 <footer class="course-quick-actions">
                     <button id="btn-quick-course-toggle" class="${State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}">${State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
-                    <button id="btn-quick-view-browse" class="btn-secondary">VIEW FULL DETAILS IN BROWSE</button>
+                    <button id="btn-quick-view-browse" class="btn-secondary">${selectedSection ? 'VIEW SECTION DETAILS IN SEARCH' : 'VIEW FULL DETAILS IN SEARCH'}</button>
                 </footer>
             </section>
         `;
@@ -989,7 +1065,30 @@ const Scheduler = {
             button.textContent = State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
             button.className = State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
         });
-        document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group));
+        document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group, selectedSection?.crn || ''));
+    },
+
+    updateQuickGrades(gradeData = {}) {
+        const section = document.querySelector('.course-quick-view .quick-grade-section');
+        if (!section) return;
+        const courseGpa = Number(gradeData.average_gpa);
+        const hasGrades = Number.isFinite(courseGpa) && Number(gradeData.graded_students) > 0;
+        if (!hasGrades) {
+            section.innerHTML = '<div class="quick-section-heading"><h3>Historical grades</h3></div><p class="quick-empty">No historical grade data is available.</p>';
+            return;
+        }
+        const buckets = this.gradeBuckets(gradeData);
+        const gradeStrip = buckets.map(bucket => bucket.percent > 0
+            ? `<span class="quick-grade-segment ${bucket.className}" style="width:${bucket.percent}%" title="${bucket.label}: ${bucket.percent}%"></span>`
+            : '').join('');
+        const gradeLegend = buckets.map(bucket => `
+            <span><i class="${bucket.className}"></i><strong>${bucket.percent}%</strong> ${bucket.label}</span>
+        `).join('');
+        section.innerHTML = `
+            <div class="quick-section-heading"><h3>Historical grades</h3><span>${courseGpa.toFixed(2)} GPA · ${Number(gradeData.graded_students).toLocaleString()} grades</span></div>
+            <div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div>
+            <div class="quick-grade-legend">${gradeLegend}</div>
+        `;
     },
 
     updateQuickDetails(details = {}, group = {}, unavailable = false) {
@@ -1037,7 +1136,7 @@ const Scheduler = {
         count.textContent = countParts.join(' · ');
     },
 
-    async openCourseQuickView(group) {
+    async openCourseQuickView(group, selectedSection = null) {
         const overlay = document.getElementById('modal-overlay');
         const modal = document.getElementById('modal');
         const content = document.getElementById('modal-content');
@@ -1061,22 +1160,35 @@ const Scheduler = {
             ? API.getFaculty(State.term, facultyCrns)
             : Promise.resolve({ faculty: [] });
         const offeringPromise = API.getOfferingAnalysis(group.code, State.term);
-        const gradesResult = await Promise.allSettled([API.getCourseGrades(group.code)]);
-        if (requestId !== this._quickViewRequestId || overlay.classList.contains('hidden')) return;
+        const gradesPromise = API.getCourseGrades(group.code);
         this.renderCourseQuickView(
             group,
             {},
-            gradesResult[0].status === 'fulfilled' && !gradesResult[0].value?.error ? gradesResult[0].value : {},
+            {},
             {},
             true,
+            selectedSection,
         );
         document.getElementById('modal-close')?.focus();
-        const gradeData = gradesResult[0].status === 'fulfilled' && !gradesResult[0].value?.error
-            ? gradesResult[0].value
-            : {};
+        let gradeData = {};
+        let facultyData = [];
+        const updateFaculty = () => {
+            if (requestId === this._quickViewRequestId) this.updateQuickFaculty(group, gradeData, facultyData);
+        };
+        gradesPromise
+            .then(result => {
+                if (requestId !== this._quickViewRequestId) return;
+                gradeData = result?.error ? {} : result || {};
+                this.updateQuickGrades(gradeData);
+                updateFaculty();
+            })
+            .catch(() => {
+                if (requestId === this._quickViewRequestId) this.updateQuickGrades({});
+            });
         facultyPromise
             .then(result => {
-                if (requestId === this._quickViewRequestId) this.updateQuickFaculty(group, gradeData, result.faculty || []);
+                facultyData = result.faculty || [];
+                updateFaculty();
             })
             .catch(() => {});
         detailsPromise
@@ -1095,12 +1207,27 @@ const Scheduler = {
             });
     },
 
-    async openCourseInBrowse(group) {
+    courseGroupForSection(section) {
+        if (!section?.code) return null;
+        const stored = State.selectedCourses?.[section.code];
+        if (!stored) {
+            return { code: section.code, title: section.title || section.code, sections: [section] };
+        }
+        const hasSection = (stored.sections || []).some(candidate => String(candidate.crn) === String(section.crn));
+        return hasSection ? stored : { ...stored, sections: [...(stored.sections || []), section] };
+    },
+
+    openSectionQuickView(section) {
+        const group = this.courseGroupForSection(section);
+        if (group) this.openCourseQuickView(group, section);
+    },
+
+    async openCourseInBrowse(group, sectionCrn = '') {
         if (window.AppModal) AppModal.close();
         else document.getElementById('modal-overlay')?.classList.add('hidden');
         if (typeof Tabs !== 'undefined') Tabs.switchTo('semester');
         if (typeof Search === 'undefined') return;
-        await Search.openCourseFromExternal(group);
+        await Search.openCourseFromExternal(group, sectionCrn);
     },
 
     scheduleCourseAvailability(group) {
@@ -1598,9 +1725,9 @@ const Scheduler = {
         if (typeof WalkingMap === 'undefined') return;
 
         const sections = courses.flatMap(course => course.sections || []);
-        await WalkingMap.hydrateSectionDetails(sections);
+        await WalkingMap.hydrateSectionDetails(sections, { concurrency: 8, foreground: true });
         sections.forEach(section => {
-            const details = WalkingMap.sectionDetails.get(String(section.crn)) || [];
+            const details = WalkingMap.sectionDetails.get(WalkingMap.sectionDetailKey(section)) || [];
             section._walking_locations = WalkingMap.parseMeetingTimes(section.meetingTimes)
                 .map(meeting => {
                     const detail = details.find(item => item.days.includes(meeting.day)
@@ -1657,6 +1784,7 @@ const Scheduler = {
         preferences.max_credits = Number.isFinite(Number(configuredMax)) ? Number(configuredMax) : 18;
 
         try {
+            this._locationPrefetchController?.abort();
             await this.addWalkingLocations(courses);
             const resultLimit = Math.max(10, Number(maxResults) || 10);
             const result = await API.solve(courses, preferences, resultLimit);
@@ -1688,10 +1816,10 @@ const Scheduler = {
         schedules.forEach((schedule, index) => {
             const applied = this.isAppliedSchedule(schedule);
             const courseList = Object.entries(schedule.sections).map(([code, section]) =>
-                `<div class="sched-course"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</div>`,
+                `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</button>`,
             ).join('');
             html += `
-                <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}" tabindex="${applied ? '-1' : '0'}" aria-disabled="${applied}">
+                <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}">
                     <div class="schedule-card-header">
                         <span class="score">Option ${index + 1}</span>
                         <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
@@ -1709,6 +1837,14 @@ const Scheduler = {
             button.addEventListener('click', event => {
                 event.stopPropagation();
                 this.applySchedule(Number(button.dataset.idx));
+            });
+        });
+        container.querySelectorAll('.sched-course').forEach(button => {
+            button.addEventListener('click', event => {
+                event.stopPropagation();
+                const schedule = State.solverResults[Number(button.dataset.scheduleIndex)];
+                const section = schedule?.sections?.[button.dataset.courseCode];
+                if (section) this.openSectionQuickView(section);
             });
         });
         container.querySelectorAll('.schedule-card').forEach(card => {
@@ -1743,13 +1879,6 @@ const Scheduler = {
         card.addEventListener('focusin', preview);
         card.addEventListener('focusout', clearPreview);
         card.addEventListener('click', apply);
-        card.addEventListener('keydown', event => {
-            if (event.target !== card) return;
-            if (event.key === 'Enter' || event.key === ' ') {
-                apply();
-                event.preventDefault();
-            }
-        });
     },
 
     initScheduleScrollPreview() {
@@ -1824,8 +1953,8 @@ const Scheduler = {
         container.querySelectorAll('.schedule-card').forEach(card => {
             const applied = this.isAppliedSchedule(State.solverResults[Number(card.dataset.idx)]);
             card.classList.toggle('applied', applied);
-            card.setAttribute('aria-disabled', String(applied));
-            card.tabIndex = applied ? -1 : 0;
+            card.removeAttribute('aria-disabled');
+            card.removeAttribute('tabindex');
             const button = card.querySelector('.btn-apply');
             if (button) {
                 button.disabled = applied;
