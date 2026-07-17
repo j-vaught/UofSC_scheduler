@@ -4,6 +4,9 @@ const API = {
     _inflight: new Map(),
     _responseCache: new Map(),
     _responseCacheMaxEntries: 200,
+    _solverWorker: null,
+    _solverWorkerSequence: 0,
+    _solverWorkerRequests: new Map(),
 
     _cacheKey(path, body) {
         const normalize = value => {
@@ -177,7 +180,41 @@ const API = {
     },
 
     async solve(courses, preferences, maxResults = 10) {
-        return this.post('/api/solve', { courses, preferences, max_results: maxResults });
+        const params = { courses, preferences, max_results: maxResults };
+        if (typeof Worker === 'undefined') {
+            if (typeof SolverCore === 'undefined') throw new Error('Schedule solver is unavailable');
+            return SolverCore.solve(params);
+        }
+
+        if (!this._solverWorker) {
+            try {
+                this._solverWorker = new Worker('/static/js/solver-worker.js');
+                this._solverWorker.addEventListener('message', event => {
+                    const request = this._solverWorkerRequests.get(event.data?.id);
+                    if (!request) return;
+                    this._solverWorkerRequests.delete(event.data.id);
+                    if (event.data.error) request.reject(new Error(event.data.error));
+                    else request.resolve(event.data.result);
+                });
+                this._solverWorker.addEventListener('error', event => {
+                    const error = new Error(event.message || 'Schedule solver worker failed');
+                    for (const request of this._solverWorkerRequests.values()) request.reject(error);
+                    this._solverWorkerRequests.clear();
+                    this._solverWorker?.terminate();
+                    this._solverWorker = null;
+                });
+            } catch (error) {
+                this._solverWorker = null;
+                if (typeof SolverCore === 'undefined') throw error;
+                return SolverCore.solve(params);
+            }
+        }
+
+        const id = ++this._solverWorkerSequence;
+        return new Promise((resolve, reject) => {
+            this._solverWorkerRequests.set(id, { resolve, reject });
+            this._solverWorker.postMessage({ id, params });
+        });
     },
 
     async parseTranscript(text) {
