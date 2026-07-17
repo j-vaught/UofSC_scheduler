@@ -63,7 +63,11 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     assert (output / "static" / "index.html").is_file()
     assert (output / "static" / "data" / "manifest.json").is_file()
     assert not (output / "static" / "private.db").exists()
-    assert "immutable" in (output / "_headers").read_text(encoding="utf-8")
+    headers = (output / "_headers").read_text(encoding="utf-8")
+    assert "immutable" in headers
+    assert "Content-Security-Policy" in headers
+    assert "frame-ancestors 'none'" in headers
+    assert "Permissions-Policy" in headers
 
     (output / "stale.txt").write_text("remove on rebuild", encoding="utf-8")
     build_site(source, output)
