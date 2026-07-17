@@ -1757,7 +1757,7 @@ const Scheduler = {
             // shorter window start with the route map accidentally hidden.
             storedWorkspace = availableAtInit * 0.62;
         }
-        this._preferredWorkspaceHeight = this.initialPanelHeight(
+        const initialWorkspaceHeight = this.initialPanelHeight(
             storedWorkspace,
             workspace.getBoundingClientRect().height,
         );
@@ -1766,6 +1766,11 @@ const Scheduler = {
             && storedRatio <= 1
             ? storedRatio
             : null;
+        this._preferredWorkspaceHeight = this.preferredPanelHeight(
+            availableAtInit,
+            this._preferredWorkspaceRatio,
+            initialWorkspaceHeight,
+        );
         this.setVerticalSizes(this._preferredWorkspaceHeight);
 
         document.addEventListener('tab-changed', event => {
@@ -1866,7 +1871,10 @@ const Scheduler = {
             if (Number.isFinite(ratio) && ratio >= 0 && ratio <= 1) return available * ratio;
         }
         const fallback = Number(fallbackHeight);
-        return Number.isFinite(fallback) ? fallback : available * 0.62;
+        const requested = Number.isFinite(fallback) ? fallback : available * 0.62;
+        if (available <= 0) return requested;
+        const mapReserve = Math.min(240, Math.max(160, available * 0.3));
+        return Math.min(requested, Math.max(0, available - mapReserve));
     },
 
     availablePanelHeight(content, handle) {

@@ -2559,7 +2559,23 @@ const Search = {
     },
 
     stripHtml(value) {
-        return String(value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        return this.decodeHtmlEntities(String(value || '').replace(/<[^>]+>/g, ' '))
+            .replace(/\s+/g, ' ')
+            .trim();
+    },
+
+    decodeHtmlEntities(value) {
+        const named = { amp: '&', apos: "'", gt: '>', lt: '<', nbsp: ' ', quot: '"' };
+        return String(value || '').replace(/&(#x[\da-f]+|#\d+|amp|apos|gt|lt|nbsp|quot);/gi, (match, entity) => {
+            if (entity[0] !== '#') return named[entity.toLowerCase()] ?? match;
+            const hexadecimal = entity[1]?.toLowerCase() === 'x';
+            const codePoint = Number.parseInt(entity.slice(hexadecimal ? 2 : 1), hexadecimal ? 16 : 10);
+            const isValidCodePoint = Number.isInteger(codePoint)
+                && codePoint >= 0
+                && codePoint <= 0x10FFFF
+                && !(codePoint >= 0xD800 && codePoint <= 0xDFFF);
+            return isValidCodePoint ? String.fromCodePoint(codePoint) : match;
+        });
     },
 
     detailLiveSections(group = this._detailGroup) {
@@ -3897,13 +3913,15 @@ const Search = {
             // Extract time: text before the <span
             const timeMatch = block.match(/<div class="meet">\s*([^<]+)/i);
             if (timeMatch) {
-                times.push(timeMatch[1].trim());
+                times.push(this.decodeHtmlEntities(timeMatch[1].trim()));
             }
 
             // Extract location from <a> tag
             const locMatch = block.match(/<a[^>]*>([^<]+)<\/a>/i);
             if (locMatch) {
-                locationSet.add(this.abbreviateBuilding(locMatch[1].trim()));
+                locationSet.add(this.abbreviateBuilding(
+                    this.decodeHtmlEntities(locMatch[1].trim()),
+                ));
             }
         });
 

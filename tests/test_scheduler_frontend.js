@@ -1301,11 +1301,18 @@ test('schedule splitter keeps both panels in bounds and snaps either panel fully
 test('schedule workspace remains split and contained on narrower desktop screens', () => {
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(styles, /\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(220px, 0\.68fr\) minmax\(0, 1\.5fr\);/s);
-    assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(210px, 0\.68fr\) minmax\(0, 1\.35fr\);/);
+    assert.match(styles, /\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(180px, 0\.56fr\) minmax\(0, 1\.5fr\);/s);
+    assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(170px, 0\.56fr\) minmax\(0, 1\.35fr\);/);
     assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-vertical-resizer\s*{\s*display:\s*flex;/);
     assert.match(styles, /#calendar-container\s*{[^}]*max-width:\s*100%;[^}]*overflow:\s*auto;[^}]*width:\s*100%;/s);
+    assert.match(styles, /#calendar-grid\s*{[^}]*min-width:\s*460px;/s);
+    assert.match(styles, /@container schedule-options \(max-width:\s*220px\)/);
     assert.match(styles, /\.sched-course\s*{[^}]*background:\s*transparent;/s);
+
+    const mapStyles = fs.readFileSync('static/css/map.css', 'utf8');
+    assert.match(mapStyles, /container-name:\s*route-map;/);
+    assert.match(mapStyles, /@container route-map \(max-width:\s*570px\)/);
+    assert.match(mapStyles, /grid-template-rows:\s*minmax\(110px, 1\.2fr\) minmax\(72px, 1fr\);/);
 });
 
 test('schedule map divider is centered between the calendar and map', () => {
@@ -1596,8 +1603,8 @@ test('schedule splitter uses a safe default when initialized in a hidden tab', (
     assert.equal(scheduler.initialPanelHeight(0, 0), 0);
     assert.equal(scheduler.initialPanelHeight(540, 0), 540);
     assert.equal(scheduler.initialPanelHeight(null, 575), 575);
-    assert.equal(scheduler.preferredPanelHeight(700, null, 575), 575);
-    assert.equal(scheduler.preferredPanelHeight(700, undefined, 575), 575);
+    assert.equal(scheduler.preferredPanelHeight(700, null, 575), 490);
+    assert.equal(scheduler.preferredPanelHeight(700, undefined, 575), 490);
     assert.equal(scheduler.preferredPanelHeight(700, 0, 575), 0);
     assert.equal(scheduler.preferredPanelHeight(700, 1, 575), 700);
     assert.equal(scheduler.preferredPanelHeight(700, 0.5, 575), 350);
@@ -3432,6 +3439,19 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.match(source, /primaryFaculty\?\.professor_id/);
     assert.doesNotMatch(source, /uscbookstore\.com/);
     assert.doesNotMatch(source, /Official course information and useful searches open in a new tab/);
+});
+
+test('course meeting details decode registrar HTML entities before display', () => {
+    const search = loadObject('static/js/search.js', 'Search', {});
+    const parsed = search.parseMeetingHtml(
+        '<div class="meet">W 1:10pm-2pm<span> in <a>Storey Eng &amp; Innovation Ctr 1400</a></span></div>',
+    );
+
+    assert.deepEqual(Array.from(parsed.times), ['W 1:10pm-2pm']);
+    assert.deepEqual(Array.from(parsed.locations), ['Storey Eng & Innovation Ctr 1400']);
+    assert.equal(search.stripHtml('Research &amp; Design'), 'Research & Design');
+    assert.equal(search.stripHtml('&nbsp;A&nbsp;&nbsp;B&nbsp;'), 'A B');
+    assert.equal(search.decodeHtmlEntities('Keep &#x110000; unchanged'), 'Keep &#x110000; unchanged');
 });
 
 test('Course detail sections sort open first and naturally within availability groups', () => {

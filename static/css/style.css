@@ -1159,7 +1159,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     container-type: inline-size;
     display: grid;
     flex: 0 0 var(--schedule-workspace-height, min(68vh, 720px));
-    grid-template-columns: minmax(220px, 0.68fr) minmax(0, 1.5fr);
+    grid-template-columns: minmax(180px, 0.56fr) minmax(0, 1.5fr);
     gap: 12px;
     height: auto;
     min-height: 0;
@@ -1238,6 +1238,12 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     .btn-panel-registration { padding-inline: 6px; }
     #solver-container { padding: 8px; }
     .schedule-card { padding: 8px; }
+}
+@container schedule-options (max-width: 220px) {
+    .schedule-panel-actions { gap: 3px; padding: 5px; }
+    .btn-panel-primary,
+    .btn-panel-registration { font-size: 0.62rem; padding-inline: 4px; }
+    .schedule-preferences-button { flex-basis: 28px; width: 28px; }
 }
 .btn-panel-primary,
 .btn-panel-secondary,
@@ -1624,7 +1630,7 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 }
 #calendar-grid {
     --calendar-time-width: 42px;
-    min-width: 0;
+    min-width: 460px;
     position: relative;
     width: 100%;
 }
@@ -2583,7 +2589,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     #schedule-content { gap: 10px; overflow: hidden; padding: 10px; }
     .schedule-workspace {
         flex: 0 0 var(--schedule-workspace-height, min(68vh, 720px));
-        grid-template-columns: minmax(210px, 0.68fr) minmax(0, 1.35fr);
+        grid-template-columns: minmax(170px, 0.56fr) minmax(0, 1.35fr);
         height: auto;
     }
     .schedule-preview-panel,
@@ -2621,7 +2627,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     }
     .schedule-workspace {
         display: grid;
-        grid-template-columns: minmax(200px, 0.68fr) minmax(0, 1.35fr);
+        grid-template-columns: minmax(170px, 0.56fr) minmax(0, 1.35fr);
     }
     #solver-section { order: initial; }
     .schedule-search-results { flex: none; max-height: 250px; }

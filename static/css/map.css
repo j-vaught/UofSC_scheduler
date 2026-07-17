@@ -12,6 +12,8 @@
     border: 3px solid var(--map-black);
     background: var(--map-white);
     color: var(--map-black);
+    container-name: route-map;
+    container-type: inline-size;
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
@@ -276,13 +278,15 @@ button.walking-transition.is-previewed {
     cursor: pointer;
 }
 
-@media (max-width: 850px) {
+@container route-map (max-width: 570px) {
     .walking-map-layout {
         grid-template-columns: 1fr;
+        grid-template-rows: minmax(110px, 1.2fr) minmax(72px, 1fr);
+        overflow: auto;
     }
 
     .walking-map-canvas {
-        min-height: 320px;
+        min-height: 110px;
         border-right: 0;
         border-bottom: 1px solid var(--map-line);
     }
