@@ -1232,19 +1232,6 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     .schedule-action-label-wide { display: none; }
     .schedule-action-label-compact { display: inline; }
 }
-@container schedule-options (max-width: 280px) {
-    .schedule-panel-actions { gap: 4px; padding: 6px; }
-    .btn-panel-primary,
-    .btn-panel-registration { padding-inline: 6px; }
-    #solver-container { padding: 8px; }
-    .schedule-card { padding: 8px; }
-}
-@container schedule-options (max-width: 220px) {
-    .schedule-panel-actions { gap: 3px; padding: 5px; }
-    .btn-panel-primary,
-    .btn-panel-registration { font-size: 0.62rem; padding-inline: 4px; }
-    .schedule-preferences-button { flex-basis: 28px; width: 28px; }
-}
 .btn-panel-primary,
 .btn-panel-secondary,
 .btn-panel-registration {
@@ -1303,6 +1290,26 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     color: #5C5C5C;
     cursor: not-allowed;
     outline: none;
+}
+@container schedule-options (max-width: 280px) {
+    .schedule-panel-actions { gap: 4px; padding: 6px; }
+    .btn-panel-primary,
+    .btn-panel-registration { padding-inline: 6px; }
+    #solver-container { padding: 8px; }
+    .schedule-card { padding: 8px; }
+}
+@container schedule-options (max-width: 220px) {
+    .schedule-panel-actions { gap: 3px; padding: 5px; }
+    .btn-panel-primary,
+    .btn-panel-registration {
+        flex: 0 1 auto;
+        font-size: 0.62rem;
+        min-width: 0;
+        overflow: hidden;
+        padding-inline: 4px;
+        white-space: nowrap;
+    }
+    .schedule-preferences-button { flex-basis: 28px; width: 28px; }
 }
 #solver-container {
     flex: 1 1 auto;

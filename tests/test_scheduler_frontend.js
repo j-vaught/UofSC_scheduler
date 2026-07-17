@@ -1307,6 +1307,15 @@ test('schedule workspace remains split and contained on narrower desktop screens
     assert.match(styles, /#calendar-container\s*{[^}]*max-width:\s*100%;[^}]*overflow:\s*auto;[^}]*width:\s*100%;/s);
     assert.match(styles, /#calendar-grid\s*{[^}]*min-width:\s*460px;/s);
     assert.match(styles, /@container schedule-options \(max-width:\s*220px\)/);
+    assert.ok(
+        styles.indexOf('@container schedule-options (max-width: 220px)')
+            > styles.indexOf('.btn-panel-registration:disabled'),
+        'narrow container overrides must follow the base action-button rules',
+    );
+    assert.match(
+        styles,
+        /@container schedule-options \(max-width:\s*220px\)[\s\S]*\.btn-panel-registration\s*{[^}]*min-width:\s*0;[^}]*overflow:\s*hidden;/,
+    );
     assert.match(styles, /\.sched-course\s*{[^}]*background:\s*transparent;/s);
 
     const mapStyles = fs.readFileSync('static/css/map.css', 'utf8');
