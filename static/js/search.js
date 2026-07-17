@@ -1,5 +1,6 @@
 /* Course search UI */
 const Search = {
+    _modelDataVersion: '2026-07-16',
     _prereqCache: {},
     _searchId: 0,
     _subjects: [],
@@ -82,10 +83,11 @@ const Search = {
     // Lazy-load phrase embeddings, course embeddings, and PCA params
     async _loadPhraseData() {
         if (this._phraseData) return;
+        const version = encodeURIComponent(this._modelDataVersion);
         const [phraseResp, courseResp, pcaResp] = await Promise.all([
-            fetch('/static/data/phrase_embeddings.json').then(r => r.json()),
-            fetch('/static/data/course_embeddings.json').then(r => r.json()),
-            fetch('/static/data/pca_params.json').then(r => r.json()),
+            fetch(`/static/data/phrase_embeddings.json?v=${version}`).then(r => r.json()),
+            fetch(`/static/data/course_embeddings.json?v=${version}`).then(r => r.json()),
+            fetch(`/static/data/pca_params.json?v=${version}`).then(r => r.json()),
         ]);
         this._phraseData = phraseResp;
         this._courseEmbeddings = courseResp;
@@ -170,10 +172,109 @@ const Search = {
         return scored.slice(0, topN);
     },
 
+    _semanticRequestBudget(scope) {
+        const scoped = Boolean(scope?.active);
+        return {
+            totalLimit: scoped ? 10 : 6,
+            keywordLimit: scoped ? 6 : 4,
+            subjectLimit: scoped ? 4 : 2,
+            batchSize: 2,
+            candidateTarget: scoped ? 24 : 18,
+        };
+    },
+
+    _localSemanticMatches(queryVec, scope, limit = 30) {
+        const threshold = 0.30;
+        const courses = this._courseEmbeddings?.courses || [];
+        const matches = [];
+        for (let index = 0; index < courses.length; index += 1) {
+            const course = courses[index];
+            if (scope?.active && !scope.matches(course.code)) continue;
+            const vector = this._courseVecs[index];
+            if (!vector) continue;
+            let similarity = 0;
+            for (let dimension = 0; dimension < queryVec.length; dimension += 1) {
+                similarity += queryVec[dimension] * vector[dimension];
+            }
+            if (similarity >= threshold) matches.push({ idx: index, sim: similarity });
+        }
+        matches.sort((left, right) => right.sim - left.sim);
+        return matches.slice(0, limit);
+    },
+
+    _semanticSubjectPlan(results, scope) {
+        const scores = new Map();
+        (results || []).forEach((course, index) => {
+            const subject = String(course.code || '').trim().split(/\s+/)[0].toUpperCase();
+            if (!subject) return;
+            const current = scores.get(subject) || {
+                subject,
+                score: Number.NEGATIVE_INFINITY,
+                count: 0,
+                first: index,
+            };
+            current.score = Math.max(current.score, Number(course._relevanceScore) || 0);
+            current.count += 1;
+            scores.set(subject, current);
+        });
+        const ranked = [...scores.values()]
+            .sort((left, right) => (
+                right.score - left.score
+                || right.count - left.count
+                || left.first - right.first
+                || left.subject.localeCompare(right.subject)
+            ))
+            .map(entry => entry.subject);
+        if (!scope?.subjects?.length) return ranked;
+        const explicit = scope.subjects.map(subject => String(subject).toUpperCase());
+        return [
+            ...ranked.filter(subject => explicit.includes(subject)),
+            ...explicit.filter(subject => !ranked.includes(subject)),
+        ];
+    },
+
+    async _fetchSemanticLiveSubjects(subjects, searchId, requestBudget) {
+        const budget = requestBudget || this._semanticRequestBudget(null);
+        const remaining = Math.max(0, budget.totalLimit - (budget.keywordUsed || 0));
+        const subjectLimit = Math.min(budget.subjectLimit, remaining);
+        const planned = [...new Set((subjects || []).filter(Boolean))].slice(0, subjectLimit);
+        const results = [];
+        const usedSubjects = [];
+        let hadRequestFailure = false;
+
+        for (let offset = 0; offset < planned.length; offset += budget.batchSize) {
+            if (searchId !== this._searchId) {
+                return { results: [], subjects: usedSubjects, hadRequestFailure, stale: true };
+            }
+            const batch = planned.slice(offset, offset + budget.batchSize);
+            const responses = await Promise.all(batch.map(async subject => {
+                try {
+                    const data = await API.searchCourses(
+                        State.term,
+                        [{ field: 'subject', value: subject }],
+                    );
+                    return { results: data.results || [], failed: false };
+                } catch (error) {
+                    console.warn(`[Semantic] Live subject search failed for ${subject}:`, error);
+                    return { results: [], failed: true };
+                }
+            }));
+            if (searchId !== this._searchId) {
+                return { results: [], subjects: usedSubjects, hadRequestFailure, stale: true };
+            }
+            responses.forEach((response, index) => {
+                results.push(...response.results);
+                usedSubjects.push(batch[index]);
+                hadRequestFailure ||= response.failed;
+            });
+        }
+        return { results, subjects: usedSubjects, hadRequestFailure, stale: false };
+    },
+
     // Full semantic search pipeline:
     // 1. Embed query with Transformers.js (understands any colloquial input)
-    // 2. Find nearest academic phrases from pre-computed embeddings
-    // 3. Search live API with those phrases (concurrent)
+    // 2. Shortlist the local catalog and nearest academic phrases
+    // 3. Search a bounded set of live keywords in cancellable batches
     // 4. Score results by embedding similarity to query
     // 5. Filter noise, sort by relevance
     async _doSemanticSearch(
@@ -192,26 +293,37 @@ const Search = {
         const queryVec = await this._embedQuery(query);
         if (searchId !== this._searchId) return null;
 
-        // Step 2: Find nearest academic phrases
-        const nearestPhrases = this._findNearestPhrases(queryVec, 19, query);
-        const expandedTerms = nearestPhrases.map(n => n.phrase);
+        // Step 2: Find local catalog matches before making live requests. The
+        // local shortlist helps decide when the live search has enough breadth.
+        const topLocal = this._localSemanticMatches(queryVec, scope);
         if (searchId !== this._searchId) return null;
 
-        // Step 3: Build search list — original query + expanded phrases
-        const searches = [query, ...expandedTerms];
-        console.log(`[Semantic] "${query}" → up to ${searches.length} API calls:`, searches);
+        // Step 3: Find nearest academic phrases and keep a bounded shortlist.
+        const budget = this._semanticRequestBudget(scope);
+        const nearestPhrases = this._findNearestPhrases(queryVec, 19, query);
+        const expandedTerms = nearestPhrases.map(nearest => nearest.phrase);
+        if (searchId !== this._searchId) return null;
+
+        const seenTerms = new Set();
+        const searches = [query, ...expandedTerms].filter(term => {
+            const normalized = String(term || '').trim().toLowerCase();
+            if (!normalized || seenTerms.has(normalized)) return false;
+            seenTerms.add(normalized);
+            return true;
+        }).slice(0, budget.keywordLimit);
+        console.log(`[Semantic] "${query}" → up to ${searches.length} live keyword calls:`, searches);
         onProgress?.({ phase: 'planned', completed: 0, total: searches.length, candidates: 0 });
 
-        // Step 4: Search in small concurrent batches. Once at least ten searches
-        // have run, stop early when a batch produces no new scoped courses.
+        // Step 4: Search in small batches, stopping after enough local or live
+        // candidates. A newer search prevents every later batch from starting.
         const allResults = [];
         const usedSearches = [];
         const usedSearchFailures = [];
         const seenCodes = new Set();
         let hadRequestFailure = false;
-        const batchSize = 5;
-        for (let offset = 0; offset < searches.length; offset += batchSize) {
-            const batchTerms = searches.slice(offset, offset + batchSize);
+        for (let offset = 0; offset < searches.length; offset += budget.batchSize) {
+            if (searchId !== this._searchId) return null;
+            const batchTerms = searches.slice(offset, offset + budget.batchSize);
             const responses = await Promise.all(batchTerms.map(async term => {
                 try {
                     if (currentTermOnly) {
@@ -233,7 +345,6 @@ const Search = {
             if (searchId !== this._searchId) return null;
 
             let newCodes = 0;
-            const batchFailed = responses.some(response => response.failed);
             responses.forEach((response, index) => {
                 const scopedResults = this.filterByCourseScope(response.results, scope);
                 allResults.push(scopedResults);
@@ -253,33 +364,19 @@ const Search = {
                 total: searches.length,
                 candidates: seenCodes.size,
             });
-            if (usedSearches.length >= 10
+            const enoughCandidates = Math.max(seenCodes.size, topLocal.length)
+                >= budget.candidateTarget;
+            const exhaustedUsefulTerms = newCodes === 0
+                && usedSearches.length >= budget.batchSize
                 && seenCodes.size > 0
-                && newCodes === 0
-                && !batchFailed) break;
+                && !responses.some(response => response.failed);
+            if (enoughCandidates || exhaustedUsefulTerms) break;
         }
         if (searchId !== this._searchId) return null;
 
-        // Step 5: Local course search — find top matches from pre-computed
-        // course embeddings (title+description). These catch courses the API
-        // keyword search might miss.
-        const LOCAL_SIM_THRESHOLD = 0.30;
-        const localMatches = [];
+        // Step 5: Merge API results + the local catalog shortlist.
         const coursesData = this._courseEmbeddings.courses;
-        for (let i = 0; i < coursesData.length; i++) {
-            let dot = 0;
-            const cv = this._courseVecs[i];
-            for (let j = 0; j < queryVec.length; j++) dot += queryVec[j] * cv[j];
-            if (dot >= LOCAL_SIM_THRESHOLD
-                && (!scope?.active || scope.matches(coursesData[i].code))) {
-                localMatches.push({ idx: i, sim: dot });
-            }
-        }
-        localMatches.sort((a, b) => b.sim - a.sim);
-        const topLocal = localMatches.slice(0, 30);
-        console.log(`[Semantic] Local search: ${localMatches.length} above ${LOCAL_SIM_THRESHOLD}, using top ${topLocal.length}`);
-
-        // Step 6: Merge API results + local results, dedupe by course code
+        console.log(`[Semantic] Local search produced ${topLocal.length} shortlisted courses.`);
         const seen = {};
         const deduped = [];
         // API results first
@@ -323,6 +420,7 @@ const Search = {
                 searchResults: allResults,
                 searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
                 hadRequestFailure,
+                requestBudget: { ...budget, keywordUsed: usedSearches.length },
             };
         }
 
@@ -385,6 +483,7 @@ const Search = {
             searchResults: allResults,
             searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
             hadRequestFailure,
+            requestBudget: { ...budget, keywordUsed: usedSearches.length },
         };
     },
 
@@ -899,8 +998,7 @@ const Search = {
                 this.prepareSmartSearch({ background: true }).catch(() => {});
             }
         };
-        if (typeof requestIdleCallback === 'function') requestIdleCallback(preload, { timeout: 3500 });
-        else setTimeout(preload, 1500);
+        preload();
         requestAnimationFrame(() => this.restoreFromLocation({ initial: true }));
     },
 
@@ -1324,8 +1422,20 @@ const Search = {
         this._relatedSearchOrigin = '';
         this._directSearchOnce = true;
         await this.doSearch({ historyMode: 'push' });
-        const freshGroup = (State.courseGroups || []).find(item => item.code === group.code) || group;
-        this.showCourseDetail(freshGroup, { sectionCrn, historyMode: 'push' });
+        const searchGroup = (State.courseGroups || []).find(item => item.code === group.code);
+        const requestedSection = this.detailLiveSections(group).find(section => (
+            String(section.crn) === String(sectionCrn)
+        ));
+        const sectionMissing = requestedSection && !(searchGroup?.sections || []).some(section => (
+            String(section.crn) === String(sectionCrn)
+        ));
+        const detailGroup = searchGroup
+            ? (sectionMissing ? {
+                ...searchGroup,
+                sections: [...(searchGroup.sections || []), requestedSection],
+            } : searchGroup)
+            : group;
+        this.showCourseDetail(detailGroup, { sectionCrn, historyMode: 'push' });
     },
 
     setSmartModelLoading(active, stage = '') {
@@ -1792,29 +1902,28 @@ const Search = {
 
                 let results = semantic.results;
 
-                // Cross-reference ALL results with live term data
-                const relatedResults = currentTermOnly ? [] : (semantic.searchResults || []).flat();
-                const subjects = courseScope.subjects.length
-                    ? courseScope.subjects
-                    : [...new Set([...results, ...relatedResults]
-                        .map(r => (r.code || '').split(' ')[0]).filter(Boolean))];
-                const livePromises = subjects.map(async subjectCode => {
-                    try {
-                        const data = await API.searchCourses(
-                            State.term,
-                            [{ field: 'subject', value: subjectCode }],
-                        );
-                        return { results: data.results || [], failed: false };
-                    } catch (error) {
-                        return { results: [], failed: true };
-                    }
-                });
-                const liveResponses = await Promise.all(livePromises);
-                const liveAll = liveResponses.map(response => response.results);
+                // Cross-reference the local/catalog shortlist with a small,
+                // shared live-request budget. Current-term keyword results are
+                // already full section records, so reuse them before querying
+                // any whole subject.
+                const keywordLiveResults = currentTermOnly
+                    ? (semantic.searchResults || []).flat()
+                    : [];
+                const keywordLiveByCode = this.buildLiveCourseIndex(keywordLiveResults);
+                const unresolvedResults = results.filter(course => !keywordLiveByCode[course.code]);
+                const subjects = unresolvedResults.length
+                    ? this._semanticSubjectPlan(unresolvedResults, courseScope)
+                    : [];
+                const liveHydration = await this._fetchSemanticLiveSubjects(
+                    subjects,
+                    searchId,
+                    semantic.requestBudget,
+                );
+                if (liveHydration.stale || searchId !== this._searchId) return;
+                const liveAll = [...keywordLiveResults, ...liveHydration.results];
                 const incompleteSearch = semantic.hadRequestFailure
-                    || liveResponses.some(response => response.failed);
-                if (searchId !== this._searchId) return;
-                const liveByCode = this.buildLiveCourseIndex(liveAll.flat());
+                    || liveHydration.hadRequestFailure;
+                const liveByCode = this.buildLiveCourseIndex(liveAll);
 
                 if (currentTermOnly) {
                     // Only show courses offered this term
@@ -2412,8 +2521,23 @@ const Search = {
         return (group?.sections || []).filter(section => section.crn && !section._isCatalog);
     },
 
+    sortedDetailSections(group = this._detailGroup) {
+        return [...this.detailLiveSections(group)].sort((left, right) => {
+            const leftOpen = !left.stat || left.stat === 'A';
+            const rightOpen = !right.stat || right.stat === 'A';
+            if (leftOpen !== rightOpen) return leftOpen ? -1 : 1;
+            const sectionOrder = String(left.section || '').localeCompare(
+                String(right.section || ''),
+                'en',
+                { numeric: true, sensitivity: 'base' },
+            );
+            if (sectionOrder) return sectionOrder;
+            return String(left.crn || '').localeCompare(String(right.crn || ''), 'en', { numeric: true });
+        });
+    },
+
     preferredDetailSection(group) {
-        const sections = this.detailLiveSections(group);
+        const sections = this.sortedDetailSections(group);
         const locked = String(State.sectionLocks?.[group.code] || '');
         const applied = String(State.selectedSections?.[group.code]?.crn || '');
         return sections.find(section => String(section.crn) === locked)
@@ -2697,7 +2821,7 @@ const Search = {
     renderDetailSections() {
         const group = this._detailGroup;
         if (!group) return;
-        const sections = this.detailLiveSections(group);
+        const sections = this.sortedDetailSections(group);
         const wrap = document.getElementById('course-section-picker-wrap');
         const picker = document.getElementById('course-section-picker');
         const count = document.getElementById('course-section-picker-count');
@@ -3250,7 +3374,7 @@ const Search = {
         const sectionLabel = this.escapeText(section.section || '—');
         const actionLabel = locked
             ? 'LET SCHEDULER CHOOSE'
-            : 'ADD THIS SECTION TO SCHEDULE';
+            : `ADD SECTION ${sectionLabel} TO SCHEDULE`;
         const actionTitle = locked
             ? 'Allow the scheduler to choose any eligible section'
             : `Use Section ${sectionLabel} in every generated schedule`;
@@ -3384,17 +3508,33 @@ const Search = {
         return url.href;
     },
 
+    syllabusSignInUrl() {
+        return 'https://www.sc.edu/syllabusarchive';
+    },
+
+    professorSearchName(value) {
+        const raw = String(value || '').trim();
+        const comma = raw.indexOf(',');
+        if (comma < 0) return raw.replace(/\s+/g, ' ');
+        const last = raw.slice(0, comma).trim();
+        const first = raw.slice(comma + 1).trim();
+        return `${first} ${last}`.replace(/\s+/g, ' ').trim();
+    },
+
+    rateMyProfessorsUrl(professorName) {
+        const query = encodeURIComponent(this.professorSearchName(professorName)).replace(/%20/g, '+');
+        return `https://www.ratemyprofessors.com/search/professors/1309?q=${query}`;
+    },
+
     renderCourseResources(section = this.currentDetailSection(), faculty = this._detailFaculty || []) {
         const container = document.getElementById('course-resource-links');
         const group = this._detailGroup;
         if (!container || !group) return;
         const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
         const professorRaw = primaryFaculty?.name || (section?.instr && section.instr !== 'Staff' ? section.instr : '');
-        const professor = typeof Grades !== 'undefined' && Grades.displayProfessorName
-            ? Grades.displayProfessorName(professorRaw)
-            : professorRaw;
+        const professor = this.professorSearchName(professorRaw);
         const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina course review`);
-        const professorQuery = encodeURIComponent(`${professor} University of South Carolina professor`);
+        const professorReviewsUrl = this.rateMyProfessorsUrl(professorRaw);
         const sectionDetails = this._detailSectionData?.[String(section?.crn || '')]?.details || null;
         const bookstoreOrder = this.parseBookstoreOrder(sectionDetails?.bn_order_books_html);
         const hasSelectedSection = Boolean(section?.crn);
@@ -3403,6 +3543,7 @@ const Search = {
             : `https://classes.sc.edu/?details&srcdb=${encodeURIComponent(this._detailTerm || State.term)}&code=${encodeURIComponent(group.code)}`;
         const bulletinUrl = this.bulletinResourceUrl(group.code);
         const syllabusUrl = this.syllabusResourceUrl(group.code);
+        const syllabusSignInUrl = this.syllabusSignInUrl();
         const bookstoreCard = bookstoreOrder
             ? '<button id="btn-resource-bookstore" type="button" class="course-resource-link" title="Open official materials for the selected section in a new tab"><span><strong>Bookstore materials</strong><small>Required and recommended materials for this section</small></span><b aria-hidden="true">↗</b></button>'
             : hasSelectedSection
@@ -3416,7 +3557,14 @@ const Search = {
                     <a class="course-resource-link" href="${classDetailsUrl}" target="_blank" rel="noopener noreferrer" title="Open the official class-search record for this section"><span><strong>Class details</strong><small>Meeting, registration, deadlines, and final-exam information</small></span><b aria-hidden="true">↗</b></a>
                     ${bookstoreCard}
                     <a class="course-resource-link" href="${bulletinUrl}" target="_blank" rel="noopener noreferrer" title="Open exact Academic Bulletin results for ${this.escapeText(group.code)}"><span><strong>Academic Bulletin</strong><small>Official catalog entry for ${this.escapeText(group.code)}</small></span><b aria-hidden="true">↗</b></a>
-                    <a class="course-resource-link" href="${syllabusUrl}" target="_blank" rel="noopener noreferrer" title="Open all archived syllabi for ${this.escapeText(group.code)}"><span><strong>Syllabus archive</strong><small>All available terms and instructors · Sign-in may be required</small></span><b aria-hidden="true">↗</b></a>
+                    <div class="course-resource-syllabus" role="group" aria-labelledby="course-resource-syllabus-title">
+                        <div class="course-resource-syllabus-heading"><span><strong id="course-resource-syllabus-title">Syllabus archive</strong><small>Sign in first, then open the course archive.</small></span></div>
+                        <ol class="course-resource-syllabus-steps">
+                            <li><a href="${syllabusSignInUrl}" target="_blank" rel="noopener noreferrer" title="Open the syllabus archive sign-in page"><b aria-hidden="true">1</b><span><strong>Sign in to the archive</strong><small>Complete your student login in the new tab.</small></span><i aria-hidden="true">↗</i></a></li>
+                            <li><a href="${syllabusUrl}" target="_blank" rel="noopener noreferrer" title="Open archived syllabi for ${this.escapeText(group.code)} after signing in"><b aria-hidden="true">2</b><span><strong>View ${this.escapeText(group.code)} syllabi</strong><small>Return here after signing in and open the course list.</small></span><i aria-hidden="true">↗</i></a></li>
+                        </ol>
+                        <p>If the course page says you were logged out, finish step 1 and try step 2 again.</p>
+                    </div>
                     ${professor ? `<a class="course-resource-link" href="https://sc.edu/about/directory/" target="_blank" rel="noopener noreferrer" title="Open the official faculty and staff directory"><span><strong>Faculty directory</strong><small>Find ${this.escapeText(professor)} in the university directory</small></span><b aria-hidden="true">↗</b></a>` : ''}
                 </div>
             </section>
@@ -3424,7 +3572,7 @@ const Search = {
                 <header><div><span>Independent sites</span><h2>Reviews</h2></div></header>
                 <div class="course-resource-list">
                     <a class="course-resource-link" href="https://www.google.com/search?q=${query}" target="_blank" rel="noopener noreferrer" title="Search the web for independent course feedback"><span><strong>Course reviews</strong><small>Search the web for feedback about ${this.escapeText(group.code)}</small></span><b aria-hidden="true">↗</b></a>
-                    ${professor ? `<a class="course-resource-link" href="https://www.ratemyprofessors.com/search/professors?q=${professorQuery}" target="_blank" rel="noopener noreferrer" title="Search Rate My Professors for ${this.escapeText(professor)}"><span><strong>Professor reviews</strong><small>Search Rate My Professors for ${this.escapeText(professor)}</small></span><b aria-hidden="true">↗</b></a>` : ''}
+                    ${professor ? `<a class="course-resource-link" href="${professorReviewsUrl}" target="_blank" rel="noopener noreferrer" title="Search Rate My Professors for ${this.escapeText(professor)}"><span><strong>Professor reviews</strong><small>Search Rate My Professors for ${this.escapeText(professor)}</small></span><b aria-hidden="true">↗</b></a>` : ''}
                 </div>
             </section>
             </div>

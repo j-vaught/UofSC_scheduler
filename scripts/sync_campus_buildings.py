@@ -19,15 +19,39 @@ OFFICIAL_MAP_URL = "https://www.sc.edu/visit/map/index.php"
 OUTPUT = Path(__file__).resolve().parents[1] / "static/data/campus_buildings.json"
 
 MANUAL_ALIASES = {
+    "BANDDF": [
+        "Band Dance",
+        "Copenhaver Band Hall",
+        "Copenhaver Band Hall Dance Facility",
+    ],
     "CLLCTT": [
         "Callcot Soc Sci Ctr",
         "Callcott Soc Sci Ctr",
+        "Callcot Soc Sci Center",
+        "Callcott Soc Sci Center",
         "Callcot Social Sciences Center",
         "Callcott",
         "Callcot",
     ],
+    "HZNPG": [
+        "Horizon",
+        "Horizon I",
+    ],
+    "PHRC": [
+        "Public Health Research",
+        "Public Hlth Res",
+        "Public Health Research Ctr",
+    ],
+    "SJMC": [
+        "Sch of Jour",
+        "Sch of Journalism & Mass Comm",
+        "Sch of Journalism and Mass Comm",
+        "School of Journalism & Mass Comm",
+    ],
     "1112GR": [
+        "Science and Technology",
         "Science and Technology Bldg",
+        "Science & Technology Building",
         "Science & Technology Bldg",
         "Science and Tech Building",
         "Science and Tech Bldg",
@@ -47,6 +71,11 @@ MANUAL_ALIASES = {
         "M.Bert Storey Eng/Innov Center",
         "M.Bert Storey Eng/Innov Ctr",
     ],
+    "WMBB": [
+        "WMBB Nursing",
+        "Nursing Building",
+        "Williams-Brice Nursing Building",
+    ],
 }
 
 # Banner location codes for official records whose map descriptions omit a
@@ -55,8 +84,11 @@ PREFERRED_CODES = {
     223286: "300MN",
     223307: "DMSB",
     223313: "FLINN",
+    223318: "HZNPG",
     223322: "BYRNES",
+    223334: "PHRC",
     223342: "SWGN",
+    229055: "BANDDF",
 }
 
 # Classroom locations used by the scheduler but classified outside the campus

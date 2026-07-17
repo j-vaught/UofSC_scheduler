@@ -103,6 +103,11 @@ const Grades = {
         return `${first} ${last}`.replace(/\s+/g, ' ').trim();
     },
 
+    rateMyProfessorsUrl(value) {
+        const query = encodeURIComponent(this.displayProfessorName(value)).replace(/%20/g, '+');
+        return `https://www.ratemyprofessors.com/search/professors/1309?q=${query}`;
+    },
+
     professorGpaKind(value) {
         const gpa = Number(value);
         if (!Number.isFinite(gpa)) return 'unknown';
@@ -393,12 +398,12 @@ const Grades = {
         }).join('');
         const yearly = this.professorYearMarkup(data.years || []);
         const displayName = this.displayProfessorName(data.name);
-        const reviewQuery = encodeURIComponent(`${displayName} University of South Carolina professor`);
+        const reviewUrl = this.rateMyProfessorsUrl(data.name);
         return `
             <div class="professor-detail">
                 <header class="professor-detail-header">
                     <div><span>Instructor profile</span><h2>${this.escape(displayName)}</h2>${context.email ? `<a href="mailto:${this.escape(context.email)}">${this.escape(context.email)}</a>` : ''}</div>
-                    <a class="professor-review-link" href="https://www.ratemyprofessors.com/search/professors?q=${reviewQuery}" target="_blank" rel="noopener noreferrer">SEARCH REVIEWS</a>
+                    <a class="professor-review-link" href="${reviewUrl}" target="_blank" rel="noopener noreferrer">SEARCH REVIEWS</a>
                 </header>
                 <div class="professor-profile-summary">
                     <div class="professor-primary-gpa"><span>Overall historical GPA</span><strong>${this.formatGpa(data.average_gpa)}</strong><small>${Number(data.graded_students || 0).toLocaleString()} counted grades</small></div>

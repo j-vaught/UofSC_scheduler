@@ -262,6 +262,8 @@
         "CLLCTT",
         "Callcot Soc Sci Ctr",
         "Callcott Soc Sci Ctr",
+        "Callcot Soc Sci Center",
+        "Callcott Soc Sci Center",
         "Callcot Social Sciences Center",
         "Callcott",
         "Callcot"
@@ -339,13 +341,17 @@
       "official_id": "supplemental-COLH"
     },
     {
-      "code": "C3D-229055",
+      "code": "BANDDF",
       "name": "Copenhaver Band Hall/Dance Facility",
       "lat": 33.990601,
       "lon": -81.026184,
       "aliases": [
         "Copenhaver Band Hall/Dance Facility",
-        "C3D-229055"
+        "C3D-229055",
+        "BANDDF",
+        "Band Dance",
+        "Copenhaver Band Hall",
+        "Copenhaver Band Hall Dance Facility"
       ],
       "official_id": 229055
     },
@@ -502,13 +508,16 @@
       "official_id": 223317
     },
     {
-      "code": "C3D-223318",
+      "code": "HZNPG",
       "name": "Horizon I Building",
       "lat": 33.992722,
       "lon": -81.030067,
       "aliases": [
         "Horizon I Building",
-        "C3D-223318"
+        "C3D-223318",
+        "HZNPG",
+        "Horizon",
+        "Horizon I"
       ],
       "official_id": 223318
     },
@@ -861,13 +870,17 @@
       "official_id": 223300
     },
     {
-      "code": "C3D-223334",
+      "code": "PHRC",
       "name": "Public Health Research Center",
       "lat": 33.996922,
       "lon": -81.033974,
       "aliases": [
         "Public Health Research Center",
-        "C3D-223334"
+        "C3D-223334",
+        "PHRC",
+        "Public Health Research",
+        "Public Hlth Res",
+        "Public Health Research Ctr"
       ],
       "official_id": 223334
     },
@@ -879,7 +892,10 @@
       "aliases": [
         "School of Journalism and Mass Communications",
         "SJMC",
-        "Sch of Jour"
+        "Sch of Jour",
+        "Sch of Journalism & Mass Comm",
+        "Sch of Journalism and Mass Comm",
+        "School of Journalism & Mass Comm"
       ],
       "official_id": 223335
     },
@@ -902,7 +918,9 @@
       "aliases": [
         "Science and Technology Building",
         "1112GR",
+        "Science and Technology",
         "Science and Technology Bldg",
+        "Science & Technology Building",
         "Science & Technology Bldg",
         "Science and Tech Building",
         "Science and Tech Bldg"
@@ -1014,7 +1032,10 @@
       "lon": -81.024376,
       "aliases": [
         "Williams-Brice Building",
-        "WMBB"
+        "WMBB",
+        "WMBB Nursing",
+        "Nursing Building",
+        "Williams-Brice Nursing Building"
       ],
       "official_id": 223345
     },
