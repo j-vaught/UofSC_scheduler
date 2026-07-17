@@ -2384,6 +2384,8 @@ body.filter-modal-open { overflow: hidden; }
 .course-detail-availability.full { color: #c62828; }
 .course-availability.unavailable,
 .course-detail-availability.unavailable { color: #5C5C5C; }
+.course-availability.unknown,
+.course-detail-availability.unknown { color: #466A9F; }
 .course-detail-availability { margin: 2px 0 10px; }
 .btn-course-unavailable {
     background: #ECECEC;

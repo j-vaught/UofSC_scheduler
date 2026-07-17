@@ -177,6 +177,9 @@ test('browse course availability uses concise color-coded states', () => {
     const unavailable = search.courseAvailability({
         sections: [{ _isCatalog: true, meets: 'Not offered this term' }],
     });
+    const unknown = search.courseAvailability({
+        sections: [{ _isCatalog: true, availability_unknown: true }],
+    });
 
     assert.equal(open.kind, 'open');
     assert.equal(open.text, '2 of 3 sections open');
@@ -184,6 +187,8 @@ test('browse course availability uses concise color-coded states', () => {
     assert.equal(full.text, 'All 2 sections full');
     assert.equal(unavailable.kind, 'unavailable');
     assert.equal(unavailable.text, 'Not offered');
+    assert.equal(unknown.kind, 'unknown');
+    assert.equal(unknown.text, 'Live availability unavailable');
 });
 
 test('browse results reserve course add actions for the details pane', () => {
@@ -193,8 +198,8 @@ test('browse results reserve course add actions for the details pane', () => {
     assert.doesNotMatch(source, /class="btn-course-add/);
     assert.match(source, /class="course-header-main"/);
     assert.match(source, /class="course-availability \$\{availability\.kind\}"/);
-    assert.match(source, /unavailable \? ' disabled' : ''/);
-    assert.match(source, /unavailable \? 'NOT OFFERED THIS TERM'/);
+    assert.match(source, /unschedulable \? ' disabled' : ''/);
+    assert.match(source, /unavailableLabel/);
     assert.match(styles, /\.course-header-main\s*{[^}]*text-overflow:\s*ellipsis;/s);
     assert.match(styles, /\.course-availability\.open[^}]*color:\s*#2e7d32/s);
     assert.match(styles, /\.course-availability\.full[^}]*color:\s*#c62828/s);
@@ -3131,6 +3136,16 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
     assert.match(source, /data = await API\.getProfessorGrades\(professorId\)[\s\S]*if \(!data\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
+});
+
+test('Static catalog fallbacks never claim that an unverified course is not offered', () => {
+    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    assert.match(source, /availability_unknown[\s\S]*Live availability unavailable/);
+    assert.match(source, /Live section totals unavailable/);
+    assert.match(source, /LIVE SECTIONS UNAVAILABLE/);
+    assert.match(source, /details\?\.hours[\s\S]*group\.sections\?\.\[0\]\?\.hours/);
+    assert.match(styles, /\.course-availability\.unknown[\s\S]*#466A9F/);
 });
 
 test('Professor GPA timeline uses calendar-year spacing and an aligned zero-to-four scale', () => {

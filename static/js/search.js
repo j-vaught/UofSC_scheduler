@@ -2487,6 +2487,9 @@ const Search = {
 
     courseAvailability(group) {
         const liveSections = group.sections.filter(section => section.crn && !section._isCatalog);
+        if (group.sections.some(section => section.availability_unknown)) {
+            return { kind: 'unknown', text: 'Live availability unavailable' };
+        }
         if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
 
         const openCount = liveSections.filter(section => section.stat === 'A').length;
@@ -2739,9 +2742,20 @@ const Search = {
         if (!header || !group) return;
         const availability = this.courseAvailability(group);
         const selected = State.isCourseSelected(group.code);
-        const unavailable = availability.kind === 'unavailable' && !selected;
+        const unschedulable = ['unavailable', 'unknown'].includes(availability.kind) && !selected;
+        const unavailableLabel = availability.kind === 'unknown'
+            ? 'LIVE SECTIONS UNAVAILABLE'
+            : 'NOT OFFERED THIS TERM';
+        const unavailableTitle = availability.kind === 'unknown'
+            ? 'Live sections could not be checked from this browser'
+            : 'This course has no sections in the selected term';
         const credits = typeof Scheduler !== 'undefined'
-            ? Scheduler.parseCreditHours(details?.hours_html || group.credits || this.detailLiveSections(group)[0]?.hours)
+            ? Scheduler.parseCreditHours(
+                details?.hours_html
+                || details?.hours
+                || group.credits
+                || group.sections?.[0]?.hours,
+            )
             : null;
         const description = this.stripHtml(details?.description);
         const descriptionMarkup = description
@@ -2758,7 +2772,7 @@ const Search = {
                 <div class="course-detail-kicker">Course details</div>
                 <div class="course-detail-header-controls">
                     <div class="course-detail-primary-actions">
-                        <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unavailable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unavailable ? 'This course has no sections in the selected term' : 'Add this course so the scheduler can choose a section'}"${unavailable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unavailable ? 'NOT OFFERED THIS TERM' : 'ADD COURSE'}</button>
+                        <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unschedulable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unschedulable ? unavailableTitle : 'Add this course so the scheduler can choose a section'}"${unschedulable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unschedulable ? unavailableLabel : 'ADD COURSE'}</button>
                         <button id="btn-course-view-schedule" type="button" class="btn-header-secondary" title="Open the semester schedule builder">VIEW SCHEDULE</button>
                     </div>
                     <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
@@ -2824,10 +2838,15 @@ const Search = {
         const picker = document.getElementById('course-section-picker');
         const count = document.getElementById('course-section-picker-count');
         if (!wrap || !picker) return;
-        wrap.hidden = sections.length === 0;
-        if (count) count.textContent = `${sections.length} this term`;
+        const availability = this.courseAvailability(group);
+        wrap.hidden = false;
+        if (count) count.textContent = availability.kind === 'unknown'
+            ? 'Live availability unavailable'
+            : `${sections.length} this term`;
         if (!sections.length) {
-            picker.innerHTML = '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
+            picker.innerHTML = availability.kind === 'unknown'
+                ? '<div class="course-detail-empty-state"><strong>Live sections unavailable</strong><p>Catalog, offering history, and grade data are still available below.</p></div>'
+                : '<div class="course-detail-empty-state"><strong>Not offered this term</strong><p>This course remains available in catalog search and offering history.</p></div>';
             return;
         }
         picker.innerHTML = sections.map(section => {
@@ -3727,8 +3746,14 @@ const Search = {
 
         // Header with compact search information
         const courseLabel = groupList.length === 1 ? 'course' : 'courses';
+        const hasUnknownAvailability = groupList.some(group => (
+            group.sections.some(section => section.availability_unknown)
+        ));
         const sectionLabel = count === 1 ? 'section' : 'sections';
-        let header = `<div class="browse-results-summary"><strong>${groupList.length} ${courseLabel}</strong><span>${count} total ${sectionLabel}</span></div>`;
+        const sectionSummary = hasUnknownAvailability
+            ? 'Live section totals unavailable'
+            : `${count} total ${sectionLabel}`;
+        let header = `<div class="browse-results-summary"><strong>${groupList.length} ${courseLabel}</strong><span>${sectionSummary}</span></div>`;
         if (this._relatedSearchOrigin) {
             const origin = this.escapeText(this._relatedSearchOrigin);
             header = `<button type="button" class="related-search-back" aria-label="Back to search for ${origin}"><span class="related-search-back-icon" aria-hidden="true">&larr;</span><span class="related-search-back-copy"><small>Back to search</small><strong>${origin}</strong></span></button>${header}`;
@@ -3753,10 +3778,14 @@ const Search = {
             const instructors = new Set(liveSections
                 .map(section => section.instr)
                 .filter(name => name && name !== 'Staff'));
-            const sectionLabel = `${liveSections.length} ${liveSections.length === 1 ? 'section' : 'sections'}`;
-            const instructorLabel = instructors.size
-                ? `${instructors.size} ${instructors.size === 1 ? 'instructor' : 'instructors'}`
-                : 'Instructor TBA';
+            const sectionLabel = availability.kind === 'unknown'
+                ? 'Live section details unavailable'
+                : `${liveSections.length} ${liveSections.length === 1 ? 'section' : 'sections'}`;
+            const instructorLabel = availability.kind === 'unknown'
+                ? ''
+                : instructors.size
+                    ? `${instructors.size} ${instructors.size === 1 ? 'instructor' : 'instructors'}`
+                    : 'Instructor TBA';
 
             // Eligibility badge
             const elig = this.checkEligibility(group.code, prereqData);
@@ -3773,7 +3802,7 @@ const Search = {
                 <div class="course-header">
                     <div class="course-header-main"><span class="code">${group.code}</span><span class="title">${group.title}</span>${eligBadge}</div>
                     <div class="course-availability ${availability.kind}">${availability.text}</div>
-                    <div class="course-result-meta">${sectionLabel} · ${instructorLabel}</div>
+                    <div class="course-result-meta">${sectionLabel}${instructorLabel ? ` · ${instructorLabel}` : ''}</div>
                 </div>
                 <div class="course-result-summary"><p class="course-result-description loading">Loading course summary</p></div>
             `;
