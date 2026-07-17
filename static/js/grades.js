@@ -242,8 +242,9 @@ const Grades = {
         container.querySelectorAll('[data-current-instructor-index]').forEach(button => {
             button.addEventListener('click', () => {
                 const instructor = instructors[Number(button.dataset.currentInstructorIndex)];
-                if (instructor?.grade?.id) {
-                    this.showProfessor(instructor.grade.id, {
+                const professorId = instructor?.professorId || instructor?.grade?.id || '';
+                if (professorId) {
+                    this.showProfessor(professorId, {
                         displayName: instructor.displayName || instructor.name,
                         email: instructor.email,
                         currentCourse: Search?._detailGroup?.code || '',
@@ -261,31 +262,26 @@ const Grades = {
         const detailCode = Search?._detailGroup?.code || code;
         this.openProfessorLoading(name);
         const modalVersion = window.AppModal?.version || 0;
+        if (preferredProfessorId) {
+            this.showProfessor(preferredProfessorId, {
+                displayName: name,
+                email,
+                currentCourse: code,
+                detailToken,
+                detailCode,
+                loadingOpen: true,
+            });
+            return;
+        }
         try {
             const data = await this.courseData(code);
             if (lookupId !== this._professorLookupId
                 || (window.AppModal?.version || 0) !== modalVersion
                 || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
             const instructors = data.instructors || [];
-            const preferredMatches = preferredProfessorId
-                ? instructors.filter(instructor => String(instructor.id || '') === String(preferredProfessorId))
-                : [];
-            const matches = preferredProfessorId
-                ? preferredMatches
-                : this.matchingProfessorRecords(instructors, name, email);
+            const matches = this.matchingProfessorRecords(instructors, name, email);
             if (matches.length === 1) {
                 this.showProfessor(matches[0].id, {
-                    displayName: name,
-                    email,
-                    currentCourse: code,
-                    detailToken,
-                    detailCode,
-                    loadingOpen: true,
-                });
-                return;
-            }
-            if (preferredProfessorId) {
-                this.showProfessor(preferredProfessorId, {
                     displayName: name,
                     email,
                     currentCourse: code,
@@ -358,7 +354,9 @@ const Grades = {
             const markup = this.professorMarkup(data, context);
             if (window.AppModal) AppModal.update(markup, { className: 'professor-profile-modal', label: `Professor ${this.displayProfessorName(data.name)}` });
         } catch (error) {
-            if (loadId !== this._professorLoadId || (window.AppModal?.version || 0) !== modalVersion) return;
+            if (loadId !== this._professorLoadId
+                || (window.AppModal?.version || 0) !== modalVersion
+                || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
             if (error?.code === 'STATIC_PROFESSOR_NOT_FOUND') {
                 this.showUnmatchedProfessor(context.displayName || 'Instructor', context.email || '');
                 return;

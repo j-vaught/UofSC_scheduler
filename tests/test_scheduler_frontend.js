@@ -3201,10 +3201,12 @@ test('section professor lookup keeps a supplied stable ID ahead of same-name fal
         window: { AppModal: { version: 5 } },
     });
     let selected = null;
+    let courseDataCalls = 0;
     grades.openProfessorLoading = () => {};
-    grades.courseData = async () => ({
-        instructors: [{ id: 'prof_old', name: 'Smith, Alex' }],
-    });
+    grades.courseData = async () => {
+        courseDataCalls += 1;
+        return { instructors: [{ id: 'prof_old', name: 'Smith, Alex' }] };
+    };
     grades.showProfessor = id => { selected = id; };
     grades.showUnmatchedProfessor = () => { throw new Error('stable ID should be used'); };
 
@@ -3216,6 +3218,7 @@ test('section professor lookup keeps a supplied stable ID ahead of same-name fal
     );
 
     assert.equal(selected, 'prof_current');
+    assert.equal(courseDataCalls, 0);
 });
 
 test('Professor profiles use alphabetical GPA rows and a full-year connected timeline', () => {
@@ -3249,6 +3252,8 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(styles, /@media \(max-width: 520px\)[\s\S]*\.professor-year-label:not\(\.compact-visible\)/);
     assert.match(html, /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
+    assert.match(source, /const professorId = instructor\?\.professorId \|\| instructor\?\.grade\?\.id/);
+    assert.match(source, /!this\.professorDetailContextIsCurrent\(detailToken, detailCode\)\) return;/);
     assert.match(source, /data = await API\.getProfessorGrades\(professorId\)[\s\S]*if \(!data\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
 });
 
