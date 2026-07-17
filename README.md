@@ -4,28 +4,53 @@ The UofSC Course Scheduler is a desktop-first semester planning tool for Univers
 
 The primary workflow remains planning one semester effectively. Degree planning is available as a secondary browser-local tool.
 
-![A generated semester schedule with the weekly calendar, campus routes, and ranked schedule options](docs/screenshots/05-schedule-and-routes.png)
-
 ## Feature Tour
 
-Course discovery supports subject codes, exact courses, ranges, Course Reference Numbers, descriptive phrases, and scoped natural-language searches. The semantic model begins warming in the background on the first visit. Structured searches remain available without semantic ranking.
+### Build a semester schedule
 
-![Browser-local semantic search over the static course catalog](docs/screenshots/08-static-smart-search.png)
+Students add courses without committing to sections, optionally lock exact sections, and generate ranked conflict-free schedules. Applying an option updates the weekly calendar, campus pins, route estimates, available transition time, and registration handoff.
 
-Selecting a course opens a persistent detail workspace. The live overlay supplies sections, seats, instructors, meeting details, and registration restrictions when the deployed origin is allowed to read the University endpoints. Catalog, prerequisite, historical-grade, and offering-history data remain available from immutable static releases when live access is unavailable.
+![A generated Fall 2026 schedule with ranked options, a weekly calendar, and mapped campus routes](docs/screenshots/05-schedule-and-routes.png)
 
-![Static course workspace with historical grade summaries](docs/screenshots/09-static-course-grades.png)
+### Search current courses
 
-Completed-term history shows observed offering frequency, seasons, section counts, enrollment, and fill rates. Course and professor grade summaries suppress small aggregates and expose no source identifiers.
+Course discovery supports subject codes, exact courses, ranges, Course Reference Numbers, descriptive phrases, and scoped natural-language searches. The semantic model begins warming in the background on the first visit. Search results retain live section availability, course descriptions, instructor counts, and historical grade summaries. Expanded search sources show the phrases used and the result count attributed to each source.
 
-![Static completed-term offering history](docs/screenshots/10-static-offering-history.png)
+![Live Fall 2026 course search with current availability, generated search sources, course descriptions, and historical grade summaries](docs/screenshots/11-live-search.png)
 
-The semester solver generates and ranks conflict-free schedules in a browser worker. Applied schedules drive the calendar, campus route view, and registration checklist. The registration handoff includes section-specific checks, individual Course Reference Number copy actions, and a link to the official shopping cart.
+### Inspect a course and section
+
+Selecting a result opens a persistent detail workspace. The selected live section controls the available-seat count, instructor identity and email, meeting pattern, building, Course Reference Number, instructional method, dates, registration notes, calendar, and campus map.
+
+![ELCT 101 course details with a live section, available seats, registration notes, weekly meetings, and its campus location](docs/screenshots/12-live-course-overview.png)
 
 <details>
-<summary>Schedule, routes, and registration</summary>
+<summary><strong>Course intelligence and resources</strong></summary>
 
-![Schedule calendar, route map, and ranked options](docs/screenshots/05-schedule-and-routes.png)
+Historical grades show the course distribution, counted grades, available historical sections, and the current instructor's matched course record.
+
+![Historical grades for ELCT 101 with the course distribution, counted grades, historical sections, and the matched current instructor](docs/screenshots/13-live-course-grades.png)
+
+Selecting an instructor opens a general teaching profile with contact information, courses taught, semesters in the available record, typical annual load, GPA by year, and an external professor-review search.
+
+![Professor history with contact information, courses taught, teaching experience by semester, GPA by year, and a professor-review link](docs/screenshots/14-professor-profile.png)
+
+Completed-term history shows observed offering frequency, seasons, section counts, enrollment, and fill rates.
+
+![ELCT 101 offering history with recent-term frequency, observed seasons, enrollment, and term-by-term availability](docs/screenshots/15-live-offering-history.png)
+
+The resource workspace connects the selected course and section to official class details, bookstore materials, the academic bulletin, the two-step syllabus archive flow, the faculty directory, and external course and professor review searches.
+
+![Course resources with official class, bookstore, bulletin, syllabus, and faculty links alongside independent review searches](docs/screenshots/16-course-resources.png)
+
+</details>
+
+### Register and plan ahead
+
+The registration handoff includes section-specific checks, individual Course Reference Number copy actions, warning indicators, and a link to the official shopping cart.
+
+<details>
+<summary><strong>Registration checklist</strong></summary>
 
 ![Registration checklist for an applied schedule](docs/screenshots/06-registration-info.png)
 
@@ -35,7 +60,7 @@ The degree planner also runs in a browser worker and stores student-entered prog
 
 ![Browser-local degree plan](docs/screenshots/07-static-degree-plan.png)
 
-The screenshots show a Fall 2026 desktop session. Live sections, seats, instructors, and restrictions can change after capture.
+The screenshots show a Fall 2026 desktop session captured from the deployed site. Live sections, seats, instructors, and restrictions can change after capture.
 
 ## Static Build
 
@@ -100,7 +125,7 @@ node --test tests/*.js
 uv run python scripts/build_static_site.py
 ```
 
-The current release passes 73 Python tests and 183 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, and rejected cross-origin and unsupported-method requests.
+The current release passes 73 Python tests and 190 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification loads live search results, section details, and stable current-faculty identities while rejecting cross-origin and unsupported-method requests.
 
 ## Application Structure
 
@@ -111,7 +136,7 @@ static/
 ├── css/                           Search, schedule, grade, map, and modal styles.
 ├── js/
 │   ├── api.js                     Static data boundary and legacy comparison switch.
-│   ├── live-university-client.js  Bounded direct current-term client.
+│   ├── live-university-client.js  Bounded current-term relay client.
 │   ├── data-store.js              Manifest, integrity, Cache Storage, and IndexedDB.
 │   ├── solver-core.js             Browser-safe semester solver.
 │   ├── solver-worker.js           Schedule-generation worker.

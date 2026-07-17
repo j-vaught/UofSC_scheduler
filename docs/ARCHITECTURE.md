@@ -125,7 +125,7 @@ The interface intentionally gates viewports at or below 720 pixels. Desktop-only
 
 ## Verification Results
 
-The current release passes 73 Python tests and 183 JavaScript tests. Static build validation checks every artifact size and digest, rejects incomplete representative data by default, and confirms that no Python or database files enter the distribution. Production relay verification on July 17, 2026 returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, rejected a cross-origin request with HTTP 403, and rejected an unsupported method with HTTP 405.
+The current release passes 73 Python tests and 190 JavaScript tests. Static build validation checks every artifact size and digest, rejects incomplete representative data by default, and confirms that no Python or database files enter the distribution. Production relay verification on July 17, 2026 loaded live course results, Section 001 details by Course Reference Number, and stable current-faculty identities. It rejected a cross-origin request with HTTP 403 and an unsupported method with HTTP 405.
 
 Local desktop browser measurements on the generated static origin recorded a 77 ms cold shell navigation, a 334 ms uncached exact-course result, a 122 ms warm same-subject result, a 775 ms warmed semantic search, a 770 ms browser degree-plan generation, a 535 ms course-and-panel reload restoration, and a 349 ms offline service-worker reload. These observations are development-machine checks rather than performance guarantees.
 
