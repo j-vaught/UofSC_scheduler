@@ -14,6 +14,7 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from scripts.build_catalog_shards import build_catalog_shards, load_major_maps
 from scripts.build_grade_shards import build_grade_shards
 from scripts.build_offering_history import (
     build_history_shards,
@@ -35,6 +36,8 @@ from scripts.static_release import (
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GRADES = ROOT / "data" / "grade_analytics.json"
 DEFAULT_HISTORY_CACHE = ROOT / "data" / "grade_matching_cache.sqlite"
+DEFAULT_CATALOG = ROOT / "course_data.json"
+DEFAULT_MAPS_DIR = ROOT / "data" / "maps"
 DEFAULT_OUTPUT_ROOT = ROOT / "static" / "data"
 
 
@@ -58,6 +61,8 @@ def build_release(
     campus: str = "COL",
     generated_at: str | None = None,
     scope_kind: str = "full",
+    catalog_path: Path | None = None,
+    maps_dir: Path | None = None,
 ) -> tuple[Path, Path, dict[str, Any]]:
     """Build, validate, publish, and activate one immutable release."""
     if bool(history_cache) == bool(term_directory):
@@ -70,6 +75,26 @@ def build_release(
         subjects=selected_subjects,
         generated_at=timestamp,
     )
+    catalog_shards: dict[str, dict[str, Any]] = {}
+    subject_index: dict[str, Any] | None = None
+    catalog_coverage: dict[str, Any] | None = None
+    if catalog_path is not None:
+        catalog_records = json.loads(catalog_path.read_text(encoding="utf-8"))
+        if not isinstance(catalog_records, list):
+            raise ValueError("Catalog input must contain a list")
+        catalog_shards, subject_index, catalog_coverage = build_catalog_shards(
+            catalog_records,
+            subjects=selected_subjects,
+            generated_at=timestamp,
+        )
+    major_maps: dict[str, dict[str, Any]] = {}
+    major_map_index: dict[str, Any] | None = None
+    curriculum_coverage: dict[str, Any] | None = None
+    if maps_dir is not None:
+        major_maps, major_map_index, curriculum_coverage = load_major_maps(
+            maps_dir,
+            generated_at=timestamp,
+        )
 
     if history_cache:
         declared_complete_terms = sorted(set(complete_terms or completed_grade_terms(analytics)))
@@ -113,13 +138,40 @@ def build_release(
             artifacts[name] = write_immutable_json(
                 staging, f"history/offerings-{subject}.json", payload
             )
+        for subject, payload in catalog_shards.items():
+            name = f"catalog/courses/{subject}"
+            artifacts[name] = write_immutable_json(
+                staging, f"catalog/courses/courses-{subject}.json", payload
+            )
+        if subject_index is not None:
+            artifacts["catalog/subjects"] = write_immutable_json(
+                staging,
+                "catalog/subjects.json",
+                subject_index,
+            )
+        for map_id, payload in major_maps.items():
+            name = f"major-maps/{map_id}"
+            artifacts[name] = write_immutable_json(
+                staging,
+                f"major-maps/major-map-{map_id}.json",
+                payload,
+            )
+        if major_map_index is not None:
+            artifacts["major-maps/index"] = write_immutable_json(
+                staging,
+                "major-maps/index.json",
+                major_map_index,
+            )
 
         indexes = {
             "schema_version": 1,
             "kind": "static_release_index",
             "generated_at": timestamp,
-            "subjects": sorted(course_shards),
+            "grade_subjects": sorted(course_shards),
+            "history_subjects": sorted(history_shards),
+            "catalog_subjects": sorted(catalog_shards),
             "professor_prefixes": sorted(professor_shards),
+            "major_maps": sorted(major_maps),
         }
         artifacts["index"] = write_immutable_json(staging, "index.json", indexes)
         for artifact in artifacts.values():
@@ -132,12 +184,16 @@ def build_release(
     scope = {
         "kind": scope_kind,
         "campus": campus,
-        "subjects": sorted(course_shards),
+        "subjects": sorted(catalog_shards or history_shards or course_shards),
     }
     coverage = {
         "grades": grade_coverage,
         "offering_history": history_coverage,
     }
+    if catalog_coverage is not None:
+        coverage["catalog"] = catalog_coverage
+    if curriculum_coverage is not None:
+        coverage["curriculum"] = curriculum_coverage
     manifest = build_manifest(
         release_id=release_id,
         generated_at=timestamp,
@@ -154,6 +210,8 @@ def build_release(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--grade-analytics", type=Path, default=DEFAULT_GRADES)
+    parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
+    parser.add_argument("--maps-dir", type=Path, default=DEFAULT_MAPS_DIR)
     history = parser.add_mutually_exclusive_group()
     history.add_argument("--history-cache", type=Path, default=DEFAULT_HISTORY_CACHE)
     history.add_argument("--term-dir", type=Path)
@@ -178,6 +236,8 @@ def main() -> int:
         campus=normalize_code(args.campus),
         generated_at=args.generated_at,
         scope_kind=args.scope_kind,
+        catalog_path=args.catalog,
+        maps_dir=args.maps_dir,
     )
     total_bytes = sum(int(artifact["bytes"]) for artifact in manifest["artifacts"].values())
     print(

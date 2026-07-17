@@ -4,12 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import json
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -19,10 +20,60 @@ from scripts.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_va
 
 PROFESSOR_ID_RE = re.compile(r"^prof_[0-9a-f]{16}$")
 PROFESSOR_PREFIX_LENGTH = 1
+MIN_PUBLIC_GRADED_STUDENTS = 10
 
 
 def _subject(code: str) -> str:
     return str(code).partition(" ")[0].strip().upper()
+
+
+def _graded_students(record: dict[str, Any]) -> int:
+    try:
+        return int(record.get("graded_students", 0))
+    except (TypeError, ValueError):
+        return 0
+
+
+def _public_course_record(
+    course: dict[str, Any],
+    suppressed: Counter[str],
+) -> dict[str, Any] | None:
+    """Remove grade aggregates that represent fewer than ten students."""
+    if _graded_students(course) < MIN_PUBLIC_GRADED_STUDENTS:
+        suppressed["courses"] += 1
+        return None
+    public = copy.deepcopy(course)
+    instructors = []
+    for instructor in public.get("instructors", []):
+        if _graded_students(instructor) < MIN_PUBLIC_GRADED_STUDENTS:
+            suppressed["course_instructor_records"] += 1
+            continue
+        instructors.append(instructor)
+    public["instructors"] = instructors
+    return public
+
+
+def _public_professor_record(
+    professor: dict[str, Any],
+    suppressed: Counter[str],
+) -> dict[str, Any] | None:
+    """Publish professor summaries only when their aggregate is large enough."""
+    if _graded_students(professor) < MIN_PUBLIC_GRADED_STUDENTS:
+        suppressed["professors"] += 1
+        return None
+    public = copy.deepcopy(professor)
+    for field, counter_key in (
+        ("courses", "professor_course_records"),
+        ("years", "professor_year_records"),
+    ):
+        retained = []
+        for record in public.get(field, []):
+            if _graded_students(record) < MIN_PUBLIC_GRADED_STUDENTS:
+                suppressed[counter_key] += 1
+                continue
+            retained.append(record)
+        public[field] = retained
+    return public
 
 
 def build_grade_shards(
@@ -39,12 +90,16 @@ def build_grade_shards(
     requested = set(subjects or [])
     courses_by_subject: dict[str, dict[str, Any]] = defaultdict(dict)
     selected_professors: set[str] = set()
+    suppressed: Counter[str] = Counter()
     for code, course in analytics["courses"].items():
         subject = _subject(code)
         if requested and subject not in requested:
             continue
-        courses_by_subject[subject][code] = course
-        for instructor in course.get("instructors", []):
+        public_course = _public_course_record(course, suppressed)
+        if public_course is None:
+            continue
+        courses_by_subject[subject][code] = public_course
+        for instructor in public_course.get("instructors", []):
             professor_id = str(instructor.get("id", ""))
             if not PROFESSOR_ID_RE.fullmatch(professor_id):
                 raise ValueError(f"Course {code} contains a non-public professor identifier")
@@ -64,6 +119,15 @@ def build_grade_shards(
         "gpa_scale": source_meta.get("gpa_scale", {}),
         "gpa_excludes": source_meta.get("gpa_excludes", []),
         "subjects": sorted(courses_by_subject),
+        "privacy_suppression": {
+            "minimum_graded_students": MIN_PUBLIC_GRADED_STUDENTS,
+            "rule": (
+                "Course, professor, professor-course, professor-year, and "
+                "course-instructor grade aggregates with fewer than ten graded "
+                "students are omitted from public artifacts."
+            ),
+            "suppressed": dict(sorted(suppressed.items())),
+        },
     }
     course_shards = {
         subject: {
@@ -82,6 +146,9 @@ def build_grade_shards(
         professor = analytics["professors"].get(professor_id)
         if professor is None:
             raise ValueError(f"Missing professor aggregate for {professor_id}")
+        professor = _public_professor_record(professor, suppressed)
+        if professor is None:
+            continue
         prefix = professor_id.removeprefix("prof_")[:PROFESSOR_PREFIX_LENGTH]
         professors_by_prefix[prefix][professor_id] = professor
     professor_shards = {
@@ -98,10 +165,12 @@ def build_grade_shards(
 
     for shard in [*course_shards.values(), *professor_shards.values()]:
         assert_privacy_safe(shard)
+    privacy_policy = cast(dict[str, Any], coverage["privacy_suppression"])
+    privacy_policy["suppressed"] = dict(sorted(suppressed.items()))
     summary = {
         **coverage,
         "course_count": sum(len(courses) for courses in courses_by_subject.values()),
-        "professor_count": len(selected_professors),
+        "professor_count": sum(len(professors) for professors in professors_by_prefix.values()),
         "course_shards": len(course_shards),
         "professor_shards": len(professor_shards),
     }

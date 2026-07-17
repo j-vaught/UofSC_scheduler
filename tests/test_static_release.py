@@ -8,7 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts.build_grade_shards import build_grade_shards
+from scripts.build_catalog_shards import build_catalog_shards, load_major_maps
+from scripts.build_grade_shards import MIN_PUBLIC_GRADED_STUDENTS, build_grade_shards
 from scripts.build_offering_history import TermRecord, build_history_shards
 from scripts.build_static_release import build_release
 from scripts.static_release import assert_privacy_safe, write_manifest_atomic
@@ -124,6 +125,101 @@ def test_grade_shards_reject_private_identity_fields() -> None:
 
     with pytest.raises(ValueError, match="Private field"):
         assert_privacy_safe({"nested": {"crn": "12345"}})
+
+
+def test_grade_shards_suppress_small_public_aggregates() -> None:
+    analytics = sample_analytics()
+    small_professor_id = "prof_fedcba9876543210"
+    analytics["courses"]["CSCE 145"]["instructors"].append(
+        {
+            "id": small_professor_id,
+            "name": "Small, Aggregate",
+            "sections": 1,
+            "graded_students": MIN_PUBLIC_GRADED_STUDENTS - 1,
+            "average_gpa": 4.0,
+            "grade_counts": {"A": MIN_PUBLIC_GRADED_STUDENTS - 1},
+        }
+    )
+    analytics["professors"][small_professor_id] = {
+        "name": "Small, Aggregate",
+        "sections": 1,
+        "graded_students": MIN_PUBLIC_GRADED_STUDENTS - 1,
+        "average_gpa": 4.0,
+        "grade_counts": {"A": MIN_PUBLIC_GRADED_STUDENTS - 1},
+        "courses": [],
+        "years": [],
+    }
+    analytics["professors"][PROFESSOR_ID]["courses"] = [
+        {
+            "code": "CSCE 145",
+            "graded_students": MIN_PUBLIC_GRADED_STUDENTS - 1,
+            "grade_counts": {"A": MIN_PUBLIC_GRADED_STUDENTS - 1},
+        }
+    ]
+
+    course_shards, professor_shards, coverage = build_grade_shards(
+        analytics,
+        subjects=["CSCE"],
+    )
+
+    instructors = course_shards["CSCE"]["courses"]["CSCE 145"]["instructors"]
+    assert [record["id"] for record in instructors] == [PROFESSOR_ID]
+    assert small_professor_id not in json.dumps(professor_shards)
+    assert professor_shards["0"]["professors"][PROFESSOR_ID]["courses"] == []
+    policy = coverage["privacy_suppression"]
+    assert policy["minimum_graded_students"] == 10
+    assert policy["suppressed"] == {
+        "course_instructor_records": 1,
+        "professor_course_records": 1,
+    }
+
+
+def test_catalog_and_major_maps_are_browser_readable(tmp_path: Path) -> None:
+    catalog, subject_index, coverage = build_catalog_shards(
+        [
+            {
+                "code": "csce 145",
+                "title": "Algorithmic Design I",
+                "description": "Problem solving and algorithms.",
+                "subject": "CSCE",
+                "key": 145,
+                "prereq": "Prerequisites: MATH 111.",
+                "hours": "4 Credits",
+            },
+            {"code": "MATH 111", "title": "Basic College Mathematics"},
+        ]
+    )
+    assert coverage == {
+        "subjects": ["CSCE", "MATH"],
+        "subject_count": 2,
+        "course_count": 2,
+    }
+    assert subject_index["subjects"] == [
+        {"code": "CSCE", "courses": 1},
+        {"code": "MATH", "courses": 1},
+    ]
+    assert catalog["CSCE"]["courses"]["CSCE 145"]["hours"] == "4 Credits"
+
+    maps_dir = tmp_path / "maps"
+    maps_dir.mkdir()
+    (maps_dir / "cs.json").write_text(
+        json.dumps(
+            {
+                "id": "cs_bscs_2026",
+                "major": "Computer Science",
+                "program": "B.S.C.S.",
+                "college": "Engineering and Computing",
+                "catalog_year": "2026-2027",
+                "total_credits_required": 120,
+                "required_courses": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    maps, map_index, map_coverage = load_major_maps(maps_dir)
+    assert maps["cs_bscs_2026"]["kind"] == "major_map"
+    assert map_index["maps"][0]["total_credits"] == 120
+    assert map_coverage == {"map_count": 1, "map_ids": ["cs_bscs_2026"]}
 
 
 def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
