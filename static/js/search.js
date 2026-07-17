@@ -3457,17 +3457,12 @@ const Search = {
         });
         container.querySelector('#btn-section-professor')?.addEventListener('click', () => {
             if (typeof Grades === 'undefined') return;
-            if (primaryFaculty?.professor_id) {
-                Grades.showProfessor(primaryFaculty.professor_id, {
-                    displayName: instructorName,
-                    email: primaryFaculty.email || '',
-                    currentCourse: group.code,
-                    detailToken: this._detailToken,
-                    detailCode: group.code,
-                });
-            } else {
-                Grades.showProfessorForCourseName(group.code, instructorName, primaryFaculty?.email || '');
-            }
+            Grades.showProfessorForCourseName(
+                group.code,
+                instructorName,
+                primaryFaculty?.email || '',
+                primaryFaculty?.professor_id || '',
+            );
         });
     },
 

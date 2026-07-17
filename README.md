@@ -1,6 +1,6 @@
 # UofSC Course Scheduler
 
-The UofSC Course Scheduler is a desktop-first semester planning tool for University of South Carolina students. The production build is browser-first. Search ranking, schedule generation, transcript parsing, prerequisite evaluation, historical-grade lookup, offering analysis, and degree-plan calculations run in the student's browser. Managed hosting adds a narrowly scoped relay for current course search and section details.
+The UofSC Course Scheduler is a desktop-first semester planning tool for University of South Carolina students. The production build is browser-first. Search ranking, schedule generation, transcript parsing, prerequisite evaluation, historical-grade lookup, offering analysis, and degree-plan calculations run in the student's browser. Managed hosting adds a narrowly scoped relay for current course search, section details, and current faculty identities.
 
 The primary workflow remains planning one semester effectively. Degree planning is available as a secondary browser-local tool.
 
@@ -48,7 +48,7 @@ uv sync
 uv run python scripts/build_static_site.py
 ```
 
-The generated `dist/client/` directory contains the browser application. Any ordinary static host can serve that directory from the domain root, but live course search and section details require the generated managed-host entry point in `dist/server/index.js`. That entry point serves assets and exposes only two fixed read-only relay operations. A local file server remains sufficient for testing browser-local features and static data.
+The generated `dist/client/` directory contains the browser application. Any ordinary static host can serve that directory from the domain root, but live course search, section details, and current faculty identities require the generated managed-host entry point in `dist/server/index.js`. That entry point serves assets and exposes only three fixed read-only relay operations. A local file server remains sufficient for testing browser-local features and static data.
 
 ```bash
 uv run python -m http.server 8766 --directory dist/client
@@ -60,9 +60,9 @@ The older comparison runtime remains available with `uv run python app.py`. It i
 
 ## Live University Data
 
-The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. Managed deployment therefore uses same-origin `POST /api/search` and `POST /api/details` routes. The hosting runtime forwards only validated course-search and Course Reference Number detail requests to fixed upstream addresses and returns fresh JSON without forwarding visitor cookies or upstream response headers.
+The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. Managed deployment therefore uses same-origin `POST /api/search`, `POST /api/details`, and `POST /api/faculty` routes. The hosting runtime forwards only validated course-search, Course Reference Number detail, and bounded faculty requests to fixed upstream addresses. It returns fresh JSON without forwarding visitor cookies or upstream response headers.
 
-The live client coalesces duplicate requests, limits concurrency, applies short freshness windows, and supports cancellation. If the relay or upstream service is unavailable, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered. Bulletin and faculty lookups remain independent and continue to fall back to published static data when browser access is unavailable.
+The live client coalesces duplicate requests, limits concurrency, applies short freshness windows, and supports cancellation. Current faculty records use a privacy-safe hash of the University's stable faculty identifier. Email is normalized and displayed as corroborating contact information, while a unique token-bounded name match remains the conservative fallback when no stable identifier is available. If the relay or upstream service is unavailable, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered.
 
 ## Browser Data and Caching
 
@@ -100,7 +100,7 @@ node --test tests/*.js
 uv run python scripts/build_static_site.py
 ```
 
-The current release passes 72 Python tests and 175 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, and rejected cross-origin and unsupported-method requests.
+The current release passes 73 Python tests and 183 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, and rejected cross-origin and unsupported-method requests.
 
 ## Application Structure
 

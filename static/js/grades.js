@@ -138,6 +138,33 @@ const Grades = {
         return String(value || '').toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean).sort().join(' ');
     },
 
+    matchingProfessorRecords(records, name, email = '') {
+        const normalizedEmail = String(email || '').trim().toLowerCase();
+        if (normalizedEmail) {
+            const emailMatches = (records || []).filter(record => (
+                String(record.email || '').trim().toLowerCase() === normalizedEmail
+            ));
+            if (emailMatches.length) return emailMatches;
+        }
+        const normalized = this.normalizeName(name);
+        if (!normalized) return [];
+        const candidates = records || [];
+        const exact = candidates.filter(record => this.normalizeName(record.name) === normalized);
+        if (exact.length) return exact;
+        const queryTokens = normalized.split(' ').filter(Boolean);
+        if (queryTokens.length === 1) {
+            return candidates.filter(record => {
+                const raw = String(record.name || '').trim();
+                const surname = raw.includes(',') ? raw.slice(0, raw.indexOf(',')) : raw.split(/\s+/).at(-1);
+                return this.normalizeName(surname) === normalized;
+            });
+        }
+        return candidates.filter(record => {
+            const candidateTokens = new Set(this.normalizeName(record.name).split(' ').filter(Boolean));
+            return queryTokens.every(token => candidateTokens.has(token));
+        });
+    },
+
     currentInstructorRecords(data, facultyData = null) {
         const group = Search?._detailGroup || { sections: [] };
         if (typeof Scheduler !== 'undefined' && Scheduler.currentInstructorSummaries) {
@@ -228,7 +255,7 @@ const Grades = {
         });
     },
 
-    async showProfessorForCourseName(code, name, email = '') {
+    async showProfessorForCourseName(code, name, email = '', preferredProfessorId = '') {
         const lookupId = ++this._professorLookupId;
         const detailToken = Search?._detailToken;
         const detailCode = Search?._detailGroup?.code || code;
@@ -239,10 +266,26 @@ const Grades = {
             if (lookupId !== this._professorLookupId
                 || (window.AppModal?.version || 0) !== modalVersion
                 || !this.professorDetailContextIsCurrent(detailToken, detailCode)) return;
-            const normalized = this.normalizeName(name);
-            const matches = (data.instructors || []).filter(instructor => this.normalizeName(instructor.name) === normalized);
+            const instructors = data.instructors || [];
+            const preferredMatches = preferredProfessorId
+                ? instructors.filter(instructor => String(instructor.id || '') === String(preferredProfessorId))
+                : [];
+            const matches = preferredProfessorId
+                ? preferredMatches
+                : this.matchingProfessorRecords(instructors, name, email);
             if (matches.length === 1) {
                 this.showProfessor(matches[0].id, {
+                    displayName: name,
+                    email,
+                    currentCourse: code,
+                    detailToken,
+                    detailCode,
+                    loadingOpen: true,
+                });
+                return;
+            }
+            if (preferredProfessorId) {
+                this.showProfessor(preferredProfessorId, {
                     displayName: name,
                     email,
                     currentCourse: code,

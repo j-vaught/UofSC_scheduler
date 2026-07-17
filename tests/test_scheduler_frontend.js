@@ -1134,6 +1134,23 @@ test('current faculty records prefer stable professor IDs over duplicate names',
     assert.equal(summaries[0].grade.average_gpa, 3.6);
 });
 
+test('stable professor IDs never fall back to a different same-name record', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+    const summaries = scheduler.currentInstructorSummaries({
+        sections: [{ crn: '70501', instr: 'Johnson, Rhonda', stat: 'A' }],
+    }, {
+        instructors: [
+            { id: 'prof_other', name: 'Johnson, Rhonda', average_gpa: 2.4 },
+        ],
+    }, [
+        { crn: '70501', professor_id: 'prof_current', name: 'Johnson, Rhonda' },
+    ]);
+
+    assert.equal(summaries[0].professorId, 'prof_current');
+    assert.equal(summaries[0].grade, null);
+    assert.equal(summaries[0].matchStatus, 'unmatched');
+});
+
 test('current faculty deduplicates mixed email records and refuses ambiguous name matches', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
     const deduplicated = scheduler.currentInstructorSummaries({
@@ -3102,6 +3119,103 @@ test('Professor names use the first comma as the sole first and last name delimi
     assert.equal(grades.displayProfessorName('KANAPALA, NEEMA'), 'NEEMA KANAPALA');
     assert.equal(grades.displayProfessorName('DE LA CRUZ, MARIA JOSE'), 'MARIA JOSE DE LA CRUZ');
     assert.equal(grades.displayProfessorName('Mary Ann Smith'), 'Mary Ann Smith');
+});
+
+test('surname-only live instructor labels resolve one unique historical professor', async () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {
+        Search: {
+            _detailToken: 7,
+            _detailGroup: { code: 'CSCE 145' },
+            _browseState: 'detail',
+        },
+        window: { AppModal: { version: 3 } },
+    });
+    let selected = null;
+    let unmatched = null;
+    grades.openProfessorLoading = () => {};
+    grades.courseData = async () => ({
+        instructors: [
+            { id: 'prof_kanapala', name: 'Kanapala, Neema', average_gpa: 3.04 },
+            { id: 'prof_hoskins', name: 'Hoskins, William', average_gpa: 3.35 },
+        ],
+    });
+    grades.showProfessor = (id, context) => { selected = { id, context }; };
+    grades.showUnmatchedProfessor = (name, email) => { unmatched = { name, email }; };
+
+    await grades.showProfessorForCourseName('CSCE 145', 'Kanapala', 'neema@cse.sc.edu');
+
+    assert.equal(unmatched, null);
+    assert.equal(selected.id, 'prof_kanapala');
+    assert.equal(selected.context.displayName, 'Kanapala');
+    assert.equal(selected.context.email, 'neema@cse.sc.edu');
+    assert.equal(selected.context.currentCourse, 'CSCE 145');
+});
+
+test('surname-only professor matching refuses ambiguous historical records', async () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {
+        Search: {
+            _detailToken: 8,
+            _detailGroup: { code: 'TEST 101' },
+            _browseState: 'detail',
+        },
+        window: { AppModal: { version: 4 } },
+    });
+    let selected = null;
+    let unmatched = null;
+    grades.openProfessorLoading = () => {};
+    grades.courseData = async () => ({
+        instructors: [
+            { id: 'prof_alex', name: 'Smith, Alex', average_gpa: 3.2 },
+            { id: 'prof_jordan', name: 'Smith, Jordan', average_gpa: 3.8 },
+        ],
+    });
+    grades.showProfessor = (id, context) => { selected = { id, context }; };
+    grades.showUnmatchedProfessor = (name, email) => { unmatched = { name, email }; };
+
+    await grades.showProfessorForCourseName('TEST 101', 'Smith', '');
+
+    assert.equal(selected, null);
+    assert.deepEqual(unmatched, { name: 'Smith', email: '' });
+});
+
+test('surname fallback matches token boundaries instead of substrings', () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {});
+    const records = [
+        { id: 'prof_hu', name: 'Hu, Ming' },
+        { id: 'prof_huang', name: 'Huang, Lin' },
+        { id: 'prof_li', name: 'Li, Wei' },
+        { id: 'prof_franklin', name: 'Franklin, Tara' },
+    ];
+
+    assert.deepEqual(Array.from(grades.matchingProfessorRecords(records, 'Hu'), record => record.id), ['prof_hu']);
+    assert.deepEqual(Array.from(grades.matchingProfessorRecords(records, 'Li'), record => record.id), ['prof_li']);
+});
+
+test('section professor lookup keeps a supplied stable ID ahead of same-name fallbacks', async () => {
+    const grades = loadObject('static/js/grades.js', 'Grades', {
+        Search: {
+            _detailToken: 9,
+            _detailGroup: { code: 'TEST 101' },
+            _browseState: 'detail',
+        },
+        window: { AppModal: { version: 5 } },
+    });
+    let selected = null;
+    grades.openProfessorLoading = () => {};
+    grades.courseData = async () => ({
+        instructors: [{ id: 'prof_old', name: 'Smith, Alex' }],
+    });
+    grades.showProfessor = id => { selected = id; };
+    grades.showUnmatchedProfessor = () => { throw new Error('stable ID should be used'); };
+
+    await grades.showProfessorForCourseName(
+        'TEST 101',
+        'Smith, Alex',
+        'alex@example.edu',
+        'prof_current',
+    );
+
+    assert.equal(selected, 'prof_current');
 });
 
 test('Professor profiles use alphabetical GPA rows and a full-year connected timeline', () => {

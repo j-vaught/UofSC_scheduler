@@ -76,8 +76,12 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     assert "Method not allowed" in worker
     assert "'/api/search'" in worker
     assert "'/api/details'" in worker
+    assert "'/api/faculty'" in worker
     assert "https://classes.sc.edu/api/?page=fose&route=search" in worker
     assert "https://classes.sc.edu/api/?page=fose&route=details" in worker
+    assert "getFacultyMeetingTimes" in worker
+    assert "endpoint.searchParams.set('mepCode', 'COL')" in worker
+    assert "MAX_FACULTY_CONCURRENCY = 4" in worker
     assert "X-Scheduler-Relay" in worker
     assert "Live relay upstream failure" in worker
     assert worker.index("if (relayRoute)") < worker.index("if (!['GET', 'HEAD'].includes")

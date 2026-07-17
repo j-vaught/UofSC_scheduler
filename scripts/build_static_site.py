@@ -21,7 +21,7 @@ DEFAULT_OUTPUT = ROOT / "dist"
 INDEX_ASSET_RE = re.compile(r"(?:href|src)=[\"'](/static/[^\"']+)[\"']")
 FORBIDDEN_SUFFIXES = {".db", ".py", ".pyc", ".sqlite", ".sqlite3"}
 SITES_WORKER = """const SECURITY_HEADERS = Object.freeze({
-    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://academicbulletins.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
     'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
     'X-Content-Type-Options': 'nosniff',
@@ -38,9 +38,15 @@ const RELAY_ROUTES = Object.freeze({
         upstream: 'https://classes.sc.edu/api/?page=fose&route=details',
         kind: 'details',
     }),
+    '/api/faculty': Object.freeze({
+        kind: 'faculty',
+    }),
 });
 
 const SEARCH_FIELDS = new Set(['alias', 'crn', 'keyword', 'stat', 'subject']);
+const BANNER_BASE = 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb';
+const MAX_FACULTY_CRNS = 12;
+const MAX_FACULTY_CONCURRENCY = 4;
 const MAX_RELAY_BODY_BYTES = 16 * 1024;
 const UPSTREAM_TIMEOUT_MS = 10_000;
 
@@ -113,6 +119,18 @@ function validateDetailsPayload(payload) {
     return /^crn:\\d{5}$/.test(group);
 }
 
+function validateFacultyPayload(payload) {
+    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
+    if (Object.keys(payload).some(key => !['term', 'crns'].includes(key))) return false;
+    if (!validTerm(payload.term)) return false;
+    if (!Array.isArray(payload.crns)
+        || payload.crns.length < 1
+        || payload.crns.length > MAX_FACULTY_CRNS) return false;
+    const values = payload.crns.map(value => String(value || ''));
+    return values.every(value => /^\\d{5}$/.test(value))
+        && new Set(values).size === values.length;
+}
+
 async function parseRelayBody(request, route, pathname) {
     const contentType = String(request.headers.get('content-type') || '').toLowerCase();
     if (!contentType.startsWith('application/json')) {
@@ -139,7 +157,9 @@ async function parseRelayBody(request, route, pathname) {
     }
     const valid = route.kind === 'search'
         ? validateSearchPayload(payload)
-        : validateDetailsPayload(payload);
+        : route.kind === 'details'
+            ? validateDetailsPayload(payload)
+            : validateFacultyPayload(payload);
     if (!valid) {
         return { error: jsonResponse({ error: 'Request body is invalid for this operation' }, 400, pathname) };
     }
@@ -179,6 +199,79 @@ async function fetchWithTimeout(url, options) {
     }
 }
 
+async function publicInstructorId(value) {
+    const bytes = new TextEncoder().encode(`uofsc-scheduler:${String(value).toLowerCase()}`);
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return `prof_${[...new Uint8Array(digest)]
+        .map(part => part.toString(16).padStart(2, '0')).join('').slice(0, 16)}`;
+}
+
+function facultyPrimary(value) {
+    if (typeof value === 'boolean') return value;
+    return ['true', 'yes', 'y', '1'].includes(String(value || '').trim().toLowerCase());
+}
+
+function facultyEmail(value) {
+    const email = String(value || '').trim().toLowerCase();
+    return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) ? email : '';
+}
+
+async function relayFaculty(payload, pathname) {
+    const responses = [];
+    for (let start = 0; start < payload.crns.length; start += MAX_FACULTY_CONCURRENCY) {
+        const batch = payload.crns.slice(start, start + MAX_FACULTY_CONCURRENCY);
+        responses.push(...await Promise.all(batch.map(async crn => {
+            const endpoint = new URL(`${BANNER_BASE}/searchResults/getFacultyMeetingTimes`);
+            endpoint.searchParams.set('term', payload.term);
+            endpoint.searchParams.set('courseReferenceNumber', crn);
+            endpoint.searchParams.set('mepCode', 'COL');
+            const response = await fetchWithTimeout(endpoint.href, {
+                method: 'GET',
+                headers: { Accept: 'application/json' },
+            });
+            if (!response.ok) {
+                const error = new Error(`Faculty provider returned status ${response.status}`);
+                error.code = 'FACULTY_UPSTREAM_HTTP_ERROR';
+                throw error;
+            }
+            const data = await readJsonResponse(response, 256 * 1024);
+            if (!data || typeof data !== 'object' || Array.isArray(data) || !Array.isArray(data.fmt)) {
+                const error = new Error('Faculty provider returned an unexpected response');
+                error.code = 'INVALID_FACULTY_RESPONSE';
+                throw error;
+            }
+            return { crn, data };
+        })));
+    }
+    const faculty = [];
+    const seen = new Set();
+    for (const { crn, data } of responses) {
+        for (const meeting of data.fmt) {
+            for (const member of meeting?.faculty || []) {
+                const name = String(member?.displayName || member?.name || '').trim();
+                const email = facultyEmail(member?.emailAddress || member?.email);
+                const bannerId = String(member?.bannerId || '').trim().toUpperCase().replace(/\\.0$/, '');
+                const identity = bannerId || email || name.toLowerCase();
+                const key = `${crn}:${identity}`;
+                if (!name || !identity || seen.has(key)) continue;
+                seen.add(key);
+                faculty.push({
+                    crn,
+                    name,
+                    email,
+                    primary: facultyPrimary(member?.primaryIndicator ?? member?.primary),
+                    professor_id: bannerId ? await publicInstructorId(bannerId) : '',
+                    identity_source: bannerId ? 'faculty_id' : '',
+                });
+            }
+        }
+    }
+    return jsonResponse({ faculty }, 200, pathname, {
+        'Cache-Control': 'no-store, max-age=0',
+        'X-Scheduler-Relay': 'sites-worker',
+    });
+}
+
 async function relayRequest(request, url, route) {
     if (request.method !== 'POST') {
         return jsonResponse({ error: 'Method not allowed' }, 405, url.pathname, {
@@ -195,6 +288,9 @@ async function relayRequest(request, url, route) {
     const parsed = await parseRelayBody(request, route, url.pathname);
     if (parsed.error) return parsed.error;
     try {
+        if (route.kind === 'faculty') {
+            return await relayFaculty(parsed.payload, url.pathname);
+        }
         const response = await fetchWithTimeout(route.upstream, {
             method: 'POST',
             headers: {

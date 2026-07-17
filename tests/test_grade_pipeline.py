@@ -25,6 +25,17 @@ def test_professor_identity_does_not_use_display_name() -> None:
     assert public_instructor_id(first) != public_instructor_id(second)
 
 
+def test_professor_identity_uses_email_when_no_faculty_id_is_available() -> None:
+    before_name_change = {"banner_id": "", "email": "person@example.edu", "name": "Smith, Alex"}
+    after_name_change = {
+        "banner_id": "",
+        "email": "PERSON@example.edu",
+        "name": "Smith-Jones, Alex",
+    }
+
+    assert public_instructor_id(before_name_change) == public_instructor_id(after_name_change)
+
+
 def test_analytics_include_load_experience_and_breakdowns() -> None:
     sections = pd.DataFrame(
         [

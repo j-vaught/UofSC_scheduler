@@ -106,6 +106,93 @@ test('Sites worker relays valid section details', async () => {
     assert.equal((await response.json()).code, 'CSCE 145');
 });
 
+test('Sites worker relays faculty through a fixed Columbia-campus request and stable ID', async () => {
+    const upstreamCalls = [];
+    globalThis.fetch = async (url, options) => {
+        upstreamCalls.push({ url, options });
+        const endpoint = new URL(url);
+        assert.equal(endpoint.origin, 'https://banner.onecarolina.sc.edu');
+        assert.equal(endpoint.pathname, '/StudentRegistrationSsb/ssb/searchResults/getFacultyMeetingTimes');
+        assert.equal(endpoint.searchParams.get('term'), '202608');
+        assert.equal(endpoint.searchParams.get('mepCode'), 'COL');
+        assert.equal(options.method, 'GET');
+        return new Response(JSON.stringify({
+            fmt: [{
+                faculty: [{
+                    bannerId: 'C14765226',
+                    displayName: 'Simin, Grigory',
+                    emailAddress: 'different-identity@example.edu',
+                    primaryIndicator: true,
+                }, {
+                    bannerId: '',
+                    displayName: 'Placeholder, Email',
+                    emailAddress: 'none',
+                    primaryIndicator: 'false',
+                }],
+            }],
+        }), {
+            status: 200,
+            headers: {
+                'Content-Type': 'application/json',
+                'Set-Cookie': 'must-not-leak=1',
+            },
+        });
+    };
+
+    const response = await worker.fetch(relayRequest('/api/faculty', {
+        term: '202608',
+        crns: ['10368'],
+    }), {});
+    const data = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('x-scheduler-relay'), 'sites-worker');
+    assert.equal(response.headers.has('set-cookie'), false);
+    assert.equal(upstreamCalls.length, 1);
+    assert.deepEqual(data.faculty, [
+        {
+            crn: '10368',
+            name: 'Simin, Grigory',
+            email: 'different-identity@example.edu',
+            primary: true,
+            professor_id: 'prof_c68c41fec5f7f933',
+            identity_source: 'faculty_id',
+        },
+        {
+            crn: '10368',
+            name: 'Placeholder, Email',
+            email: '',
+            primary: false,
+            professor_id: '',
+            identity_source: '',
+        },
+    ]);
+});
+
+test('Sites worker limits faculty provider concurrency to four requests', async () => {
+    let active = 0;
+    let maximum = 0;
+    globalThis.fetch = async url => {
+        active += 1;
+        maximum = Math.max(maximum, active);
+        await new Promise(resolve => setImmediate(resolve));
+        active -= 1;
+        const crn = new URL(url).searchParams.get('courseReferenceNumber');
+        return new Response(JSON.stringify({
+            fmt: [{ faculty: [{ bannerId: `B${crn}`, displayName: `Faculty, ${crn}` }] }],
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    };
+
+    const response = await worker.fetch(relayRequest('/api/faculty', {
+        term: '202608',
+        crns: ['10001', '10002', '10003', '10004', '10005', '10006', '10007', '10008'],
+    }), {});
+
+    assert.equal(response.status, 200);
+    assert.equal((await response.json()).faculty.length, 8);
+    assert.equal(maximum, 4);
+});
+
 test('Sites worker rejects requests outside the fixed relay contract', async () => {
     let upstreamCalls = 0;
     globalThis.fetch = async () => {
@@ -134,6 +221,18 @@ test('Sites worker rejects requests outside the fixed relay contract', async () 
         criteria: [],
     }), {});
     assert.equal(invalidSchema.status, 400);
+
+    const invalidFaculty = await worker.fetch(relayRequest('/api/faculty', {
+        term: 'Fall 2026',
+        crns: ['10368'],
+    }), {});
+    assert.equal(invalidFaculty.status, 400);
+
+    const duplicateFacultyCrn = await worker.fetch(relayRequest('/api/faculty', {
+        term: '202608',
+        crns: ['10368', '10368'],
+    }), {});
+    assert.equal(duplicateFacultyCrn.status, 400);
 
     const oversized = await worker.fetch(relayRequest('/api/search', 'x'.repeat(17 * 1024)), {});
     assert.equal(oversized.status, 413);

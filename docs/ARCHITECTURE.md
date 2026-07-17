@@ -1,6 +1,6 @@
 # Browser-First Architecture
 
-The UofSC Course Scheduler has a browser-first production build. The browser owns interactive state and computation. Hosting supplies the application shell, search assets, a release manifest, immutable historical-data shards, and a fixed read-only relay for current course search and section details. Python remains an offline data-generation tool and an optional comparison runtime.
+The UofSC Course Scheduler has a browser-first production build. The browser owns interactive state and computation. Hosting supplies the application shell, search assets, a release manifest, immutable historical-data shards, and a fixed read-only relay for current course search, section details, and faculty identities. Python remains an offline data-generation tool and an optional comparison runtime.
 
 ![Browser-first static architecture](diagrams/browser_first_architecture.png)
 
@@ -10,7 +10,7 @@ The application shell renders before large data artifacts are needed. The browse
 
 The interface stays responsive because schedule generation, transcript parsing, degree planning, and offering analysis run through browser workers. The static API adapter can also execute the same cores without workers for test environments and older browsers. JavaScript parity fixtures protect the solver's conflicts, asynchronous sections, credit handling, preference ranking, and worst-route penalty behavior.
 
-Current-term information is an overlay rather than a generated snapshot. `live-university-client.js` sends course search and section-detail requests to same-origin managed routes with bounded concurrency, duplicate-request coalescing, cancellation, timeouts, and short in-memory freshness windows. The routes accept only validated University term, search-criteria, and Course Reference Number payloads and forward them to fixed upstream addresses. A failed live request never turns into a false “not offered” claim. The interface reports that live availability is unavailable while retaining verified static catalog, grade, prerequisite, and offering information.
+Current-term information is an overlay rather than a generated snapshot. `live-university-client.js` sends course search, section-detail, and faculty-identity requests to same-origin managed routes with bounded concurrency, duplicate-request coalescing, cancellation, timeouts, and short in-memory freshness windows. The routes accept only validated University term, search-criteria, Course Reference Number, and bounded faculty payloads and forward them to fixed upstream addresses. Faculty identities use the same privacy-safe identifier derivation as the historical grade pipeline. A failed live request never turns into a false “not offered” claim. The interface reports that live availability is unavailable while retaining verified static catalog, grade, prerequisite, and offering information.
 
 ## Current File Layout
 
@@ -77,11 +77,11 @@ scrape_courses.py                   Offline bulletin catalog generation.
 
 ## Execution Boundary
 
-The browser executes search parsing and ranking, schedule generation, prerequisite evaluation, transcript parsing, degree planning, offering summaries, grade rendering, maps, routing orchestration, export generation, and user-state persistence. Managed hosting returns files and performs two bounded live-data requests. The generated `dist/` tree contains no Python or database files.
+The browser executes search parsing and ranking, schedule generation, prerequisite evaluation, transcript parsing, degree planning, offering summaries, grade rendering, maps, routing orchestration, export generation, and user-state persistence. Managed hosting returns files and performs three bounded live-data request types. The generated `dist/` tree contains no Python or database files.
 
 Offline generation executes source pulls, registrar matching, privacy suppression, catalog normalization, embedding generation, offering-history aggregation, release sharding, manifest construction, integrity validation, and the final static build. These tasks run once per data release rather than once per visitor.
 
-The optional `app.py` runtime remains in the repository for parity comparison and local live-data testing. It is not copied into `dist/`. Managed deployment uses `dist/server/index.js` to serve assets and handle `POST /api/search` and `POST /api/details`. Every other application operation remains in `dist/client/` and the visitor's browser.
+The optional `app.py` runtime remains in the repository for parity comparison and local live-data testing. It is not copied into `dist/`. Managed deployment uses `dist/server/index.js` to serve assets and handle `POST /api/search`, `POST /api/details`, and `POST /api/faculty`. Every other application operation remains in `dist/client/` and the visitor's browser.
 
 ## Startup and Caching
 
@@ -97,7 +97,7 @@ The migration froze Python parity fixtures before runtime ports began. The semes
 
 The data layer now publishes a full manifest, immutable subject and professor shards, privacy metadata, byte lengths, and content hashes. The service worker, Cache Storage integration, IndexedDB fallback, static builder, deployment headers, desktop gate, URL restoration, and offline reload path are implemented.
 
-The course-search API returns data to non-browser clients and to its own University page, but its preflight response does not authorize an independently hosted browser origin. The managed relay moves that request to a server-side hosting boundary and returns the result through the scheduler's own origin. This removes the browser Cross-Origin Resource Sharing dependency for course search and section details while retaining static fallback behavior when the relay or upstream service is unavailable.
+The current-term APIs return data to non-browser clients and to their own University pages, but their preflight responses do not authorize an independently hosted browser origin. The managed relay moves those requests to a server-side hosting boundary and returns the result through the scheduler's own origin. This removes the browser Cross-Origin Resource Sharing dependency for course search, section details, and faculty identities while retaining static fallback behavior when the relay or upstream service is unavailable.
 
 ![One-time migration and periodic release workflow](diagrams/data_generation_workflow.png)
 
@@ -125,7 +125,7 @@ The interface intentionally gates viewports at or below 720 pixels. Desktop-only
 
 ## Verification Results
 
-The current release passes 72 Python tests and 175 JavaScript tests. Static build validation checks every artifact size and digest, rejects incomplete representative data by default, and confirms that no Python or database files enter the distribution. Production relay verification on July 17, 2026 returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, rejected a cross-origin request with HTTP 403, and rejected an unsupported method with HTTP 405.
+The current release passes 73 Python tests and 183 JavaScript tests. Static build validation checks every artifact size and digest, rejects incomplete representative data by default, and confirms that no Python or database files enter the distribution. Production relay verification on July 17, 2026 returned all 19 matching sections for `CSCE 145`, loaded Section 001 details by CRN, rejected a cross-origin request with HTTP 403, and rejected an unsupported method with HTTP 405.
 
 Local desktop browser measurements on the generated static origin recorded a 77 ms cold shell navigation, a 334 ms uncached exact-course result, a 122 ms warm same-subject result, a 775 ms warmed semantic search, a 770 ms browser degree-plan generation, a 535 ms course-and-panel reload restoration, and a 349 ms offline service-worker reload. These observations are development-machine checks rather than performance guarantees.
 

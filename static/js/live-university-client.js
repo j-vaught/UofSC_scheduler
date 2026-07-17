@@ -15,7 +15,7 @@
         courseDetails: '/api/details',
         bulletinSearch: 'https://academicbulletins.sc.edu/course-search/api/?page=fose&route=search',
         bulletinDetails: 'https://academicbulletins.sc.edu/course-search/api/?page=fose&route=details',
-        faculty: 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb/searchResults/getFacultyMeetingTimes',
+        faculty: '/api/faculty',
     });
 
     const DEFAULT_TTLS = Object.freeze({
@@ -164,11 +164,12 @@
             }, options);
         }
 
-        async faculty(term, crn, options = {}) {
-            const url = new URL(this.endpoints.faculty);
-            url.searchParams.set('term', String(term || ''));
-            url.searchParams.set('courseReferenceNumber', String(crn || ''));
-            return this.request('faculty', null, { ...options, url: url.href, method: 'GET' });
+        async faculty(term, crns, options = {}) {
+            const values = Array.isArray(crns) ? crns : [crns];
+            return this.request('faculty', {
+                term: String(term || ''),
+                crns: [...new Set(values.map(String).filter(Boolean))],
+            }, options);
         }
 
         async request(kind, body, options = {}) {

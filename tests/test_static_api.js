@@ -28,20 +28,24 @@ function loadApi(contextValues = {}) {
     return { api: context.__api, context };
 }
 
-test('live client uses the same-origin relay for course search and details', async () => {
+test('live client uses the same-origin relay for course search, details, and faculty', async () => {
     const calls = [];
     const client = new LiveUniversityClient({
         fetchImpl: async (url, options) => {
             calls.push({ url, options });
-            return jsonResponse(url === '/api/search' ? { results: [] } : { code: 'CSCE 145' });
+            if (url === '/api/search') return jsonResponse({ results: [] });
+            if (url === '/api/details') return jsonResponse({ code: 'CSCE 145' });
+            return jsonResponse({ faculty: [{ crn: '10868', professor_id: 'prof_test' }] });
         },
     });
 
     await client.searchCourses('202608', [{ field: 'alias', value: 'CSCE 145' }]);
     await client.getDetails('10868', '202608');
+    await client.faculty('202608', ['10868']);
 
     assert.equal(DEFAULT_ENDPOINTS.courseSearch, '/api/search');
     assert.equal(DEFAULT_ENDPOINTS.courseDetails, '/api/details');
+    assert.equal(DEFAULT_ENDPOINTS.faculty, '/api/faculty');
     assert.equal(calls[0].url, '/api/search');
     assert.deepEqual(JSON.parse(calls[0].options.body), {
         other: { srcdb: '202608' },
@@ -52,6 +56,42 @@ test('live client uses the same-origin relay for course search and details', asy
         group: 'crn:10868',
         srcdb: '202608',
     });
+    assert.equal(calls[2].url, '/api/faculty');
+    assert.deepEqual(JSON.parse(calls[2].options.body), {
+        term: '202608',
+        crns: ['10868'],
+    });
+});
+
+test('static API batches faculty identities through the same-origin client', async () => {
+    const facultyCalls = [];
+    class FacultyClient {
+        async faculty(term, crns, options) {
+            facultyCalls.push({ term, crns, options });
+            return {
+                faculty: crns.map(crn => ({
+                    crn,
+                    name: 'Simin, Grigory',
+                    email: 'simin@engr.sc.edu',
+                    professor_id: 'prof_c68c41fec5f7f933',
+                })),
+            };
+        }
+    }
+    const { api } = loadApi({
+        CourseSchedulerConfig: { apiMode: 'static' },
+        LiveUniversityClient: FacultyClient,
+    });
+
+    const result = await api.getFaculty('202608', ['10368', '10368'], { forceRefresh: true });
+
+    assert.equal(facultyCalls.length, 1);
+    assert.deepEqual(plain(facultyCalls[0]), {
+        term: '202608',
+        crns: ['10368'],
+        options: { forceRefresh: true },
+    });
+    assert.equal(result.faculty[0].professor_id, 'prof_c68c41fec5f7f933');
 });
 
 test('live client coalesces and caches requests without exceeding its concurrency limit', async () => {

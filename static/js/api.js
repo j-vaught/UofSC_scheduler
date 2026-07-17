@@ -665,41 +665,11 @@ const API = {
         const options = arguments[2] || {};
         if (!this.isStaticMode()) return this.post('/api/faculty', { term, crns }, options);
         const unique = [...new Set((crns || []).map(String).filter(Boolean))].slice(0, 12);
-        const payloads = await Promise.all(unique.map(crn => (
-            this._getLiveClient().faculty(term, crn, options)
-        )));
-        const faculty = [];
-        const seen = new Set();
-        for (let index = 0; index < payloads.length; index += 1) {
-            const crn = unique[index];
-            for (const meeting of payloads[index]?.fmt || []) {
-                for (const member of meeting?.faculty || []) {
-                    const name = String(member?.displayName || member?.name || '').trim();
-                    const email = String(member?.emailAddress || member?.email || '').trim().toLowerCase();
-                    const bannerId = String(member?.bannerId || '').trim();
-                    const identity = bannerId || email || name.toLowerCase();
-                    if (!name || seen.has(`${crn}:${identity}`)) continue;
-                    seen.add(`${crn}:${identity}`);
-                    faculty.push({
-                        crn,
-                        name,
-                        email,
-                        primary: Boolean(member?.primaryIndicator ?? member?.primary),
-                        professor_id: await this._publicInstructorId(identity),
-                    });
-                }
-            }
-        }
-        return { faculty };
-    },
-
-    async _publicInstructorId(value) {
-        const subtle = globalThis.crypto?.subtle;
-        if (!subtle || typeof TextEncoder === 'undefined') return '';
-        const bytes = new TextEncoder().encode(`uofsc-scheduler:${String(value).toLowerCase()}`);
-        const digest = await subtle.digest('SHA-256', bytes);
-        return `prof_${[...new Uint8Array(digest)]
-            .map(part => part.toString(16).padStart(2, '0')).join('').slice(0, 16)}`;
+        if (!unique.length) return { faculty: [] };
+        const response = await this._getLiveClient().faculty(term, unique, options);
+        return {
+            faculty: Array.isArray(response?.faculty) ? response.faculty : [],
+        };
     },
 
     async prefetchCourseDetails(sections, term, { signal = null, paceMs = 350 } = {}) {

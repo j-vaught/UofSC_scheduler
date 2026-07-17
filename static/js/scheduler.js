@@ -807,15 +807,58 @@ const Scheduler = {
         return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     },
 
+    instructorSurname(value) {
+        const raw = String(value || '').trim();
+        if (!raw) return '';
+        if (raw.includes(',')) return raw.slice(0, raw.indexOf(',')).trim();
+        return raw.split(/\s+/).at(-1) || '';
+    },
+
+    matchingInstructorRecords(records, name) {
+        const normalized = this.normalizeInstructorName(name);
+        if (!normalized) return [];
+        const candidates = records || [];
+        const exact = candidates.filter(record => this.normalizeInstructorName(record.name) === normalized);
+        if (exact.length) return exact;
+        const queryTokens = normalized.split(' ').filter(Boolean);
+        if (queryTokens.length === 1) {
+            return candidates.filter(record => (
+                this.normalizeInstructorName(this.instructorSurname(record.name)) === normalized
+            ));
+        }
+        const querySet = new Set(queryTokens);
+        return candidates.filter(record => {
+            const candidateTokens = this.normalizeInstructorName(record.name).split(' ').filter(Boolean);
+            const candidateSet = new Set(candidateTokens);
+            const sameTokens = candidateTokens.length === queryTokens.length
+                && queryTokens.every(token => candidateSet.has(token));
+            if (sameTokens) return true;
+            return queryTokens.every(token => candidateSet.has(token))
+                || candidateTokens.every(token => querySet.has(token));
+        });
+    },
+
     currentInstructorCrns(group) {
-        const seen = {};
-        return (group.sections || []).filter(section => {
+        const groups = new Map();
+        (group.sections || []).forEach(section => {
             const instructor = String(section.instr || '').trim().toLowerCase();
-            if (!section.crn || !instructor || ['staff', 'undecided', 'tba'].includes(instructor)) return false;
-            seen[instructor] = (seen[instructor] || 0) + 1;
-            if (seen[instructor] > 2) return false;
-            return true;
-        }).map(section => String(section.crn)).slice(0, 12);
+            if (!section.crn || !instructor || ['staff', 'undecided', 'tba'].includes(instructor)) return;
+            if (!groups.has(instructor)) groups.set(instructor, []);
+            groups.get(instructor).push(String(section.crn));
+        });
+        const crns = [];
+        let added = true;
+        while (crns.length < 12 && added) {
+            added = false;
+            for (const groupCrns of groups.values()) {
+                const crn = groupCrns.shift();
+                if (!crn) continue;
+                crns.push(crn);
+                added = true;
+                if (crns.length === 12) break;
+            }
+        }
+        return crns;
     },
 
     currentInstructorSummaries(group, gradeData = {}, facultyData = []) {
@@ -841,18 +884,15 @@ const Scheduler = {
             return records;
         }, {});
         const uniqueFaculty = Object.values(facultyByKey);
-        const matchingNames = (records, normalized) => records.filter(record => {
-            const candidate = this.normalizeInstructorName(record.name);
-            return candidate === normalized || candidate.includes(normalized) || normalized.includes(candidate);
-        });
+        const matchingNames = (records, name) => this.matchingInstructorRecords(records, name);
         const resolveFaculty = name => {
             const normalized = this.normalizeInstructorName(name);
             if (!normalized) return null;
             const exact = uniqueFaculty.filter(member => this.normalizeInstructorName(member.name) === normalized);
             if (exact.length === 1) return exact[0];
             if (exact.length > 1) return null;
-            const partial = matchingNames(uniqueFaculty, normalized);
-            const historicalMatches = matchingNames(historical, normalized);
+            const partial = matchingNames(uniqueFaculty, name);
+            const historicalMatches = matchingNames(historical, name);
             return partial.length === 1 && historicalMatches.length === 1 ? partial[0] : null;
         };
         (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
@@ -895,12 +935,11 @@ const Scheduler = {
             });
         });
         Object.values(instructors).forEach(summary => {
-            const normalized = this.normalizeInstructorName(summary.name);
             const idMatches = summary.professorId
                 ? historical.filter(record => String(record.id || '') === summary.professorId)
                 : [];
-            const nameMatches = matchingNames(historical, normalized);
-            const matches = idMatches.length === 1 ? idMatches : nameMatches;
+            const nameMatches = summary.professorId ? [] : matchingNames(historical, summary.name);
+            const matches = summary.professorId ? idMatches : nameMatches;
             summary.grade = matches.length === 1 ? matches[0] : null;
             summary.matchStatus = summary.grade ? 'matched' : matches.length > 1 ? 'ambiguous' : 'unmatched';
             summary.displayName = summary.name.includes(',')
