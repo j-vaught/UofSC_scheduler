@@ -4,6 +4,47 @@ The UofSC Course Scheduler is a local-first semester planning tool for Universit
 
 The application focuses on planning one semester effectively. The degree-planning code remains available for later work, but it is not the primary workflow.
 
+![A generated semester schedule with the weekly calendar, campus routes, and ranked schedule options](docs/screenshots/05-schedule-and-routes.png)
+
+## Feature Tour
+
+Course discovery combines direct subject, number, range, and Course Reference Number searches with optional semantic ranking. Results show current availability, concise descriptions, historical grade context, and generated related searches without expanding sections inline.
+
+![Course search results for machine learning](docs/screenshots/01-course-search.png)
+
+Selecting a course opens its full workspace. Students can compare open and full sections, meeting patterns, instructors, locations, seats, Course Reference Numbers, registration restrictions, prerequisites, historical grades, offering history, and official resources before adding a course or exact section.
+
+![Detailed CSCE 145 course and section view](docs/screenshots/02-course-details.png)
+
+<details>
+<summary>Professor and historical grade context</summary>
+
+Professor profiles summarize the available teaching span in semesters, typical annual section load, courses taught, and year-by-year grade point average without exposing source identifiers.
+
+![Professor profile with courses taught and grade point average by year](docs/screenshots/03-grades-and-professors.png)
+
+</details>
+
+<details>
+<summary>Offering and enrollment history</summary>
+
+Completed-term history shows recent offering frequency, observed seasons, section counts, enrollment, and fill rates with explicit coverage progress.
+
+![Completed-term offering and enrollment history for CSCE 145](docs/screenshots/04-offering-history.png)
+
+</details>
+
+<details>
+<summary>Registration handoff</summary>
+
+An applied schedule unlocks a registration checklist with section-specific seat status, course dates, highlighted registration checks, individual Course Reference Number copy actions, and a direct handoff to the official shopping cart.
+
+![Registration checklist for an applied five-course schedule](docs/screenshots/06-registration-info.png)
+
+</details>
+
+The screenshots show a Fall 2026 local session at a desktop viewport. Live sections, seats, instructors, and restrictions can change after capture.
+
 ## Local Setup
 
 Install [uv](https://docs.astral.sh/uv/), clone the repository, and prepare the development environment.
@@ -68,10 +109,27 @@ offering_analyzer.py      Offering and enrollment history analysis.
 scheduler.py              Constraint-based semester schedule solver.
 data/grade_analytics.json Generated privacy-safe analytics dataset.
 static/                    Browser application, styles, and campus data.
+docs/                      Architecture diagrams and feature screenshots.
 tests/                     Python and JavaScript regression tests.
 ```
 
 The local web runtime uses the Python standard library. The data preparation workflow uses pandas, openpyxl, and requests through uv. The browser interface is vanilla HTML, CSS, and JavaScript.
+
+## Target Architecture
+
+The documented target moves production computation into the student's desktop browser while retaining Python as an offline data-generation tool. Static hosting provides the application shell, a small release manifest, and immutable historical-data shards. University systems remain the live source for current sections, seats, meeting patterns, and registration details.
+
+![Target browser-first architecture](docs/diagrams/browser_first_architecture.png)
+
+The target file layout, browser cache design, current-to-target module map, deployment dependencies, and migration gates are documented in [Browser-First Architecture](docs/ARCHITECTURE.md). This is a design direction. The current application still uses the local Python runtime described above.
+
+## Data Generation
+
+Completed-term section data is pulled once and reused to build privacy-safe course grades, professor summaries, enrollment statistics, capacity, and offering history. Offering history retains complete section coverage and is not inferred only from published grade workbooks. Catalog embeddings, campus buildings, curriculum maps, and notices update on their own schedules.
+
+![One-time migration and periodic data-generation workflow](docs/diagrams/data_generation_workflow.png)
+
+Immutable, content-hashed files publish before the release manifest. Publishing the manifest last prevents browsers from activating a partial release. The detailed cadence and validation rules are included in [Browser-First Architecture](docs/ARCHITECTURE.md#periodic-data-generation).
 
 ## Site Notices
 
