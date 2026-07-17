@@ -862,7 +862,10 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(source, /full — planning only/i);
     assert.match(source, /data-registration-expand/);
     assert.match(source, /data-registration-details hidden/);
-    assert.match(source, /data-registration-warning/);
+    assert.match(source, /data-registration-indicator/);
+    assert.match(source, /registration-success-icon/);
+    assert.match(source, /indicator\.hidden = false/);
+    assert.match(source, /No registration warnings found/);
     assert.match(source, /registrationRequirementSatisfied/);
     assert.doesNotMatch(source, /This planner cannot verify registration eligibility/);
     assert.doesNotMatch(source, /READY TO REGISTER/);
@@ -880,6 +883,9 @@ test('registration info unlocks for selected sections and links to the CRN cart'
     assert.match(styles, /\.registration-course-details\[hidden\]\s*{[^}]*display:\s*none;/s);
     assert.match(styles, /\.registration-warning-icon::after\s*{[^}]*background:\s*#FFEB66;/s);
     assert.match(styles, /clip-path:\s*polygon\(50% 0, 100% 100%, 0 100%\)/);
+    assert.match(styles, /\.registration-status-icon\s*{[^}]*height:\s*18px;[^}]*width:\s*20px;/s);
+    assert.match(styles, /\.registration-status-icon\[hidden\]\s*{[^}]*display:\s*none;/s);
+    assert.match(styles, /\.registration-success-icon\s*{[^}]*color:\s*#2e7d32;/s);
     assert.match(styles, /\.registration-course-card\s*{\s*border:\s*1px solid #A2A2A2;\s*padding:/s);
     assert.doesNotMatch(styles, /\.registration-course-card\s*{[^}]*border-left:/s);
     assert.match(styles, /\.registration-requirements p\.attention\s*{[^}]*border-left:\s*4px solid #CC2E40;/s);

@@ -271,10 +271,16 @@ const Scheduler = {
             const attention = seats.kind === 'full'
                 ? ['Full section', ...requirements.attentionLabels]
                 : requirements.attentionLabels;
-            const warning = card.querySelector('[data-registration-warning]');
-            warning.hidden = attention.length === 0;
-            warning.title = attention.join(' · ');
-            warning.setAttribute('aria-label', `Registration warning. ${attention.join('. ')}`);
+            const indicator = card.querySelector('[data-registration-indicator]');
+            const hasAttention = attention.length > 0;
+            indicator.classList.toggle('registration-warning-icon', hasAttention);
+            indicator.classList.toggle('registration-success-icon', !hasAttention);
+            indicator.textContent = hasAttention ? '!' : '✓';
+            indicator.hidden = false;
+            indicator.title = hasAttention ? attention.join(' · ') : 'No registration warnings found';
+            indicator.setAttribute('aria-label', hasAttention
+                ? `Registration warning. ${attention.join('. ')}`
+                : 'No registration warnings found');
             card.classList.toggle('has-registration-warning', attention.length > 0);
         } catch (error) {
             if (!document.body.contains(card)) return;
@@ -305,7 +311,7 @@ const Scheduler = {
                     </div>
                     <button class="registration-copy-crn btn-green" type="button" data-registration-copy="${this.escapeHtml(section.crn)}">COPY CRN</button>
                     <button class="registration-expand" type="button" data-registration-expand="${this.escapeHtml(section.crn)}" aria-expanded="false" aria-controls="registration-details-${this.escapeHtml(section.crn)}" aria-label="Show registration details for ${this.escapeHtml(section.code)}">
-                        <span class="registration-warning-icon" data-registration-warning${open ? ' hidden' : ''} title="${open ? '' : 'Full section'}" aria-label="${open ? '' : 'Registration warning. Full section'}">!</span>
+                        <span class="registration-status-icon ${open ? 'registration-success-icon' : 'registration-warning-icon'}" data-registration-indicator${open ? ' hidden' : ''} title="${open ? '' : 'Full section'}" aria-label="${open ? '' : 'Registration warning. Full section'}">${open ? '✓' : '!'}</span>
                         <span class="registration-chevron" aria-hidden="true">▼</span>
                     </button>
                 </header>
