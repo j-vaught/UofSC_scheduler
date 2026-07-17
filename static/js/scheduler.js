@@ -952,14 +952,14 @@ const Scheduler = {
     },
 
     instructorCardsMarkup(instructors) {
-        return instructors.map(instructor => {
+        return instructors.map((instructor, index) => {
             const grade = instructor.grade;
             const gpa = Number(grade?.average_gpa);
             const gpaPosition = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
             return `
                 <article class="quick-instructor-card">
                     <div class="quick-instructor-heading">
-                        <strong>${this.escapeHtml(instructor.displayName || instructor.name)}</strong>
+                        <a href="#" data-quick-instructor-index="${index}" title="View this instructor's full profile in Search"><strong>${this.escapeHtml(instructor.displayName || instructor.name)}</strong></a>
                         <span>${instructor.open} open / ${instructor.sections} section${instructor.sections === 1 ? '' : 's'}</span>
                     </div>
                     ${instructor.email ? `<a class="quick-instructor-email" href="mailto:${this.escapeHtml(instructor.email)}">${this.escapeHtml(instructor.email)}</a>` : '<span class="quick-instructor-email unavailable">Email unavailable</span>'}
@@ -974,7 +974,19 @@ const Scheduler = {
         }).join('');
     },
 
-    updateQuickFaculty(group, gradeData = {}, facultyData = []) {
+    bindQuickInstructorActions(container, instructors, group, selectedSection = null) {
+        if (!container) return;
+        container.querySelectorAll('[data-quick-instructor-index]').forEach(link => {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                const instructor = instructors[Number(link.dataset.quickInstructorIndex)];
+                if (!instructor) return;
+                this.openProfessorInBrowse(group, selectedSection?.crn || '', instructor);
+            });
+        });
+    },
+
+    updateQuickFaculty(group, gradeData = {}, facultyData = [], selectedSection = null) {
         const count = document.getElementById('quick-instructor-count');
         const grid = document.getElementById('quick-instructor-grid');
         const more = document.getElementById('quick-instructor-more');
@@ -984,9 +996,10 @@ const Scheduler = {
         count.textContent = `${instructors.length} listed this term`;
         grid.innerHTML = this.instructorCardsMarkup(visible)
             || '<p class="quick-empty">Instructor assignments have not been posted.</p>';
+        this.bindQuickInstructorActions(grid, visible, group, selectedSection);
         const remaining = instructors.length - visible.length;
         more.textContent = remaining > 0
-            ? `${remaining} additional instructor${remaining === 1 ? '' : 's'} available in Browse.`
+            ? `${remaining} additional instructor${remaining === 1 ? '' : 's'} available in Search.`
             : '';
     },
 
@@ -1076,7 +1089,7 @@ const Scheduler = {
                 <section class="course-quick-section">
                     <div class="quick-section-heading"><h3>Current instructors</h3><span id="quick-instructor-count">${instructors.length} listed this term</span></div>
                     <div id="quick-instructor-grid" class="quick-instructor-grid">${instructorCards || '<p class="quick-empty">Instructor assignments have not been posted.</p>'}</div>
-                    <small id="quick-instructor-more" class="quick-more-note">${instructors.length > visibleInstructors.length ? `${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in Browse.` : ''}</small>
+                    <small id="quick-instructor-more" class="quick-more-note">${instructors.length > visibleInstructors.length ? `${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in Search.` : ''}</small>
                 </section>
 
                 <section class="course-quick-section quick-grade-section">
@@ -1086,10 +1099,17 @@ const Scheduler = {
 
                 <footer class="course-quick-actions">
                     <button id="btn-quick-course-toggle" class="${State.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}">${State.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
-                    <button id="btn-quick-view-browse" class="btn-secondary">${selectedSection ? 'VIEW SECTION DETAILS IN SEARCH' : 'VIEW FULL DETAILS IN SEARCH'}</button>
+                    <button id="btn-quick-view-browse" class="btn-secondary">${selectedSection ? `VIEW DETAILS FOR SECTION ${this.escapeHtml(selectedSection.section || '?')}` : 'VIEW FULL COURSE DETAILS'}</button>
                 </footer>
             </section>
         `;
+
+        this.bindQuickInstructorActions(
+            document.getElementById('quick-instructor-grid'),
+            visibleInstructors,
+            group,
+            selectedSection,
+        );
 
         document.getElementById('btn-quick-course-toggle')?.addEventListener('click', async event => {
             const button = event.currentTarget;
@@ -1206,7 +1226,9 @@ const Scheduler = {
         let gradeData = {};
         let facultyData = [];
         const updateFaculty = () => {
-            if (requestId === this._quickViewRequestId) this.updateQuickFaculty(group, gradeData, facultyData);
+            if (requestId === this._quickViewRequestId) {
+                this.updateQuickFaculty(group, gradeData, facultyData, selectedSection);
+            }
         };
         gradesPromise
             .then(result => {
@@ -1263,6 +1285,19 @@ const Scheduler = {
         await Search.openCourseFromExternal(group, sectionCrn);
     },
 
+    async openProfessorInBrowse(group, sectionCrn = '', instructor = {}) {
+        await this.openCourseInBrowse(group, sectionCrn);
+        if (typeof Grades === 'undefined' || !Grades.showProfessorForCourseName) return;
+        const displayName = instructor.displayName || instructor.name || 'Instructor';
+        const professorId = instructor.professorId || instructor.grade?.id || '';
+        await Grades.showProfessorForCourseName(
+            group.code,
+            displayName,
+            instructor.email || '',
+            professorId,
+        );
+    },
+
     scheduleCourseAvailability(group) {
         const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
         if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
@@ -1290,6 +1325,24 @@ const Scheduler = {
         return { results, selected: Math.max(0, available - results) };
     },
 
+    initialCourseResultsHeight(stored, availableHeight) {
+        const available = Math.max(0, Number(availableHeight) || 0);
+        if (available <= 0) return 0;
+        const midpoint = available / 2;
+        const storedHeight = Number(stored?.resultsHeight);
+        const storedRatio = Number(stored?.resultsRatio);
+        if (Number(stored?.version) >= 2
+            && Number.isFinite(storedRatio)
+            && storedRatio > 0
+            && storedRatio < 1) {
+            return available * storedRatio;
+        }
+        if (!Number.isFinite(storedHeight) || storedHeight <= 0) return midpoint;
+        const isLegacyDefault = Math.abs(storedHeight - 170) <= 1;
+        const isStaleTinyValue = storedHeight < Math.min(140, available * 0.24);
+        return isLegacyDefault || isStaleTinyValue ? midpoint : storedHeight;
+    },
+
     setCoursePanelSizes(resultsHeight) {
         const sidebar = document.getElementById('schedule-sidebar');
         const search = sidebar?.querySelector('.schedule-search-section');
@@ -1313,16 +1366,29 @@ const Scheduler = {
         const divider = document.getElementById('schedule-course-divider');
         const sidebar = document.getElementById('schedule-sidebar');
         const results = document.getElementById('schedule-search-results');
-        if (!divider || !sidebar || !results) return;
+        const search = sidebar?.querySelector('.schedule-search-section');
+        if (!divider || !sidebar || !results || !search) return;
 
-        let storedHeight = 170;
+        let stored = null;
         try {
-            const stored = JSON.parse(localStorage.getItem('uofsc-course-divider-v1') || 'null');
-            storedHeight = Number(stored?.resultsHeight) || storedHeight;
+            stored = JSON.parse(localStorage.getItem('uofsc-course-divider-v1') || 'null');
         } catch (error) {
-            storedHeight = 170;
+            stored = null;
         }
-        sidebar.style.setProperty('--schedule-results-height', `${storedHeight}px`);
+        let initialSizeApplied = false;
+        const availableHeight = () => sidebar.clientHeight
+            - search.getBoundingClientRect().height
+            - divider.getBoundingClientRect().height;
+        const applyInitialSize = () => {
+            const available = availableHeight();
+            if (available <= 0) {
+                sidebar.style.setProperty('--schedule-results-height', '50%');
+                return;
+            }
+            this.setCoursePanelSizes(this.initialCourseResultsHeight(stored, available));
+            initialSizeApplied = true;
+        };
+        applyInitialSize();
 
         let startY = 0;
         let startHeight = 0;
@@ -1332,8 +1398,12 @@ const Scheduler = {
             document.removeEventListener('pointerup', stop);
             divider.classList.remove('active');
             document.body.classList.remove('resizing-course-divider');
+            const available = availableHeight();
+            const resultsHeight = results.getBoundingClientRect().height;
             localStorage.setItem('uofsc-course-divider-v1', JSON.stringify({
-                resultsHeight: results.getBoundingClientRect().height,
+                version: 2,
+                resultsHeight,
+                resultsRatio: available > 0 ? resultsHeight / available : null,
             }));
         };
 
@@ -1354,6 +1424,11 @@ const Scheduler = {
         });
         window.addEventListener('resize', () => {
             if (sidebar.clientHeight > 0) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+        });
+        document.addEventListener('tab-changed', event => {
+            if (event.detail?.tab !== 'schedule') return;
+            if (initialSizeApplied) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+            else applyInitialSize();
         });
     },
 
@@ -1636,15 +1711,38 @@ const Scheduler = {
         } catch (error) {
             stored = null;
         }
+        const availableAtInit = this.availablePanelHeight(content, handle);
+        const storedRatio = Number(stored?.workspaceRatio);
+        let storedWorkspace = stored?.workspace;
+        if (Number(stored?.version) >= 2
+            && Number.isFinite(storedRatio)
+            && storedRatio >= 0
+            && storedRatio <= 1
+            && availableAtInit > 0) {
+            storedWorkspace = availableAtInit * storedRatio;
+        } else if (Number.isFinite(Number(storedWorkspace))
+            && Number(storedWorkspace) > availableAtInit - 80
+            && availableAtInit > 0) {
+            // Migrate the old absolute-height preference without letting a
+            // shorter window start with the route map accidentally hidden.
+            storedWorkspace = availableAtInit * 0.62;
+        }
         this._preferredWorkspaceHeight = this.initialPanelHeight(
-            stored?.workspace,
+            storedWorkspace,
             workspace.getBoundingClientRect().height,
         );
+        this._preferredWorkspaceRatio = Number.isFinite(storedRatio)
+            && storedRatio >= 0
+            && storedRatio <= 1
+            ? storedRatio
+            : null;
         this.setVerticalSizes(this._preferredWorkspaceHeight);
 
         document.addEventListener('tab-changed', event => {
             if (event.detail?.tab === 'schedule') {
-                this.setVerticalSizes(this._preferredWorkspaceHeight);
+                const available = this.availablePanelHeight(content, handle);
+                const ratio = Number(this._preferredWorkspaceRatio);
+                this.setVerticalSizes(Number.isFinite(ratio) ? available * ratio : this._preferredWorkspaceHeight);
             }
         });
 
@@ -1675,33 +1773,49 @@ const Scheduler = {
         handle.addEventListener('keydown', event => {
             if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
             const workspaceHeight = workspace.getBoundingClientRect().height;
+            const availableHeight = this.availablePanelHeight(content, handle);
             const delta = event.key === 'ArrowDown' ? 30 : -30;
-            this.setVerticalSizes(workspaceHeight + delta);
+            let requestedHeight = workspaceHeight + delta;
+            // A collapsed panel must be reachable with the keyboard as well as
+            // the pointer. Move past the endpoint snap zone on the first keypress.
+            if (event.key === 'ArrowDown' && workspaceHeight <= 0) requestedHeight = 90;
+            if (event.key === 'ArrowUp' && workspaceHeight >= availableHeight) {
+                requestedHeight = Math.max(0, availableHeight - 90);
+            }
+            this.setVerticalSizes(requestedHeight);
             this.saveVerticalSizes();
             event.preventDefault();
         });
         this._verticalResizeHandler = () => {
-            this.setVerticalSizes(workspace.getBoundingClientRect().height);
+            const available = this.availablePanelHeight(content, handle);
+            const ratio = Number(this._preferredWorkspaceRatio);
+            this.setVerticalSizes(Number.isFinite(ratio) ? available * ratio : workspace.getBoundingClientRect().height);
         };
         window.addEventListener('resize', this._verticalResizeHandler);
     },
 
     fitPanelSizes(workspaceHeight, availableHeight) {
         const total = Math.max(0, Math.round(availableHeight));
-        const preferredMapMinimum = 260;
-        const mapMinimum = Math.min(preferredMapMinimum, Math.max(0, total - 200));
-        const workspaceMinimum = Math.min(420, Math.max(0, total - mapMinimum));
-        const workspaceMaximum = Math.max(workspaceMinimum, total - mapMinimum);
-        const workspace = Math.max(
-            workspaceMinimum,
-            Math.min(workspaceMaximum, Math.round(workspaceHeight)),
+        if (total === 0) return { workspace: 0, map: 0 };
+
+        const requested = Number(workspaceHeight);
+        const bounded = Math.max(
+            0,
+            Math.min(total, Math.round(Number.isFinite(requested) ? requested : total * 0.62)),
         );
+        const endpointSnap = Math.min(48, Math.max(20, Math.round(total * 0.06)));
+        const workspace = bounded <= endpointSnap
+            ? 0
+            : bounded >= total - endpointSnap
+                ? total
+                : bounded;
         return { workspace, map: Math.max(0, total - workspace) };
     },
 
     initialPanelHeight(storedHeight, measuredHeight) {
         const stored = Number(storedHeight);
-        if (Number.isFinite(stored) && stored > 0) return stored;
+        if (storedHeight !== null && storedHeight !== undefined
+            && Number.isFinite(stored) && stored >= 0) return stored;
         const measured = Number(measuredHeight);
         if (Number.isFinite(measured) && measured > 0) return measured;
         return 620;
@@ -1724,18 +1838,42 @@ const Scheduler = {
         if (!content || !handle) return;
         const available = this.availablePanelHeight(content, handle);
         if (available <= 0) return;
-        const { workspace } = this.fitPanelSizes(workspaceHeight, available);
+        const { workspace, map } = this.fitPanelSizes(workspaceHeight, available);
         this._preferredWorkspaceHeight = workspace;
+        this._preferredWorkspaceRatio = available > 0 ? workspace / available : null;
         content.style.setProperty('--schedule-workspace-height', `${workspace}px`);
+        content.classList.toggle('schedule-workspace-hidden', workspace === 0);
+        content.classList.toggle('schedule-map-hidden', map === 0);
+        handle.setAttribute('aria-valuemin', '0');
+        handle.setAttribute('aria-valuemax', String(available));
+        handle.setAttribute('aria-valuenow', String(workspace));
+        handle.setAttribute(
+            'aria-valuetext',
+            workspace === 0
+                ? 'Map only'
+                : map === 0
+                    ? 'Calendar and schedule options only'
+                    : `${workspace} pixels for calendar and schedule options; ${map} pixels for map`,
+        );
         if (typeof WalkingMap !== 'undefined' && WalkingMap._map) {
             requestAnimationFrame(() => WalkingMap._map.invalidateSize());
         }
     },
 
     saveVerticalSizes() {
-        const workspace = document.querySelector('.schedule-workspace')?.getBoundingClientRect().height;
-        if (!workspace) return;
-        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({ workspace }));
+        const content = document.getElementById('schedule-content');
+        const handle = document.getElementById('schedule-vertical-resizer');
+        const workspace = Number(document.querySelector('.schedule-workspace')
+            ?.getBoundingClientRect().height);
+        if (!Number.isFinite(workspace)) return;
+        const available = content && handle ? this.availablePanelHeight(content, handle) : 0;
+        localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({
+            version: 2,
+            workspace,
+            workspaceRatio: Number.isFinite(Number(this._preferredWorkspaceRatio))
+                ? this._preferredWorkspaceRatio
+                : (available > 0 ? workspace / available : null),
+        }));
     },
 
     isSchedulableSection(section) {

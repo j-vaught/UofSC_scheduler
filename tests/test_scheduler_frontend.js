@@ -1049,6 +1049,8 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /quick-frequency-ring/);
     assert.match(source, /API\.getFaculty\(State\.term, facultyCrns\)/);
     assert.match(source, /href="mailto:\$\{this\.escapeHtml\(instructor\.email\)\}"/);
+    assert.match(source, /data-quick-instructor-index="\$\{index\}"/);
+    assert.match(source, /VIEW DETAILS FOR SECTION \$\{this\.escapeHtml\(selectedSection\.section/);
     assert.match(source, /Offered in \$\{frequency\}% of recent terms/);
     assert.match(source, /Last offered \$\{offering\.last_offered_label\}/);
     assert.match(source, /const detailsPromise =/);
@@ -1063,6 +1065,43 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(styles, /#modal\.course-quick-modal\s*{[^}]*max-width:\s*780px;/s);
     assert.match(styles, /\.quick-instructor-grid\s*{[^}]*grid-template-columns:\s*repeat\(2,/s);
     assert.match(styles, /\.quick-instructor-card small\s*{[^}]*font-size:\s*0\.7rem;/s);
+});
+
+test('quick instructor profiles open Search at the same course and section before showing the professor', async () => {
+    const calls = [];
+    const appModal = { close() { calls.push(['close']); } };
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
+        window: { AppModal: appModal },
+        AppModal: appModal,
+        Tabs: { switchTo(tab) { calls.push(['tab', tab]); } },
+        Search: {
+            async openCourseFromExternal(group, crn) {
+                calls.push(['course', group.code, crn]);
+            },
+        },
+        Grades: {
+            async showProfessorForCourseName(code, name, email, professorId) {
+                calls.push(['professor', code, name, email, professorId]);
+            },
+        },
+    });
+
+    await scheduler.openProfessorInBrowse(
+        { code: 'EMCH 741' },
+        '23800',
+        {
+            displayName: 'Ling, Yue',
+            email: 'stanley_ling@sc.edu',
+            professorId: 'prof_ling',
+        },
+    );
+
+    assert.deepEqual(calls, [
+        ['close'],
+        ['tab', 'semester'],
+        ['course', 'EMCH 741', '23800'],
+        ['professor', 'EMCH 741', 'Ling, Yue', 'stanley_ling@sc.edu', 'prof_ling'],
+    ]);
 });
 
 test('quick view compares grades only for instructors teaching the current term', () => {
@@ -1203,6 +1242,20 @@ test('course results divider is adjustable while preserving selected-course spac
     assert.match(styles, /\.schedule-course-divider\s*{[^}]*cursor:\s*row-resize;/s);
 });
 
+test('course results divider starts near the middle and repairs the legacy tiny default', () => {
+    const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
+
+    assert.equal(scheduler.initialCourseResultsHeight(null, 600), 300);
+    assert.equal(scheduler.initialCourseResultsHeight({ resultsHeight: 170 }, 600), 300);
+    assert.equal(scheduler.initialCourseResultsHeight({ resultsHeight: 95 }, 600), 300);
+    assert.equal(scheduler.initialCourseResultsHeight({ resultsHeight: 280 }, 600), 280);
+    assert.equal(scheduler.initialCourseResultsHeight({
+        version: 2,
+        resultsHeight: 220,
+        resultsRatio: 0.4,
+    }, 800), 320);
+});
+
 test('schedule results offer ten more ranked options when more are available', () => {
     const listeners = {};
     const showMore = {
@@ -1231,16 +1284,28 @@ test('schedule results offer ten more ranked options when more are available', (
     assert.equal(requestedResults, 20);
 });
 
-test('schedule splitter keeps calendar and map within the available height', () => {
+test('schedule splitter keeps both panels in bounds and snaps either panel fully closed', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
 
-    const mapExpanded = scheduler.fitPanelSizes(100, 700);
-    const calendarExpanded = scheduler.fitPanelSizes(900, 700);
+    const balanced = scheduler.fitPanelSizes(300, 700);
+    const mapOnly = scheduler.fitPanelSizes(20, 700);
+    const calendarOnly = scheduler.fitPanelSizes(680, 700);
 
-    assert.equal(mapExpanded.workspace + mapExpanded.map, 700);
-    assert.equal(calendarExpanded.workspace + calendarExpanded.map, 700);
-    assert.equal(mapExpanded.workspace, 420);
-    assert.equal(calendarExpanded.map, 260);
+    assert.equal(balanced.workspace + balanced.map, 700);
+    assert.equal(mapOnly.workspace, 0);
+    assert.equal(mapOnly.map, 700);
+    assert.equal(calendarOnly.workspace, 700);
+    assert.equal(calendarOnly.map, 0);
+});
+
+test('schedule workspace remains split and contained on narrower desktop screens', () => {
+    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+
+    assert.match(styles, /\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(220px, 0\.68fr\) minmax\(0, 1\.5fr\);/s);
+    assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(210px, 0\.68fr\) minmax\(0, 1\.35fr\);/);
+    assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-vertical-resizer\s*{\s*display:\s*flex;/);
+    assert.match(styles, /#calendar-container\s*{[^}]*max-width:\s*100%;[^}]*overflow:\s*auto;[^}]*width:\s*100%;/s);
+    assert.match(styles, /\.sched-course\s*{[^}]*background:\s*transparent;/s);
 });
 
 test('schedule map divider is centered between the calendar and map', () => {
@@ -1528,7 +1593,7 @@ test('schedule splitter uses a safe default when initialized in a hidden tab', (
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
 
     assert.equal(scheduler.initialPanelHeight(null, 0), 620);
-    assert.equal(scheduler.initialPanelHeight(0, 0), 620);
+    assert.equal(scheduler.initialPanelHeight(0, 0), 0);
     assert.equal(scheduler.initialPanelHeight(540, 0), 540);
     assert.equal(scheduler.initialPanelHeight(null, 575), 575);
 });
@@ -1539,6 +1604,10 @@ test('schedule splitter recalculates when the schedule tab becomes visible', () 
     assert.match(source, /addEventListener\('tab-changed'/);
     assert.match(source, /event\.detail\?\.tab === 'schedule'/);
     assert.match(source, /if \(available <= 0\) return;/);
+    assert.match(source, /workspaceRatio:\s*Number\.isFinite\(Number\(this\._preferredWorkspaceRatio\)\)/);
+    assert.match(source, /availableAtInit \* storedRatio/);
+    assert.match(source, /available \* ratio : workspace\.getBoundingClientRect\(\)\.height/);
+    assert.match(source, /this\._preferredWorkspaceRatio = available > 0 \? workspace \/ available : null/);
 });
 
 test('adding a course code stores every live section without choosing one', async () => {
@@ -2070,7 +2139,8 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(source, /count: new Set\(matchingCodes\)\.size/);
     assert.match(source, /<strong>\$\{countLabel\}<\/strong>/);
     assert.match(source, /class="semantic-search-terms-toggle" aria-expanded="false"/);
-    assert.match(source, /\$\{searchTerms\.length\} Generated searches/);
+    assert.match(source, /\$\{searchTerms\.length\} Search sources/);
+    assert.match(source, /Meaning-based catalog matches/);
     assert.match(source, /id="semantic-search-term-list" class="semantic-search-term-list hidden"/);
     assert.match(source, /searchTermsToggle\?\.addEventListener\('click'/);
     assert.match(source, /class="related-search-back-icon"/);
@@ -2085,6 +2155,7 @@ test('Browse teaches structured searches and presents generated searches compact
     assert.match(source, /failed: usedSearchFailures\[index\]/);
     assert.match(source, /No results found\.[\s\S]*generatedSearchesMarkup\(searchTerms\)/);
     assert.match(styles, /\.semantic-search-term\.is-failed\s*\{[^}]*border-color:\s*#CC2E40;/s);
+    assert.match(styles, /\.semantic-search-term\.is-catalog,[\s\S]*cursor:\s*default;/);
     assert.match(source, /_findNearestPhrases\(queryVec, 19, query\)/);
     assert.match(styles, /\.search-progress\s*{[^}]*border:\s*2px solid #000000;/s);
 });
