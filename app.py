@@ -5,27 +5,61 @@ import http.server
 import socketserver
 import concurrent.futures
 import json
-import urllib.request
 import urllib.error
+import urllib.request
 import os
 import re
+import threading
 import time
 
+import requests
+
 import cache
-import transcript as transcript_mod
-import planner as planner_mod
-import offering_analyzer
 import grade_analytics
+import offering_analyzer
+import planner as planner_mod
+import transcript as transcript_mod
 
 PORT = 8765
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 
 LIVE_CACHE_TTL = 300
-HISTORY_CACHE_TTL = 30 * 24 * 60 * 60
-HISTORY_CACHE_VERSION = 2
+HISTORY_CACHE_TTL = 60 * 24 * 60 * 60
+HISTORY_CACHE_VERSION = 3
+HISTORY_TERM_CACHE_VERSION = 1
+HISTORY_BATCH_ENROLLMENT_THRESHOLD = 4
 
 CLASSES_API = "https://classes.sc.edu/api/?page=fose&route="
 BULLETIN_API = "https://academicbulletins.sc.edu/course-search/api/?page=fose&route="
+BANNER_API = "https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb"
+
+_INFLIGHT_LOCK = threading.Lock()
+_INFLIGHT: dict[str, "_InflightRequest"] = {}
+
+
+class _InflightRequest:
+    def __init__(self):
+        self.event = threading.Event()
+        self.data: bytes | None = None
+
+
+def _claim_inflight(key):
+    with _INFLIGHT_LOCK:
+        request = _INFLIGHT.get(key)
+        if request is not None:
+            return request, False
+        request = _InflightRequest()
+        _INFLIGHT[key] = request
+        return request, True
+
+
+def _finish_inflight(key, request, data):
+    request.data = data
+    request.event.set()
+    with _INFLIGHT_LOCK:
+        if _INFLIGHT.get(key) is request:
+            del _INFLIGHT[key]
+
 
 TERM_CODES = [
     "202308",
@@ -59,6 +93,42 @@ MIME_TYPES = {
     ".ico": "image/x-icon",
 }
 
+HEAVY_STATIC_ASSETS = {
+    "data/course_embeddings.json",
+    "data/phrase_embeddings.json",
+    "data/pca_params.json",
+}
+
+
+def _cache_get(key):
+    """Treat the disk cache as an optional acceleration layer."""
+    try:
+        return cache.get(key)
+    except Exception:
+        return None
+
+
+def _cache_put(key, data, ttl=300):
+    """Never let a cache write replace or discard a valid response."""
+    try:
+        return cache.put(key, data, ttl)
+    except Exception:
+        return False
+
+
+def _static_cache_control(filepath):
+    relative_path = os.path.relpath(filepath, STATIC_DIR).replace(os.sep, "/")
+    extension = os.path.splitext(relative_path)[1].lower()
+    if relative_path in HEAVY_STATIC_ASSETS:
+        return "public, max-age=2592000, immutable"
+    if extension == ".html" or relative_path == "data/site_notices.json":
+        return "no-cache"
+    if extension in {".js", ".css"}:
+        return "public, max-age=300, must-revalidate"
+    if extension == ".json":
+        return "public, max-age=86400, stale-while-revalidate=604800"
+    return "public, max-age=604800"
+
 
 def proxy_request(
     upstream_url,
@@ -67,9 +137,16 @@ def proxy_request(
     force_refresh=False,
 ):
     key = cache.make_key(upstream_url, body_bytes.decode())
-    cached = None if force_refresh else cache.get(key)
-    if cached:
+    cached = None if force_refresh else _cache_get(key)
+    if cached is not None:
         return cached
+
+    inflight_key = f"upstream:{key}:refresh={int(force_refresh)}"
+    request_state, owns_request = _claim_inflight(inflight_key)
+    if not owns_request:
+        if request_state.event.wait(timeout=20) and request_state.data is not None:
+            return request_state.data
+        return json.dumps({"error": "upstream request timed out while waiting"}).encode()
 
     req = urllib.request.Request(
         upstream_url,
@@ -77,20 +154,23 @@ def proxy_request(
         headers={"Content-Type": "application/json", "Accept": "application/json"},
         method="POST",
     )
+    result = json.dumps({"error": "upstream request failed"}).encode()
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
-            data = resp.read()
+            result = resp.read()
         try:
-            parsed = json.loads(data)
+            parsed = json.loads(result)
         except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
             parsed = None
         if parsed is not None and not (isinstance(parsed, dict) and parsed.get("error")):
-            cache.put(key, data, ttl)
-        return data
+            _cache_put(key, result, ttl)
     except urllib.error.HTTPError as e:
-        return json.dumps({"error": str(e), "code": e.code}).encode()
+        result = json.dumps({"error": str(e), "code": e.code}).encode()
     except Exception as e:
-        return json.dumps({"error": str(e)}).encode()
+        result = json.dumps({"error": str(e)}).encode()
+    finally:
+        _finish_inflight(inflight_key, request_state, result)
+    return result
 
 
 def _history_cache_key(course_code, as_of_term, terms):
@@ -105,6 +185,106 @@ def _history_cache_key(course_code, as_of_term, terms):
         separators=(",", ":"),
     )
     return cache.make_key(f"course-history-v{HISTORY_CACHE_VERSION}", cache_spec)
+
+
+def _history_term_cache_key(course_code, term):
+    cache_spec = json.dumps(
+        {
+            "version": HISTORY_TERM_CACHE_VERSION,
+            "code": course_code,
+            "term": term,
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return cache.make_key(f"course-history-term-v{HISTORY_TERM_CACHE_VERSION}", cache_spec)
+
+
+def _banner_enrollment_cache_key(course_code, term, crns):
+    cache_spec = json.dumps(
+        {
+            "code": course_code,
+            "term": term,
+            "crns": sorted(set(str(crn) for crn in crns)),
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    return cache.make_key("banner-course-enrollment-v1", cache_spec)
+
+
+def _fetch_banner_enrollment(session, course_code, term, crns):
+    """Fetch exact section enrollment in two requests instead of one per section."""
+    expected_crns = {str(crn) for crn in crns if crn}
+    if not expected_crns:
+        return None
+    cache_key = _banner_enrollment_cache_key(course_code, term, expected_crns)
+    cached = _cache_get(cache_key)
+    if cached is not None:
+        try:
+            return json.loads(cached)
+        except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
+            pass
+
+    subject, course_number = course_code.split(maxsplit=1)
+    try:
+        term_response = session.post(
+            f"{BANNER_API}/term/search?mode=search",
+            data={
+                "term": term,
+                "studyPath": "",
+                "studyPathText": "",
+                "startDatepicker": "",
+                "endDatepicker": "",
+                "mepCode": "COL",
+            },
+            timeout=15,
+        )
+        term_response.raise_for_status()
+        result_response = session.get(
+            f"{BANNER_API}/searchResults/searchResults",
+            params={
+                "txt_subject": subject,
+                "txt_courseNumber": course_number,
+                "txt_term": term,
+                "pageOffset": 0,
+                "pageMaxSize": min(500, max(10, len(expected_crns) + 5)),
+                "sortColumn": "subjectDescription",
+                "sortDirection": "asc",
+            },
+            timeout=20,
+        )
+        result_response.raise_for_status()
+        payload = result_response.json()
+    except Exception:
+        return None
+
+    rows = payload.get("data") if isinstance(payload, dict) else None
+    if not isinstance(rows, list):
+        return None
+    matching_rows = {
+        str(row.get("courseReferenceNumber")): row
+        for row in rows
+        if str(row.get("courseReferenceNumber")) in expected_crns
+    }
+    if set(matching_rows) != expected_crns:
+        return None
+
+    enrollment = 0
+    capacity = 0
+    for row in matching_rows.values():
+        try:
+            enrollment += int(row["enrollment"])
+            capacity += int(row["maximumEnrollment"])
+        except (KeyError, TypeError, ValueError):
+            return None
+    result = {
+        "enrollment": enrollment,
+        "capacity": capacity,
+        "enrollment_sections": len(matching_rows),
+    }
+    _cache_put(cache_key, json.dumps(result).encode(), ttl=HISTORY_CACHE_TTL)
+    return result
 
 
 def _upstream_payload(data):
@@ -142,25 +322,33 @@ def _emit_history_progress(progress, phase, completed, total, term, **details):
     )
 
 
-def handle_history(body, progress=None):
-    params = json.loads(body)
-    course_code = " ".join(str(params.get("code", "")).upper().split())
-    if not course_code or " " not in course_code:
-        return json.dumps({"error": "invalid course code"}).encode()
-
+def _build_history(course_code, as_of_term, history_terms, history_cache_key, progress=None):
     subject = course_code.split()[0]
-    as_of_term = offering_analyzer.current_academic_term()
-    history_terms = [term for term in TERM_CODES if term < as_of_term]
-    history_cache_key = _history_cache_key(course_code, as_of_term, history_terms)
-    cached = cache.get(history_cache_key)
-    if cached:
-        return cached
-
     results: dict[str, dict[str, object]] = {}
     complete = True
     total_terms = len(history_terms)
+    banner_summary_enabled = True
     for term_index, term in enumerate(history_terms):
         _emit_history_progress(progress, "terms", term_index, total_terms, term)
+        term_cache_key = _history_term_cache_key(course_code, term)
+        cached_term = _cache_get(term_cache_key)
+        if cached_term is not None:
+            try:
+                cached_result = json.loads(cached_term)
+            except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
+                cached_result = None
+            if isinstance(cached_result, dict):
+                results[term] = cached_result
+                _emit_history_progress(
+                    progress,
+                    "terms",
+                    term_index + 1,
+                    total_terms,
+                    term,
+                    cached=True,
+                )
+                continue
+
         payload = json.dumps(
             {
                 "other": {"srcdb": term},
@@ -194,44 +382,90 @@ def handle_history(body, progress=None):
         if matches:
             instructors = sorted(set(row.get("instr", "Staff") for row in matches))
             times = sorted(set(row.get("meets", "TBA") for row in matches))
-            enrollment = 0
-            capacity = 0
-            enrollment_sections = 0
             enrollment_error = False
-            for section_index, section in enumerate(matches, start=1):
-                detail_payload = json.dumps(
-                    {
-                        "group": f"crn:{section.get('crn', '')}",
-                        "srcdb": term,
-                    }
-                ).encode()
-                detail_data = proxy_request(
-                    CLASSES_API + "details",
-                    detail_payload,
-                    ttl=HISTORY_CACHE_TTL,
-                )
-                details = _upstream_payload(detail_data)
-                if details is None:
-                    complete = False
-                    enrollment_error = True
-                else:
-                    seats_html = details.get("seats", "")
-                    maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
-                    available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
-                    if maximum and available:
-                        section_capacity = int(maximum.group(1))
-                        capacity += section_capacity
-                        enrollment += max(0, section_capacity - int(available.group(1)))
-                        enrollment_sections += 1
+            enrollment_data = None
+            if banner_summary_enabled and len(matches) >= HISTORY_BATCH_ENROLLMENT_THRESHOLD:
                 _emit_history_progress(
                     progress,
                     "enrollment",
                     term_index,
                     total_terms,
                     term,
-                    section=section_index,
+                    section=0,
                     section_total=len(matches),
+                    mode="summary",
                 )
+                banner_session = requests.Session()
+                banner_session.headers.update(
+                    {"User-Agent": "Mozilla/5.0 UofSC-Course-Scheduler/1.0"}
+                )
+                try:
+                    enrollment_data = _fetch_banner_enrollment(
+                        banner_session,
+                        course_code,
+                        term,
+                        [section.get("crn", "") for section in matches],
+                    )
+                finally:
+                    banner_session.close()
+                if enrollment_data is not None:
+                    _emit_history_progress(
+                        progress,
+                        "enrollment",
+                        term_index,
+                        total_terms,
+                        term,
+                        section=len(matches),
+                        section_total=len(matches),
+                        mode="summary",
+                    )
+                else:
+                    banner_summary_enabled = False
+
+            if enrollment_data is None:
+                enrollment = 0
+                capacity = 0
+                enrollment_sections = 0
+                for section_index, section in enumerate(matches, start=1):
+                    detail_payload = json.dumps(
+                        {
+                            "group": f"crn:{section.get('crn', '')}",
+                            "srcdb": term,
+                        }
+                    ).encode()
+                    detail_data = proxy_request(
+                        CLASSES_API + "details",
+                        detail_payload,
+                        ttl=HISTORY_CACHE_TTL,
+                    )
+                    details = _upstream_payload(detail_data)
+                    if details is None:
+                        complete = False
+                        enrollment_error = True
+                    else:
+                        seats_html = details.get("seats", "")
+                        maximum = re.search(r"seats_max[^>]*>(\d+)", seats_html)
+                        available = re.search(r"seats_avail[^>]*>(\d+)", seats_html)
+                        if maximum and available:
+                            section_capacity = int(maximum.group(1))
+                            capacity += section_capacity
+                            enrollment += max(0, section_capacity - int(available.group(1)))
+                            enrollment_sections += 1
+                    _emit_history_progress(
+                        progress,
+                        "enrollment",
+                        term_index,
+                        total_terms,
+                        term,
+                        section=section_index,
+                        section_total=len(matches),
+                    )
+                if enrollment_sections:
+                    enrollment_data = {
+                        "enrollment": enrollment,
+                        "capacity": capacity,
+                        "enrollment_sections": enrollment_sections,
+                    }
 
             results[term] = {
                 "available": True,
@@ -243,20 +477,20 @@ def handle_history(body, progress=None):
             }
             if enrollment_error:
                 results[term]["enrollment_error"] = True
-            elif enrollment_sections:
-                results[term].update(
-                    {
-                        "enrollment": enrollment,
-                        "capacity": capacity,
-                        "enrollment_sections": enrollment_sections,
-                    }
-                )
+            elif enrollment_data is not None:
+                results[term].update(enrollment_data)
         else:
             results[term] = {
                 "available": True,
                 "complete": True,
                 "offered": False,
             }
+        if not results[term].get("error") and not results[term].get("enrollment_error"):
+            _cache_put(
+                term_cache_key,
+                json.dumps(results[term]).encode(),
+                ttl=HISTORY_CACHE_TTL,
+            )
         _emit_history_progress(progress, "terms", term_index + 1, total_terms, term)
         time.sleep(0.2)
 
@@ -281,7 +515,63 @@ def handle_history(body, progress=None):
         }
     ).encode()
     if complete:
-        cache.put(history_cache_key, response, ttl=HISTORY_CACHE_TTL)
+        _cache_put(history_cache_key, response, ttl=HISTORY_CACHE_TTL)
+    return response
+
+
+def handle_history(body, progress=None):
+    try:
+        params = json.loads(body)
+    except (json.JSONDecodeError, TypeError, UnicodeDecodeError):
+        return json.dumps({"error": "invalid request"}).encode()
+    course_code = " ".join(str(params.get("code", "")).upper().split())
+    if not re.fullmatch(r"[A-Z]{2,5}\s+\d{3}[A-Z]?", course_code):
+        return json.dumps({"error": "invalid course code"}).encode()
+
+    as_of_term = offering_analyzer.current_academic_term()
+    history_terms = [term for term in TERM_CODES if term < as_of_term]
+    history_cache_key = _history_cache_key(course_code, as_of_term, history_terms)
+    cached = _cache_get(history_cache_key)
+    if cached is not None:
+        return cached
+
+    inflight_key = f"history:{history_cache_key}"
+    request_state, owns_request = _claim_inflight(inflight_key)
+    if not owns_request:
+        if history_terms:
+            _emit_history_progress(
+                progress,
+                "waiting",
+                0,
+                len(history_terms),
+                history_terms[0],
+            )
+        if request_state.event.wait(timeout=300) and request_state.data is not None:
+            return request_state.data
+        return json.dumps({"error": "offering history request timed out"}).encode()
+
+    response = json.dumps({"error": "offering history unavailable"}).encode()
+    try:
+        response = _build_history(
+            course_code,
+            as_of_term,
+            history_terms,
+            history_cache_key,
+            progress=progress,
+        )
+    except Exception:
+        response = json.dumps(
+            {
+                "error": "offering history unavailable",
+                "code": course_code,
+                "as_of_term": as_of_term,
+                "complete": False,
+                "total_terms": len(history_terms),
+                "terms": [],
+            }
+        ).encode()
+    finally:
+        _finish_inflight(inflight_key, request_state, response)
     return response
 
 
@@ -295,14 +585,14 @@ def handle_faculty(body):
 
     def fetch_one(crn):
         cache_key = cache.make_key("current-faculty", f"{term}:{crn}")
-        cached = cache.get(cache_key)
+        cached = _cache_get(cache_key)
         if cached:
             members = json.loads(cached)
         else:
             from grade_pipeline import fetch_faculty
 
             _, _, members = fetch_faculty((term, crn))
-            cache.put(cache_key, json.dumps(members).encode(), ttl=86400)
+            _cache_put(cache_key, json.dumps(members).encode(), ttl=86400)
         from grade_pipeline import public_instructor_id
 
         return [
@@ -332,6 +622,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def _send_json(self, data, status=200):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
+        self.send_header("Cache-Control", "no-store")
         self.send_header("Access-Control-Allow-Origin", "*")
         self.end_headers()
         if isinstance(data, str):
@@ -374,6 +665,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         mime = MIME_TYPES.get(ext, "application/octet-stream")
         self.send_response(200)
         self.send_header("Content-Type", mime)
+        self.send_header("Cache-Control", _static_cache_control(resolved))
         self.end_headers()
         with open(resolved, "rb") as f:
             self.wfile.write(f.read())
@@ -703,6 +995,7 @@ class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
 
 if __name__ == "__main__":
     print(f"UofSC Course Scheduler running at http://127.0.0.1:{PORT}")
+    cache.start_maintenance()
     server = ThreadedHTTPServer(("127.0.0.1", PORT), Handler)
     try:
         server.serve_forever()

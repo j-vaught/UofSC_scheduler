@@ -43,7 +43,13 @@ const History = {
         const section = Math.max(0, Number(progress.section) || 0);
         const sectionTotal = Math.max(0, Number(progress.section_total) || 0);
         let detail = label ? `Checking ${label}` : 'Preparing completed terms';
-        if (progress.phase === 'enrollment' && label) {
+        if (progress.phase === 'waiting') {
+            detail = 'Joining the offering-history request already in progress';
+        } else if (progress.phase === 'enrollment' && progress.mode === 'summary' && label) {
+            detail = section > 0
+                ? `Enrollment loaded for all ${sectionTotal} ${label} sections`
+                : `Loading enrollment for all ${sectionTotal} ${label} sections together`;
+        } else if (progress.phase === 'enrollment' && label) {
             detail = sectionTotal
                 ? `Reading enrollment for ${label} · ${section} of ${sectionTotal} sections`
                 : `Reading enrollment for ${label}`;

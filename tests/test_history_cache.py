@@ -1,4 +1,6 @@
 import json
+import time
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
@@ -72,7 +74,24 @@ def test_proxy_force_refresh_bypasses_read_and_replaces_cache(monkeypatch):
     assert writes[0][1:] == (b'{"results":["fresh"]}', 123)
 
 
-def test_history_cache_uses_completed_terms_and_thirty_day_ttl(monkeypatch):
+def test_proxy_returns_valid_upstream_response_when_cache_fails(monkeypatch):
+    def cache_failure(*_args, **_kwargs):
+        raise RuntimeError("cache unavailable")
+
+    monkeypatch.setattr(app.cache, "get", cache_failure)
+    monkeypatch.setattr(app.cache, "put", cache_failure)
+    monkeypatch.setattr(
+        app.urllib.request,
+        "urlopen",
+        lambda *_args, **_kwargs: _Response(b'{"results":["fresh"]}'),
+    )
+
+    result = app.proxy_request("https://example.test/search", b"{}", ttl=123)
+
+    assert result == b'{"results":["fresh"]}'
+
+
+def test_history_cache_uses_completed_terms_and_sixty_day_ttl(monkeypatch):
     stored = {}
     writes = []
     upstream_calls = []
@@ -136,8 +155,8 @@ def test_history_cache_uses_completed_terms_and_thirty_day_ttl(monkeypatch):
         "202401"
     }
     assert all(call[2] == app.HISTORY_CACHE_TTL for call in upstream_calls)
-    assert len(writes) == 1
-    assert writes[0][2] == 2_592_000
+    assert len(writes) == 2
+    assert all(write[2] == 5_184_000 for write in writes)
 
 
 def test_history_cache_key_includes_boundary_and_exact_term_list(monkeypatch):
@@ -154,15 +173,173 @@ def test_history_cache_key_includes_boundary_and_exact_term_list(monkeypatch):
 
     assert first != second
     assert calls[0] == (
-        "course-history-v2",
+        "course-history-v3",
         {
-            "version": 2,
+            "version": 3,
             "code": "CSCE 145",
             "as_of_term": "202405",
             "terms": ["202401"],
         },
     )
     assert calls[1][1]["terms"] == ["202401", "202405"]
+
+
+def test_many_sections_use_one_banner_enrollment_summary_instead_of_detail_calls(
+    monkeypatch,
+):
+    events = []
+    calls = []
+    enrollment_calls = []
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202405")
+    monkeypatch.setattr(app.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *_args, **_kwargs: None)
+
+    def proxy_request(url, body, ttl):
+        calls.append((url, json.loads(body), ttl))
+        assert url.endswith("search")
+        return json.dumps(
+            {"results": [{"code": "CSCE 145", "crn": str(10000 + index)} for index in range(5)]}
+        ).encode()
+
+    def fetch_enrollment(_session, code, term, crns):
+        enrollment_calls.append((code, term, crns))
+        return {"enrollment": 91, "capacity": 125, "enrollment_sections": 5}
+
+    monkeypatch.setattr(app, "proxy_request", proxy_request)
+    monkeypatch.setattr(app, "_fetch_banner_enrollment", fetch_enrollment)
+
+    result = json.loads(app.handle_history(b'{"code":"CSCE 145"}', progress=events.append))
+
+    assert len(calls) == 1
+    assert enrollment_calls == [
+        ("CSCE 145", "202401", ["10000", "10001", "10002", "10003", "10004"])
+    ]
+    assert result["terms"][0]["enrollment"] == 91
+    assert result["terms"][0]["capacity"] == 125
+    summary_events = [event for event in events if event.get("mode") == "summary"]
+    assert [event["section"] for event in summary_events] == [0, 5]
+
+
+def test_banner_summary_failure_opens_circuit_for_remaining_history_build(monkeypatch):
+    summary_calls = []
+    upstream_calls = []
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405", "202408"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202408")
+    monkeypatch.setattr(app.time, "sleep", lambda _seconds: None)
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *_args, **_kwargs: None)
+
+    def proxy_request(url, body, ttl):
+        payload = json.loads(body)
+        upstream_calls.append((url, payload, ttl))
+        if url.endswith("search"):
+            return json.dumps(
+                {
+                    "results": [
+                        {
+                            "code": "CSCE 145",
+                            "crn": f"{payload['other']['srcdb']}{index}",
+                        }
+                        for index in range(5)
+                    ]
+                }
+            ).encode()
+        return b'{"seats":"<span class=\\"seats_max\\">30</span><span class=\\"seats_avail\\">5</span>"}'
+
+    def failed_summary(_session, code, term, crns):
+        summary_calls.append((code, term, crns))
+        return None
+
+    monkeypatch.setattr(app, "proxy_request", proxy_request)
+    monkeypatch.setattr(app, "_fetch_banner_enrollment", failed_summary)
+
+    result = json.loads(app.handle_history(b'{"code":"CSCE 145"}'))
+
+    assert result["complete"] is True
+    assert len(summary_calls) == 1
+    assert summary_calls[0][1] == "202401"
+    assert len([call for call in upstream_calls if call[0].endswith("details")]) == 10
+
+
+def test_banner_enrollment_summary_uses_two_requests_and_caches_exact_totals(monkeypatch):
+    writes = []
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *args, **kwargs: writes.append((args, kwargs)))
+
+    class Response:
+        def __init__(self, payload=None):
+            self.payload = payload
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return self.payload
+
+    class Session:
+        def __init__(self):
+            self.calls = []
+
+        def post(self, url, **kwargs):
+            self.calls.append(("POST", url, kwargs))
+            return Response()
+
+        def get(self, url, **kwargs):
+            self.calls.append(("GET", url, kwargs))
+            return Response(
+                {
+                    "data": [
+                        {
+                            "courseReferenceNumber": "10001",
+                            "enrollment": 20,
+                            "maximumEnrollment": 25,
+                        },
+                        {
+                            "courseReferenceNumber": "10002",
+                            "enrollment": 22,
+                            "maximumEnrollment": 30,
+                        },
+                    ]
+                }
+            )
+
+    session = Session()
+    result = app._fetch_banner_enrollment(
+        session,
+        "CSCE 145",
+        "202501",
+        ["10001", "10002"],
+    )
+
+    assert result == {"enrollment": 42, "capacity": 55, "enrollment_sections": 2}
+    assert [call[0] for call in session.calls] == ["POST", "GET"]
+    assert session.calls[1][2]["params"]["txt_courseNumber"] == "145"
+    assert writes[0][0][2] == app.HISTORY_CACHE_TTL
+
+
+def test_concurrent_proxy_requests_share_one_upstream_call(monkeypatch):
+    calls = []
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+    monkeypatch.setattr(app.cache, "put", lambda *_args, **_kwargs: None)
+
+    def urlopen(*_args, **_kwargs):
+        calls.append(True)
+        time.sleep(0.05)
+        return _Response(b'{"results":["shared"]}')
+
+    monkeypatch.setattr(app.urllib.request, "urlopen", urlopen)
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        responses = list(
+            executor.map(
+                lambda _index: app.proxy_request("https://example.test/search", b"{}"),
+                range(2),
+            )
+        )
+
+    assert responses == [b'{"results":["shared"]}'] * 2
+    assert len(calls) == 1
 
 
 def test_history_progress_reports_completed_terms_and_section_details(monkeypatch):
@@ -247,6 +424,57 @@ def test_history_cache_hit_emits_no_progress(monkeypatch):
 
     assert result == cached
     assert events == []
+
+
+def test_unexpected_history_error_is_structured_and_releases_waiters(monkeypatch):
+    started = app.threading.Event()
+    release = app.threading.Event()
+    monkeypatch.setattr(app, "TERM_CODES", ["202401", "202405"])
+    monkeypatch.setattr(app.offering_analyzer, "current_academic_term", lambda: "202405")
+    monkeypatch.setattr(app.cache, "get", lambda _key: None)
+
+    def fail_build(*_args, **_kwargs):
+        started.set()
+        release.wait(timeout=1)
+        raise RuntimeError("unexpected failure")
+
+    monkeypatch.setattr(app, "_build_history", fail_build)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        owner = executor.submit(app.handle_history, b'{"code":"CSCE 145"}')
+        assert started.wait(timeout=1)
+        waiter = executor.submit(app.handle_history, b'{"code":"CSCE 145"}')
+        time.sleep(0.02)
+        release.set()
+        responses = [json.loads(owner.result()), json.loads(waiter.result())]
+
+    assert responses[0] == responses[1]
+    assert responses[0] == {
+        "error": "offering history unavailable",
+        "code": "CSCE 145",
+        "as_of_term": "202405",
+        "complete": False,
+        "total_terms": 1,
+        "terms": [],
+    }
+    assert app._INFLIGHT == {}
+
+
+def test_static_cache_policy_keeps_shell_fresh_and_heavy_data_long_lived():
+    def static_path(relative):
+        return str(app.STATIC_DIR + "/" + relative)
+
+    assert app._static_cache_control(static_path("index.html")) == "no-cache"
+    assert app._static_cache_control(static_path("js/search.js")) == (
+        "public, max-age=300, must-revalidate"
+    )
+    assert app._static_cache_control(static_path("css/style.css")) == (
+        "public, max-age=300, must-revalidate"
+    )
+    assert app._static_cache_control(static_path("data/site_notices.json")) == "no-cache"
+    assert app._static_cache_control(static_path("data/course_embeddings.json")) == (
+        "public, max-age=2592000, immutable"
+    )
 
 
 def test_failed_term_still_advances_loading_progress(monkeypatch):
