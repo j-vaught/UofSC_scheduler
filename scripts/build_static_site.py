@@ -20,6 +20,59 @@ DEFAULT_SOURCE = ROOT / "static"
 DEFAULT_OUTPUT = ROOT / "dist"
 INDEX_ASSET_RE = re.compile(r"(?:href|src)=[\"'](/static/[^\"']+)[\"']")
 FORBIDDEN_SUFFIXES = {".db", ".py", ".pyc", ".sqlite", ".sqlite3"}
+SITES_WORKER = """const SECURITY_HEADERS = Object.freeze({
+    'Content-Security-Policy': "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self' https://classes.sc.edu https://academicbulletins.sc.edu https://banner.onecarolina.sc.edu https://cdn.jsdelivr.net https://unpkg.com https://huggingface.co https://*.huggingface.co https://*.openstreetmap.de https://*.tile.openstreetmap.org; worker-src 'self' blob:; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=()',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+});
+
+function cachePolicy(pathname) {
+    if (pathname === '/service-worker.js' || pathname === '/static/data/manifest.json') {
+        return 'no-cache, max-age=0, must-revalidate';
+    }
+    if (pathname.startsWith('/static/data/releases/')) {
+        return 'public, max-age=31536000, immutable';
+    }
+    if (pathname.startsWith('/static/')) return 'public, max-age=3600';
+    return 'no-cache, max-age=0, must-revalidate';
+}
+
+function withHeaders(response, pathname) {
+    const headers = new Headers(response.headers);
+    for (const [name, value] of Object.entries(SECURITY_HEADERS)) headers.set(name, value);
+    headers.set('Cache-Control', cachePolicy(pathname));
+    return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+    });
+}
+
+const worker = {
+    async fetch(request, env) {
+        const url = new URL(request.url);
+        if (!['GET', 'HEAD'].includes(request.method)) {
+            return withHeaders(new Response('Method not allowed', {
+                status: 405,
+                headers: { Allow: 'GET, HEAD' },
+            }), url.pathname);
+        }
+        let response = await env.ASSETS.fetch(request);
+        const acceptsHtml = request.headers.get('accept')?.includes('text/html');
+        const isApplicationPath = !url.pathname.startsWith('/static/')
+            && url.pathname !== '/service-worker.js'
+            && !url.pathname.split('/').pop()?.includes('.');
+        if (response.status === 404 && request.method === 'GET' && acceptsHtml && isApplicationPath) {
+            response = await env.ASSETS.fetch(new Request(new URL('/index.html', url), request));
+        }
+        return withHeaders(response, url.pathname);
+    },
+};
+
+export default worker;
+"""
 
 
 def load_manifest(source: Path) -> dict[str, Any]:
@@ -118,11 +171,15 @@ def build_site(
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{output.name}.tmp-", dir=output.parent))
     try:
-        shutil.copy2(source / "index.html", staging / "index.html")
-        shutil.copy2(source / "index.html", staging / "404.html")
+        client = staging / "client"
+        server = staging / "server"
+        client.mkdir(parents=True)
+        server.mkdir(parents=True)
+        shutil.copy2(source / "index.html", client / "index.html")
+        shutil.copy2(source / "index.html", client / "404.html")
         shutil.copytree(
             source,
-            staging / "static",
+            client / "static",
             copy_function=shutil.copy2,
             ignore=lambda directory, names: [
                 name for name in names if not should_copy(Path(directory) / name)
@@ -136,12 +193,35 @@ def build_site(
         if placeholder not in worker_source:
             raise ValueError("Service worker has no static build identifier placeholder")
         rendered_worker = worker_source.replace(placeholder, static_build_id(source))
-        (staging / "service-worker.js").write_text(rendered_worker, encoding="utf-8")
-        (staging / "static" / "service-worker.js").write_text(
+        (client / "service-worker.js").write_text(rendered_worker, encoding="utf-8")
+        (client / "static" / "service-worker.js").write_text(
             rendered_worker,
             encoding="utf-8",
         )
-        write_headers(staging)
+        write_headers(client)
+        (server / "index.js").write_text(SITES_WORKER, encoding="utf-8")
+        (server / "package.json").write_text('{"type":"module"}\n', encoding="utf-8")
+        (server / "wrangler.json").write_text(
+            json.dumps(
+                {
+                    "name": "course-scheduler",
+                    "compatibility_date": "2026-05-15",
+                    "main": "index.js",
+                    "no_bundle": True,
+                    "rules": [
+                        {
+                            "type": "ESModule",
+                            "globs": ["**/*.js", "**/*.mjs"],
+                        }
+                    ],
+                    "assets": {"directory": "../client"},
+                    "observability": {"enabled": True},
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
 
         forbidden = [
             path

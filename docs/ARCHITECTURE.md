@@ -81,7 +81,7 @@ The browser executes search parsing and ranking, schedule generation, prerequisi
 
 Offline generation executes source pulls, registrar matching, privacy suppression, catalog normalization, embedding generation, offering-history aggregation, release sharding, manifest construction, integrity validation, and the final static build. These tasks run once per data release rather than once per visitor.
 
-The optional `app.py` runtime remains in the repository for parity comparison and environments that still need a same-origin relay. It is not copied into `dist/`.
+The optional `app.py` runtime remains in the repository for parity comparison and environments that still need a same-origin relay. It is not copied into `dist/`. Managed deployment uses a minimal asset-serving entry point in `dist/server/index.js`; the scheduler itself remains entirely in `dist/client/` and the visitor's browser.
 
 ## Startup and Caching
 
@@ -115,9 +115,9 @@ Public grade artifacts suppress aggregates below ten counted grades. The current
 
 ## Static Build and Deployment
 
-`scripts/build_static_release.py` creates content-hashed data and the manifest. `scripts/build_static_site.py` verifies the active release, copies the application into a clean staging directory, renders a build-specific service worker, emits root fallback files, adds cache and security headers, and atomically replaces `dist/`.
+`scripts/build_static_release.py` creates content-hashed data and the manifest. `scripts/build_static_site.py` verifies the active release, copies the application into `dist/client/`, renders a build-specific service worker, emits root fallback files, adds cache and security headers, writes the managed-host asset entry point, and atomically replaces `dist/`.
 
-The current distribution contains 618 files and 52,527,701 bytes. It must be served from a domain root because the interface uses absolute `/static/` paths and a root-scoped service worker. The generated headers define immutable caching for release artifacts, revalidation for the manifest and worker, Content Security Policy restrictions, frame protection, permissions restrictions, referrer handling, and transport security.
+The current distribution contains 621 files and about 52.5 MB. `dist/client/` must be served from a domain root because the interface uses absolute `/static/` paths and a root-scoped service worker. The generated headers define immutable caching for release artifacts, revalidation for the manifest and worker, Content Security Policy restrictions, frame protection, permissions restrictions, referrer handling, and transport security.
 
 Authenticated University resources remain first-party navigation. The scheduler opens the syllabus archive and registration systems in University-controlled tabs. It cannot embed or inspect the student's cross-origin authentication session.
 

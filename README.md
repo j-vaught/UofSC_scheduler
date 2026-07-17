@@ -48,10 +48,10 @@ uv sync
 uv run python scripts/build_static_site.py
 ```
 
-The generated `dist/` directory contains only static files. Any ordinary static host can serve it from the domain root. A local file server is sufficient for testing.
+The generated `dist/client/` directory contains the static application. Any ordinary static host can serve that directory from the domain root. `dist/server/index.js` is a minimal asset-serving entry point for managed static deployment and contains no application logic. A local file server is sufficient for testing.
 
 ```bash
-uv run python -m http.server 8766 --directory dist
+uv run python -m http.server 8766 --directory dist/client
 ```
 
 Open `http://127.0.0.1:8766` in a desktop browser. The Python process in this command only serves files during local testing. It is not part of the deployed application.
@@ -100,7 +100,7 @@ node --test tests/*.js
 uv run python scripts/build_static_site.py
 ```
 
-The current release passes 72 Python tests and 170 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes process files from `dist/`, and emits deployment security and cache headers.
+The current release passes 72 Python tests and 170 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers.
 
 ## Application Structure
 
@@ -128,7 +128,8 @@ static/
 
 scripts/                           Offline release and static-site builders.
 tests/                             Python and JavaScript parity and regression checks.
-dist/                              Generated process-free deployment directory.
+dist/client/                       Generated static deployment directory.
+dist/server/index.js               Managed-host static asset entry point.
 app.py                             Optional legacy comparison runtime.
 grade_pipeline.py                  Offline registrar and section matching pipeline.
 ```

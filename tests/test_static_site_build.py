@@ -57,13 +57,23 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     result = build_site(source, output)
 
     assert result == output
-    assert (output / "index.html").is_file()
-    assert (output / "404.html").is_file()
-    assert (output / "service-worker.js").is_file()
-    assert (output / "static" / "index.html").is_file()
-    assert (output / "static" / "data" / "manifest.json").is_file()
-    assert not (output / "static" / "private.db").exists()
-    headers = (output / "_headers").read_text(encoding="utf-8")
+    client = output / "client"
+    assert (client / "index.html").is_file()
+    assert (client / "404.html").is_file()
+    assert (client / "service-worker.js").is_file()
+    assert (client / "static" / "index.html").is_file()
+    assert (client / "static" / "data" / "manifest.json").is_file()
+    assert not (client / "static" / "private.db").exists()
+    assert (output / "server" / "index.js").is_file()
+    assert (output / "server" / "package.json").is_file()
+    wrangler = json.loads((output / "server" / "wrangler.json").read_text(encoding="utf-8"))
+    assert wrangler["assets"]["directory"] == "../client"
+    assert wrangler["main"] == "index.js"
+    worker = (output / "server" / "index.js").read_text(encoding="utf-8")
+    assert "env.ASSETS.fetch" in worker
+    assert "export default worker" in worker
+    assert "Method not allowed" in worker
+    headers = (client / "_headers").read_text(encoding="utf-8")
     assert "immutable" in headers
     assert "Content-Security-Policy" in headers
     assert "frame-ancestors 'none'" in headers
