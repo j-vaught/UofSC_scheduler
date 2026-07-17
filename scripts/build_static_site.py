@@ -214,7 +214,10 @@ def build_site(
                             "globs": ["**/*.js", "**/*.mjs"],
                         }
                     ],
-                    "assets": {"directory": "../client"},
+                    "assets": {
+                        "directory": "../client",
+                        "run_worker_first": True,
+                    },
                     "observability": {"enabled": True},
                 },
                 indent=2,

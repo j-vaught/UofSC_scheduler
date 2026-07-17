@@ -68,6 +68,7 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     assert (output / "server" / "package.json").is_file()
     wrangler = json.loads((output / "server" / "wrangler.json").read_text(encoding="utf-8"))
     assert wrangler["assets"]["directory"] == "../client"
+    assert wrangler["assets"]["run_worker_first"] is True
     assert wrangler["main"] == "index.js"
     worker = (output / "server" / "index.js").read_text(encoding="utf-8")
     assert "env.ASSETS.fetch" in worker
