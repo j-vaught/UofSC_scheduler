@@ -422,6 +422,7 @@ const Search = {
                 searches: searchMetrics,
                 searchResults: allResults,
                 searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
+                localResultCodes: [],
                 hadRequestFailure,
                 requestBudget: { ...budget, keywordUsed: usedSearches.length },
             };
@@ -479,15 +480,53 @@ const Search = {
             count: new Set(allResults[index].map(result => result.code).filter(Boolean)).size,
             failed: usedSearchFailures[index],
         }));
+        const localResultCodes = [...new Set(top
+            .filter(result => result._fromLocal)
+            .map(result => result.code)
+            .filter(Boolean))];
         return {
             results: top,
             expandedTerms: usedSearches.slice(1),
             searches: searchMetrics,
             searchResults: allResults,
             searchCodes: allResults.map(batch => [...new Set(batch.map(result => result.code).filter(Boolean))]),
+            localResultCodes,
             hadRequestFailure,
             requestBudget: { ...budget, keywordUsed: usedSearches.length },
         };
+    },
+
+    buildSemanticSearchInfo(semantic, relatedBatches, visibleResults, eligibleOnly, prereqData) {
+        const isVisible = code => (
+            code
+            && (!eligibleOnly || this.checkEligibility(code, prereqData).eligible)
+        );
+        const generatedSearches = (semantic.searches || []).map((search, index) => {
+            const matchingCodes = (relatedBatches[index] || [])
+                .map(result => result.code)
+                .filter(isVisible);
+            return {
+                ...search,
+                kind: 'generated',
+                count: new Set(matchingCodes).size,
+            };
+        });
+
+        const visibleCodes = new Set((visibleResults || [])
+            .map(result => result.code)
+            .filter(isVisible));
+        const catalogCodes = new Set(semantic.localResultCodes || []);
+        const catalogCount = [...visibleCodes]
+            .filter(code => catalogCodes.has(code))
+            .length;
+        if (catalogCount) {
+            generatedSearches.push({
+                term: 'Meaning-based catalog matches',
+                kind: 'semantic-catalog',
+                count: catalogCount,
+            });
+        }
+        return generatedSearches.length ? generatedSearches : null;
     },
 
     // Levenshtein edit distance between two strings
@@ -1969,14 +2008,13 @@ const Search = {
                     ? await this.loadPrereqsForResults([...results, ...relatedBatches.flat()])
                     : {};
                 if (searchId !== this._searchId) return;
-                const searchInfo = semantic.searches?.length
-                    ? semantic.searches.map((search, index) => {
-                        const matchingCodes = (relatedBatches[index] || [])
-                            .map(result => result.code)
-                            .filter(code => code && (!eligibleOnly2 || this.checkEligibility(code, prereqData).eligible));
-                        return { ...search, count: new Set(matchingCodes).size };
-                    })
-                    : null;
+                const searchInfo = this.buildSemanticSearchInfo(
+                    semantic,
+                    relatedBatches,
+                    results,
+                    eligibleOnly2,
+                    prereqData,
+                );
                 this._mainSearchQuery = searchQuery;
                 this._relatedSearchOrigin = '';
                 this.renderAndCacheSearch(
@@ -3659,6 +3697,8 @@ const Search = {
         const expandedTags = searchTerms.map((search, index) => {
             const term = typeof search === 'string' ? search : search.term;
             const failed = typeof search === 'object' && Boolean(search.failed);
+            const catalogSource = typeof search === 'object'
+                && search.kind === 'semantic-catalog';
             const resultCount = typeof search === 'string' ? null : Number(search.count);
             const countLabel = failed
                 ? 'Search failed'
@@ -3670,12 +3710,16 @@ const Search = {
                 : '';
             const failedClass = failed ? ' is-failed' : '';
             const dataCount = failed ? -1 : (resultCount || 0);
-            return `<button type="button" class="semantic-search-term${failedClass}" data-regular-search-index="${index}" data-result-count="${dataCount}"${disabled}><span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}</button>`;
+            const content = `<span>${this.escapeText(term)}</span>${countLabel ? `<strong>${countLabel}</strong>` : ''}`;
+            if (catalogSource) {
+                return `<div class="semantic-search-term is-catalog" data-result-count="${dataCount}" title="Courses found by comparing your request with the local course catalog">${content}</div>`;
+            }
+            return `<button type="button" class="semantic-search-term${failedClass}" data-regular-search-index="${index}" data-result-count="${dataCount}"${disabled}>${content}</button>`;
         }).join(' ');
         return `
             <div class="semantic-search-terms">
                 <button type="button" class="semantic-search-terms-toggle" aria-expanded="false" aria-controls="semantic-search-term-list">
-                    <span><b>${searchTerms.length} Generated searches</b></span><i aria-hidden="true">&#9660;</i>
+                    <span><b>${searchTerms.length} Search sources</b></span><i aria-hidden="true">&#9660;</i>
                 </button>
                 <div id="semantic-search-term-list" class="semantic-search-term-list hidden">${expandedTags}</div>
             </div>`;

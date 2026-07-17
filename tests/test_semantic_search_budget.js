@@ -100,6 +100,45 @@ test('a strong local catalog shortlist stops keyword expansion after one batch',
     assert.equal(calls, 2);
     assert.equal(result.requestBudget.keywordUsed, 2);
     assert.equal(result.results.length > 10, true);
+    assert.equal(result.localResultCodes.length, 18);
+});
+
+test('search source accounting includes courses supplied by the semantic catalog', () => {
+    const search = loadSearch({});
+    search.checkEligibility = () => ({ eligible: true });
+    const info = search.buildSemanticSearchInfo(
+        {
+            searches: [
+                { term: 'machine learning', count: 0, failed: false },
+                { term: 'neural networks', count: 0, failed: false },
+            ],
+            localResultCodes: ['CSCE 580', 'CSCE 585', 'CSCE 883', 'STAT 515', 'MATH 546'],
+        },
+        [[], []],
+        [
+            { code: 'CSCE 580' },
+            { code: 'CSCE 585' },
+            { code: 'CSCE 883' },
+            { code: 'STAT 515' },
+            { code: 'MATH 546' },
+        ],
+        false,
+        {},
+    );
+
+    assert.equal(info.length, 3);
+    assert.equal(info[0].count, 0);
+    assert.equal(info[1].count, 0);
+    assert.equal(info[2].term, 'Meaning-based catalog matches');
+    assert.equal(info[2].kind, 'semantic-catalog');
+    assert.equal(info[2].count, 5);
+
+    search.escapeText = value => String(value);
+    const markup = search.generatedSearchesMarkup(info);
+    assert.match(markup, /3 Search sources/);
+    assert.match(markup, /Meaning-based catalog matches/);
+    assert.match(markup, /5 courses/);
+    assert.equal((markup.match(/data-regular-search-index=/g) || []).length, 2);
 });
 
 test('scoped semantic searches use a larger but bounded ten-request plan', async () => {
