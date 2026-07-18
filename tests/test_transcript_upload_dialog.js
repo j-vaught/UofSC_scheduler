@@ -91,6 +91,14 @@ test('public processor and apply-handler seams are mockable', () => {
     TranscriptUploadDialog.setApplyHandler(null);
 });
 
+test('transcript modules expose explicit browser globals for hosted startup', () => {
+    const dialogSource = fs.readFileSync('static/js/transcript-upload-dialog.js', 'utf8');
+    const importSource = fs.readFileSync('static/js/transcript-import.js', 'utf8');
+
+    assert.match(dialogSource, /globalThis\.TranscriptUploadDialog\s*=\s*TranscriptUploadDialog/);
+    assert.match(importSource, /globalThis\.TranscriptImport\s*=\s*TranscriptImport/);
+});
+
 test('dialog source includes keyboard, outside-click, drag-and-drop, and focus restoration', () => {
     const source = fs.readFileSync('static/js/transcript-upload-dialog.js', 'utf8');
 

@@ -70,6 +70,10 @@ const TranscriptImport = {
     },
 };
 
+if (typeof globalThis !== 'undefined') {
+    globalThis.TranscriptImport = TranscriptImport;
+}
+
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = TranscriptImport;
 }

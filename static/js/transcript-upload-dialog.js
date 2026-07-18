@@ -579,6 +579,10 @@ const TranscriptUploadDialog = {
     },
 };
 
+if (typeof globalThis !== 'undefined') {
+    globalThis.TranscriptUploadDialog = TranscriptUploadDialog;
+}
+
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = TranscriptUploadDialog;
 }
