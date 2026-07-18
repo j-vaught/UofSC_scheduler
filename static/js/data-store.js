@@ -320,7 +320,14 @@
                 complete: completeTerms.has(item.term),
             }));
             const knownTerms = new Set(terms.map(item => item.term));
-            for (const term of shard.coverage?.incomplete_terms || []) {
+            for (const incomplete of shard.coverage?.incomplete_terms || []) {
+                const term = typeof incomplete === 'object' && incomplete !== null
+                    ? String(incomplete.term || '')
+                    : String(incomplete || '');
+                const reason = typeof incomplete === 'object' && incomplete !== null
+                    ? String(incomplete.reason || '')
+                    : '';
+                if (!term) continue;
                 if (!knownTerms.has(term)) {
                     terms.push({
                         term,
@@ -328,6 +335,7 @@
                         available: false,
                         complete: false,
                         error: true,
+                        error_reason: reason,
                     });
                 }
             }

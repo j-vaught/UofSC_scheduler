@@ -3220,6 +3220,52 @@ test('Offering history applies the earlier boundary and renders API errors safel
     assert.doesNotMatch(container.innerHTML, /script|unsafe/);
 });
 
+test('Offering history groups terms by year and reveals details on colored season cells', () => {
+    const container = { innerHTML: '' };
+    const document = {
+        createElement() {
+            let value = '';
+            return {
+                set textContent(text) { value = String(text); },
+                get innerHTML() {
+                    return value
+                        .replaceAll('&', '&amp;')
+                        .replaceAll('<', '&lt;')
+                        .replaceAll('>', '&gt;')
+                        .replaceAll('"', '&quot;');
+                },
+            };
+        },
+    };
+    const history = loadObject('static/js/history.js', 'History', {
+        State: { term: '202608' },
+        document,
+    });
+    history._activeTerm = () => '202608';
+
+    history.render({
+        code: 'CSCE 190',
+        as_of_term: '202608',
+        terms: [
+            { term: '202501', label: 'Spring 2025', complete: true, available: false, offered: false },
+            { term: '202505', label: 'Summer 2025', complete: true, available: true, offered: false },
+            { term: '202508', label: 'Fall 2025', complete: true, available: true, offered: true, sections: 2, enrollment: 100, capacity: 125 },
+            { term: '202408', label: 'Fall 2024', complete: true, available: true, offered: true, sections: 1 },
+        ],
+    }, container);
+
+    assert.match(container.innerHTML, /Offerings by year/);
+    assert.match(container.innerHTML, /<span>Spring<\/span><span>Summer<\/span><span>Fall<\/span>/);
+    assert.ok(container.innerHTML.indexOf('>2025<') < container.innerHTML.indexOf('>2024<'));
+    assert.match(container.innerHTML, /history-season-cell offered" tabindex="0" role="img"/);
+    assert.match(container.innerHTML, /Fall 2025/);
+    assert.match(container.innerHTML, /100 of 125 enrolled · 80% filled/);
+    assert.match(container.innerHTML, /history-season-cell not-offered/);
+    assert.match(container.innerHTML, /history-season-cell unknown" tabindex="0"/);
+    assert.match(container.innerHTML, /history-season-cell not-checked/);
+    assert.doesNotMatch(container.innerHTML, /history-term-card|history-frequency-track/);
+});
+
 test('Professor names use the first comma as the sole first and last name delimiter', () => {
     const grades = loadObject('static/js/grades.js', 'Grades', {});
 

@@ -108,58 +108,127 @@ const History = {
     },
 
     render(data, container) {
-        const code = data.code || '';
         const boundary = this._historyBoundary(data.as_of_term);
-        const terms = (data.terms || []).filter(term => term.term < boundary && term.complete !== false && !term.future);
-        const availableTerms = terms.filter(term => !term.error && term.available !== false);
+        const terms = (data.terms || []).filter(term => term.term < boundary && !term.future);
+        const availableTerms = terms.filter(term => (
+            term.complete !== false && !term.error && term.available !== false
+        ));
         const offeredCount = availableTerms.filter(term => term.offered).length;
         const totalTerms = availableTerms.length;
         const pct = totalTerms ? Math.round((offeredCount / totalTerms) * 100) : 0;
 
-        const fallCount = availableTerms.filter(term => term.term.endsWith('08') && term.offered).length;
-        const springCount = availableTerms.filter(term => term.term.endsWith('01') && term.offered).length;
-        const summerCount = availableTerms.filter(term => term.term.endsWith('05') && term.offered).length;
-        const patternParts = [];
-        if (fallCount >= 2) patternParts.push('Fall');
-        if (springCount >= 2) patternParts.push('Spring');
-        if (summerCount >= 1) patternParts.push('Summer');
-
-        const enrollmentTerms = availableTerms.filter(term => this._number(term.enrollment) !== null);
+        const enrollmentTerms = availableTerms.filter(term => (
+            term.offered && this._number(term.enrollment) !== null
+        ));
         const capacityTerms = availableTerms.filter(term => (
-            this._number(term.enrollment) !== null && this._number(term.capacity) > 0
+            term.offered && this._number(term.enrollment) !== null && this._number(term.capacity) > 0
         ));
         const averageEnrollment = enrollmentTerms.length
             ? enrollmentTerms.reduce((sum, term) => sum + this._number(term.enrollment), 0) / enrollmentTerms.length
             : null;
         const totalEnrollment = capacityTerms.reduce((sum, term) => sum + this._number(term.enrollment), 0);
         const totalCapacity = capacityTerms.reduce((sum, term) => sum + this._number(term.capacity), 0);
-        const hasEnrollment = enrollmentTerms.length > 0 || availableTerms.some(term => this._number(term.capacity) !== null);
-
-        const seasonSummary = patternParts.length ? patternParts.join(', ') : 'No recurring season yet';
         const fillRate = totalCapacity ? Math.round(totalEnrollment / totalCapacity * 100) : null;
-        const timeline = terms.map(term => {
+        const offeredTerms = availableTerms
+            .filter(term => term.offered)
+            .sort((left, right) => String(right.term).localeCompare(String(left.term)));
+        const lastOffered = offeredTerms[0] || null;
+        const seasons = [
+            { code: '01', label: 'Spring' },
+            { code: '05', label: 'Summer' },
+            { code: '08', label: 'Fall' },
+        ];
+        const termByCode = new Map(terms.map(term => [String(term.term), term]));
+        const years = [...new Set(terms
+            .map(term => String(term.term))
+            .filter(term => /^\d{6}$/.test(term))
+            .map(term => term.slice(0, 4)))]
+            .sort((left, right) => Number(right) - Number(left));
+
+        const termCell = (year, season) => {
+            const term = termByCode.get(`${year}${season.code}`);
+            if (!term) {
+                return `<div class="history-season-cell not-checked" aria-label="${season.label} ${year}, outside the available history"><span aria-hidden="true">—</span></div>`;
+            }
+
             const enrollment = this._number(term.enrollment);
             const capacity = this._number(term.capacity);
-            const termFill = enrollment !== null && capacity > 0 ? Math.round(enrollment / capacity * 100) : null;
-            const state = term.error || term.available === false ? 'unknown' : term.offered ? 'offered' : 'not-offered';
+            const termFill = enrollment !== null && capacity > 0
+                ? Math.round(enrollment / capacity * 100)
+                : null;
+            const sections = Math.max(0, Number(term.sections) || 0);
+            const state = term.complete === false || term.error || term.available === false
+                ? 'unknown'
+                : term.offered ? 'offered' : 'not-offered';
+            const termLabel = term.label || `${season.label} ${year}`;
+
+            if (state === 'not-offered') {
+                return `<div class="history-season-cell not-offered" aria-label="${this._escape(`${termLabel}, not offered`)}"><span>Not offered</span></div>`;
+            }
+
+            const offeringText = state === 'unknown'
+                ? 'Offering data unavailable'
+                : `${sections} section${sections === 1 ? '' : 's'}`;
+            let enrollmentText = '';
+            if (state === 'offered') {
+                enrollmentText = enrollment !== null
+                    ? `${Math.round(enrollment)}${capacity > 0 ? ` of ${Math.round(capacity)}` : ''} enrolled${termFill !== null ? ` · ${termFill}% filled` : ''}`
+                    : 'Enrollment unavailable';
+            }
+            const tooltipId = `history-term-${String(term.term).replace(/[^0-9a-z_-]/gi, '')}`;
+            const accessibleDetails = [termLabel, offeringText, enrollmentText].filter(Boolean).join('. ');
+
             return `
-                <div class="history-term-card ${state}">
-                    <span>${this._escape(term.label)}</span>
-                    <strong>${state === 'unknown' ? 'Unavailable' : term.offered ? `${term.sections || 0} section${term.sections === 1 ? '' : 's'}` : 'Not offered'}</strong>
-                    ${term.offered ? `<small>${enrollment !== null ? `${Math.round(enrollment)}${capacity > 0 ? ` of ${Math.round(capacity)}` : ''} enrolled` : 'Enrollment unavailable'}${termFill !== null ? ` · ${termFill}% filled` : ''}</small>` : '<small>&nbsp;</small>'}
+                <div class="history-season-cell ${state}" tabindex="0" role="img" aria-label="${this._escape(accessibleDetails)}" aria-describedby="${tooltipId}">
+                    ${state === 'offered'
+                        ? `<strong>${sections}</strong><span>section${sections === 1 ? '' : 's'}</span>`
+                        : '<span>Unavailable</span>'}
+                    <span class="history-term-tooltip" id="${tooltipId}" role="tooltip">
+                        <strong>${this._escape(termLabel)}</strong>
+                        <span>${this._escape(offeringText)}</span>
+                        ${enrollmentText ? `<span>${this._escape(enrollmentText)}</span>` : ''}
+                    </span>
                 </div>
             `;
-        }).join('');
+        };
+
+        const yearRows = years.map(year => `
+            <div class="history-year-row">
+                <div class="history-year-label">${year}</div>
+                ${seasons.map(season => termCell(year, season)).join('')}
+            </div>
+        `).join('');
+
+        const enrollmentSummary = averageEnrollment !== null
+            ? `<strong>${Math.round(averageEnrollment)}</strong><span>average students per offered term${fillRate !== null ? ` · ${fillRate}% filled` : ''}</span>`
+            : '<strong>—</strong><span>enrollment unavailable</span>';
 
         container.innerHTML = `
             <div class="history-detail-heading"><div><h2>Offering history</h2><p>Completed terms before the current planning term.</p></div></div>
-            <div class="history-summary-grid">
-                <div><strong>${pct}%</strong><span>of recent terms</span></div>
-                <div><strong>${offeredCount} of ${totalTerms}</strong><span>terms offered</span></div>
-                <div><strong>${this._escape(seasonSummary)}</strong><span>observed seasons</span></div>
-                ${averageEnrollment !== null ? `<div><strong>${Math.round(averageEnrollment)}</strong><span>average enrollment${fillRate !== null ? ` · ${fillRate}% filled` : ''}</span></div>` : ''}
-            </div>
-            ${totalTerms ? `<div class="history-frequency-track"><i style="width:${pct}%"></i></div><div class="history-term-grid">${timeline}</div>` : '<p class="hint">No completed-term offering history is available.</p>'}
+            ${terms.length ? `
+                <div class="history-overview" aria-label="Offering history summary">
+                    <div class="history-overview-primary"><strong>${pct}%</strong><span>of completed terms</span></div>
+                    <div class="history-overview-facts">
+                        <div><strong>${offeredCount} of ${totalTerms}</strong><span>terms offered</span></div>
+                        <div><strong>${this._escape(lastOffered?.label || 'None yet')}</strong><span>most recent offering</span></div>
+                        <div>${enrollmentSummary}</div>
+                    </div>
+                </div>
+                <section class="history-year-view" aria-labelledby="history-year-title">
+                    <div class="history-year-heading">
+                        <div><h3 id="history-year-title">Offerings by year</h3><p>Hover or focus a colored term for enrollment details.</p></div>
+                        <div class="history-year-legend" aria-label="Offering status legend">
+                            <span><i class="offered"></i>Offered</span>
+                            <span><i class="not-offered"></i>Not offered</span>
+                            <span><i class="unknown"></i>Unavailable</span>
+                        </div>
+                    </div>
+                    <div class="history-year-matrix">
+                        <div class="history-year-columns" aria-hidden="true"><span>Year</span>${seasons.map(season => `<span>${season.label}</span>`).join('')}</div>
+                        ${yearRows}
+                    </div>
+                </section>
+            ` : '<p class="hint">No completed-term offering history is available.</p>'}
         `;
     },
 };

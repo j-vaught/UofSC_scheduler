@@ -70,6 +70,11 @@ function fixture() {
     });
     const history = jsonRecord({
         schema_version: 1,
+        coverage: {
+            complete_terms: ['202601'],
+            incomplete_terms: [{ term: '202605', reason: 'source timeout' }],
+            last_complete_term: '202601',
+        },
         courses: { 'CSCE 145': { terms: [{ term: '202601', offered: true }] } },
     });
     const professor = jsonRecord({
@@ -137,14 +142,24 @@ async function run() {
     const offeringHistory = await store.getOfferingHistory('CSCE145');
     assert.equal(offeringHistory.code, 'CSCE 145');
     assert.equal(offeringHistory.offered_count, 1);
-    assert.equal(offeringHistory.as_of_term, '');
-    assert.deepEqual(offeringHistory.terms, [{
-        term: '202601',
-        offered: true,
-        label: 'Spring 2026',
-        available: true,
-        complete: false,
-    }]);
+    assert.equal(offeringHistory.as_of_term, '202605');
+    assert.deepEqual(offeringHistory.terms, [
+        {
+            term: '202601',
+            offered: true,
+            label: 'Spring 2026',
+            available: true,
+            complete: true,
+        },
+        {
+            term: '202605',
+            label: 'Summer 2026',
+            available: false,
+            complete: false,
+            error: true,
+            error_reason: 'source timeout',
+        },
+    ]);
     assert.deepEqual(
         await store.getProfessorGrades('prof_a123'),
         { name: 'Faculty, Example' },
