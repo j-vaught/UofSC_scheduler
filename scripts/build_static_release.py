@@ -165,21 +165,34 @@ def build_release(
                 "catalog/subjects.json",
                 subject_index,
             )
+        maps_by_year: dict[str, dict[str, dict[str, Any]]] = {}
         for map_id, payload in major_maps.items():
-            lazy_major_map_artifacts[map_id] = write_immutable_json(
+            year = str(payload.get("catalog_year") or "unknown")
+            maps_by_year.setdefault(year, {})[map_id] = payload
+        for year, year_maps in sorted(maps_by_year.items()):
+            lazy_major_map_artifacts[year] = write_immutable_json(
                 staging,
-                f"major-maps/major-map-{map_id}.json",
-                payload,
+                f"major-maps/major-maps-{year}.json",
+                {
+                    "schema_version": 1,
+                    "kind": "major_map_bundle",
+                    "catalog_year": year,
+                    "maps": year_maps,
+                },
             )
         if major_map_index is not None:
             index_entries = {entry["id"]: entry for entry in major_map_index["maps"]}
-            for map_id, descriptor in lazy_major_map_artifacts.items():
+            for map_id, payload in major_maps.items():
+                year = str(payload.get("catalog_year") or "unknown")
+                descriptor = lazy_major_map_artifacts[year]
                 index_entries[map_id]["artifact"] = {
                     "url": f"releases/{release_id}/{descriptor['path']}",
                     "bytes": descriptor["bytes"],
                     "sha256": descriptor["sha256"],
                     "media_type": descriptor["media_type"],
                     "schema_version": descriptor["schema_version"],
+                    "bundle_key": f"major-maps/catalog-year/{year}",
+                    "entry_key": map_id,
                 }
             artifacts["major-maps/index"] = write_immutable_json(
                 staging,

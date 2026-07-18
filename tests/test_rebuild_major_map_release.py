@@ -129,6 +129,12 @@ def test_rebuild_preserves_existing_hashes_and_replaces_major_maps(tmp_path: Pat
         content = (output / artifact["url"]).read_bytes()
         assert len(content) == artifact["bytes"]
         assert destination in (output / artifact["url"]).parents
+        bundle = json.loads(content)
+        assert bundle["kind"] == "major_map_bundle"
+        assert bundle["maps"][artifact["entry_key"]]["id"] == entry["id"]
+        assert artifact["bundle_key"].endswith(bundle["catalog_year"])
+
+    assert len({entry["artifact"]["url"] for entry in major_map_index["maps"]}) == 2
 
     release_index = json.loads((output / manifest["artifacts"]["index"]["url"]).read_text())
     assert release_index["major_map_count"] == 2

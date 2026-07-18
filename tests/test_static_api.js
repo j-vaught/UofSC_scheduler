@@ -318,6 +318,43 @@ test('static API rejects compact-index descriptors it cannot verify', async () =
     );
 });
 
+test('static API reuses a catalog-year major-map bundle', async () => {
+    const descriptor = {
+        url: 'releases/test-release/major-maps/major-maps-2026-2027.json',
+        bytes: 200,
+        sha256: 'c'.repeat(64),
+        bundle_key: 'major-maps/catalog-year/2026-2027',
+    };
+    const loadCalls = [];
+    const dataStore = {
+        async getArtifact(name) {
+            assert.equal(name, 'major-maps/index');
+            return {
+                maps: [
+                    { id: 'map-a', artifact: { ...descriptor, entry_key: 'map-a' } },
+                    { id: 'map-b', artifact: { ...descriptor, entry_key: 'map-b' } },
+                ],
+            };
+        },
+        async getManifest() {
+            return { release_id: 'test-release' };
+        },
+        async _loadArtifact(options) {
+            loadCalls.push(options);
+            return { maps: { 'map-a': { id: 'map-a' }, 'map-b': { id: 'map-b' } } };
+        },
+    };
+    const { api } = loadApi({
+        CourseSchedulerConfig: { apiMode: 'static' },
+        CourseDataStore: dataStore,
+    });
+
+    assert.equal((await api.getMajorMap('map-a')).id, 'map-a');
+    assert.equal((await api.getMajorMap('map-b')).id, 'map-b');
+    assert.equal(loadCalls.length, 1);
+    assert.equal(loadCalls[0].logicalName, 'major-maps/catalog-year/2026-2027');
+});
+
 test('runtime worker replies are correlated when concurrent responses arrive out of order', async () => {
     const workers = [];
     class FakeWorker {

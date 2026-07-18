@@ -91,7 +91,7 @@ The live client coalesces duplicate requests, limits concurrency, applies short 
 
 ## Browser Data and Caching
 
-The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, and 1,295 official major-map documents spanning the 2020-2021 through 2026-2027 catalog years. Major maps are indexed compactly and loaded one at a time, so selecting a catalog year does not download the complete archive.
+The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, and 1,295 official major-map documents spanning the 2020-2021 through 2026-2027 catalog years. Major maps are indexed compactly and loaded in catalog-year bundles, so selecting a map does not download the complete archive.
 
 The service worker caches the application shell and content-hashed artifacts. Cache Storage retains immutable files. IndexedDB stores release metadata and fallback records. Local storage retains user-owned plans, pane sizes, collapsed panels, and preferences. A page refresh revalidates the manifest and current live requests while preserving the selected search, course, section, and detail tab in the URL.
 

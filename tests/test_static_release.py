@@ -425,7 +425,10 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
     assert len(lazy_content) == lazy_descriptor["bytes"]
     assert hashlib.sha256(lazy_content).hexdigest() == lazy_descriptor["sha256"]
     assert lazy_descriptor["sha256"][:16] in lazy_path.name
-    assert json.loads(lazy_content)["id"] == "cs_bscs_2026"
+    lazy_bundle = json.loads(lazy_content)
+    assert lazy_bundle["kind"] == "major_map_bundle"
+    assert lazy_bundle["maps"][lazy_descriptor["entry_key"]]["id"] == "cs_bscs_2026"
+    assert lazy_descriptor["bundle_key"] == "major-maps/catalog-year/2026-2027"
 
     release_index = json.loads((output / manifest["artifacts"]["index"]["url"]).read_text())
     assert release_index["major_map_count"] == 1

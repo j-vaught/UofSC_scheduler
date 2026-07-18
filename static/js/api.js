@@ -664,8 +664,19 @@ const API = {
             error.code = 'MAJOR_MAP_ARTIFACT_INVALID';
             throw error;
         }
+        const bundleKey = String(descriptor.bundle_key || descriptor.bundleKey || '').trim();
+        const entryKey = String(descriptor.entry_key || descriptor.entryKey || '').trim();
+        const artifactLogicalName = bundleKey || logicalName;
+        const selectMap = payload => {
+            if (!entryKey) return payload;
+            const selected = payload?.maps?.[entryKey];
+            if (selected) return selected;
+            const error = new Error(`Major-map ${mapId} is missing from its catalog-year bundle`);
+            error.code = 'MAJOR_MAP_BUNDLE_ENTRY_MISSING';
+            throw error;
+        };
         if (typeof store.getArtifactByDescriptor === 'function') {
-            return store.getArtifactByDescriptor(logicalName, descriptor);
+            return selectMap(await store.getArtifactByDescriptor(artifactLogicalName, descriptor));
         }
         if (typeof store._loadArtifact !== 'function' || typeof store.getManifest !== 'function') {
             const error = new Error('Static data store cannot load indexed major-map artifacts');
@@ -674,14 +685,14 @@ const API = {
         }
 
         const manifest = await store.getManifest({ forceRefresh: false });
-        const memoryKey = `${manifest.release_id}:${logicalName}`;
+        const memoryKey = `${manifest.release_id}:${artifactLogicalName}`;
         if (this._majorMapArtifacts.has(memoryKey)) {
-            return this._majorMapArtifacts.get(memoryKey);
+            return selectMap(this._majorMapArtifacts.get(memoryKey));
         }
         const inflightKey = `major-map:${memoryKey}`;
         if (this._inflight.has(inflightKey)) return this._inflight.get(inflightKey);
         const request = store._loadArtifact({
-            logicalName,
+            logicalName: artifactLogicalName,
             descriptor,
             manifest,
             memoryKey,
@@ -692,7 +703,7 @@ const API = {
         });
         this._inflight.set(inflightKey, request);
         try {
-            return await request;
+            return selectMap(await request);
         } finally {
             if (this._inflight.get(inflightKey) === request) {
                 this._inflight.delete(inflightKey);
