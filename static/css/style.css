@@ -338,6 +338,35 @@ main {
     font-size: 0.85rem;
 }
 .summary-item { margin-bottom: 4px; }
+.major-summary-heading { color: #000000; }
+.major-summary-catalog {
+    color: #73000A;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.major-map-source {
+    color: #5C5C5C;
+    font-size: 0.73rem;
+    margin-bottom: 0;
+}
+a.major-map-source { color: #466A9F; text-decoration: underline; }
+a.major-map-source:hover,
+a.major-map-source:focus-visible { color: #73000A; }
+
+.degree-map-context {
+    background: #ECECEC;
+    border: 2px solid #C7C7C7;
+    display: grid;
+    gap: 3px;
+    margin: 0 0 12px;
+    padding: 9px 10px;
+}
+.degree-map-context[hidden] { display: none; }
+.degree-map-context strong { color: #000000; font-size: 0.76rem; line-height: 1.3; }
+.degree-map-context span,
+.degree-map-context a { color: #5C5C5C; font-size: 0.68rem; line-height: 1.3; }
+.degree-map-context a { color: #466A9F; text-decoration: underline; }
 .transcript-actions {
     display: flex;
     gap: 8px;

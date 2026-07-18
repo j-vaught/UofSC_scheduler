@@ -175,6 +175,7 @@ const DegreePlan = {
         const majorData = State.profile.majorData;
         const list = document.getElementById('degree-requirements-list');
         const modeLabel = document.getElementById('plan-mode-label');
+        this.renderMapContext(majorData);
 
         if (!majorData) {
             list.innerHTML = '<p class="hint">Select a major in the Profile tab to see requirements.</p>';
@@ -219,6 +220,34 @@ const DegreePlan = {
         }
 
         list.innerHTML = html || '<p class="hint">Generate a plan to see requirement details.</p>';
+    },
+
+    renderMapContext(majorData) {
+        const context = document.getElementById('degree-map-context');
+        if (!context) return;
+        if (!majorData) {
+            context.hidden = true;
+            context.replaceChildren();
+            return;
+        }
+
+        const indexEntry = Profile.majorMaps?.find(map => map.id === State.profile.major) || {};
+        const map = { ...indexEntry, ...majorData };
+        const title = document.createElement('strong');
+        title.textContent = `${map.major} — ${map.program}`;
+        const year = document.createElement('span');
+        year.textContent = Profile.catalogYearLabel(map);
+        const sourceUrl = Profile.sourceUrl(map);
+        const source = document.createElement(sourceUrl ? 'a' : 'span');
+        source.textContent = Profile.sourceLabel(map);
+        if (sourceUrl) {
+            source.href = sourceUrl;
+            source.target = '_blank';
+            source.rel = 'noopener noreferrer';
+            source.title = 'Open the official major map in a new tab';
+        }
+        context.replaceChildren(title, year, source);
+        context.hidden = false;
     },
 
     estimateCompletedCredits() {

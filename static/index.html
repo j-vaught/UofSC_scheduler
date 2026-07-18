@@ -110,9 +110,15 @@
                 <section class="profile-section">
                     <h2>Major & Concentration</h2>
                     <div class="form-row">
-                        <label for="major-select">Major</label>
-                        <select id="major-select">
+                        <label for="major-program-select">Major and program</label>
+                        <select id="major-program-select">
                             <option value="">-- Select Your Major --</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label for="major-select">Catalog year</label>
+                        <select id="major-select">
+                            <option value="">-- Select a Major First --</option>
                         </select>
                     </div>
                     <div class="form-row">
@@ -242,6 +248,7 @@
                 <!-- Left: Requirements Sidebar -->
                 <aside id="degree-sidebar">
                     <h2>Requirements</h2>
+                    <div id="degree-map-context" class="degree-map-context" hidden></div>
                     <div id="degree-progress-overall" class="progress-section">
                         <div class="progress-label">Overall Progress</div>
                         <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
@@ -730,11 +737,18 @@
         // Home tab: quick start major dropdown
         API.getMajorMaps().then(maps => {
             const sel = document.getElementById('home-major-select');
-            maps.forEach(m => {
-                const opt = document.createElement('option');
-                opt.value = m.id;
-                opt.textContent = `${m.major} — ${m.program} (${m.catalog_year})`;
-                sel.appendChild(opt);
+            Profile.majorMaps = Profile.normalizeMajorMaps(maps);
+            Profile.sortedProgramGroups().forEach(group => {
+                const first = group.maps[0];
+                const options = document.createElement('optgroup');
+                options.label = `${first.major} — ${first.program}`;
+                group.maps.forEach(map => {
+                    const opt = document.createElement('option');
+                    opt.value = map.id;
+                    opt.textContent = Profile.catalogYearLabel(map);
+                    options.appendChild(opt);
+                });
+                sel.appendChild(options);
             });
         });
 
@@ -785,8 +799,13 @@
                 }));
 
                 // Sync profile tab UI
-                document.getElementById('major-select').value = mapId;
                 if (typeof Profile !== 'undefined') {
+                    const selectedMap = Profile.majorMaps.find(map => map.id === mapId);
+                    if (selectedMap) {
+                        const programKey = Profile.programKey(selectedMap);
+                        document.getElementById('major-program-select').value = programKey;
+                        Profile.populateCatalogYears(programKey, mapId);
+                    }
                     Profile.onMajorChange(mapId);
                     Profile.renderCompletedChips();
                     Profile.renderCreditSummary();
