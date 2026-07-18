@@ -17,7 +17,7 @@ from urllib.parse import unquote, urlsplit
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.build_catalog_shards import load_major_maps
+from scripts.build_catalog_shards import load_major_maps, major_map_runtime_projection
 from scripts.static_release import (
     build_manifest,
     publish_release_directory,
@@ -141,7 +141,7 @@ def rebuild_major_map_release(
         maps_by_year: dict[str, dict[str, dict[str, Any]]] = {}
         for map_id, payload in major_maps.items():
             year = str(payload.get("catalog_year") or "unknown")
-            maps_by_year.setdefault(year, {})[map_id] = payload
+            maps_by_year.setdefault(year, {})[map_id] = major_map_runtime_projection(payload)
         for year, year_maps in sorted(maps_by_year.items()):
             lazy_major_map_artifacts[year] = write_immutable_json(
                 staging,

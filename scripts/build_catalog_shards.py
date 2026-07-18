@@ -21,6 +21,65 @@ COURSE_CODE_RE = re.compile(r"^([A-Z]{2,8})\s+([A-Z0-9]{3,5})$")
 MAP_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
 
 
+def major_map_runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
+    """Keep planner fields in the browser release while preserving full source data offline."""
+    source = payload.get("source")
+    source_url = payload.get("source_url") or (
+        source.get("url", "") if isinstance(source, dict) else ""
+    )
+    course_fields = (
+        "code",
+        "title",
+        "credits",
+        "typical_year",
+        "typical_semester",
+        "prerequisites",
+        "corequisites",
+        "prerequisite_groups",
+        "corequisite_groups",
+        "category",
+        "carolina_core",
+        "min_grade",
+    )
+    elective_fields = (
+        "label",
+        "options",
+        "pick",
+        "pick_credits",
+        "credits_each",
+        "credits_required",
+        "category",
+        "informational",
+        "requires_review",
+    )
+
+    def select(record: Any, fields: tuple[str, ...]) -> dict[str, Any]:
+        if not isinstance(record, dict):
+            return {}
+        return {field: record[field] for field in fields if field in record}
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "kind": "major_map",
+        "id": payload["id"],
+        "major": payload.get("major", ""),
+        "program": payload.get("program", ""),
+        "college": payload.get("college", ""),
+        "department": payload.get("department", ""),
+        "catalog_year": payload.get("catalog_year", ""),
+        "program_family_id": payload.get("program_family_id", ""),
+        "concentrations": payload.get("concentrations", {}),
+        "total_credits_required": payload.get("total_credits_required", 120),
+        "source_url": source_url,
+        "required_courses": [
+            select(course, course_fields) for course in payload.get("required_courses", [])
+        ],
+        "elective_groups": [
+            select(group, elective_fields) for group in payload.get("elective_groups", [])
+        ],
+    }
+
+
 def normalize_course(record: dict[str, Any]) -> dict[str, Any]:
     code = " ".join(str(record.get("code", "")).upper().split())
     match = COURSE_CODE_RE.fullmatch(code)
