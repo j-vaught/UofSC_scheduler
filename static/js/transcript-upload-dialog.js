@@ -97,9 +97,9 @@ const TranscriptUploadDialog = {
                                 </fieldset>
 
                                 <label id="transcript-drop-zone" class="transcript-drop-zone" for="transcript-pdf-input" tabindex="0">
-                                    <span class="transcript-drop-zone-title">Drop advising transcript PDF here</span>
-                                    <span class="transcript-drop-zone-copy">or select a PDF from this computer</span>
-                                    <span class="transcript-drop-zone-action">CHOOSE PDF</span>
+                                    <span id="transcript-drop-zone-title" class="transcript-drop-zone-title">Drop advising transcript PDF here</span>
+                                    <span id="transcript-drop-zone-copy" class="transcript-drop-zone-copy">or select a PDF from this computer</span>
+                                    <span id="transcript-drop-zone-action" class="transcript-drop-zone-action">CHOOSE PDF</span>
                                     <input type="file" id="transcript-pdf-input" accept="application/pdf,.pdf">
                                 </label>
                                 <p id="transcript-file-name" class="transcript-file-name" aria-live="polite">No PDF selected.</p>
@@ -260,7 +260,7 @@ const TranscriptUploadDialog = {
             completeState.querySelector('strong').textContent = 'Transcript added to your profile';
             document.getElementById('transcript-complete-message').textContent = 'Your confirmed coursework is ready for degree planning.';
         }
-        this.setFileLabel('No PDF selected.');
+        this.setFileState(null);
         this.toggleButton('transcript-analyze', true, { disabled: true });
         this.toggleButton('transcript-confirm', false);
         this.toggleButton('transcript-undo', false);
@@ -288,7 +288,7 @@ const TranscriptUploadDialog = {
         if (!file) return;
         if (!this.validPdf(file)) {
             this._file = null;
-            this.setFileLabel('No PDF selected.');
+            this.setFileState(null);
             this.toggleButton('transcript-analyze', true, { disabled: true });
             const tooLarge = Number(file.size || 0) > this.MAX_FILE_BYTES;
             this.setError(tooLarge ? 'Choose a PDF smaller than 25 MB.' : 'Choose the advising transcript as a PDF file.');
@@ -296,7 +296,7 @@ const TranscriptUploadDialog = {
         }
         this._file = file;
         this._result = null;
-        this.setFileLabel(`${file.name} · ${this.formatBytes(file.size)}`);
+        this.setFileState(file);
         this.toggleButton('transcript-analyze', true, { disabled: false });
         this.toggleButton('transcript-confirm', false);
         this.toggleButton('transcript-import-another', false);
@@ -549,6 +549,22 @@ const TranscriptUploadDialog = {
     setFileLabel(message) {
         const element = document.getElementById('transcript-file-name');
         if (element) element.textContent = message;
+    },
+
+    setFileState(file) {
+        const ready = Boolean(file);
+        this.dropZone?.classList.toggle('has-file', ready);
+        const title = document.getElementById('transcript-drop-zone-title');
+        const copy = document.getElementById('transcript-drop-zone-copy');
+        const action = document.getElementById('transcript-drop-zone-action');
+        if (title) title.textContent = ready ? 'PDF RECEIVED' : 'Drop advising transcript PDF here';
+        if (copy) copy.textContent = ready
+            ? `${file.name} · ${this.formatBytes(file.size)}`
+            : 'or select a PDF from this computer';
+        if (action) action.textContent = ready ? 'CHANGE PDF' : 'CHOOSE PDF';
+        this.setFileLabel(ready
+            ? '✓ File ready. Select Analyze PDF to review the coursework.'
+            : 'No PDF selected.');
     },
 
     formatBytes(bytes) {

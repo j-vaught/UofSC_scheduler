@@ -1,6 +1,6 @@
 'use strict';
 
-self.importScripts('../runtime/transcript-parser.js');
+self.importScripts('../runtime/transcript-parser.js?v=20260718');
 
 self.addEventListener('message', event => {
     const { requestId = null, operation, payload = {} } = event.data || {};

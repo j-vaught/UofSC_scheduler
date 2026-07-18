@@ -513,7 +513,7 @@ const API = {
     async _runRuntimeWorker(kind, operation, payload) {
         if (typeof Worker === 'undefined') return this._runRuntimeFallback(kind, operation, payload);
         const urls = {
-            transcript: '/static/js/workers/transcript-worker.js',
+            transcript: '/static/js/workers/transcript-worker.js?v=20260718',
             degree: '/static/js/workers/degree-planner-worker.js',
             offering: '/static/js/workers/offering-analysis-worker.js',
         };

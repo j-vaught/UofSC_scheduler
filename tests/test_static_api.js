@@ -285,7 +285,7 @@ test('runtime worker replies are correlated when concurrent responses arrive out
     const first = api.parseTranscript('CSCE 145');
     const second = api.parseTranscript('MATH 141');
     assert.equal(workers.length, 1);
-    assert.equal(workers[0].url, '/static/js/workers/transcript-worker.js');
+    assert.match(workers[0].url, /^\/static\/js\/workers\/transcript-worker\.js\?v=\d+$/);
     const [firstMessage, secondMessage] = workers[0].messages;
     workers[0].reply(secondMessage, ['MATH 141']);
     workers[0].reply(firstMessage, ['CSCE 145']);

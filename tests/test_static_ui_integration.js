@@ -36,7 +36,7 @@ test('static data and browser runtimes load before the API adapter', () => {
         '/static/js/live-university-client.js',
         '/static/js/api.js',
     ];
-    const positions = scripts.map(path => html.indexOf(`src="${path}"`));
+    const positions = scripts.map(path => html.indexOf(`src="${path}`));
     positions.forEach((position, index) => assert.notEqual(position, -1, scripts[index]));
     assert.deepEqual([...positions].sort((left, right) => left - right), positions);
 });

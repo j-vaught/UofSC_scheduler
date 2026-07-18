@@ -41,7 +41,7 @@ function loadWorker(relativePath) {
         postMessage(message) { messages.push(message); },
         importScripts(...scripts) {
             for (const script of scripts) {
-                const importedPath = path.resolve(path.dirname(filePath), script);
+                const importedPath = path.resolve(path.dirname(filePath), script.split(/[?#]/, 1)[0]);
                 vm.runInContext(fs.readFileSync(importedPath, 'utf8'), context, { filename: importedPath });
             }
         },

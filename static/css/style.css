@@ -3177,6 +3177,30 @@ body.transcript-dialog-open { overflow: hidden; }
     background: #ECECEC;
     border-color: #73000A;
 }
+.transcript-drop-zone.has-file {
+    background: #F3F7E6;
+    border-color: #65780B;
+    border-style: solid;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-title {
+    color: #405000;
+    font-size: 1rem;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-title::before {
+    background: #65780B;
+    color: #FFFFFF;
+    content: '\2713';
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 22px;
+    margin-right: 8px;
+    text-align: center;
+    width: 22px;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-copy {
+    color: #000000;
+    font-weight: 700;
+}
 .transcript-drop-zone input {
     height: 1px;
     opacity: 0;
@@ -3203,6 +3227,7 @@ body.transcript-dialog-open { overflow: hidden; }
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.transcript-drop-zone.has-file + .transcript-file-name { color: #405000; }
 .transcript-privacy {
     border-left: 4px solid #73000A;
     color: #5C5C5C;

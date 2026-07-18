@@ -176,6 +176,7 @@ test('dialog and static shell expose attempt review, immediate undo, and integra
     });
     assert.match(markup, /id="transcript-undo" hidden>UNDO IMPORT/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
+    assert.match(html, /src="\/static\/js\/api\.js\?v=\d+"/);
     assert.match(html, /TranscriptImport\.init\(\)/);
     assert.match(worker, /\/static\/js\/transcript-upload-dialog\.js/);
     assert.match(worker, /\/static\/js\/transcript-import\.js/);

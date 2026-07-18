@@ -127,4 +127,8 @@ test('dialog uses accessible modal, progress, alert, and file-picker semantics',
     assert.match(markup, /name="transcript-import-mode" value="replace"/);
     assert.match(styles, /\.transcript-upload-dialog\s*{[^}]*max-width:\s*1040px/s);
     assert.match(styles, /\.transcript-upload-close:hover\s*{[^}]*background:\s*#73000A/s);
+    assert.match(styles, /\.transcript-drop-zone\.has-file\s*{/);
+    assert.match(markup, /id="transcript-drop-zone-title"/);
+    assert.match(markup, /id="transcript-drop-zone-copy"/);
+    assert.match(markup, /id="transcript-drop-zone-action"/);
 });
