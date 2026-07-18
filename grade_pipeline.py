@@ -199,7 +199,7 @@ def establish_session(term: str) -> requests.Session:
     return session
 
 
-def fetch_term(session: requests.Session, term: str) -> list[dict[str, Any]]:
+def fetch_term(session: requests.Session, term: str, campus: str = "COL") -> list[dict[str, Any]]:
     def page(offset: int) -> dict[str, Any]:
         for attempt in range(4):
             try:
@@ -207,6 +207,7 @@ def fetch_term(session: requests.Session, term: str) -> list[dict[str, Any]]:
                     f"{BANNER_BASE}/searchResults/searchResults",
                     params={
                         "txt_term": term,
+                        "txt_campus": campus,
                         "pageOffset": offset,
                         "pageMaxSize": 500,
                     },
@@ -235,27 +236,44 @@ def fetch_term(session: requests.Session, term: str) -> list[dict[str, Any]]:
                 {
                     "subject": row.get("subject"),
                     "courseNumber": row.get("courseNumber"),
+                    "courseTitle": row.get("courseTitle"),
+                    "campus": campus,
                     "sequenceNumber": row.get("sequenceNumber"),
                     "courseReferenceNumber": row.get("courseReferenceNumber"),
+                    "enrollment": row.get("enrollment"),
+                    "maximumEnrollment": row.get("maximumEnrollment"),
                 }
             )
     return rows
 
 
+def term_cache_has_enrollment_fields(rows: list[dict[str, Any]], campus: str = "COL") -> bool:
+    """Return whether a whole-term cache uses the enrollment-aware schema."""
+    expected_campus = normalize_code(campus)
+    return bool(rows) and all(
+        "enrollment" in row
+        and "maximumEnrollment" in row
+        and normalize_code(row.get("campus")) == expected_campus
+        for row in rows
+    )
+
+
 def cached_subjects(
-    connection: sqlite3.Connection, sections: pd.DataFrame
+    connection: sqlite3.Connection, sections: pd.DataFrame, campus: str = "COL"
 ) -> dict[tuple[str, str, str, str], dict[str, Any]]:
     section_index: dict[tuple[str, str, str, str], dict[str, Any]] = {}
     requests_by_term = sections.groupby("TERM")["SUBJECT"].unique().to_dict()
     for term in sorted(requests_by_term):
-        session = establish_session(term)
         cached = connection.execute(
             "SELECT payload FROM subject_search WHERE term=? AND subject='*'", (term,)
         ).fetchone()
-        if cached:
-            rows = json.loads(cached[0])
-        else:
-            rows = fetch_term(session, term)
+        rows = json.loads(cached[0]) if cached else []
+        if not term_cache_has_enrollment_fields(rows, campus):
+            session = establish_session(term)
+            try:
+                rows = fetch_term(session, term, campus)
+            finally:
+                session.close()
             connection.execute(
                 "INSERT OR REPLACE INTO subject_search VALUES (?, '*', ?)",
                 (term, json.dumps(rows, separators=(",", ":"))),
@@ -623,7 +641,7 @@ def main() -> int:
     print(f"Loaded {len(sections):,} normalized {args.campus} sections", flush=True)
     connection = initialize_cache(args.cache)
     try:
-        section_index = cached_subjects(connection, sections)
+        section_index = cached_subjects(connection, sections, args.campus)
         matched_rows = []
         for _, section in sections.iterrows():
             key = (

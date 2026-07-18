@@ -49,6 +49,19 @@ def completed_grade_terms(analytics: dict[str, Any]) -> list[str]:
     )
 
 
+def validate_full_history_metrics(coverage: dict[str, Any]) -> None:
+    """Reject a full release when an entire populated term loses enrollment."""
+    missing = [
+        str(source.get("term", ""))
+        for source in coverage.get("term_sources", [])
+        if source.get("selected_sections", 0) > 0 and source.get("sections_with_enrollment", 0) == 0
+    ]
+    if missing:
+        raise ValueError(
+            "Full offering-history terms have no enrollment fields: " + ", ".join(missing)
+        )
+
+
 def build_release(
     *,
     grade_analytics_path: Path,
@@ -116,6 +129,8 @@ def build_release(
         campus=campus,
         generated_at=timestamp,
     )
+    if scope_kind == "full":
+        validate_full_history_metrics(history_coverage)
 
     releases_root = output_root / "releases"
     releases_root.mkdir(parents=True, exist_ok=True)

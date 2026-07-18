@@ -11,7 +11,7 @@ import pytest
 from scripts.build_catalog_shards import build_catalog_shards, load_major_maps
 from scripts.build_grade_shards import MIN_PUBLIC_GRADED_STUDENTS, build_grade_shards
 from scripts.build_offering_history import TermRecord, build_history_shards
-from scripts.build_static_release import build_release
+from scripts.build_static_release import build_release, validate_full_history_metrics
 from scripts.static_release import assert_privacy_safe, write_manifest_atomic
 
 
@@ -298,6 +298,26 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
         assert payload["schema_version"] == manifest["schema_version"]
         assert "courseReferenceNumber" not in content.decode("utf-8")
         assert '"crn"' not in content.decode("utf-8").lower()
+
+
+def test_full_release_rejects_a_term_without_enrollment_fields() -> None:
+    with pytest.raises(ValueError, match="202501"):
+        validate_full_history_metrics(
+            {
+                "term_sources": [
+                    {
+                        "term": "202408",
+                        "selected_sections": 10,
+                        "sections_with_enrollment": 10,
+                    },
+                    {
+                        "term": "202501",
+                        "selected_sections": 12,
+                        "sections_with_enrollment": 0,
+                    },
+                ]
+            }
+        )
 
 
 def test_manifest_publication_failure_preserves_active_release(tmp_path: Path) -> None:

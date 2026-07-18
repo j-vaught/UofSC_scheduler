@@ -117,11 +117,23 @@ const History = {
         const totalTerms = availableTerms.length;
         const pct = totalTerms ? Math.round((offeredCount / totalTerms) * 100) : 0;
 
+        const metricCoverageComplete = (term, metric) => {
+            const sections = Math.max(0, Number(term.sections) || 0);
+            const measured = this._number(term[`${metric}_sections`]);
+            return measured === null || measured >= sections;
+        };
+
         const enrollmentTerms = availableTerms.filter(term => (
-            term.offered && this._number(term.enrollment) !== null
+            term.offered
+            && this._number(term.enrollment) !== null
+            && metricCoverageComplete(term, 'enrollment')
         ));
         const capacityTerms = availableTerms.filter(term => (
-            term.offered && this._number(term.enrollment) !== null && this._number(term.capacity) > 0
+            term.offered
+            && this._number(term.enrollment) !== null
+            && this._number(term.capacity) > 0
+            && metricCoverageComplete(term, 'enrollment')
+            && metricCoverageComplete(term, 'capacity')
         ));
         const averageEnrollment = enrollmentTerms.length
             ? enrollmentTerms.reduce((sum, term) => sum + this._number(term.enrollment), 0) / enrollmentTerms.length
@@ -153,7 +165,11 @@ const History = {
 
             const enrollment = this._number(term.enrollment);
             const capacity = this._number(term.capacity);
+            const enrollmentSections = this._number(term.enrollment_sections);
+            const enrollmentComplete = metricCoverageComplete(term, 'enrollment');
+            const capacityComplete = metricCoverageComplete(term, 'capacity');
             const termFill = enrollment !== null && capacity > 0
+                && enrollmentComplete && capacityComplete
                 ? Math.round(enrollment / capacity * 100)
                 : null;
             const sections = Math.max(0, Number(term.sections) || 0);
@@ -171,9 +187,11 @@ const History = {
                 : `${sections} section${sections === 1 ? '' : 's'}`;
             let enrollmentText = '';
             if (state === 'offered') {
-                enrollmentText = enrollment !== null
-                    ? `${Math.round(enrollment)}${capacity > 0 ? ` of ${Math.round(capacity)}` : ''} enrolled${termFill !== null ? ` · ${termFill}% filled` : ''}`
-                    : 'Enrollment unavailable';
+                if (enrollment !== null && enrollmentComplete) {
+                    enrollmentText = `${Math.round(enrollment)}${capacity > 0 && capacityComplete ? ` of ${Math.round(capacity)}` : ''} enrolled${termFill !== null ? ` · ${termFill}% filled` : ''}`;
+                } else if (enrollment !== null && enrollmentSections > 0) {
+                    enrollmentText = `${Math.round(enrollment)} enrolled across ${Math.round(enrollmentSections)} of ${sections} sections`;
+                }
             }
             const tooltipId = `history-term-${String(term.term).replace(/[^0-9a-z_-]/gi, '')}`;
             const accessibleDetails = [termLabel, offeringText, enrollmentText].filter(Boolean).join('. ');

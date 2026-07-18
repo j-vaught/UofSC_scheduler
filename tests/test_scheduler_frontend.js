@@ -3250,7 +3250,10 @@ test('Offering history groups terms by year and reveals details on colored seaso
             { term: '202501', label: 'Spring 2025', complete: true, available: false, offered: false },
             { term: '202505', label: 'Summer 2025', complete: true, available: true, offered: false },
             { term: '202508', label: 'Fall 2025', complete: true, available: true, offered: true, sections: 2, enrollment: 100, capacity: 125 },
-            { term: '202408', label: 'Fall 2024', complete: true, available: true, offered: true, sections: 1 },
+            { term: '202408', label: 'Fall 2024', complete: true, available: true, offered: true, sections: 1, enrollment: 72 },
+            { term: '202405', label: 'Summer 2024', complete: true, available: true, offered: true, sections: 3, enrollment: 40, enrollment_sections: 2 },
+            { term: '202401', label: 'Spring 2024', complete: true, available: true, offered: true, sections: 1 },
+            { term: '202308', label: 'Fall 2023', complete: true, available: true, offered: true, sections: 1 },
         ],
     }, container);
 
@@ -3260,6 +3263,9 @@ test('Offering history groups terms by year and reveals details on colored seaso
     assert.match(container.innerHTML, /history-season-cell offered" tabindex="0" role="img"/);
     assert.match(container.innerHTML, /Fall 2025/);
     assert.match(container.innerHTML, /100 of 125 enrolled · 80% filled/);
+    assert.match(container.innerHTML, /72 enrolled/);
+    assert.match(container.innerHTML, /40 enrolled across 2 of 3 sections/);
+    assert.doesNotMatch(container.innerHTML, /Enrollment unavailable/);
     assert.match(container.innerHTML, /history-season-cell not-offered/);
     assert.match(container.innerHTML, /history-season-cell unknown" tabindex="0"/);
     assert.match(container.innerHTML, /history-season-cell not-checked/);
