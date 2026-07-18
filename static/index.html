@@ -68,6 +68,14 @@
                     </button>
                 </div>
 
+                <section class="home-transcript-import" aria-labelledby="home-transcript-title">
+                    <div>
+                        <h3 id="home-transcript-title">Bring in your completed courses</h3>
+                        <p>Download your UofSC advising transcript, then review the courses before adding them to your profile.</p>
+                    </div>
+                    <div data-transcript-upload-launch="home"></div>
+                </section>
+
                 <div class="home-quickstart">
                     <h3>Quick Start</h3>
                     <p>Select your major to estimate your course completion based on the major map.</p>
@@ -119,6 +127,13 @@
                 <!-- Transcript Entry -->
                 <section class="profile-section">
                     <h2>Completed Courses</h2>
+                    <div class="transcript-import-entry">
+                        <div>
+                            <strong>Import from UofSC</strong>
+                            <span>Use an advising-transcript PDF to add completed and in-progress courses.</span>
+                        </div>
+                        <div data-transcript-upload-launch="profile"></div>
+                    </div>
                     <p class="section-hint">Enter courses separated by commas, semicolons, periods, or one per line. Case-insensitive, space optional (e.g., csce145, MATH 141; engl101).</p>
                     <textarea id="transcript-input" rows="4" placeholder="CSCE 145, CSCE 146, MATH 141, ENGL 101..."></textarea>
                     <div class="transcript-actions">
@@ -231,6 +246,10 @@
                         <div class="progress-label">Overall Progress</div>
                         <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
                         <div class="progress-text" id="progress-overall-text">0 / 120 credits</div>
+                    </div>
+                    <div class="degree-transcript-entry">
+                        <p>Already have UofSC coursework?</p>
+                        <div data-transcript-upload-launch="degree"></div>
                     </div>
                     <div id="degree-requirements-list" class="requirements-list">
                         <p class="hint">Select a major in the Profile tab to see requirements.</p>
@@ -666,11 +685,13 @@
     <script src="/static/js/export.js"></script>
     <script src="/static/js/profile.js"></script>
     <script src="/static/js/degree-plan.js"></script>
+    <script src="/static/js/transcript-upload-dialog.js"></script>
     <script src="/static/js/notices.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         SiteNotices.init();
         Tabs.init();
+        TranscriptUploadDialog.init();
         Profile.init();
         Calendar.init();
         WalkingMap.init();
