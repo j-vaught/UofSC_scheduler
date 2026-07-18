@@ -373,7 +373,8 @@ def validate_source(source: Path, *, allow_representative: bool = False) -> None
         raise FileNotFoundError(f"Missing static application entry point: {index_path}")
     index = index_path.read_text(encoding="utf-8")
     for absolute_path in INDEX_ASSET_RE.findall(index):
-        relative = absolute_path.removeprefix("/static/")
+        asset_path = absolute_path.split("?", 1)[0].split("#", 1)[0]
+        relative = asset_path.removeprefix("/static/")
         if not (source / relative).is_file():
             raise FileNotFoundError(f"Index references a missing asset: {absolute_path}")
 

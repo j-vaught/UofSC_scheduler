@@ -38,7 +38,7 @@ def write_source(root: Path) -> Path:
         encoding="utf-8",
     )
     (source / "index.html").write_text(
-        '<link href="/static/css/style.css"><script src="/static/js/app.js"></script>',
+        '<link href="/static/css/style.css"><script src="/static/js/app.js?v=2"></script>',
         encoding="utf-8",
     )
     (source / "css" / "style.css").write_text("body {}", encoding="utf-8")
