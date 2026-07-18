@@ -1,0 +1,1354 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Hospitality, Retail, & Sport Management",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Retailing",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7089bb18a6e732cc",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7089bb18a6e732cc"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_aa50389f645d4acc",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_aa50389f645d4acc"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_e950552ca0dad38e",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e950552ca0dad38e"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b0b64bcd625366ad",
+      "informational": true,
+      "label": "Carolina Core CMS",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b0b64bcd625366ad"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ea3ebb0618c7b9b4",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ea3ebb0618c7b9b4"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c8e4aec002fad807",
+      "informational": true,
+      "label": "Foreign Language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c8e4aec002fad807"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3c948ac1fb760ade",
+      "informational": true,
+      "label": "Foreign Language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3c948ac1fb760ade"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_09e6a91210f7648c",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_09e6a91210f7648c"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_973e65f31df8589e",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_973e65f31df8589e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_f5a5ffcc792b19ea",
+      "informational": true,
+      "label": "RETL Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f5a5ffcc792b19ea"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ffb5be5e1a4cb474",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ffb5be5e1a4cb474"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_6d6b8f32a029502d",
+      "informational": true,
+      "label": "RETL Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6d6b8f32a029502d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_652029b83a85bd6b",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_652029b83a85bd6b"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c64a624266574d61",
+      "informational": true,
+      "label": "RETL 465 Global Sourcing in Retail or Fashion",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c64a624266574d61"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 2,
+      "id": "req_cebaf3ebb07bc773",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cebaf3ebb07bc773"
+    }
+  ],
+  "id": "map_60fa8d8044947930",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Retailing",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Hospitality, Retail, & Sport Management",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Retailing",
+    "faculty_approver": "Jeffrey Campbell",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Retailing"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_ce7a19c64155ccbd",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 268",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_50ca07076ce6337b",
+      "title": "Principles of Fashion Merchandising",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "HRSM 101",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_38a3af7a08de8f6c",
+      "title": "HRSM Professional Development Career",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_d14ddc18b78bbdcf",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 265",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a98b57110c035c8f",
+      "title": "Principles of Retailing",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRSM 201",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_64f22a860d4f31f4",
+      "title": "Professional Development Seminar",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 261",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_87570f7f6824fd9d",
+      "title": "Principles of Accounting I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 240",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_11ae6889de838b8e",
+      "title": "Business Law",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 242",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b31c1fe1ae124374",
+      "title": "HRSM Professional Communications",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRSM 301",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_32de6c37145c00df",
+      "title": "HRSM Advanced Professional",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 295",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6849851cc0ecdc48",
+      "title": "Retailing Practicum5",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 262",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_41de0dfce782a47b",
+      "title": "Principles of Accounting II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 366",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8b43d9555bca578f",
+      "title": "Retail Buying",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 310",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5f01e39e4c5b45e4",
+      "title": "Digital Retailing",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "HTMT 344",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_aa2728943481404c",
+      "title": "Human Resource Management in",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 365",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4adf7bd9cff6b795",
+      "title": "Visual Merchandising & Store Design",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 340",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ff670f4f6bf235ec",
+      "title": "Sustainability in Fashion and Retail",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 274",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2d69f6312a8bcecc",
+      "title": "Computer Applications in HRSM",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 348",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_acc393799120865a",
+      "title": "Digital Innovations in Fashion",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 369",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5357b51cbd33ce58",
+      "title": "Retail Promotion",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 368",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8e42877ad23c1d19",
+      "title": "Fashion Product Analysis",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 462",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0a6e866ec2b0c4bb",
+      "title": "Merchandise Management Strategies",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 421",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bf1ec1facfd8b642",
+      "title": "Retail Finance",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 425",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5ee1bf4fb1ff6430",
+      "title": "Customer Experience Management",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RETL 495",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_07092a75a9f689ee",
+      "title": "Retailing Internship8",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7089bb18a6e732cc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 268"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_50ca07076ce6337b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! RETL 268 Principles of Fashion Merchandising 3 C MR",
+          "title": "RETL 268 Principles of Fashion Merchandising",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 101"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_38a3af7a08de8f6c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "HRSM 101 HRSM Professional Development Career 1 C PR",
+          "title": "HRSM 101 HRSM Professional Development Career",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aa50389f645d4acc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d14ddc18b78bbdcf",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e950552ca0dad38e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 265"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_a98b57110c035c8f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! RETL 265 Principles of Retailing 3 C MR",
+          "title": "RETL 265 Principles of Retailing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 201"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_64f22a860d4f31f4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "HRSM 201 Professional Development Seminar 1 C CR C or better in HRSM 101, passing",
+          "title": "HRSM 201 Professional Development Seminar",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b0b64bcd625366ad",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core CMS 3 CC-CMS",
+          "title": "Carolina Core CMS",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ea3ebb0618c7b9b4",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        13,
+        14
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 261"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_87570f7f6824fd9d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "! RETL 261 Principles of Accounting I 3 C CR",
+          "title": "RETL 261 Principles of Accounting I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_11ae6889de838b8e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "SPTE 240 Business Law 3 C CR",
+          "title": "SPTE 240 Business Law",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 242"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b31c1fe1ae124374",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "RETL 242 HRSM Professional Communications 3 C CR C or better in ENGL 101 & 102",
+          "title": "RETL 242 HRSM Professional Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 301"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_32de6c37145c00df",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "HRSM 301 HRSM Advanced Professional 1 C CR C or better in HRSM 201",
+          "title": "HRSM 301 HRSM Advanced Professional",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c8e4aec002fad807",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language4 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign Language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 295"
+          ],
+          "credit_hours": 6,
+          "critical": true,
+          "id": "req_6849851cc0ecdc48",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! RETL 295 Retailing Practicum5 6 C MR RETL 265; Instructor Approval",
+          "title": "RETL 295 Retailing Practicum5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 262"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_41de0dfce782a47b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 262 Principles of Accounting II 3 C CR RETL 261",
+          "title": "RETL 262 Principles of Accounting II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3c948ac1fb760ade",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign Language4 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign Language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_09e6a91210f7648c",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 or Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        12,
+        13
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 366"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_8b43d9555bca578f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! RETL 366 Retail Buying 3 C MR RETL 261; Junior or Senior standing",
+          "title": "RETL 366 Retail Buying",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 310"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5f01e39e4c5b45e4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 310 Digital Retailing 3 C MR C or better in RETL 265",
+          "title": "RETL 310 Digital Retailing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HTMT 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aa2728943481404c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "HTMT 344 Human Resource Management in 3 C CR",
+          "title": "HTMT 344 Human Resource Management in",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_973e65f31df8589e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 365"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4adf7bd9cff6b795",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RETL 365 Visual Merchandising & Store Design 3 C MR",
+          "title": "RETL 365 Visual Merchandising & Store Design",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 340"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ff670f4f6bf235ec",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 340 Sustainability in Fashion and Retail 3 C MR",
+          "title": "RETL 340 Sustainability in Fashion and Retail",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f5a5ffcc792b19ea",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "RETL Elective7 3 C MR",
+          "title": "RETL Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 274"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2d69f6312a8bcecc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "SPTE 274 Computer Applications in HRSM 3 C CR",
+          "title": "SPTE 274 Computer Applications in HRSM",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ffb5be5e1a4cb474",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 or Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 348"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_acc393799120865a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RETL 348 Digital Innovations in Fashion 3 C MR",
+          "title": "RETL 348 Digital Innovations in Fashion",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 369"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5357b51cbd33ce58",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 369 Retail Promotion 3 C MR",
+          "title": "RETL 369 Retail Promotion",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 368"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_8e42877ad23c1d19",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! RETL 368 Fashion Product Analysis 3 C MR",
+          "title": "RETL 368 Fashion Product Analysis",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6d6b8f32a029502d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "RETL Elective7 3 C MR",
+          "title": "RETL Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_652029b83a85bd6b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 or Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 462"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0a6e866ec2b0c4bb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RETL 462 Merchandise Management Strategies 3 C MR RETL 366 & 368; Junior or Senior",
+          "title": "RETL 462 Merchandise Management Strategies",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 421"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bf1ec1facfd8b642",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 421 Retail Finance 3 C MR C or better in RETL 262",
+          "title": "RETL 421 Retail Finance",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 425"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5ee1bf4fb1ff6430",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "RETL 425 Customer Experience Management 3 C MR C or better in RETL 265; Junior or",
+          "title": "RETL 425 Customer Experience Management",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 465"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c64a624266574d61",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "RETL 465 Global Sourcing in Retail or Fashion 3 C MR C or better in RETL 261 and RETL",
+          "title": "RETL 465 Global Sourcing in Retail or Fashion",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_cebaf3ebb07bc773",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective6 2 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 495"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_07092a75a9f689ee",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "RETL 495 Retailing Internship8 6 C MR RETL 295; Completion of required",
+          "title": "RETL 495 Retailing Internship8",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "d8d530deaca547b6fffd1b72162cf0fa26c6279205099c75c2e6def3720a6f64",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_retl_fashion-merch_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_retl_fashion-merch_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_retl_fashion-merch_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 14,
+    "requirement_count": 41,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

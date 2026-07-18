@@ -1,0 +1,1272 @@
+{
+  "catalog_year": "2020-2021",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Education",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Instruction & Teacher Education",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_fa91a0b498d2d910",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fa91a0b498d2d910"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c137804ee0c483f8",
+      "informational": true,
+      "label": "Carolina Core AIU Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c137804ee0c483f8"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_52a029a5388a2448",
+      "informational": true,
+      "label": "Carolina Core GHS Course",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_52a029a5388a2448"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f48a52f4af279e7a",
+      "informational": true,
+      "label": "Elective (UNIV 101 The Student in the University)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f48a52f4af279e7a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_90d5570fd51d4efb",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_90d5570fd51d4efb"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0baf172135f0731e",
+      "informational": true,
+      "label": "Carolina Core GSS Requirement3 (and/or Foreign language4)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0baf172135f0731e"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_6c8ea693a7863821",
+      "informational": true,
+      "label": "Carolina Core SCI Requirement 3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6c8ea693a7863821"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_50c0cca2fc4e0093",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_50c0cca2fc4e0093"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_fcf01d062c8d0205",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fcf01d062c8d0205"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7d5999a4a0311956",
+      "informational": true,
+      "label": "Carolina Core SCI Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7d5999a4a0311956"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_97d0d75f984db957",
+      "informational": true,
+      "label": "Carolina Core CMS/VSR Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_97d0d75f984db957"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_64b4bf0404396fe7",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_64b4bf0404396fe7"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_2f6aea7f16dd97df",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2f6aea7f16dd97df"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a802b9fd63f590b1",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a802b9fd63f590b1"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_528c2d0b124ac1a3",
+      "informational": true,
+      "label": "Additional Literature or History7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_528c2d0b124ac1a3"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_3b85d58074152e34",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3b85d58074152e34"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_04c31be74ba0663d",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_04c31be74ba0663d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_10f726a0b78e40e7",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_10f726a0b78e40e7"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_76bfcddca980f565",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_76bfcddca980f565"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_7ca1eb797520a665",
+      "informational": true,
+      "label": "Social Studies Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7ca1eb797520a665"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c9c61b97a8da788f",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c9c61b97a8da788f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_48a09745ac24deb8",
+      "informational": true,
+      "label": "Science Content Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_48a09745ac24deb8"
+    }
+  ],
+  "id": "map_acaf3f2f7d1f0b07",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Middle Level Education",
+  "parsed_metadata": {
+    "bulletin_year": "2020-2021",
+    "college": "Education",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Instruction & Teacher Education",
+    "faculty_approver": "Fenice Boyd",
+    "minimum_institutional_gpa": 2.75,
+    "minimum_total_hours": 122,
+    "name": "Middle Level Education"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_e43bda5cadfd9960",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "EDTE 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0cd676579f1e6e05",
+      "title": "Issues & Trends in Teaching & Learning",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "EDFI 300",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ce858eacfbf6f5be",
+      "title": "Schools in Communities",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDPY 401",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7909b60e66f619d0",
+      "title": "Learners and the Diversity of Learning",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 470",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d1837efd4f78656a",
+      "title": "Foundations in Reading",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 491",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8dae56bb2ed4310e",
+      "title": "Intro. to Inclusion of Stud. w/ Mild Disabilities",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 471",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_aa4f6b406fc45e7d",
+      "title": "Middle Level Content Area Reading & Writing",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 321",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1d6d5f2e1004ba36",
+      "title": "Middle Level Teaching & Management",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 598",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "B",
+      "prerequisites": [],
+      "source_requirement_id": "req_3f5b9f3e03f49735",
+      "title": "Internship A in the Middle School8",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDTE 522",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b00942b96e365d33",
+      "title": "Integrated Curriculum at the Middle Level",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDRM 423",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f106f950bde486ae",
+      "title": "Introduction to Classroom Assessment",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 553",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9cdc7c6c5f09dfae",
+      "title": "Methods & Materials for Teaching Science in",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 563",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_3033e0fcee8b86f6",
+      "title": "Methods & Materials for Teaching Social",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 599",
+      "corequisites": [],
+      "credits": 12,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8d2e83a04b4eb40a",
+      "title": "Internship B in the Middle School9",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDML 584",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_70e657ac164ba80d",
+      "title": "Middle School Internship Seminar",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fa91a0b498d2d910",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+          "title": "Carolina Core ARP Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c137804ee0c483f8",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core AIU Requirement3 3 CC-AIU",
+          "title": "Carolina Core AIU Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_52a029a5388a2448",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core GHS Course 3 CC-GHS",
+          "title": "Carolina Core GHS Course",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f48a52f4af279e7a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Elective (UNIV 101 The Student in the University) 3 PR/CC (GFL)",
+          "title": "Elective (UNIV 101 The Student in the University)",
+          "warnings": [
+            "course_mentioned_as_example_not_required"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_90d5570fd51d4efb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+          "title": "Carolina Core ARP Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0baf172135f0731e",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core GSS Requirement3 (and/or Foreign language4) 3 CC-GSS (GFL)",
+          "title": "Carolina Core GSS Requirement3 (and/or Foreign language4)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_6c8ea693a7863821",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core SCI Requirement 3 4 CC-SCI",
+          "title": "Carolina Core SCI Requirement 3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDTE 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0cd676579f1e6e05",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+          "title": "EDTE 201 Issues & Trends in Teaching & Learning",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDFI 300"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ce858eacfbf6f5be",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "EDFI 300 Schools in Communities 3 C * MR",
+          "title": "EDFI 300 Schools in Communities",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_50c0cca2fc4e0093",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_fcf01d062c8d0205",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7d5999a4a0311956",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+          "title": "Carolina Core SCI Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_97d0d75f984db957",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core CMS/VSR Requirement3 3 CC-CMS/VSR",
+          "title": "Carolina Core CMS/VSR Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDPY 401"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7909b60e66f619d0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+          "title": "EDPY 401 Learners and the Diversity of Learning",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_64b4bf0404396fe7",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2f6aea7f16dd97df",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a802b9fd63f590b1",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_528c2d0b124ac1a3",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Additional Literature or History7 3 PR See listing in Bulletin.",
+          "title": "Additional Literature or History7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 470"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_d1837efd4f78656a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDML 470 Foundations in Reading 3 C * MR",
+          "title": "EDML 470 Foundations in Reading",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3b85d58074152e34",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_04c31be74ba0663d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_10f726a0b78e40e7",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_76bfcddca980f565",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        17,
+        19
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 491"
+          ],
+          "credit_hours": 2,
+          "critical": true,
+          "id": "req_8dae56bb2ed4310e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 491 Intro. to Inclusion of Stud. w/ Mild Disabilities 2 C * MR Adm. to Professional Prog.",
+          "title": "EDEX 491 Intro. to Inclusion of Stud. w/ Mild Disabilities",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 471"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_aa4f6b406fc45e7d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDML 471 Middle Level Content Area Reading & Writing 3 C * MR Adm. to Professional Prog.",
+          "title": "EDML 471 Middle Level Content Area Reading & Writing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 321"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_1d6d5f2e1004ba36",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDML 321 Middle Level Teaching & Management 3 C * MR Adm. to Professional Prog.",
+          "title": "EDML 321 Middle Level Teaching & Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7ca1eb797520a665",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+          "title": "Social Studies Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c9c61b97a8da788f",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_48a09745ac24deb8",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Science Content Course6 3-4 C MR See listing in Bulletin.",
+          "title": "Science Content Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 598"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_3f5b9f3e03f49735",
+          "minimum_grade": "B",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDML 598 Internship A in the Middle School8 3 B * MR Admission to Internship A",
+          "title": "EDML 598 Internship A in the Middle School8",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDTE 522"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b00942b96e365d33",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDTE 522 Integrated Curriculum at the Middle Level 3 C * MR Admission to Internship A",
+          "title": "EDTE 522 Integrated Curriculum at the Middle Level",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDRM 423"
+          ],
+          "credit_hours": 2,
+          "critical": true,
+          "id": "req_f106f950bde486ae",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDRM 423 Introduction to Classroom Assessment 2 C * MR Admission to Internship A",
+          "title": "EDRM 423 Introduction to Classroom Assessment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 553"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_9cdc7c6c5f09dfae",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! EDML 553 Methods & Materials for Teaching Science in 3 C * MR Admission to Internship A",
+          "title": "EDML 553 Methods & Materials for Teaching Science in",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 563"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_3033e0fcee8b86f6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "! EDML 563 Methods & Materials for Teaching Social 3 C * MR Admission to Internship A",
+          "title": "EDML 563 Methods & Materials for Teaching Social",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 599"
+          ],
+          "credit_hours": 12,
+          "critical": true,
+          "id": "req_8d2e83a04b4eb40a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDML 599 Internship B in the Middle School9 12 C * MR Admission to Internship B",
+          "title": "EDML 599 Internship B in the Middle School9",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDML 584"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_70e657ac164ba80d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDML 584 Middle School Internship Seminar 3 C * MR Admission to Internship B",
+          "title": "EDML 584 Middle School Internship Seminar",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "f3848a0a5286658f9650027408623c6dd7487e9405fa63fe9f52314f96ac1e30",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_middle-ed-ba-sci-ss_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_middle-ed-ba-sci-ss_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_middle-ed-ba-sci-ss_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 122,
+  "validation": {
+    "low_confidence_requirement_count": 22,
+    "requirement_count": 38,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

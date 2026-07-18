@@ -1,0 +1,1317 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Languages, Literatures & Cultures",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_617267a2dc69d755",
+      "informational": true,
+      "label": "German language3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_617267a2dc69d755"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b8928f45500006bb",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8928f45500006bb"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7f192e4bb847e21f",
+      "informational": true,
+      "label": "German language3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7f192e4bb847e21f"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_075048a6fc5a2d82",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_075048a6fc5a2d82"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4cca07f8a1dd0215",
+      "informational": true,
+      "label": "History5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4cca07f8a1dd0215"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a3474d476201a5cd",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a3474d476201a5cd"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dce1ceddc71c41cf",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dce1ceddc71c41cf"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_6f3af7ce1df92920",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6f3af7ce1df92920"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c324b72e34a6db15",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c324b72e34a6db15"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9a30f359da4d3864",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9a30f359da4d3864"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a51ea3c620100e94",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a51ea3c620100e94"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b0d3c23b9ce84531",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b0d3c23b9ce84531"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_bf67e303363692b7",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bf67e303363692b7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_61bd552f020efb6d",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_61bd552f020efb6d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_23b3f4e431f2ce03",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_23b3f4e431f2ce03"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_bc73c217028b2708",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bc73c217028b2708"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4ba6e0133c1af731",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4ba6e0133c1af731"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_117340f25f82c84d",
+      "informational": true,
+      "label": "GERM Major Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_117340f25f82c84d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1ea87d5526f59130",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1ea87d5526f59130"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_08f36def7d84642b",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_08f36def7d84642b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f902c411883e247e",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f902c411883e247e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_9055a1b4bf259ddb",
+      "informational": true,
+      "label": "GERM Major Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9055a1b4bf259ddb"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a09e6db1f86b9122",
+      "informational": true,
+      "label": "GERM Major Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a09e6db1f86b9122"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_bfcb2cd8d54ce2b4",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bfcb2cd8d54ce2b4"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4977e0af497f0c1a",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4977e0af497f0c1a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_59f83422af99de57",
+      "informational": true,
+      "label": "GERM Major Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_59f83422af99de57"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_f15a27cf66b22991",
+      "informational": true,
+      "label": "GERM Major Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f15a27cf66b22991"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a9974791695e7bef",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a9974791695e7bef"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_89c4180fdd07d25e",
+      "informational": true,
+      "label": "Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_89c4180fdd07d25e"
+    }
+  ],
+  "id": "map_bd6fb9777ffc9bc8",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Languages, Literatures, and Cultures",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Languages, Literatures & Cultures",
+    "faculty_approver": "Paul Malovrh",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Languages, Literatures, and Cultures"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_90c8200fa2cfb7aa",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "GERM 210",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_af12932e3e4e7a56",
+      "title": "Intermediate German6",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "GERM 211",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_22eee015e6d473f3",
+      "title": "Intermediate German6",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GERM 310",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9015d789412cb214",
+      "title": "German Conversation9",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GERM 311",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ad6f48cf55a4d180",
+      "title": "German Conversation & Composition9",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GERM 340",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ca657522e9b4b674",
+      "title": "Readings in German Literature",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "GERM 411",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f97512cfc940931a",
+      "title": "Advanced German Conversation",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_617267a2dc69d755",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "German language3 3-4 CC-GFL",
+          "title": "German language3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8928f45500006bb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7f192e4bb847e21f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "German language3 3 CC-GFL",
+          "title": "German language3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_075048a6fc5a2d82",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4cca07f8a1dd0215",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History5 3 CR",
+          "title": "History5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 210"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_af12932e3e4e7a56",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM 210 Intermediate German6 3 CR GERM 122 or lang. placement test",
+          "title": "GERM 210 Intermediate German6",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a3474d476201a5cd",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_dce1ceddc71c41cf",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6f3af7ce1df92920",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c324b72e34a6db15",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 211"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_22eee015e6d473f3",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM 211 Intermediate German6 3 CR GERM 122 or lang. placement test",
+          "title": "GERM 211 Intermediate German6",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9a30f359da4d3864",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a51ea3c620100e94",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b0d3c23b9ce84531",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bf67e303363692b7",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 310"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9015d789412cb214",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM 310 German Conversation9 3 C MR GERM 210 & 211",
+          "title": "GERM 310 German Conversation9",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_61bd552f020efb6d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_23b3f4e431f2ce03",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bc73c217028b2708",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4ba6e0133c1af731",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective8 3 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 311"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ad6f48cf55a4d180",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM 311 German Conversation & Composition9 3 C MR GERM 210 & 211",
+          "title": "GERM 311 German Conversation & Composition9",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_117340f25f82c84d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GERM Major Course9 3 C MR See Bulletin listing",
+          "title": "GERM Major Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1ea87d5526f59130",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course7 or Approved Elective8 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_08f36def7d84642b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective8 3 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f902c411883e247e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective8 3 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9055a1b4bf259ddb",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM Major Course9 3 C MR See Bulletin listing",
+          "title": "GERM Major Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 340"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ca657522e9b4b674",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GERM 340 Readings in German Literature 3 C MR GERM 310 & 311",
+          "title": "GERM 340 Readings in German Literature",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a09e6db1f86b9122",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "GERM Major Course9 3 C MR See Bulletin listing",
+          "title": "GERM Major Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bfcb2cd8d54ce2b4",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Minor Course7 or Approved Elective8 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4977e0af497f0c1a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective8 3 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GERM 411"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f97512cfc940931a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GERM 411 Advanced German Conversation 3 C MR GERM 310 & 311",
+          "title": "GERM 411 Advanced German Conversation",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_59f83422af99de57",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GERM Major Course9 3 C MR See Bulletin listing",
+          "title": "GERM Major Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f15a27cf66b22991",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "GERM Major Course9 3 C MR See Bulletin listing",
+          "title": "GERM Major Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a9974791695e7bef",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective8 3 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_89c4180fdd07d25e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective8 1 PR",
+          "title": "Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "0d005c65e0398e25f7f27c0a0b4eba9f099a5014197fca1e83068bbc79a22b3e",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_germ_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_germ_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_germ_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 31,
+    "requirement_count": 40,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": [
+    "repository_pdf_major_mismatch"
+  ]
+}

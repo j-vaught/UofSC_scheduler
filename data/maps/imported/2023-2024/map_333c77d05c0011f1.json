@@ -1,0 +1,1310 @@
+{
+  "catalog_year": "2023-2024",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Anthropology",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7afadea31cbbd0d1",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7afadea31cbbd0d1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b8928f45500006bb",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8928f45500006bb"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dd6c66482caee4da",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dd6c66482caee4da"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_075048a6fc5a2d82",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_075048a6fc5a2d82"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4cca07f8a1dd0215",
+      "informational": true,
+      "label": "History5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4cca07f8a1dd0215"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_4dc433c4b0a532e5",
+      "label": "ANTH 101 Primates, People, & Prehistory or ANTH 161 Human Origins: An Intro. to Biol. Anth. GSS/SCI",
+      "options": [
+        "ANTH 101",
+        "ANTH 161"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_4dc433c4b0a532e5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c2cabea8e8b9ec4b",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c2cabea8e8b9ec4b"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_96b636347c8042eb",
+      "informational": true,
+      "label": "Foreign language3 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_96b636347c8042eb"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7e536eb89f9b4e75",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7e536eb89f9b4e75"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c324b72e34a6db15",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c324b72e34a6db15"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ca1823366acfa9a6",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ca1823366acfa9a6"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c2ce6046dea086be",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c2ce6046dea086be"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_b09f65e21d009445",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b09f65e21d009445"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5594b88a2663617b",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5594b88a2663617b"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_42f5e3dbf0a32d3e",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_42f5e3dbf0a32d3e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_d24a6fcec0f224de",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d24a6fcec0f224de"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ba7a095a0b966af2",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ba7a095a0b966af2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a7e5c636949d749e",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7e5c636949d749e"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_73a6d5cf8097765f",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73a6d5cf8097765f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_8a451a13fe880a23",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8a451a13fe880a23"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_676e834b1d54fa89",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_676e834b1d54fa89"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1e31d6a64129a6d9",
+      "informational": true,
+      "label": "Minor Course6 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1e31d6a64129a6d9"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_100444b34919a744",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_100444b34919a744"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_e75d4c7e4949a29f",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e75d4c7e4949a29f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ea55898da4d85f4e",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ea55898da4d85f4e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_46e3163d80635cb1",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_46e3163d80635cb1"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4732315e7263930b",
+      "informational": true,
+      "label": "Minor Course6 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4732315e7263930b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3fc774f947b3753e",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3fc774f947b3753e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0ecd7c6b702ff67f",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0ecd7c6b702ff67f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a34391809354921d",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a34391809354921d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_9634c86daaffbf57",
+      "informational": true,
+      "label": "ANTH Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9634c86daaffbf57"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7d9c55899155199a",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7d9c55899155199a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_73c184e09780d6fa",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73c184e09780d6fa"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1bf5313769093121",
+      "informational": true,
+      "label": "Approved Elective7 (only if needed to meet hours to",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1bf5313769093121"
+    }
+  ],
+  "id": "map_333c77d05c0011f1",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Anthropology",
+  "parsed_metadata": {
+    "bulletin_year": "2023-2024",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Anthropology",
+    "faculty_approver": "Jennifer Reynolds",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Anthropology"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_c3d300ab9995cd7a",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "ANTH 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_73577e860ca58e7d",
+      "title": "Understanding Other Cultures",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7afadea31cbbd0d1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8928f45500006bb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dd6c66482caee4da",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_075048a6fc5a2d82",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4cca07f8a1dd0215",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History5 3 CR",
+          "title": "History5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ANTH 101",
+            "ANTH 161"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_4dc433c4b0a532e5",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH 101 Primates, People, & Prehistory 3-4 CC- or ANTH 161 Human Origins: An Intro. to Biol. Anth. GSS/SCI",
+          "title": "ANTH 101 Primates, People, & Prehistory or ANTH 161 Human Origins: An Intro. to Biol. Anth. GSS/SCI",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c2cabea8e8b9ec4b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_96b636347c8042eb",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign language3 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7e536eb89f9b4e75",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c324b72e34a6db15",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ANTH 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73577e860ca58e7d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH 102 Understanding Other Cultures 3 CR",
+          "title": "ANTH 102 Understanding Other Cultures",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ca1823366acfa9a6",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c2ce6046dea086be",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b09f65e21d009445",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5594b88a2663617b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_42f5e3dbf0a32d3e",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d24a6fcec0f224de",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ba7a095a0b966af2",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a7e5c636949d749e",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73a6d5cf8097765f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8a451a13fe880a23",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_676e834b1d54fa89",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1e31d6a64129a6d9",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Approved Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_100444b34919a744",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e75d4c7e4949a29f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ea55898da4d85f4e",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_46e3163d80635cb1",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4732315e7263930b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Approved Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3fc774f947b3753e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0ecd7c6b702ff67f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a34391809354921d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9634c86daaffbf57",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ANTH Major Course8 3 C MR See Bulletin listing",
+          "title": "ANTH Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7d9c55899155199a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73c184e09780d6fa",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1bf5313769093121",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 (only if needed to meet hours to 3 PR",
+          "title": "Approved Elective7 (only if needed to meet hours to",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024",
+    "retrieved_at": null,
+    "sha256": "6088dabe860c402a8924d0697fcc0fd9125be26b5049e688b8e554ef884ae89b",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_anth_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_anth_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_anth_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 35,
+    "requirement_count": 40,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

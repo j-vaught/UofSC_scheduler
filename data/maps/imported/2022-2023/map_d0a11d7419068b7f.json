@@ -1,0 +1,1404 @@
+{
+  "catalog_year": "2022-2023",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Theatre & Dance",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_fa689651210747b1",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fa689651210747b1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_658d20103d7f8520",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_658d20103d7f8520"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_f56c849b02203425",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f56c849b02203425"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_178977f0d199c38b",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_178977f0d199c38b"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3b033743a542e003",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3b033743a542e003"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_02387878a5c7f9b1",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_02387878a5c7f9b1"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_576d893f81ff2dab",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_576d893f81ff2dab"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1edd794a59d8e86c",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1edd794a59d8e86c"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_f2072b35d52b3abc",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f2072b35d52b3abc"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_cc81931be3f35a37",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cc81931be3f35a37"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_02029c06047aaa3c",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_02029c06047aaa3c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b41466e05208a6ef",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b41466e05208a6ef"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_73a6d5cf8097765f",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73a6d5cf8097765f"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_21e3221075847995",
+      "informational": true,
+      "label": "Foreign language4 or Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_21e3221075847995"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_c80bafa99a6b9aac",
+      "label": "THEA 230 Make-up Design for Theatre and Film or THEA 241 Voice and Speech Studio or THEA 340 Literature and Performance or THEA 359 Theatrical Imagery or THEA 369 Japanese Culture & Society thru Theatre or THEA 399 Independent Study and Research or THEA 373 Movement Laboratory or THEA 375 Inner Mastery Through Movement",
+      "options": [
+        "THEA 230",
+        "THEA 241",
+        "THEA 340",
+        "THEA 359",
+        "THEA 369",
+        "THEA 399",
+        "THEA 373",
+        "THEA 375"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c80bafa99a6b9aac"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_37577c07c3176f1d",
+      "informational": true,
+      "label": "Dramatic Literature8 (from ENGL 300-level or above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_37577c07c3176f1d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4e716cf12d9ec97b",
+      "informational": true,
+      "label": "Cognate or Minor Course5 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4e716cf12d9ec97b"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_30381daf516c7296",
+      "label": "THEA 570 Advanced Acting or THEA 571 Advanced Acting II and 372 (THEA 570 & 571); or THEA 590 Advanced Acting for the Camera D or better in THEA 390",
+      "options": [
+        "THEA 570",
+        "THEA 571",
+        "AND 372",
+        "THEA 590",
+        "THEA 390"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_30381daf516c7296"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_df6100bdc5fc06fa",
+      "informational": true,
+      "label": "THEA Performance Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_df6100bdc5fc06fa"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9de472bd807be3fe",
+      "informational": true,
+      "label": "Cognate or Minor Course5 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9de472bd807be3fe"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_2642428900d3c1ce",
+      "informational": true,
+      "label": "History9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2642428900d3c1ce"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_1d68feb4eb43ecee",
+      "label": "THEA 490 Theatre Capstone Course or THEA 578 Play Direction I CC-INT 300-level THEA or above",
+      "options": [
+        "THEA 490",
+        "THEA 578",
+        "INT 300"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_1d68feb4eb43ecee"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b6f334e7747cfc89",
+      "informational": true,
+      "label": "Dramatic Literature8 (from ENGL 300-level or above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b6f334e7747cfc89"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2698ea762f309ded",
+      "informational": true,
+      "label": "Minor Course5 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2698ea762f309ded"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_566f285314f5b968",
+      "informational": true,
+      "label": "Minor Course5 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_566f285314f5b968"
+    }
+  ],
+  "id": "map_d0a11d7419068b7f",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Theatre",
+  "parsed_metadata": {
+    "bulletin_year": "2022-2023",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Theatre & Dance",
+    "faculty_approver": "Jim Hunter",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Theatre"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_3c84d8d11c928962",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "THEA 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d4e9a7493c4c6a84",
+      "title": "Introduction to Theatre Studies",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 270",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_df18fb73e7182aa5",
+      "title": "Beginning Acting",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 120",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_860032d0579ef7ea",
+      "title": "Laboratory Theatre Production",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_d14ddc18b78bbdcf",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 240",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b51e079b08488817",
+      "title": "Beginning Voice and Speech",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 280",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f2abe04749f52307",
+      "title": "Elements of Design for Theatre Production",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 121",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5f40008d2bb673af",
+      "title": "Theatre Running Crew Laboratory",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 370",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_960b619c4d767ad8",
+      "title": "Intermediate Acting",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 122",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_02cd5987130255a8",
+      "title": "Theatre Production Studio",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 372",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f8374aa93b6faf87",
+      "title": "Acting from a Physical Point of View",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 561",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_351a275deff8381e",
+      "title": "History of Theatre I (offered fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 221",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d4f734825e6c4f49",
+      "title": "Stage Management Laboratory",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 390",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_af64be98780c107e",
+      "title": "Beginning Acting for the Camera",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "THEA 562",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0bd56616461b4972",
+      "title": "History of Theatre II (offered spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d4e9a7493c4c6a84",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA 201 Introduction to Theatre Studies 3 C CR",
+          "title": "THEA 201 Introduction to Theatre Studies",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 270"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_df18fb73e7182aa5",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "THEA 270 Beginning Acting 3 C MR",
+          "title": "THEA 270 Beginning Acting",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 120"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_860032d0579ef7ea",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! THEA 120 Laboratory Theatre Production 1 C MR",
+          "title": "THEA 120 Laboratory Theatre Production",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_fa689651210747b1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d14ddc18b78bbdcf",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_658d20103d7f8520",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f56c849b02203425",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b51e079b08488817",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "THEA 240 Beginning Voice and Speech 3 C MR",
+          "title": "THEA 240 Beginning Voice and Speech",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 280"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f2abe04749f52307",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 280 Elements of Design for Theatre Production 3 C MR",
+          "title": "THEA 280 Elements of Design for Theatre Production",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 121"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_5f40008d2bb673af",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA 121 Theatre Running Crew Laboratory 1 C MR",
+          "title": "THEA 121 Theatre Running Crew Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_178977f0d199c38b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3b033743a542e003",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_02387878a5c7f9b1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_576d893f81ff2dab",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 6,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 370"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_960b619c4d767ad8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 370 Intermediate Acting 3 C MR THEA 270",
+          "title": "THEA 370 Intermediate Acting",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 122"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_02cd5987130255a8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA 122 Theatre Production Studio 1 C MR THEA 120",
+          "title": "THEA 122 Theatre Production Studio",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1edd794a59d8e86c",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f2072b35d52b3abc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cc81931be3f35a37",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_02029c06047aaa3c",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement3 or Approved Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 372"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f8374aa93b6faf87",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 372 Acting from a Physical Point of View 3 C MR",
+          "title": "THEA 372 Acting from a Physical Point of View",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 561"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_351a275deff8381e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA 561 History of Theatre I (offered fall only) 3 C MR",
+          "title": "THEA 561 History of Theatre I (offered fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 221"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_d4f734825e6c4f49",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "THEA 221 Stage Management Laboratory 1 C MR THEA 120 & 121",
+          "title": "THEA 221 Stage Management Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b41466e05208a6ef",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73a6d5cf8097765f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_21e3221075847995",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Foreign language4 or Carolina Core Requirement3 3 CR/CC",
+          "title": "Foreign language4 or Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "THEA 230",
+            "THEA 241",
+            "THEA 340",
+            "THEA 359",
+            "THEA 369",
+            "THEA 399",
+            "THEA 373",
+            "THEA 375"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c80bafa99a6b9aac",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 230 Make-up Design for Theatre and Film 3 C MR See Bulletin listing or THEA 241 Voice and Speech Studio or THEA 340 Literature and Performance or THEA 359 Theatrical Imagery or THEA 369 Japanese Culture & Society thru Theatre or THEA 399 Independent Study and Research or THEA 373 Movement Laboratory or THEA 375 Inner Mastery Through Movement",
+          "title": "THEA 230 Make-up Design for Theatre and Film or THEA 241 Voice and Speech Studio or THEA 340 Literature and Performance or THEA 359 Theatrical Imagery or THEA 369 Japanese Culture & Society thru Theatre or THEA 399 Independent Study and Research or THEA 373 Movement Laboratory or THEA 375 Inner Mastery Through Movement",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 390"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_af64be98780c107e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA 390 Beginning Acting for the Camera 3 C MR THEA 270",
+          "title": "THEA 390 Beginning Acting for the Camera",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "THEA 562"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0bd56616461b4972",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "THEA 562 History of Theatre II (offered spring only) 3 C MR",
+          "title": "THEA 562 History of Theatre II (offered spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 300"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_37577c07c3176f1d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Dramatic Literature8 (from ENGL 300-level or above) 3 C PR",
+          "title": "Dramatic Literature8 (from ENGL 300-level or above)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4e716cf12d9ec97b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Cognate or Minor Course5 or Approved Elective6 3 C PR",
+          "title": "Cognate or Minor Course5 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "THEA 570",
+            "THEA 571",
+            "AND 372",
+            "THEA 590",
+            "THEA 390"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_30381daf516c7296",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 570 Advanced Acting 3 C MR B or better in THEA 240, 370, or THEA 571 Advanced Acting II and 372 (THEA 570 & 571); or THEA 590 Advanced Acting for the Camera D or better in THEA 390",
+          "title": "THEA 570 Advanced Acting or THEA 571 Advanced Acting II and 372 (THEA 570 & 571); or THEA 590 Advanced Acting for the Camera D or better in THEA 390",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_df6100bdc5fc06fa",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "THEA Performance Elective7 3 C MR See Bulletin listing",
+          "title": "THEA Performance Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9de472bd807be3fe",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course5 or Approved Elective6 3 C PR",
+          "title": "Cognate or Minor Course5 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2642428900d3c1ce",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "History9 3 CR",
+          "title": "History9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "THEA 490",
+            "THEA 578",
+            "INT 300"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1d68feb4eb43ecee",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "THEA 490 Theatre Capstone Course 3 C MR THEA 270 & 280 and 6 hrs. or THEA 578 Play Direction I CC-INT 300-level THEA or above",
+          "title": "THEA 490 Theatre Capstone Course or THEA 578 Play Direction I CC-INT 300-level THEA or above",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 300"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b6f334e7747cfc89",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Dramatic Literature8 (from ENGL 300-level or above) 3 C PR",
+          "title": "Dramatic Literature8 (from ENGL 300-level or above)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2698ea762f309ded",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course5 or Approved Elective6 3 C (minor) PR",
+          "title": "Minor Course5 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_566f285314f5b968",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Minor Course5 or Approved Elective6 3 C (minor) PR",
+          "title": "Minor Course5 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023",
+    "retrieved_at": null,
+    "sha256": "2e4b041959a4dd36c188e14957d10fffd4e381b9dd49eb66ef2fcdae34644f4f",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_thea-performance_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_thea-performance_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_thea-performance_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 21,
+    "requirement_count": 42,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

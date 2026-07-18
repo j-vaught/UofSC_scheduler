@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-18",
+  "source": {
+    "name": "University of South Carolina Major Map Repository",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "coverage": {
+    "catalog_years": [
+      "2020-2021",
+      "2021-2022",
+      "2022-2023",
+      "2023-2024",
+      "2024-2025",
+      "2025-2026",
+      "2026-2027"
+    ],
+    "repository_rows": 1323,
+    "official_pdfs_available": 1295,
+    "official_rows_without_pdf": 28,
+    "maps_imported": 1295,
+    "maps_requiring_review": 1292
+  },
+  "validation": {
+    "blocking_errors": 0,
+    "course_codes_checked": 26765,
+    "course_codes_in_current_catalog": 25638,
+    "historical_or_unmatched_course_codes": 1127
+  },
+  "notes": [
+    "Each map retains its official PDF URL, source hash when available, extracted semester sequence, and parser warnings.",
+    "Ambiguous requirements remain informational and are not converted into invented course requirements.",
+    "The 2020-2021 collection is based on surviving official PDF inventory because that year is no longer fully indexed by the current repository page.",
+    "Rows without an official PDF are recorded as source gaps and are not fabricated."
+  ]
+}

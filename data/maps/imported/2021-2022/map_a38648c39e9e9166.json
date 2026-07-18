@@ -1,0 +1,65 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Accelerated Study Plan",
+  "concentrations": {},
+  "confidence": "low",
+  "department": "School of Earth, Ocean and Environment",
+  "elective_groups": [],
+  "id": "map_a38648c39e9e9166",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Environmental Studies",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Accelerated Study Plan",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "School of Earth, Ocean and Environment",
+    "faculty_approver": "",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": null,
+    "name": "Environmental Studies"
+  },
+  "plan_format": "accelerated",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_384912d951bfc5f5",
+  "required_courses": [],
+  "schema_version": 1,
+  "semester_plan": [],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "2618bb37a241e845b88e87999b8cefdffdcde5b0d9f956295bdec583df90f132",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_envr-studies-ba_3yrplan.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_envr-studies-ba_3yrplan.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_envr-studies-ba_3yrplan.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": null,
+  "validation": {
+    "low_confidence_requirement_count": 0,
+    "requirement_count": 0,
+    "requires_review": true,
+    "semester_count": 0
+  },
+  "warnings": [
+    "pdf_major_name_not_found",
+    "pdf_bulletin_year_not_found",
+    "semester_sequence_is_not_contiguous",
+    "expected_exactly_eight_ordered_semesters",
+    "no_course_rows_extracted",
+    "minimum_total_degree_hours_not_found",
+    "semester_plan_requires_manual_review"
+  ]
+}

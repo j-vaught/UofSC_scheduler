@@ -1,0 +1,1308 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Film and Media Studies",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_11869b75e5fb3a71",
+      "informational": true,
+      "label": "Foreign Language3 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_11869b75e5fb3a71"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_e25d6a18dd41202d",
+      "informational": true,
+      "label": "FAMS 240 Film & Media Analysis (cross-listed: ENGL 240)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e25d6a18dd41202d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_819476b13aea6d64",
+      "informational": true,
+      "label": "Foreign Language3 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_819476b13aea6d64"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_15c15c38381e8f7a",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_15c15c38381e8f7a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_e77dbe290c53f49a",
+      "informational": true,
+      "label": "FAMS 308 Global Media Industries (cross-listed: GLST 308)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e77dbe290c53f49a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_a1f40b4d8eac6786",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a1f40b4d8eac6786"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_96b636347c8042eb",
+      "informational": true,
+      "label": "Foreign Language3 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_96b636347c8042eb"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_8c6d913929392dba",
+      "informational": true,
+      "label": "GHS-approved course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8c6d913929392dba"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c324b72e34a6db15",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c324b72e34a6db15"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a289af19ac51d123",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a289af19ac51d123"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9a30f359da4d3864",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9a30f359da4d3864"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3103c134e3f8f8d8",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3103c134e3f8f8d8"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_b09f65e21d009445",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b09f65e21d009445"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_e2fd86a27326df7c",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e2fd86a27326df7c"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_18d7a631c743a418",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_18d7a631c743a418"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_61bd552f020efb6d",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_61bd552f020efb6d"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_3eb8ae7df5557310",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3eb8ae7df5557310"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f4c3f1ca944d09ad",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f4c3f1ca944d09ad"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_367f56dff3c77b56",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_367f56dff3c77b56"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_8395ff6c1bfd80c8",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8395ff6c1bfd80c8"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a8381042314e8efe",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a8381042314e8efe"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c1a23ab696b6de44",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c1a23ab696b6de44"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_429cbf45e3afd797",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_429cbf45e3afd797"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0e01bc7f5dacbddf",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e01bc7f5dacbddf"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_41525b57f065122d",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_41525b57f065122d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_78a74b626a526859",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_78a74b626a526859"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_608d85a65763ef42",
+      "informational": true,
+      "label": "Minor Course7 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_608d85a65763ef42"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b6eb72b97bd2f225",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b6eb72b97bd2f225"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_57024fe798b98871",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_57024fe798b98871"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_cceca8106105ef8e",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cceca8106105ef8e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_1df27114903d25a7",
+      "informational": true,
+      "label": "FAMS Major Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1df27114903d25a7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0c7822ea2fefc0db",
+      "informational": true,
+      "label": "Minor Course7 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0c7822ea2fefc0db"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_33e877ed1703e2fc",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_33e877ed1703e2fc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_d9e4686946edfcc7",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d9e4686946edfcc7"
+    }
+  ],
+  "id": "map_c7899e78e001ec5f",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Film & Media Studies",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Film and Media Studies",
+    "faculty_approver": "Lauren Steimer",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Film & Media Studies"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_ae91038bf5501355",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GHS",
+      "category": "carolina_core",
+      "code": "FAMS 300",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_fe0024d829ffcec7",
+      "title": "Film & Media History",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_11869b75e5fb3a71",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign Language3 or other Carolina Core Requirement4 3-4 CC-GFL",
+          "title": "Foreign Language3 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "FAMS 240",
+            "ENGL 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e25d6a18dd41202d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 4,
+          "source_text": "FAMS 240 Film & Media Analysis (cross-listed: ENGL 240) 3 CC-AIU",
+          "title": "FAMS 240 Film & Media Analysis (cross-listed: ENGL 240)",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_819476b13aea6d64",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign Language3 or other Carolina Core Requirement4 3 CC-GFL",
+          "title": "Foreign Language3 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "FAMS 300"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fe0024d829ffcec7",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 4,
+          "source_text": "FAMS 300 Film & Media History 3 CC-GHS",
+          "title": "FAMS 300 Film & Media History",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_15c15c38381e8f7a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "FAMS 308",
+            "GLST 308"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e77dbe290c53f49a",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS 308 Global Media Industries (cross-listed: GLST 308) 3 C MR",
+          "title": "FAMS 308 Global Media Industries (cross-listed: GLST 308)",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_a1f40b4d8eac6786",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core Requirement4 4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_96b636347c8042eb",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign Language3 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign Language3 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8c6d913929392dba",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "GHS-approved course5 3 CR",
+          "title": "GHS-approved course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c324b72e34a6db15",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a289af19ac51d123",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9a30f359da4d3864",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3103c134e3f8f8d8",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b09f65e21d009445",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e2fd86a27326df7c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_18d7a631c743a418",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_61bd552f020efb6d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3eb8ae7df5557310",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f4c3f1ca944d09ad",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_367f56dff3c77b56",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8395ff6c1bfd80c8",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a8381042314e8efe",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c1a23ab696b6de44",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_429cbf45e3afd797",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0e01bc7f5dacbddf",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_41525b57f065122d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_78a74b626a526859",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_608d85a65763ef42",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course7 or Elective8 3 C (minor) PR",
+          "title": "Minor Course7 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b6eb72b97bd2f225",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_57024fe798b98871",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cceca8106105ef8e",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1df27114903d25a7",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "FAMS Major Course6 3 C MR See Bulletin listing",
+          "title": "FAMS Major Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0c7822ea2fefc0db",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course7 or Elective8 3 C (minor) PR",
+          "title": "Minor Course7 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_33e877ed1703e2fc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_d9e4686946edfcc7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective8 1 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "53432da760e6d6191b0ae110fab292d35d5eb41c81a8d79c4575d468de9ae2c7",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_fams_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_fams_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_fams_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 34,
+    "requirement_count": 40,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": [
+    "repository_pdf_major_mismatch"
+  ]
+}

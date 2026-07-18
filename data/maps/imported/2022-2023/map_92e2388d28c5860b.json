@@ -1,0 +1,1482 @@
+{
+  "catalog_year": "2022-2023",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Engineering and Computing",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Electrical Engineering",
+  "elective_groups": [
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_e5a88dca643f43e2",
+      "informational": true,
+      "label": "ELCT 101 Electrical & Electronics Engr. (or",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e5a88dca643f43e2"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_4a527547f733cc50",
+      "informational": true,
+      "label": "Carolina Core VSR4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4a527547f733cc50"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_15edb81fc054f210",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_15edb81fc054f210"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a99614e594cf3278",
+      "informational": true,
+      "label": "General Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a99614e594cf3278"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_44053afff08887d0",
+      "informational": true,
+      "label": "Carolina Core GSS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_44053afff08887d0"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ea11bb99c5ef74f4",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ea11bb99c5ef74f4"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_81808ada80274abf",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_81808ada80274abf"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_1bcbb1ee9ecc9943",
+      "informational": true,
+      "label": "Carolina Core GHS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1bcbb1ee9ecc9943"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b0e8990ab4e17688",
+      "informational": true,
+      "label": "Carolina Core AIU4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b0e8990ab4e17688"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_41b4d44a015c9940",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_41b4d44a015c9940"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0d4d486443bbc33a",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0d4d486443bbc33a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f2c0242e87eb512f",
+      "informational": true,
+      "label": "Career Plan Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f2c0242e87eb512f"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_6d3bafb66fc3bf7a",
+      "informational": true,
+      "label": "Carolina Core CMS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6d3bafb66fc3bf7a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_831d1034e5f3cb4a",
+      "informational": true,
+      "label": "Carolina Core GFL4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_831d1034e5f3cb4a"
+    }
+  ],
+  "id": "map_92e2388d28c5860b",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Electrical Engineering",
+  "parsed_metadata": {
+    "bulletin_year": "2022-2023",
+    "college": "Engineering and Computing",
+    "degree": "Bachelor of Science in Engineering (B.S.E.)",
+    "department": "Electrical Engineering",
+    "faculty_approver": "Mohammod Ali",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 127,
+    "name": "Electrical Engineering"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science in Engineering (B.S.E.)",
+  "program_family_id": "program_40c0fd6e0b6fc92c",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e5aba88b73ab9d49",
+      "title": "General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0a6ac90253c7ae25",
+      "title": "General Chemistry I Lab",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_d14ddc18b78bbdcf",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b49dd179f06932c3",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5665ad831920ab78",
+      "title": "Essentials of Physics I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_995e89769dcda6d8",
+      "title": "Essentials of Physics I Lab",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "ELCT 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_628afd0a145d4398",
+      "title": "Electrical Science",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 145",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_78c8c944f9e11ffe",
+      "title": "Algorithmic Design I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 211",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4848977b5f923f57",
+      "title": "Digital Logic Design",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ELCT 221",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a5539b4dd59f6262",
+      "title": "Circuits",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "PHYS 212",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_21a2ec081f677758",
+      "title": "Essentials of Physics II",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "PHYS 212L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1b12d8cb06568644",
+      "title": "Essentials of Physics II Lab.",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 242",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4fe074846e5ec96f",
+      "title": "Elem. Differential Equations",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "STAT 509",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_3a5e9c10b276b056",
+      "title": "Statistics for Engineers",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 212",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e770d683f0097560",
+      "title": "Intro. to Computer Architecture",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "EMCH 220",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_533cbdbf94eab059",
+      "title": "Mech. Engr. Fund. for Non-",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ELCT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_ff865cda5827bfbd",
+      "title": "Introductory Elect. Engr. Lab.",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ELCT 222",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_55a32bf6a3d61a0b",
+      "title": "Signals & Systems",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 363",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_1e03b4e7e7c5d04b",
+      "title": "Intro. to Microelectronics",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 241",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8a5303e171a9091b",
+      "title": "Vector Calculus",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 301",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_209db7625ac7ad5a",
+      "title": "Electronics Laboratory",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 321",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_c092efddf8c4ed00",
+      "title": "Digital Signal Processing",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 331",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_204a53155cd03839",
+      "title": "Control Systems",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 371",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_c91dc54762b12ef0",
+      "title": "Electronics",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 313",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_c28fbc01a015972e",
+      "title": "Embedded Systems",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 302",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_02ef6dc86fd9b4ec",
+      "title": "Real-Time Systems Laboratory",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 361",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_895cd58aabd93a13",
+      "title": "Electromagnetics",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 403",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_b45d2164172763fd",
+      "title": "Capstone Design Project I",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "ELCT 404",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_f7d894bf426cf47d",
+      "title": "Capstone Design Project II",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or Math",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e5aba88b73ab9d49",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or",
+          "title": "CHEM 111 General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_0a6ac90253c7ae25",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115; Prereq or Coreq: CHEM",
+          "title": "CHEM 111L General Chemistry I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 101"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_e5a88dca643f43e2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! ELCT 101 Electrical & Electronics Engr. (or 1 * PR",
+          "title": "ELCT 101 Electrical & Electronics Engr. (or",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d14ddc18b78bbdcf",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "UNIV 101 The Student in the University 3 PR",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b49dd179f06932c3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_5665ad831920ab78",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "! PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS 211L",
+          "title": "PHYS 211 Essentials of Physics I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211L"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_995e89769dcda6d8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "! PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Prereq or Coreq: PHYS 211",
+          "title": "PHYS 211L Essentials of Physics I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_628afd0a145d4398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! ELCT 102 Electrical Science 3 C * PR Prereq or Coreq: MATH 141",
+          "title": "ELCT 102 Electrical Science",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 145"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_78c8c944f9e11ffe",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "! CSCE 145 Algorithmic Design I 4 C * PR Prereq or Coreq: MATH 111 or 115",
+          "title": "CSCE 145 Algorithmic Design I",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 211"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_4848977b5f923f57",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! CSCE 211 Digital Logic Design 3 C * PR MATH 141",
+          "title": "CSCE 211 Digital Logic Design",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 221"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_a5539b4dd59f6262",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! ELCT 221 Circuits 3 C * PR C or better in MATH 142. C or better in either",
+          "title": "ELCT 221 Circuits",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_21a2ec081f677758",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 212 Essentials of Physics II 3 C PR C or better PHYS 211 and MATH 142;",
+          "title": "PHYS 212 Essentials of Physics II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_1b12d8cb06568644",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "PHYS 212L Essentials of Physics II Lab. 1 C PR Prereq or Coreq: PHYS 212",
+          "title": "PHYS 212L Essentials of Physics II Lab.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 242"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_4fe074846e5ec96f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+          "title": "MATH 242 Elem. Differential Equations",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 509"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3a5e9c10b276b056",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "STAT 509 Statistics for Engineers 3 PR MATH 142 or equivalent",
+          "title": "STAT 509 Statistics for Engineers",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 212"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_e770d683f0097560",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! CSCE 212 Intro. to Computer Architecture 3 * PR D or better in CSCE 211 & either CSCE 145",
+          "title": "CSCE 212 Intro. to Computer Architecture",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EMCH 220"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_533cbdbf94eab059",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "EMCH 220 Mech. Engr. Fund. for Non- 3 PR MATH 142 & PHYS 211",
+          "title": "EMCH 220 Mech. Engr. Fund. for Non-",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_ff865cda5827bfbd",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! ELCT 201 Introductory Elect. Engr. Lab. 3 * PR C or better in ENGL 102 & CSCE 211; Prereq",
+          "title": "ELCT 201 Introductory Elect. Engr. Lab.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 222"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_55a32bf6a3d61a0b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! ELCT 222 Signals & Systems 3 C * PR C or better in ELCT 221 & MATH 242",
+          "title": "ELCT 222 Signals & Systems",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 363"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1e03b4e7e7c5d04b",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "ELCT 363 Intro. to Microelectronics 3 * MR C or better in CHEM 111, PHYS 212; Prereq",
+          "title": "ELCT 363 Intro. to Microelectronics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 241"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_8a5303e171a9091b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "! MATH 241 Vector Calculus 3 C PR C or better in MATH 142",
+          "title": "MATH 241 Vector Calculus",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 301"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_209db7625ac7ad5a",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ELCT 301 Electronics Laboratory 3 * MR D or better in ELCT 201; Prereq or Coreq: D",
+          "title": "ELCT 301 Electronics Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 321"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c092efddf8c4ed00",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ELCT 321 Digital Signal Processing 3 * MR C or better in ELCT 222",
+          "title": "ELCT 321 Digital Signal Processing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 331"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_204a53155cd03839",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! ELCT 331 Control Systems 3 * MR C or better in ELCT 222",
+          "title": "ELCT 331 Control Systems",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 371"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_c91dc54762b12ef0",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! ELCT 371 Electronics 3 * MR C or better in ELCT 222",
+          "title": "ELCT 371 Electronics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 313"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c28fbc01a015972e",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "CSCE 313 Embedded Systems 3 * PR CSCE 211 & 212",
+          "title": "CSCE 313 Embedded Systems",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4a527547f733cc50",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-VSR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core VSR4 3 CC-VSR",
+          "title": "Carolina Core VSR4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 302"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_02ef6dc86fd9b4ec",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ELCT 302 Real-Time Systems Laboratory 3 * MR D or better in ELCT 301; Prereq or Coreq: D",
+          "title": "ELCT 302 Real-Time Systems Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 361"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_895cd58aabd93a13",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ELCT 361 Electromagnetics 3 * MR PHYS 212 & MATH 241",
+          "title": "ELCT 361 Electromagnetics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_15edb81fc054f210",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a99614e594cf3278",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "General Elective6 3 PR",
+          "title": "General Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_44053afff08887d0",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core GSS4 3 CC-GSS",
+          "title": "Carolina Core GSS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 403"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b45d2164172763fd",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "! ELCT 403 Capstone Design Project I 3 * MR/CC- D or better in ELCT 302",
+          "title": "ELCT 403 Capstone Design Project I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ea11bb99c5ef74f4",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_81808ada80274abf",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1bcbb1ee9ecc9943",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core GHS4 3 CC-GHS",
+          "title": "Carolina Core GHS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b0e8990ab4e17688",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core AIU4 3 CC-AIU",
+          "title": "Carolina Core AIU4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ELCT 404"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_f7d894bf426cf47d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ELCT 404 Capstone Design Project II 3 * MR D or better in ELCT 403",
+          "title": "ELCT 404 Capstone Design Project II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_41b4d44a015c9940",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0d4d486443bbc33a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f2c0242e87eb512f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Career Plan Elective5 3 * PR",
+          "title": "Career Plan Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_6d3bafb66fc3bf7a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core CMS4 0-3 CC-CMS",
+          "title": "Carolina Core CMS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            6
+          ],
+          "critical": false,
+          "id": "req_831d1034e5f3cb4a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core GFL4 0-6 CC-GFL",
+          "title": "Carolina Core GFL4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023",
+    "retrieved_at": null,
+    "sha256": "86cfe28581a14d1a3deab5d7ad653227dc415ba8911ac94a68b9c453ea4f66a4",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_electrical-engr_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_electrical-engr_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_electrical-engr_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023"
+  },
+  "total_credits_required": 127,
+  "validation": {
+    "low_confidence_requirement_count": 13,
+    "requirement_count": 46,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

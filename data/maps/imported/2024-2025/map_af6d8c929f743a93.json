@@ -1,0 +1,65 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Accelerated Study Plan",
+  "concentrations": {},
+  "confidence": "low",
+  "department": "Cardiovascular Technology",
+  "elective_groups": [],
+  "id": "map_af6d8c929f743a93",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Cardiovascular Technology",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Accelerated Study Plan",
+    "degree": "Bachelor of Science (B.S)",
+    "department": "Cardiovascular Technology",
+    "faculty_approver": "",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": null,
+    "name": "Cardiovascular Technology"
+  },
+  "plan_format": "accelerated",
+  "program": "Bachelor of Science (B.S)",
+  "program_family_id": "program_66637459c0e06ab6",
+  "required_courses": [],
+  "schema_version": 1,
+  "semester_plan": [],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "02fb3ed4f98c3f19cf76828017fe259d6631bd7fc445e2cbd598f43fd88a821b",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_cvt_3yrplan.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_cvt_3yrplan.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_cvt_3yrplan.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": null,
+  "validation": {
+    "low_confidence_requirement_count": 0,
+    "requirement_count": 0,
+    "requires_review": true,
+    "semester_count": 0
+  },
+  "warnings": [
+    "pdf_major_name_not_found",
+    "pdf_bulletin_year_not_found",
+    "semester_sequence_is_not_contiguous",
+    "expected_exactly_eight_ordered_semesters",
+    "no_course_rows_extracted",
+    "minimum_total_degree_hours_not_found",
+    "semester_plan_requires_manual_review"
+  ]
+}

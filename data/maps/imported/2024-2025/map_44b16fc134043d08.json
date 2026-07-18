@@ -1,0 +1,1797 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Music",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "",
+  "elective_groups": [
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_350aa557f6e0ca42",
+      "label": "MUSC 113 Special Topics in Popular Music or MUSC 140 Jazz and American Popular Music",
+      "options": [
+        "MUSC 113",
+        "MUSC 140"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_350aa557f6e0ca42"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_088e80a3c49e1cd3",
+      "informational": true,
+      "label": "Ensemble4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_088e80a3c49e1cd3"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_69f974aaebfb1cb9",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_69f974aaebfb1cb9"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 2,
+      "id": "req_5a520bf36d7dcc7f",
+      "informational": true,
+      "label": "Applied Music Course3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5a520bf36d7dcc7f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_df15edcdebeaf625",
+      "informational": true,
+      "label": "MUSC 100 Music Convocation",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_df15edcdebeaf625"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_25ede12ab0672081",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_25ede12ab0672081"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_9f8cc77ee6e0a109",
+      "label": "MUSC 230 Intro to Beat Making & Digital Audio Production or MUSC 231 Digital Music Creation 230 only); C or better in MUSC",
+      "options": [
+        "MUSC 230",
+        "MUSC 231"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_9f8cc77ee6e0a109"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 2,
+      "id": "req_0b5515a66af306eb",
+      "informational": true,
+      "label": "Applied Music Course3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0b5515a66af306eb"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_f38e7abe6e8a1af9",
+      "informational": true,
+      "label": "Ensemble4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f38e7abe6e8a1af9"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b3fd0750875bee13",
+      "informational": true,
+      "label": "Carolina Core AIU6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b3fd0750875bee13"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_01656f9ff8194b43",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_01656f9ff8194b43"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 2,
+      "id": "req_5b19a0c25f7bf32f",
+      "informational": true,
+      "label": "Applied Music Course3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5b19a0c25f7bf32f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_20baa49d8e2d5897",
+      "informational": true,
+      "label": "Ensemble4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_20baa49d8e2d5897"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_2c2e308d7a5f6496",
+      "informational": true,
+      "label": "MUSC 150 Music Industry Convocation",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2c2e308d7a5f6496"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c02b2d1c53f8cee6",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c02b2d1c53f8cee6"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_d1607e6f481bf0ff",
+      "informational": true,
+      "label": "Ensemble4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d1607e6f481bf0ff"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_d4d592693ad4eb5b",
+      "informational": true,
+      "label": "MUSC 150 Music Industry Convocation",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d4d592693ad4eb5b"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_b0ffc219fec80fe4",
+      "informational": true,
+      "label": "Music Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b0ffc219fec80fe4"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_002beb0166c65f38",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_002beb0166c65f38"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_a929168c35c3ec69",
+      "label": "MUSC 566 Fundamentals of Sound Music for Media or MUSC 567 Recording Studio Techniques",
+      "options": [
+        "MUSC 566",
+        "MUSC 567"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_a929168c35c3ec69"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_8c2cd983593b4f32",
+      "informational": true,
+      "label": "MUSC 150 Music Industry Convocation",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8c2cd983593b4f32"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_64ad94d50f143369",
+      "informational": true,
+      "label": "Music Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_64ad94d50f143369"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_4252cf0b79a63112",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4252cf0b79a63112"
+    },
+    {
+      "category": "other_requirements",
+      "credits_required": 0,
+      "id": "req_b25661715a77b804",
+      "informational": true,
+      "label": "MUSC 150 Music Industry Convocation",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b25661715a77b804"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_987071a200d4cb5c",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_987071a200d4cb5c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3c352ea0103b1e5f",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3c352ea0103b1e5f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_2e8d995c59c04e1a",
+      "informational": true,
+      "label": "MUSC 498 Music Industry Capstone",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2e8d995c59c04e1a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_79b0297cbc06aace",
+      "informational": true,
+      "label": "Music Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_79b0297cbc06aace"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2a065c0b7468d746",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2a065c0b7468d746"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_722956eb207f9044",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_722956eb207f9044"
+    }
+  ],
+  "id": "map_44b16fc134043d08",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Music Industry Studies",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Music",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "",
+    "faculty_approver": "Tina Stallard",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 121,
+    "name": "Music Industry Studies"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_9e72a0fb78ac6182",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 117",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ff5728844ac755bf",
+      "title": "Aural Skills I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 104",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5336870ce87cf067",
+      "title": "Introduction to Piano3",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 100",
+      "corequisites": [],
+      "credits": 0,
+      "prerequisites": [],
+      "source_requirement_id": "req_faf0f98083e326ab",
+      "title": "Music Convocation",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 305",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_058de2dad4c88435",
+      "title": "Introduction to Music Industry Studies",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 115",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d508f4a19d4c7dc1",
+      "title": "Music Theory I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 118",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_600993f548a5a794",
+      "title": "Aural Skills II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 210",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d0ee98640409f7ff",
+      "title": "Understanding the Psychology of Music",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 100L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_31776b7f194b2d4f",
+      "title": "Recital Class Laboratory",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 150",
+      "corequisites": [],
+      "credits": 0,
+      "prerequisites": [],
+      "source_requirement_id": "req_0dcbd491a33a8000",
+      "title": "Musc Industry Convocation",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 215",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_74faa4b1b7e181c4",
+      "title": "Music Theory II",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_296d1a4910e523de",
+      "title": "Introduction to Economics",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 365",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7693642c9e99b012",
+      "title": "Introduction to Audio Recording Techniques",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 588",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_dca1d581da5d58e3",
+      "title": "Business of Music",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MGMT 371",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6d94672a0095b39c",
+      "title": "Principles of Management",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 100A",
+      "corequisites": [],
+      "credits": 0,
+      "prerequisites": [],
+      "source_requirement_id": "req_b4c266c9b0330d16",
+      "title": "Music Advocacy I",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 565",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6cea34d5daa45124",
+      "title": "Advanced Audio Recording Techniques",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 582",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_24fa875ea63d26ed",
+      "title": "Music and Money",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 202",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1dd12769575ebc24",
+      "title": "Introduction to Live Entertainment Management",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 593",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c8f10a85fda0a59e",
+      "title": "Arts Marketing",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 302",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_91834d5dcc6121cc",
+      "title": "Artist Representation and Management",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "carolina_core": "INT",
+      "category": "major_courses",
+      "code": "MUSC 498",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fd803ffeb2b89742",
+      "title": "Music Industry Capstone",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 240",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f93c91732087c9dc",
+      "title": "Business Law",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 303",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2ffefae9c7df5d4a",
+      "title": "Live Entertainment Tour Management",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "MUSC 590",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ecd01f72071a7a16",
+      "title": "Seminar in Music Industry",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        14,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 117"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_ff5728844ac755bf",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 117 Aural Skills I 1 C * MR",
+          "title": "MUSC 117 Aural Skills I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 104"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_5336870ce87cf067",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MUSC 104 Introduction to Piano3 2 C * MR",
+          "title": "MUSC 104 Introduction to Piano3",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MUSC 113",
+            "MUSC 140"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_350aa557f6e0ca42",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "MUSC 113 Special Topics in Popular Music 3 C * MR or MUSC 140 Jazz and American Popular Music",
+          "title": "MUSC 113 Special Topics in Popular Music or MUSC 140 Jazz and American Popular Music",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_088e80a3c49e1cd3",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Ensemble4 1 C * MR",
+          "title": "Ensemble4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 100"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_faf0f98083e326ab",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "MUSC 100 Music Convocation 0 S MR",
+          "title": "MUSC 100 Music Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 305"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_058de2dad4c88435",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 7,
+          "source_text": "MUSC 305 Introduction to Music Industry Studies 1 C * MR",
+          "title": "MUSC 305 Introduction to Music Industry Studies",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_69f974aaebfb1cb9",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 8,
+          "source_text": "Foreign language5 or other Carolina Core Requirement6 3-4 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW/INF",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 115"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d508f4a19d4c7dc1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 115 Music Theory I 3 C * MR C or better in MUSC 114 (or",
+          "title": "MUSC 115 Music Theory I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 118"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_600993f548a5a794",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MUSC 118 Aural Skills II 1 C * MR",
+          "title": "MUSC 118 Aural Skills II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 210"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d0ee98640409f7ff",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "MUSC 210 Understanding the Psychology of Music 3 C * MR MUSC 117",
+          "title": "MUSC 210 Understanding the Psychology of Music",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_5a520bf36d7dcc7f",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Applied Music Course3 2 C * MR",
+          "title": "Applied Music Course3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 100"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_df15edcdebeaf625",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "MUSC 100 Music Convocation 0 S MR",
+          "title": "MUSC 100 Music Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 100L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_31776b7f194b2d4f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 7,
+          "source_text": "MUSC 100L Recital Class Laboratory 1 C * MR",
+          "title": "MUSC 100L Recital Class Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_25ede12ab0672081",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 8,
+          "source_text": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MUSC 230",
+            "MUSC 231"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9f8cc77ee6e0a109",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 230 Intro to Beat Making & Digital Audio Production 3 C * MR C or better in MUSC 114 (MUSC or MUSC 231 Digital Music Creation 230 only); C or better in MUSC",
+          "title": "MUSC 230 Intro to Beat Making & Digital Audio Production or MUSC 231 Digital Music Creation 230 only); C or better in MUSC",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_0b5515a66af306eb",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Applied Music Course3 2 C * MR",
+          "title": "Applied Music Course3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_f38e7abe6e8a1af9",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Ensemble4 1 C * MR",
+          "title": "Ensemble4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 150"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_0dcbd491a33a8000",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "MUSC 150 Musc Industry Convocation 0 S MR",
+          "title": "MUSC 150 Musc Industry Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 215"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_74faa4b1b7e181c4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "MUSC 215 Music Theory II 3 C * MR C or better in MUSC 115",
+          "title": "MUSC 215 Music Theory II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_296d1a4910e523de",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "ECON 224 Introduction to Economics 3 C * MR",
+          "title": "ECON 224 Introduction to Economics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b3fd0750875bee13",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 7,
+          "source_text": "Carolina Core AIU6 3 C CC-AIU",
+          "title": "Carolina Core AIU6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_01656f9ff8194b43",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 8,
+          "source_text": "Foreign language5 or Carolina Core Requirement6 3 PR/CC",
+          "title": "Foreign language5 or Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 365"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7693642c9e99b012",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 365 Introduction to Audio Recording Techniques 3 C * MR",
+          "title": "MUSC 365 Introduction to Audio Recording Techniques",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 588"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dca1d581da5d58e3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 588 Business of Music 3 C * MR",
+          "title": "MUSC 588 Business of Music",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_5b19a0c25f7bf32f",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Applied Music Course3 2 C * MR",
+          "title": "Applied Music Course3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_20baa49d8e2d5897",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Ensemble4 1 C * MR",
+          "title": "Ensemble4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 150"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_2c2e308d7a5f6496",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "MUSC 150 Music Industry Convocation 0 S MR",
+          "title": "MUSC 150 Music Industry Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6d94672a0095b39c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "MGMT 371 Principles of Management 3 C * MR",
+          "title": "MGMT 371 Principles of Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c02b2d1c53f8cee6",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 7,
+          "source_text": "Carolina Core Requirement6 3-4 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 100A"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_b4c266c9b0330d16",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 8,
+          "source_text": "MUSC 100A Music Advocacy I 0 S MR",
+          "title": "MUSC 100A Music Advocacy I",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 565"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6cea34d5daa45124",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 565 Advanced Audio Recording Techniques 3 C * MR",
+          "title": "MUSC 565 Advanced Audio Recording Techniques",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 582"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_24fa875ea63d26ed",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 582 Music and Money 3 C MR",
+          "title": "MUSC 582 Music and Money",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_d1607e6f481bf0ff",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Ensemble4 1 C * MR",
+          "title": "Ensemble4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 150"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_d4d592693ad4eb5b",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "MUSC 150 Music Industry Convocation 0 S MR",
+          "title": "MUSC 150 Music Industry Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b0ffc219fec80fe4",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Music Elective7 3 C * MR See bulletin listing",
+          "title": "Music Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 202"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1dd12769575ebc24",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "SPTE 202 Introduction to Live Entertainment Management 3 C * MR",
+          "title": "SPTE 202 Introduction to Live Entertainment Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_002beb0166c65f38",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 7,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MUSC 566",
+            "MUSC 567"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a929168c35c3ec69",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 566 Fundamentals of Sound Music for Media 3 C * MR C or better in MUSC 565 or MUSC 567 Recording Studio Techniques",
+          "title": "MUSC 566 Fundamentals of Sound Music for Media or MUSC 567 Recording Studio Techniques",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 593"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c8f10a85fda0a59e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 593 Arts Marketing 3 C * MR",
+          "title": "MUSC 593 Arts Marketing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 150"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_8c2cd983593b4f32",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MUSC 150 Music Industry Convocation 0 S MR",
+          "title": "MUSC 150 Music Industry Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_64ad94d50f143369",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Music Elective7 3 C * MR See bulletin listing",
+          "title": "Music Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 302"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_91834d5dcc6121cc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "SPTE 302 Artist Representation and Management 3 C * MR",
+          "title": "SPTE 302 Artist Representation and Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_4252cf0b79a63112",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement6 3-4 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 498"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fd803ffeb2b89742",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC-INT"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 498 Music Industry Capstone 3 C * MR/CC-INT",
+          "title": "MUSC 498 Music Industry Capstone",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 150"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_b25661715a77b804",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [],
+          "sequence": 2,
+          "source_text": "MUSC 150 Music Industry Convocation 0 S",
+          "title": "MUSC 150 Music Industry Convocation",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f93c91732087c9dc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "SPTE 240 Business Law 3 C * MR",
+          "title": "SPTE 240 Business Law",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 303"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2ffefae9c7df5d4a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "SPTE 303 Live Entertainment Tour Management 3 C * MR",
+          "title": "SPTE 303 Live Entertainment Tour Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_987071a200d4cb5c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3c352ea0103b1e5f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement6 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 498"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2e8d995c59c04e1a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC-INT"
+          ],
+          "sequence": 1,
+          "source_text": "MUSC 498 Music Industry Capstone 3 C * MR/CC-INT",
+          "title": "MUSC 498 Music Industry Capstone",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MUSC 590"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ecd01f72071a7a16",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MUSC 590 Seminar in Music Industry 3 C * MR",
+          "title": "MUSC 590 Seminar in Music Industry",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_79b0297cbc06aace",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Music Elective7 3 C * MR See bulletin listing",
+          "title": "Music Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2a065c0b7468d746",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement6 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_722956eb207f9044",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement6 or Approved Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "c5ed8140cc69794159d1fd933e1573356ee61549e42b02a66a78867c666ae03b",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_musc-bs-mus-indu_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_musc-bs-mus-indu_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_musc-bs-mus-indu_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 121,
+  "validation": {
+    "low_confidence_requirement_count": 21,
+    "requirement_count": 56,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

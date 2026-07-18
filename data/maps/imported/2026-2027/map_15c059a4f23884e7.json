@@ -1,0 +1,1296 @@
+{
+  "catalog_year": "2026-2027",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "School of Earth, Ocean and Environment",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_34abfcc4610b312d",
+      "informational": true,
+      "label": "Foreign Language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_34abfcc4610b312d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_e8e02e2f5ef3f07d",
+      "informational": true,
+      "label": "Preapproved Field Experience or MSCI 4606",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e8e02e2f5ef3f07d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_6c0c428986c2e009",
+      "label": "PHYS 201 & 201L General Physics I or PHYS 211 & 211L Essentials of Physics I 116/122/141 or by placement into MATH 122,",
+      "options": [
+        "PHYS 201",
+        "PHYS 211",
+        "MATH 122"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_6c0c428986c2e009"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_cf9cb72e0cecb38d",
+      "label": "GEOL 101 Introduction to the Earth or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall)",
+      "options": [
+        "GEOL 101",
+        "GEOL 103",
+        "GEOL 201"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_cf9cb72e0cecb38d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_704290b67181d268",
+      "informational": true,
+      "label": "Foreign Language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_704290b67181d268"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_8ae5826b91670d87",
+      "label": "GEOL 305 Earth Sys. through Time (spring) or GEOL 335 Processes of Global Environmental",
+      "options": [
+        "GEOL 305",
+        "GEOL 335"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_8ae5826b91670d87"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_0f1c50470ece64ec",
+      "label": "PHYS 202 & 202L General Physics II or PHYS 212 & 212L Essentials of Physics II better in PHYS 211 & MATH 142 (PHYS 212)",
+      "options": [
+        "PHYS 202",
+        "PHYS 212",
+        "PHYS 211",
+        "MATH 142"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_0f1c50470ece64ec"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_a47d56c8a04a0b89",
+      "informational": true,
+      "label": "History7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a47d56c8a04a0b89"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_967eae6ef362875e",
+      "informational": true,
+      "label": "Foreign Language5 or Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_967eae6ef362875e"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_542f9a23a259907b",
+      "label": "CSCE 102 Web Design & Development using AI or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis for",
+      "options": [
+        "CSCE 102",
+        "MSCI 305",
+        "MSCI 509"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_542f9a23a259907b"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_3eb8ae7df5557310",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3eb8ae7df5557310"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c0c0083e3bfa6b17",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c0c0083e3bfa6b17"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_2db2a15062f74d58",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2db2a15062f74d58"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_682901a057acd0e2",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_682901a057acd0e2"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c5aab88840992a74",
+      "informational": true,
+      "label": "MSCI Elective (See Bulletin for course list)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c5aab88840992a74"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b211afdb22380311",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b211afdb22380311"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_e7730b2889eac825",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e7730b2889eac825"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9e1e37bc6a74f9a3",
+      "informational": true,
+      "label": "Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9e1e37bc6a74f9a3"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_14a6564651c4e051",
+      "informational": true,
+      "label": "MSCI Elective (See Bulletin for course list)8 (only",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_14a6564651c4e051"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 7,
+      "id": "req_27a39000417e191e",
+      "informational": true,
+      "label": "Elective9 (based upon hours needed to graduate)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_27a39000417e191e"
+    }
+  ],
+  "id": "map_15c059a4f23884e7",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Marine Science",
+  "parsed_metadata": {
+    "bulletin_year": "2026-2027",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "School of Earth, Ocean and Environment",
+    "faculty_approver": "Gene Yogodzinsky",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 128,
+    "name": "Marine Science"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_e2c8b92dcfa94bcb",
+  "required_courses": [
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 101",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f61f8962aed8d84f",
+      "title": "The Ocean Environment",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_818c534506e474ee",
+      "title": "& 111L General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_84479d5b2eba349e",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 102",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b6bbe1be8228e4dc",
+      "title": "The Living Ocean",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_4cb2143e616041bb",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 112",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0f709057bcf951ad",
+      "title": "& 112L General Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_40096859dd730968",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "INT",
+      "category": "major_courses",
+      "code": "MSCI 311",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e87d7e9dfc5e3edb",
+      "title": "Biology of Marine Organisms (fall)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "INT",
+      "category": "major_courses",
+      "code": "MSCI 313",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bfa2d5e2e6883f8a",
+      "title": "The Chemistry of the Sea (spring)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "INT",
+      "category": "major_courses",
+      "code": "MSCI 314",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_22322b20d51beca1",
+      "title": "Physical Oceanography (fall)",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 302",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b46ec1f4e7c45aa5",
+      "title": "Rocks and Minerals (spring)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 515",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4de99b967fb8efb3",
+      "title": "Statistical Methods I",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 325",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_082121037b548c07",
+      "title": "Stratig. & Sedimentary Basins10 (fall)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 545",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9271abfa7536e503",
+      "title": "Geological Oceanography",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 505",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b1b7d3583ec277d3",
+      "title": "Senior Seminar",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 315",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9e6ba61e1a52fbca",
+      "title": "Surface & Near Surface Proc.10 (spring)",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 101"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_f61f8962aed8d84f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 1,
+          "source_text": "! MSCI 101 The Ocean Environment 4 C CC-SCI",
+          "title": "MSCI 101 The Ocean Environment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_818c534506e474ee",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! CHEM 111 & 111L General Chemistry I 4 C PR C or higher in MATH 111 or higher (or by",
+          "title": "CHEM 111 & 111L General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e6f9205b6c9a4cee",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_84479d5b2eba349e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 102"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b6bbe1be8228e4dc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "! MSCI 102 The Living Ocean 4 C CC-SCI",
+          "title": "MSCI 102 The Living Ocean",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_4cb2143e616041bb",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 3,
+          "source_text": "! MATH 142 Calculus II 4 CC-ARP C or better in MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 112"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_0f709057bcf951ad",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! CHEM 112 & 112L General Chemistry II 4 C PR C or higher in MATH 111 or higher MATH (or",
+          "title": "CHEM 112 & 112L General Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_34abfcc4610b312d",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign Language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            2
+          ],
+          "critical": false,
+          "id": "req_e8e02e2f5ef3f07d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Preapproved Field Experience or MSCI 4606 0-2 C MR C or better in MSCI 101 & 102 or",
+          "title": "Preapproved Field Experience or MSCI 4606",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_40096859dd730968",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW/INF C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 311"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e87d7e9dfc5e3edb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC-INT"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI 311 Biology of Marine Organisms (fall) 4 C MR/CC-INT MSCI 102 or BIOL 101",
+          "title": "MSCI 311 Biology of Marine Organisms (fall)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 201",
+            "PHYS 211",
+            "MATH 122"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_6c0c428986c2e009",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! PHYS 201 & 201L General Physics I 4 C PR C or better in MATH 111/111i/112/115/ or PHYS 211 & 211L Essentials of Physics I 116/122/141 or by placement into MATH 122,",
+          "title": "PHYS 201 & 201L General Physics I or PHYS 211 & 211L Essentials of Physics I 116/122/141 or by placement into MATH 122,",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "GEOL 101",
+            "GEOL 103",
+            "GEOL 201"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_cf9cb72e0cecb38d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "GEOL 101 Introduction to the Earth 4 C PR or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall)",
+          "title": "GEOL 101 Introduction to the Earth or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_704290b67181d268",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign Language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 313"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_bfa2d5e2e6883f8a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC-INT"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI 313 The Chemistry of the Sea (spring) 4 C MR/CC-INT C or better in MSCI 101, CHEM 111, CHEM",
+          "title": "MSCI 313 The Chemistry of the Sea (spring)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "GEOL 305",
+            "GEOL 335"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_8ae5826b91670d87",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL 305 Earth Sys. through Time (spring) 4 C MR or GEOL 335 Processes of Global Environmental",
+          "title": "GEOL 305 Earth Sys. through Time (spring) or GEOL 335 Processes of Global Environmental",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 202",
+            "PHYS 212",
+            "PHYS 211",
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_0f1c50470ece64ec",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! PHYS 202 & 202L General Physics II 4 C PR C or better in PHYS 201 (PHYS 202); C or or PHYS 212 & 212L Essentials of Physics II better in PHYS 211 & MATH 142 (PHYS 212)",
+          "title": "PHYS 202 & 202L General Physics II or PHYS 212 & 212L Essentials of Physics II better in PHYS 211 & MATH 142 (PHYS 212)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a47d56c8a04a0b89",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "History7 3 CR",
+          "title": "History7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_967eae6ef362875e",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language5 or Carolina Core Req.4 3 CR/CC",
+          "title": "Foreign Language5 or Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 314"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_22322b20d51beca1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC-INT"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI 314 Physical Oceanography (fall) 4 C MR/CC-INT C or better in MSCI 101, MATH 141, & PHYS",
+          "title": "MSCI 314 Physical Oceanography (fall)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CSCE 102",
+            "MSCI 305",
+            "MSCI 509"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_542f9a23a259907b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 102 Web Design & Development using AI 3 C CR MSCI 101 & MATH 141 (MSCI 305); MATH or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis for",
+          "title": "CSCE 102 Web Design & Development using AI or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis for",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3eb8ae7df5557310",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c0c0083e3bfa6b17",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2db2a15062f74d58",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 302"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b46ec1f4e7c45aa5",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 302 Rocks and Minerals (spring) 4 C MR C or better in BIOL 101 & in 102 or MSCI 311",
+          "title": "GEOL 302 Rocks and Minerals (spring)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 515"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4de99b967fb8efb3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "STAT 515 Statistical Methods I 3 C CR C or better in MATH 112/115/122 or 141; or",
+          "title": "STAT 515 Statistical Methods I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_682901a057acd0e2",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c5aab88840992a74",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "MSCI Elective (See Bulletin for course list)8 3-4 C MR See Bulletin listing",
+          "title": "MSCI Elective (See Bulletin for course list)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b211afdb22380311",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        12,
+        13
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 325"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_082121037b548c07",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 325 Stratig. & Sedimentary Basins10 (fall) 3-4 C MR",
+          "title": "GEOL 325 Stratig. & Sedimentary Basins10 (fall)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 545"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9271abfa7536e503",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL 545 Geological Oceanography 3 C MR See Bulletin listing",
+          "title": "GEOL 545 Geological Oceanography",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e7730b2889eac825",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9e1e37bc6a74f9a3",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective9 3 PR",
+          "title": "Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 505"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_b1b7d3583ec277d3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI 505 Senior Seminar 1 C MR",
+          "title": "MSCI 505 Senior Seminar",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 315"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_9e6ba61e1a52fbca",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL 315 Surface & Near Surface Proc.10 (spring) 4 C MR D or better in PHYS 201 or 211 (GEOL 315)",
+          "title": "GEOL 315 Surface & Near Surface Proc.10 (spring)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_14a6564651c4e051",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MSCI Elective (See Bulletin for course list)8 (only 3-4 C MR See Bulletin listing",
+          "title": "MSCI Elective (See Bulletin for course list)8 (only",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 7,
+          "critical": false,
+          "id": "req_27a39000417e191e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective9 (based upon hours needed to graduate) 7 PR",
+          "title": "Elective9 (based upon hours needed to graduate)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027",
+    "retrieved_at": null,
+    "sha256": "3373f2420859f09866933488a861db01a2f99a3a2f5d17742ae474124d6e11a2",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_msci-geol-ocean_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_msci-geol-ocean_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_msci-geol-ocean_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027"
+  },
+  "total_credits_required": 128,
+  "validation": {
+    "low_confidence_requirement_count": 15,
+    "requirement_count": 38,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

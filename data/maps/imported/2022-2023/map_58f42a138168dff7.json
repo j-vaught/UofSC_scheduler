@@ -1,0 +1,1379 @@
+{
+  "catalog_year": "2022-2023",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Theatre & Dance",
+  "elective_groups": [
+    {
+      "category": "major_courses",
+      "credits_each": 2,
+      "credits_required": 2,
+      "id": "req_6a72f1c7cce8e158",
+      "label": "DANC 111 World Dance I or DANC 113 World Dance II",
+      "options": [
+        "DANC 111",
+        "DANC 113"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_6a72f1c7cce8e158"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_aee6e4daad83dd27",
+      "informational": true,
+      "label": "Ballet Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_aee6e4daad83dd27"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_9b114f7838058d8c",
+      "informational": true,
+      "label": "Contemporary Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9b114f7838058d8c"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_cb02f1152adf4b91",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cb02f1152adf4b91"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_8bd7d2addc36d766",
+      "informational": true,
+      "label": "Ballet Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8bd7d2addc36d766"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_2e4e8770741b8d81",
+      "informational": true,
+      "label": "Contemporary Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2e4e8770741b8d81"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_641a50a9e298490b",
+      "informational": true,
+      "label": "Education Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_641a50a9e298490b"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a74f66955d992084",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a74f66955d992084"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_d3bcf21e67ec47fb",
+      "informational": true,
+      "label": "DANC 177 Dance Company I",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d3bcf21e67ec47fb"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_af77a826a0e07385",
+      "informational": true,
+      "label": "Ballet Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_af77a826a0e07385"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_dee3354292b7012c",
+      "informational": true,
+      "label": "Contemporary Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dee3354292b7012c"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ea4bc13faead7082",
+      "informational": true,
+      "label": "Education Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ea4bc13faead7082"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_469534f32e7331d8",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_469534f32e7331d8"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_01656f9ff8194b43",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_01656f9ff8194b43"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_0d99215dc7183be0",
+      "informational": true,
+      "label": "Ballet Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0d99215dc7183be0"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_e93f5e5123c6b914",
+      "informational": true,
+      "label": "Education Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e93f5e5123c6b914"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_cc0d91b5c5299707",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cc0d91b5c5299707"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_b201735549d37aaa",
+      "informational": true,
+      "label": "DANC 370 Dance Ed. II: Creative Dance11 (Fall only)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b201735549d37aaa"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_98c0fce365d477e6",
+      "informational": true,
+      "label": "DANC 177 Dance Company I",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_98c0fce365d477e6"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_1d83044478921823",
+      "informational": true,
+      "label": "Contemporary Technique Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1d83044478921823"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_bdafa431589a3843",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bdafa431589a3843"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_db15c1e86cb04195",
+      "label": "DANC 307 West African Dance I or DANC 407 West African Dance II",
+      "options": [
+        "DANC 307",
+        "DANC 407"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_db15c1e86cb04195"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_e05c35b27c0938ab",
+      "informational": true,
+      "label": "History9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e05c35b27c0938ab"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_02920cba3563ef86",
+      "informational": true,
+      "label": "Education Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_02920cba3563ef86"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_e7169a48871b0ba6",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e7169a48871b0ba6"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7819a584fe4de5bf",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7819a584fe4de5bf"
+    }
+  ],
+  "id": "map_58f42a138168dff7",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Dance",
+  "parsed_metadata": {
+    "bulletin_year": "2022-2023",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Theatre & Dance",
+    "faculty_approver": "Jim Hunter",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Dance"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_ff5041577cd29b5d",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "DANC 150",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d6aec28926f0c051",
+      "title": "Introduction to Dance3",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 177",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c48ef504f53dfd46",
+      "title": "Dance Company I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 103",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e47ca6f616dc8cbe",
+      "title": "The Dancer’s Body",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 160",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1ef124c2ed67a113",
+      "title": "Dance Improvisation & Composition7",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 360",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7c395cb2300eb6ab",
+      "title": "Choreography I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 370",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b96f7806e1e9ecc3",
+      "title": "Dance Ed. II: Creative Dance11 (Fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 380",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ce790b6e724808a1",
+      "title": "Movement & Dance for Musical Theatre",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 476",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_895749ee99983a4f",
+      "title": "Production Design for Dance Techniques",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "DANC 281",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_18cb643036636acb",
+      "title": "Dance History I3",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "DANC 282",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c392a6b23d187741",
+      "title": "Dance History II3",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 470",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f64568c6d3761457",
+      "title": "Dance Ed. III: Dance Pedagogy for Middle",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 478",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_557f0a5f154a3408",
+      "title": "Integrated Approach. Danc. Ed.11 (Fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 479",
+      "corequisites": [],
+      "credits": 12,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6ca55dbfe9589191",
+      "title": "Teaching Internship in Dance Ed.",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "DANC 471",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5d5b27f9b63dd8b4",
+      "title": "Synthesis of Dance Ed. Constructs",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 150"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d6aec28926f0c051",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "DANC 150 Introduction to Dance3 3 C+ CR",
+          "title": "DANC 150 Introduction to Dance3",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "DANC 111",
+            "DANC 113"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_6a72f1c7cce8e158",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "DANC 111 World Dance I 2 C+ MR or DANC 113 World Dance II",
+          "title": "DANC 111 World Dance I or DANC 113 World Dance II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 177"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_c48ef504f53dfd46",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "DANC 177 Dance Company I 1 C+ MR",
+          "title": "DANC 177 Dance Company I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_aee6e4daad83dd27",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Ballet Technique Course4 1 C+ MR",
+          "title": "Ballet Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_9b114f7838058d8c",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Contemporary Technique Course4 1 C+ MR",
+          "title": "Contemporary Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cb02f1152adf4b91",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 7,
+          "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 103"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_e47ca6f616dc8cbe",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! DANC 103 The Dancer’s Body 3 C+ MR",
+          "title": "DANC 103 The Dancer’s Body",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 160"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_1ef124c2ed67a113",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! DANC 160 Dance Improvisation & Composition7 3 C+ MR",
+          "title": "DANC 160 Dance Improvisation & Composition7",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_8bd7d2addc36d766",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Ballet Technique Course4 1 C+ MR",
+          "title": "Ballet Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_2e4e8770741b8d81",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Contemporary Technique Course4 1 C+ MR",
+          "title": "Contemporary Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_641a50a9e298490b",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Education Course8 3 C+ MR",
+          "title": "Education Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a74f66955d992084",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 7,
+          "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 360"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7c395cb2300eb6ab",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "DANC 360 Choreography I 3 C+ MR/CC-",
+          "title": "DANC 360 Choreography I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 370"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b96f7806e1e9ecc3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "! DANC 370 Dance Ed. II: Creative Dance11 (Fall only) 3 C+ MR/CC DANC 270 & 360 (DANC 370 only)",
+          "title": "DANC 370 Dance Ed. II: Creative Dance11 (Fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 177"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_d3bcf21e67ec47fb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "DANC 177 Dance Company I 1 C+ MR",
+          "title": "DANC 177 Dance Company I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_af77a826a0e07385",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "Ballet Technique Course4 1 C+ MR",
+          "title": "Ballet Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_dee3354292b7012c",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Contemporary Technique Course4 1 C+ MR",
+          "title": "Contemporary Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ea4bc13faead7082",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Education Course8 3 C+ MR",
+          "title": "Education Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_469534f32e7331d8",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 7,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_01656f9ff8194b43",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 8,
+          "source_text": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+          "title": "Foreign language5 or Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        13,
+        14
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 380"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ce790b6e724808a1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "DANC 380 Movement & Dance for Musical Theatre 3 C+ MR",
+          "title": "DANC 380 Movement & Dance for Musical Theatre",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_0d99215dc7183be0",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Ballet Technique Course4 1 C+ MR",
+          "title": "Ballet Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e93f5e5123c6b914",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Education Course8 3 C+ MR",
+          "title": "Education Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_cc0d91b5c5299707",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement6 3-4 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 476"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_895749ee99983a4f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "DANC 476 Production Design for Dance Techniques 3 C+ MR",
+          "title": "DANC 476 Production Design for Dance Techniques",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 370"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b201735549d37aaa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "! DANC 370 Dance Ed. II: Creative Dance11 (Fall only) 3 C+ MR/CC DANC 270 & 360 (DANC 370 only)",
+          "title": "DANC 370 Dance Ed. II: Creative Dance11 (Fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 281"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_18cb643036636acb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "DANC 281 Dance History I3 3 C+ CR",
+          "title": "DANC 281 Dance History I3",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 177"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_98c0fce365d477e6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "DANC 177 Dance Company I 1 C+ MR",
+          "title": "DANC 177 Dance Company I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_1d83044478921823",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Contemporary Technique Course4 1 C+ MR",
+          "title": "Contemporary Technique Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bdafa431589a3843",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement6 or Approved Elective10 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 282"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c392a6b23d187741",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "DANC 282 Dance History II3 3 C+ CR",
+          "title": "DANC 282 Dance History II3",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 470"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_f64568c6d3761457",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! DANC 470 Dance Ed. III: Dance Pedagogy for Middle 4 C+ MR DANC 270 & 370, 5 semesters",
+          "title": "DANC 470 Dance Ed. III: Dance Pedagogy for Middle",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "DANC 307",
+            "DANC 407"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_db15c1e86cb04195",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "DANC 307 West African Dance I 3 C+ MR DANC 307 (DANC 407) or DANC 407 West African Dance II",
+          "title": "DANC 307 West African Dance I or DANC 407 West African Dance II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e05c35b27c0938ab",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "History9 3 CR",
+          "title": "History9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        12,
+        14
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 478"
+          ],
+          "credit_hours": [
+            3,
+            5
+          ],
+          "critical": true,
+          "id": "req_557f0a5f154a3408",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! DANC 478 Integrated Approach. Danc. Ed.11 (Fall only) 3-5 C+ MR",
+          "title": "DANC 478 Integrated Approach. Danc. Ed.11 (Fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_02920cba3563ef86",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Education Course8 3 C+ MR",
+          "title": "Education Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e7169a48871b0ba6",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7819a584fe4de5bf",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement6 or Approved Elective10 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 479"
+          ],
+          "credit_hours": 12,
+          "critical": true,
+          "id": "req_6ca55dbfe9589191",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! DANC 479 Teaching Internship in Dance Ed. 12 C MR Adm. to Professional Program &",
+          "title": "DANC 479 Teaching Internship in Dance Ed.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "DANC 471"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_5d5b27f9b63dd8b4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! DANC 471 Synthesis of Dance Ed. Constructs 1 C MR DANC 479",
+          "title": "DANC 471 Synthesis of Dance Ed. Constructs",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023",
+    "retrieved_at": null,
+    "sha256": "7b7c6c6fd7249f7b4acd1ae7bac01c875a84f7ad3c529b2ac988f222a2ccabcb",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_danc-ed_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_danc-ed_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_danc-ed_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 21,
+    "requirement_count": 42,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

@@ -1,0 +1,1102 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Nursing",
+  "concentrations": {},
+  "confidence": "high",
+  "department": "",
+  "elective_groups": [
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_c4331b3894d984eb",
+      "label": "UNIV 101 The Student in the University (or other or MATH 111/111i3 (if required per placement test)",
+      "options": [
+        "UNIV 101",
+        "MATH 111"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c4331b3894d984eb"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_bdacdd3e7cad5da9",
+      "label": "STAT 112 Statistics and the Media or CSCE 101 Introduction to Computer Concepts or CSCE 102 General Applications Programming",
+      "options": [
+        "STAT 112",
+        "CSCE 101",
+        "CSCE 102"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_bdacdd3e7cad5da9"
+    }
+  ],
+  "id": "map_7e73293da62c4a9e",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": false
+  },
+  "major": "Nursing-Generic",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Nursing",
+    "degree": "Bachelor of Science in Nursing (B.S.N.)",
+    "department": "",
+    "faculty_approver": "Alicia Ribar",
+    "minimum_institutional_gpa": 3.0,
+    "minimum_total_hours": 120,
+    "name": "Nursing-Generic"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science in Nursing (B.S.N.)",
+  "program_family_id": "program_d2f43dc8196fe7d2",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 102",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_12b53967875f3735",
+      "title": "Fundamental Chemistry II",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 243",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bcd9c268cf315a4d",
+      "title": "& Lab – Human Anatomy and Physiology I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 112",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6efda3cf3781874d",
+      "title": "Intro. to Nursing as a Profession",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 208",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fec48cde3b8ace0a",
+      "title": "Introduction to Nursing Informatics",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GSS",
+      "category": "carolina_core",
+      "code": "PSYC 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_183a3c1672b08418",
+      "title": "Introduction to Psychology",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 244",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b1dd5734a6a14d6c",
+      "title": "& Lab – Human Anatomy & Physiology II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "SOCY 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d59e002af98212c2",
+      "title": "Introductory Sociology",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "BIOL 250",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a8a1b1032a2be73d",
+      "title": "& Lab – Microbiology",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "PSYC 420",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_13bd6f7cb3b4f4fa",
+      "title": "Survey of Developmental Psychology",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 216",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_66e822b3bca8df51",
+      "title": "Biophysical Pathology",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "STAT 205",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_00c617cbc1a91ccf",
+      "title": "Elementary Statistics for the Biological and",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 220",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_46e26ad3d129e87e",
+      "title": "Clinical Nutrition6",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "BIOL 206",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ae1f4f422ed62a6f",
+      "title": "Genetics and Society",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "CMS",
+      "category": "carolina_core",
+      "code": "PHIL 213",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9d6fe406727ad932",
+      "title": "Communicating Moral Issues",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 311",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_19fda8aa62ae4763",
+      "title": "Introduction to Health Assessment",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 312",
+      "corequisites": [],
+      "credits": 5,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ba25b2e62a3c7a54",
+      "title": "Foundations of Nursing Practice",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 313",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_63d9385d858ce761",
+      "title": "Nursing Care of the Older Adult",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 314",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6ed92a29679e0f98",
+      "title": "Clinical Reasoning in Nursing Practice",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 324",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5568a39da2db54ab",
+      "title": "Chemical Therapeutics",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 400",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bb7d033e33de0031",
+      "title": "Evidence Based Practice",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 412",
+      "corequisites": [],
+      "credits": 5,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_05aa07d2f46591d9",
+      "title": "Acute Care Nursing of Adults I",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 424",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d04c3b392edfe258",
+      "title": "Maternal/Newborn Nursing",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 425",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d1106221c65c08c7",
+      "title": "Nursing of Children & Families",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 411",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_091d7d46138c69fa",
+      "title": "Psychiatric/Mental Health Nursing",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 422",
+      "corequisites": [],
+      "credits": 5,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1e9c2f2c38fa0c1d",
+      "title": "Acute Care Nursing of Adults II",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 431",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_20a720a0a37049b4",
+      "title": "Population Health Nursing",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 428",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_72ef1590475f06ec",
+      "title": "Nursing Leadership & Management",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "NURS 435",
+      "corequisites": [],
+      "credits": 8,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_968683438fbfc409",
+      "title": "Senior Nursing Capstone Practicum",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 102"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_12b53967875f3735",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "! CHEM 102 Fundamental Chemistry II 4 C CC-SCI 1 yr. high-school chemistry, or",
+          "title": "CHEM 102 Fundamental Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 243"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_bcd9c268cf315a4d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! BIOL 243 & Lab – Human Anatomy and Physiology I 4 C PR",
+          "title": "BIOL 243 & Lab – Human Anatomy and Physiology I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 112"
+          ],
+          "credit_hours": 2,
+          "critical": true,
+          "id": "req_6efda3cf3781874d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! NURS 112 Intro. to Nursing as a Profession 2 C MR",
+          "title": "NURS 112 Intro. to Nursing as a Profession",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "UNIV 101",
+            "MATH 111"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c4331b3894d984eb",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University (or other 3-4 C PR/CC or MATH 111/111i3 (if required per placement test)",
+          "title": "UNIV 101 The Student in the University (or other or MATH 111/111i3 (if required per placement test)",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 208"
+          ],
+          "credit_hours": 2,
+          "critical": true,
+          "id": "req_fec48cde3b8ace0a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! NURS 208 Introduction to Nursing Informatics 2 C MR",
+          "title": "NURS 208 Introduction to Nursing Informatics",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 112",
+            "CSCE 101",
+            "CSCE 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_bdacdd3e7cad5da9",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 3,
+          "source_text": "! STAT 112 Statistics and the Media 3 C CC-ARP or CSCE 101 Introduction to Computer Concepts or CSCE 102 General Applications Programming",
+          "title": "STAT 112 Statistics and the Media or CSCE 101 Introduction to Computer Concepts or CSCE 102 General Applications Programming",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PSYC 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_183a3c1672b08418",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 4,
+          "source_text": "! PSYC 101 Introduction to Psychology 3 C CC-GSS",
+          "title": "PSYC 101 Introduction to Psychology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 244"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b1dd5734a6a14d6c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! BIOL 244 & Lab – Human Anatomy & Physiology II 4 C PR BIOL 243 & Lab",
+          "title": "BIOL 244 & Lab – Human Anatomy & Physiology II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SOCY 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d59e002af98212c2",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "SOCY 101 Introductory Sociology 3 C PR",
+          "title": "SOCY 101 Introductory Sociology",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 250"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_a8a1b1032a2be73d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "! BIOL 250 & Lab – Microbiology 4 C CR College-level biology & chemistry",
+          "title": "BIOL 250 & Lab – Microbiology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PSYC 420"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_13bd6f7cb3b4f4fa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "! PSYC 420 Survey of Developmental Psychology 3 C CR PSYC 101",
+          "title": "PSYC 420 Survey of Developmental Psychology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 216"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_66e822b3bca8df51",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! NURS 216 Biophysical Pathology 3 C MR CHEM 102 & BIOL 243 & 244",
+          "title": "NURS 216 Biophysical Pathology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 205"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_00c617cbc1a91ccf",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 4,
+          "source_text": "STAT 205 Elementary Statistics for the Biological and 3 C CC-ARP MATH 111/111i or higher or",
+          "title": "STAT 205 Elementary Statistics for the Biological and",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        12,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 220"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_46e26ad3d129e87e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "NURS 220 Clinical Nutrition6 3 C MR NURS 216",
+          "title": "NURS 220 Clinical Nutrition6",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 206"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ae1f4f422ed62a6f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "BIOL 206 Genetics and Society 3 C CC-SCI",
+          "title": "BIOL 206 Genetics and Society",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHIL 213"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9d6fe406727ad932",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 3,
+          "source_text": "PHIL 213 Communicating Moral Issues 3 C CC-CMS",
+          "title": "PHIL 213 Communicating Moral Issues",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 311"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_19fda8aa62ae4763",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "NURS 311 Introduction to Health Assessment 3 C MR Coreqs: NURS 312 & 314",
+          "title": "NURS 311 Introduction to Health Assessment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 312"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_ba25b2e62a3c7a54",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "NURS 312 Foundations of Nursing Practice 5 C MR Coreqs: NURS 311 & 314",
+          "title": "NURS 312 Foundations of Nursing Practice",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 313"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_63d9385d858ce761",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "NURS 313 Nursing Care of the Older Adult 3 C MR NURS 311 & 312",
+          "title": "NURS 313 Nursing Care of the Older Adult",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 314"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_6ed92a29679e0f98",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "NURS 314 Clinical Reasoning in Nursing Practice 2 C MR Coreqs: NURS 311 & 312",
+          "title": "NURS 314 Clinical Reasoning in Nursing Practice",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 324"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5568a39da2db54ab",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "NURS 324 Chemical Therapeutics 3 C MR CHEM 102 & NURS 216; Coreqs:",
+          "title": "NURS 324 Chemical Therapeutics",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 400"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bb7d033e33de0031",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "NURS 400 Evidence Based Practice 3 C MR STAT 110 & NURS 314",
+          "title": "NURS 400 Evidence Based Practice",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 412"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_05aa07d2f46591d9",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "NURS 412 Acute Care Nursing of Adults I 5 C MR NURS 311, 312, 314, & 324",
+          "title": "NURS 412 Acute Care Nursing of Adults I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 424"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_d04c3b392edfe258",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "NURS 424 Maternal/Newborn Nursing 4 C MR NURS 311, 312, 314, & 324;",
+          "title": "NURS 424 Maternal/Newborn Nursing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 425"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_d1106221c65c08c7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "NURS 425 Nursing of Children & Families 4 C MR NURS 311, 312, 314, & 324;",
+          "title": "NURS 425 Nursing of Children & Families",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 411"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_091d7d46138c69fa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "NURS 411 Psychiatric/Mental Health Nursing 4 C MR NURS 311, 312, 314, & 324;",
+          "title": "NURS 411 Psychiatric/Mental Health Nursing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 422"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_1e9c2f2c38fa0c1d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "NURS 422 Acute Care Nursing of Adults II 5 C MR NURS 324 & 412",
+          "title": "NURS 422 Acute Care Nursing of Adults II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 431"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_20a720a0a37049b4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "NURS 431 Population Health Nursing 4 C MR",
+          "title": "NURS 431 Population Health Nursing",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 428"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_72ef1590475f06ec",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "NURS 428 Nursing Leadership & Management 4 C MR Coreq: NURS 435",
+          "title": "NURS 428 Nursing Leadership & Management",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "NURS 435"
+          ],
+          "credit_hours": 8,
+          "critical": false,
+          "id": "req_968683438fbfc409",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "NURS 435 Senior Nursing Capstone Practicum 8 C MR Successful completion of all clinical",
+          "title": "NURS 435 Senior Nursing Capstone Practicum",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "75a26fd080024eb22da3f088b13f5d5b6c209b196808f0a8b28d48f0ec2fbeeb",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_nurs_generic_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_nurs_generic_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_nurs_generic_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 0,
+    "requirement_count": 32,
+    "requires_review": false,
+    "semester_count": 8
+  },
+  "warnings": []
+}

@@ -1,0 +1,1206 @@
+{
+  "catalog_year": "2023-2024",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Visual Art & Design",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7afadea31cbbd0d1",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7afadea31cbbd0d1"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_83e0abb7cecc2113",
+      "label": "ARTS 102 Design Technology and Concepts or ARTS 111 Basic Drawing I",
+      "options": [
+        "ARTS 102",
+        "ARTS 111"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_83e0abb7cecc2113"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dd6c66482caee4da",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dd6c66482caee4da"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_82ad0053570408b6",
+      "label": "ARTS 102 Design Technology and Concepts or ARTS 111 Basic Drawing I",
+      "options": [
+        "ARTS 102",
+        "ARTS 111"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_82ad0053570408b6"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4be8c5fced5458be",
+      "informational": true,
+      "label": "Foreign language3 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4be8c5fced5458be"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ee913a9edda8aa0f",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ee913a9edda8aa0f"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_2753ec0e04e45717",
+      "label": "Modern Art History Course: or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+      "options": [
+        "ARTH 341",
+        "ARTH 342",
+        "ARTH 535",
+        "ARTH 536",
+        "ARTH 537",
+        "ARTH 539",
+        "ARTH 545"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_2753ec0e04e45717"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_67bb13c096aff1b6",
+      "informational": true,
+      "label": "History5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_67bb13c096aff1b6"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_63815b1dd201e7ea",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_63815b1dd201e7ea"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_eea4ab666b4992b4",
+      "informational": true,
+      "label": "ARTH Course",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_eea4ab666b4992b4"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_59f84e37e599b02a",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_59f84e37e599b02a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c0c0083e3bfa6b17",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c0c0083e3bfa6b17"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7a494e7b00453b44",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7a494e7b00453b44"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 4,
+      "id": "req_c36d5f0e0b926562",
+      "informational": true,
+      "label": "ARTS Major Elective (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c36d5f0e0b926562"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_e2f80527ccfe9f1b",
+      "informational": true,
+      "label": "ARTH Course (500-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e2f80527ccfe9f1b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2d8a344ebfe0aa5a",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2d8a344ebfe0aa5a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 4,
+      "id": "req_ecafe5e8ffb5b19f",
+      "informational": true,
+      "label": "ARTS Major Elective (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ecafe5e8ffb5b19f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 4,
+      "id": "req_ce5a072cf657bec1",
+      "informational": true,
+      "label": "ARTS Major Elective (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ce5a072cf657bec1"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 0,
+      "id": "req_d84fe57f1099bfc1",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d84fe57f1099bfc1"
+    }
+  ],
+  "id": "map_d2b3ba1f05bc294d",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Art Studio",
+  "parsed_metadata": {
+    "bulletin_year": "2023-2024",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Fine Arts (B.F.A.)",
+    "department": "Visual Art & Design",
+    "faculty_approver": "Laura Kissel",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Art Studio"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Fine Arts (B.F.A.)",
+  "program_family_id": "program_f3e66124e2a4f501",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 103",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2b3a9eb370bb574f",
+      "title": "Fundamentals of Art",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 104",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_629be2c37398de48",
+      "title": "3-Dimensional Design I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 107",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4a52426e9a608fb6",
+      "title": "Color and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 230",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_de0f2ff762c08d81",
+      "title": "Introduction to Drawing",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "AIU",
+      "category": "carolina_core",
+      "code": "ARTH 106",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_cfccbf9999bfb432",
+      "title": "History of Western Art II",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 215",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4f1cb9aba8a1ef0b",
+      "title": "Introduction to Printmaking",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 315",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_83c1212c81ab76be",
+      "title": "Intermediate Printmaking I: Relief",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 261",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_05e99f61babb63af",
+      "title": "Introduction to Photography",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 316",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bd67ad6de5076673",
+      "title": "Intermediate Printmaking II: Screen",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 415",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_561616be7837af4a",
+      "title": "Advanced Printmaking I: Intaglio",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 416",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5801771da2173b63",
+      "title": "Advanced Printmaking: Lithography",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTS 516",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a0203164a9804800",
+      "title": "Capstone Printmaking I: Prof. Practices",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7afadea31cbbd0d1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 103"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2b3a9eb370bb574f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "ARTS 103 Fundamentals of Art 3 C MR",
+          "title": "ARTS 103 Fundamentals of Art",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ARTS 102",
+            "ARTS 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_83e0abb7cecc2113",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "ARTS 102 Design Technology and Concepts 3 C MR or ARTS 111 Basic Drawing I",
+          "title": "ARTS 102 Design Technology and Concepts or ARTS 111 Basic Drawing I",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dd6c66482caee4da",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 104"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_629be2c37398de48",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "ARTS 104 3-Dimensional Design I 3 C MR",
+          "title": "ARTS 104 3-Dimensional Design I",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ARTS 102",
+            "ARTS 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_82ad0053570408b6",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "ARTS 102 Design Technology and Concepts 3 C MR or ARTS 111 Basic Drawing I",
+          "title": "ARTS 102 Design Technology and Concepts or ARTS 111 Basic Drawing I",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 107"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4a52426e9a608fb6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTS 107 Color and Composition 3 C MR ARTS 103 (ARTS 107 only)",
+          "title": "ARTS 107 Color and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 230"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_de0f2ff762c08d81",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! ARTS 230 Introduction to Drawing 4 C MR C or better in ARTS 111 or",
+          "title": "ARTS 230 Introduction to Drawing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTH 106"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cfccbf9999bfb432",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 3,
+          "source_text": "ARTH 106 History of Western Art II 3 C CC-AIU",
+          "title": "ARTH 106 History of Western Art II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4be8c5fced5458be",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign language3 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ee913a9edda8aa0f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        13,
+        14
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 215"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_4f1cb9aba8a1ef0b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ARTS 215 Introduction to Printmaking 4 C MR",
+          "title": "ARTS 215 Introduction to Printmaking",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ARTH 341",
+            "ARTH 342",
+            "ARTH 535",
+            "ARTH 536",
+            "ARTH 537",
+            "ARTH 539",
+            "ARTH 545"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2753ec0e04e45717",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "Modern Art History Course: 3 C CR See Bulletin listing. or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+          "title": "Modern Art History Course: or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_67bb13c096aff1b6",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "History5 3 CR",
+          "title": "History5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_63815b1dd201e7ea",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 315"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_83c1212c81ab76be",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTS 315 Intermediate Printmaking I: Relief 4 C MR",
+          "title": "ARTS 315 Intermediate Printmaking I: Relief",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_eea4ab666b4992b4",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTH Course 3 C CR See Bulletin listing.",
+          "title": "ARTH Course",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_59f84e37e599b02a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c0c0083e3bfa6b17",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7a494e7b00453b44",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Approved Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 261"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_05e99f61babb63af",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTS 261 Introduction to Photography 4 C MR",
+          "title": "ARTS 261 Introduction to Photography",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 316"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_bd67ad6de5076673",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTS 316 Intermediate Printmaking II: Screen 4 C MR",
+          "title": "ARTS 316 Intermediate Printmaking II: Screen",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_c36d5f0e0b926562",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "ARTS Major Elective (200-level and above) 4 C MR See Bulletin listing.",
+          "title": "ARTS Major Elective (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e2f80527ccfe9f1b",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "ARTH Course (500-level and above) 3 C CR See Bulletin listing.",
+          "title": "ARTH Course (500-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 415"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_561616be7837af4a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTS 415 Advanced Printmaking I: Intaglio 4 C MR",
+          "title": "ARTS 415 Advanced Printmaking I: Intaglio",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 416"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_5801771da2173b63",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTS 416 Advanced Printmaking: Lithography 6 C MR",
+          "title": "ARTS 416 Advanced Printmaking: Lithography",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2d8a344ebfe0aa5a",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Approved Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        14,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTS 516"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_a0203164a9804800",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTS 516 Capstone Printmaking I: Prof. Practices 6 C MR ARTS 215 & one 300 or 400-",
+          "title": "ARTS 516 Capstone Printmaking I: Prof. Practices",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_ecafe5e8ffb5b19f",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTS Major Elective (200-level and above) 4 C MR See Bulletin listing.",
+          "title": "ARTS Major Elective (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_ce5a072cf657bec1",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "ARTS Major Elective (200-level and above) 4 C MR See Bulletin listing.",
+          "title": "ARTS Major Elective (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_d84fe57f1099bfc1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective6 0-3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024",
+    "retrieved_at": null,
+    "sha256": "bfa325b34b4cb71a5f9e5e11ee7023485face764f221e385d7e4e08cbf80e6b4",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_arts-bfa-printmaking_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_arts-bfa-printmaking_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_arts-bfa-printmaking_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 18,
+    "requirement_count": 35,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

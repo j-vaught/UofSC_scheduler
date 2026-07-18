@@ -1,0 +1,1334 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Information & Communications",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Journalism & Mass Communication",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_6edb1a713fd585c2",
+      "label": "STAT 110 Intro. to Statistical Reasoning or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+      "options": [
+        "STAT 110",
+        "STAT 112",
+        "STAT 201",
+        "STAT 205",
+        "STAT 206"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_6edb1a713fd585c2"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_e887ab8a6a689d13",
+      "informational": true,
+      "label": "Carolina Core ARP",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e887ab8a6a689d13"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0d0bcc098f45d284",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core Req.3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0d0bcc098f45d284"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_c4de43aa96400fdc",
+      "label": "JOUR 303 Law & Ethics of Mass Communications or JOUR 304 Internet and Social Media Law",
+      "options": [
+        "JOUR 303",
+        "JOUR 304"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c4de43aa96400fdc"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_f66f76c79dc927c0",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f66f76c79dc927c0"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_06bd45c2c9911a87",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_06bd45c2c9911a87"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_0adba866fd0cf6e2",
+      "informational": true,
+      "label": "Foreign language4 or Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0adba866fd0cf6e2"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_935feea30ae6c25d",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_935feea30ae6c25d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0486ad18470004dc",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core Req.3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0486ad18470004dc"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_0f91432fe7813787",
+      "informational": true,
+      "label": "JOUR Major Elective (Writing)5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0f91432fe7813787"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_3d76d64c9ab506b7",
+      "informational": true,
+      "label": "JOUR Major Elective (Concept/Lecture)5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3d76d64c9ab506b7"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_3277008b01187705",
+      "label": "ECON 224 Introduction to Economics or MKTG 350 Principles of Marketing or MGMT 371 Principles of Management",
+      "options": [
+        "ECON 224",
+        "MKTG 350",
+        "MGMT 371"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_3277008b01187705"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cf558a7a6bc69ef3",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf558a7a6bc69ef3"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_88cd25fcf8ce0d51",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_88cd25fcf8ce0d51"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d7d499a8fc9f4a0a",
+      "label": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+      "options": [
+        "JOUR 531",
+        "JOUR 533",
+        "JOUR 332"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d7d499a8fc9f4a0a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_2da71ebc3670da30",
+      "informational": true,
+      "label": "JOUR Major Elective (Work Experience)5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2da71ebc3670da30"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_ec19456a2ccd3ad1",
+      "informational": true,
+      "label": "History7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ec19456a2ccd3ad1"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_bc31ef1d4ae7316e",
+      "informational": true,
+      "label": "Social Science8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bc31ef1d4ae7316e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2497d7e665903356",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2497d7e665903356"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_9568f7c1c08d4d7d",
+      "label": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+      "options": [
+        "JOUR 531",
+        "JOUR 533",
+        "JOUR 332"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_9568f7c1c08d4d7d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_447027f1976b4512",
+      "informational": true,
+      "label": "JOUR Major Elective5 / Concentration Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_447027f1976b4512"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_609c204af835053b",
+      "informational": true,
+      "label": "Social or Behavioral Science10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_609c204af835053b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_6678f7025218c346",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6678f7025218c346"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b3ea480b5606e7ff",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b3ea480b5606e7ff"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_724dd04fc59cf076",
+      "informational": true,
+      "label": "JOUR Major Elective5 / Concentration Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_724dd04fc59cf076"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_437a054a8b9cb340",
+      "informational": true,
+      "label": "JOUR Major Elective5 / Concentration Course9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_437a054a8b9cb340"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_840bef8f5e9c81e2",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_840bef8f5e9c81e2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5d844fbd2b9c73cb",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5d844fbd2b9c73cb"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 2,
+      "id": "req_cebaf3ebb07bc773",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cebaf3ebb07bc773"
+    }
+  ],
+  "id": "map_50c5ae88692fe6bf",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Public Relations",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Information & Communications",
+    "degree": "Bachelor of Arts in Journalism & Mass Communications (B.A.J.M.C.)",
+    "department": "Journalism & Mass Communication",
+    "faculty_approver": "Damion Waymer",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": 120,
+    "name": "Public Relations"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts in Journalism & Mass Communications (B.A.J.M.C.)",
+  "program_family_id": "program_cd15379a08ed58f9",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_237a84e3859e1e85",
+      "title": "Media & Society",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_47f24f17c4a95a21",
+      "title": "Principles of Public Relations",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 203",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f4e0517935c445ce",
+      "title": "Principles of Visual Communications",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 291",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_70b3f7f749705a1c",
+      "title": "Writing for Mass Communications",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 332",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f919662ed6cff28b",
+      "title": "Mass Communications Research",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 436",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f9f0a78c94e275be",
+      "title": "Public Relations Writing",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 539",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9c9b03dc9f8f0428",
+      "title": "Ethics in Public Relations & Public Policy",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "GHS",
+      "category": "carolina_core",
+      "code": "HIST 111",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_80e700c2dcfa2d7f",
+      "title": "Carolina Core GHS Requirement3 (HIST 111, 112,",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 110",
+            "STAT 112",
+            "STAT 201",
+            "STAT 205",
+            "STAT 206"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6edb1a713fd585c2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "STAT 110 Intro. to Statistical Reasoning 3 CC-ARP See Bulletin Listing or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+          "title": "STAT 110 Intro. to Statistical Reasoning or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_237a84e3859e1e85",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "JOUR 101 Media & Society 3 C MR",
+          "title": "JOUR 101 Media & Society",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_47f24f17c4a95a21",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! JOUR 201 Principles of Public Relations 3 C MR",
+          "title": "JOUR 201 Principles of Public Relations",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e887ab8a6a689d13",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP 3 CC-ARP",
+          "title": "Carolina Core ARP",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 203"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f4e0517935c445ce",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "JOUR 203 Principles of Visual Communications 3 C MR",
+          "title": "JOUR 203 Principles of Visual Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 291"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_70b3f7f749705a1c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "JOUR 291 Writing for Mass Communications 3 C MR",
+          "title": "JOUR 291 Writing for Mass Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0d0bcc098f45d284",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or other Carolina Core Req.3 3 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core Req.3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "JOUR 303",
+            "JOUR 304"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c4de43aa96400fdc",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 303 Law & Ethics of Mass Communications 3 C MR or JOUR 304 Internet and Social Media Law",
+          "title": "JOUR 303 Law & Ethics of Mass Communications or JOUR 304 Internet and Social Media Law",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 332"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f919662ed6cff28b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR 332 Mass Communications Research 3 C MR JOUR 201 & a course in basic",
+          "title": "JOUR 332 Mass Communications Research",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f66f76c79dc927c0",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_06bd45c2c9911a87",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0adba866fd0cf6e2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or Carolina Core Requirement3 3 CR/CC",
+          "title": "Foreign language4 or Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 436"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f9f0a78c94e275be",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 436 Public Relations Writing 3 C MR JOUR 201 & 291",
+          "title": "JOUR 436 Public Relations Writing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 539"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9c9b03dc9f8f0428",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR 539 Ethics in Public Relations & Public Policy 3 C MR JOUR 101",
+          "title": "JOUR 539 Ethics in Public Relations & Public Policy",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_935feea30ae6c25d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HIST 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_80e700c2dcfa2d7f",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core GHS Requirement3 (HIST 111, 112, 3 CC-GHS",
+          "title": "Carolina Core GHS Requirement3 (HIST 111, 112,",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0486ad18470004dc",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or other Carolina Core Req.3 3-4 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core Req.3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0f91432fe7813787",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR Major Elective (Writing)5 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective (Writing)5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3d76d64c9ab506b7",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Major Elective (Concept/Lecture)5 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective (Concept/Lecture)5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ECON 224",
+            "MKTG 350",
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3277008b01187705",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "ECON 224 Introduction to Economics 3 CR or MKTG 350 Principles of Marketing or MGMT 371 Principles of Management",
+          "title": "ECON 224 Introduction to Economics or MKTG 350 Principles of Marketing or MGMT 371 Principles of Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf558a7a6bc69ef3",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 or Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_88cd25fcf8ce0d51",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 or Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "JOUR 531",
+            "JOUR 533",
+            "JOUR 332"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d7d499a8fc9f4a0a",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+          "title": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2da71ebc3670da30",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Major Elective (Work Experience)5 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective (Work Experience)5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ec19456a2ccd3ad1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "History7 3 CR",
+          "title": "History7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bc31ef1d4ae7316e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science8 3 CR",
+          "title": "Social Science8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2497d7e665903356",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "JOUR 531",
+            "JOUR 533",
+            "JOUR 332"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9568f7c1c08d4d7d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+          "title": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_447027f1976b4512",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Major Elective5 / Concentration Course9 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective5 / Concentration Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_609c204af835053b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social or Behavioral Science10 3 CR",
+          "title": "Social or Behavioral Science10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6678f7025218c346",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b3ea480b5606e7ff",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_724dd04fc59cf076",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR Major Elective5 / Concentration Course9 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective5 / Concentration Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_437a054a8b9cb340",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Major Elective5 / Concentration Course9 3 C MR See Bulletin listing.",
+          "title": "JOUR Major Elective5 / Concentration Course9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_840bef8f5e9c81e2",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5d844fbd2b9c73cb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_cebaf3ebb07bc773",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective6 2 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "5319d352b654fd15972b2774b500f67bfa417b817eb2d20bd1285acb48af05d9",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_public-relations_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_public-relations_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_public-relations_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 24,
+    "requirement_count": 40,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

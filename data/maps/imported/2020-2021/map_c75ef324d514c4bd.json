@@ -1,0 +1,1265 @@
+{
+  "catalog_year": "2020-2021",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Hospitality, Retail, & Sport Management",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Hotel, Restaurant & Tourism Management",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_946e3038fef63e76",
+      "label": "STAT 110 Introduction to Statistical Reasoning or MATH 122 Calculus for Bus. Admin. & Soc. Sciences placement test (MATH 122)",
+      "options": [
+        "STAT 110",
+        "MATH 122"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_946e3038fef63e76"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b5a88894e40e8ecf",
+      "informational": true,
+      "label": "Foreign Language3 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b5a88894e40e8ecf"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_b8645de5a6889e34",
+      "label": "SPCH 140 Public Communication or SPCH 230 Business and Professional Speaking",
+      "options": [
+        "SPCH 140",
+        "SPCH 230"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_b8645de5a6889e34"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_d2b2c7057c2b9467",
+      "informational": true,
+      "label": "Foreign Language3 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d2b2c7057c2b9467"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ee913a9edda8aa0f",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ee913a9edda8aa0f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_337b8889f177a580",
+      "informational": true,
+      "label": "HRTM Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_337b8889f177a580"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_5d2153a88dfc7ea0",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5d2153a88dfc7ea0"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c0c0083e3bfa6b17",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c0c0083e3bfa6b17"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 2,
+      "id": "req_d8ae2bbd64fb3a58",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d8ae2bbd64fb3a58"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5a250ef9961af6c2",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5a250ef9961af6c2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_80d082e94e81c40e",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_80d082e94e81c40e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_df241f0edd15a5ba",
+      "informational": true,
+      "label": "HRTM Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_df241f0edd15a5ba"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_d6689be97dda832b",
+      "informational": true,
+      "label": "HRTM Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d6689be97dda832b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_966d3b1b3509d8d7",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_966d3b1b3509d8d7"
+    }
+  ],
+  "id": "map_c75ef324d514c4bd",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Tourism Management",
+  "parsed_metadata": {
+    "bulletin_year": "2020-2021",
+    "college": "Hospitality, Retail, & Sport Management",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Hotel, Restaurant & Tourism Management",
+    "faculty_approver": "Drew Martin",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Tourism Management"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_6c6906920998433c",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 110",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_534d611ba356d1fd",
+      "title": "Introduction to Hospitality Industry",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_f934ac6f8a59ae9f",
+      "title": "Elementary Statistics",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 280",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b55f40834759aa7a",
+      "title": "Foundations of Tourism",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 290",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0dea7a328a7e401c",
+      "title": "Practicum and Seminar5",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 364",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_991febf39342f81a",
+      "title": "Conference and Meeting Planning",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 242",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_4b9b73ecb3c84bc4",
+      "title": "HRSM Professional Communications",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 261",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_83d7af4f7593ee81",
+      "title": "Principles of Accounting I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_499fc42a978a0315",
+      "title": "Introduction to Economics",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 381",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_383d0546ae15f125",
+      "title": "Travel & Destination Mgmt. (offered spring",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 274",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_a5f537e25da75724",
+      "title": "Computer Applications in HRSM",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 262",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e35305526dcf9d44",
+      "title": "Principles of Accounting II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 240",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_84cd6b1bc659cac7",
+      "title": "Business Law",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MGMT 371",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_a3f47b59c117c7df",
+      "title": "Principles of Management",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 388",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c182c5aaf5f5ddaf",
+      "title": "Resort Dev. & Mgmt. (offered spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRTM 344",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_696e46d23a926eab",
+      "title": "Personnel Organization & Supervision",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 495",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d1c26008f52ed26f",
+      "title": "Hospitality & Tourism Internship8",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRSM 301",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_81ca129c399845c7",
+      "title": "Professional Development Seminar",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 482",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2a4b2a495f41c476",
+      "title": "Sustainable Tourism Planning & Policy",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 450",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_46d8fb871235f972",
+      "title": "Hospitality & Tourism Marketing",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 481",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4e0acb0fe575c366",
+      "title": "Analytical Techniques in Tourism & Hospitality",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "HRTM 584",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4e6eb8d89a424868",
+      "title": "Tourism Info. Technology Issues (cross-listed:",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 110",
+            "MATH 122"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_946e3038fef63e76",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "STAT 110 Introduction to Statistical Reasoning 3 CC-ARP MATH 111/111I/115 or Math or MATH 122 Calculus for Bus. Admin. & Soc. Sciences placement test (MATH 122)",
+          "title": "STAT 110 Introduction to Statistical Reasoning or MATH 122 Calculus for Bus. Admin. & Soc. Sciences placement test (MATH 122)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 110"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_534d611ba356d1fd",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "HRTM 110 Introduction to Hospitality Industry 3 C MR",
+          "title": "HRTM 110 Introduction to Hospitality Industry",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_b5a88894e40e8ecf",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign Language3 or other Carolina Core Requirement4 3-4 CC-GFL",
+          "title": "Foreign Language3 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f934ac6f8a59ae9f",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "STAT 201 Elementary Statistics 3 CC-ARP MATH 111 or STAT 110 or",
+          "title": "STAT 201 Elementary Statistics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 280"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b55f40834759aa7a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "HRTM 280 Foundations of Tourism 3 C MR",
+          "title": "HRTM 280 Foundations of Tourism",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SPCH 140",
+            "SPCH 230"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8645de5a6889e34",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 4,
+          "source_text": "SPCH 140 Public Communication 3 CC-CMS or SPCH 230 Business and Professional Speaking",
+          "title": "SPCH 140 Public Communication or SPCH 230 Business and Professional Speaking",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d2b2c7057c2b9467",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language3 or other Carolina Core Requirement4 3 CC-GFL",
+          "title": "Foreign Language3 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 290"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_0dea7a328a7e401c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "HRTM 290 Practicum and Seminar5 6 C MR",
+          "title": "HRTM 290 Practicum and Seminar5",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 364"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_991febf39342f81a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "HRTM 364 Conference and Meeting Planning 3 C MR",
+          "title": "HRTM 364 Conference and Meeting Planning",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 242"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4b9b73ecb3c84bc4",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "RETL 242 HRSM Professional Communications 3 CR C or better in ENGL 101 &",
+          "title": "RETL 242 HRSM Professional Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 261"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_83d7af4f7593ee81",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "RETL 261 Principles of Accounting I 3 C CR",
+          "title": "RETL 261 Principles of Accounting I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_499fc42a978a0315",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "ECON 224 Introduction to Economics 3 PR",
+          "title": "ECON 224 Introduction to Economics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ee913a9edda8aa0f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 381"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_383d0546ae15f125",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "HRTM 381 Travel & Destination Mgmt. (offered spring 3 C MR Prereq or Coreq: HRTM 280",
+          "title": "HRTM 381 Travel & Destination Mgmt. (offered spring",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 274"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a5f537e25da75724",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "SPTE 274 Computer Applications in HRSM 3 CR",
+          "title": "SPTE 274 Computer Applications in HRSM",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 262"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e35305526dcf9d44",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "RETL 262 Principles of Accounting II 3 C CR RETL 261",
+          "title": "RETL 262 Principles of Accounting II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_84cd6b1bc659cac7",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "SPTE 240 Business Law 3 CR",
+          "title": "SPTE 240 Business Law",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        14,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_337b8889f177a580",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "HRTM Elective6 3 C MR",
+          "title": "HRTM Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a3f47b59c117c7df",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "MGMT 371 Principles of Management 3 PR",
+          "title": "MGMT 371 Principles of Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_5d2153a88dfc7ea0",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c0c0083e3bfa6b17",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_d8ae2bbd64fb3a58",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 2 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 388"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c182c5aaf5f5ddaf",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "HRTM 388 Resort Dev. & Mgmt. (offered spring only) 3 C MR Prereq or Coreq: HRTM 280",
+          "title": "HRTM 388 Resort Dev. & Mgmt. (offered spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_696e46d23a926eab",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "HRTM 344 Personnel Organization & Supervision 3 CR",
+          "title": "HRTM 344 Personnel Organization & Supervision",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5a250ef9961af6c2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_80d082e94e81c40e",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 495"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_d1c26008f52ed26f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "HRTM 495 Hospitality & Tourism Internship8 6 C MR",
+          "title": "HRTM 495 Hospitality & Tourism Internship8",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 301"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_81ca129c399845c7",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "HRSM 301 Professional Development Seminar 3 CR",
+          "title": "HRSM 301 Professional Development Seminar",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 482"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2a4b2a495f41c476",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "HRTM 482 Sustainable Tourism Planning & Policy 3 C MR/CC- Senior Standing",
+          "title": "HRTM 482 Sustainable Tourism Planning & Policy",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_df241f0edd15a5ba",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "HRTM Elective6 3 C MR",
+          "title": "HRTM Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d6689be97dda832b",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "HRTM Elective6 3 C MR",
+          "title": "HRTM Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 450"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_46d8fb871235f972",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "HRTM 450 Hospitality & Tourism Marketing 3 C MR Junior Standing",
+          "title": "HRTM 450 Hospitality & Tourism Marketing",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 481"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4e0acb0fe575c366",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "HRTM 481 Analytical Techniques in Tourism & Hospitality 3 C MR STAT 201 or equivalent",
+          "title": "HRTM 481 Analytical Techniques in Tourism & Hospitality",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRTM 584"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4e6eb8d89a424868",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "HRTM 584 Tourism Info. Technology Issues (cross-listed: 3 C MR ITEC 264 or equivalent",
+          "title": "HRTM 584 Tourism Info. Technology Issues (cross-listed:",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_966d3b1b3509d8d7",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "ac99187b58f7120abde0dc5318e13e34e3ba03cc5bcbc4212a6596b848d0e701",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_tourism-mgmt_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_tourism-mgmt_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_tourism-mgmt_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 12,
+    "requirement_count": 38,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

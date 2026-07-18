@@ -1,0 +1,65 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Accelerated Study Plan",
+  "concentrations": {},
+  "confidence": "low",
+  "department": "Geography",
+  "elective_groups": [],
+  "id": "map_1cbca1b680c45818",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Geography: General",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Accelerated Study Plan",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Geography",
+    "faculty_approver": "",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": null,
+    "name": "Geography: General"
+  },
+  "plan_format": "accelerated",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_dfd711e4ba19e037",
+  "required_courses": [],
+  "schema_version": 1,
+  "semester_plan": [],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "8fe12860d648caa5bb3f7338e72580b0aa0367213d1f848de76a03e226e1cbad",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_geog_bs_asp_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_geog_bs_asp_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_geog_bs_asp_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": null,
+  "validation": {
+    "low_confidence_requirement_count": 0,
+    "requirement_count": 0,
+    "requires_review": true,
+    "semester_count": 0
+  },
+  "warnings": [
+    "pdf_major_name_not_found",
+    "pdf_bulletin_year_not_found",
+    "semester_sequence_is_not_contiguous",
+    "expected_exactly_eight_ordered_semesters",
+    "no_course_rows_extracted",
+    "minimum_total_degree_hours_not_found",
+    "semester_plan_requires_manual_review"
+  ]
+}

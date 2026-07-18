@@ -1,0 +1,1374 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "School of Earth, Ocean and Environment",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3fa5f96ee9a97122",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3fa5f96ee9a97122"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 0,
+      "id": "req_e69e3ab4f37dff55",
+      "informational": true,
+      "label": "Preapproved Field Experience or MSCI 4605",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e69e3ab4f37dff55"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_e58df653378f2507",
+      "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/144 or higher (PHYS 201);",
+      "options": [
+        "PHYS 201",
+        "PHYS 211"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_e58df653378f2507"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_d3969990f870cca1",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d3969990f870cca1"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_ff780e9f990b887f",
+      "informational": true,
+      "label": "History7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ff780e9f990b887f"
+    },
+    {
+      "category": "other_requirements",
+      "credits_required": 211,
+      "id": "req_af9a3a008e2af763",
+      "informational": true,
+      "label": "INT",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_af9a3a008e2af763"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_f769b79b5bc79823",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II MATH 142 (PHYS 212)",
+      "options": [
+        "PHYS 202",
+        "PHYS 212",
+        "MATH 142"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_f769b79b5bc79823"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3458717c6653d377",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3458717c6653d377"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c596833f40a4f120",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c596833f40a4f120"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_88e59cb2a22da051",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_88e59cb2a22da051"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_07ec3f52082ee944",
+      "informational": true,
+      "label": "Foreign language6 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_07ec3f52082ee944"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_73a6d5cf8097765f",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73a6d5cf8097765f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a08937d15f7a7580",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a08937d15f7a7580"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_1f36916fea6a976c",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1f36916fea6a976c"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_62e2612f5b08b95d",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_62e2612f5b08b95d"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_cbd26028a050aa95",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cbd26028a050aa95"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_84c48f01590f84f8",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_84c48f01590f84f8"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_d78dfbae4aee9eb7",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d78dfbae4aee9eb7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_19a6ff033f264354",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_19a6ff033f264354"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_230bfb72aace806f",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_230bfb72aace806f"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ba50b0184a7f1373",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ba50b0184a7f1373"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c01883d97b449d12",
+      "informational": true,
+      "label": "MSCI Elective (300-level and above)8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c01883d97b449d12"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4c2cf90cc2cc7410",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4c2cf90cc2cc7410"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ceaf28439c91b8e8",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ceaf28439c91b8e8"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_74aab4902beb4595",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_74aab4902beb4595"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a21c83c1259bd10b",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a21c83c1259bd10b"
+    }
+  ],
+  "id": "map_345681c460f63451",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Marine Science",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "School of Earth, Ocean and Environment",
+    "faculty_approver": "Alicia Wilson",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 128,
+    "name": "Marine Science"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_e2c8b92dcfa94bcb",
+  "required_courses": [
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 101",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f61f8962aed8d84f",
+      "title": "The Ocean Environment",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_deb7d4225757853c",
+      "title": "& 111L – General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_84479d5b2eba349e",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 102",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b6bbe1be8228e4dc",
+      "title": "The Living Ocean",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4cb2143e616041bb",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 112",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7d8da35c9f5c5a50",
+      "title": "& 112L – General Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_40096859dd730968",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 311",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_33377ceaa219dd3d",
+      "title": "Biology of Marine Organisms (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 313",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_693f28e541bcb4e9",
+      "title": "The Chemistry of the Sea (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 314",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c7135168257f1f14",
+      "title": "Physical Oceanography (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_462a3fceb1d99d0f",
+      "title": "General Applications Programming",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 515",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_dd5e4d9871d00124",
+      "title": "Statistical Methods I",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 505",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b1b7d3583ec277d3",
+      "title": "Senior Seminar",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 101"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_f61f8962aed8d84f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 1,
+          "source_text": "! MSCI 101 The Ocean Environment 4 C CC-SCI",
+          "title": "MSCI 101 The Ocean Environment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 141 Calculus 13 4 C CC-ARP MATH 115 or Math placement test",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_deb7d4225757853c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! CHEM 111 & 111L – General Chemistry I 4 C PR MATH 115 or Math placement test",
+          "title": "CHEM 111 & 111L – General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e6f9205b6c9a4cee",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_84479d5b2eba349e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 102"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b6bbe1be8228e4dc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "! MSCI 102 The Living Ocean 4 C CC-SCI",
+          "title": "MSCI 102 The Living Ocean",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_4cb2143e616041bb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 3,
+          "source_text": "! MATH 142 Calculus II 4 C CC-ARP MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 112"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_7d8da35c9f5c5a50",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! CHEM 112 & 112L – General Chemistry II 4 C PR CHEM 111 or 141 and MATH 111, 115",
+          "title": "CHEM 112 & 112L – General Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3fa5f96ee9a97122",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            2
+          ],
+          "critical": false,
+          "id": "req_e69e3ab4f37dff55",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "Preapproved Field Experience or MSCI 4605 0-2 MR C or better in MSCI 101 and 102 or",
+          "title": "Preapproved Field Experience or MSCI 4605",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_40096859dd730968",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 311"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_33377ceaa219dd3d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI 311 Biology of Marine Organisms (fall only) 4 C MR/CC- MSCI 102 or BIOL 101",
+          "title": "MSCI 311 Biology of Marine Organisms (fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 201",
+            "PHYS 211"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e58df653378f2507",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! PHYS 201 & 201L – General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/144 or higher (PHYS 201);",
+          "title": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/144 or higher (PHYS 201);",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d3969990f870cca1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language6 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language6 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ff780e9f990b887f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History7 3 CR",
+          "title": "History7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 313"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_693f28e541bcb4e9",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI 313 The Chemistry of the Sea (spring only) 4 C MR/CC- C or better in MSCI 101, CHEM 111,",
+          "title": "MSCI 313 The Chemistry of the Sea (spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 314"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_c7135168257f1f14",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI 314 Physical Oceanography (spring only) 4 C MR/CC- MSCI 101, MATH 141, & PHYS 201 or",
+          "title": "MSCI 314 Physical Oceanography (spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 211,
+          "critical": false,
+          "id": "req_af9a3a008e2af763",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [],
+          "sequence": 3,
+          "source_text": "INT 211",
+          "title": "INT",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 202",
+            "PHYS 212",
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_f769b79b5bc79823",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! PHYS 202 & 202L – General Physics II 4 C PR PHYS 201 (PHYS 202); PHYS 211 and or PHYS 212 & 212L – Essentials of Physics II MATH 142 (PHYS 212)",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II MATH 142 (PHYS 212)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3458717c6653d377",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language6 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language6 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c596833f40a4f120",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_88e59cb2a22da051",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_462a3fceb1d99d0f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "CSCE 102 General Applications Programming 3 C CR",
+          "title": "CSCE 102 General Applications Programming",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_07ec3f52082ee944",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language6 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign language6 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73a6d5cf8097765f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a08937d15f7a7580",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_1f36916fea6a976c",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 515"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dd5e4d9871d00124",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 515 Statistical Methods I 3 C CR MATH 141; or both MATH 111 or higher",
+          "title": "STAT 515 Statistical Methods I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_62e2612f5b08b95d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cbd26028a050aa95",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_84c48f01590f84f8",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_d78dfbae4aee9eb7",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_19a6ff033f264354",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_230bfb72aace806f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ba50b0184a7f1373",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MSCI 505"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_b1b7d3583ec277d3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "MSCI 505 Senior Seminar 1 C MR",
+          "title": "MSCI 505 Senior Seminar",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c01883d97b449d12",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "MSCI Elective (300-level and above)8 3-4 C MR",
+          "title": "MSCI Elective (300-level and above)8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4c2cf90cc2cc7410",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ceaf28439c91b8e8",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_74aab4902beb4595",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a21c83c1259bd10b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "b220eda155cd62e6436dcdb9f96dcf566103d2d62e9d97453d15f4fa2033e442",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_msci-general_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_msci-general_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_msci-general_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": 128,
+  "validation": {
+    "low_confidence_requirement_count": 24,
+    "requirement_count": 41,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

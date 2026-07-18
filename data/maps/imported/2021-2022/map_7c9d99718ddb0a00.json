@@ -1,0 +1,1362 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Information & Communications",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Library & Information Science",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_6da7ae968583cd7a",
+      "informational": true,
+      "label": "Carolina Core SCI Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6da7ae968583cd7a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_aa50389f645d4acc",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or UNIV 101 The Student in the University",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_aa50389f645d4acc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3d1d549e96b2fb71",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3d1d549e96b2fb71"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_98aad213f3dc50c3",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_98aad213f3dc50c3"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_6789bd72791f0587",
+      "informational": true,
+      "label": "Carolina Core SCI Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6789bd72791f0587"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_fbc01ed411322b68",
+      "label": "SLIS 301 Info. Storage & Retrieval (offered fall) or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+      "options": [
+        "SLIS 301",
+        "SLIS 402"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_fbc01ed411322b68"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_9f1a8f04bb3cd033",
+      "informational": true,
+      "label": "Carolina Core CMS Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9f1a8f04bb3cd033"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_347619c568f90838",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_347619c568f90838"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3c1f81b8f2342046",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3c1f81b8f2342046"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_93f4ea9f0f4b9230",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_93f4ea9f0f4b9230"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_a1e4a450e6bf78ce",
+      "label": "SLIS 301 Info. Storage & Retrieval (offered fall) or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+      "options": [
+        "SLIS 301",
+        "SLIS 402"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_a1e4a450e6bf78ce"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_168e7d0056b8d0dd",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_168e7d0056b8d0dd"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0177bdb5cb360d7d",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0177bdb5cb360d7d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_db078d5d7f5b09e6",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_db078d5d7f5b09e6"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1fb98d95ed040624",
+      "informational": true,
+      "label": "Minor or Cognate Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1fb98d95ed040624"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_d341e7c57cb3eb49",
+      "informational": true,
+      "label": "Minor or Cognate Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d341e7c57cb3eb49"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3d31aade2df6710a",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3d31aade2df6710a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7e90ff1cac03344f",
+      "informational": true,
+      "label": "Foreign language6 or Approved Elective",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7e90ff1cac03344f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_7c5ffa6188e56bfc",
+      "informational": true,
+      "label": "SLIS Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7c5ffa6188e56bfc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ac846c73e084df59",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ac846c73e084df59"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a87e6843c69008de",
+      "informational": true,
+      "label": "Minor or Cognate Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a87e6843c69008de"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 0,
+      "id": "req_9716a3b108502d0c",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Approved Elective (only if",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9716a3b108502d0c"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_d744dfefcd07449c",
+      "informational": true,
+      "label": "SLIS Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d744dfefcd07449c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0efbfc84a4c1e556",
+      "informational": true,
+      "label": "Minor or Cognate Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0efbfc84a4c1e556"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2d84f7fbc1156c85",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2d84f7fbc1156c85"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c9516719dfd6ebf7",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c9516719dfd6ebf7"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_e2c498ed50c72595",
+      "label": "SLIS 494 Independent Study in Info. Science or SLIS 496 Internship in Info. Science dept. permission (SLIS 496 only)",
+      "options": [
+        "SLIS 494",
+        "SLIS 496"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_e2c498ed50c72595"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2d0aa6f53d06189d",
+      "informational": true,
+      "label": "Professional Course4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2d0aa6f53d06189d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_e5c06f67727abcd7",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e5c06f67727abcd7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_56c6ecd66f346372",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_56c6ecd66f346372"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 0,
+      "id": "req_611d6a273065a807",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Approved Elective (only if",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_611d6a273065a807"
+    }
+  ],
+  "id": "map_7c9d99718ddb0a00",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Information Science",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Information & Communications",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Library & Information Science",
+    "faculty_approver": "David Lankes",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": 121,
+    "name": "Information Science"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_02265ae7ebb90660",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a4911d49731cb3b1",
+      "title": "Introduction to Information Science",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_9beaee1e4007cc49",
+      "title": "Elementary Statistics",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 202",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_55800c63fec2d2e4",
+      "title": "Introduction to Info. Lit. & Technology",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 330",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a06d010eb48b9ae9",
+      "title": "Intro. to Comp. Tech. & Applications for Info.",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 220",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d52e3d6a5055e921",
+      "title": "Using Information Resources (2020-2021",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 310",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_91f979fc59409178",
+      "title": "Research Methods in Information Science",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 410",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ef078ee46a67aacd",
+      "title": "Knowledge Management",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SLIS 420",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_55a77cc2ebdcc32b",
+      "title": "Communication & Info. Transfer (cross-listed:",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_a4911d49731cb3b1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! SLIS 201 Introduction to Information Science 3 C MR",
+          "title": "SLIS 201 Introduction to Information Science",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9beaee1e4007cc49",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 201 Elementary Statistics 3 CC-ARP Math 111or MATH 115 or STAT",
+          "title": "STAT 201 Elementary Statistics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_6da7ae968583cd7a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+          "title": "Carolina Core SCI Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aa50389f645d4acc",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 3 CC/PR or UNIV 101 The Student in the University",
+          "title": "Carolina Core Requirement3 or UNIV 101 The Student in the University",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 202"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_55800c63fec2d2e4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! SLIS 202 Introduction to Info. Lit. & Technology 3 C MR",
+          "title": "SLIS 202 Introduction to Info. Lit. & Technology",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3d1d549e96b2fb71",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_98aad213f3dc50c3",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_6789bd72791f0587",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core SCI Requirement3 4 CC-SCI",
+          "title": "Carolina Core SCI Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SLIS 301",
+            "SLIS 402"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fbc01ed411322b68",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 301 Info. Storage & Retrieval (offered fall) 3 C MR SLIS 201 or concurrent or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+          "title": "SLIS 301 Info. Storage & Retrieval (offered fall) or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9f1a8f04bb3cd033",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core CMS Course5 3 CC-CMS",
+          "title": "Carolina Core CMS Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_347619c568f90838",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3c1f81b8f2342046",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_93f4ea9f0f4b9230",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language6 or other Carolina Core Requirement3 3-4 CC-GFL",
+          "title": "Foreign language6 or other Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SLIS 301",
+            "SLIS 402"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a1e4a450e6bf78ce",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 301 Info. Storage & Retrieval (offered fall) 3 C MR SLIS 201 or concurrent or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+          "title": "SLIS 301 Info. Storage & Retrieval (offered fall) or SLIS 402 Intro. to Mgmt. Within Info. Environments enrollment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 330"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a06d010eb48b9ae9",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "SLIS 330 Intro. to Comp. Tech. & Applications for Info. 3 C MR",
+          "title": "SLIS 330 Intro. to Comp. Tech. & Applications for Info.",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_168e7d0056b8d0dd",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0177bdb5cb360d7d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_db078d5d7f5b09e6",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language6 or other Carolina Core Requirement3 3 CC-GFL",
+          "title": "Foreign language6 or other Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 220"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d52e3d6a5055e921",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 220 Using Information Resources (2020-2021 3 C MR CSCE 101 or equivalent",
+          "title": "SLIS 220 Using Information Resources (2020-2021",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1fb98d95ed040624",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Minor or Cognate Course7 3 C PR",
+          "title": "Minor or Cognate Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d341e7c57cb3eb49",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor or Cognate Course7 3 C PR",
+          "title": "Minor or Cognate Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3d31aade2df6710a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7e90ff1cac03344f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language6 or Approved Elective 3 CC/PR",
+          "title": "Foreign language6 or Approved Elective",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 310"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_91f979fc59409178",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 310 Research Methods in Information Science 3 C MR SLIS 201, STAT 110 or 201 or",
+          "title": "SLIS 310 Research Methods in Information Science",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 410"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ef078ee46a67aacd",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "SLIS 410 Knowledge Management 3 C MR SLIS 301",
+          "title": "SLIS 410 Knowledge Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7c5ffa6188e56bfc",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "SLIS Elective8 3 C MR See Bulletin listing.",
+          "title": "SLIS Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ac846c73e084df59",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a87e6843c69008de",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Minor or Cognate Course7 3 C PR",
+          "title": "Minor or Cognate Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_9716a3b108502d0c",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement3 or Approved Elective (only if 0-3 CC/PR",
+          "title": "Carolina Core Requirement3 or Approved Elective (only if",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SLIS 420"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_55a77cc2ebdcc32b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 420 Communication & Info. Transfer (cross-listed: 3 C MR/ SLIS 201",
+          "title": "SLIS 420 Communication & Info. Transfer (cross-listed:",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d744dfefcd07449c",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "SLIS Elective8 3 C MR See Bulletin listing.",
+          "title": "SLIS Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0efbfc84a4c1e556",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor or Cognate Course7 3 C PR",
+          "title": "Minor or Cognate Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2d84f7fbc1156c85",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c9516719dfd6ebf7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        12,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SLIS 494",
+            "SLIS 496"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e2c498ed50c72595",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SLIS 494 Independent Study in Info. Science 3 C MR SLIS 201, 202, 301, & 402; & or SLIS 496 Internship in Info. Science dept. permission (SLIS 496 only)",
+          "title": "SLIS 494 Independent Study in Info. Science or SLIS 496 Internship in Info. Science dept. permission (SLIS 496 only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2d0aa6f53d06189d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Professional Course4 3 PR See Bulletin listing.",
+          "title": "Professional Course4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e5c06f67727abcd7",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course7 or Approved Elective 3 C PR",
+          "title": "Minor Course7 or Approved Elective",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_56c6ecd66f346372",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Minor Course7 or Approved Elective 3 C PR",
+          "title": "Minor Course7 or Approved Elective",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_611d6a273065a807",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 or Approved Elective (only if 0-3 CC/PR",
+          "title": "Carolina Core Requirement3 or Approved Elective (only if",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "0e97e8b837f8936ccbb203879b5b45046d52ed9a8a53706baf835be9d23e6c32",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_info-science_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_info-science_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_info-science_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": 121,
+  "validation": {
+    "low_confidence_requirement_count": 27,
+    "requirement_count": 41,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

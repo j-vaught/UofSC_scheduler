@@ -1,0 +1,1323 @@
+{
+  "catalog_year": "2026-2027",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Visual Art & Design",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_7afadea31cbbd0d1",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7afadea31cbbd0d1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_9528802df8402cf7",
+      "label": "ARTH 105 History of Western Art I (CC-AIU) or ARTH 106 History of Western Art II (CC-AIU) CC-GHS or ARTH 107 History of Asian Art (CC-GHS)",
+      "options": [
+        "ARTH 105",
+        "ARTH 106",
+        "ARTH 107"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_9528802df8402cf7"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dd6c66482caee4da",
+      "informational": true,
+      "label": "Foreign language3 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dd6c66482caee4da"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_0937a133f82d0732",
+      "label": "ARTH 105 History of Western Art I or ARTH 106 History of Western Art II or ARTH 107 History of Asian Art",
+      "options": [
+        "ARTH 105",
+        "ARTH 106",
+        "ARTH 107"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_0937a133f82d0732"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3fa5f96ee9a97122",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3fa5f96ee9a97122"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_70a4a96124e12971",
+      "informational": true,
+      "label": "ARTH Major Course (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_70a4a96124e12971"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_1b49b39c3d11ca2f",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1b49b39c3d11ca2f"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_f680c1385d0841a4",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f680c1385d0841a4"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4be8c5fced5458be",
+      "informational": true,
+      "label": "Foreign language3 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4be8c5fced5458be"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ee913a9edda8aa0f",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ee913a9edda8aa0f"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ade726dafdd0fac1",
+      "informational": true,
+      "label": "ARTH Major Course (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ade726dafdd0fac1"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_be6e5ee50a734922",
+      "informational": true,
+      "label": "ARTS Course",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_be6e5ee50a734922"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1edd794a59d8e86c",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1edd794a59d8e86c"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_b09f65e21d009445",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b09f65e21d009445"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_d35785e10cf7b887",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d35785e10cf7b887"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_6f7d2b2756c6a397",
+      "informational": true,
+      "label": "ARTH Major Course (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6f7d2b2756c6a397"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b8e2a5823c58df59",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8e2a5823c58df59"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b41466e05208a6ef",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b41466e05208a6ef"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_abac8260115d7a02",
+      "informational": true,
+      "label": "History6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_abac8260115d7a02"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_1fcefe58b9c5b216",
+      "informational": true,
+      "label": "ARTH Major Course (200-level and above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1fcefe58b9c5b216"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_08d81d8fb7f86861",
+      "informational": true,
+      "label": "Cognate or Minor Course5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_08d81d8fb7f86861"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0a23de853eac53e0",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0a23de853eac53e0"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_580f571b1f4d17c2",
+      "informational": true,
+      "label": "Humanities or Fine Arts or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_580f571b1f4d17c2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cf02621c72dad209",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf02621c72dad209"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_5a996ba99be599f9",
+      "informational": true,
+      "label": "ARTH Major Course (500-level)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5a996ba99be599f9"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a71a115bc39b460a",
+      "informational": true,
+      "label": "Minor Course5 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a71a115bc39b460a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c1d980c8e394e174",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c1d980c8e394e174"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f24191490aeccbb5",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f24191490aeccbb5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_8345cf4ae5311c0e",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8345cf4ae5311c0e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_1e660a80a19edb75",
+      "informational": true,
+      "label": "ARTH Major Course (500-level)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1e660a80a19edb75"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_49abf7c21f4a4e18",
+      "informational": true,
+      "label": "Minor Course5 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_49abf7c21f4a4e18"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cf6831bb6ffdb40b",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf6831bb6ffdb40b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_8885cd80df45078a",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8885cd80df45078a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_b224ca0848de9d4f",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b224ca0848de9d4f"
+    }
+  ],
+  "id": "map_5a868bc954985f57",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Art History",
+  "parsed_metadata": {
+    "bulletin_year": "2026-2027",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Visual Art & Design",
+    "faculty_approver": "Andrew Graciano",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Art History"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_dc1fcc51159bb2f8",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "ARTH 501",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d77c2415615c99df",
+      "title": "Methodologies in Art History",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7afadea31cbbd0d1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ARTH 105",
+            "ARTH 106",
+            "ARTH 107"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9528802df8402cf7",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 4,
+          "source_text": "ARTH 105 History of Western Art I (CC-AIU) 3 C CC-AIU/ or ARTH 106 History of Western Art II (CC-AIU) CC-GHS or ARTH 107 History of Asian Art (CC-GHS)",
+          "title": "ARTH 105 History of Western Art I (CC-AIU) or ARTH 106 History of Western Art II (CC-AIU) CC-GHS or ARTH 107 History of Asian Art (CC-GHS)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENLG 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dd6c66482caee4da",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language3 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language3 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ARTH 105",
+            "ARTH 106",
+            "ARTH 107"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0937a133f82d0732",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "ARTH 105 History of Western Art I 3 C CC/CR or ARTH 106 History of Western Art II or ARTH 107 History of Asian Art",
+          "title": "ARTH 105 History of Western Art I or ARTH 106 History of Western Art II or ARTH 107 History of Asian Art",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3fa5f96ee9a97122",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_70a4a96124e12971",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH Major Course (200-level and above) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1b49b39c3d11ca2f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f680c1385d0841a4",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4be8c5fced5458be",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign language3 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ee913a9edda8aa0f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ade726dafdd0fac1",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH Major Course (200-level and above) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_be6e5ee50a734922",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTS Course 3 C MR See Bulletin listing",
+          "title": "ARTS Course",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1edd794a59d8e86c",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b09f65e21d009445",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_d35785e10cf7b887",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ARTH 501"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d77c2415615c99df",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH 501 Methodologies in Art History 3 C MR",
+          "title": "ARTH 501 Methodologies in Art History",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6f7d2b2756c6a397",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ARTH Major Course (200-level and above) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8e2a5823c58df59",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b41466e05208a6ef",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_abac8260115d7a02",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History6 3 CR",
+          "title": "History6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1fcefe58b9c5b216",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH Major Course (200-level and above) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (200-level and above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_08d81d8fb7f86861",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course5 3 C PR",
+          "title": "Cognate or Minor Course5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0a23de853eac53e0",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_580f571b1f4d17c2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Humanities or Fine Arts or Elective7 3 CR/PR",
+          "title": "Humanities or Fine Arts or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf02621c72dad209",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5a996ba99be599f9",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH Major Course (500-level) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (500-level)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a71a115bc39b460a",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Minor Course5 or Elective7 3 C (minor) PR",
+          "title": "Minor Course5 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c1d980c8e394e174",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f24191490aeccbb5",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8345cf4ae5311c0e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1e660a80a19edb75",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ARTH Major Course (500-level) 3 C MR See Bulletin listing",
+          "title": "ARTH Major Course (500-level)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_49abf7c21f4a4e18",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Minor Course5 or Elective7 3 C (minor) PR",
+          "title": "Minor Course5 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf6831bb6ffdb40b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8885cd80df45078a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_b224ca0848de9d4f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 1 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027",
+    "retrieved_at": null,
+    "sha256": "a7e7f253487091d7a238c33a880a6041ed8b3190a9473ec5c78e82c44d14fade",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_arth_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_arth_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_arth_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 34,
+    "requirement_count": 40,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

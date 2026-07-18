@@ -1,0 +1,1374 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Engineering and Computing",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Computer Science & Engineering",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_1c9fd2e196fb6238",
+      "label": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. or MATH 141 Calculus 13 only); C or better in MATH 112/115/116 (MATH",
+      "options": [
+        "MATH 122",
+        "MATH 141",
+        "MATH 112"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_1c9fd2e196fb6238"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_249eec62926b73b2",
+      "informational": true,
+      "label": "Carolina Core SCI4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_249eec62926b73b2"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_151f35622c406ea7",
+      "informational": true,
+      "label": "Carolina Core SCI4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_151f35622c406ea7"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_da3ddf8fc8c0336e",
+      "informational": true,
+      "label": "Carolina Core AIU4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_da3ddf8fc8c0336e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_72446d578367d449",
+      "informational": true,
+      "label": "CSCE 242 Web Applications or",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_72446d578367d449"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_20010a86bc025bfb",
+      "informational": true,
+      "label": "Carolina Core CMS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_20010a86bc025bfb"
+    },
+    {
+      "category": "other_requirements",
+      "credits_required": 146,
+      "id": "req_abf2d33547405b5e",
+      "informational": true,
+      "label": "Techniques",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_abf2d33547405b5e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_26d4698d699ad0e1",
+      "label": "MATH 174 Discrete Math. for Computer Sci. or MATH 374 Discrete Structures placement (MATH 174 only); C or better in",
+      "options": [
+        "MATH 174",
+        "MATH 374"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_26d4698d699ad0e1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_3230f91e38896ffc",
+      "informational": true,
+      "label": "Carolina Core GSS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3230f91e38896ffc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_aba1acdf79ffc1c5",
+      "label": "STAT 515 Statistical Methods I or STAT 509 Statistics for Engineers 111 or higher & any statistics class (STAT 515",
+      "options": [
+        "STAT 515",
+        "STAT 509"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_aba1acdf79ffc1c5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_5f8cf32ffa2a3a20",
+      "label": "ENGL 462 Technical Writing or ENGL 463 Business Writing",
+      "options": [
+        "ENGL 462",
+        "ENGL 463"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_5f8cf32ffa2a3a20"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_fd7a408b3b5a3859",
+      "informational": true,
+      "label": "BIM Minor Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fd7a408b3b5a3859"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_6accaf5158ed07fc",
+      "informational": true,
+      "label": "Carolina Core GHS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6accaf5158ed07fc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_758669c3a4eae7a3",
+      "informational": true,
+      "label": "BIM Minor Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_758669c3a4eae7a3"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_97db2486d1678ee6",
+      "informational": true,
+      "label": "Carolina Core GFL or Elective6 & 8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_97db2486d1678ee6"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_e3cc9fad3f74f240",
+      "informational": true,
+      "label": "Computer Information Systems Major Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e3cc9fad3f74f240"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_840bef8f5e9c81e2",
+      "informational": true,
+      "label": "Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_840bef8f5e9c81e2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cfbe775d4b0a4cc4",
+      "informational": true,
+      "label": "Carolina Core GFL or Elective6 & 8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cfbe775d4b0a4cc4"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 2,
+      "id": "req_3e401d93bde85f66",
+      "informational": true,
+      "label": "Elective",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3e401d93bde85f66"
+    }
+  ],
+  "id": "map_9eec508e772c79f3",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Computer Information Systems",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Engineering and Computing",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Computer Science & Engineering",
+    "faculty_approver": "Homayoun Valafar",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Computer Information Systems"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_6090aee5d4467ab4",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "CSCE 145",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bc7641986a3a5355",
+      "title": "Algorithmic Design I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 190",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_544e3ab768ca35e8",
+      "title": "Computing in the Modern World",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 146",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_dc46b7370df248d0",
+      "title": "Algorithmic Design II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 215",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_165c5b20285352a7",
+      "title": "UNIX/Linux Fundamentals",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 210",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7b3b2261a130d197",
+      "title": "Computer Hardware Foundations",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 247",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_adaa271202c7b9be",
+      "title": "Software Engineering",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_defdf3b3cdc12ca9",
+      "title": "Introduction to Economics5",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_66d5d12b3414a0e7",
+      "title": "Introduction to Computer Security",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CSCE 240",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_00c4a80b11a789ed",
+      "title": "Advanced Programming",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MGSC 290",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_b36d4114d9c0423d",
+      "title": "Computer Info. Systems in Bus.5",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 350",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_283b6bd948bc0609",
+      "title": "Data Structures & Algorithms",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "carolina_core": "VSR",
+      "category": "carolina_core",
+      "code": "CSCE 390",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c8fdc62482523724",
+      "title": "Prof. Issues in Computer Sci. Engr.",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "ACCT 222",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_c910d776aec3688c",
+      "title": "Survey of Accounting5",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "MGMT 371",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_45a3c64caaff6c71",
+      "title": "Principles of Management5",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 520",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_86075e51ff9a6634",
+      "title": "Database System Design",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 594",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_51b2c49e6ce92faa",
+      "title": "Strategic Mgmt. of Info. Systems",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "STAT 516",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_fdd83f9ecf37d0f2",
+      "title": "Statistical Methods II",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 490",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_802ffa1e4e2976e8",
+      "title": "Capstone Computing Project I fall",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 416",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_91eabedcc315a0aa",
+      "title": "Introduction to Computer Networks",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 522",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_3c2b5decfe763cba",
+      "title": "Information Security Principles fall",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "CSCE 492",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_05e9a6cbf757e703",
+      "title": "Capstone Computing Project II",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 122",
+            "MATH 141",
+            "MATH 112"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": true,
+          "id": "req_1c9fd2e196fb6238",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 122 Calc. for Bus. Admin. & Soc. Sci. 3-4 C CC-ARP C or better in MATH 111/111I or 115 (MATH 122 or MATH 141 Calculus 13 only); C or better in MATH 112/115/116 (MATH",
+          "title": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. or MATH 141 Calculus 13 only); C or better in MATH 112/115/116 (MATH",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 145"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_bc7641986a3a5355",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 3,
+          "source_text": "! CSCE 145 Algorithmic Design I 4 C * CC-ARP Prereq or Coreq: MATH 111 or 115",
+          "title": "CSCE 145 Algorithmic Design I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 190"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_544e3ab768ca35e8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "CSCE 190 Computing in the Modern World 1 C * PR Prereq or Coreq: CSCE 104, 106, 145, or 205",
+          "title": "CSCE 190 Computing in the Modern World",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_249eec62926b73b2",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core SCI4 4 CC-SCI",
+          "title": "Carolina Core SCI4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_151f35622c406ea7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core SCI4 4 CC-SCI",
+          "title": "Carolina Core SCI4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 146"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_dc46b7370df248d0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! CSCE 146 Algorithmic Design II 4 C * PR C or better in CSCE 145; C or better in MATH",
+          "title": "CSCE 146 Algorithmic Design II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 215"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_165c5b20285352a7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! CSCE 215 UNIX/Linux Fundamentals 1 C * PR CSCE 145",
+          "title": "CSCE 215 UNIX/Linux Fundamentals",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_da3ddf8fc8c0336e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core AIU4 3 CC-AIU",
+          "title": "Carolina Core AIU4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 242"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_72446d578367d449",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CSCE 242 Web Applications or 3 C * MR CSCE 146 (CSCE 242 only);",
+          "title": "CSCE 242 Web Applications or",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 210"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7b3b2261a130d197",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 210 Computer Hardware Foundations 3 C * PR D or better in CSCE 145, 204, 205, 206, or 207",
+          "title": "CSCE 210 Computer Hardware Foundations",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 247"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_adaa271202c7b9be",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "CSCE 247 Software Engineering 3 C * PR C or better in CSCE 146",
+          "title": "CSCE 247 Software Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_defdf3b3cdc12ca9",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "ECON 224 Introduction to Economics5 3 PR",
+          "title": "ECON 224 Introduction to Economics5",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_20010a86bc025bfb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core CMS4 3 CC-CMS",
+          "title": "Carolina Core CMS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_66d5d12b3414a0e7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "CSCE 201 Introduction to Computer Security 3 C * PR Prereq or Coreq: CSCE 101, 102, or 145",
+          "title": "CSCE 201 Introduction to Computer Security",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 240"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_00c4a80b11a789ed",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! CSCE 240 Advanced Programming 3 C * PR D or better in CSCE 215 & C or better in CSCE",
+          "title": "CSCE 240 Advanced Programming",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 146,
+          "critical": false,
+          "id": "req_abf2d33547405b5e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [],
+          "sequence": 3,
+          "source_text": "Techniques 146",
+          "title": "Techniques",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 174",
+            "MATH 374"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_26d4698d699ad0e1",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! MATH 174 Discrete Math. for Computer Sci. 3 C PR C or better in MATH 112 or above or MAP or MATH 374 Discrete Structures placement (MATH 174 only); C or better in",
+          "title": "MATH 174 Discrete Math. for Computer Sci. or MATH 374 Discrete Structures placement (MATH 174 only); C or better in",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MGSC 290"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b36d4114d9c0423d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "MGSC 290 Computer Info. Systems in Bus.5 3 * PR",
+          "title": "MGSC 290 Computer Info. Systems in Bus.5",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3230f91e38896ffc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core GSS4 3 CC-GSS",
+          "title": "Carolina Core GSS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 350"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_283b6bd948bc0609",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! CSCE 350 Data Structures & Algorithms 3 C * MR D or better in CSCE 240 & in MATH 174 or 374",
+          "title": "CSCE 350 Data Structures & Algorithms",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 390"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_c8fdc62482523724",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-VSR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 390 Prof. Issues in Computer Sci. Engr. 1 C * CC-VSR",
+          "title": "CSCE 390 Prof. Issues in Computer Sci. Engr.",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 515",
+            "STAT 509"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aba1acdf79ffc1c5",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 515 Statistical Methods I 3 PR C or better in MATH 122 or 141 or both MATH or STAT 509 Statistics for Engineers 111 or higher & any statistics class (STAT 515",
+          "title": "STAT 515 Statistical Methods I or STAT 509 Statistics for Engineers 111 or higher & any statistics class (STAT 515",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ACCT 222"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c910d776aec3688c",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "ACCT 222 Survey of Accounting5 3 PR MATH 122 or equiv. or sophomore standing",
+          "title": "ACCT 222 Survey of Accounting5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_45a3c64caaff6c71",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "MGMT 371 Principles of Management5 3 PR",
+          "title": "MGMT 371 Principles of Management5",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ENGL 462",
+            "ENGL 463"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5f8cf32ffa2a3a20",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "ENGL 462 Technical Writing 3 PR ENGL 101 & 102 or ENGL 463 Business Writing",
+          "title": "ENGL 462 Technical Writing or ENGL 463 Business Writing",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 520"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_86075e51ff9a6634",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CSCE 520 Database System Design 3 C * MR CSCE 240 or GEOG 563",
+          "title": "CSCE 520 Database System Design",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 594"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_51b2c49e6ce92faa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 594 Strategic Mgmt. of Info. Systems 3 C * MR",
+          "title": "CSCE 594 Strategic Mgmt. of Info. Systems",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 516"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fdd83f9ecf37d0f2",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 516 Statistical Methods II 3 PR C or better in STAT 515, 509, 512, or equiv.",
+          "title": "STAT 516 Statistical Methods II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fd7a408b3b5a3859",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "BIM Minor Elective5 3 PR See Bulletin listing.",
+          "title": "BIM Minor Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6accaf5158ed07fc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core GHS4 3 CC-GHS",
+          "title": "Carolina Core GHS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 490"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_802ffa1e4e2976e8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! CSCE 490 Capstone Computing Project I fall 3 C * MR D or better in CSCE 240; Prereq or Coreq: D or",
+          "title": "CSCE 490 Capstone Computing Project I fall",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 416"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_91eabedcc315a0aa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 416 Introduction to Computer Networks 3 C * MR CSCE 146",
+          "title": "CSCE 416 Introduction to Computer Networks",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 522"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3c2b5decfe763cba",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CSCE 522 Information Security Principles fall 3 C * MR CSCE 146; MATH 174 or 374",
+          "title": "CSCE 522 Information Security Principles fall",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_758669c3a4eae7a3",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "BIM Minor Elective5 3 PR See Bulletin listing.",
+          "title": "BIM Minor Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_97db2486d1678ee6",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core GFL or Elective6 & 8 3 PR",
+          "title": "Carolina Core GFL or Elective6 & 8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 492"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_05e9a6cbf757e703",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CSCE 492 Capstone Computing Project II 3 C * MR D or better in CSCE 240, 350, & 490",
+          "title": "CSCE 492 Capstone Computing Project II",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e3cc9fad3f74f240",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "Computer Information Systems Major Elective7 3 C * MR See Bulletin listing.",
+          "title": "Computer Information Systems Major Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_840bef8f5e9c81e2",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Elective6 3 PR",
+          "title": "Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cfbe775d4b0a4cc4",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core GFL or Elective6 & 8 3 PR",
+          "title": "Carolina Core GFL or Elective6 & 8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_3e401d93bde85f66",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective 2 PR",
+          "title": "Elective",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "ae734b428b6746feadd47eecb0d8d32ec3ed85679a93040d319e02609d86966b",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_comp-info-systems_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_comp-info-systems_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_comp-info-systems_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 14,
+    "requirement_count": 42,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

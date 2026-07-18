@@ -1,0 +1,1515 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Engineering and Computing",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Civil & Environmental Engineering",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_1164ded1acd6a56d",
+      "informational": true,
+      "label": "Carolina Core AIU4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1164ded1acd6a56d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_13bc9899f6e22f82",
+      "informational": true,
+      "label": "Carolina Core GHS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_13bc9899f6e22f82"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_03152c0bc729241a",
+      "label": "MATH 241 Vector Calculus or MATH 300 Transition to Advanced Mathematics or MATH 344 Applied Linear Algebra",
+      "options": [
+        "MATH 241",
+        "MATH 300",
+        "MATH 344"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_03152c0bc729241a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_d7d3ae43ba3d3c84",
+      "informational": true,
+      "label": "Basic Science Elective5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d7d3ae43ba3d3c84"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_bd10f434749a525c",
+      "informational": true,
+      "label": "Carolina Core GSS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bd10f434749a525c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d7b8e82390f964f5",
+      "label": "STAT 509 Statistics for Engineers or STAT 511 Probability MATH 241 (STAT 511)",
+      "options": [
+        "STAT 509",
+        "STAT 511",
+        "MATH 241"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d7b8e82390f964f5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_af4482213967ed0b",
+      "informational": true,
+      "label": "Foundational Math/Science Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_af4482213967ed0b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_cf95a06fb1daf6e4",
+      "informational": true,
+      "label": "ECIV Laboratory Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf95a06fb1daf6e4"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_4a527547f733cc50",
+      "informational": true,
+      "label": "Carolina Core VSR4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4a527547f733cc50"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ae5169a5385f8230",
+      "informational": true,
+      "label": "ECIV Distribution Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ae5169a5385f8230"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_240c948c04ccc88e",
+      "informational": true,
+      "label": "ECIV Distribution Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_240c948c04ccc88e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_2c5b159b30b0c21e",
+      "informational": true,
+      "label": "ECIV Laboratory Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2c5b159b30b0c21e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b4d8f805e04e4609",
+      "informational": true,
+      "label": "ESM Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b4d8f805e04e4609"
+    },
+    {
+      "category": "other_requirements",
+      "credits_required": 362,
+      "id": "req_bc52e5d44efda328",
+      "informational": true,
+      "label": "Engineers",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bc52e5d44efda328"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9b8e877f7d3b0cec",
+      "informational": true,
+      "label": "ECIV Distribution Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9b8e877f7d3b0cec"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5633f9976e37f643",
+      "informational": true,
+      "label": "ESM Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5633f9976e37f643"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7bc562a007a0e316",
+      "informational": true,
+      "label": "ESM Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7bc562a007a0e316"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_02c3c3f86765f382",
+      "informational": true,
+      "label": "ECIV Distribution Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_02c3c3f86765f382"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_70f3312841e68cc7",
+      "informational": true,
+      "label": "ESM Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_70f3312841e68cc7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b7cde62557fae184",
+      "informational": true,
+      "label": "Other Elective10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b7cde62557fae184"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1d68e8eff8fcaf35",
+      "informational": true,
+      "label": "Other Elective10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1d68e8eff8fcaf35"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_e607174075d8188d",
+      "informational": true,
+      "label": "Carolina Core CMS4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e607174075d8188d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_2cdb058bf6d9c2e4",
+      "informational": true,
+      "label": "Carolina Core GFL4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2cdb058bf6d9c2e4"
+    }
+  ],
+  "id": "map_a7f64e02980c40e6",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Civil Engineering",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Engineering and Computing",
+    "degree": "Bachelor of Science in Engineering (B.S.E.)",
+    "department": "Civil & Environmental Engineering",
+    "faculty_approver": "Juan Caicedo",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 124,
+    "name": "Civil Engineering"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science in Engineering (B.S.E.)",
+  "program_family_id": "program_ac6c0e25e459fae1",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e5aba88b73ab9d49",
+      "title": "General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0a6ac90253c7ae25",
+      "title": "General Chemistry I Lab",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_da683899935dc040",
+      "title": "Introduction to Civil Engineering",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b49dd179f06932c3",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5665ad831920ab78",
+      "title": "Essentials of Physics I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_995e89769dcda6d8",
+      "title": "Essentials of Physics I Lab",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 200",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_03803dcfbbfee9de",
+      "title": "Statics",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_ae522d1cd611411c",
+      "title": "Computational Methods for Civil Engr.",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 220",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_11434bcd2d27d740",
+      "title": "Mechanics of Solids",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 111",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_9d685b061da9a95e",
+      "title": "Intro. to Engr. Graphics & Visualization",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECIV 360",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_95f545a824073c67",
+      "title": "Fluid Mechanics",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 242",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_8fd4979b3d7cf1d8",
+      "title": "Elem. Differential Equations",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 303",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_1adacf8bc3154e29",
+      "title": "Civil Engineering Materials",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 320",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_48634b537edc190a",
+      "title": "Structural Analysis I",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 340",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e52a835268e58775",
+      "title": "Intro. to Transportation Engineering",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 350",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf71a70aba74271d",
+      "title": "Intro. to Environmental Engineering",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 330",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_f6b7863821ca9fac",
+      "title": "Intro. to Geotechnical Engineering",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 362",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_ce171ad5e2c62ce8",
+      "title": "Intro. to Water Resources Engineering",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 307",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_686622bbf020beb5",
+      "title": "Professional Development for Civil",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "ECIV 470",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_1a5235a7754cdf31",
+      "title": "Civil Engineering Design",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or Math",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e5aba88b73ab9d49",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or",
+          "title": "CHEM 111 General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_0a6ac90253c7ae25",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115; Prereq or Coreq:",
+          "title": "CHEM 111L General Chemistry I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_da683899935dc040",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "ECIV 101 Introduction to Civil Engineering 3 * PR",
+          "title": "ECIV 101 Introduction to Civil Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1164ded1acd6a56d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core AIU4 3 CC-AIU",
+          "title": "Carolina Core AIU4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b49dd179f06932c3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5665ad831920ab78",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS",
+          "title": "PHYS 211 Essentials of Physics I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_995e89769dcda6d8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "PHYS 211L Essentials of Physics I Lab 1 C CC-SCI C or better in MATH 141; Prereq or Coreq:",
+          "title": "PHYS 211L Essentials of Physics I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 200"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_03803dcfbbfee9de",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! ECIV 200 Statics 3 C * PR C or better in MATH 141",
+          "title": "ECIV 200 Statics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_13bc9899f6e22f82",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GHS"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core GHS4 3 CC-GHS",
+          "title": "Carolina Core GHS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_ae522d1cd611411c",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! ECIV 201 Computational Methods for Civil Engr. 3 * PR C or better in MATH 142 & ECIV 200 or",
+          "title": "ECIV 201 Computational Methods for Civil Engr.",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 241",
+            "MATH 300",
+            "MATH 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_03152c0bc729241a",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 241 Vector Calculus 3 * PR C or better in MATH 142 or MATH 300 Transition to Advanced Mathematics or MATH 344 Applied Linear Algebra",
+          "title": "MATH 241 Vector Calculus or MATH 300 Transition to Advanced Mathematics or MATH 344 Applied Linear Algebra",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 220"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_11434bcd2d27d740",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! ECIV 220 Mechanics of Solids 3 C * PR C or better in ECIV 200 & MATH 142",
+          "title": "ECIV 220 Mechanics of Solids",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_d7d3ae43ba3d3c84",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Basic Science Elective5 3-4 PR See Bulletin listing.",
+          "title": "Basic Science Elective5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bd10f434749a525c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core GSS4 3 CC-GSS",
+          "title": "Carolina Core GSS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 111"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9d685b061da9a95e",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "ECIV 111 Intro. to Engr. Graphics & Visualization 3 * PR",
+          "title": "ECIV 111 Intro. to Engr. Graphics & Visualization",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 360"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_95f545a824073c67",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! ECIV 360 Fluid Mechanics 3 C * PR Prereq or coreq: C or better in ECIV 200 or",
+          "title": "ECIV 360 Fluid Mechanics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 242"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_8fd4979b3d7cf1d8",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! MATH 242 Elem. Differential Equations 3 PR C or better in MATH 142",
+          "title": "MATH 242 Elem. Differential Equations",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 509",
+            "STAT 511",
+            "MATH 241"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_d7b8e82390f964f5",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! STAT 509 Statistics for Engineers 3 PR MATH 142 (STAT 509); C or better in or STAT 511 Probability MATH 241 (STAT 511)",
+          "title": "STAT 509 Statistics for Engineers or STAT 511 Probability MATH 241 (STAT 511)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_af4482213967ed0b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Foundational Math/Science Elective6 3-4 PR",
+          "title": "Foundational Math/Science Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 303"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_1adacf8bc3154e29",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ECIV 303 Civil Engineering Materials 3 * MR C or better in ECIV 220 or ENCP 260",
+          "title": "ECIV 303 Civil Engineering Materials",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 320"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_48634b537edc190a",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! ECIV 320 Structural Analysis I 3 * MR ECIV 201, MATH 242, & C or better in",
+          "title": "ECIV 320 Structural Analysis I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 340"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_e52a835268e58775",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! ECIV 340 Intro. to Transportation Engineering 3 * MR D or better in ECIV 201 or ENCP 201 and",
+          "title": "ECIV 340 Intro. to Transportation Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 350"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_cf71a70aba74271d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! ECIV 350 Intro. to Environmental Engineering 3 * MR D or better in CHEM 111 or CHEM 141 &",
+          "title": "ECIV 350 Intro. to Environmental Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_cf95a06fb1daf6e4",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "ECIV Laboratory Course7 1 * PR See Bulletin listing.",
+          "title": "ECIV Laboratory Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4a527547f733cc50",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-VSR"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core VSR4 3 CC-VSR",
+          "title": "Carolina Core VSR4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 330"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_f6b7863821ca9fac",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ECIV 330 Intro. to Geotechnical Engineering 3 * MR C or better in ECIV 220 or ENCP 260",
+          "title": "ECIV 330 Intro. to Geotechnical Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 362"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_ce171ad5e2c62ce8",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! ECIV 362 Intro. to Water Resources Engineering 3 * MR C or better in either ECIV 360 or ENCP",
+          "title": "ECIV 362 Intro. to Water Resources Engineering",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ae5169a5385f8230",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "ECIV Distribution Elective8 3 * PR See Bulletin listing.",
+          "title": "ECIV Distribution Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_240c948c04ccc88e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "ECIV Distribution Elective8 3 * PR See Bulletin listing.",
+          "title": "ECIV Distribution Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_2c5b159b30b0c21e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "ECIV Laboratory Course7 1 * PR See Bulletin listing.",
+          "title": "ECIV Laboratory Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_b4d8f805e04e4609",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "ESM Elective9 3-4 PR",
+          "title": "ESM Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        12,
+        13
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 307"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_686622bbf020beb5",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ECIV 307 Professional Development for Civil 3 * MR D or better in ECIV 320, 330, 340, 350 or",
+          "title": "ECIV 307 Professional Development for Civil",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 362,
+          "critical": false,
+          "id": "req_bc52e5d44efda328",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [],
+          "sequence": 2,
+          "source_text": "Engineers 362",
+          "title": "Engineers",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9b8e877f7d3b0cec",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "ECIV Distribution Elective8 3 * PR See Bulletin listing.",
+          "title": "ECIV Distribution Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5633f9976e37f643",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "ESM Elective9 3 * PR See Bulletin listing.",
+          "title": "ESM Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_7bc562a007a0e316",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "ESM Elective9 3-4 * PR See Bulletin listing.",
+          "title": "ESM Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        16,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECIV 470"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_1a5235a7754cdf31",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! ECIV 470 Civil Engineering Design 4 * MR D or better in ECIV 101 or ENCP 101 &",
+          "title": "ECIV 470 Civil Engineering Design",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_02c3c3f86765f382",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "ECIV Distribution Elective8 3 * PR See Bulletin listing.",
+          "title": "ECIV Distribution Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_70f3312841e68cc7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "ESM Elective9 3 * PR See Bulletin listing.",
+          "title": "ESM Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_b7cde62557fae184",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Other Elective10 3-4 PR See Bulletin listing.",
+          "title": "Other Elective10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_1d68e8eff8fcaf35",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Other Elective10 3-4 PR See Bulletin listing.",
+          "title": "Other Elective10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_e607174075d8188d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core CMS4 0-3 CC-CMS",
+          "title": "Carolina Core CMS4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            6
+          ],
+          "critical": false,
+          "id": "req_2cdb058bf6d9c2e4",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 7,
+          "source_text": "Carolina Core GFL4 0-6 CC-GFL",
+          "title": "Carolina Core GFL4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "d2060653b9d6e3a956ff63f4f15ca63a4f3d3e50bef41b681ec0a441cada290c",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_civil-engr_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_civil-engr_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_civil-engr_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": 124,
+  "validation": {
+    "low_confidence_requirement_count": 21,
+    "requirement_count": 46,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

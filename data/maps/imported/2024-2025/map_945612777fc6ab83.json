@@ -1,0 +1,1386 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Chemistry & Biochemistry",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_bcb685f45fba8245",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bcb685f45fba8245"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0d25cf978df27b09",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0d25cf978df27b09"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_cb87576b09738d55",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cb87576b09738d55"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_bcd78247389120ac",
+      "informational": true,
+      "label": "History9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bcd78247389120ac"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0874efc7210a20fa",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0874efc7210a20fa"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_7e68b5ce3e6545b3",
+      "informational": true,
+      "label": "CHEM Elective10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7e68b5ce3e6545b3"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 5,
+      "credits_required": 5,
+      "id": "req_c77767d9ec129f78",
+      "label": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+      "options": [
+        "CHEM 541",
+        "CHEM 541L",
+        "CHEM 542",
+        "CHEM 542L"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c77767d9ec129f78"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 0,
+      "credits_required": 0,
+      "id": "req_f841274a926f841b",
+      "label": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+      "options": [
+        "STAT 509",
+        "STAT 515",
+        "MATH 111"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_f841274a926f841b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3b14e9ec13a4a5d7",
+      "informational": true,
+      "label": "Cognate or Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3b14e9ec13a4a5d7"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_73a6d5cf8097765f",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73a6d5cf8097765f"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 5,
+      "credits_required": 5,
+      "id": "req_6dfb741d9b7ee447",
+      "label": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+      "options": [
+        "CHEM 541",
+        "CHEM 541L",
+        "CHEM 542",
+        "CHEM 542L"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_6dfb741d9b7ee447"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_ec39b3c3f15e7cd0",
+      "label": "CSCE 106 Scientific Applications Programming or CSCE 145 Algorithmic Design I 106 only); Prereq or Coreq: MATH 111 or",
+      "options": [
+        "CSCE 106",
+        "CSCE 145",
+        "MATH 111"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_ec39b3c3f15e7cd0"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0666a720d7fd67b5",
+      "informational": true,
+      "label": "Cognate or Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0666a720d7fd67b5"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_e73343fecdf01c14",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e73343fecdf01c14"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_26910c37fc8a9b77",
+      "informational": true,
+      "label": "Cognate or Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_26910c37fc8a9b77"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_d0635c1948eed8ea",
+      "informational": true,
+      "label": "Cognate or Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d0635c1948eed8ea"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_b56e71efecf23bb3",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b56e71efecf23bb3"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c3e72e0b61b98ed4",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c3e72e0b61b98ed4"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a7c4dbe1e57375e7",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7c4dbe1e57375e7"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c4447a77b5b55c5d",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c4447a77b5b55c5d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_08076a8ccafc0e43",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_08076a8ccafc0e43"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_680c9226b66dbbaa",
+      "informational": true,
+      "label": "Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_680c9226b66dbbaa"
+    }
+  ],
+  "id": "map_945612777fc6ab83",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Chemistry",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Chemistry & Biochemistry",
+    "faculty_approver": "Dan Reger",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Chemistry"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_208acf72e19a92ad",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4e6a3af3c4a673e1",
+      "title": "Principles of Chemistry I4",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_b49dd179f06932c3",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_786849cfc7b6fd02",
+      "title": "Principles of Chemistry II4",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9e4bead65d7e2d44",
+      "title": "Essentials of Physics I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c8fc5894d8bdf479",
+      "title": "Essentials of Physics I Lab",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 241",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_773e2fd1ef536efd",
+      "title": "Vector Calculus7",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 333",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9598055d45fe11b1",
+      "title": "Organic Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 333L",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b0f625907abb5910",
+      "title": "Organic Chemistry I Lab",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 212",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1893e270de864d14",
+      "title": "Essentials of Physics II7",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 212L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fe4eec070e9d80ad",
+      "title": "Essentials of Physics II Lab7",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 322",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_aba9e9b6dd45fbbd",
+      "title": "Analytical Chemistry",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 322L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a22742dcd1dfeabc",
+      "title": "Analytical Chemistry Lab",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 334",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c5ba6d736da8c9a8",
+      "title": "Organic Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 334L",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_bdd07d20e28376b0",
+      "title": "Organic Chemistry II Lab",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 496",
+      "corequisites": [],
+      "credits": 0,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9a0e9ad191bd86d5",
+      "title": "-499 Undergraduate Research12",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        17,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 141 Calculus 13 4 CC-ARP C or better in Math 112/115/116 or Math",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 141"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_4e6a3af3c4a673e1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 141 Principles of Chemistry I4 4 C PR C or better in MATH 141 or higher math",
+          "title": "CHEM 141 Principles of Chemistry I4",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_bcb685f45fba8245",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b49dd179f06932c3",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 142 Calculus II 4 CC-ARP C or better in MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_786849cfc7b6fd02",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! CHEM 142 Principles of Chemistry II4 4 C PR C or better in CHEM 141",
+          "title": "CHEM 142 Principles of Chemistry II4",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9e4bead65d7e2d44",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS",
+          "title": "PHYS 211 Essentials of Physics I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_c8fc5894d8bdf479",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Coreq: PHYS 211",
+          "title": "PHYS 211L Essentials of Physics I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0d25cf978df27b09",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 6,
+          "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 241"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_773e2fd1ef536efd",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "MATH 241 Vector Calculus7 3 PR C or better in MATH 142",
+          "title": "MATH 241 Vector Calculus7",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 333"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9598055d45fe11b1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 333 Organic Chemistry I 3 C MR C or better in CHEM 112 or CHEM 142",
+          "title": "CHEM 333 Organic Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 333L"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_b0f625907abb5910",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 333L Organic Chemistry I Lab 2 C MR Prereq or Coreq: CHEM 333",
+          "title": "CHEM 333L Organic Chemistry I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1893e270de864d14",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "PHYS 212 Essentials of Physics II7 3 C CC-SCI C or better in PHYS 211 & MATH 142;",
+          "title": "PHYS 212 Essentials of Physics II7",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_fe4eec070e9d80ad",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "PHYS 212L Essentials of Physics II Lab7 1 C CC-SCI PHYS 212",
+          "title": "PHYS 212L Essentials of Physics II Lab7",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cb87576b09738d55",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+          "title": "Foreign language5 or Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 322"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aba9e9b6dd45fbbd",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 322 Analytical Chemistry 3 C MR C or better in CHEM 112/112L or CHEM",
+          "title": "CHEM 322 Analytical Chemistry",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 322L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_a22742dcd1dfeabc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 322L Analytical Chemistry Lab 1 C MR Coreq: CHEM 322",
+          "title": "CHEM 322L Analytical Chemistry Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 334"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c5ba6d736da8c9a8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 334 Organic Chemistry II 3 C MR C or better in CHEM 333",
+          "title": "CHEM 334 Organic Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 334L"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_bdd07d20e28376b0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 334L Organic Chemistry II Lab 2 C MR CHEM 333L; Prereq/Coreq; CHEM 334",
+          "title": "CHEM 334L Organic Chemistry II Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bcd78247389120ac",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History9 3 CR",
+          "title": "History9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0874efc7210a20fa",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        14,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7e68b5ce3e6545b3",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM Elective10 3 C MR See Bulletin listing",
+          "title": "CHEM Elective10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CHEM 541",
+            "CHEM 541L",
+            "CHEM 542",
+            "CHEM 542L"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_c77767d9ec129f78",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+          "title": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 509",
+            "STAT 515",
+            "MATH 111"
+          ],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_f841274a926f841b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 509 Statistics for Engineers 0-3 CR MATH 142 (STAT 509 only); MATH 122 or or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+          "title": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3b14e9ec13a4a5d7",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Cognate or Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73a6d5cf8097765f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        14,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CHEM 541",
+            "CHEM 541L",
+            "CHEM 542",
+            "CHEM 542L"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_6dfb741d9b7ee447",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+          "title": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CSCE 106",
+            "CSCE 145",
+            "MATH 111"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ec39b3c3f15e7cd0",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 106 Scientific Applications Programming 3-4 CR C or better in MATH 122 or 141 (CSCE or CSCE 145 Algorithmic Design I 106 only); Prereq or Coreq: MATH 111 or",
+          "title": "CSCE 106 Scientific Applications Programming or CSCE 145 Algorithmic Design I 106 only); Prereq or Coreq: MATH 111 or",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0666a720d7fd67b5",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Cognate or Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e73343fecdf01c14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        12,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 496"
+          ],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_9a0e9ad191bd86d5",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 496-499 Undergraduate Research12 0-3 C MR Independent Study Contract Required",
+          "title": "CHEM 496-499 Undergraduate Research12",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_26910c37fc8a9b77",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Cognate or Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d0635c1948eed8ea",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Cognate or Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b56e71efecf23bb3",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c3e72e0b61b98ed4",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a7c4dbe1e57375e7",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c4447a77b5b55c5d",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_08076a8ccafc0e43",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_680c9226b66dbbaa",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective11 3 PR",
+          "title": "Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "f498943598c67cc1a7a9046f60caf3b8945e23899dc269ea88f0dbb469f9efda",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_chem-bs_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_chem-bs_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_chem-bs_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 18,
+    "requirement_count": 41,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

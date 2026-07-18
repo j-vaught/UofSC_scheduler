@@ -1,0 +1,1388 @@
+{
+  "catalog_year": "2022-2023",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Information & Communications",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Journalism & Mass Communication",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0ff33a35a3c901c7",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0ff33a35a3c901c7"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_46609e0d7c7e5a8a",
+      "informational": true,
+      "label": "Carolina Core ARP3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_46609e0d7c7e5a8a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_2469c513f0c80316",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2469c513f0c80316"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_42fe8062dc922df1",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_42fe8062dc922df1"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_4b778adf53658fca",
+      "informational": true,
+      "label": "JOUR Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4b778adf53658fca"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c2a6e14299172c01",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c2a6e14299172c01"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_27d8b486a2c69c25",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_27d8b486a2c69c25"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_1774e00ce37e557b",
+      "informational": true,
+      "label": "Foreign language4 or Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1774e00ce37e557b"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_ea974bd0430394f9",
+      "label": "JOUR 303 Law & Ethics of Mass Communications or JOUR 304 Internet and Social Media Law",
+      "options": [
+        "JOUR 303",
+        "JOUR 304"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_ea974bd0430394f9"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a6fd6f1250a97bc6",
+      "informational": true,
+      "label": "JOUR Elective / Concentration Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a6fd6f1250a97bc6"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3103c134e3f8f8d8",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3103c134e3f8f8d8"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_d8b93cf7d96a7ebb",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d8b93cf7d96a7ebb"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_0348f3b056968d28",
+      "informational": true,
+      "label": "JOUR Elective / Concentration Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0348f3b056968d28"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_23b3f4e431f2ce03",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_23b3f4e431f2ce03"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_2c7fdc7f788d9269",
+      "informational": true,
+      "label": "ENGL Literature Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2c7fdc7f788d9269"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_a6babc52183dfe6a",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a6babc52183dfe6a"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_92a5f0900a91be7b",
+      "informational": true,
+      "label": "JOUR Elective / Concentration Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_92a5f0900a91be7b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c1a23ab696b6de44",
+      "informational": true,
+      "label": "Cognate or Minor Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c1a23ab696b6de44"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f4d737559e6eabee",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f4d737559e6eabee"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_10de0485320eb130",
+      "label": "MKTG 350 Principles of Marketing or MGMT 371 Principles of Management",
+      "options": [
+        "MKTG 350",
+        "MGMT 371"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_10de0485320eb130"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_9c1423da845418d7",
+      "informational": true,
+      "label": "Carolina Core Requirement5 (only if needed to meet",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9c1423da845418d7"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_898f49f536618d76",
+      "informational": true,
+      "label": "JOUR Elective / Concentration Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_898f49f536618d76"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_0b3a320def95efff",
+      "informational": true,
+      "label": "JOUR Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0b3a320def95efff"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_20a6dedf10599334",
+      "informational": true,
+      "label": "Minor Course7 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_20a6dedf10599334"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_50a9b0033abd4b3d",
+      "informational": true,
+      "label": "History10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_50a9b0033abd4b3d"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_9a508bfc9e0540da",
+      "informational": true,
+      "label": "Social or Behavioral Science11 (300-level or above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9a508bfc9e0540da"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_d716bac1c0ce6ac9",
+      "informational": true,
+      "label": "Carolina Core Requirement5 (only if needed to meet",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d716bac1c0ce6ac9"
+    }
+  ],
+  "id": "map_51d739d2ee9bbf66",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Journalism",
+  "parsed_metadata": {
+    "bulletin_year": "2022-2023",
+    "college": "Information & Communications",
+    "degree": "Bachelor of Arts in Journalism & Mass Communications (B.A.J.M.C.)",
+    "department": "Journalism & Mass Communication",
+    "faculty_approver": "Andrea Hickerson",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": 120,
+    "name": "Journalism"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts in Journalism & Mass Communications (B.A.J.M.C.)",
+  "program_family_id": "program_5ec359cfed78a91d",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_1deab03c661dc636",
+      "title": "Elementary Statistics3",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_237a84e3859e1e85",
+      "title": "Media & Society",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 204",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_70cc6955ddf38157",
+      "title": "Principles of Journalism",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 291",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2a9cbf65f90729a0",
+      "title": "Writing for Mass Communications",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "CMS",
+      "category": "carolina_core",
+      "code": "SPCH 140",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_3357a9602f3cb461",
+      "title": "Carolina Core CMS (SPCH 140, 145, 230, 260)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 361",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_053835bc68a7bf49",
+      "title": "& 361L Introductory Reporting & Writing",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_1b3bc93bff6cdcf2",
+      "title": "Introduction to Economics",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 471",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f1fe69631b92fb1d",
+      "title": "Intermediate Reporting & Production",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 587",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_040757d7f530eecf",
+      "title": "Capstone I – Advanced Reporting",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 589",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d9501d590ad6d437",
+      "title": "Capstone II – Advanced Multimedia",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 590",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_26824a0d8a1937ed",
+      "title": "Capstone III – Digital Journalism",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "JOUR 580",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9bb9937de146853b",
+      "title": "Advanced Reporting Topics (Advanced",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1deab03c661dc636",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "STAT 201 Elementary Statistics3 3 CC-ARP MATH 111, 115, or STAT 110",
+          "title": "STAT 201 Elementary Statistics3",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_237a84e3859e1e85",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "JOUR 101 Media & Society 3 C MR",
+          "title": "JOUR 101 Media & Society",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0ff33a35a3c901c7",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language4 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_46609e0d7c7e5a8a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP3 3 CC-ARP",
+          "title": "Carolina Core ARP3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 204"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_70cc6955ddf38157",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! JOUR 204 Principles of Journalism 3 C MR JOUR 101",
+          "title": "JOUR 204 Principles of Journalism",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_2469c513f0c80316",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement5 3-4 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_42fe8062dc922df1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 291"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_2a9cbf65f90729a0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! JOUR 291 Writing for Mass Communications 3 C MR ENGL 101 & 102",
+          "title": "JOUR 291 Writing for Mass Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4b778adf53658fca",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Elective6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c2a6e14299172c01",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_27d8b486a2c69c25",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement5 3-4 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1774e00ce37e557b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language4 or Carolina Core Requirement5 3 CR/CC",
+          "title": "Foreign language4 or Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "JOUR 303",
+            "JOUR 304"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ea974bd0430394f9",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 303 Law & Ethics of Mass Communications 3 C MR or JOUR 304 Internet and Social Media Law",
+          "title": "JOUR 303 Law & Ethics of Mass Communications or JOUR 304 Internet and Social Media Law",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a6fd6f1250a97bc6",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Elective / Concentration Course6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective / Concentration Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3103c134e3f8f8d8",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPCH 140"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3357a9602f3cb461",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core CMS (SPCH 140, 145, 230, 260) 3 CC-CMS",
+          "title": "Carolina Core CMS (SPCH 140, 145, 230, 260)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d8b93cf7d96a7ebb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement5 3 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 361"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_053835bc68a7bf49",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! JOUR 361 & 361L Introductory Reporting & Writing 3 C MR JOUR 291",
+          "title": "JOUR 361 & 361L Introductory Reporting & Writing",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0348f3b056968d28",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Elective / Concentration Course6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective / Concentration Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_23b3f4e431f2ce03",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1b3bc93bff6cdcf2",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "ECON 224 Introduction to Economics 3 CR",
+          "title": "ECON 224 Introduction to Economics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2c7fdc7f788d9269",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "ENGL Literature Course8 3 CR",
+          "title": "ENGL Literature Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a6babc52183dfe6a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 6,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 471"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f1fe69631b92fb1d",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 471 Intermediate Reporting & Production 3 C MR JOUR 204, 303, & 361",
+          "title": "JOUR 471 Intermediate Reporting & Production",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_92a5f0900a91be7b",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Elective / Concentration Course6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective / Concentration Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c1a23ab696b6de44",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course7 3 C PR",
+          "title": "Cognate or Minor Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f4d737559e6eabee",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Minor Course7 or Approved Elective9 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MKTG 350",
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_10de0485320eb130",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "MKTG 350 Principles of Marketing 3 CR ECON 224 (MKTG 350 only) or MGMT 371 Principles of Management",
+          "title": "MKTG 350 Principles of Marketing or MGMT 371 Principles of Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_9c1423da845418d7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement5 (only if needed to meet 0-3 CC",
+          "title": "Carolina Core Requirement5 (only if needed to meet",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        15,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_898f49f536618d76",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR Elective / Concentration Course6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective / Concentration Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0b3a320def95efff",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR Elective6 3 C MR See Bulletin listing.",
+          "title": "JOUR Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_20a6dedf10599334",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course7 or Approved Elective9 3 C (minor) PR",
+          "title": "Minor Course7 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_50a9b0033abd4b3d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "History10 3 CR",
+          "title": "History10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9a508bfc9e0540da",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Social or Behavioral Science11 (300-level or above) 3 CR",
+          "title": "Social or Behavioral Science11 (300-level or above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_d716bac1c0ce6ac9",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement5 (only if needed to meet 0-3 CC",
+          "title": "Carolina Core Requirement5 (only if needed to meet",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 587"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_040757d7f530eecf",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "JOUR 587 Capstone I – Advanced Reporting 3 C MR/CC- JOUR 471; Coreqs: JOUR 589",
+          "title": "JOUR 587 Capstone I – Advanced Reporting",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 589"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d9501d590ad6d437",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "JOUR 589 Capstone II – Advanced Multimedia 3 C MR JOUR 471; Coreqs: JOUR 587",
+          "title": "JOUR 589 Capstone II – Advanced Multimedia",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 590"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_26824a0d8a1937ed",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "JOUR 590 Capstone III – Digital Journalism 3 C MR JOUR 471; Coreqs: JOUR 587",
+          "title": "JOUR 590 Capstone III – Digital Journalism",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "JOUR 580"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9bb9937de146853b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "JOUR 580 Advanced Reporting Topics (Advanced 3 C MR Coreqs: JOUR 587, 589, & 590",
+          "title": "JOUR 580 Advanced Reporting Topics (Advanced",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023",
+    "retrieved_at": null,
+    "sha256": "8d28653a60177fe80bf53351b17bb57cce77c2e3e24a075aac171894720199ef",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_jour-sportsmedia_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_jour-sportsmedia_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_jour-sportsmedia_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 25,
+    "requirement_count": 42,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

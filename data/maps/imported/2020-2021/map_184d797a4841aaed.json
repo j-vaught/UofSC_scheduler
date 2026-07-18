@@ -1,0 +1,1291 @@
+{
+  "catalog_year": "2020-2021",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Languages, Literatures & Cultures",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b8928f45500006bb",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8928f45500006bb"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_6b27c234780125ac",
+      "informational": true,
+      "label": "UNIV 101 The Student in the University (elective)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6b27c234780125ac"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4cca07f8a1dd0215",
+      "informational": true,
+      "label": "History5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4cca07f8a1dd0215"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c2cabea8e8b9ec4b",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c2cabea8e8b9ec4b"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dce1ceddc71c41cf",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dce1ceddc71c41cf"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_6f3af7ce1df92920",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6f3af7ce1df92920"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c324b72e34a6db15",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c324b72e34a6db15"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ca1823366acfa9a6",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ca1823366acfa9a6"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a51ea3c620100e94",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a51ea3c620100e94"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_417204abdc67366b",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_417204abdc67366b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5594b88a2663617b",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5594b88a2663617b"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_4c7a3e10ec05e7ef",
+      "informational": true,
+      "label": "RUSS Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4c7a3e10ec05e7ef"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7499fc201e7971e5",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7499fc201e7971e5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cf49b389361aebe9",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf49b389361aebe9"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_16070d5d3d168205",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_16070d5d3d168205"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_2e49b9f3052b7d33",
+      "informational": true,
+      "label": "RUSS Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2e49b9f3052b7d33"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_fc4009974bc88fd3",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fc4009974bc88fd3"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_100444b34919a744",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_100444b34919a744"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_e75d4c7e4949a29f",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e75d4c7e4949a29f"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_28b0fbdf8a1fd45e",
+      "label": "RUSS 319 19th-Century Russ. Lit. in Translation or RUSS 320 20th-Century Russ. Lit. in Translation CC-INT",
+      "options": [
+        "RUSS 319",
+        "RUSS 320"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_28b0fbdf8a1fd45e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4732315e7263930b",
+      "informational": true,
+      "label": "Minor Course6 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4732315e7263930b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3fc774f947b3753e",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3fc774f947b3753e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 2,
+      "id": "req_c6c72cb890746a40",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c6c72cb890746a40"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_c13b97fc7a6116b9",
+      "informational": true,
+      "label": "RUSS Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c13b97fc7a6116b9"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4dd44c66da063a47",
+      "informational": true,
+      "label": "Minor Course6 or Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4dd44c66da063a47"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_73c184e09780d6fa",
+      "informational": true,
+      "label": "Approved Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73c184e09780d6fa"
+    }
+  ],
+  "id": "map_184d797a4841aaed",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Russian",
+  "parsed_metadata": {
+    "bulletin_year": "2020-2021",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Languages, Literatures & Cultures",
+    "faculty_approver": "Nicholas Vazsonyi",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Russian"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_575f7fd86284711e",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GFL",
+      "category": "carolina_core",
+      "code": "RUSS 121",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_bc4229703ee7b5e4",
+      "title": "Elementary Russian3 (offered fall & summer",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GFL",
+      "category": "carolina_core",
+      "code": "RUSS 122",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_7962eb446dbc9a5a",
+      "title": "Basic Prof. in Russ.3 (offered spring &",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "AIU",
+      "category": "carolina_core",
+      "code": "RUSS 280",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_740bc1a23db36d6d",
+      "title": "Intro. to Russian Civilization (offered spring",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "RUSS 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_2859327999cb6340",
+      "title": "Inter. Russian I3 (offered fall & summer only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RUSS 202",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e44ed3c365d782ad",
+      "title": "Inter. Russian II3 (offered spring & summer",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "RUSS 301",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_510725ea1aa64f23",
+      "title": "Russian Convers. & Comp. I (offered fall",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RUSS 302",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c377dbe46abb04da",
+      "title": "Russian Convers. & Comp. II (offered spring",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "RUSS 401",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1633bfafb0faecfb",
+      "title": "Advanced Russian I (offered fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "RUSS 402",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f1b7e437f18ee843",
+      "title": "Advanced Russian II (offered spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 121"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_bc4229703ee7b5e4",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "RUSS 121 Elementary Russian3 (offered fall & summer 4 CC-GFL",
+          "title": "RUSS 121 Elementary Russian3 (offered fall & summer",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8928f45500006bb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6b27c234780125ac",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University (elective) 3 PR/CC",
+          "title": "UNIV 101 The Student in the University (elective)",
+          "warnings": [
+            "course_mentioned_as_example_not_required"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 122"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_7962eb446dbc9a5a",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "RUSS 122 Basic Prof. in Russ.3 (offered spring & 4 CC-GFL RUSS 121",
+          "title": "RUSS 122 Basic Prof. in Russ.3 (offered spring &",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 280"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_740bc1a23db36d6d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 4,
+          "source_text": "RUSS 280 Intro. to Russian Civilization (offered spring 3 CC-AIU",
+          "title": "RUSS 280 Intro. to Russian Civilization (offered spring",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4cca07f8a1dd0215",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History5 3 CR",
+          "title": "History5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2859327999cb6340",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 201 Inter. Russian I3 (offered fall & summer only) 3 CR RUSS 122 or lang. placement",
+          "title": "RUSS 201 Inter. Russian I3 (offered fall & summer only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c2cabea8e8b9ec4b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_dce1ceddc71c41cf",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6f3af7ce1df92920",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c324b72e34a6db15",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 202"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e44ed3c365d782ad",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 202 Inter. Russian II3 (offered spring & summer 3 CR RUSS 201 or lang. placement",
+          "title": "RUSS 202 Inter. Russian II3 (offered spring & summer",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ca1823366acfa9a6",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a51ea3c620100e94",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_417204abdc67366b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5594b88a2663617b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 301"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_510725ea1aa64f23",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 301 Russian Convers. & Comp. I (offered fall 3 C MR RUSS 202 or lang. placement",
+          "title": "RUSS 301 Russian Convers. & Comp. I (offered fall",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4c7a3e10ec05e7ef",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RUSS Major Course8 3 C MR",
+          "title": "RUSS Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7499fc201e7971e5",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf49b389361aebe9",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_16070d5d3d168205",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 302"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c377dbe46abb04da",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 302 Russian Convers. & Comp. II (offered spring 3 C MR RUSS 301 or lang. placement",
+          "title": "RUSS 302 Russian Convers. & Comp. II (offered spring",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2e49b9f3052b7d33",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RUSS Major Course8 3 C MR",
+          "title": "RUSS Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fc4009974bc88fd3",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_100444b34919a744",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e75d4c7e4949a29f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 401"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1633bfafb0faecfb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 401 Advanced Russian I (offered fall only) 3 C MR RUSS 302 or lang. placement",
+          "title": "RUSS 401 Advanced Russian I (offered fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "RUSS 319",
+            "RUSS 320"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_28b0fbdf8a1fd45e",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RUSS 319 19th-Century Russ. Lit. in Translation 3 C MR or RUSS 320 20th-Century Russ. Lit. in Translation CC-INT",
+          "title": "RUSS 319 19th-Century Russ. Lit. in Translation or RUSS 320 20th-Century Russ. Lit. in Translation CC-INT",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4732315e7263930b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Approved Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3fc774f947b3753e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_c6c72cb890746a40",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective7 2 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RUSS 402"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f1b7e437f18ee843",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "RUSS 402 Advanced Russian II (offered spring only) 3 C MR RUSS 401 or lang. placement",
+          "title": "RUSS 402 Advanced Russian II (offered spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c13b97fc7a6116b9",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "RUSS Major Course8 3 C MR",
+          "title": "RUSS Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4dd44c66da063a47",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Approved Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_73c184e09780d6fa",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective7 3 PR",
+          "title": "Approved Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "907160d26ca04fb3fda9e6e6cd4e7c7787502f85f0e3399bdb68c41c45500b69",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_russ_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_russ_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_russ_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 27,
+    "requirement_count": 39,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

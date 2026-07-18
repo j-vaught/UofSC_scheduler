@@ -1,0 +1,1486 @@
+{
+  "catalog_year": "2020-2021",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Pharmacy",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_77c31cf538d72df2",
+      "label": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences or MATH 141 Calculus 13 placement test score",
+      "options": [
+        "MATH 122",
+        "MATH 141"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_77c31cf538d72df2"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_f934ac6f8a59ae9f",
+      "label": "STAT 201 Elementary Statistics or STAT 205 Elem. Stat. for the Biological & Life Sciences",
+      "options": [
+        "STAT 201",
+        "STAT 205"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_f934ac6f8a59ae9f"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_71b455d3e6e78e62",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_71b455d3e6e78e62"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_152df0ba3d7039d8",
+      "label": "SAEL 200 Social Advocacy Ethical Life (also meets CC- or SPCH 140 Public Communication",
+      "options": [
+        "SAEL 200",
+        "SPCH 140"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_152df0ba3d7039d8"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_759427b7c34f3fd2",
+      "informational": true,
+      "label": "Foreign language6 or other Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_759427b7c34f3fd2"
+    }
+  ],
+  "id": "map_08d081772b3d499c",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Pharmaceutical Sciences",
+  "parsed_metadata": {
+    "bulletin_year": "2020-2021",
+    "college": "Pharmacy",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "",
+    "faculty_approver": "Stephen Cutler",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": 128,
+    "name": "Pharmaceutical Sciences"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_89454c8f92af532d",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "BIOL 101",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_33793684bee7af12",
+      "title": "& Lab – Biological Principles I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1b11b11621f0c37e",
+      "title": "– General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 111L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f4a331c97d308c3e",
+      "title": "General Chemistry I Laboratory",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_37bab29872f1cb74",
+      "title": "The Student in the University (strongly",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 102",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_855e51a62292955c",
+      "title": "& Lab – Biological Principles II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 112",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_555b70edd51a3e76",
+      "title": "& Lab – General Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GSS",
+      "category": "carolina_core",
+      "code": "PSYC 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c94871b2a1f37140",
+      "title": "Introduction to Psychology",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 243",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_62164964a03509bc",
+      "title": "Human Anatomy and Physiology I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 333",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_63c47abaf43e1ef7",
+      "title": "& 331 Lab – Organic Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "PHYS 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fdde706fb10121a0",
+      "title": "General Physics I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_defdf3b3cdc12ca9",
+      "title": "Introduction to Economics5",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 244",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c84711cabf0d8d54",
+      "title": "Human Anatomy & Physiology II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "BIOL 250",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4a9f7feb89784b70",
+      "title": "Microbiology",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 334",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9e97cba491c70f50",
+      "title": "& 332 Lab – Organic Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 602",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_efba067d17e5fc70",
+      "title": "Found. of Pathophysiology & Pharmacology I",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 621",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b8c49b8021b50175",
+      "title": "Found. of Medicinal Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 607",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_55e5f1906bfdb22e",
+      "title": "Dosage Forms & Drug Delivery Systems",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 615",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ebaa4caeaabff434",
+      "title": "Pharmaceutical Biochemistry",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 650",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ea44448dfc14702c",
+      "title": "Introduction to Pharmacy Practice",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 656",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_126ca66fc31ab9df",
+      "title": "Pharmacy Calculations",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 657",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_01c512f8ff955c55",
+      "title": "Medical Terminology",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 680",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6f2f7a2023845ece",
+      "title": "Intro. to Drug Information",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 603",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_91b255a69c92a754",
+      "title": "Found. of Pathophysiology & Pharmacology II",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 624",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e95b758817a0441b",
+      "title": "Found. of Medicinal Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 618",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4a5091c45f18e9b1",
+      "title": "Genomics, Pharmacogenomics, & Personalized",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 690",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a2b3246f9c41f111",
+      "title": "Transforming Health Care",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 661",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_3540475222ac0506",
+      "title": "Clinical Applications II",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 750",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5bcddbde0b8affba",
+      "title": "Self-Care & Complementary Medicines",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 610",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e416b5346bcc897e",
+      "title": "Microbiology & Immunology",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 710",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_954cbbaba2b262cb",
+      "title": "Biopharmaceutics & Pharmacokinetics",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 722",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6d002021697cfabf",
+      "title": "Pathophysiology & Pharmacology I",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 760",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ace60162f2c14424",
+      "title": "Clinical Applications III",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 772",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b146efd0038f12de",
+      "title": "Pharmacotherapy I",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 723",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_876d3cfe79619058",
+      "title": "Pathophysiology & Pharmacology II",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 761",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0099fd456ea292a7",
+      "title": "Clinical Applications IV",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 773",
+      "corequisites": [],
+      "credits": 5,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5047a88a05bf2403",
+      "title": "Pharmacotherapy II",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 780",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5ea90534fc436986",
+      "title": "Outcomes Design & Assessment",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHMY 890",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ba32362f4509919c",
+      "title": "Clinical Pharmacokinetics",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        17,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 122",
+            "MATH 141"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": true,
+          "id": "req_77c31cf538d72df2",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 122 Calculus for Bus. Admin. & Soc. Sciences 3-4 C CC-ARP Math 111/111I/115 or Math or MATH 141 Calculus 13 placement test score",
+          "title": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences or MATH 141 Calculus 13 placement test score",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 101"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_33793684bee7af12",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI",
+          "title": "BIOL 101 & Lab – Biological Principles I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_1b11b11621f0c37e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "! CHEM 111 – General Chemistry I 3 C CC-SCI MATH 111 or 115 or Math",
+          "title": "CHEM 111 – General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111L"
+          ],
+          "credit_hours": 1,
+          "critical": true,
+          "id": "req_f4a331c97d308c3e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "! CHEM 111L General Chemistry I Laboratory 1 C PR MATH 111 or 115 (or higher);",
+          "title": "CHEM 111L General Chemistry I Laboratory",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_37bab29872f1cb74",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "UNIV 101 The Student in the University (strongly 3 C PR/CC",
+          "title": "UNIV 101 The Student in the University (strongly",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 201",
+            "STAT 205"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_f934ac6f8a59ae9f",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! STAT 201 Elementary Statistics 3 C CC-ARP MATH 111 or 115 or STAT 110 or STAT 205 Elem. Stat. for the Biological & Life Sciences",
+          "title": "STAT 201 Elementary Statistics or STAT 205 Elem. Stat. for the Biological & Life Sciences",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 102"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_855e51a62292955c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! BIOL 102 & Lab – Biological Principles II 4 C PR BIOL 101 & Lab",
+          "title": "BIOL 102 & Lab – Biological Principles II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 112"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_555b70edd51a3e76",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! CHEM 112 & Lab – General Chemistry II 4 C PR CHEM 111/111L & MATH",
+          "title": "CHEM 112 & Lab – General Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PSYC 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_c94871b2a1f37140",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GSS"
+          ],
+          "sequence": 5,
+          "source_text": "! PSYC 101 Introduction to Psychology 3 C CC-GSS",
+          "title": "PSYC 101 Introduction to Psychology",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        16,
+        19
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 243"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_62164964a03509bc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! BIOL 243 Human Anatomy and Physiology I 3 C PR",
+          "title": "BIOL 243 Human Anatomy and Physiology I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 333"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_63c47abaf43e1ef7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! CHEM 333 & 331 Lab – Organic Chemistry I 4 C PR CHEM 112",
+          "title": "CHEM 333 & 331 Lab – Organic Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_fdde706fb10121a0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! PHYS 201 General Physics I 3 C PR C or better in MATH 111/111i/",
+          "title": "PHYS 201 General Physics I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_defdf3b3cdc12ca9",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! ECON 224 Introduction to Economics5 3 C PR",
+          "title": "ECON 224 Introduction to Economics5",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_71b455d3e6e78e62",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "! Foreign language6 or other Carolina Core Requirement4 3 C CC-GFL",
+          "title": "Foreign language6 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 244"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_c84711cabf0d8d54",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! BIOL 244 Human Anatomy & Physiology II 3 C PR BIOL 243",
+          "title": "BIOL 244 Human Anatomy & Physiology II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 250"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_4a9f7feb89784b70",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! BIOL 250 Microbiology 3 C PR College-level biology & chemistry",
+          "title": "BIOL 250 Microbiology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 334"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_9e97cba491c70f50",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! CHEM 334 & 332 Lab – Organic Chemistry II 4 C PR CHEM 333 & 331 Lab",
+          "title": "CHEM 334 & 332 Lab – Organic Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SAEL 200",
+            "SPCH 140"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_152df0ba3d7039d8",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-CMS"
+          ],
+          "sequence": 4,
+          "source_text": "! SAEL 200 Social Advocacy Ethical Life (also meets CC- 3 C CC-CMS or SPCH 140 Public Communication",
+          "title": "SAEL 200 Social Advocacy Ethical Life (also meets CC- or SPCH 140 Public Communication",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_759427b7c34f3fd2",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "! Foreign language6 or other Carolina Core Requirement4 3 C CC-GFL",
+          "title": "Foreign language6 or other Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 602"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_efba067d17e5fc70",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHMY 602 Found. of Pathophysiology & Pharmacology I 2 C MR",
+          "title": "PHMY 602 Found. of Pathophysiology & Pharmacology I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 621"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8c49b8021b50175",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "PHMY 621 Found. of Medicinal Chemistry I 3 C MR",
+          "title": "PHMY 621 Found. of Medicinal Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 607"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_55e5f1906bfdb22e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHMY 607 Dosage Forms & Drug Delivery Systems 4 C MR",
+          "title": "PHMY 607 Dosage Forms & Drug Delivery Systems",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 615"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ebaa4caeaabff434",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "PHMY 615 Pharmaceutical Biochemistry 3 C MR",
+          "title": "PHMY 615 Pharmaceutical Biochemistry",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 650"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_ea44448dfc14702c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "PHMY 650 Introduction to Pharmacy Practice 2 C MR",
+          "title": "PHMY 650 Introduction to Pharmacy Practice",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 656"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_126ca66fc31ab9df",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "PHMY 656 Pharmacy Calculations 1 C MR",
+          "title": "PHMY 656 Pharmacy Calculations",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 657"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_01c512f8ff955c55",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 7,
+          "source_text": "PHMY 657 Medical Terminology 1 C MR",
+          "title": "PHMY 657 Medical Terminology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 680"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_6f2f7a2023845ece",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 8,
+          "source_text": "PHMY 680 Intro. to Drug Information 1 C MR",
+          "title": "PHMY 680 Intro. to Drug Information",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 603"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_91b255a69c92a754",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHMY 603 Found. of Pathophysiology & Pharmacology II 3 C MR",
+          "title": "PHMY 603 Found. of Pathophysiology & Pharmacology II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 624"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e95b758817a0441b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "PHMY 624 Found. of Medicinal Chemistry II 3 C MR",
+          "title": "PHMY 624 Found. of Medicinal Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 618"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4a5091c45f18e9b1",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHMY 618 Genomics, Pharmacogenomics, & Personalized 3 C MR",
+          "title": "PHMY 618 Genomics, Pharmacogenomics, & Personalized",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 690"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_a2b3246f9c41f111",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "PHMY 690 Transforming Health Care 2 C MR",
+          "title": "PHMY 690 Transforming Health Care",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 661"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_3540475222ac0506",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "PHMY 661 Clinical Applications II 1 C MR/CC-",
+          "title": "PHMY 661 Clinical Applications II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 750"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_5bcddbde0b8affba",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "PHMY 750 Self-Care & Complementary Medicines 4 C MR",
+          "title": "PHMY 750 Self-Care & Complementary Medicines",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 610"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e416b5346bcc897e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHMY 610 Microbiology & Immunology 4 C MR",
+          "title": "PHMY 610 Microbiology & Immunology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 710"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_954cbbaba2b262cb",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "PHMY 710 Biopharmaceutics & Pharmacokinetics 3 C MR",
+          "title": "PHMY 710 Biopharmaceutics & Pharmacokinetics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 722"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6d002021697cfabf",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHMY 722 Pathophysiology & Pharmacology I 3 C MR",
+          "title": "PHMY 722 Pathophysiology & Pharmacology I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 760"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_ace60162f2c14424",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "PHMY 760 Clinical Applications III 1 C MR",
+          "title": "PHMY 760 Clinical Applications III",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 772"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b146efd0038f12de",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "PHMY 772 Pharmacotherapy I 4 C MR",
+          "title": "PHMY 772 Pharmacotherapy I",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 723"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_876d3cfe79619058",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHMY 723 Pathophysiology & Pharmacology II 2 C MR",
+          "title": "PHMY 723 Pathophysiology & Pharmacology II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 761"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_0099fd456ea292a7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "PHMY 761 Clinical Applications IV 1 C MR",
+          "title": "PHMY 761 Clinical Applications IV",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 773"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_5047a88a05bf2403",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHMY 773 Pharmacotherapy II 5 C MR",
+          "title": "PHMY 773 Pharmacotherapy II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 780"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5ea90534fc436986",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "PHMY 780 Outcomes Design & Assessment 3 C MR",
+          "title": "PHMY 780 Outcomes Design & Assessment",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHMY 890"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ba32362f4509919c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "PHMY 890 Clinical Pharmacokinetics 3 C MR",
+          "title": "PHMY 890 Clinical Pharmacokinetics",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "0779d91852988aa0429269ae2b64488cda026bdef514b5c62ec2664782a01767",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_phar_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_phar_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_phar_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 128,
+  "validation": {
+    "low_confidence_requirement_count": 2,
+    "requirement_count": 45,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

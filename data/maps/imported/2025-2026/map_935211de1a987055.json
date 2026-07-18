@@ -1,0 +1,1298 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Hospitality, Retail, & Sport Management",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Sport & Entertainment Management",
+  "elective_groups": [
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_1ee1f5fcd963bd79",
+      "label": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+      "options": [
+        "SPTE 201",
+        "SPTE 202",
+        "SPTE 203"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_1ee1f5fcd963bd79"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_c53a8c459dab673a",
+      "label": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+      "options": [
+        "SPTE 201",
+        "SPTE 202",
+        "SPTE 203"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c53a8c459dab673a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_c2f0d976a47fe65b",
+      "label": "STAT 201 Elementary Statistics or STAT 205 Elem. Stat. for the Biol. & Life Sci. or STAT 206 Elementary Statistics for Business",
+      "options": [
+        "STAT 201",
+        "STAT 205",
+        "STAT 206"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_c2f0d976a47fe65b"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_2ec3fb276ead3a51",
+      "label": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+      "options": [
+        "SPTE 201",
+        "SPTE 202",
+        "SPTE 203"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_2ec3fb276ead3a51"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d423e3b0ec3ba376",
+      "label": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. or MATH 141 Calculus I4 C or better in MATH 112/115/116 (MATH 141);",
+      "options": [
+        "MATH 122",
+        "MATH 141",
+        "MATH 112"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d423e3b0ec3ba376"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_21bedf094ee17060",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_21bedf094ee17060"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_935feea30ae6c25d",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_935feea30ae6c25d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_bd9a9bbabcd34f9c",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bd9a9bbabcd34f9c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_fd0c63e0ed026d41",
+      "label": "FINA 363 Introduction to Finance or FINA 333 Finance and Markets or RETL 261 & in STAT 201, 205, 206, 509, 511,",
+      "options": [
+        "FINA 363",
+        "FINA 333",
+        "RETL 261",
+        "STAT 201"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_fd0c63e0ed026d41"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_fdd6c51502b6cb75",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fdd6c51502b6cb75"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_e8ef6157e1bfedb6",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e8ef6157e1bfedb6"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_429cbf45e3afd797",
+      "informational": true,
+      "label": "Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_429cbf45e3afd797"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 0,
+      "id": "req_b1c1dfe73b399ae2",
+      "informational": true,
+      "label": "Carolina Core Req.3 or Elective8 (if needed to",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b1c1dfe73b399ae2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c97a338224970587",
+      "informational": true,
+      "label": "Carolina Core Requirement3 or Elective8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c97a338224970587"
+    }
+  ],
+  "id": "map_935211de1a987055",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Sport & Entertainment Management",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Hospitality, Retail, & Sport Management",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Sport & Entertainment Management",
+    "faculty_approver": "Matthew Dunn",
+    "minimum_institutional_gpa": 2.75,
+    "minimum_total_hours": 120,
+    "name": "Sport & Entertainment Management"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_f594308920adcc6d",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 195",
+      "corequisites": [],
+      "credits": 0,
+      "prerequisites": [],
+      "source_requirement_id": "req_00d0a8230948c06b",
+      "title": "Sport and Entertainment Careers",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "ECON 224",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_dc3f56731c1549f0",
+      "title": "Introduction to Economics",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 261",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ecd0e9115f0e2fc6",
+      "title": "Principles of Accounting I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_d14ddc18b78bbdcf",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 262",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b9965136570dff89",
+      "title": "Principles of Accounting II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRSM 201",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6241c235d55412ef",
+      "title": "HRSM Professional Development",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 240",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_51f24bc16a71e76f",
+      "title": "Business Law",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "HRSM 301",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8d3cd073d91618af",
+      "title": "HRSM Adv. Prof. Dev. Seminar",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MKTG 350",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_a0816a8d14d11433",
+      "title": "Principles of Marketing",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "SPTE 274",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8718810b67d83de3",
+      "title": "Computer Applications in HRSM",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 302",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c8a7b169a7c1bc7c",
+      "title": "Artist Representation & Mgmt.5",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MGMT 371",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_b11d902a9182358c",
+      "title": "Principles of Management",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "RETL 242",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1d214b41b2ceead2",
+      "title": "HRSM Professional Communications",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 295",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_596645808d10b915",
+      "title": "Internship I in SPTE6",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 380",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_43624387b3794ef6",
+      "title": "Sport and Entertainment Marketing5",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "HTMT 344",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_3b4918b8bffab0b3",
+      "title": "Human Resource Mgmt. in HRSM",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 440",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_56a44665fcc07eea",
+      "title": "Sport & Ent. Bus. & Finance5",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 444",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_aaa8cb569070032e",
+      "title": "Sport & Entertainment Event Mgmt.5",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 303",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8a882b0a2aa2ce9e",
+      "title": "Live Entertainment Tour Mgmt.5",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 402",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9385e447188c3308",
+      "title": "Entertainment and the Law5",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 590",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ec22ff40d62a39d4",
+      "title": "Special Topics in Live Ent. & Sport5",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "SPTE 495",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1c4c6b5e65d776fa",
+      "title": "Internship II in SPTE5 & 9",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SPTE 201",
+            "SPTE 202",
+            "SPTE 203"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_1ee1f5fcd963bd79",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! SPTE 201 Introduction to Sport Management 3 C MR or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "title": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 195"
+          ],
+          "credit_hours": 0,
+          "critical": false,
+          "id": "req_00d0a8230948c06b",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "SPTE 195 Sport and Entertainment Careers 0 S MR",
+          "title": "SPTE 195 Sport and Entertainment Careers",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ECON 224"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_dc3f56731c1549f0",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "! ECON 224 Introduction to Economics 3 PR",
+          "title": "ECON 224 Introduction to Economics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 261"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_ecd0e9115f0e2fc6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "! RETL 261 Principles of Accounting I 3 C CR",
+          "title": "RETL 261 Principles of Accounting I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d14ddc18b78bbdcf",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SPTE 201",
+            "SPTE 202",
+            "SPTE 203"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_c53a8c459dab673a",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! SPTE 201 Introduction to Sport Management 3 C MR or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "title": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 262"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b9965136570dff89",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "! RETL 262 Principles of Accounting II 3 C CR C or better in RETL 261",
+          "title": "RETL 262 Principles of Accounting II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 201"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_6241c235d55412ef",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "HRSM 201 HRSM Professional Development 1 C CR C or better in HRSM 101, passing grade in SPTE",
+          "title": "HRSM 201 HRSM Professional Development",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 201",
+            "STAT 205",
+            "STAT 206"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_c2f0d976a47fe65b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 5,
+          "source_text": "! STAT 201 Elementary Statistics 3 CC-ARP See Bulletin Listing. or STAT 205 Elem. Stat. for the Biol. & Life Sci. or STAT 206 Elementary Statistics for Business",
+          "title": "STAT 201 Elementary Statistics or STAT 205 Elem. Stat. for the Biol. & Life Sci. or STAT 206 Elementary Statistics for Business",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 240"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_51f24bc16a71e76f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 6,
+          "source_text": "SPTE 240 Business Law 3 C CR",
+          "title": "SPTE 240 Business Law",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "SPTE 201",
+            "SPTE 202",
+            "SPTE 203"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_2ec3fb276ead3a51",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! SPTE 201 Introduction to Sport Management 3 C MR or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "title": "SPTE 201 Introduction to Sport Management or SPTE 202 Introduction to Live Entertainment or SPTE 203 Intro. to Event & Venue Mgmt.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HRSM 301"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_8d3cd073d91618af",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "HRSM 301 HRSM Adv. Prof. Dev. Seminar 1 C CR C or better in HRSM 201",
+          "title": "HRSM 301 HRSM Adv. Prof. Dev. Seminar",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MKTG 350"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_a0816a8d14d11433",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "! MKTG 350 Principles of Marketing 3 PR",
+          "title": "MKTG 350 Principles of Marketing",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 122",
+            "MATH 141",
+            "MATH 112"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_d423e3b0ec3ba376",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 4,
+          "source_text": "! MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3 CC-ARP C or better in MATH 111/111I/115 (MATH 122); or MATH 141 Calculus I4 C or better in MATH 112/115/116 (MATH 141);",
+          "title": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. or MATH 141 Calculus I4 C or better in MATH 112/115/116 (MATH 141);",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 274"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_8718810b67d83de3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "! SPTE 274 Computer Applications in HRSM 3 C CR",
+          "title": "SPTE 274 Computer Applications in HRSM",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_21bedf094ee17060",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "! Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 302"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c8a7b169a7c1bc7c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SPTE 302 Artist Representation & Mgmt.5 3 C MR SPTE 202",
+          "title": "SPTE 302 Artist Representation & Mgmt.5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MGMT 371"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_b11d902a9182358c",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "! MGMT 371 Principles of Management 3 PR",
+          "title": "MGMT 371 Principles of Management",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_935feea30ae6c25d",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bd9a9bbabcd34f9c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "RETL 242"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1d214b41b2ceead2",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "RETL 242 HRSM Professional Communications 3 C CR C or better in ENGL 101 & 102",
+          "title": "RETL 242 HRSM Professional Communications",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 295"
+          ],
+          "credit_hours": 6,
+          "critical": true,
+          "id": "req_596645808d10b915",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 6,
+          "source_text": "! SPTE 295 Internship I in SPTE6 6 C MR SPTE 195, 201, 202, 203, 274 & MKTG 350",
+          "title": "SPTE 295 Internship I in SPTE6",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        12,
+        13
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 380"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_43624387b3794ef6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SPTE 380 Sport and Entertainment Marketing5 3 C MR MKTG 350",
+          "title": "SPTE 380 Sport and Entertainment Marketing5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "HTMT 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3b4918b8bffab0b3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "HTMT 344 Human Resource Mgmt. in HRSM 3 C CR",
+          "title": "HTMT 344 Human Resource Mgmt. in HRSM",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "FINA 363",
+            "FINA 333",
+            "RETL 261",
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fd0c63e0ed026d41",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "FINA 363 Introduction to Finance 3 PR C or better in ECON 221 or 224 & in ACCT 225 or FINA 333 Finance and Markets or RETL 261 & in STAT 201, 205, 206, 509, 511,",
+          "title": "FINA 363 Introduction to Finance or FINA 333 Finance and Markets or RETL 261 & in STAT 201, 205, 206, 509, 511,",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 440"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_56a44665fcc07eea",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SPTE 440 Sport & Ent. Bus. & Finance5 3 C MR FINA 363 or 333",
+          "title": "SPTE 440 Sport & Ent. Bus. & Finance5",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fdd6c51502b6cb75",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e8ef6157e1bfedb6",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 or Elective8 3 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_429cbf45e3afd797",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective8 3 PR",
+          "title": "Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_b1c1dfe73b399ae2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Req.3 or Elective8 (if needed to 0-3 CC/PR",
+          "title": "Carolina Core Req.3 or Elective8 (if needed to",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 444"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_aaa8cb569070032e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SPTE 444 Sport & Entertainment Event Mgmt.5 3 C MR SPTE 380, SPTE 440",
+          "title": "SPTE 444 Sport & Entertainment Event Mgmt.5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 303"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8a882b0a2aa2ce9e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "SPTE 303 Live Entertainment Tour Mgmt.5 3 C MR SPTE 202",
+          "title": "SPTE 303 Live Entertainment Tour Mgmt.5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 402"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9385e447188c3308",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "SPTE 402 Entertainment and the Law5 3 C MR SPTE 240",
+          "title": "SPTE 402 Entertainment and the Law5",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 590"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ec22ff40d62a39d4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "SPTE 590 Special Topics in Live Ent. & Sport5 3 C MR",
+          "title": "SPTE 590 Special Topics in Live Ent. & Sport5",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c97a338224970587",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement3 or Elective8 3-4 CC/PR",
+          "title": "Carolina Core Requirement3 or Elective8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 6,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "SPTE 495"
+          ],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_1c4c6b5e65d776fa",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "SPTE 495 Internship II in SPTE5 & 9 6 C MR C or better in SPTE 440 & 444; 114 credit hours",
+          "title": "SPTE 495 Internship II in SPTE5 & 9",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "db2f61a9c71189e93e59cd5acc702c5511d453e2ba5414cec43b303e668b2f8c",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_spte-entmt-mgmt_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_spte-entmt-mgmt_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_spte-entmt-mgmt_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 8,
+    "requirement_count": 38,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": [
+    "repository_pdf_major_mismatch"
+  ]
+}

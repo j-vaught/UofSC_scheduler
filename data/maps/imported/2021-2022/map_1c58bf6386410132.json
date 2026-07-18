@@ -1,0 +1,1592 @@
+{
+  "catalog_year": "2021-2022",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Chemistry & Biochemistry",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_512639a846a74164",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_512639a846a74164"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0d25cf978df27b09",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0d25cf978df27b09"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_54d5b5b0f8b659e9",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_54d5b5b0f8b659e9"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 1,
+      "id": "req_396732de19c5bd11",
+      "informational": true,
+      "label": "CHEM 550L Biochem. Lab (cross-listed: BIOL 541L)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_396732de19c5bd11"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_d38ba8639d768435",
+      "informational": true,
+      "label": "History8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d38ba8639d768435"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_e2f357413bc43a65",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e2f357413bc43a65"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_775e90ccc0101f91",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_775e90ccc0101f91"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_10ef4299303ec372",
+      "informational": true,
+      "label": "BIOL/CHEM Elective (400-600 level)10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_10ef4299303ec372"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_9fe956a4b884ff33",
+      "informational": true,
+      "label": "BIOL/CHEM Elective (400-600 level)10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9fe956a4b884ff33"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_faa821119b1d1628",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_faa821119b1d1628"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_69fbca5de36f12fa",
+      "informational": true,
+      "label": "Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_69fbca5de36f12fa"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_9aa639d223004773",
+      "informational": true,
+      "label": "BIOL/CHEM Elective (400-600 level)10",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9aa639d223004773"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_08076a8ccafc0e43",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_08076a8ccafc0e43"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f505e824ec710b8a",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f505e824ec710b8a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2c1cf406872b6772",
+      "informational": true,
+      "label": "Carolina Core Requirement6 or Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2c1cf406872b6772"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_516fab3e983c622b",
+      "informational": true,
+      "label": "Approved Elective11",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_516fab3e983c622b"
+    }
+  ],
+  "id": "map_1c58bf6386410132",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Biochemistry & Molecular Biology",
+  "parsed_metadata": {
+    "bulletin_year": "2021-2022",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Chemistry & Biochemistry",
+    "faculty_approver": "Ken Shimizu",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 128,
+    "name": "Biochemistry & Molecular Biology"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_55f70ae93d0c1d8e",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_483d8153dd6de2ee",
+      "title": "Biological Principles 101",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 101L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9616bf4cc7c8fe2f",
+      "title": "Biological Principles I Lab",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_867110f98bc6af49",
+      "title": "Principles of Chemistry I4",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b49dd179f06932c3",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_03239784ac5fdb9e",
+      "title": "Biological Principles II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 102L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a5cc033637ff46cc",
+      "title": "Biological Principles II Lab",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8dabc01ea83b2ce7",
+      "title": "Principles of Chemistry II4",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 333",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a0d1a5164714663b",
+      "title": "Organic Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 331L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_066a9a188464f9ad",
+      "title": "Essentials of Organic Chem. Lab I7",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 322",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6a775cce61fc1add",
+      "title": "Analytical Chemistry",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 322L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d29e1c47f2a05e07",
+      "title": "Analytical Chemistry Lab",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9413aa151c2c58e5",
+      "title": "Essentials of Physics I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 211L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_791d06df23d120a8",
+      "title": "Essentials of Physics I Lab",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 302",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d9d844b6fe8b2e1a",
+      "title": "Cell & Molecular Bio.",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 302L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fa7ffe4686f0a095",
+      "title": "Cell & Molecular Bio. Lab",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 334",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c5ba6d736da8c9a8",
+      "title": "Organic Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 332L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1e960ed29ae55734",
+      "title": "Essentials of Organic Chem. Lab II7",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 212",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5afd98849694be36",
+      "title": "Essentials of Physics II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "PHYS 212L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_8a34d39a27cc2ef6",
+      "title": "Essentials of Physics II Lab",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 241",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_9623746133731ee0",
+      "title": "Vector Calculus",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 555",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f7f194f45793f59b",
+      "title": "Biochem./Molecular Biol. I (cross-listed",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 541",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0630ad45f813cb22",
+      "title": "Physical Chemistry",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 541L",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b8c3d3114b369248",
+      "title": "Physical Chemistry Lab",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 303",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_56613ffbbcd431c8",
+      "title": "Fundamental Genetics",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 545",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ce5b8e57a98a112a",
+      "title": "Physical Biochemistry",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 556",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fbba8e46d001c1a9",
+      "title": "Biochem./Molecular Biol. II (cross-listed:",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_60c03e74db4135d7",
+      "title": "Elementary Statistics9",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 550",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fd6f5cd83e16aee6",
+      "title": "Bacteriology",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "BIOL 550L",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0602d7278354695c",
+      "title": "Bacteriology Lab",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_eb16ba6492e6f954",
+      "title": "General Applications Programming",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        18,
+        19
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 141 Calculus 13 4 C CC-ARP Math 112, 115, 116 or Math placement",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_483d8153dd6de2ee",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "BIOL 101 Biological Principles 101 3 C MR Coreq: BIOL 101L",
+          "title": "BIOL 101 Biological Principles 101",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 101L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_9616bf4cc7c8fe2f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "BIOL 101L Biological Principles I Lab 1 C MR Coreq: BIOL 101",
+          "title": "BIOL 101L Biological Principles I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 141"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_867110f98bc6af49",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "CHEM 141 Principles of Chemistry I4 4 C MR Grade of C or higher in MATH 141 or",
+          "title": "CHEM 141 Principles of Chemistry I4",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_512639a846a74164",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 6,
+          "source_text": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 18,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b49dd179f06932c3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 142 Calculus II 4 C CC-ARP MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_03239784ac5fdb9e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "BIOL 102 Biological Principles II 3 C MR BIOL 101; Coreq: BIOL 102L",
+          "title": "BIOL 102 Biological Principles II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 102L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_a5cc033637ff46cc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "BIOL 102L Biological Principles II Lab 1 C MR BIOL 101 & 101L; Coreq: BIOL 102",
+          "title": "BIOL 102L Biological Principles II Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 142"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_8dabc01ea83b2ce7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "CHEM 142 Principles of Chemistry II4 4 C MR Grade of C or higher in CHEM 141",
+          "title": "CHEM 142 Principles of Chemistry II4",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0d25cf978df27b09",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 6,
+          "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 333"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a0d1a5164714663b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 333 Organic Chemistry I 3 C MR CHEM 112 or CHEM 142",
+          "title": "CHEM 333 Organic Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 331L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_066a9a188464f9ad",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 331L Essentials of Organic Chem. Lab I7 1 C MR Prereq/Coreq: CHEM 333",
+          "title": "CHEM 331L Essentials of Organic Chem. Lab I7",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 322"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6a775cce61fc1add",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 322 Analytical Chemistry 3 C MR CHEM 112 & 112L & MATH 141; Coreq:",
+          "title": "CHEM 322 Analytical Chemistry",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 322L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_d29e1c47f2a05e07",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 322L Analytical Chemistry Lab 1 C MR Coreq: CHEM 322",
+          "title": "CHEM 322L Analytical Chemistry Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9413aa151c2c58e5",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "PHYS 211 Essentials of Physics I 3 C CC-SCI MATH 141; Coreq: PHYS 211L",
+          "title": "PHYS 211 Essentials of Physics I",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 211L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_791d06df23d120a8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 6,
+          "source_text": "PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Prereq/Coreq: PHYS 211",
+          "title": "PHYS 211L Essentials of Physics I Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_54d5b5b0f8b659e9",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 7,
+          "source_text": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+          "title": "Foreign language5 or Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 302"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d9d844b6fe8b2e1a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "BIOL 302 Cell & Molecular Bio. 3 C MR BIOL 102 or MSCI 311; Prereq/Coreq:",
+          "title": "BIOL 302 Cell & Molecular Bio.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 302L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_fa7ffe4686f0a095",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "BIOL 302L Cell & Molecular Bio. Lab 1 C MR Prereq/Coreq: BIOL 302",
+          "title": "BIOL 302L Cell & Molecular Bio. Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 334"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c5ba6d736da8c9a8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 334 Organic Chemistry II 3 C MR CHEM 333",
+          "title": "CHEM 334 Organic Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 332L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_1e960ed29ae55734",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 332L Essentials of Organic Chem. Lab II7 1 C MR CHEM 331L; Prereq/Coreq: CHEM 334",
+          "title": "CHEM 332L Essentials of Organic Chem. Lab II7",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5afd98849694be36",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 5,
+          "source_text": "PHYS 212 Essentials of Physics II 3 C CC-SCI PHYS 211 & MATH 142; Coreq: PHYS",
+          "title": "PHYS 212 Essentials of Physics II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 212L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_8a34d39a27cc2ef6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 6,
+          "source_text": "PHYS 212L Essentials of Physics II Lab 1 C CC-SCI Prereq/Coreq: PHYS 212",
+          "title": "PHYS 212L Essentials of Physics II Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 241"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9623746133731ee0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 7,
+          "source_text": "MATH 241 Vector Calculus 3 C PR MATH 142",
+          "title": "MATH 241 Vector Calculus",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 555"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f7f194f45793f59b",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 555 Biochem./Molecular Biol. I (cross-listed 3 C MR C or better in CHEM 334",
+          "title": "CHEM 555 Biochem./Molecular Biol. I (cross-listed",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CHEM 550L",
+            "BIOL 541L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_396732de19c5bd11",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 550L Biochem. Lab (cross-listed: BIOL 541L) 1 C MR Prereq/Coreq: C or higher in CHEM 550 or",
+          "title": "CHEM 550L Biochem. Lab (cross-listed: BIOL 541L)",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 541"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0630ad45f813cb22",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 541 Physical Chemistry 3 C MR CHEM 112 (or CHEM 142) & MATH 241;",
+          "title": "CHEM 541 Physical Chemistry",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 541L"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_b8c3d3114b369248",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "CHEM 541L Physical Chemistry Lab 2 C MR/CC- CHEM 321L or 322L; Prereq/Coreq:",
+          "title": "CHEM 541L Physical Chemistry Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 303"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_56613ffbbcd431c8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "BIOL 303 Fundamental Genetics 3 C MR BIOL 102 or MSCI 311",
+          "title": "BIOL 303 Fundamental Genetics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d38ba8639d768435",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 6,
+          "source_text": "History8 3 CR",
+          "title": "History8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 545"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ce5b8e57a98a112a",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "CHEM 545 Physical Biochemistry 3 C MR C or better in CHEM 541 & 550 or 555",
+          "title": "CHEM 545 Physical Biochemistry",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 556"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fbba8e46d001c1a9",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "CHEM 556 Biochem./Molecular Biol. II (cross-listed: 3 C MR C or better in BIOL 302",
+          "title": "CHEM 556 Biochem./Molecular Biol. II (cross-listed:",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_60c03e74db4135d7",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 201 Elementary Statistics9 3 CR MATH 111 or 115 or STAT 110",
+          "title": "STAT 201 Elementary Statistics9",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e2f357413bc43a65",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_775e90ccc0101f91",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 550"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fd6f5cd83e16aee6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "BIOL 550 Bacteriology 3 C MR BIOL 302 or MSCI 311; Coreq: BIOL 550L",
+          "title": "BIOL 550 Bacteriology",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BIOL 550L"
+          ],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_0602d7278354695c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "BIOL 550L Bacteriology Lab 1 C MR Coreq: BIOL 550",
+          "title": "BIOL 550L Bacteriology Lab",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_10ef4299303ec372",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "BIOL/CHEM Elective (400-600 level)10 3 C MR BIOL 302 (BIOL 425 & 620); BIOL 302 or",
+          "title": "BIOL/CHEM Elective (400-600 level)10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9fe956a4b884ff33",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "BIOL/CHEM Elective (400-600 level)10 3 C MR",
+          "title": "BIOL/CHEM Elective (400-600 level)10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_faa821119b1d1628",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_69fbca5de36f12fa",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 6,
+          "source_text": "Carolina Core Requirement6 3 CC",
+          "title": "Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9aa639d223004773",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "BIOL/CHEM Elective (400-600 level)10 3 C MR",
+          "title": "BIOL/CHEM Elective (400-600 level)10",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_eb16ba6492e6f954",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 102 General Applications Programming 3 CR",
+          "title": "CSCE 102 General Applications Programming",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_08076a8ccafc0e43",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f505e824ec710b8a",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2c1cf406872b6772",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+          "title": "Carolina Core Requirement6 or Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_516fab3e983c622b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 6,
+          "source_text": "Approved Elective11 1 PR",
+          "title": "Approved Elective11",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022",
+    "retrieved_at": null,
+    "sha256": "1d7c71e5335135b42e2938800b2c232595a90c89491bf39244cae0731b1912f2",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_biochem-mol-bio_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_biochem-mol-bio_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_biochem-mol-bio_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2021-2022"
+  },
+  "total_credits_required": 128,
+  "validation": {
+    "low_confidence_requirement_count": 15,
+    "requirement_count": 49,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": [
+    "repository_pdf_major_mismatch"
+  ]
+}

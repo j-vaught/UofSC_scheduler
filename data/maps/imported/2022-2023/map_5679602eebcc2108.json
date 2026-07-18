@@ -1,0 +1,1297 @@
+{
+  "catalog_year": "2022-2023",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Geography",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_28d207df93e7970f",
+      "label": "MATH 122 Calculus for Bus. Admin. & Social or MATH 141 Calculus 13 141); or Math placement test score",
+      "options": [
+        "MATH 122",
+        "MATH 141"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_28d207df93e7970f"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_419592e7c63c2948",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_419592e7c63c2948"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b8ef5a32f571571c",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8ef5a32f571571c"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_2e30c641a6ec3cd9",
+      "label": "MATH 142 Calculus II or MATH 170 Finite Mathematics C or better in MATH 111/ 111I or Math or MATH 172 Math. Modeling for the Life Sciences placement test (MATH 170); C or better",
+      "options": [
+        "MATH 142",
+        "MATH 170",
+        "MATH 111",
+        "MATH 172"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_2e30c641a6ec3cd9"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_4abddaa32e34673b",
+      "informational": true,
+      "label": "Foreign language4 or other Carolina Core",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4abddaa32e34673b"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0976c5e0f578445a",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0976c5e0f578445a"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_78b9e57e1d8f9e92",
+      "informational": true,
+      "label": "Choose 1 of the following:",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_78b9e57e1d8f9e92"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_2f9b8a01f92fdf46",
+      "informational": true,
+      "label": "Foreign language4 or Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2f9b8a01f92fdf46"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_27d8b486a2c69c25",
+      "informational": true,
+      "label": "Carolina Core Requirement5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_27d8b486a2c69c25"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_f6f3d6776966c1d7",
+      "informational": true,
+      "label": "History6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f6f3d6776966c1d7"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ffe9e6e1785a5a86",
+      "informational": true,
+      "label": "GEOG Major Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ffe9e6e1785a5a86"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2bdb38008911fdf3",
+      "informational": true,
+      "label": "Cognate or Minor Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2bdb38008911fdf3"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_5157277163435bae",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5157277163435bae"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_f2072b35d52b3abc",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f2072b35d52b3abc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_299391774307a057",
+      "informational": true,
+      "label": "Carolina Core Requirement5 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_299391774307a057"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_b9825a4823a9d37a",
+      "informational": true,
+      "label": "GEOG Major Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b9825a4823a9d37a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b6b8b4efbba52d4c",
+      "informational": true,
+      "label": "Cognate or Minor Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b6b8b4efbba52d4c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_4942a3ffcdca7d6a",
+      "informational": true,
+      "label": "Cognate or Minor Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4942a3ffcdca7d6a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3e5a4882c6fa9658",
+      "informational": true,
+      "label": "Carolina Core Requirement5 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3e5a4882c6fa9658"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_5d5af429bd2c525c",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5d5af429bd2c525c"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a3240a57790759af",
+      "informational": true,
+      "label": "GEOG Major Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a3240a57790759af"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_73471287fc08e20d",
+      "informational": true,
+      "label": "GEOG Major Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_73471287fc08e20d"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_fc5d7c3799c08192",
+      "informational": true,
+      "label": "Cognate or Minor Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fc5d7c3799c08192"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c1f62f3c2891cf31",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c1f62f3c2891cf31"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_d57a16f2687ce69e",
+      "informational": true,
+      "label": "Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d57a16f2687ce69e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_86aee84f087b7071",
+      "informational": true,
+      "label": "GEOG Elective10 (200-level or above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_86aee84f087b7071"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cd8aa9b2a917ff1c",
+      "informational": true,
+      "label": "Minor Course8 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cd8aa9b2a917ff1c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 6,
+      "id": "req_d35782d387adfe14",
+      "informational": true,
+      "label": "Approved Electives9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d35782d387adfe14"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_cf365966a6ce154d",
+      "informational": true,
+      "label": "GEOG Major Course7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf365966a6ce154d"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_5832854063628348",
+      "informational": true,
+      "label": "GEOG Elective10 (500-level or above)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_5832854063628348"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_611d9f2c27a91798",
+      "informational": true,
+      "label": "Minor Course8 or Approved Elective9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_611d9f2c27a91798"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 4,
+      "id": "req_b0fc47a59adc48d3",
+      "informational": true,
+      "label": "Approved Electives9",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b0fc47a59adc48d3"
+    }
+  ],
+  "id": "map_5679602eebcc2108",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Geography",
+  "parsed_metadata": {
+    "bulletin_year": "2022-2023",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Geography",
+    "faculty_approver": "Jerry Mitchell",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Geography"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_4ed71daf991b8651",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_9999cd325605c29f",
+      "title": "Elementary Statistics",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_16a2234c878e5377",
+      "title": "General Applications Programming",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOG 495",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5ea6052668bc19e0",
+      "title": "Seminar in Geography (offered fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 122",
+            "MATH 141"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_28d207df93e7970f",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 122 Calculus for Bus. Admin. & Social 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH or MATH 141 Calculus 13 141); or Math placement test score",
+          "title": "MATH 122 Calculus for Bus. Admin. & Social or MATH 141 Calculus 13 141); or Math placement test score",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_419592e7c63c2948",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language4 or other Carolina Core 3-4 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8ef5a32f571571c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement5 3 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 142",
+            "MATH 170",
+            "MATH 111",
+            "MATH 172"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_2e30c641a6ec3cd9",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 142 Calculus II 3-4 CC-ARP C or better in MATH 141 (MATH 142); or MATH 170 Finite Mathematics C or better in MATH 111/ 111I or Math or MATH 172 Math. Modeling for the Life Sciences placement test (MATH 170); C or better",
+          "title": "MATH 142 Calculus II or MATH 170 Finite Mathematics C or better in MATH 111/ 111I or Math or MATH 172 Math. Modeling for the Life Sciences placement test (MATH 170); C or better",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 201"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9999cd325605c29f",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 201 Elementary Statistics 3 CR MATH 111 or higher or STAT 110",
+          "title": "STAT 201 Elementary Statistics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4abddaa32e34673b",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+          "title": "Foreign language4 or other Carolina Core",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0976c5e0f578445a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement5 3 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_78b9e57e1d8f9e92",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "Choose 1 of the following: 3-4 C CC",
+          "title": "Choose 1 of the following:",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CSCE 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_16a2234c878e5377",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 102 General Applications Programming 3 CR",
+          "title": "CSCE 102 General Applications Programming",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2f9b8a01f92fdf46",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign language4 or Carolina Core Requirement5 3 CR/CC",
+          "title": "Foreign language4 or Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_27d8b486a2c69c25",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement5 3-4 CC",
+          "title": "Carolina Core Requirement5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f6f3d6776966c1d7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History6 3 CR",
+          "title": "History6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_ffe9e6e1785a5a86",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOG Major Course7 3-4 C MR See Bulletin listing",
+          "title": "GEOG Major Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2bdb38008911fdf3",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course8 3 C (minor) PR",
+          "title": "Cognate or Minor Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5157277163435bae",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f2072b35d52b3abc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_299391774307a057",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement5 or Approved Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement5 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_b9825a4823a9d37a",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOG Major Course7 3-4 C MR See Bulletin listing",
+          "title": "GEOG Major Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b6b8b4efbba52d4c",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course8 3 C (minor) PR",
+          "title": "Cognate or Minor Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4942a3ffcdca7d6a",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course8 3 C (minor) PR",
+          "title": "Cognate or Minor Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3e5a4882c6fa9658",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement5 or Approved Elective9 3 CC/PR",
+          "title": "Carolina Core Requirement5 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5d5af429bd2c525c",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a3240a57790759af",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOG Major Course7 3-4 C MR See Bulletin listing",
+          "title": "GEOG Major Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_73471287fc08e20d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOG Major Course7 3-4 C MR See Bulletin listing",
+          "title": "GEOG Major Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fc5d7c3799c08192",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course8 3 C (minor) PR",
+          "title": "Cognate or Minor Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c1f62f3c2891cf31",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d57a16f2687ce69e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective9 3 PR",
+          "title": "Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOG 495"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_5ea6052668bc19e0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOG 495 Seminar in Geography (offered fall only) 3 C MR At least 15 hrs. GEOG credit",
+          "title": "GEOG 495 Seminar in Geography (offered fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_86aee84f087b7071",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOG Elective10 (200-level or above) 3-4 C MR See Bulletin listing",
+          "title": "GEOG Elective10 (200-level or above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cd8aa9b2a917ff1c",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course8 or Approved Elective9 3 C (minor) PR",
+          "title": "Minor Course8 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 6,
+          "critical": false,
+          "id": "req_d35782d387adfe14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Electives9 6 PR",
+          "title": "Approved Electives9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        13,
+        15
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_cf365966a6ce154d",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOG Major Course7 3-4 C MR See Bulletin listing",
+          "title": "GEOG Major Course7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_5832854063628348",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOG Elective10 (500-level or above) 3-4 C MR See Bulletin listing",
+          "title": "GEOG Elective10 (500-level or above)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_611d9f2c27a91798",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course8 or Approved Elective9 3 C (minor) PR",
+          "title": "Minor Course8 or Approved Elective9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b0fc47a59adc48d3",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Electives9 4 PR",
+          "title": "Approved Electives9",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023",
+    "retrieved_at": null,
+    "sha256": "b20ced86b69cd783121706d3de1d5059702cf3e4b97c6093a92b2f58acb89463",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_geog-bs_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_geog-bs_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_geog-bs_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2022-2023"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 30,
+    "requirement_count": 38,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

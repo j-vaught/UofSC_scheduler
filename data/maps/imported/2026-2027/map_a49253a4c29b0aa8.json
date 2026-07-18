@@ -1,0 +1,1255 @@
+{
+  "catalog_year": "2026-2027",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Physics & Astronomy",
+  "elective_groups": [
+    {
+      "category": "program_requirements",
+      "credits_required": 4,
+      "id": "req_253bed2cafeffd67",
+      "informational": true,
+      "label": "CHEM 111 & CHEM 111L General Chemistry I",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_253bed2cafeffd67"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_bca6d8adc95e8813",
+      "informational": true,
+      "label": "PHYS 211 & PHYS 111L Essentials of Physics I",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bca6d8adc95e8813"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 4,
+      "id": "req_4149e3509c8a2bcf",
+      "informational": true,
+      "label": "PHYS 212 & PHYS 212L Essentials of Physics II",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4149e3509c8a2bcf"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_13cb84a1df5d3675",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_13cb84a1df5d3675"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_9fc16170706e5608",
+      "label": "MATH 242 Elementary Differential Equations or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+      "options": [
+        "MATH 242",
+        "MATH 520",
+        "MATH 344",
+        "OR 544"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_9fc16170706e5608"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 4,
+      "id": "req_1b39202a169eb8d1",
+      "informational": true,
+      "label": "BIOL 101 & BIOL 101L Biological Principles I",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1b39202a169eb8d1"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d7b8e82390f964f5",
+      "label": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+      "options": [
+        "STAT 509",
+        "STAT 515",
+        "MATH 112",
+        "OR 141"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d7b8e82390f964f5"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_d965030211f8cf81",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d965030211f8cf81"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d55d8438e67edf90",
+      "label": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra",
+      "options": [
+        "MATH 300",
+        "MATH 344"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d55d8438e67edf90"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_d7e31ad951605d23",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_d7e31ad951605d23"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_71ba8c910fcc7df4",
+      "label": "CSCE 145 Algorithmic Design I or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+      "options": [
+        "CSCE 145",
+        "CSCE 106"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_71ba8c910fcc7df4"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_bf71f69a2c4cc577",
+      "informational": true,
+      "label": "History6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bf71f69a2c4cc577"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_661fe7fd4e53c9b3",
+      "label": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra",
+      "options": [
+        "MATH 300",
+        "MATH 344"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_661fe7fd4e53c9b3"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0b14734f98a18830",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0b14734f98a18830"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_faa821119b1d1628",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_faa821119b1d1628"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_175af62a38846301",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_175af62a38846301"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4b2adce38ef6d603",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4b2adce38ef6d603"
+    }
+  ],
+  "id": "map_a49253a4c29b0aa8",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Physics",
+  "parsed_metadata": {
+    "bulletin_year": "2026-2027",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "Physics & Astronomy",
+    "faculty_approver": "Alexey Petrov",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Physics"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_413dd76212445c89",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b49dd179f06932c3",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 112",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_6b182417267e9bf2",
+      "title": "& 112L General Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 241",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_16103b602d6b31e0",
+      "title": "Vector Calculus",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "CHEM 333",
+      "corequisites": [],
+      "credits": 5,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_1bf2856bc2e6cf80",
+      "title": "& 333L Organic Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 307",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_396bd58af7f134e7",
+      "title": "Intro. to Modern Physics (offered",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "PHYS 306",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a47a9577b7596570",
+      "title": "Principles of Physics III (offered fall",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 310",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fe8b73ac4ca7b814",
+      "title": "Intermediate Exper. Physics",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 501",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f1ece21a080fa0db",
+      "title": "Quantum Physics I (offered fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 506",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_735c88876163e4c8",
+      "title": "Thermal Physics & Statistical",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "BMEN 240",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_665f2c36d2ef3c8c",
+      "title": "Cellular & Molecular Biol w/Engr.",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "MATH 523",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_77f63eee84b556f5",
+      "title": "Math. Modeling of Population Biology",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 503",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e47f200221a29529",
+      "title": "Mechanics (offered fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "BMEN 340",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_18bd1941226f43bc",
+      "title": "Biochem. w/Engineering Applications",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 504",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_cb504adfc805d6c4",
+      "title": "Electromagnetic Theory (offered",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "BMEN 345",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2708597267bae664",
+      "title": "Human Anatomy & Phys. For",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "PHYS 520",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a63b7a2a4f69be19",
+      "title": "Intro. to Biological Physics",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 141"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_e0fc7ad33af20342",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in Math 112/115/116 or placement",
+          "title": "MATH 141 Calculus 13",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CHEM 111",
+            "CHEM 111L"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_253bed2cafeffd67",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 111 & CHEM 111L General Chemistry I 4 C PR C or higher in MATH 111 or higher (or by",
+          "title": "CHEM 111 & CHEM 111L General Chemistry I",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e6f9205b6c9a4cee",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 142"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_b49dd179f06932c3",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+          "title": "MATH 142 Calculus II",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 112"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_6b182417267e9bf2",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 112 & 112L General Chemistry II 4 C MR C or higher in MATH 111 or higher MATH (or",
+          "title": "CHEM 112 & 112L General Chemistry II",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 211",
+            "PHYS 111L"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_bca6d8adc95e8813",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 4,
+          "source_text": "! PHYS 211 & PHYS 111L Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+          "title": "PHYS 211 & PHYS 111L Essentials of Physics I",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 241"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_16103b602d6b31e0",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! MATH 241 Vector Calculus 3 C PR C or better in MATH 142",
+          "title": "MATH 241 Vector Calculus",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 212",
+            "PHYS 212L"
+          ],
+          "credit_hours": 4,
+          "critical": true,
+          "id": "req_4149e3509c8a2bcf",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "! PHYS 212 & PHYS 212L Essentials of Physics II 4 C CC-SCI C or better in PHYS 211 & MATH 142",
+          "title": "PHYS 212 & PHYS 212L Essentials of Physics II",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 333"
+          ],
+          "credit_hours": 5,
+          "critical": false,
+          "id": "req_1bf2856bc2e6cf80",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 333 & 333L Organic Chemistry I 5 C MR C or better in CHEM 112 or 142; C or higher in",
+          "title": "CHEM 333 & 333L Organic Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_13cb84a1df5d3675",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 242",
+            "MATH 520",
+            "MATH 344",
+            "OR 544"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_9fc16170706e5608",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "! MATH 242 Elementary Differential Equations 3 C PR C or better in MATH 142 (MATH 242); C or or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+          "title": "MATH 242 Elementary Differential Equations or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 307"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_396bd58af7f134e7",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! PHYS 307 Intro. to Modern Physics (offered 3 C MR C or better in PHYS 212 & MATH 241",
+          "title": "PHYS 307 Intro. to Modern Physics (offered",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "BIOL 101",
+            "BIOL 101L"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_1b39202a169eb8d1",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "BIOL 101 & BIOL 101L Biological Principles I 4 C MR",
+          "title": "BIOL 101 & BIOL 101L Biological Principles I",
+          "warnings": [
+            "multiple_course_codes_without_explicit_choice"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "STAT 509",
+            "STAT 515",
+            "MATH 112",
+            "OR 141"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d7b8e82390f964f5",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "STAT 509 Statistics for Engineers 3 C CR MATH 142 or equiv. (STAT 509); C or better or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+          "title": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d965030211f8cf81",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 16,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 300",
+            "MATH 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d55d8438e67edf90",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 1,
+          "source_text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and 344) or MATH 344 Applied Linear Algebra",
+          "title": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 306"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a47a9577b7596570",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "PHYS 306 Principles of Physics III (offered fall 3 C PR C or better in PHYS 212 & MATH 142; Prereq",
+          "title": "PHYS 306 Principles of Physics III (offered fall",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 310"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_fe8b73ac4ca7b814",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 310 Intermediate Exper. Physics 4 C MR C or better in PHYS 212 & STAT 509 or 515",
+          "title": "PHYS 310 Intermediate Exper. Physics",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 501"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f1ece21a080fa0db",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "PHYS 501 Quantum Physics I (offered fall only) 3 C MR C or better in PHYS 307 & MATH 242 or 520",
+          "title": "PHYS 501 Quantum Physics I (offered fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d7e31ad951605d23",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or Carolina Core Req.4 3 CR/CC",
+          "title": "Foreign language5 or Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 506"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_735c88876163e4c8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHYS 506 Thermal Physics & Statistical 3 C MR C or better in PHYS 306, 307, MATH 241 and",
+          "title": "PHYS 506 Thermal Physics & Statistical",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BMEN 240"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_665f2c36d2ef3c8c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "BMEN 240 Cellular & Molecular Biol w/Engr. 4 C MR C or better in BIOL 101",
+          "title": "BMEN 240 Cellular & Molecular Biol w/Engr.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "MATH 523"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_77f63eee84b556f5",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MATH 523 Math. Modeling of Population Biology 3 C MR C or better in MATH 142, BIOL 301 or MSCI",
+          "title": "MATH 523 Math. Modeling of Population Biology",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CSCE 145",
+            "CSCE 106"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_71ba8c910fcc7df4",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 (CSCE or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+          "title": "CSCE 145 Algorithmic Design I or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bf71f69a2c4cc577",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History6 3 CR",
+          "title": "History6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 503"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_e47f200221a29529",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHYS 503 Mechanics (offered fall only) 4 C MR C or better in PHYS 211 & MATH 242 or 520",
+          "title": "PHYS 503 Mechanics (offered fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 300",
+            "MATH 344"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_661fe7fd4e53c9b3",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and 344) or MATH 344 Applied Linear Algebra",
+          "title": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BMEN 340"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_18bd1941226f43bc",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "BMEN 340 Biochem. w/Engineering Applications 4 C MR C or better in BMEN 240",
+          "title": "BMEN 340 Biochem. w/Engineering Applications",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0b14734f98a18830",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_faa821119b1d1628",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 504"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_cb504adfc805d6c4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "PHYS 504 Electromagnetic Theory (offered 4 C MR C or better in PHYS 503",
+          "title": "PHYS 504 Electromagnetic Theory (offered",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "BMEN 345"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_2708597267bae664",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "BMEN 345 Human Anatomy & Phys. For 4 C MR C or better in BMEN 240",
+          "title": "BMEN 345 Human Anatomy & Phys. For",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "PHYS 520"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a63b7a2a4f69be19",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 520 Intro. to Biological Physics 3 C MR C or better in PHYS 201 or 211 & in MATH",
+          "title": "PHYS 520 Intro. to Biological Physics",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_175af62a38846301",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4b2adce38ef6d603",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027",
+    "retrieved_at": null,
+    "sha256": "c92edb7bfc47cff3d14f02048c9d7f2f859582f5d0b6ea434c6e341a409609f8",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_phys-biomed_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_phys-biomed_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_phys-biomed_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2026-2027"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 8,
+    "requirement_count": 37,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

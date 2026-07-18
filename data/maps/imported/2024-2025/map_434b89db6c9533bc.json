@@ -1,0 +1,1242 @@
+{
+  "catalog_year": "2024-2025",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "School of Earth, Ocean and Environment",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_77c31cf538d72df2",
+      "label": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences or MATH 141 Calculus I3 122); MATH 115 (MATH 141); or Math",
+      "options": [
+        "MATH 122",
+        "MATH 141",
+        "MATH 115"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_77c31cf538d72df2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_d6e7cc2224e45034",
+      "label": "GEOL 101 Introduction to the Earth or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall only)",
+      "options": [
+        "GEOL 101",
+        "GEOL 103",
+        "GEOL 201"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d6e7cc2224e45034"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_e280aaa777390ce3",
+      "label": "MATH 170 Finite Mathematics or MATH 142 Calculus II Math placement test score (MATH 170);",
+      "options": [
+        "MATH 170",
+        "MATH 142"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_e280aaa777390ce3"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_3ea8cde9decacca3",
+      "label": "GEOL 305 Earth Systems through Time (spring only) or GEOL 371 A view of the River MATH 141 & PHYS 201 or 211 (GEOL or GEOL 548 Environmental Geophysics 548)",
+      "options": [
+        "GEOL 305",
+        "GEOL 371",
+        "MATH 141",
+        "PHYS 201",
+        "OR 211",
+        "GEOL 548"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_3ea8cde9decacca3"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_34abfcc4610b312d",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_34abfcc4610b312d"
+    },
+    {
+      "category": "carolina_core",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_4f0cab7550b0f511",
+      "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+      "options": [
+        "PHYS 201",
+        "PHYS 211"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_4f0cab7550b0f511"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_38b28feac504a0c1",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_38b28feac504a0c1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_13cb84a1df5d3675",
+      "informational": true,
+      "label": "Foreign language5 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_13cb84a1df5d3675"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_a3e953cb4328adc2",
+      "informational": true,
+      "label": "GEOL, MSCI, or ENVR course (300-level or higher)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a3e953cb4328adc2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_3fe926f5677f9e72",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
+      "options": [
+        "PHYS 202",
+        "PHYS 212",
+        "CHEM 112",
+        "BIOL 101"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_3fe926f5677f9e72"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_b09f65e21d009445",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b09f65e21d009445"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_a3a815af6261d373",
+      "informational": true,
+      "label": "Foreign language5 or Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a3a815af6261d373"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 4,
+      "id": "req_dd5cec853123729c",
+      "informational": true,
+      "label": "GEOL 310 Surface & Subsurface Hydrology (cross- listed: ENVR 310) (fall only) GEOL 101, 103, 201, GEOG 104, 201,",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dd5cec853123729c"
+    },
+    {
+      "category": "program_requirements",
+      "credits_each": 4,
+      "credits_required": 4,
+      "id": "req_da3be76ac096ea17",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
+      "options": [
+        "PHYS 202",
+        "PHYS 212",
+        "CHEM 112",
+        "BIOL 102"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_da3be76ac096ea17"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c0c0083e3bfa6b17",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c0c0083e3bfa6b17"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_2227c6cfc51a69a2",
+      "informational": true,
+      "label": "GEOL, MSCI, or ENVR course (300-level or higher)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2227c6cfc51a69a2"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a2a83801e16825a1",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a2a83801e16825a1"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_7a63ec4612efa070",
+      "informational": true,
+      "label": "History8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7a63ec4612efa070"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_2d8a344ebfe0aa5a",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2d8a344ebfe0aa5a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 4,
+      "id": "req_518324d68c64f502",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_518324d68c64f502"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_87502e1a76d4ab4f",
+      "informational": true,
+      "label": "GEOL, MSCI, or ENVR course (300-level or higher)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_87502e1a76d4ab4f"
+    },
+    {
+      "category": "college_requirements",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_eb16ba6492e6f954",
+      "label": "CSCE 102 General Applications Programming or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+      "options": [
+        "CSCE 102",
+        "MSCI 305",
+        "MSCI 509"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_eb16ba6492e6f954"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c4be8288fead72ad",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c4be8288fead72ad"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_b92d4ee04d98dcbc",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b92d4ee04d98dcbc"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_6507a934c6c33188",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6507a934c6c33188"
+    }
+  ],
+  "id": "map_434b89db6c9533bc",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Geological Sciences",
+  "parsed_metadata": {
+    "bulletin_year": "2024-2025",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Science (B.S.)",
+    "department": "School of Earth, Ocean and Environment",
+    "faculty_approver": "Katherine Ryker",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Geological Sciences"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Science (B.S.)",
+  "program_family_id": "program_5e56134d36925599",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_7c75ca07012d04e2",
+      "title": "& 111L – General Chemistry I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 302",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a9e72fdfe513048c",
+      "title": "Rocks and Minerals (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 355",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_306ebd7b30c34737",
+      "title": "Struct. Geol. & Tectonics (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 325",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a7a9ffa532fb508f",
+      "title": "Stratigraphy & Sed. Basins (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 335",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a2e99974bdf09337",
+      "title": "Processes of Global Environmental",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 515",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_dd5e4d9871d00124",
+      "title": "Statistical Methods I",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 500",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_3e0c1fd225c45987",
+      "title": "Field Geology7 (summer only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 315",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b7e7740aba1537c2",
+      "title": "Surface & Near Surface Proc. (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        13,
+        14
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 122",
+            "MATH 141",
+            "MATH 115"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_77c31cf538d72df2",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences 3-4 C CC-ARP C or better in MATH 111/111I/115 (MATH or MATH 141 Calculus I3 122); MATH 115 (MATH 141); or Math",
+          "title": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences or MATH 141 Calculus I3 122); MATH 115 (MATH 141); or Math",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "GEOL 101",
+            "GEOL 103",
+            "GEOL 201"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_d6e7cc2224e45034",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "GEOL 101 Introduction to the Earth 4 PR or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall only)",
+          "title": "GEOL 101 Introduction to the Earth or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e6f9205b6c9a4cee",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        16,
+        18
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "MATH 170",
+            "MATH 142"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_e280aaa777390ce3",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "MATH 170 Finite Mathematics 3-4 C CC-ARP C or better in MATH 111/111I or 112 or or MATH 142 Calculus II Math placement test score (MATH 170);",
+          "title": "MATH 170 Finite Mathematics or MATH 142 Calculus II Math placement test score (MATH 170);",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "CHEM 111"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_7c75ca07012d04e2",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 3,
+          "source_text": "CHEM 111 & 111L – General Chemistry I 4 CC-SCI C or better in MATH 115 or Math",
+          "title": "CHEM 111 & 111L – General Chemistry I",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "GEOL 305",
+            "GEOL 371",
+            "MATH 141",
+            "PHYS 201",
+            "OR 211",
+            "GEOL 548"
+          ],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_3ea8cde9decacca3",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "GEOL 305 Earth Systems through Time (spring only) 3-4 C MR GEOL 101, 103, or 201 (GEOL 371); or GEOL 371 A view of the River MATH 141 & PHYS 201 or 211 (GEOL or GEOL 548 Environmental Geophysics 548)",
+          "title": "GEOL 305 Earth Systems through Time (spring only) or GEOL 371 A view of the River MATH 141 & PHYS 201 or 211 (GEOL or GEOL 548 Environmental Geophysics 548)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_34abfcc4610b312d",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 302"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_a9e72fdfe513048c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 302 Rocks and Minerals (fall only) 4 C MR GEOL 101, 103, or 201 (CHEM 111",
+          "title": "GEOL 302 Rocks and Minerals (fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 201",
+            "PHYS 211"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_4f0cab7550b0f511",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-SCI"
+          ],
+          "sequence": 2,
+          "source_text": "PHYS 201 & 201L – General Physics I 4 CC-SCI C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+          "title": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_38b28feac504a0c1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_13cb84a1df5d3675",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign language5 or other Carolina Core Req.4 3 CC-GFL",
+          "title": "Foreign language5 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 17,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 355"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_306ebd7b30c34737",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 355 Struct. Geol. & Tectonics (spring only) 4 C MR GEOL 302 & PHYS 201 or 211",
+          "title": "GEOL 355 Struct. Geol. & Tectonics (spring only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a3e953cb4328adc2",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL, MSCI, or ENVR course (300-level or higher) 3 C MR",
+          "title": "GEOL, MSCI, or ENVR course (300-level or higher)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 202",
+            "PHYS 212",
+            "CHEM 112",
+            "BIOL 101"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_3fe926f5677f9e72",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 202 & 202L – General Physics II 4 PR See Bulletin listing or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b09f65e21d009445",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a3a815af6261d373",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or Carolina Core Requirement4 3 CR/CC",
+          "title": "Foreign language5 or Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "GEOL 310",
+            "ENVR 310",
+            "GEOL 101",
+            "GEOG 104"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_dd5cec853123729c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 310 Surface & Subsurface Hydrology (cross- 4 C MR C or better in MATH 122 or 141 & in listed: ENVR 310) (fall only) GEOL 101, 103, 201, GEOG 104, 201,",
+          "title": "GEOL 310 Surface & Subsurface Hydrology (cross- listed: ENVR 310) (fall only) GEOL 101, 103, 201, GEOG 104, 201,",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 325"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_a7a9ffa532fb508f",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL 325 Stratigraphy & Sed. Basins (fall only) 4 C MR D or better in GEOL 302",
+          "title": "GEOL 325 Stratigraphy & Sed. Basins (fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "PHYS 202",
+            "PHYS 212",
+            "CHEM 112",
+            "BIOL 102"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_da3be76ac096ea17",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "PHYS 202 & 202L – General Physics II 4 PR See Bulletin listing or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c0c0083e3bfa6b17",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 335"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_a2e99974bdf09337",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 335 Processes of Global Environmental 4 C MR",
+          "title": "GEOL 335 Processes of Global Environmental",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2227c6cfc51a69a2",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "GEOL, MSCI, or ENVR course (300-level or higher) 3 C MR",
+          "title": "GEOL, MSCI, or ENVR course (300-level or higher)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "STAT 515"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_dd5e4d9871d00124",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "STAT 515 Statistical Methods I 3 CR MATH 141 or 115 & a statistics class",
+          "title": "STAT 515 Statistical Methods I",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a2a83801e16825a1",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Approved Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 500"
+          ],
+          "credit_hours": [
+            4,
+            6
+          ],
+          "critical": false,
+          "id": "req_3e0c1fd225c45987",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "GEOL 500 Field Geology7 (summer only) 4-6 C MR GEOL 325 & 355",
+          "title": "GEOL 500 Field Geology7 (summer only)",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "GEOL 315"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_b7e7740aba1537c2",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL 315 Surface & Near Surface Proc. (fall only) 4 C MR PHYS 201 or 211 (GEOL 315)",
+          "title": "GEOL 315 Surface & Near Surface Proc. (fall only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7a63ec4612efa070",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "History8 3 CR",
+          "title": "History8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2d8a344ebfe0aa5a",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 or Approved Elective6 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_518324d68c64f502",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective6 4 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_87502e1a76d4ab4f",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "GEOL, MSCI, or ENVR course (300-level or higher) 3 C MR",
+          "title": "GEOL, MSCI, or ENVR course (300-level or higher)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "CSCE 102",
+            "MSCI 305",
+            "MSCI 509"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_eb16ba6492e6f954",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 2,
+          "source_text": "CSCE 102 General Applications Programming 3 CR or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+          "title": "CSCE 102 General Applications Programming or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c4be8288fead72ad",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 3,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b92d4ee04d98dcbc",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6507a934c6c33188",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php",
+    "retrieved_at": null,
+    "sha256": "e81609554ea8e3ba9d89af2319d3483fd1f32447ddade8b0712d2c738dd3934d",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_geol-sci-envr-geosci_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_geol-sci-envr-geosci_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_geol-sci-envr-geosci_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 16,
+    "requirement_count": 36,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

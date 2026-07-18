@@ -1,0 +1,1206 @@
+{
+  "catalog_year": "2023-2024",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Education",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Educational Studies",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_24dec6e92a5e1aed",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_24dec6e92a5e1aed"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_2f975f420285131b",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_2f975f420285131b"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_26aad88ad7590686",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_26aad88ad7590686"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_c8d921aefb7868a1",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c8d921aefb7868a1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_658d20103d7f8520",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_658d20103d7f8520"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_f56c849b02203425",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f56c849b02203425"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_634ddcc7297af9bb",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_634ddcc7297af9bb"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_40e5aa693d51026a",
+      "informational": true,
+      "label": "Foreign Language4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_40e5aa693d51026a"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_9ec28a6a25606cc7",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_9ec28a6a25606cc7"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a836f5c951c6dde1",
+      "informational": true,
+      "label": "Carolina Core Requirement3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a836f5c951c6dde1"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_031df4c9e181c923",
+      "informational": true,
+      "label": "Foreign Language4 or Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_031df4c9e181c923"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_815021502057d129",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_815021502057d129"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_3ab4ccf988da1d41",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3ab4ccf988da1d41"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_090150e195cba8a7",
+      "informational": true,
+      "label": "Approved Elective6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_090150e195cba8a7"
+    }
+  ],
+  "id": "map_8dac83037d21fe5c",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Special Education",
+  "parsed_metadata": {
+    "bulletin_year": "2023-2024",
+    "college": "Education",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Educational Studies",
+    "faculty_approver": "Erik Drasgow",
+    "minimum_institutional_gpa": 2.75,
+    "minimum_total_hours": 120,
+    "name": "Special Education"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_4878bec5eb7b639a",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "EDTE 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7536292a7c5a4970",
+      "title": "Issues and Trends in Teaching and Learning",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 205",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_53a0f59514cf9732",
+      "title": "Understanding the Foundation of Disability",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDPY 401",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_eefad77a1f946e7e",
+      "title": "Learners and the Diversity of Learning",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 523",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4f7037619968f0c6",
+      "title": "Introduction to Exceptional Children",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDFI 300",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_36380b3b2abcdc24",
+      "title": "Schools in Communities",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 301",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2e0f228cc8a30fb6",
+      "title": "Introduction to Students with Autism",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 315",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_febec13ee1a24cb2",
+      "title": "Introduction to Applied Behavior Analysis in",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 580",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_958844ff329b0ce6",
+      "title": "Direct Instruc. Reading for At-Risk Learners",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 670",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_02d697b6feecd81c",
+      "title": "Nature Stu. Multi-categorical Disabilities",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 316",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_00b00630c0757d40",
+      "title": "Introduction to Functional Behavioral",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 491",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_338cb7aa59e7a643",
+      "title": "Intro. to Inclusion with Mild Disabilities",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 582",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_320d31d70404b6f4",
+      "title": "Teaching Mathematics to Students at Risk",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 671",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_54a2039711e1ee99",
+      "title": "Instruc. Stu. Mult-categorical Disabilities",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 413",
+      "corequisites": [],
+      "credits": 6,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0cad3a61796cb500",
+      "title": "Internship I in Special Education",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 390",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_029007c1ca3c1c72",
+      "title": "Intro. to Assessment in Special Education",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 392",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7afcc09082aafa88",
+      "title": "Collaborative Partnerships in Special Ed.",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 640",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_79a94b1130e990e8",
+      "title": "Manag. Problem Behavior in the Classroom",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 426",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7489065b3bc89709",
+      "title": "Seminar in Special Education",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEX 496",
+      "corequisites": [],
+      "credits": 12,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_882e4bf23adbed8e",
+      "title": "Internship II in Special Education",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_24dec6e92a5e1aed",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_2f975f420285131b",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_26aad88ad7590686",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3 PR",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf35eb9305eb888d",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University 3 PR",
+          "title": "UNIV 101 The Student in the University",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_c8d921aefb7868a1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_658d20103d7f8520",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f56c849b02203425",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDTE 201"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_7536292a7c5a4970",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "! EDTE 201 Issues and Trends in Teaching and Learning 3 C * MR",
+          "title": "EDTE 201 Issues and Trends in Teaching and Learning",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_634ddcc7297af9bb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 1,
+          "source_text": "Carolina Core Requirement3 3-4 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 205"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_53a0f59514cf9732",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDEX 205 Understanding the Foundation of Disability 3 C * MR",
+          "title": "EDEX 205 Understanding the Foundation of Disability",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDPY 401"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_eefad77a1f946e7e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+          "title": "EDPY 401 Learners and the Diversity of Learning",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_40e5aa693d51026a",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign Language4 or Approved Elective6 3 CC-GFL/PR",
+          "title": "Foreign Language4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_9ec28a6a25606cc7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 523"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_4f7037619968f0c6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 523 Introduction to Exceptional Children 3 C * MR",
+          "title": "EDEX 523 Introduction to Exceptional Children",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDFI 300"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_36380b3b2abcdc24",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDFI 300 Schools in Communities 3 C * MR",
+          "title": "EDFI 300 Schools in Communities",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a836f5c951c6dde1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement3 3 CC",
+          "title": "Carolina Core Requirement3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_031df4c9e181c923",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign Language4 or Approved Elective6 3 CC-GFL/PR",
+          "title": "Foreign Language4 or Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_815021502057d129",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 301"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_2e0f228cc8a30fb6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 301 Introduction to Students with Autism 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 301 Introduction to Students with Autism",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 315"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_febec13ee1a24cb2",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDEX 315 Introduction to Applied Behavior Analysis in 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 315 Introduction to Applied Behavior Analysis in",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 580"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_958844ff329b0ce6",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDEX 580 Direct Instruc. Reading for At-Risk Learners 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 580 Direct Instruc. Reading for At-Risk Learners",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 670"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_02d697b6feecd81c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! EDEX 670 Nature Stu. Multi-categorical Disabilities 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 670 Nature Stu. Multi-categorical Disabilities",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3ab4ccf988da1d41",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 14,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 316"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_00b00630c0757d40",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 316 Introduction to Functional Behavioral 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 316 Introduction to Functional Behavioral",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 491"
+          ],
+          "credit_hours": 2,
+          "critical": true,
+          "id": "req_338cb7aa59e7a643",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDEX 491 Intro. to Inclusion with Mild Disabilities 2 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 491 Intro. to Inclusion with Mild Disabilities",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 582"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_320d31d70404b6f4",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDEX 582 Teaching Mathematics to Students at Risk 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 582 Teaching Mathematics to Students at Risk",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 671"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_54a2039711e1ee99",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! EDEX 671 Instruc. Stu. Mult-categorical Disabilities 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 671 Instruc. Stu. Mult-categorical Disabilities",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_090150e195cba8a7",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Approved Elective6 3 PR",
+          "title": "Approved Elective6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 413"
+          ],
+          "credit_hours": 6,
+          "critical": true,
+          "id": "req_0cad3a61796cb500",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 413 Internship I in Special Education 6 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 413 Internship I in Special Education",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 390"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_029007c1ca3c1c72",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDEX 390 Intro. to Assessment in Special Education 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 390 Intro. to Assessment in Special Education",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 392"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_7afcc09082aafa88",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "! EDEX 392 Collaborative Partnerships in Special Ed. 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 392 Collaborative Partnerships in Special Ed.",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 640"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_79a94b1130e990e8",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 4,
+          "source_text": "! EDEX 640 Manag. Problem Behavior in the Classroom 3 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 640 Manag. Problem Behavior in the Classroom",
+          "warnings": []
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 426"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_7489065b3bc89709",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "! EDEX 426 Seminar in Special Education 3 C * MR/CC_INT Adm. to Professional Pgrm.",
+          "title": "EDEX 426 Seminar in Special Education",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "EDEX 496"
+          ],
+          "credit_hours": 12,
+          "critical": true,
+          "id": "req_882e4bf23adbed8e",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "! EDEX 496 Internship II in Special Education 12 C * MR Adm. to Professional Pgrm.",
+          "title": "EDEX 496 Internship II in Special Education",
+          "warnings": []
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024",
+    "retrieved_at": null,
+    "sha256": "1f06274dfc29c762d8df1fa8a1117963cb6836f9bf6db2bc37cf2ae9554f2f5d",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_special-education_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_special-education_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_special-education_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2023-2024"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 14,
+    "requirement_count": 36,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": []
+}

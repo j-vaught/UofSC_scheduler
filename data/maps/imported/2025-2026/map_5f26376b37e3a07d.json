@@ -1,0 +1,1292 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Arts and Sciences",
+  "concentrations": {},
+  "confidence": "medium",
+  "department": "Languages, Literatures & Cultures",
+  "elective_groups": [
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_0e20a944b357aeee",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0e20a944b357aeee"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_b8928f45500006bb",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_b8928f45500006bb"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_6b27c234780125ac",
+      "informational": true,
+      "label": "UNIV 101 The Student in the University (elective)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6b27c234780125ac"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a7fc99bed0f12d14",
+      "informational": true,
+      "label": "Carolina Core ARP Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a7fc99bed0f12d14"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_075048a6fc5a2d82",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_075048a6fc5a2d82"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_4cca07f8a1dd0215",
+      "informational": true,
+      "label": "History5",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_4cca07f8a1dd0215"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_c2cabea8e8b9ec4b",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c2cabea8e8b9ec4b"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_dce1ceddc71c41cf",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_dce1ceddc71c41cf"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_6f3af7ce1df92920",
+      "informational": true,
+      "label": "Social Science",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_6f3af7ce1df92920"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_c324b72e34a6db15",
+      "informational": true,
+      "label": "Humanities or Fine Arts",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_c324b72e34a6db15"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_ca1823366acfa9a6",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ca1823366acfa9a6"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_a51ea3c620100e94",
+      "informational": true,
+      "label": "Carolina Core Requirement4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a51ea3c620100e94"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_09dad0ecc31a7f40",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_09dad0ecc31a7f40"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0936b2a1778137bd",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0936b2a1778137bd"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_ae6902747f14c50e",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ae6902747f14c50e"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_7499fc201e7971e5",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_7499fc201e7971e5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_a5537ba30d190481",
+      "informational": true,
+      "label": "Carolina Core Requirement4 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_a5537ba30d190481"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_72aa0e15da5fa547",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_72aa0e15da5fa547"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_3a6747d1b29f2fbb",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3a6747d1b29f2fbb"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_edbee394140ba576",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_edbee394140ba576"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_fa875d375872d5b0",
+      "informational": true,
+      "label": "Cognate or Minor Course6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_fa875d375872d5b0"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_cf02621c72dad209",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_cf02621c72dad209"
+    },
+    {
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_d11e3f83ea5706ff",
+      "label": "ITAL 355 Survey of Italian Literature I (1200-1850) or ITAL 360 Survey of Italian Literature II (19th-21st or ITAL 230",
+      "options": [
+        "ITAL 355",
+        "ITAL 360",
+        "ITAL 230"
+      ],
+      "pick": 1,
+      "source_requirement_id": "req_d11e3f83ea5706ff"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_93a59c864f11a956",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_93a59c864f11a956"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_0cba092a90bbbdfe",
+      "informational": true,
+      "label": "Minor Course6 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_0cba092a90bbbdfe"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_f24191490aeccbb5",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_f24191490aeccbb5"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 1,
+      "id": "req_8572a0bda8a8451e",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8572a0bda8a8451e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_3d6a9e97f771c12e",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_3d6a9e97f771c12e"
+    },
+    {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_764039aa01caaeea",
+      "informational": true,
+      "label": "ITAL Major Course8",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_764039aa01caaeea"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_1767963ac5d25691",
+      "informational": true,
+      "label": "Minor Course6 or Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_1767963ac5d25691"
+    },
+    {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_8885cd80df45078a",
+      "informational": true,
+      "label": "Elective7",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_8885cd80df45078a"
+    }
+  ],
+  "id": "map_5f26376b37e3a07d",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Languages, Literatures, and Cultures",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Arts and Sciences",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Languages, Literatures & Cultures",
+    "faculty_approver": "Paul Malovrh",
+    "minimum_institutional_gpa": 2.0,
+    "minimum_total_hours": 120,
+    "name": "Languages, Literatures, and Cultures"
+  },
+  "plan_format": "four_year",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_90c8200fa2cfb7aa",
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GFL",
+      "category": "carolina_core",
+      "code": "ITAL 121",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_24b91fcd870bba0e",
+      "title": "Elementary Italian3",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "GFL",
+      "category": "carolina_core",
+      "code": "ITAL 122",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_bea456cc37f28019",
+      "title": "Basic Proficiency in Italian3",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "ITAL 221",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_df0dbcb571ddce30",
+      "title": "Inter. Italian I3 (offered fall & summer only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "ITAL 222",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_a8a5c3b364241322",
+      "title": "Inter. Italian II3 (offered spring & summer only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "ITAL 310",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f872bb47e912f938",
+      "title": "Italian Conversation",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "ITAL 311",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0b68bd2d097f75ce",
+      "title": "Writing in Italian",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    }
+  ],
+  "schema_version": 1,
+  "semester_plan": [
+    {
+      "label": "Semester One",
+      "number": 1,
+      "planned_credit_hours": [
+        16,
+        17
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_29a20eab13005398",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_0e20a944b357aeee",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 121"
+          ],
+          "credit_hours": 4,
+          "critical": false,
+          "id": "req_24b91fcd870bba0e",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "ITAL 121 Elementary Italian3 4 CC-GFL",
+          "title": "ITAL 121 Elementary Italian3",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_b8928f45500006bb",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [
+            "UNIV 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6b27c234780125ac",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR",
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "UNIV 101 The Student in the University (elective) 3 PR/CC",
+          "title": "UNIV 101 The Student in the University (elective)",
+          "warnings": [
+            "course_mentioned_as_example_not_required"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Two",
+      "number": 2,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ENGL 102"
+          ],
+          "credit_hours": 3,
+          "critical": true,
+          "id": "req_89e698d5c7b8e693",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+          "title": "ENGL 102 Rhetoric and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a7fc99bed0f12d14",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-ARP"
+          ],
+          "sequence": 2,
+          "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+          "title": "Carolina Core ARP Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 122"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bea456cc37f28019",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "ITAL 122 Basic Proficiency in Italian3 3 CC-GFL",
+          "title": "ITAL 122 Basic Proficiency in Italian3",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_075048a6fc5a2d82",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-AIU"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 3 CC-AIU",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_4cca07f8a1dd0215",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "History5 3 CR",
+          "title": "History5",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Three",
+      "number": 3,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 221"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_df0dbcb571ddce30",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL 221 Inter. Italian I3 (offered fall & summer only) 3 CR ITAL 122 or lang. placement test",
+          "title": "ITAL 221 Inter. Italian I3 (offered fall & summer only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c2cabea8e8b9ec4b",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_dce1ceddc71c41cf",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_6f3af7ce1df92920",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 4,
+          "source_text": "Social Science 3 CR",
+          "title": "Social Science",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c324b72e34a6db15",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 5,
+          "source_text": "Humanities or Fine Arts 3 CR",
+          "title": "Humanities or Fine Arts",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Four",
+      "number": 4,
+      "planned_credit_hours": [
+        15,
+        16
+      ],
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 222"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a8a5c3b364241322",
+          "minimum_grade": null,
+          "relation": "required",
+          "requirement_codes": [
+            "CR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL 222 Inter. Italian II3 (offered spring & summer only) 3 CR ITAL 221 or lang. placement test",
+          "title": "ITAL 222 Inter. Italian II3 (offered spring & summer only)",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ca1823366acfa9a6",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 2,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_a51ea3c620100e94",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 3,
+          "source_text": "Carolina Core Requirement4 3-4 CC",
+          "title": "Carolina Core Requirement4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_09dad0ecc31a7f40",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0936b2a1778137bd",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 or Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Five",
+      "number": 5,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 310"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f872bb47e912f938",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL 310 Italian Conversation 3 C MR C or better in ITAL 222 or ITAL",
+          "title": "ITAL 310 Italian Conversation",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ae6902747f14c50e",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_7499fc201e7971e5",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_a5537ba30d190481",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Carolina Core Requirement4 or Elective7 3 CC/PR",
+          "title": "Carolina Core Requirement4 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_72aa0e15da5fa547",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Six",
+      "number": 6,
+      "planned_credit_hours": 15,
+      "requirements": [
+        {
+          "confidence": "high",
+          "course_codes": [
+            "ITAL 311"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0b68bd2d097f75ce",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL 311 Writing in Italian 3 C MR C or better in ITAL 222 or ITAL",
+          "title": "ITAL 311 Writing in Italian",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3a6747d1b29f2fbb",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_edbee394140ba576",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_fa875d375872d5b0",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Cognate or Minor Course6 3 C PR",
+          "title": "Cognate or Minor Course6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_cf02621c72dad209",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Seven",
+      "number": 7,
+      "planned_credit_hours": 13,
+      "requirements": [
+        {
+          "confidence": "medium",
+          "course_codes": [
+            "ITAL 355",
+            "ITAL 360",
+            "ITAL 230"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_d11e3f83ea5706ff",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL 355 Survey of Italian Literature I (1200-1850) 3 C MR C or better in ITAL 221, ITAL 222 or ITAL 360 Survey of Italian Literature II (19th-21st or ITAL 230",
+          "title": "ITAL 355 Survey of Italian Literature I (1200-1850) or ITAL 360 Survey of Italian Literature II (19th-21st or ITAL 230",
+          "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_93a59c864f11a956",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_0cba092a90bbbdfe",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_f24191490aeccbb5",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective7 3 C PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 1,
+          "critical": false,
+          "id": "req_8572a0bda8a8451e",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 5,
+          "source_text": "Elective7 1 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": 12,
+      "requirements": [
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_3d6a9e97f771c12e",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 1,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_764039aa01caaeea",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 2,
+          "source_text": "ITAL Major Course8 3 C MR",
+          "title": "ITAL Major Course8",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_1767963ac5d25691",
+          "minimum_grade": "C",
+          "relation": "choose_one",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 3,
+          "source_text": "Minor Course6 or Elective7 3 C (minor) PR",
+          "title": "Minor Course6 or Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_8885cd80df45078a",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "PR"
+          ],
+          "sequence": 4,
+          "source_text": "Elective7 3 PR",
+          "title": "Elective7",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "4da3ce4ec36fe759ebcfb461f7e0d82845bd3c4430a393b12a781e86a9935e3f",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_ital_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_ital_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_ital_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": 120,
+  "validation": {
+    "low_confidence_requirement_count": 30,
+    "requirement_count": 39,
+    "requires_review": true,
+    "semester_count": 8
+  },
+  "warnings": [
+    "repository_pdf_major_mismatch"
+  ]
+}

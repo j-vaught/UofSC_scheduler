@@ -1,0 +1,65 @@
+{
+  "catalog_year": "2025-2026",
+  "category_labels": {
+    "carolina_core": "Carolina Core",
+    "college_requirements": "College Requirements",
+    "major_courses": "Major Courses",
+    "other_requirements": "Other Requirements",
+    "program_requirements": "Program Requirements"
+  },
+  "college": "Accelerated Study Plan",
+  "concentrations": {},
+  "confidence": "low",
+  "department": "Political Science",
+  "elective_groups": [],
+  "id": "map_9f00dd5ac7711a20",
+  "import_metadata": {
+    "method": "layout_preserving_pdf_text",
+    "requires_review": true
+  },
+  "major": "Political Science",
+  "parsed_metadata": {
+    "bulletin_year": "2025-2026",
+    "college": "Accelerated Study Plan",
+    "degree": "Bachelor of Arts (B.A.)",
+    "department": "Political Science",
+    "faculty_approver": "",
+    "minimum_institutional_gpa": null,
+    "minimum_total_hours": null,
+    "name": "Political Science"
+  },
+  "plan_format": "accelerated",
+  "program": "Bachelor of Arts (B.A.)",
+  "program_family_id": "program_f7845a4a680fb1b0",
+  "required_courses": [],
+  "schema_version": 1,
+  "semester_plan": [],
+  "source": {
+    "page_count": 2,
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026",
+    "retrieved_at": null,
+    "sha256": "4e2dcdbe6f77c081970d6e4872bdcd987f124f4d395206b83d85bc291c0eda9a",
+    "url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_poli_asp_map.pdf"
+  },
+  "source_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_poli_asp_map.pdf",
+  "sources": {
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_poli_asp_map.pdf",
+    "repository_url": "https://sc.edu/about/offices_and_divisions/advising/advisor_toolbox/majormaps.php?search=2025-2026"
+  },
+  "total_credits_required": null,
+  "validation": {
+    "low_confidence_requirement_count": 0,
+    "requirement_count": 0,
+    "requires_review": true,
+    "semester_count": 0
+  },
+  "warnings": [
+    "pdf_major_name_not_found",
+    "pdf_bulletin_year_not_found",
+    "semester_sequence_is_not_contiguous",
+    "expected_exactly_eight_ordered_semesters",
+    "no_course_rows_extracted",
+    "minimum_total_degree_hours_not_found",
+    "semester_plan_requires_manual_review"
+  ]
+}
