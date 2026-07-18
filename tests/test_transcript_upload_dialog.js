@@ -14,7 +14,7 @@ test('one reusable transcript dialog serves home, profile, and degree plan', () 
     assert.deepEqual(launchers, ['home', 'profile', 'degree']);
     assert.equal((html.match(/id="transcript-upload-dialog"/g) || []).length, 0);
     assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js"/);
-    assert.match(html, /TranscriptUploadDialog\.init\(\)/);
+    assert.match(html, /TranscriptImport\.init\(\)/);
 });
 
 test('dialog provides direct and fallback UofSC transcript guidance', () => {

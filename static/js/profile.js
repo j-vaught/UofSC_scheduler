@@ -7,6 +7,10 @@ const Profile = {
         this.bindPlanMode();
         this.renderCompletedChips();
         this.renderCreditSummary();
+        State.on('transcript-updated', () => {
+            this.renderCompletedChips();
+            this.renderCreditSummary();
+        });
     },
 
     async loadMajorMaps() {
@@ -113,15 +117,7 @@ const Profile = {
                 try {
                     const data = await API.parseTranscriptCSV(ev.target.result);
                     if (data.courses) {
-                        data.courses.forEach(c => {
-                            if (!State.completedCourses.includes(c.code)) {
-                                State.completedCourses.push(c.code);
-                                State.completedDetails.push(c);
-                            }
-                        });
-                        this.renderCompletedChips();
-                        this.renderCreditSummary();
-                        State.emit('profile-updated');
+                        State.addManualCompletedRecords(data.courses);
                     }
                 } catch (err) {
                     console.error('CSV parse error:', err);
@@ -136,15 +132,7 @@ const Profile = {
         try {
             const data = await API.parseTranscript(text);
             if (data.courses) {
-                data.courses.forEach(c => {
-                    if (!State.completedCourses.includes(c.code)) {
-                        State.completedCourses.push(c.code);
-                        State.completedDetails.push(c);
-                    }
-                });
-                this.renderCompletedChips();
-                this.renderCreditSummary();
-                State.emit('profile-updated');
+                State.addManualCompletedRecords(data.courses);
             }
         } catch (e) {
             console.error('Parse error:', e);
@@ -175,11 +163,7 @@ const Profile = {
             remove.textContent = '×';
             chip.appendChild(remove);
             chip.querySelector('.remove').addEventListener('click', () => {
-                State.completedCourses = State.completedCourses.filter(c => c !== course);
-                State.completedDetails = State.completedDetails.filter(c => c.code !== course);
-                this.renderCompletedChips();
-                this.renderCreditSummary();
-                State.emit('profile-updated');
+                State.removeCompletedCourse(course);
             });
             container.appendChild(chip);
         });

@@ -5,6 +5,11 @@ const DegreePlan = {
         this.bindDragDrop();
 
         State.on('profile-updated', () => this.updateSidebar());
+        State.on('transcript-updated', () => {
+            this.buildCompletedSemesters();
+            this.updateSidebar();
+            this.render();
+        });
         State.on('degree-plan-updated', () => {
             this.buildCompletedSemesters();
             this.render();

@@ -415,16 +415,17 @@
             const text = item.text.toLowerCase();
             if (/^subject\b/.test(text)) positions.subject = item.x;
             else if (/^course\b/.test(text)) positions.course = item.x;
+            else if (/^campus\b/.test(text)) positions.campus = item.x;
             else if (/^level\b/.test(text)) positions.level = item.x;
             else if (/^title\b/.test(text)) positions.title = item.x;
             else if (/^grade\b/.test(text)) positions.grade = item.x;
             else if (/^credit(?:\s+hours?)?\b/.test(text)) positions.credit = item.x;
             else if (/^quality(?:\s+points?)?\b/.test(text)) positions.quality = item.x;
+            else if (/^start\b/.test(text)) positions.date_range = item.x;
             else if (/^r$|^repeat/.test(text)) positions.repeat = item.x;
         }
-        const text = line.text.toLowerCase();
         if (!('subject' in positions) || !('course' in positions)) return null;
-        if (!/level/.test(text) || !/title/.test(text)) return null;
+        if (!('title' in positions) || !('grade' in positions) || !('credit' in positions)) return null;
         const order = Object.entries(positions).sort((left, right) => left[1] - right[1]);
         return order.length >= 4 ? Object.fromEntries(order) : null;
     }
@@ -433,17 +434,13 @@
         const ordered = Object.entries(columns).sort((left, right) => left[1] - right[1]);
         const cells = {};
         for (const item of line.items || []) {
-            let selected = ordered[0]?.[0];
+            let selected = null;
             for (let index = 0; index < ordered.length; index += 1) {
                 const [name, start] = ordered[index];
-                const nextStart = ordered[index + 1]?.[1] ?? Number.POSITIVE_INFINITY;
-                const boundary = index === 0 ? Number.NEGATIVE_INFINITY : (ordered[index - 1][1] + start) / 2;
-                const nextBoundary = (start + nextStart) / 2;
-                if (item.x >= boundary && item.x < nextBoundary) {
-                    selected = name;
-                    break;
-                }
+                if (item.x + 2 < start) break;
+                selected = name;
             }
+            if (!selected) selected = ordered[0]?.[0];
             cells[selected] = normalizeWhitespace(`${cells[selected] || ''} ${item.text}`);
         }
         return cells;

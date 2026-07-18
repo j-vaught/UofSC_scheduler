@@ -11,6 +11,8 @@ const State = {
     avoidedInstructors: {},    // {name: weight}
     completedCourses: [],
     completedDetails: [],    // [{code, grade, credits, semester}]
+    manualCompletedDetails: [],
+    transcriptAttempts: [],
     preferredStart: 800,
     preferredEnd: 2100,
     avoidedDays: [],
@@ -142,6 +144,231 @@ const State = {
         };
     },
 
+    _normalizeCourseCode(value) {
+        const match = String(value || '').trim().toUpperCase().match(/^([A-Z]{2,5})\s*([0-9]{3}[A-Z]?)$/);
+        return match ? `${match[1]} ${match[2]}` : '';
+    },
+
+    _safeString(value, maxLength = 240) {
+        if (value === null || value === undefined) return null;
+        const text = String(value).replace(/\s+/g, ' ').trim();
+        return text ? text.slice(0, maxLength) : null;
+    },
+
+    _finiteNumber(value) {
+        if (value === null || value === undefined || value === '') return null;
+        const number = Number(value);
+        return Number.isFinite(number) ? number : null;
+    },
+
+    _normalizeManualDetail(record) {
+        const code = this._normalizeCourseCode(record?.code || record?.course);
+        if (!code) return null;
+        return {
+            code,
+            title: this._safeString(record?.title),
+            grade: this._safeString(record?.grade || record?.normalized_grade, 24),
+            credits: this._finiteNumber(record?.credits ?? record?.credit_hours),
+            semester: this._safeString(record?.semester || record?.term, 80),
+            status: 'completed',
+            counts_as_completed: true,
+            source: 'manual',
+        };
+    },
+
+    _normalizeTranscriptAttempt(record, level = null) {
+        const code = this._normalizeCourseCode(record?.code || record?.course);
+        if (!code) return null;
+        const [subject, courseNumber] = code.split(' ');
+        const normalizedLevel = this._safeString(record?.level || level, 24);
+        const normalized = {
+            attempt_id: this._safeString(record?.attempt_id, 320),
+            code,
+            subject,
+            course_number: courseNumber,
+            title: this._safeString(record?.title),
+            term: this._safeString(record?.term || record?.semester, 80),
+            level: normalizedLevel,
+            raw_grade: this._safeString(record?.raw_grade || record?.grade, 24),
+            normalized_grade: this._safeString(record?.normalized_grade || record?.grade, 24),
+            credit_hours: this._finiteNumber(record?.credit_hours ?? record?.credits),
+            attempted_credits: this._finiteNumber(record?.attempted_credits),
+            earned_credits: this._finiteNumber(record?.earned_credits),
+            quality_points: this._finiteNumber(record?.quality_points),
+            source: this._safeString(record?.source, 32) || 'unknown',
+            transfer_institution: this._safeString(record?.transfer_institution),
+            repeat: {
+                indicator: this._safeString(record?.repeat?.indicator, 12),
+                repeated: Boolean(record?.repeat?.repeated),
+                excluded: Boolean(record?.repeat?.excluded),
+            },
+            status: this._safeString(record?.status, 32) || 'unknown',
+            counts_as_completed: record?.counts_as_completed === true
+                ? true
+                : record?.counts_as_completed === false ? false : null,
+            confidence: {
+                score: this._finiteNumber(record?.confidence?.score),
+                level: this._safeString(record?.confidence?.level, 16),
+            },
+            needs_review: Boolean(record?.needs_review),
+            imported_level: normalizedLevel,
+        };
+        normalized.import_key = this._transcriptAttemptKey(normalized);
+        return normalized;
+    },
+
+    _transcriptAttemptKey(record) {
+        return [
+            record?.level || record?.imported_level || '',
+            record?.source || '',
+            record?.term || '',
+            record?.code || '',
+            record?.attempt_id || '',
+            record?.normalized_grade || record?.raw_grade || '',
+            record?.credit_hours ?? '',
+            record?.quality_points ?? '',
+            record?.repeat?.indicator || '',
+        ].map(value => encodeURIComponent(String(value))).join('|');
+    },
+
+    _legacyManualDetails(completedCourses = [], completedDetails = []) {
+        const byCode = new Map();
+        (completedDetails || []).forEach(record => {
+            const normalized = this._normalizeManualDetail(record);
+            if (normalized) byCode.set(normalized.code, normalized);
+        });
+        (completedCourses || []).forEach(code => {
+            const normalizedCode = this._normalizeCourseCode(code);
+            if (normalizedCode && !byCode.has(normalizedCode)) {
+                byCode.set(normalizedCode, this._normalizeManualDetail({ code: normalizedCode }));
+            }
+        });
+        return [...byCode.values()].filter(Boolean);
+    },
+
+    rebuildCompletedCourseState() {
+        const completedByCode = new Map();
+        this.manualCompletedDetails = (this.manualCompletedDetails || [])
+            .map(record => this._normalizeManualDetail(record))
+            .filter(Boolean);
+        this.transcriptAttempts = (this.transcriptAttempts || [])
+            .map(record => this._normalizeTranscriptAttempt(record, record?.imported_level))
+            .filter(Boolean);
+
+        for (const record of this.manualCompletedDetails) {
+            if (record.counts_as_completed !== true) continue;
+            completedByCode.set(record.code, { ...record });
+        }
+        for (const attempt of this.transcriptAttempts) {
+            if (attempt.counts_as_completed !== true) continue;
+            completedByCode.set(attempt.code, {
+                code: attempt.code,
+                title: attempt.title,
+                grade: attempt.normalized_grade || attempt.raw_grade,
+                credits: attempt.earned_credits ?? attempt.credit_hours,
+                semester: attempt.term,
+                status: attempt.status,
+                counts_as_completed: true,
+                source: attempt.source,
+                transcript_attempt_key: attempt.import_key,
+            });
+        }
+        this.completedCourses = [...completedByCode.keys()].sort();
+        this.completedDetails = [...completedByCode.values()];
+        return this.completedCourses;
+    },
+
+    addManualCompletedRecords(records) {
+        const existing = new Map((this.manualCompletedDetails || [])
+            .map(record => this._normalizeManualDetail(record))
+            .filter(Boolean)
+            .map(record => [record.code, record]));
+        (records || []).forEach(record => {
+            const normalized = this._normalizeManualDetail(record);
+            if (normalized) existing.set(normalized.code, normalized);
+        });
+        this.manualCompletedDetails = [...existing.values()];
+        this.rebuildCompletedCourseState();
+        this.emit('transcript-updated', { source: 'manual' });
+        this.emit('profile-updated');
+    },
+
+    replaceCompletedWithManualRecords(records) {
+        this.transcriptAttempts = [];
+        this.manualCompletedDetails = (records || [])
+            .map(record => this._normalizeManualDetail(record))
+            .filter(Boolean);
+        this.rebuildCompletedCourseState();
+        this.emit('transcript-updated', { source: 'manual', mode: 'replace' });
+        this.emit('profile-updated');
+    },
+
+    removeCompletedCourse(code) {
+        const normalizedCode = this._normalizeCourseCode(code);
+        if (!normalizedCode) return;
+        this.manualCompletedDetails = (this.manualCompletedDetails || [])
+            .filter(record => this._normalizeCourseCode(record.code) !== normalizedCode);
+        this.transcriptAttempts = (this.transcriptAttempts || [])
+            .filter(record => this._normalizeCourseCode(record.code) !== normalizedCode);
+        this.rebuildCompletedCourseState();
+        this.emit('transcript-updated', { source: 'profile', removed: normalizedCode });
+        this.emit('profile-updated');
+    },
+
+    transcriptSnapshot() {
+        return {
+            transcriptAttempts: JSON.parse(JSON.stringify(this.transcriptAttempts || [])),
+            manualCompletedDetails: JSON.parse(JSON.stringify(this.manualCompletedDetails || [])),
+        };
+    },
+
+    restoreTranscriptSnapshot(snapshot) {
+        this.transcriptAttempts = (snapshot?.transcriptAttempts || [])
+            .map(record => this._normalizeTranscriptAttempt(record, record?.imported_level))
+            .filter(Boolean);
+        this.manualCompletedDetails = (snapshot?.manualCompletedDetails || [])
+            .map(record => this._normalizeManualDetail(record))
+            .filter(Boolean);
+        this.rebuildCompletedCourseState();
+        this.emit('transcript-updated', { source: 'undo' });
+        this.emit('profile-updated');
+    },
+
+    applyTranscriptAttempts(records, { mode = 'merge', level = null } = {}) {
+        const snapshot = this.transcriptSnapshot();
+        const incoming = (records || [])
+            .map(record => this._normalizeTranscriptAttempt(record, level))
+            .filter(Boolean);
+        const existing = mode === 'replace' ? [] : this.transcriptAttempts || [];
+        if (mode === 'replace') this.manualCompletedDetails = [];
+        const byKey = new Map(existing.map(record => {
+            const normalized = this._normalizeTranscriptAttempt(record, record?.imported_level);
+            return [normalized.import_key, normalized];
+        }));
+        let added = 0;
+        incoming.forEach(record => {
+            if (!byKey.has(record.import_key)) added += 1;
+            byKey.set(record.import_key, record);
+        });
+        this.transcriptAttempts = [...byKey.values()];
+        this.rebuildCompletedCourseState();
+        this.emit('transcript-updated', {
+            source: 'pdf',
+            mode,
+            level,
+            added,
+            total: this.transcriptAttempts.length,
+        });
+        this.emit('profile-updated');
+        return {
+            snapshot,
+            added,
+            duplicates: incoming.length - added,
+            attempts: this.transcriptAttempts.length,
+            completedCourses: this.completedCourses.length,
+        };
+    },
+
     savePlan() {
         this.savedPlans[this.currentPlan] = {
             term: this.term,
@@ -161,6 +388,8 @@ const State = {
             avoidedDaysRequired: this.avoidedDaysRequired,
             completedCourses: [...this.completedCourses],
             completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
+            manualCompletedDetails: JSON.parse(JSON.stringify(this.manualCompletedDetails)),
+            transcriptAttempts: JSON.parse(JSON.stringify(this.transcriptAttempts)),
             profile: JSON.parse(JSON.stringify(this.profile)),
             degreePlan: JSON.parse(JSON.stringify(this.degreePlan)),
         };
@@ -195,20 +424,28 @@ const State = {
         this.timePreferencesRequired = Boolean(plan.timePreferencesRequired);
         this.walkingBufferRequired = Boolean(plan.walkingBufferRequired);
         this.avoidedDaysRequired = Boolean(plan.avoidedDaysRequired);
-        this.completedCourses = plan.completedCourses || [];
-        this.completedDetails = plan.completedDetails || [];
+        this.transcriptAttempts = (plan.transcriptAttempts || [])
+            .map(record => this._normalizeTranscriptAttempt(record, record?.imported_level))
+            .filter(Boolean);
+        this.manualCompletedDetails = plan.manualCompletedDetails
+            ? plan.manualCompletedDetails.map(record => this._normalizeManualDetail(record)).filter(Boolean)
+            : this._legacyManualDetails(plan.completedCourses, plan.completedDetails);
+        this.rebuildCompletedCourseState();
         if (plan.profile) {
             this.profile = JSON.parse(JSON.stringify(plan.profile));
         }
         if (plan.degreePlan) {
             this.degreePlan = JSON.parse(JSON.stringify(plan.degreePlan));
         }
-        const termSelect = document.getElementById('term-select');
+        const termSelect = typeof document !== 'undefined'
+            ? document.getElementById('term-select')
+            : null;
         if (termSelect) termSelect.value = this.term;
         this.emit('sections-changed', this.selectedSections);
         this.emit('courses-changed', this.selectedCourses);
         this.emit('section-locks-changed', this.sectionLocks);
         this.emit('preferences-changed');
+        this.emit('transcript-updated', { source: 'plan-load' });
         this.emit('profile-updated');
         this.emit('degree-plan-updated');
         return true;
@@ -238,7 +475,7 @@ const State = {
 
     exportToJSON() {
         return JSON.stringify({
-            version: 4,
+            version: 5,
             term: this.term,
             selectedCourses: this.selectedCourses,
             selectedSections: this.selectedSections,
@@ -252,6 +489,8 @@ const State = {
             minimumWalkingBuffer: this.minimumWalkingBuffer,
             completedCourses: this.completedCourses,
             completedDetails: this.completedDetails,
+            manualCompletedDetails: this.manualCompletedDetails,
+            transcriptAttempts: this.transcriptAttempts,
             profile: this.profile,
             degreePlan: this.degreePlan,
         }, null, 2);
@@ -282,14 +521,20 @@ const State = {
             if (data.minimumWalkingBuffer !== undefined) {
                 this.minimumWalkingBuffer = Math.max(1, Number(data.minimumWalkingBuffer) || 1);
             }
-            if (data.completedCourses) this.completedCourses = data.completedCourses;
-            if (data.completedDetails) this.completedDetails = data.completedDetails;
+            this.transcriptAttempts = (data.transcriptAttempts || [])
+                .map(record => this._normalizeTranscriptAttempt(record, record?.imported_level))
+                .filter(Boolean);
+            this.manualCompletedDetails = data.manualCompletedDetails
+                ? data.manualCompletedDetails.map(record => this._normalizeManualDetail(record)).filter(Boolean)
+                : this._legacyManualDetails(data.completedCourses, data.completedDetails);
+            this.rebuildCompletedCourseState();
             if (data.profile) this.profile = data.profile;
             if (data.degreePlan) this.degreePlan = data.degreePlan;
             this.emit('sections-changed', this.selectedSections);
             this.emit('courses-changed', this.selectedCourses);
             this.emit('section-locks-changed', this.sectionLocks);
             this.emit('preferences-changed');
+            this.emit('transcript-updated', { source: 'json-import' });
             this.emit('profile-updated');
             this.emit('degree-plan-updated');
             return true;
@@ -311,3 +556,7 @@ const State = {
 
 // Restore on load
 State._restore();
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = State;
+}

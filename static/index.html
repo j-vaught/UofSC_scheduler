@@ -686,12 +686,13 @@
     <script src="/static/js/profile.js"></script>
     <script src="/static/js/degree-plan.js"></script>
     <script src="/static/js/transcript-upload-dialog.js"></script>
+    <script src="/static/js/transcript-import.js"></script>
     <script src="/static/js/notices.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         SiteNotices.init();
         Tabs.init();
-        TranscriptUploadDialog.init();
+        TranscriptImport.init();
         Profile.init();
         Calendar.init();
         WalkingMap.init();
@@ -778,11 +779,10 @@
                 State.profile.majorData = majorData;
                 State.profile.planMode = 'full_time';
                 State.profile.concentration = 'general';
-                State.completedCourses = [...estimatedCompleted];
-                State.completedDetails = estimatedCompleted.map(code => {
+                State.replaceCompletedWithManualRecords(estimatedCompleted.map(code => {
                     const mc = majorData.required_courses.find(c => c.code === code);
                     return { code, grade: null, credits: mc ? mc.credits : 3, semester: null };
-                });
+                }));
 
                 // Sync profile tab UI
                 document.getElementById('major-select').value = mapId;

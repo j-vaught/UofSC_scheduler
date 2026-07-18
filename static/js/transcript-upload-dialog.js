@@ -19,6 +19,7 @@ const TranscriptUploadDialog = {
     _source: 'unknown',
     _previousFocus: null,
     _requestId: 0,
+    _undoHandler: null,
 
     init(options = {}) {
         if (options.processor) this.setProcessor(options.processor);
@@ -154,6 +155,7 @@ const TranscriptUploadDialog = {
 
                     <footer class="transcript-upload-footer">
                         <button type="button" class="btn-black" data-transcript-close>CANCEL</button>
+                        <button type="button" class="btn-black" id="transcript-undo" hidden>UNDO IMPORT</button>
                         <button type="button" class="btn-black" id="transcript-import-another" hidden>IMPORT ANOTHER LEVEL</button>
                         <button type="button" class="btn-garnet" id="transcript-analyze" disabled>ANALYZE PDF</button>
                         <button type="button" class="btn-garnet" id="transcript-confirm" hidden>CONFIRM IMPORT</button>
@@ -175,6 +177,7 @@ const TranscriptUploadDialog = {
         document.getElementById('transcript-done').addEventListener('click', () => this.close());
         document.getElementById('transcript-analyze').addEventListener('click', () => this.analyze());
         document.getElementById('transcript-confirm').addEventListener('click', () => this.confirm());
+        document.getElementById('transcript-undo').addEventListener('click', () => this.undo());
         document.getElementById('transcript-import-another').addEventListener('click', () => this.importAnotherLevel());
 
         this.fileInput.addEventListener('change', event => this.acceptFile(event.target.files?.[0]));
@@ -241,6 +244,7 @@ const TranscriptUploadDialog = {
         const currentLevel = preserveLevel ? this.level() : 'UG';
         this._file = null;
         this._result = null;
+        this._undoHandler = null;
         if (this.fileInput) this.fileInput.value = '';
         if (this.dialog) {
             this.dialog.querySelectorAll('input[name="transcript-level"]').forEach(input => {
@@ -251,9 +255,15 @@ const TranscriptUploadDialog = {
             });
         }
         this.hideStates();
+        const completeState = document.getElementById('transcript-complete-state');
+        if (completeState) {
+            completeState.querySelector('strong').textContent = 'Transcript added to your profile';
+            document.getElementById('transcript-complete-message').textContent = 'Your confirmed coursework is ready for degree planning.';
+        }
         this.setFileLabel('No PDF selected.');
         this.toggleButton('transcript-analyze', true, { disabled: true });
         this.toggleButton('transcript-confirm', false);
+        this.toggleButton('transcript-undo', false);
         this.toggleButton('transcript-import-another', false);
         this.toggleButton('transcript-done', false);
     },
@@ -395,19 +405,45 @@ const TranscriptUploadDialog = {
         this.toggleButton('transcript-confirm', true, { disabled: true });
 
         try {
+            let applied = null;
             if (this._applyHandler) {
-                await this._applyHandler(detail);
+                applied = await this._applyHandler(detail);
             } else if (eventUnhandled) {
                 throw new Error('Transcript import is not connected yet.');
             }
+            this._undoHandler = typeof applied?.undo === 'function' ? applied.undo : null;
             this.hideStates();
             document.getElementById('transcript-complete-state').hidden = false;
+            if (applied?.message) {
+                document.getElementById('transcript-complete-message').textContent = applied.message;
+            }
             this.toggleButton('transcript-confirm', false);
+            this.toggleButton('transcript-undo', Boolean(this._undoHandler));
             this.toggleButton('transcript-import-another', true);
             this.toggleButton('transcript-done', true);
             this.emit('transcript-import:applied', detail);
+            this._file = null;
+            this._result = null;
+            this.fileInput.value = '';
         } catch (error) {
             this.setError(error?.message || 'The reviewed coursework could not be added.');
+        }
+    },
+
+    async undo() {
+        if (!this._undoHandler) return;
+        const undo = this._undoHandler;
+        this.toggleButton('transcript-undo', true, { disabled: true });
+        try {
+            await undo();
+            this._undoHandler = null;
+            document.getElementById('transcript-complete-state').hidden = false;
+            document.getElementById('transcript-complete-state').querySelector('strong').textContent = 'Transcript import undone';
+            document.getElementById('transcript-complete-message').textContent = 'Your previous coursework has been restored.';
+            this.toggleButton('transcript-undo', false);
+            this.emit('transcript-import:undone', { source: this._source });
+        } catch (error) {
+            this.setError(error?.message || 'The transcript import could not be undone.');
         }
     },
 
@@ -420,24 +456,28 @@ const TranscriptUploadDialog = {
     },
 
     summarizeResult(result) {
-        const courses = Array.isArray(result?.courses)
-            ? result.courses
-            : Array.isArray(result?.records) ? result.records : [];
+        const courses = Array.isArray(result?.attempts)
+            ? result.attempts
+            : Array.isArray(result?.courses)
+                ? result.courses
+                : Array.isArray(result?.records) ? result.records : [];
         const summary = { completed: 0, inProgress: 0, transfer: 0, needsReview: 0, total: courses.length };
         courses.forEach(course => {
             const status = String(course.status || '').toLowerCase().replace(/[_-]/g, ' ');
             const source = String(course.source || '').toLowerCase();
-            if (course.needs_review || (Number.isFinite(course.confidence) && course.confidence < 0.8)) {
-                summary.needsReview += 1;
-            } else if (source === 'transfer' || status === 'transfer') {
+            if (source === 'transfer' || status === 'transfer') {
                 summary.transfer += 1;
+            } else if (course.needs_review || (Number.isFinite(course.confidence) && course.confidence < 0.8)) {
+                summary.needsReview += 1;
             } else if (status === 'in progress' || status === 'current') {
                 summary.inProgress += 1;
-            } else {
+            } else if (course.counts_as_completed === true || status === 'completed') {
                 summary.completed += 1;
+            } else {
+                summary.needsReview += 1;
             }
         });
-        return { ...summary, ...(result?.summary || {}) };
+        return summary;
     },
 
     renderReview(result) {
@@ -447,7 +487,7 @@ const TranscriptUploadDialog = {
             ['Completed', summary.completed, 'completed'],
             ['In progress', summary.inProgress, 'progress'],
             ['Transfer credit', summary.transfer, 'transfer'],
-            ['Needs review', summary.needsReview, 'review'],
+            ['Other / review', summary.needsReview, 'review'],
         ];
         const summaryNode = document.getElementById('transcript-review-summary');
         summaryNode.replaceChildren(...groups.map(([label, count, kind]) => {
@@ -461,9 +501,11 @@ const TranscriptUploadDialog = {
             return card;
         }));
 
-        const courses = Array.isArray(result.courses)
-            ? result.courses
-            : Array.isArray(result.records) ? result.records : [];
+        const courses = Array.isArray(result.attempts)
+            ? result.attempts
+            : Array.isArray(result.courses)
+                ? result.courses
+                : Array.isArray(result.records) ? result.records : [];
         const preview = document.getElementById('transcript-review-preview');
         preview.replaceChildren();
         if (!courses.length) {

@@ -101,6 +101,37 @@ test('missing and unknown grades are never silently treated as passing', () => {
     assert.equal(parser.classifyGrade('ZZ').counts_as_completed, null);
 });
 
+test('positioned Banner columns keep long titles out of grade cells and support transfer headers', () => {
+    const items = [
+        item('Academic Transcript', 20, 780),
+        item('TRANSFER CREDIT', 20, 760),
+        item('Subject', 20, 730),
+        item('Course', 80, 730),
+        item('Title', 190, 730),
+        item('Grade', 450, 730),
+        item('Credit', 510, 730),
+        item('Quality', 590, 730),
+        item('ENGL', 20, 710),
+        item('101', 80, 710),
+        item('Critical', 190, 710),
+        item('Reading', 240, 710),
+        item('and', 290, 710),
+        item('Composition', 320, 710),
+        item('A_TR', 450, 710),
+        item('3.000', 510, 710),
+        item('0.00', 590, 710),
+        item('Transcript Totals', 20, 680),
+        item('Credit Hours', 20, 660),
+    ];
+    const result = parser.parseAdvisingTranscriptItems([{ page: 1, items }], { level: 'UG' });
+
+    assert.equal(result.attempts.length, 1);
+    assert.equal(result.attempts[0].title, 'Critical Reading and Composition');
+    assert.equal(result.attempts[0].normalized_grade, 'A');
+    assert.equal(result.attempts[0].status, 'completed');
+    assert.equal(result.attempts[0].source, 'transfer');
+});
+
 test('unrelated and image-only PDFs fail with structured format errors', () => {
     assert.throws(
         () => parser.parseAdvisingTranscriptItems([{ page: 1, items: [] }]),
