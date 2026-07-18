@@ -286,6 +286,41 @@ def test_major_map_discovery_is_recursive_and_rejects_duplicate_ids(tmp_path: Pa
         load_major_maps(maps_dir)
 
 
+def test_major_map_index_stays_compact_for_hundreds_of_maps(tmp_path: Path) -> None:
+    maps_dir = tmp_path / "maps"
+    maps_dir.mkdir()
+    maps_payload = [
+        {
+            "id": f"map_program_{number:03d}",
+            "major": f"Program {number:03d}",
+            "program": "B.S.",
+            "college": "Example College",
+            "catalog_year": f"{2021 + number % 6}-{2022 + number % 6}",
+            "total_credits_required": 120,
+            "required_courses": [
+                {
+                    "code": f"TEST {course:03d}",
+                    "title": "A deliberately descriptive course title",
+                    "credits": 3,
+                }
+                for course in range(40)
+            ],
+        }
+        for number in range(240)
+    ]
+    (maps_dir / "all-years.json").write_text(
+        json.dumps({"maps": maps_payload}),
+        encoding="utf-8",
+    )
+
+    maps, index, coverage = load_major_maps(maps_dir)
+
+    assert coverage["map_count"] == 240
+    assert len(index["maps"]) == 240
+    assert "required_courses" not in index["maps"][0]
+    assert len(json.dumps(index)) < len(json.dumps(maps)) // 10
+
+
 def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
     analytics_path = tmp_path / "grades.json"
     analytics_path.write_text(json.dumps(sample_analytics()), encoding="utf-8")

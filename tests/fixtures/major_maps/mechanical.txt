@@ -1,0 +1,42 @@
+Major Map: Mechanical Engineering
+Bachelor of Science in Engineering (B.S.E.)
+Molinaroli College of Engineering and Computing
+Department of Mechanical Engineering
+Bulletin Year: 2025-2026
+                 Course Subject and Title        Credit Hours  Min. Grade  GPA   Code
+Semester One (17 Credit Hours)
+ ! MATH 141 Calculus I                            4             C                CC-ARP
+   CHEM 111 General Chemistry I                   3             C                CC-SCI
+   CHEM 111L General Chemistry I Lab              1             C                CC-SCI
+   EMCH 101 Intro. to Mechanical Engineering      3                              PR
+   (or ENCP 101)
+   Elective (UNIV 101 recommended)                3                              PR
+Semester Two (17 Credit Hours)
+   ENGL 102 Rhetoric and Composition              3                              CC-CMW
+ ! MATH 142 Calculus II                           4             C                CC-ARP
+   PHYS 211 Essentials of Physics I               3             C                CC-SCI
+Semester Three (15-18 Credit Hours)
+ ! EMCH 200 Statics (or ENCP 200)                 3             C          *     PR
+   Carolina Core CMS                              0-3                            CC-CMS
+Semester Four (15 Credit Hours)
+ ! EMCH 260 Solid Mechanics                       3                        *     PR
+   Math/Science Elective                          3                              PR
+Semester Five (16 Credit Hours)
+ ! EMCH 310 Dynamics                              3                        *     MR
+   EMCH 368 Mechatronics                          4                        *     MR
+Semester Six (15 Credit Hours)
+ ! EMCH 354 Heat Transfer                         3                        *     MR
+   EMCH 327 Machine Design                        3                        *     MR
+   or EMCH 394 Applied Thermodynamics
+                                                                  or better in EMCH 290
+Semester Seven (15-18 Credit Hours)
+ ! EMCH 427 Design I                              3                        *     MR CC-INT
+   EMCH Elective                                  3                        *     PR
+Semester Eight (15-18 Credit Hours)
+   EMCH 428 Design II                             3                        *     MR
+   Elective                                       3                              PR
+
+Graduation Requirements Summary
+Minimum Total Hours  Minimum Major Requirements Hours  Minimum Institutional GPA
+125                  40                                2.00
+1. Regardless of individual course grades, students must maintain a minimum GPA.
