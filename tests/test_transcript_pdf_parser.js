@@ -132,6 +132,35 @@ test('positioned Banner columns keep long titles out of grade cells and support 
     assert.equal(result.attempts[0].source, 'transfer');
 });
 
+test('Banner transfer term headers preserve their term and institution without review flags', () => {
+    const items = [
+        item('Academic Transcript', 20, 780),
+        item('TRANSFER CREDIT', 20, 760),
+        item('Spring 2023: Midlands Technical College', 20, 740),
+        item('Subject', 20, 720),
+        item('Course', 80, 720),
+        item('Title', 190, 720),
+        item('Grade', 450, 720),
+        item('Credit', 510, 720),
+        item('Quality', 590, 720),
+        item('ENGL', 20, 700),
+        item('101', 80, 700),
+        item('Critical Reading and Composition', 190, 700),
+        item('A_TR', 450, 700),
+        item('3.000', 510, 700),
+        item('0.00', 590, 700),
+        item('Transcript Totals', 20, 680),
+        item('Credit Hours', 20, 660),
+    ];
+    const result = parser.parseAdvisingTranscriptItems([{ page: 1, items }], { level: 'UG' });
+
+    assert.equal(result.attempts.length, 1);
+    assert.equal(result.attempts[0].term, 'Spring 2023');
+    assert.equal(result.attempts[0].transfer_institution, 'Midlands Technical College');
+    assert.equal(result.attempts[0].needs_review, false);
+    assert.equal(result.attempts[0].confidence.level, 'high');
+});
+
 test('unrelated and image-only PDFs fail with structured format errors', () => {
     assert.throws(
         () => parser.parseAdvisingTranscriptItems([{ page: 1, items: [] }]),

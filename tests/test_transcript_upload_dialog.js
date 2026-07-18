@@ -71,6 +71,9 @@ test('review summary separates completed, current, transfer, and uncertain recor
         needsReview: 1,
         total: 4,
     });
+
+    const source = fs.readFileSync('static/js/transcript-upload-dialog.js', 'utf8');
+    assert.match(source, /course record.*course records/);
 });
 
 test('public processor and apply-handler seams are mockable', () => {

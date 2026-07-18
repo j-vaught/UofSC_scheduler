@@ -482,7 +482,7 @@ const TranscriptUploadDialog = {
 
     renderReview(result) {
         const summary = this.summarizeResult(result);
-        document.getElementById('transcript-review-total').textContent = `${summary.total} ${summary.total === 1 ? 'course' : 'courses'} found`;
+        document.getElementById('transcript-review-total').textContent = `${summary.total} ${summary.total === 1 ? 'course record' : 'course records'} found`;
         const groups = [
             ['Completed', summary.completed, 'completed'],
             ['In progress', summary.inProgress, 'progress'],

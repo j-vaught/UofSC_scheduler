@@ -29,6 +29,7 @@
         PH: 'Pharmacy',
     });
     const TERM_RE = /\bTerm\s*:\s*(Spring|Summer|Fall|Winter)\s+(\d{4})\b/i;
+    const TRANSFER_TERM_RE = /^\s*(Spring|Summer|Fall|Winter)\s+(\d{4})\s*:\s*(.+?)\s*$/i;
     const COURSE_ROW_RE = /^([A-Z]{2,5})\s+(\d{3}[A-Z]?)\s+([A-Z]{2,4})\s+(.+)$/;
     const NUMBER_RE = /^-?\d+(?:\.\d+)?$/;
 
@@ -608,7 +609,13 @@
             const transferInstitution = detectTransferInstitution(line.text);
             if (transferInstitution) currentTransferInstitution = transferInstitution;
 
-            const termMatch = /catalog\s+term/i.test(line.text) ? null : line.text.match(TERM_RE);
+            const transferTermMatch = currentSource === 'transfer'
+                ? line.text.match(TRANSFER_TERM_RE)
+                : null;
+            if (transferTermMatch) currentTransferInstitution = normalizeWhitespace(transferTermMatch[3]);
+            const termMatch = /catalog\s+term/i.test(line.text)
+                ? null
+                : transferTermMatch || line.text.match(TERM_RE);
             if (termMatch) {
                 currentTerm = `${termMatch[1][0].toUpperCase()}${termMatch[1].slice(1).toLowerCase()} ${termMatch[2]}`;
                 currentTermRecord = {
