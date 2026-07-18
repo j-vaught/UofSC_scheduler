@@ -257,6 +257,67 @@ test('static API uses browser data and workers when the live overlay is unavaila
     assert.deepEqual(fetchCalls, []);
 });
 
+test('static API loads compact-index major-map descriptors through the data store', async () => {
+    const descriptor = {
+        url: 'releases/test-release/major-maps/test-map.1234.json',
+        bytes: 62,
+        sha256: 'a'.repeat(64),
+    };
+    const loadCalls = [];
+    const dataStore = {
+        async getArtifact(name) {
+            assert.equal(name, 'major-maps/index');
+            return { maps: [{ id: 'test-map', major: 'Test', artifact: descriptor }] };
+        },
+        async getManifest() {
+            return { release_id: 'test-release' };
+        },
+        async _loadArtifact(options) {
+            loadCalls.push(options);
+            return { id: 'test-map', required_courses: [] };
+        },
+    };
+    const { api } = loadApi({
+        CourseSchedulerConfig: { apiMode: 'static' },
+        CourseDataStore: dataStore,
+    });
+
+    assert.equal((await api.getMajorMap('test-map')).id, 'test-map');
+    assert.equal((await api.getMajorMap('test-map')).id, 'test-map');
+    assert.equal(loadCalls.length, 1, 'the verified lazy artifact is reused in memory');
+    assert.equal(loadCalls[0].logicalName, 'major-maps/test-map');
+    assert.equal(loadCalls[0].descriptor, descriptor);
+    assert.equal(loadCalls[0].manifest.release_id, 'test-release');
+    assert.equal(loadCalls[0].memoryKey, 'test-release:major-maps/test-map');
+    assert.equal(loadCalls[0].forceRefresh, false);
+});
+
+test('static API rejects compact-index descriptors it cannot verify', async () => {
+    const dataStore = {
+        async getArtifact() {
+            return {
+                maps: [{
+                    id: 'test-map',
+                    artifact: {
+                        url: 'releases/test-release/major-maps/test-map.json',
+                        bytes: 10,
+                        sha256: 'b'.repeat(64),
+                    },
+                }],
+            };
+        },
+    };
+    const { api } = loadApi({
+        CourseSchedulerConfig: { apiMode: 'static' },
+        CourseDataStore: dataStore,
+    });
+
+    await assert.rejects(
+        () => api.getMajorMap('test-map'),
+        error => error.code === 'MAJOR_MAP_ARTIFACT_UNSUPPORTED',
+    );
+});
+
 test('runtime worker replies are correlated when concurrent responses arrive out of order', async () => {
     const workers = [];
     class FakeWorker {

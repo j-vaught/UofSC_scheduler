@@ -8,6 +8,7 @@ const API = {
     _inflight: new Map(),
     _responseCache: new Map(),
     _responseCacheMaxEntries: 200,
+    _majorMapArtifacts: new Map(),
     _solverWorker: null,
     _solverWorkerSequence: 0,
     _solverWorkerRequests: new Map(),
@@ -632,12 +633,71 @@ const API = {
 
     async getMajorMap(id) {
         if (!this.isStaticMode()) return this.post('/api/major-map', { id });
-        if (!String(id || '').trim()) {
+        const mapId = String(id || '').trim();
+        if (!mapId) {
             const error = new Error('A major-map identifier is required');
             error.code = 'MAJOR_MAP_REQUIRED';
             throw error;
         }
-        return this._getDataStore().getArtifact(`major-maps/${id}`);
+        const store = this._getDataStore();
+        const logicalName = `major-maps/${mapId}`;
+        let indexEntry = null;
+        try {
+            const index = await store.getArtifact('major-maps/index');
+            const maps = Array.isArray(index) ? index : index?.maps || [];
+            indexEntry = maps.find(entry => String(entry?.id || '') === mapId) || null;
+        } catch (error) {
+            // Older releases may expose only logical major-map artifacts.
+        }
+
+        const descriptor = indexEntry?.artifact;
+        if (!descriptor) return store.getArtifact(logicalName);
+        if (typeof descriptor === 'string') return store.getArtifact(descriptor);
+        const descriptorLogicalName = String(
+            descriptor.logical_name || descriptor.logicalName || '',
+        ).trim();
+        if (descriptorLogicalName) return store.getArtifact(descriptorLogicalName);
+
+        if (typeof descriptor !== 'object' || Array.isArray(descriptor)
+            || !String(descriptor.url || '').trim()) {
+            const error = new Error(`Major-map ${mapId} has an invalid artifact descriptor`);
+            error.code = 'MAJOR_MAP_ARTIFACT_INVALID';
+            throw error;
+        }
+        if (typeof store.getArtifactByDescriptor === 'function') {
+            return store.getArtifactByDescriptor(logicalName, descriptor);
+        }
+        if (typeof store._loadArtifact !== 'function' || typeof store.getManifest !== 'function') {
+            const error = new Error('Static data store cannot load indexed major-map artifacts');
+            error.code = 'MAJOR_MAP_ARTIFACT_UNSUPPORTED';
+            throw error;
+        }
+
+        const manifest = await store.getManifest({ forceRefresh: false });
+        const memoryKey = `${manifest.release_id}:${logicalName}`;
+        if (this._majorMapArtifacts.has(memoryKey)) {
+            return this._majorMapArtifacts.get(memoryKey);
+        }
+        const inflightKey = `major-map:${memoryKey}`;
+        if (this._inflight.has(inflightKey)) return this._inflight.get(inflightKey);
+        const request = store._loadArtifact({
+            logicalName,
+            descriptor,
+            manifest,
+            memoryKey,
+            forceRefresh: false,
+        }).then(payload => {
+            this._majorMapArtifacts.set(memoryKey, payload);
+            return payload;
+        });
+        this._inflight.set(inflightKey, request);
+        try {
+            return await request;
+        } finally {
+            if (this._inflight.get(inflightKey) === request) {
+                this._inflight.delete(inflightKey);
+            }
+        }
     },
 
     async getDegreePlan(params) {
