@@ -91,7 +91,7 @@ The live client coalesces duplicate requests, limits concurrency, applies short 
 
 ## Browser Data and Caching
 
-The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, and 6,442 professor aggregates. The immutable release artifacts total about 39 MB, but the browser loads subject and feature shards on demand.
+The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, and 1,295 official major-map documents spanning the 2020-2021 through 2026-2027 catalog years. Major maps are indexed compactly and loaded one at a time, so selecting a catalog year does not download the complete archive.
 
 The service worker caches the application shell and content-hashed artifacts. Cache Storage retains immutable files. IndexedDB stores release metadata and fallback records. Local storage retains user-owned plans, pane sizes, collapsed panels, and preferences. A page refresh revalidates the manifest and current live requests while preserving the selected search, course, section, and detail tab in the URL.
 
@@ -106,6 +106,8 @@ The one-time migration and periodic release flow are shown below. Python remains
 ![One-time browser migration and periodic static-data generation](docs/diagrams/data_generation_workflow.png)
 
 Completed-term section data is pulled once and reused for grade matching, professor summaries, enrollment statistics, capacity, and offering history. Catalog records and embeddings regenerate only when bulletin text or the model changes. Campus aliases, curriculum maps, and notices update independently. Immutable artifacts publish before the small mutable manifest so browsers never activate a partial release.
+
+Major maps are imported offline from the official repository PDFs. The importer preserves PDF provenance and the recommended semester sequence, produces conservative planner-compatible fields, and records ambiguous requirements for review instead of fabricating course choices. The standalone validator checks identifiers, catalog years, credits, semester ordering, source integrity metadata, duplicate records, and course-code coverage against the active catalog. Coverage and source gaps are summarized in `data/major_maps_manifest.json`.
 
 The complete architecture, current file tree, cache policy, deployment dependency, and release cadence are documented in [Browser-First Architecture](docs/ARCHITECTURE.md).
 
@@ -152,6 +154,8 @@ static/
     └── site_notices.json          Static maintenance and action banners.
 
 scripts/                           Offline release and static-site builders.
+data/maps/imported/                Reviewed JSON projections of official major-map PDFs.
+data/major_maps_manifest.json      Archive coverage and validation summary.
 tests/                             Python and JavaScript parity and regression checks.
 dist/client/                       Generated static deployment directory.
 dist/server/index.js               Managed asset server and fixed live-data relay.
