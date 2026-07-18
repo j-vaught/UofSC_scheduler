@@ -31,6 +31,7 @@ const SHELL_ASSETS = [
     '/static/js/degree-plan.js',
     '/static/js/notices.js',
     '/static/js/runtime/transcript-parser.js',
+    '/static/js/transcript-pdf.js',
     '/static/js/runtime/degree-planner.js',
     '/static/js/runtime/offering-analyzer.js',
     '/static/js/workers/transcript-worker.js',

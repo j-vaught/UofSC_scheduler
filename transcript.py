@@ -9,8 +9,8 @@ import re
 import csv
 import io
 
-# Matches 3-4 uppercase/lowercase letters followed by optional space then 3 digits + optional letter
-COURSE_CODE_RE = re.compile(r"([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)")
+# Matches 2-5 letters followed by optional space then 3 digits and an optional suffix.
+COURSE_CODE_RE = re.compile(r"([A-Za-z]{2,5})\s*(\d{3}[A-Za-z]?)")
 
 # Valid grade values (anything that counts as having taken the course)
 PASSING_GRADES = {"A", "A+", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "S", "P", "T"}
@@ -178,16 +178,16 @@ def is_passing(grade, min_grade="C"):
     Default minimum is C (required for most CS/Math courses).
     """
     if not grade:
-        return True  # Assume passing if no grade provided
+        return False
 
     grade = grade.upper().strip()
 
     # Transfer/satisfactory always counts
-    if grade in ("T", "S", "P"):
+    if grade in ("T", "TR", "S", "P"):
         return True
 
     # Failing grades
-    if grade in ("F", "W", "WF", "I", "NR", "U", "NC"):
+    if grade in ("F", "FN", "W", "WP", "WF", "I", "IP", "NR", "U", "NC"):
         return False
 
     grade_order = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-"]
@@ -197,4 +197,4 @@ def is_passing(grade, min_grade="C"):
         min_idx = grade_order.index(min_grade)
         return grade_idx <= min_idx
     except ValueError:
-        return True  # Unknown grade format, assume passing
+        return False

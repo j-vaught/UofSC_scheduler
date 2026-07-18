@@ -562,6 +562,9 @@ const API = {
             if (!runtime) throw new Error('Transcript parser is unavailable');
             if (operation === 'parse-text') return runtime.parseText(payload.text);
             if (operation === 'parse-csv') return runtime.parseCsv(payload.csv);
+            if (operation === 'parse-advising-items') {
+                return runtime.parseAdvisingTranscriptItems(payload.pages, payload.options);
+            }
         }
         if (kind === 'degree') {
             const runtime = globalThis.DegreePlannerRuntime;
@@ -597,6 +600,24 @@ const API = {
         if (!this.isStaticMode()) return this.post('/api/parse-transcript', { csv: csvText });
         const courses = await this._runRuntimeWorker('transcript', 'parse-csv', { csv: csvText });
         return { courses: courses || [] };
+    },
+
+    async parseAdvisingTranscriptItems(pages, options = {}) {
+        return this._runRuntimeWorker('transcript', 'parse-advising-items', { pages, options });
+    },
+
+    async parseTranscriptPDF(file, options = {}) {
+        const reader = globalThis.AdvisingTranscriptPdf;
+        if (!reader?.extractTextItems) {
+            const error = new Error('The PDF transcript reader is unavailable');
+            error.code = 'PDF_READER_UNAVAILABLE';
+            throw error;
+        }
+        const extracted = await reader.extractTextItems(file, options);
+        return this.parseAdvisingTranscriptItems(extracted.pages, {
+            pageCount: extracted.pageCount,
+            level: options.level,
+        });
     },
 
     async getMajorMaps() {

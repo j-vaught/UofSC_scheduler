@@ -10,6 +10,11 @@ self.addEventListener('message', event => {
             result = self.TranscriptParserRuntime.parseText(payload.text);
         } else if (operation === 'parse-csv') {
             result = self.TranscriptParserRuntime.parseCsv(payload.csv);
+        } else if (operation === 'parse-advising-items') {
+            result = self.TranscriptParserRuntime.parseAdvisingTranscriptItems(
+                payload.pages,
+                payload.options,
+            );
         } else if (operation === 'normalize-code') {
             result = self.TranscriptParserRuntime.normalizeCode(payload.code);
         } else if (operation === 'is-passing') {
