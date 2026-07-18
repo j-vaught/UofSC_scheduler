@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import cast
+
 import pandas as pd
 
 import grade_pipeline
@@ -71,7 +73,7 @@ def test_fetch_term_preserves_history_enrollment_fields() -> None:
         def get(self, *_args, **_kwargs) -> Response:
             return Response()
 
-    rows = fetch_term(Session(), "202508")  # type: ignore[arg-type]
+    rows = fetch_term(cast(grade_pipeline.requests.Session, Session()), "202508")
 
     assert rows == [
         {

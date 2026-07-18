@@ -46,7 +46,7 @@ static/
 └── data/
     ├── manifest.json
     ├── releases/
-    │   ├── full-20260717/
+    │   ├── full-20260717-enrollment/
     │   │   ├── catalog/courses/
     │   │   ├── grades/courses/
     │   │   ├── grades/professors/
@@ -109,7 +109,7 @@ A catalog release runs only when bulletin content or the semantic model changes.
 
 Every release validates schemas, coverage, duplicates, impossible values, privacy suppression, byte sizes, and content hashes. Immutable artifacts publish first. `manifest.json` publishes last and activates the new release atomically. A browser can continue using the previous complete release if a new file fails integrity validation.
 
-The active full release contains 555 manifest artifacts totaling 41,193,162 bytes. It covers 168 catalog subjects, 9,732 catalog courses, 26 completed terms from 201705 through 202601, 213 offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, 16 professor-prefix shards, and one major map.
+The active full release contains 510 manifest artifacts totaling 38,803,442 bytes. It covers 168 catalog subjects, 9,732 catalog courses, 26 completed terms from 201705 through 202601, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, 16 professor-prefix shards, and one major map.
 
 Public grade artifacts suppress aggregates below ten counted grades. The current build suppresses 1,085 course-instructor records, 1,327 course aggregates, 3,312 professor-course records, 673 professor-year records, and all matching source identifiers.
 
