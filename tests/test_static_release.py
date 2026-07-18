@@ -218,8 +218,72 @@ def test_catalog_and_major_maps_are_browser_readable(tmp_path: Path) -> None:
     )
     maps, map_index, map_coverage = load_major_maps(maps_dir)
     assert maps["cs_bscs_2026"]["kind"] == "major_map"
+    assert "generated_at" not in maps["cs_bscs_2026"]
     assert map_index["maps"][0]["total_credits"] == 120
-    assert map_coverage == {"map_count": 1, "map_ids": ["cs_bscs_2026"]}
+    assert map_coverage == {
+        "map_count": 1,
+        "catalog_years": ["2026-2027"],
+        "program_count": 1,
+    }
+
+
+def test_major_map_discovery_is_recursive_and_rejects_duplicate_ids(tmp_path: Path) -> None:
+    maps_dir = tmp_path / "maps"
+    first_year = maps_dir / "2025-2026"
+    second_year = maps_dir / "2026-2027"
+    first_year.mkdir(parents=True)
+    second_year.mkdir(parents=True)
+    base = {
+        "major": "Computer Science",
+        "program": "Bachelor of Science in Computer Science",
+        "college": "Engineering and Computing",
+        "total_credits_required": 120,
+        "required_courses": [],
+    }
+    (first_year / "cs.json").write_text(
+        json.dumps({**base, "id": "cs_bscs_2025", "catalog_year": "2025-2026"}),
+        encoding="utf-8",
+    )
+    (second_year / "import.json").write_text(
+        json.dumps(
+            {
+                "maps": [
+                    {
+                        "id": "cs_bscs_2026",
+                        "program": {
+                            "name": "Computer Science",
+                            "degree": "Bachelor of Science in Computer Science",
+                            "college": "Engineering and Computing",
+                            "bulletin_year": "2026-2027",
+                            "minimum_total_hours": 121,
+                        },
+                        "semesters": [],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    maps, index, coverage = load_major_maps(maps_dir)
+
+    assert list(maps) == ["cs_bscs_2025", "cs_bscs_2026"]
+    assert [entry["id"] for entry in index["maps"]] == [
+        "cs_bscs_2025",
+        "cs_bscs_2026",
+    ]
+    assert coverage["catalog_years"] == ["2025-2026", "2026-2027"]
+    assert coverage["program_count"] == 1
+    imported_entry = index["maps"][1]
+    assert imported_entry["program"] == "Bachelor of Science in Computer Science"
+    assert imported_entry["total_credits"] == 121
+
+    (second_year / "duplicate.json").write_text(
+        json.dumps({**base, "id": "cs_bscs_2025", "catalog_year": "2026-2027"}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="Duplicate major map identifier"):
+        load_major_maps(maps_dir)
 
 
 def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
@@ -257,6 +321,22 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
         ),
         encoding="utf-8",
     )
+    maps_dir = tmp_path / "maps" / "2026-2027"
+    maps_dir.mkdir(parents=True)
+    (maps_dir / "cs.json").write_text(
+        json.dumps(
+            {
+                "id": "cs_bscs_2026",
+                "major": "Computer Science",
+                "program": "B.S.C.S.",
+                "college": "Engineering and Computing",
+                "catalog_year": "2026-2027",
+                "total_credits_required": 120,
+                "required_courses": [],
+            }
+        ),
+        encoding="utf-8",
+    )
 
     output = tmp_path / "public-data"
     release_dir, manifest_path, manifest = build_release(
@@ -267,6 +347,7 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
         term_directory=terms,
         generated_at="2026-07-17T12:00:00+00:00",
         scope_kind="representative",
+        maps_dir=tmp_path / "maps",
     )
 
     assert release_dir == output / "releases" / "test-release"
@@ -286,6 +367,7 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
         "grades/courses/CSCE",
         "grades/professors/0",
         "history/CSCE",
+        "major-maps/index",
         "index",
     }
     for artifact in manifest["artifacts"].values():
@@ -298,6 +380,21 @@ def test_release_manifest_schema_hashes_and_paths(tmp_path: Path) -> None:
         assert payload["schema_version"] == manifest["schema_version"]
         assert "courseReferenceNumber" not in content.decode("utf-8")
         assert '"crn"' not in content.decode("utf-8").lower()
+
+    map_index_descriptor = manifest["artifacts"]["major-maps/index"]
+    map_index = json.loads((output / map_index_descriptor["url"]).read_text())
+    lazy_descriptor = map_index["maps"][0]["artifact"]
+    assert "major-maps/cs_bscs_2026" not in manifest["artifacts"]
+    lazy_path = output / lazy_descriptor["url"]
+    lazy_content = lazy_path.read_bytes()
+    assert len(lazy_content) == lazy_descriptor["bytes"]
+    assert hashlib.sha256(lazy_content).hexdigest() == lazy_descriptor["sha256"]
+    assert lazy_descriptor["sha256"][:16] in lazy_path.name
+    assert json.loads(lazy_content)["id"] == "cs_bscs_2026"
+
+    release_index = json.loads((output / manifest["artifacts"]["index"]["url"]).read_text())
+    assert release_index["major_map_count"] == 1
+    assert "major_maps" not in release_index
 
 
 def test_full_release_rejects_a_term_without_enrollment_fields() -> None:

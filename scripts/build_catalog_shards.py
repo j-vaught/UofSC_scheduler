@@ -98,41 +98,79 @@ def load_major_maps(
     timestamp = generated_at or utc_now()
     maps: dict[str, dict[str, Any]] = {}
     entries = []
-    for path in sorted(maps_dir.glob("*.json")):
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        if not isinstance(payload, dict):
+    for path in sorted(maps_dir.rglob("*.json")):
+        document = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(document, dict):
             raise ValueError(f"Major map {path} must contain an object")
-        map_id = str(payload.get("id") or path.stem).strip().lower()
-        if not MAP_ID_RE.fullmatch(map_id):
-            raise ValueError(f"Invalid major map identifier: {map_id!r}")
-        public = {
-            "schema_version": SCHEMA_VERSION,
-            "kind": "major_map",
-            "generated_at": timestamp,
-            **payload,
-            "id": map_id,
-        }
-        assert_privacy_safe(public)
-        maps[map_id] = public
-        entries.append(
-            {
+        bundled = document.get("maps")
+        payloads = bundled if isinstance(bundled, list) else [document]
+        for position, payload in enumerate(payloads):
+            if not isinstance(payload, dict):
+                raise ValueError(f"Major map {path} entry {position} must contain an object")
+            fallback_id = path.stem if len(payloads) == 1 else ""
+            map_id = str(payload.get("id") or fallback_id).strip().lower()
+            if not MAP_ID_RE.fullmatch(map_id):
+                raise ValueError(f"Invalid major map identifier: {map_id!r}")
+            if map_id in maps:
+                raise ValueError(f"Duplicate major map identifier {map_id!r}: {path}")
+            public = {
+                **payload,
+                "schema_version": SCHEMA_VERSION,
+                "kind": "major_map",
                 "id": map_id,
-                "major": str(payload.get("major", "")),
-                "program": str(payload.get("program", "")),
-                "college": str(payload.get("college", "")),
-                "catalog_year": str(payload.get("catalog_year", "")),
-                "total_credits": int(payload.get("total_credits_required", 120)),
             }
-        )
+            assert_privacy_safe(public)
+            maps[map_id] = public
+            program = payload.get("program")
+            program_record = program if isinstance(program, dict) else {}
+            major_name = payload.get("major") or program_record.get("name") or ""
+            degree_name = (
+                program_record.get("degree") if program_record else payload.get("program", "")
+            )
+            catalog_year = payload.get("catalog_year") or program_record.get("bulletin_year") or ""
+            total_credits = (
+                payload.get("total_credits_required")
+                or program_record.get("minimum_total_hours")
+                or 120
+            )
+            entries.append(
+                {
+                    "id": map_id,
+                    "major": str(major_name),
+                    "program": str(degree_name or ""),
+                    "college": str(payload.get("college") or program_record.get("college") or ""),
+                    "catalog_year": str(catalog_year),
+                    "total_credits": int(total_credits),
+                }
+            )
     if not maps:
         raise ValueError(f"No major maps found in {maps_dir}")
+    entries.sort(
+        key=lambda entry: (
+            entry["major"].casefold(),
+            entry["program"].casefold(),
+            entry["catalog_year"],
+            entry["id"],
+        )
+    )
     index = {
         "schema_version": SCHEMA_VERSION,
         "kind": "major_map_index",
         "generated_at": timestamp,
         "maps": entries,
     }
-    coverage = {"map_count": len(entries), "map_ids": sorted(maps)}
+    coverage = {
+        "map_count": len(entries),
+        "catalog_years": sorted(
+            {entry["catalog_year"] for entry in entries if entry["catalog_year"]}
+        ),
+        "program_count": len(
+            {
+                (str(entry["major"]).casefold(), str(entry["program"]).casefold())
+                for entry in entries
+            }
+        ),
+    }
     return maps, index, coverage
 
 

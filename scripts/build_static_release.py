@@ -137,6 +137,7 @@ def build_release(
     staging = Path(tempfile.mkdtemp(prefix=f".{release_id}.tmp-", dir=releases_root))
     destination = releases_root / release_id
     artifacts: dict[str, dict[str, Any]] = {}
+    lazy_major_map_artifacts: dict[str, dict[str, Any]] = {}
     try:
         for subject, payload in course_shards.items():
             name = f"grades/courses/{subject}"
@@ -165,13 +166,21 @@ def build_release(
                 subject_index,
             )
         for map_id, payload in major_maps.items():
-            name = f"major-maps/{map_id}"
-            artifacts[name] = write_immutable_json(
+            lazy_major_map_artifacts[map_id] = write_immutable_json(
                 staging,
                 f"major-maps/major-map-{map_id}.json",
                 payload,
             )
         if major_map_index is not None:
+            index_entries = {entry["id"]: entry for entry in major_map_index["maps"]}
+            for map_id, descriptor in lazy_major_map_artifacts.items():
+                index_entries[map_id]["artifact"] = {
+                    "url": f"releases/{release_id}/{descriptor['path']}",
+                    "bytes": descriptor["bytes"],
+                    "sha256": descriptor["sha256"],
+                    "media_type": descriptor["media_type"],
+                    "schema_version": descriptor["schema_version"],
+                }
             artifacts["major-maps/index"] = write_immutable_json(
                 staging,
                 "major-maps/index.json",
@@ -186,10 +195,10 @@ def build_release(
             "history_subjects": sorted(history_shards),
             "catalog_subjects": sorted(catalog_shards),
             "professor_prefixes": sorted(professor_shards),
-            "major_maps": sorted(major_maps),
+            "major_map_count": len(major_maps),
         }
         artifacts["index"] = write_immutable_json(staging, "index.json", indexes)
-        for artifact in artifacts.values():
+        for artifact in [*artifacts.values(), *lazy_major_map_artifacts.values()]:
             verify_artifact(staging, artifact)
         publish_release_directory(staging, destination)
     except Exception:
