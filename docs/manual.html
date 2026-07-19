@@ -149,7 +149,7 @@ forward from prose.</p>
   <div class="stat"><b>509</b><span>Release artifacts</span></div>
   <div class="stat"><b>39.5 MB</b><span>Verified payload</span></div>
   <div class="stat"><b>1,295</b><span>Major maps</span></div>
-  <div class="stat"><b>83 / 238</b><span>Python / JS tests</span></div>
+  <div class="stat"><b>83 / 230</b><span>Python / JS tests</span></div>
 </div>
 
 <!-- ───────────────────────── OVERVIEW ───────────────────────── -->
@@ -260,7 +260,7 @@ and <code>ty</code>.</p>
 uv run ruff check . --fix
 uv run ty check .
 uv run pytest -q            # 83 passed
-node --test tests/*.js      # 238 pass, 0 fail</code></pre>
+node --test tests/*.js      # 230 pass, 0 fail</code></pre>
 
 <p>The JavaScript suite runs on the Node built-in test runner. There is no external framework and no
 <code>npm install</code> step. <code>tests/conftest.py</code> prepends both the repository root and
@@ -343,19 +343,20 @@ message handler returning <code>{id, result}</code> or <code>{id, error}</code>.
 degree-planning, and offering-analysis use a parallel but separate mechanism keyed by kind, with the same
 fallback-to-core behavior.</p>
 
-<div class="good"><span class="lbl">How the browser runtimes are pinned</span>
+<div class="note"><span class="lbl">What covers the browser runtimes</span>
 <p>The schedule solver, degree planner, transcript parser, and offering analyzer once had Python reference
-implementations that the JavaScript suites executed through <code>importlib</code> and compared against.
-Those modules have been removed and their outputs frozen into
-<code>tests/fixtures/reference_outputs.json</code> and <code>solver_reference.json</code>. The suites still
-assert against every one of those recorded values, so a silent behavior change in
-<code>solver-core.js</code> or any <code>runtime/</code> module still fails the build — the tests simply no
-longer need Python to run.</p>
-<p>The tradeoff is worth stating plainly. A live oracle cross-checks two independent implementations, so an
-<em>intentional</em> algorithm change had to be made twice and the two had to agree. A frozen fixture cannot
-do that; re-recording is a rubber stamp. Both test files keep their recording path behind
-<code>PARITY_RECORD=1</code>, so restoring a reference module and regenerating remains possible if that
-cross-check is ever wanted back.</p></div>
+implementations that the JavaScript suites executed and compared against. Those modules are gone, and so are
+the tests that compared against them — a snapshot of a reference implementation asserts what that
+implementation <em>did</em>, not what is correct, so freezing one only made a second opinion permanent
+without making it authoritative.</p>
+<p>What remains asserts behavior directly. The solver suite covers asynchronous, TBA, credit-limit and
+conflict handling, worst-route ranking, worker request correlation, and the main-thread fallback that must
+never call the server. The runtime suite covers AND/OR requirement groups, termination with a warning when
+prerequisite cycles make progress impossible, preservation of prerequisites outside the requested range, and
+correlated results and structured errors from the three dedicated workers.</p>
+<p>The gap this leaves is real and worth naming: transcript parsing, grade-threshold handling, offering
+pattern analysis, and degree-plan output no longer have automated coverage. Adding tests there means writing
+expected values by hand rather than recording them from a second implementation.</p></div>
 </section>
 
 <!-- ───────────────────────── RELAY ───────────────────────── -->
@@ -805,7 +806,7 @@ release builds are what grow the pack.</p>
 
 <hr>
 <p style="color:var(--muted);font-size:13px">Generated from the verified working tree. Figures — 509
-artifacts, 39,466,931 bytes, 1,295 maps, 83 Python and 238 JavaScript tests — were measured, not carried
+artifacts, 39,466,931 bytes, 1,295 maps, 83 Python and 230 JavaScript tests — were measured, not carried
 forward from prose. Line-specific references should be re-checked after any restructuring.</p>
 </main>
 </div>

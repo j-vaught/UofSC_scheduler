@@ -181,7 +181,7 @@ unverified data.
 ```bash
 uv run ruff format . && uv run ruff check . --fix
 uv run pytest -q          # 83 passed
-node --test tests/*.js    # 238 passed
+node --test tests/*.js    # 230 passed
 ```
 
 The JavaScript suite runs on the Node built-in test runner. There is no external framework and no
