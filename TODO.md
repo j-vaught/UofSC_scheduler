@@ -108,6 +108,28 @@ two behaviours filed here as one, and "indefinitely" is only established for the
 cold path. Whoever picks this up should time the cold case before assuming it
 never completes -- the fix for a ten-second wait is a different fix.
 
+## Custom major maps are shared across device-local accounts
+
+Plans route their storage key through `Keyspace`, so two students on one machine
+keep separate schedules and coursework. Custom major maps do not: they use a bare
+`uosc-custom-major-maps-v1` key, so every account on the device sees and can
+delete the same ones. Surfaced by fencing the feature, which made the storage
+access explicit instead of an ambient `localStorage` call.
+
+Not fixed with the fence, deliberately. Routing the key through `Keyspace` orphans
+every map already saved on a real device -- the data stays in storage under the
+old key and simply stops being found, which looks like deletion to the student.
+It needs a migration that reads the bare key once, writes it into the active
+account, and leaves the original in place until it is known to be safe.
+
+The seam is now local: `readMaps`/`writeMaps` in `static/js/custom-major-map.js`
+are the only two places that touch storage. `tests/test_feature_custom_major_map.js`
+asserts the current device-wide behaviour, so whoever changes it has to update
+that test on purpose rather than discover it.
+
+Worth checking whether anything else writes a bare key. As of this note the only
+`Keyspace` caller in `static/js` is `state.js`.
+
 ## Known noise
 
 - **Transformers.js triggers four `script-src: eval` CSP violations per model load.**
