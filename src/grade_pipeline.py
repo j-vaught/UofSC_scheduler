@@ -23,7 +23,7 @@ from typing import Any
 import pandas as pd
 import requests
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GRADE_DIR = ROOT / "data" / "raw" / "registrar_grades"
 DEFAULT_CACHE = ROOT / "data" / "grade_matching_cache.sqlite"
 DEFAULT_OUTPUT = ROOT / "data" / "generated" / "grade_analytics.json"

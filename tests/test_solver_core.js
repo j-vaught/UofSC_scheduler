@@ -40,6 +40,8 @@ function pythonSolve(fixtures) {
         cwd: process.cwd(),
         encoding: 'utf8',
         input: JSON.stringify(fixtures),
+        // scheduler.py lives in src/, which python -c does not put on sys.path.
+        env: { ...process.env, PYTHONPATH: path.resolve('src') },
     });
     assert.equal(result.status, 0, result.stderr);
     return JSON.parse(result.stdout);

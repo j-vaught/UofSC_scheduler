@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 BULLETIN_API = "https://academicbulletins.sc.edu/course-search/api/?page=fose&route="
 SRCDB = "2026"
-OUTPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "generated", "course_data.json")
+OUTPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "generated", "course_data.json")
 CONCURRENCY = 10
 
 
