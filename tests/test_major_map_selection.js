@@ -3,9 +3,20 @@ const fs = require('node:fs');
 const test = require('node:test');
 const vm = require('node:vm');
 
+/*
+ * Profile's logic lives in the fenced feature now, and profile.js is the
+ * composition point that constructs it. Both have to be present for Profile to
+ * exist at all, so load them together. The dependencies are lazy arrow
+ * functions, so construction needs no State or API in this context -- only the
+ * ones a given test actually exercises.
+ */
 function loadProfile() {
     const context = vm.createContext({ console });
-    const source = `${fs.readFileSync('static/js/profile.js', 'utf8')}\nglobalThis.__Profile = Profile;`;
+    const source = [
+        fs.readFileSync('static/js/features/profile/index.js', 'utf8'),
+        fs.readFileSync('static/js/profile.js', 'utf8'),
+        'globalThis.__Profile = Profile;',
+    ].join('\n');
     vm.runInContext(source, context);
     return context.__Profile;
 }

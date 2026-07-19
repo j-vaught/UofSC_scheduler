@@ -41,7 +41,12 @@ test('Electrical Engineering plans every official required credit', () => {
 });
 
 test('major maps without concentrations expose an explicit unavailable state', () => {
-    const source = fs.readFileSync(path.join(root, 'static/js/profile.js'), 'utf8');
+    // Reads both halves: this assertion is about logic that now lives in the
+    // fenced feature, while profile.js is only the wiring.
+    const source = [
+        fs.readFileSync(path.join(root, 'static/js/features/profile/index.js'), 'utf8'),
+        fs.readFileSync(path.join(root, 'static/js/profile.js'), 'utf8'),
+    ].join('\n');
     assert.match(source, /option\.textContent = 'None available'/);
     assert.match(source, /concSel\.disabled = true/);
 });
