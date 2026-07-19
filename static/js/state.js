@@ -397,6 +397,30 @@ const State = {
         this._persist();
     },
 
+    /*
+     * Persist coursework without touching the rest of the saved plan.
+     *
+     * savePlan() snapshots everything -- schedule, sections, locks, preferences
+     * -- into savedPlans[currentPlan]. Transcript import used to call it, so
+     * importing a transcript overwrote whatever the student had saved under that
+     * name with whatever happened to be loaded. That is silent data loss, and
+     * transcript import is exactly when a student is least likely to notice.
+     *
+     * Coursework is the only thing an import learns, so it is the only thing an
+     * import writes. Anything already stored under the plan name survives.
+     */
+    saveCompletedCoursework() {
+        const existing = this.savedPlans[this.currentPlan] || {};
+        this.savedPlans[this.currentPlan] = {
+            ...existing,
+            completedCourses: [...this.completedCourses],
+            completedDetails: JSON.parse(JSON.stringify(this.completedDetails)),
+            manualCompletedDetails: JSON.parse(JSON.stringify(this.manualCompletedDetails)),
+            transcriptAttempts: JSON.parse(JSON.stringify(this.transcriptAttempts)),
+        };
+        this._persist();
+    },
+
     loadPlan(name) {
         const plan = this.savedPlans[name];
         if (!plan) return false;

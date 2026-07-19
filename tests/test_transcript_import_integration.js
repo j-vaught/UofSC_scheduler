@@ -127,7 +127,10 @@ test('legacy plan and JSON data migrate into explicit completed manual records',
 test('controller connects local PDF parsing, state updates, persistence, refresh, and undo', async () => {
     resetState();
     const calls = { save: 0, profile: 0, degree: 0, progress: [] };
-    State.savePlan = () => { calls.save += 1; };
+    // Import persists coursework only. It must NOT call savePlan, which
+    // snapshots the whole application state over the student's saved schedule.
+    State.saveCompletedCoursework = () => { calls.save += 1; };
+    State.savePlan = () => { calls.overwroteWholePlan = (calls.overwroteWholePlan || 0) + 1; };
     global.State = State;
     global.API = {
         async parseTranscriptPDF(file, options) {
@@ -158,6 +161,7 @@ test('controller connects local PDF parsing, state updates, persistence, refresh
     const applied = await TranscriptImport.apply({ result, mode: 'merge', level: 'UG' });
     assert.equal(State.transcriptAttempts.length, 3);
     assert.equal(calls.save, 1);
+    assert.equal(calls.overwroteWholePlan, undefined, 'import must not overwrite the saved plan');
     assert.equal(calls.profile, 2);
     assert.equal(calls.degree, 3);
     assert.equal(typeof applied.undo, 'function');
