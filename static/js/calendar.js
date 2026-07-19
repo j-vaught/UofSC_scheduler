@@ -180,7 +180,7 @@ const Calendar = {
                 block.style.color = '#ffffff';
                 block.innerHTML = `
                     <span class="block-title">${sec.code}</span>
-                    <span class="block-info">${(sec.instr && sec.instr !== 'Staff' ? sec.instr : 'Undecided')}</span>
+                    <span class="block-info">${((sec.instructor || sec.instr) && (sec.instructor || sec.instr) !== 'Staff' ? (sec.instructor || sec.instr) : 'Undecided')}</span>
                     ${height > 40 ? `<span class="block-info">${sec.meets || ''}</span>` : ''}
                 `;
 
@@ -208,9 +208,9 @@ Calendar.showCourseDetail = function(section) {
     tab.innerHTML = `
         <h3>${section.code} - ${section.title}</h3>
         <p><strong>Section:</strong> ${section.section} (CRN: ${section.crn})</p>
-        <p><strong>Instructor:</strong> ${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</p>
+        <p><strong>Instructor:</strong> ${((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided')}</p>
         <p><strong>Meets:</strong> ${section.meets || 'TBA'}</p>
-        <p><strong>Method:</strong> ${section.inst_mthd || 'N/A'}</p>
+        <p><strong>Method:</strong> ${(section.instructionalMethod || section.inst_mthd) || 'N/A'}</p>
         <p><strong>Status:</strong> ${section.stat === 'A' ? '<span style="color:#2e7d32;font-weight:700">Open</span>' : '<span style="color:#c62828;font-weight:700">Full</span>'}</p>
         <p class="loading">Loading details</p>
     `;
@@ -228,11 +228,11 @@ Calendar.showCourseDetail = function(section) {
         tab.innerHTML = `
             <h3>${section.code} - ${section.title}</h3>
             <p><strong>Section:</strong> ${section.section} (CRN: ${section.crn})</p>
-            <p><strong>Instructor:</strong> ${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</p>
+            <p><strong>Instructor:</strong> ${((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided')}</p>
             <p><strong>Meets:</strong> ${room || section.meets || 'TBA'}</p>
             <p><strong>Credits:</strong> ${data.hours_html || 'N/A'}</p>
             <p><strong>Seats:</strong> <span class="seats-info">${seats} / ${max} available</span></p>
-            <p><strong>Method:</strong> ${data.inst_mthd || section.inst_mthd || 'N/A'}</p>
+            <p><strong>Method:</strong> ${(data.instructionalMethod || data.inst_mthd) || (section.instructionalMethod || section.inst_mthd) || 'N/A'}</p>
             <p><strong>Campus:</strong> ${data.campus || 'N/A'}</p>
             ${desc ? `<p><strong>Description:</strong> ${desc.substring(0, 300)}${desc.length > 300 ? '...' : ''}</p>` : ''}
             ${data.clssnotes ? `<p><strong>Notes:</strong> ${data.clssnotes.replace(/<[^>]+>/g, ' ').trim()}</p>` : ''}

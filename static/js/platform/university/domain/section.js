@@ -31,6 +31,22 @@
         return Number(text);
     }
 
+    /* Upstream sends meetingTimes as a JSON *string*, not an array. Treating a
+     * non-array as empty silently discarded every meeting time, which left the
+     * solver unable to place any section at all. */
+    function normaliseMeetingTimes(value) {
+        if (Array.isArray(value)) return [...value];
+        if (typeof value === 'string' && value.trim()) {
+            try {
+                const parsed = JSON.parse(value);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (error) {
+                return [];
+            }
+        }
+        return [];
+    }
+
     function createSection(fields, provenance) {
         if (!provenance || !Object.values(SOURCES).includes(provenance.source)) {
             throw new TypeError(
@@ -46,7 +62,7 @@
             sectionNumber: String(fields.sectionNumber ?? ''),
             term: String(fields.term ?? ''),
             instructor: fields.instructor ? String(fields.instructor) : '',
-            meetingTimes: Array.isArray(fields.meetingTimes) ? [...fields.meetingTimes] : [],
+            meetingTimes: normaliseMeetingTimes(fields.meetingTimes),
             instructionalMethod: fields.instructionalMethod ? String(fields.instructionalMethod) : '',
             scheduleType: fields.scheduleType ? String(fields.scheduleType) : '',
             cancelled: Boolean(fields.cancelled),
@@ -62,5 +78,5 @@
         return section.availabilityKnown ? section.seatsOpen > 0 : null;
     }
 
-    return { SOURCES, createSection, isOpen, toInteger };
+    return { SOURCES, createSection, isOpen, toInteger, normaliseMeetingTimes };
 }));

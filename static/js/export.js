@@ -156,7 +156,7 @@ const Export = {
                 ics.push(`DTEND;TZID=America/New_York:${dtend}`);
                 ics.push(`RRULE:FREQ=WEEKLY;UNTIL=${until};BYDAY=${days.join(',')}`);
                 ics.push(`SUMMARY:${sec.code} - ${sec.title}`);
-                ics.push(`DESCRIPTION:Section ${sec.section} | ${sec.instr || 'Staff'} | CRN: ${sec.crn}`);
+                ics.push(`DESCRIPTION:Section ${sec.section} | ${(sec.instructor || sec.instr) || 'Staff'} | CRN: ${sec.crn}`);
                 ics.push(`LOCATION:${sec.meets || 'TBA'}`);
                 ics.push(`UID:${sec.crn}-${group.start}-${Date.now()}@uosc-scheduler`);
                 ics.push('END:VEVENT');
