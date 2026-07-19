@@ -13,10 +13,14 @@ import copy
 import hashlib
 import json
 import re
+import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, cast
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 
 GENERIC_LABEL_RE = re.compile(
@@ -412,10 +416,7 @@ def _default_runtime_builder(
     metadata: dict[str, Any], semesters: list[dict[str, Any]]
 ) -> dict[str, Any]:
     # Imported lazily because the importer itself uses this normalization module.
-    try:
-        from scripts.import_major_maps import _runtime_fields
-    except ModuleNotFoundError:
-        from import_major_maps import _runtime_fields
+    from scripts.import_major_maps import _runtime_fields
 
     return _runtime_fields(metadata, semesters)
 

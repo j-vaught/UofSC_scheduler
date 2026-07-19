@@ -286,6 +286,34 @@ def test_major_map_discovery_is_recursive_and_rejects_duplicate_ids(tmp_path: Pa
         load_major_maps(maps_dir)
 
 
+def test_major_map_release_excludes_offline_normalization_audit_data(
+    tmp_path: Path,
+) -> None:
+    maps_dir = tmp_path / "maps"
+    maps_dir.mkdir()
+    (maps_dir / "cs.json").write_text(
+        json.dumps(
+            {
+                "id": "cs_bscs_2026",
+                "major": "Computer Science",
+                "program": "B.S.C.S.",
+                "college": "Engineering and Computing",
+                "catalog_year": "2026-2027",
+                "total_credits_required": 120,
+                "required_courses": [],
+                "normalization": {"findings": [{"code": "title.cleaned"}]},
+                "materialization": {"source_file": "private/source.json"},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    maps, _, _ = load_major_maps(maps_dir)
+
+    assert "normalization" not in maps["cs_bscs_2026"]
+    assert "materialization" not in maps["cs_bscs_2026"]
+
+
 def test_major_map_index_stays_compact_for_hundreds_of_maps(tmp_path: Path) -> None:
     maps_dir = tmp_path / "maps"
     maps_dir.mkdir()

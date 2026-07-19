@@ -19,6 +19,7 @@ from scripts.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_va
 
 COURSE_CODE_RE = re.compile(r"^([A-Z]{2,8})\s+([A-Z0-9]{3,5})$")
 MAP_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
+OFFLINE_AUDIT_FIELDS = {"materialization", "normalization"}
 
 
 def major_map_runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
@@ -195,7 +196,7 @@ def load_major_maps(
             if map_id in maps:
                 raise ValueError(f"Duplicate major map identifier {map_id!r}: {path}")
             public = {
-                **payload,
+                **{key: value for key, value in payload.items() if key not in OFFLINE_AUDIT_FIELDS},
                 "schema_version": SCHEMA_VERSION,
                 "kind": "major_map",
                 "id": map_id,
