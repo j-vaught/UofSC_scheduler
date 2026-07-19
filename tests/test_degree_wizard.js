@@ -9,9 +9,30 @@ const planner = require('../static/js/runtime/degree-planner.js');
 
 const root = path.resolve(__dirname, '..');
 
+
+/*
+ * Composition points construct their feature from `Features.<name>`, so the
+ * feature modules have to be in the context before the file under test runs.
+ * Loading all of them is deliberate: each only registers itself, so this costs
+ * nothing, and the next extraction needs no change here.
+ */
+function featureSources(rootDir) {
+    const dir = path.join(rootDir, 'static/js/features');
+    if (!fs.existsSync(dir)) return '';
+    return fs.readdirSync(dir)
+        .map(name => path.join(dir, name, 'index.js'))
+        .filter(file => fs.existsSync(file))
+        .map(file => fs.readFileSync(file, 'utf8'))
+        .join('\n');
+}
+
 function loadObject(relativePath, name, contextValues = {}) {
     const context = vm.createContext({ ...contextValues });
-    const source = `${fs.readFileSync(path.join(root, relativePath), 'utf8')}\nglobalThis.__result = ${name};`;
+    const source = [
+        featureSources(root),
+        fs.readFileSync(path.join(root, relativePath), 'utf8'),
+        `globalThis.__result = ${name};`,
+    ].join('\n');
     vm.runInContext(source, context);
     return context.__result;
 }

@@ -686,7 +686,32 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > Not fixed with the fence -- routing the key orphans maps already saved, so it
 > needs a migration. Recorded in TODO.md with a test pinning current behaviour.
 >
-> **Still outstanding:** the other five, in the plan's order. Each is the same
+> **`degree-plan` is fenced**, the widest extraction: twenty-four dependencies.
+> The count is honest rather than a sign the fence is wrong -- this tab is where
+> everything else meets.
+>
+> Its edges into Search and Scheduler are the ones that matter for what is left.
+> None is a data dependency; all are "take the student somewhere". As callbacks
+> they cost nothing and they remove inbound edges from the cycle that has to be
+> untangled last, which is why this tab could be fenced before those modules.
+>
+> The extraction also nearly lost a module. `degree-plan.js` held two top-level
+> objects, `DegreePlan` and `ScheduleSidebar`, and a boundary taken to the last
+> `};` swallowed the second into the factory, where it stopped being a global.
+> **The suite caught this**, which is worth recording precisely because so much
+> else in this phase was caught only in a browser. Nine tests failed immediately.
+> `ScheduleSidebar` stays in the composition point until the schedule tab is
+> fenced; moving it now would hide a second extraction inside this one.
+>
+> Two more source-text assertions were found failing open, both slicing with
+> `indexOf` and silently checking an empty string once the code moved. That is
+> four such defects across this phase. They are now anchored, and the remaining
+> ones in the suite should be treated as suspect until checked.
+>
+> The test loaders now load every feature module rather than a named one, so the
+> next extraction needs no changes there.
+>
+> **Still outstanding:** the other four, in the plan's order. Each is the same
 > three-step shape, and the pattern plus test vocabulary is now established
 > across an easy case, a hard one, and a pre-drawn one.
 >
