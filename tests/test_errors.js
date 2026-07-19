@@ -87,17 +87,29 @@ test('an unrecognised code degrades to unknown rather than an empty message', ()
     assert.ok(made_up.message.length > 0);
 });
 
-test('grades.js no longer renders every failure as missing history', () => {
+/*
+ * Spans both halves since the fence: the catch lives in the feature and asks
+ * its caller to phrase the error, and the composition point is what routes
+ * that to the taxonomy. Anchored, because slicing from a literal silently
+ * checks an empty string the moment that literal moves -- which is exactly
+ * what happened to this assertion when the logic was extracted.
+ */
+test('grades no longer renders every failure as missing history', () => {
     const fs = require('node:fs');
     const path = require('node:path');
-    const source = fs.readFileSync(
-        path.join(__dirname, '..', 'static/js/grades.js'), 'utf8',
-    );
-    const catchBlock = source.slice(source.indexOf('_courseLoadId) return;'));
+    const root = path.join(__dirname, '..');
+    const feature = fs.readFileSync(path.join(root, 'static/js/features/grades/index.js'), 'utf8');
+    const composition = fs.readFileSync(path.join(root, 'static/js/grades.js'), 'utf8');
+
+    const at = feature.indexOf('_courseLoadId) return;');
+    assert.notEqual(at, -1, 'the course catch block moved; this test is not reading it');
+
+    const catchBlock = feature.slice(at, at + 400);
     assert.doesNotMatch(
-        catchBlock.slice(0, 400),
+        catchBlock,
         /No Columbia grade history is available for this course/,
         'the catch must not hard-code absence for every failure',
     );
-    assert.match(catchBlock.slice(0, 400), /AppErrors\.toUserMessage/);
+    assert.match(catchBlock, /deps\.toUserMessage/, 'the catch must ask its caller to phrase the error');
+    assert.match(composition, /AppErrors\.toUserMessage/, 'the caller must route that to the taxonomy');
 });

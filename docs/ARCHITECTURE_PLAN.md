@@ -711,7 +711,32 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > The test loaders now load every feature module rather than a named one, so the
 > next extraction needs no changes there.
 >
-> **Still outstanding:** the other four, in the plan's order. Each is the same
+> **`grades` is fenced**, and it mattered for how it was coupled rather than
+> how much. Grade history read four of Search's private fields -- `_detailToken`,
+> `_detailGroup`, `_detailTerm`, `_browseState` -- to answer two questions: what
+> is on screen, and is this async result still about it. Reaching into another
+> module's underscore state is the tightest coupling in the tree, and it pointed
+> straight at the module that gets untangled last.
+>
+> It is one `viewContext()` shape now: `{token, mode, group, term, section,
+> faculty}`. Search can restructure its internals without silently breaking
+> grade history, which matters immediately because Search is next and is the
+> largest module here. The token is the part worth protecting: a student
+> clicking faster than the relay answers has several requests in flight, and
+> each result must be able to ask whether the page still shows what it was
+> fetched for.
+>
+> Five more existence-guarded ternaries came out. Two guarded the
+> instructor-summary calls, so inside a fence the grade table would have fallen
+> back to historical instructors and stopped marking who is teaching now.
+>
+> **Still outstanding:** `schedule`+`export` and `search`+`prereqs`.
+>
+> The last group is a different proposition from everything above: roughly 6,300
+> lines in one irreducible cycle, about 40% of the frontend, and the plan says
+> the facade rule is not optional there. Every extraction so far has been a
+> module with a describable outside; that one has to be cut rather than lifted.
+> It is worth a human look before it lands rather than after. Each is the same
 > three-step shape, and the pattern plus test vocabulary is now established
 > across an easy case, a hard one, and a pre-drawn one.
 >

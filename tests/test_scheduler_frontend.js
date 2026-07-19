@@ -41,6 +41,18 @@ function featureSources() {
         .join('\n');
 }
 
+
+/*
+ * Grade-history logic lives in the fenced feature; grades.js is the wiring.
+ * Assertions about either belong against both.
+ */
+function gradesSource() {
+    return [
+        fs.readFileSync('static/js/features/grades/index.js', 'utf8'),
+        fs.readFileSync('static/js/grades.js', 'utf8'),
+    ].join('\n');
+}
+
 function loadObject(file, name, contextValues) {
     const context = vm.createContext({ ...contextValues });
     const source = `${featureSources()}\n${fs.readFileSync(file, 'utf8')}\nglobalThis.__result = ${name};`;
@@ -3088,7 +3100,7 @@ test('Direct search ignores stale prerequisite completions and errors', () => {
 });
 
 test('Course and professor close controls remain available while scrolling', () => {
-    const source = fs.readFileSync('static/js/grades.js', 'utf8');
+    const source = gradesSource();
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(styles, /\.course-detail-header-sticky\s*{[^}]*position:\s*sticky;/s);
@@ -3101,7 +3113,7 @@ test('Course and professor close controls remain available while scrolling', () 
 
 test('Course detail fills its pane and uses visual section, grade, and history summaries', () => {
     const search = fs.readFileSync('static/js/search.js', 'utf8');
-    const grades = fs.readFileSync('static/js/grades.js', 'utf8');
+    const grades = gradesSource();
     const history = fs.readFileSync('static/js/history.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     const gradeStyles = fs.readFileSync('static/css/grades.css', 'utf8');
@@ -3453,7 +3465,7 @@ test('section professor lookup keeps a supplied stable ID ahead of same-name fal
 });
 
 test('Professor profiles use alphabetical GPA rows and a full-year connected timeline', () => {
-    const source = fs.readFileSync('static/js/grades.js', 'utf8');
+    const source = gradesSource();
     const styles = fs.readFileSync('static/css/grades.css', 'utf8');
     const html = fs.readFileSync('static/index.html', 'utf8');
 
@@ -3485,7 +3497,10 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /AppModal\.update\(markup/);
     assert.match(source, /const professorId = instructor\?\.professorId \|\| instructor\?\.grade\?\.id/);
     assert.match(source, /!this\.professorDetailContextIsCurrent\(detailToken, detailCode\)\) return;/);
-    assert.match(source, /data = await API\.getProfessorGrades\(professorId\)[\s\S]*if \(!data\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
+    // The fetch is a seam now; what this pins is the ordering after it -- a
+    // missing record must fall through to the unmatched-professor view rather
+    // than leaving the modal on its loading state.
+    assert.match(source, /data = await deps\.getProfessorGrades\(professorId\)[\s\S]*if \(!data\)[\s\S]*this\.showUnmatchedProfessor\(context\.displayName \|\| 'Instructor', context\.email \|\| ''\)/);
 });
 
 test('Static catalog fallbacks never claim that an unverified course is not offered', () => {
