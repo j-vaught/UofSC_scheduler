@@ -1,0 +1,975 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_be3ec5c373e82000",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_be3ec5c373e82000.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_psyc-bs_3yrplan.pdf",
+    "sha256": "b86f5aaf71913918b3317037072eebb2a506ca31be700f37d7e0039f2090ef80",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Psychology",
+    "degree_name": "Bachelor of Arts (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Accelerated Study Plan",
+    "department": "Psychology",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Psychology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours                                    PSYC Major Course, 3 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                                    PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                                    PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                                    PSYC Major Course, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "PSYC 101 (or PSYC major course)*, 3 hours                  Cognate or Minor Course, 3 hours",
+            "source_text": "PSYC 101 (or PSYC major course)*, 3 hours                  Cognate or Minor Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC 101 (or PSYC major course)*, 3 hours                  Cognate or Minor Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 101 (or PSYC major course)*, 3 hours                  Cognate or Minor Course, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC-GFL, 3-4 hours                Carolina Core or Approved Elective, 3 hours",
+            "source_text": "Foreign Language or other CC-GFL, 3-4 hours                Carolina Core or Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC-GFL, 3-4 hours                Carolina Core or Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC-GFL, 3-4 hours                Carolina Core or Approved Elective, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "MATH 111 (if needed)* or Carolina Core, 3 hours            STAT 201 Elementary Statistics, 3 hours",
+            "source_text": "MATH 111 (if needed)* or Carolina Core, 3 hours            STAT 201 Elementary Statistics, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 111 (if needed)* or Carolina Core, 3 hours            STAT 201 Elementary Statistics, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 111 (if needed)* or Carolina Core, 3 hours            STAT 201 Elementary Statistics, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core, 3 hours",
+            "source_text": "University 101 or Carolina Core, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "PSYC 120, 1 hour",
+            "source_text": "PSYC 120, 1 hour",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC 120, 1 hour",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 120, 1 hour",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "prerequisite for PSYC 220. If student already has credit   PSYC Major Course, 3 hours",
+            "source_text": "prerequisite for PSYC 220. If student already has credit   PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "prerequisite for PSYC 220. If student already has credit   PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "prerequisite for PSYC 220. If student already has credit   PSYC Major Course, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-8",
+            "sequence": 8,
+            "label": "for PSYC 101 and MATH 111, they should take PSYC 220       Minor or Approved Elective, 3 hours",
+            "source_text": "for PSYC 101 and MATH 111, they should take PSYC 220       Minor or Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "for PSYC 101 and MATH 111, they should take PSYC 220       Minor or Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "for PSYC 101 and MATH 111, they should take PSYC 220       Minor or Approved Elective, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-9",
+            "sequence": 9,
+            "label": "CSCE 102 General Applications Programming, 3 hours",
+            "source_text": "CSCE 102 General Applications Programming, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 102 General Applications Programming, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 General Applications Programming, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-10",
+            "sequence": 10,
+            "label": "Approved Elective, 3 hours",
+            "source_text": "Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-11",
+            "sequence": 11,
+            "label": "Approved Elective, 3 hours",
+            "source_text": "Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "PSYC Major Course, 3 hours",
+            "source_text": "PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC Major Course, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC-GFL, 3 hours",
+            "source_text": "Foreign Language or other CC-GFL, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC-GFL, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC-GFL, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement, 3-4 hours",
+            "source_text": "Carolina Core Requirement, 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement, 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement, 3-4 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "PSYC 220 (or PSYC 221), 3-4 hours",
+            "source_text": "PSYC 220 (or PSYC 221), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC 220 (or PSYC 221), 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 220 (or PSYC 221), 3-4 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "PSYC 221 (Research Methods), 4 hours                       PSYC Major Course, 3 hours",
+            "source_text": "PSYC 221 (Research Methods), 4 hours                       PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC 221 (Research Methods), 4 hours                       PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 221 (Research Methods), 4 hours                       PSYC Major Course, 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement, 3-4 hours                       PSYC Major Course or Approved Elective, 3 hours",
+            "source_text": "Carolina Core Requirement, 3-4 hours                       PSYC Major Course or Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement, 3-4 hours                       PSYC Major Course or Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement, 3-4 hours                       PSYC Major Course or Approved Elective, 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core, 3 hours                 Minor Course or Approved Elective, 3 hours",
+            "source_text": "Foreign Language or Carolina Core, 3 hours                 Minor Course or Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core, 3 hours                 Minor Course or Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core, 3 hours                 Minor Course or Approved Elective, 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core (ARP), 3-4 hours                             Approved Elective, 3 hours",
+            "source_text": "Carolina Core (ARP), 3-4 hours                             Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (ARP), 3-4 hours                             Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (ARP), 3-4 hours                             Approved Elective, 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts, 3 hours                           Approved Elective, 3 hours",
+            "source_text": "Humanities or Fine Arts, 3 hours                           Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts, 3 hours                           Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts, 3 hours                           Approved Elective, 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "PSYC Major Course, 3 hours",
+            "source_text": "PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC Major Course, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 or MATH 170 or MATH 172, 3-4 hours",
+            "source_text": "MATH 142 or MATH 170 or MATH 172, 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 or MATH 170 or MATH 172, 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 or MATH 170 or MATH 172, 3-4 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "(CC-SCI), 4 hours",
+            "source_text": "(CC-SCI), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "(CC-SCI), 4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "(CC-SCI), 4 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course, 3 hours",
+            "source_text": "Cognate or Minor Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "History, 3 hours",
+            "source_text": "History, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Semester",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "PSYC Major Course, 3 hours",
+            "source_text": "PSYC Major Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PSYC Major Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC Major Course, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course, 3 hours",
+            "source_text": "Cognate or Minor Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course, 3 hours",
+            "source_text": "Cognate or Minor Course, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts, 3 hours",
+            "source_text": "Humanities or Fine Arts, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core or Approved Elective, 3 hours",
+            "source_text": "Carolina Core or Approved Elective, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [
+    {
+      "label": "Accelerated Study Plan Agreement",
+      "source_text": "May require Summer and/or Winter Session; must build and abide by 3-year plan for priority registration; remain in good academic standing.",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to accelerate my degree program.",
+          "region": "agreement"
+        }
+      ],
+      "id": "outside-requirement-1",
+      "sequence": 1,
+      "credits": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "critical": false,
+      "requirement_codes": [],
+      "rule": {
+        "type": "unresolved",
+        "text": "May require Summer and/or Winter Session; must build and abide by 3-year plan for priority registration; remain in good academic standing.",
+        "reason": "agreement"
+      },
+      "confidence": 1.0,
+      "review_flags": [],
+      "minimum_grade": null
+    }
+  ],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "generic_rules",
+        "message": "Some elective/group requirements are represented as unresolved choices from source.",
+        "evidence": []
+      }
+    ],
+    "summary": "Accelerated three-year plan extracted from all source pages."
+  }
+}

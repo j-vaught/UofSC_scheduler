@@ -1,0 +1,330 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_c094d321eec9c7af",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_c094d321eec9c7af.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_geog-ba_3yrplan.pdf",
+    "sha256": "41ceb5411e2b6e0e61b7a83a7ce7912b6e4694c910f06e7d1eb8ae6b7736521a",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Geography",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "College of Arts and Sciences",
+    "department": "Geography",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Geography",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester, 15-17 hours",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 17.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Fall Semester, 15-17 hours: ENGL 101 (CMW), 3; Foreign Language/Carolina Core (CC-GFL), 3-4; Carolina Core Requirement, 3; Carolina Core ARP Requirement, 3-4; University 101 or Carolina Core, 3",
+            "source_text": "Fall Semester, 15-17 hours: ENGL 101 (CMW), 3; Foreign Language/Carolina Core (CC-GFL), 3-4; Carolina Core Requirement, 3; Carolina Core ARP Requirement, 3-4; University 101 or Carolina Core, 3",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 17.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Semester, 15-17 hours: ENGL 101 (CMW), 3; Foreign Language/Carolina Core (CC-GFL), 3-4; Carolina Core Requirement, 3; Carolina Core ARP Requirement, 3-4; University 101 or Carolina Core, 3",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Semester, 15-17 hours: ENGL 101 (CMW), 3; Foreign Language/Carolina Core (CC-GFL), 3-4; Carolina Core Requirement, 3; Carolina Core ARP Requirement, 3-4; University 101 or Carolina Core, 3",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester, 15-16 hours",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 16.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Spring Semester, 15-16 hours: ENGL 102, STAT 201, Carolina Core, Foreign Language or Carolina Core, Carolina Core, History",
+            "source_text": "Spring Semester, 15-16 hours: ENGL 102, STAT 201, Carolina Core, Foreign Language or Carolina Core, Carolina Core, History",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 16.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Semester, 15-16 hours: ENGL 102, STAT 201, Carolina Core, Foreign Language or Carolina Core, Carolina Core, History",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Semester, 15-16 hours: ENGL 102, STAT 201, Carolina Core, Foreign Language or Carolina Core, Carolina Core, History",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester, 15-17 hours",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 17.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Summer Semester, 15-17 hours: Choose 1 GEOG 103/104/105/121/201/202/210; Humanities/Fine Arts; Cognate/Minor; Foreign Language; Carolina Core",
+            "source_text": "Summer Semester, 15-17 hours: Choose 1 GEOG 103/104/105/121/201/202/210; Humanities/Fine Arts; Cognate/Minor; Foreign Language; Carolina Core",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 17.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Summer Semester, 15-17 hours: Choose 1 GEOG 103/104/105/121/201/202/210; Humanities/Fine Arts; Cognate/Minor; Foreign Language; Carolina Core",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Summer Semester, 15-17 hours: Choose 1 GEOG 103/104/105/121/201/202/210; Humanities/Fine Arts; Cognate/Minor; Foreign Language; Carolina Core",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester, 15 hours",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Fall Semester, 15 hours: Choose 1 GEOG 341/345/363/551; Humanities/Fine Arts; Cognate/Minor; Social Science; Carolina Core/Approved Elective",
+            "source_text": "Fall Semester, 15 hours: Choose 1 GEOG 341/345/363/551; Humanities/Fine Arts; Cognate/Minor; Social Science; Carolina Core/Approved Elective",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 15.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Semester, 15 hours: Choose 1 GEOG 341/345/363/551; Humanities/Fine Arts; Cognate/Minor; Social Science; Carolina Core/Approved Elective",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Semester, 15 hours: Choose 1 GEOG 341/345/363/551; Humanities/Fine Arts; Cognate/Minor; Social Science; Carolina Core/Approved Elective",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Semester, 15-16 hours",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 16.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Spring Semester, 15-16 hours: GEOG Elective 200+; Humanities/Fine Arts; Approved Elective; Carolina Core/Approved Elective; Cognate/Minor",
+            "source_text": "Spring Semester, 15-16 hours: GEOG Elective 200+; Humanities/Fine Arts; Approved Elective; Carolina Core/Approved Elective; Cognate/Minor",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 16.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Semester, 15-16 hours: GEOG Elective 200+; Humanities/Fine Arts; Approved Elective; Carolina Core/Approved Elective; Cognate/Minor",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Semester, 15-16 hours: GEOG Elective 200+; Humanities/Fine Arts; Approved Elective; Carolina Core/Approved Elective; Cognate/Minor",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Fall Semester, 15-16 hours",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 16.0
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Fall Semester, 15-16 hours: GEOG 495; GEOG Elective 500+; Minor/Approved Elective; Approved Elective; Approved Elective",
+            "source_text": "Fall Semester, 15-16 hours: GEOG 495; GEOG Elective 500+; Minor/Approved Elective; Approved Elective; Approved Elective",
+            "credits": {
+              "minimum": 15.0,
+              "maximum": 16.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Semester, 15-16 hours: GEOG 495; GEOG Elective 500+; Minor/Approved Elective; Approved Elective; Approved Elective",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Semester, 15-16 hours: GEOG 495; GEOG Elective 500+; Minor/Approved Elective; Approved Elective; Approved Elective",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Spring Semester, 12-15 hours",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 12.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Spring Semester, 12-15 hours: GEOG Elective 500+; GEOG Elective 200+; Minor/Approved Elective; Approved Elective; Approved Elective 1 hour",
+            "source_text": "Spring Semester, 12-15 hours: GEOG Elective 500+; GEOG Elective 200+; Minor/Approved Elective; Approved Elective; Approved Elective 1 hour",
+            "credits": {
+              "minimum": 12.0,
+              "maximum": 15.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Semester, 12-15 hours: GEOG Elective 500+; GEOG Elective 200+; Minor/Approved Elective; Approved Elective; Approved Elective 1 hour",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Semester, 12-15 hours: GEOG Elective 500+; GEOG Elective 200+; Minor/Approved Elective; Approved Elective; Approved Elective 1 hour",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "ready",
+    "confidence": 0.95,
+    "issues": [],
+    "summary": "Complete accelerated plan extracted from all PDF pages."
+  }
+}

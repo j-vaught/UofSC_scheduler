@@ -1,0 +1,1386 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_e4f19b30bc173d69",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2026-2027/map_e4f19b30bc173d69.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_classics-latin-pk12_map.pdf",
+    "sha256": "be371fde69a6d8bc3d93ec1108f9605f083192fe8fd3a2b26053cbb728d04fa3",
+    "page_count": 2,
+    "catalog_year": "2026-2027"
+  },
+  "program": {
+    "major": "Languages, Literatures, and Cultures",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Arts and Sciences",
+    "department": "Languages, Literatures & Cultures",
+    "total_credits": {
+      "minimum": 10,
+      "maximum": 10
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Languages, Literatures, and Cultures",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement",
+            "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement 3-4 CC-ARP",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "LATN Language Course3 or other Carolina Core",
+            "source_text": "LATN Language Course3 or other Carolina Core 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "LATN Language Course3 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN Language Course3 or other Carolina Core 3-4 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement",
+            "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement 3-4 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "LATN Language Course3 or other Carolina Core",
+            "source_text": "LATN Language Course3 or other Carolina Core 3-4 CC-GFL LATN 110 or 121 or lang.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "LATN Language Course3 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN Language Course3 or other Carolina Core 3-4 CC-GFL LATN 110 or 121 or lang.",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language Education Course5",
+            "source_text": "Foreign Language Education Course5 2-3 C PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language Education Course5 2-3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language Education Course5 2-3 C PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3-4 CC",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language Education Course5",
+            "source_text": "Foreign Language Education Course5 2-3 C PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language Education Course5 2-3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language Education Course5 2-3 C PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "LATN Language Course3 or Carolina Core",
+            "source_text": "LATN Language Course3 or Carolina Core 3-4 CC/CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "CR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "LATN Language Course3 or Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN Language Course3 or Carolina Core 3-4 CC/CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language Education Course5",
+            "source_text": "Foreign Language Education Course5 2-3 C PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language Education Course5 2-3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language Education Course5 2-3 C PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Foreign Language Education Course5",
+            "source_text": "Foreign Language Education Course5 2-3 C PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language Education Course5 2-3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language Education Course5 2-3 C PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "History6",
+            "source_text": "History6 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History6 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History6 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "LATN course (300-level or above)",
+            "source_text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "LATN course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "GREK course (300-level or above)",
+            "source_text": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "FORL 511 Teaching Foreign Languages in",
+            "source_text": "FORL 511 Teaching Foreign Languages in 3 C PR 210-level of a foreign",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FORL",
+              "number": "511"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FORL 511 Teaching Foreign Languages in 3 C PR 210-level of a foreign",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "FORL 472 Intro. to Technology in Language",
+            "source_text": "FORL 472 Intro. to Technology in Language 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FORL",
+              "number": "472"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FORL 472 Intro. to Technology in Language 3 C PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "FORL 510 Teaching Second Languages to Young",
+            "source_text": "FORL 510 Teaching Second Languages to Young 3 C PR 210-level of a foreign",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FORL",
+              "number": "510"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FORL 510 Teaching Second Languages to Young 3 C PR 210-level of a foreign",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "FORL 448 Teaching Internship in Foreign Languages8",
+            "source_text": "FORL 448 Teaching Internship in Foreign Languages8 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FORL",
+              "number": "448"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FORL 448 Teaching Internship in Foreign Languages8 3 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "GREK course (300-level or above)",
+            "source_text": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GREK course (300-level or above) 3 C MR See Bulletin listing",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "CLAS 586 Classical Mythology",
+            "source_text": "CLAS 586 Classical Mythology 3 C MR/CC-",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CLAS",
+              "number": "586"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CLAS 586 Classical Mythology 3 C MR/CC-",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Elective7",
+            "source_text": "Elective7 2 PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective7 2 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "FORL 474 Directed Teaching in Foreign Languages9",
+            "source_text": "FORL 474 Directed Teaching in Foreign Languages9 15 C MR",
+            "credits": {
+              "minimum": 15,
+              "maximum": 15
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FORL",
+              "number": "474"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FORL 474 Directed Teaching in Foreign Languages9 15 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students in the Latin with Teaching Certification program must demonstrate proficiency in the Greek language equivalent to the 122 course through course credit or the corresponding foreign language placement score. Students who place into LATN 109 may be required to complete a summer course or additional hours in a later semester in order to graduate in four years.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students in the Latin with Teaching Certification program must demonstrate proficiency in the Greek language equivalent to the 122 course through course credit or the corresponding foreign language placement score. Students who place into LATN 109 may be required to complete a summer course or additional hours in a later semester in order to graduate in four years.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Classics-Latin PK-12 program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Classics-Latin PK-12 program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Foreign Language Education Minor Courses (11 hours): EDPY 401; EDTE 201; EDEX 491; EDRD 500. *Students may substitute EDEX 523 Introduction to Exceptional Children, if needed due to scheduling conflicts with EDEX 491.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Foreign Language Education Minor Courses (11 hours): EDPY 401; EDTE 201; EDEX 491; EDRD 500. *Students may substitute EDEX 523 Introduction to Exceptional Children, if needed due to scheduling conflicts with EDEX 491.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the McCausland College of Arts and Sciences. The McCausland College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the McCausland College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the McCausland College of Arts and Sciences. The McCausland College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the McCausland College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Internship A, Observation, involves the application of effective teaching techniques and organization of instructional settings in foreign languages for pre-K-12. The application to the Professional Program and Internship Application must be submitted to the College of Education by March 15 if Internship A will take place in the fall semester and by December 1 if internship A will take place in the spring semester. The application for certification must be submitted by April 15.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Internship A, Observation, involves the application of effective teaching techniques and organization of instructional settings in foreign languages for pre-K-12. The application to the Professional Program and Internship Application must be submitted to the College of Education by March 15 if Internship A will take place in the fall semester and by December 1 if internship A will take place in the spring semester. The application for certification must be submitted by April 15.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. In Internship B, Student Teaching, students will apply methods of curriculum and assessment, professionalism, effective teaching, and organization of instructional settings in a foreign language classroom. Prior to starting Internship B, students must take a double-rated Oral Proficiency Interview and score advanced low (as required by NCATE). During Internship B, students must take the Praxis II Exam.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. In Internship B, Student Teaching, students will apply methods of curriculum and assessment, professionalism, effective teaching, and organization of instructional settings in a foreign language classroom. Prior to starting Internship B, students must take a double-rated Oral Proficiency Interview and score advanced low (as required by NCATE). During Internship B, students must take the Praxis II Exam.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. Hours in the major map exceed minimum requirements in an effort to include all requirements, even those that may be exempted through the foreign language placement test.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. Hours in the major map exceed minimum requirements in an effort to include all requirements, even those that may be exempted through the foreign language placement test.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "source_import_warning",
+        "message": "The deterministic source import reported warnings requiring review.",
+        "evidence": [
+          {
+            "page": 1,
+            "quote": "Languages, Literatures, and Cultures",
+            "region": "header"
+          }
+        ]
+      }
+    ],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

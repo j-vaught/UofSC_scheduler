@@ -1,0 +1,778 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_39a753bb5b6eadcd",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2021-2022/map_39a753bb5b6eadcd.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_chem_asp.pdf",
+    "sha256": "6d879d81fc386462e7380f820fce327e4076ba2c63e5a29ed824152dda01aa71",
+    "page_count": 2,
+    "catalog_year": "2021-2022"
+  },
+  "program": {
+    "major": "Chemistry",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "College of Arts and Sciences",
+    "department": "",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Chemistry",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours                            Carolina Core (CC)",
+            "source_text": "ENGL 101 (CMW), 3 hours                            Carolina Core (CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                            Carolina Core (CC)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                            Carolina Core (CC), 3 hours",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 (ARP), 4 hours                            Elective/Cognate/Minor",
+            "source_text": "MATH 141 (ARP), 4 hours                            Elective/Cognate/Minor, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (ARP), 4 hours                            Elective/Cognate/Minor",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 (ARP), 4 hours                            Elective/Cognate/Minor, 3 hours",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 141(Pre-Major), 4 hours                       Elective/Cognate/Minor",
+            "source_text": "CHEM 141(Pre-Major), 4 hours                       Elective/Cognate/Minor, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 141(Pre-Major), 4 hours                       Elective/Cognate/Minor",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 141(Pre-Major), 4 hours                       Elective/Cognate/Minor, 3 hours",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or Carolina Core",
+            "source_text": "Foreign Language or Carolina Core, 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core, 3-4 hours",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC)",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours                       Social Science (College Requirement)",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                       Social Science (College Requirement), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                       Social Science (College Requirement)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                       Social Science (College Requirement), 3 hours",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 142, 4 hours                                  CSCE 206 or CSCE 145 (CR)",
+            "source_text": "CHEM 142, 4 hours                                  CSCE 206 or CSCE 145 (CR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 142, 4 hours                                  CSCE 206 or CSCE 145 (CR)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 142, 4 hours                                  CSCE 206 or CSCE 145 (CR), 3-4 hours",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "MATH 142 (ARP), 4 hours                            Elective/Cognate/Minor",
+            "source_text": "MATH 142 (ARP), 4 hours                            Elective/Cognate/Minor, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 (ARP), 4 hours                            Elective/Cognate/Minor",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 (ARP), 4 hours                            Elective/Cognate/Minor, 3 hours",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 211/211L (SCI), 4 hours                       CHEM 496-499 (Major, optional)",
+            "source_text": "PHYS 211/211L (SCI), 4 hours                       CHEM 496-499 (Major, optional), 0-3 hours",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 211/211L (SCI), 4 hours                       CHEM 496-499 (Major, optional)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 211/211L (SCI), 4 hours                       CHEM 496-499 (Major, optional), 0-3 hours",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or Carolina Core",
+            "source_text": "Foreign Language or Carolina Core, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core, 3 hours",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Year 2 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 333/333L (Major), 5 hours                     Carolina Core or Approved Elective (CC/PR)",
+            "source_text": "CHEM 333/333L (Major), 5 hours                     Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 333/333L (Major), 5 hours                     Carolina Core or Approved Elective (CC/PR)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333/333L (Major), 5 hours                     Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "MATH 241 (PR), 4 hours                             Carolina Core or Approved Elective (CC/PR)",
+            "source_text": "MATH 241 (PR), 4 hours                             Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 241 (PR), 4 hours                             Carolina Core or Approved Elective (CC/PR)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 241 (PR), 4 hours                             Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 212/212L (SCI), 4 hours                       Elective/Cognate/Minor",
+            "source_text": "PHYS 212/212L (SCI), 4 hours                       Elective/Cognate/Minor, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 212/212L (SCI), 4 hours                       Elective/Cognate/Minor",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 212/212L (SCI), 4 hours                       Elective/Cognate/Minor, 3 hours",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Elective/Cognate/Minor",
+            "source_text": "Elective/Cognate/Minor, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Elective/Cognate/Minor",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective/Cognate/Minor, 3 hours",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Social Science",
+            "source_text": "Social Science, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science, 3 hours",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 334/334L (Major)",
+            "source_text": "CHEM 334/334L (Major), 5 hours",
+            "credits": {
+              "minimum": 5,
+              "maximum": 5
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 334/334L (Major)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 334/334L (Major), 5 hours",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 322/322L (Major)",
+            "source_text": "CHEM 322/322L (Major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 322/322L (Major)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 322/322L (Major), 4 hours",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core (CC)",
+            "source_text": "Carolina Core (CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (CC)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (CC), 3 hours",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "STAT 509 or STAT 515 (CR, if needed)",
+            "source_text": "STAT 509 or STAT 515 (CR, if needed), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 509 or STAT 515 (CR, if needed)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 509 or STAT 515 (CR, if needed), 3 hours",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "HIST (CR)",
+            "source_text": "HIST (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (CR)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (CR), 3 hours",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Year 2 Spring",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "CHEM Elective (Major)",
+            "source_text": "CHEM Elective (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM Elective (Major)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM Elective (Major), 3 hours",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core (GSS)",
+            "source_text": "Carolina Core (GSS), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (GSS)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (GSS), 3 hours",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core (CR/CC)",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 541/541L or CHEM 542/542L (Major)",
+            "source_text": "CHEM 541/541L or CHEM 542/542L (Major), 5",
+            "credits": {
+              "minimum": 5,
+              "maximum": 5
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 541/541L or CHEM 542/542L (Major)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 541/541L or CHEM 542/542L (Major), 5",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 401 (Major)",
+            "source_text": "CHEM 401 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 401 (Major)",
+              "reason": "The source row is a course or elective requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 401 (Major), 3 hours",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.85,
+    "issues": [],
+    "summary": "Accelerated semester plan transcribed from source PDF."
+  }
+}

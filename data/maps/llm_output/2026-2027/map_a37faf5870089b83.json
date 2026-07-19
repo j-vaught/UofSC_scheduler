@@ -1,0 +1,1446 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_a37faf5870089b83",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2026-2027/map_a37faf5870089b83.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_neuro-bs_map.pdf",
+    "sha256": "439c901f048eb4347cae061c1923e4078a34d21823d79af859b3c757d17024c8",
+    "page_count": 2,
+    "catalog_year": "2026-2027"
+  },
+  "program": {
+    "major": "Neuroscience",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Neuroscience",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. or MATH 141 Calculus 13 better in MATH 112/115/116 (MATH 141); or placement",
+            "source_text": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); C or or MATH 141 Calculus 13 better in MATH 112/115/116 (MATH 141); or placement",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); C or or MATH 141 Calculus 13 better in MATH 112/115/116 (MATH 141); or placement",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 122 Calc. for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); C or or MATH 141 Calculus 13 better in MATH 112/115/116 (MATH 141); or placement",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 101 & Lab – Biological Principles 101",
+            "source_text": "BIOL 101 & Lab – Biological Principles 101 4 C CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101 & Lab – Biological Principles 101 4 C CC-SCI",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 111 & Lab – General Chemistry I4",
+            "source_text": "CHEM 111 & Lab – General Chemistry I4 4 C PR C or higher in MATH 111 or higher (or by placement into",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & Lab – General Chemistry I4 4 C PR C or higher in MATH 111 or higher (or by placement into",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "PSYC 101 Intro. to Psychology",
+            "source_text": "PSYC 101 Intro. to Psychology 3 C CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PSYC",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 101 Intro. to Psychology 3 C CC-GSS",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II or MATH 170 Finite Mathematics or MATH 172 Math. Modeling for the Life Sci. or MATH 174 Discrete Math. for Computer Science",
+            "source_text": "MATH 142 Calculus II 3-4 CC-ARP See Bulletin Listing. or MATH 170 Finite Mathematics or MATH 172 Math. Modeling for the Life Sci. or MATH 174 Discrete Math. for Computer Science",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 Calculus II 3-4 CC-ARP See Bulletin Listing. or MATH 170 Finite Mathematics or MATH 172 Math. Modeling for the Life Sci. or MATH 174 Discrete Math. for Computer Science",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 Calculus II 3-4 CC-ARP See Bulletin Listing. or MATH 170 Finite Mathematics or MATH 172 Math. Modeling for the Life Sci. or MATH 174 Discrete Math. for Computer Science",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 102 & Lab – Biological Principles II",
+            "source_text": "BIOL 102 & Lab – Biological Principles II 4 C CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 & Lab – Biological Principles II 4 C CC-SCI",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 112 & Lab – General Chemistry II4",
+            "source_text": "CHEM 112 & Lab – General Chemistry II4 4 C PR C or higher in MATH 111 or higher MATH (or by",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & Lab – General Chemistry II4 4 C PR C or higher in MATH 111 or higher MATH (or by",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core Req.6",
+            "source_text": "Foreign language5 or other Carolina Core Req.6 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Req.6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Req.6 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "NSCI 300 Introduction to Neuroscience",
+            "source_text": "NSCI 300 Introduction to Neuroscience 3 C MR C or better in PSYC 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "NSCI",
+              "number": "300"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "NSCI 300 Introduction to Neuroscience 3 C MR C or better in PSYC 101",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 333 & 331 Lab – Organic Chemistry I4",
+            "source_text": "CHEM 333 & 331 Lab – Organic Chemistry I4 4 C PR C or higher in CHEM 112 or in CHEM 142; C or better in",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333 & 331 Lab – Organic Chemistry I4 4 C PR C or higher in CHEM 112 or in CHEM 142; C or better in",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Social Science (SOCY 101 Introductory Sociology",
+            "source_text": "Social Science (SOCY 101 Introductory Sociology 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "SOCY",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (SOCY 101 Introductory Sociology 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core VSR Requirement6 (PHIL 321",
+            "source_text": "Carolina Core VSR Requirement6 (PHIL 321 3 CC-VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-VSR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHIL",
+              "number": "321"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core VSR Requirement6 (PHIL 321 3 CC-VSR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or Carolina Core Req.6",
+            "source_text": "Foreign language5 or Carolina Core Req.6 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language5 or Carolina Core Req.6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or Carolina Core Req.6 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 302 & Lab – Cell & Molecular Biology4",
+            "source_text": "BIOL 302 & Lab – Cell & Molecular Biology4 4 C PR C or better in BIOL 101, & BIOL 102 or MSCI 311 & in",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "302"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 302 & Lab – Cell & Molecular Biology4 4 C PR C or better in BIOL 101, & BIOL 102 or MSCI 311 & in",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "PSYC 405 Cognitive Psychology4",
+            "source_text": "PSYC 405 Cognitive Psychology4 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PSYC",
+              "number": "405"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 405 Cognitive Psychology4 3 C PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "STAT 205 Elem. Stat. for the Biol. & Life Sci. or STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7",
+            "source_text": "STAT 205 Elem. Stat. for the Biol. & Life Sci. 3 CR See Bulletin Listing. or STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 205 Elem. Stat. for the Biol. & Life Sci. 3 CR See Bulletin Listing. or STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 205 Elem. Stat. for the Biol. & Life Sci. 3 CR See Bulletin Listing. or STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "History8",
+            "source_text": "History8 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History8 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History8 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core Req.6",
+            "source_text": "Foreign language5 or other Carolina Core Req.6 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Req.6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Req.6 3 CC-GFL",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 405 Cellular and Molecular Neurobiology",
+            "source_text": "BIOL 405 Cellular and Molecular Neurobiology 3 C MR BIOL 302",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "405"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 405 Cellular and Molecular Neurobiology 3 C MR BIOL 302",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "PSYC 507 Cognitive Neuroscience",
+            "source_text": "PSYC 507 Cognitive Neuroscience 3 C MR C or better in PSYC 405",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PSYC",
+              "number": "507"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 507 Cognitive Neuroscience 3 C MR C or better in PSYC 405",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 102 Web Design & Development using AI",
+            "source_text": "CSCE 102 Web Design & Development using AI 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CSCE",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 Web Design & Development using AI 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Concentration Course9",
+            "source_text": "Concentration Course9 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Concentration Course9 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Concentration Course9 3-4 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Req.6 or Elective10",
+            "source_text": "Carolina Core Req.6 or Elective10 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Req.6 or Elective10"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Req.6 or Elective10 3 CC/PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Neuroscience Research11",
+            "source_text": "Neuroscience Research11 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Neuroscience Research11 3 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Neuroscience Research11 3 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Concentration Course9",
+            "source_text": "Concentration Course9 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Concentration Course9 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Concentration Course9 3-4 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Neuroscience Major Elective12",
+            "source_text": "Neuroscience Major Elective12 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Neuroscience Major Elective12",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Neuroscience Major Elective12 3-4 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts (CLAS 230 Medical & Sci.",
+            "source_text": "Humanities or Fine Arts (CLAS 230 Medical & Sci. 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CLAS 230 Medical & Sci. 3 CR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CLAS 230 Medical & Sci. 3 CR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Concentration Course9",
+            "source_text": "Concentration Course9 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Concentration Course9 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Concentration Course9 3-4 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Neuroscience Major Elective12",
+            "source_text": "Neuroscience Major Elective12 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Neuroscience Major Elective12",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Neuroscience Major Elective12 3-4 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Req.6 or Elective10",
+            "source_text": "Carolina Core Req.6 or Elective10 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Req.6 or Elective10"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Req.6 or Elective10 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Req.6 or Elective10 (CHEM 334 &",
+            "source_text": "Carolina Core Req.6 or Elective10 (CHEM 334 & 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Req.6 or Elective10 (CHEM 334 & 3 CC/PR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Req.6 or Elective10 (CHEM 334 & 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Concentration Course9 (only if needed)",
+            "source_text": "Concentration Course9 (only if needed) 0-3 C MR",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Concentration Course9 (only if needed) 0-3 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Concentration Course9 (only if needed) 0-3 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Neuroscience Major Elective12",
+            "source_text": "Neuroscience Major Elective12 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Neuroscience Major Elective12",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Neuroscience Major Elective12 3-4 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Neuroscience Major Elective12",
+            "source_text": "Neuroscience Major Elective12 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Neuroscience Major Elective12",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Neuroscience Major Elective12 3-4 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Elective10 (PHYS 201 & Lab recommended for Pre-",
+            "source_text": "Elective10 (PHYS 201 & Lab recommended for Pre- 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective10 (PHYS 201 & Lab recommended for Pre- 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Elective10 (PHYS 202 & Lab recommended for Pre-",
+            "source_text": "Elective10 (PHYS 202 & Lab recommended for Pre- 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "202"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective10 (PHYS 202 & Lab recommended for Pre- 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must achieve a minimum 2.25 cumulative GPA for Upper Division status. Students must maintain a minimum 2.00 cumulative GPA for graduation.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must achieve a minimum 2.25 cumulative GPA for Upper Division status. Students must maintain a minimum 2.00 cumulative GPA for graduation.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students not placing into MATH 122 or 141 are required to successfully complete the corresponding prerequisites before taking MATH 122 or 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students not placing into MATH 122 or 141 are required to successfully complete the corresponding prerequisites before taking MATH 122 or 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Supporting courses are prerequisites for Major Requirements. Eight hours may be used to fulfill requirements for a minor, cognate, or second major.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Supporting courses are prerequisites for Major Requirements. Eight hours may be used to fulfill requirements for a minor, cognate, or second major.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the McCausland College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the McCausland College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Students intending to take any other 500-level STAT courses should take STAT 515. Students who have previously completed PSYC 220 or PSYC 227 and STAT 201 with a grade of C or better before declaring the Neuroscience major may use STAT 201 to fulfill this requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Students intending to take any other 500-level STAT courses should take STAT 515. Students who have previously completed PSYC 220 or PSYC 227 and STAT 201 with a grade of C or better before declaring the Neuroscience major may use STAT 201 to fulfill this requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. Students must choose one of the following three concentrations. Concentrations consist of a minimum of 12 hours of core courses in a targeted area of study. Core courses should be selected in conjunction with the neuroscience advisor to target each student’s interests and career goals. a. Cellular and Molecular Neuroscience i. Choose 12 hours from the following: BIOL 303, 530, 541*, 541L, 553, 612, 614, 620, 634, 635, 665, 667; BMEN 321; ELCT 391. b. Cognitive and Behavioral Neuroscience (12 hours) Choose 3 hours from List A and 3 hours from List B, with additional courses selected from either list to meet the minimum of 12 hours. i. List A (minimum 3 hours): BIOL 460, 534, 543; EXSC 351, 562, 610, 641. ii. List B (minimum 3 hours): PSYC 400, 450, 503, 550, 571, 572. c. Neurodevelopment and Neurodevelopmental Disorders (12 hours) i. Required: BIOL 505; PSYC 420 ii. 6 hours selected from: BIOL 505, 614, 633; PSYC 510, 520, 521, 528.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. Students must choose one of the following three concentrations. Concentrations consist of a minimum of 12 hours of core courses in a targeted area of study. Core courses should be selected in conjunction with the neuroscience advisor to target each student’s interests and career goals. a. Cellular and Molecular Neuroscience i. Choose 12 hours from the following: BIOL 303, 530, 541*, 541L, 553, 612, 614, 620, 634, 635, 665, 667; BMEN 321; ELCT 391. b. Cognitive and Behavioral Neuroscience (12 hours) Choose 3 hours from List A and 3 hours from List B, with additional courses selected from either list to meet the minimum of 12 hours. i. List A (minimum 3 hours): BIOL 460, 534, 543; EXSC 351, 562, 610, 641. ii. List B (minimum 3 hours): PSYC 400, 450, 503, 550, 571, 572. c. Neurodevelopment and Neurodevelopmental Disorders (12 hours) i. Required: BIOL 505; PSYC 420 ii. 6 hours selected from: BIOL 505, 614, 633; PSYC 510, 520, 521, 528.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the McCausland College of Arts and Sciences. The McCausland College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the McCausland College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the McCausland College of Arts and Sciences. The McCausland College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the McCausland College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "11",
+      "text": "11. Training in the methods of scientific inquiry and the dissemination of research in neuroscience. Can be fulfilled with independent research undertaken with a faculty mentor or lab-based coursework. Must be approved by the Neuroscience program director. a. Individual Research: Independent research can be done under any major independent research codes as long as the research is in the field of neuroscience and is approved by the Neuroscience Program Director. Examples include NSCI 498, BIOL 399, PSYC 498, PSYC 598, PSYC 599, SCHC 399, and BMEN 499. b. Lab Courses: NSCI 570 or other lab-based courses may be approved by the Neuroscience Program Director if they have a significant neuroscience component.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "11. Training in the methods of scientific inquiry and the dissemination of research in neuroscience. Can be fulfilled with independent research undertaken with a faculty mentor or lab-based coursework. Must be approved by the Neuroscience program director. a. Individual Research: Independent research can be done under any major independent research codes as long as the research is in the field of neuroscience and is approved by the Neuroscience Program Director. Examples include NSCI 498, BIOL 399, PSYC 498, PSYC 598, PSYC 599, SCHC 399, and BMEN 499. b. Lab Courses: NSCI 570 or other lab-based courses may be approved by the Neuroscience Program Director if they have a significant neuroscience component.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "12",
+      "text": "12. Major Electives: BIOL 303, 460, 461, 505, 530, 534, 541*, 541L, 543, 553, 612, 614, 620, 633, 634, 635, 665, 667; BMEN 321; CSCE 556; EXSC 303, 351, 562, 610, 641; NSCI 560, 570+; PHIL 351; PSYC 370, 400, 450, 503, 550, 571, 572, Individual Research^. Depending on the topic, special topics courses/seminars and internships may be applied as core courses towards concentrations or as major electives with permission of the Neuroscience program director: BIOL 599; NSCI 560; PSYC 589; COLA 390 or 391. *Students intending to take BIOL 541 as part of their major requirements should also take CHEM 334/332L as part of their program requirements, either as an elective or as part of their cognate/minor. +Students who complete Individual Research to complete the Required Neuroscience Research may take NSCI 570 as an elective ^A maximum of 6 hours of Independent Study / Individual Research can be applied as major credit. Students admitted to the B.S. with Distinction in Neuroscience may apply an additional 3 hours of independent research toward their major requirements, up to a maximum of 9 hours.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "12. Major Electives: BIOL 303, 460, 461, 505, 530, 534, 541*, 541L, 543, 553, 612, 614, 620, 633, 634, 635, 665, 667; BMEN 321; CSCE 556; EXSC 303, 351, 562, 610, 641; NSCI 560, 570+; PHIL 351; PSYC 370, 400, 450, 503, 550, 571, 572, Individual Research^. Depending on the topic, special topics courses/seminars and internships may be applied as core courses towards concentrations or as major electives with permission of the Neuroscience program director: BIOL 599; NSCI 560; PSYC 589; COLA 390 or 391. *Students intending to take BIOL 541 as part of their major requirements should also take CHEM 334/332L as part of their program requirements, either as an elective or as part of their cognate/minor. +Students who complete Individual Research to complete the Required Neuroscience Research may take NSCI 570 as an elective ^A maximum of 6 hours of Independent Study / Individual Research can be applied as major credit. Students admitted to the B.S. with Distinction in Neuroscience may apply an additional 3 hours of independent research toward their major requirements, up to a maximum of 9 hours.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

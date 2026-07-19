@@ -1,0 +1,1278 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_fae111b01ec61a3b",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_fae111b01ec61a3b.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_elem-ed_map.pdf",
+    "sha256": "701cd4cbab103947a2cdcd07e97378de5b41eb4ffc30450cafa9bb0d777bb8c3",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Elementary Education",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Education",
+    "department": "Instruction & Teacher Education",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Elementary Education",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3 CC-ARP",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core AIU Requirement3",
+            "source_text": "Carolina Core AIU Requirement3 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU Requirement3 3 CC-AIU",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GHS Course: HIST 111 U.S. Hist. to 1865 or HIST 112 U.S. History Since 1865",
+            "source_text": "Carolina Core GHS Course: HIST 111 U.S. Hist. to 1865 3 CC-GHS or HIST 112 U.S. History Since 1865",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core GHS Course: HIST 111 U.S. Hist. to 1865 3 CC-GHS or HIST 112 U.S. History Since 1865",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS Course: HIST 111 U.S. Hist. to 1865 3 CC-GHS or HIST 112 U.S. History Since 1865",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Elective (UNIV 101 The Student in the University)",
+            "source_text": "Elective (UNIV 101 The Student in the University) 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective (UNIV 101 The Student in the University) 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "GEOG 121 Geographies of Global Change or GEOG 210 People, Places, & Environments or GEOG 561 Contemporary Issues in Geography Ed.",
+            "source_text": "GEOG 121 Geographies of Global Change 3 PR or GEOG 210 People, Places, & Environments or GEOG 561 Contemporary Issues in Geography Ed.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "GEOG 121 Geographies of Global Change 3 PR or GEOG 210 People, Places, & Environments or GEOG 561 Contemporary Issues in Geography Ed.",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GEOG 121 Geographies of Global Change 3 PR or GEOG 210 People, Places, & Environments or GEOG 561 Contemporary Issues in Geography Ed.",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Life Science4",
+            "source_text": "Life Science4 3-4 CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Life Science4 3-4 CC-SCI",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Life Science4 3-4 CC-SCI",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "EDPY 401 Learners and the Diversity of Learning",
+            "source_text": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDPY",
+              "number": "401"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "EDTE 201 Issues & Trends in Teaching & Learning",
+            "source_text": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDTE",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "EDFI 300 Schools in Communities",
+            "source_text": "EDFI 300 Schools in Communities 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDFI",
+              "number": "300"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDFI 300 Schools in Communities 3 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 or MATH 221 Basic Concepts of Elem. Mathematics I or placement through the",
+            "source_text": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH 111/111I or MATH 221 Basic Concepts of Elem. Mathematics I or placement through the",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH 111/111I or MATH 221 Basic Concepts of Elem. Mathematics I or placement through the",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH 111/111I or MATH 221 Basic Concepts of Elem. Mathematics I or placement through the",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GSS: POLI 101 Intro. to Global Politics or POLI 201 American National Government or GEOG 103 Introduction to Geography or GEOG 221 Geography of South Carolina",
+            "source_text": "Carolina Core GSS: POLI 101 Intro. to Global Politics 3 CC-GSS or POLI 201 American National Government or GEOG 103 Introduction to Geography or GEOG 221 Geography of South Carolina",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core GSS: POLI 101 Intro. to Global Politics 3 CC-GSS or POLI 201 American National Government or GEOG 103 Introduction to Geography or GEOG 221 Geography of South Carolina",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS: POLI 101 Intro. to Global Politics 3 CC-GSS or POLI 201 American National Government or GEOG 103 Introduction to Geography or GEOG 221 Geography of South Carolina",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Physical or Earth Science4",
+            "source_text": "Physical or Earth Science4 3-4 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Physical or Earth Science4 3-4 PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Physical or Earth Science4 3-4 PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "EDEL 306 Culturally Sustaining Pedagogy for the",
+            "source_text": "! EDEL 306 Culturally Sustaining Pedagogy for the 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "306"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEL 306 Culturally Sustaining Pedagogy for the 3 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+            "source_text": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Elective or Carolina Core3 (and/or Foreign language5)",
+            "source_text": "Elective or Carolina Core3 (and/or Foreign language5) 3 PR/CC (GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Elective or Carolina Core3 (and/or Foreign language5)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective or Carolina Core3 (and/or Foreign language5) 3 PR/CC (GFL)",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core CMS/VSR Requirement3",
+            "source_text": "Carolina Core CMS/VSR Requirement3 3 CC-CMS/VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS/VSR Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS/VSR Requirement3 3 CC-CMS/VSR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "EDEL 305 Nature and Mgmt. of Elem. Classrooms",
+            "source_text": "! EDEL 305 Nature and Mgmt. of Elem. Classrooms 3 C MR EDPY 401 & EDTE 201",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "305"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEL 305 Nature and Mgmt. of Elem. Classrooms 3 C MR EDPY 401 & EDTE 201",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "EDRM 423 Intro. to Classroom Assessment",
+            "source_text": "! EDRM 423 Intro. to Classroom Assessment 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDRM",
+              "number": "423"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDRM 423 Intro. to Classroom Assessment 2 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "EDEX 523 Introduction to Exceptional Children",
+            "source_text": "EDEX 523 Introduction to Exceptional Children 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEX",
+              "number": "523"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDEX 523 Introduction to Exceptional Children 3 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "ARTE 520 Art for Elementary Schools or ARTE 530 Art of Children or MUED 555 Integrating Music into the Elem. Classroom",
+            "source_text": "ARTE 520 Art for Elementary Schools 3 C PR or ARTE 530 Art of Children or MUED 555 Integrating Music into the Elem. Classroom",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ARTE 520 Art for Elementary Schools 3 C PR or ARTE 530 Art of Children or MUED 555 Integrating Music into the Elem. Classroom",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ARTE 520 Art for Elementary Schools 3 C PR or ARTE 530 Art of Children or MUED 555 Integrating Music into the Elem. Classroom",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "ISCI 325 Children’s Literature or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+            "source_text": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "EDEL 440 Elementary Mathematics Instruction or EDEL 450 Elementary Science Instruction MATH 221 (EDEL 440 only) or EDEL 460 Elementary Social Studies Instruction7",
+            "source_text": "! EDEL 440 Elementary Mathematics Instruction 3 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction MATH 221 (EDEL 440 only) or EDEL 460 Elementary Social Studies Instruction7",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! EDEL 440 Elementary Mathematics Instruction 3 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction MATH 221 (EDEL 440 only) or EDEL 460 Elementary Social Studies Instruction7",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEL 440 Elementary Mathematics Instruction 3 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction MATH 221 (EDEL 440 only) or EDEL 460 Elementary Social Studies Instruction7",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "EDEL 441 Introductory Elementary Internship7",
+            "source_text": "! EDEL 441 Introductory Elementary Internship7 3 C * MR Adm. to Professional Prog.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "441"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEL 441 Introductory Elementary Internship7 3 C * MR Adm. to Professional Prog.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "EDRD 430 Elementary Literacy Instruction I7",
+            "source_text": "! EDRD 430 Elementary Literacy Instruction I7 6 C * MR Adm. to Professional Prog.",
+            "credits": {
+              "minimum": 6,
+              "maximum": 6
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDRD",
+              "number": "430"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDRD 430 Elementary Literacy Instruction I7 6 C * MR Adm. to Professional Prog.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "PEDU 575 Physical Education for the Classroom Teacher",
+            "source_text": "PEDU 575 Physical Education for the Classroom Teacher 3 C PR EDTE 201",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PEDU",
+              "number": "575"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PEDU 575 Physical Education for the Classroom Teacher 3 C PR EDTE 201",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Choose remaining 2: or EDEL 450 Elementary Science Instruction or EDEL 460 Elementary Social Studies Instruction7",
+            "source_text": "! Choose remaining 2: 6 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction or EDEL 460 Elementary Social Studies Instruction7",
+            "credits": {
+              "minimum": 6,
+              "maximum": 6
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! Choose remaining 2: 6 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction or EDEL 460 Elementary Social Studies Instruction7",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! Choose remaining 2: 6 C * MR Adm. to Professional Prog.; & or EDEL 450 Elementary Science Instruction or EDEL 460 Elementary Social Studies Instruction7",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "EDRD 431 Reading Assessment7",
+            "source_text": "! EDRD 431 Reading Assessment7 3 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDRD",
+              "number": "431"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDRD 431 Reading Assessment7 3 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "EDEL 471 Internship in Environments, Planning, &",
+            "source_text": "! EDEL 471 Internship in Environments, Planning, & 6 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 6,
+              "maximum": 6
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "471"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEL 471 Internship in Environments, Planning, & 6 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "EDEL 491 Seminar on Teaching7",
+            "source_text": "! EDEL 491 Seminar on Teaching7 3 C * MR/CC-INT Admission to Internship II;",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "491"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEL 491 Seminar on Teaching7 3 C * MR/CC-INT Admission to Internship II;",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "EDEL 490 Internship in Elementary Education7 & 8",
+            "source_text": "! EDEL 490 Internship in Elementary Education7 & 8 12 C * MR Admission to Internship II;",
+            "credits": {
+              "minimum": 12,
+              "maximum": 12
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEL",
+              "number": "490"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEL 490 Internship in Elementary Education7 & 8 12 C * MR Admission to Internship II;",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated below are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated below are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Elementary Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Elementary Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. One Life Science and one Physical or Earth Science are required. a. Life Science: BIOL 110, BIOL 120 & 120L, BIOL 220. b. Physical or Earth Science: ASTR 101, CHEM 101, CHEM 105, CHEM 107, CHEM 111, PHYS 101 & 101L, PHYS 201 & 201L, ENVR 101 & ENVR 101L, ENVR 200, GEOG 104, GEOG 201, GEOG 202, GEOL 101, GEOL 103, MSCI 210 & 210L, MSCI 215 & 215L.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. One Life Science and one Physical or Earth Science are required. a. Life Science: BIOL 110, BIOL 120 & 120L, BIOL 220. b. Physical or Earth Science: ASTR 101, CHEM 101, CHEM 105, CHEM 107, CHEM 111, PHYS 101 & 101L, PHYS 201 & 201L, ENVR 101 & ENVR 101L, ENVR 200, GEOG 104, GEOG 201, GEOG 202, GEOL 101, GEOL 103, MSCI 210 & 210L, MSCI 215 & 215L.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. The Carolina Core requires either two approved courses in one Foreign Language or a score of two or higher on the foreign language placement test. If a student in the Elementary Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. The Carolina Core requires either two approved courses in one Foreign Language or a score of two or higher on the foreign language placement test. If a student in the Elementary Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Must meet all professional program and internship admissions requirements by set deadlines prior to participation in these courses. Professional program and internship admission requirements can be found on the Bulletin.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Must meet all professional program and internship admissions requirements by set deadlines prior to participation in these courses. Professional program and internship admission requirements can be found on the Bulletin.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. For admission to EDEL 490, completion of EDEL 440, 450, 460, 471 and 431 with a grade of C or better is required.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. For admission to EDEL 490, completion of EDEL 440, 450, 460, 471 and 431 with a grade of C or better is required.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

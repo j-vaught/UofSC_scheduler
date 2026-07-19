@@ -1,0 +1,1414 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_9da1c77c5284e163",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_9da1c77c5284e163.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_iit_map.pdf",
+    "sha256": "2592bbe9502190005d0ceb8423674c0afe8ab5e3a23dbf96b0b86de9048a2d48",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Integrated Information Technology",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Engineering and Computing",
+    "department": "Integrated Information Technology",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Integrated Information Technology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 101 Thriving in the Tech Age",
+            "source_text": "ITEC 101 Thriving in the Tech Age 3 C CC-VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-VSR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 101 Thriving in the Tech Age 3 C CC-VSR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "ENGL 101 Critical Reading & Composition",
+            "source_text": "ENGL 101 Critical Reading & Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading & Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "ITEC 264 Computer Applications in Bus. I",
+            "source_text": "! ITEC 264 Computer Applications in Bus. I 3 C * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "264"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 264 Computer Applications in Bus. I 3 C * PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core SCI3",
+            "source_text": "Carolina Core SCI3 4 CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI3 4 CC-SCI",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Elective (U101 recommended)6",
+            "source_text": "Elective (U101 recommended)6 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective (U101 recommended)6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective (U101 recommended)6 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 233 Intro. to Comp. Hardware &",
+            "source_text": "! ITEC 233 Intro. to Comp. Hardware & 3 C * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "233"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 233 Intro. to Comp. Hardware & 3 C * PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "ITEC 265 Introduction to Databases",
+            "source_text": "! ITEC 265 Introduction to Databases 3 C * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "265"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 265 Introduction to Databases 3 C * PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "ITEC 293 Cybersecurity Operations",
+            "source_text": "ITEC 293 Cybersecurity Operations 3 C * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "293"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 293 Cybersecurity Operations 3 C * PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 CC-CMW/INF C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 CC-CMW/INF C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core SCI3",
+            "source_text": "Carolina Core SCI3 3 CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI3 3 CC-SCI",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 245 Introduction to Networking",
+            "source_text": "! ITEC 245 Introduction to Networking 3 C * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "245"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 245 Introduction to Networking 3 C * PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "ITEC 370 Database Systems in IT",
+            "source_text": "ITEC 370 Database Systems in IT 3 C * MR C or better in ITEC 265",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "370"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 370 Database Systems in IT 3 C * MR C or better in ITEC 265",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 104 Prog. Design & Development or ITEC 104 Prog. Design & Dev. (cross- listed MGSC 298) or CSCE 145 Algorithmic Design I",
+            "source_text": "! CSCE 104 Prog. Design & Development 3-4 C * PR MATH 111 or 115 (CSCE 145) or ITEC 104 Prog. Design & Dev. (cross- listed MGSC 298) or CSCE 145 Algorithmic Design I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! CSCE 104 Prog. Design & Development 3-4 C * PR MATH 111 or 115 (CSCE 145) or ITEC 104 Prog. Design & Dev. (cross- listed MGSC 298) or CSCE 145 Algorithmic Design I",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CSCE 104 Prog. Design & Development 3-4 C * PR MATH 111 or 115 (CSCE 145) or ITEC 104 Prog. Design & Dev. (cross- listed MGSC 298) or CSCE 145 Algorithmic Design I",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "ACCT 222 Survey of Accounting or RETL 261 Principles of Accounting I4",
+            "source_text": "ACCT 222 Survey of Accounting 3 PR or RETL 261 Principles of Accounting I4",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ACCT 222 Survey of Accounting 3 PR or RETL 261 Principles of Accounting I4",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ACCT 222 Survey of Accounting 3 PR or RETL 261 Principles of Accounting I4",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GFL5 or Elective6",
+            "source_text": "Carolina Core GFL5 or Elective6 3 CC-GFL/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL5 or Elective6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GFL5 or Elective6 3 CC-GFL/PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 242 Business Communication or ENGL 462 Technical Writing or ENGL 463 Business Writing or MGMT 250 Prof. Communication",
+            "source_text": "ITEC 242 Business Communication 3 PR C or better in ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing or MGMT 250 Prof. Communication",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ITEC 242 Business Communication 3 PR C or better in ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing or MGMT 250 Prof. Communication",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 242 Business Communication 3 PR C or better in ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing or MGMT 250 Prof. Communication",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "STAT 201 Elementary Statistics or STAT 205 Elem. Stat. for Biol. & Life Sci. 110 or 112; or placement through the or STAT 206 Elem. Statistics for Business MAP (STAT 201); C or better in MATH 111 or",
+            "source_text": "STAT 201 Elementary Statistics 3 CC-ARP C or better in MATH 111 or higher or in STAT or STAT 205 Elem. Stat. for Biol. & Life Sci. 110 or 112; or placement through the or STAT 206 Elem. Statistics for Business MAP (STAT 201); C or better in MATH 111 or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 Elementary Statistics 3 CC-ARP C or better in MATH 111 or higher or in STAT or STAT 205 Elem. Stat. for Biol. & Life Sci. 110 or 112; or placement through the or STAT 206 Elem. Statistics for Business MAP (STAT 201); C or better in MATH 111 or",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 Elementary Statistics 3 CC-ARP C or better in MATH 111 or higher or in STAT or STAT 205 Elem. Stat. for Biol. & Life Sci. 110 or 112; or placement through the or STAT 206 Elem. Statistics for Business MAP (STAT 201); C or better in MATH 111 or",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "ITEC 352 Software Design or CSCE 146 Algorithmic Design II C or better in CSCE 145 or 106 or C or better in",
+            "source_text": "ITEC 352 Software Design 3-4 C * PR C or better in CSCE/ITEC 104 (ITEC 352); or CSCE 146 Algorithmic Design II C or better in CSCE 145 or 106 or C or better in",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ITEC 352 Software Design 3-4 C * PR C or better in CSCE/ITEC 104 (ITEC 352); or CSCE 146 Algorithmic Design II C or better in CSCE 145 or 106 or C or better in",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 352 Software Design 3-4 C * PR C or better in CSCE/ITEC 104 (ITEC 352); or CSCE 146 Algorithmic Design II C or better in CSCE 145 or 106 or C or better in",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Elective6 or RETL 262 Principles of Accounting II4",
+            "source_text": "Elective6 3 PR RETL 261 (RETL 262) or RETL 262 Principles of Accounting II4",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Elective6 3 PR RETL 261 (RETL 262) or RETL 262 Principles of Accounting II4",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective6 3 PR RETL 261 (RETL 262) or RETL 262 Principles of Accounting II4",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GFL5 or Elective6",
+            "source_text": "Carolina Core GFL5 or Elective6 3 CC-GFL/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL5 or Elective6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GFL5 or Elective6 3 CC-GFL/PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 301 Professional Internship Seminar",
+            "source_text": "! ITEC 301 Professional Internship Seminar 3 C * MR C or better in ITEC 242, ENGL 462, ENGL 463",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "301"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 301 Professional Internship Seminar 3 C * MR C or better in ITEC 242, ENGL 462, ENGL 463",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "ITEC 362 Introduction to Web Systems",
+            "source_text": "ITEC 362 Introduction to Web Systems 3 C * MR C or better in ITEC 101, CSCE 101 or 102",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "362"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 362 Introduction to Web Systems 3 C * MR C or better in ITEC 101, CSCE 101 or 102",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "ITEC 445 Advanced Networking & Security",
+            "source_text": "! ITEC 445 Advanced Networking & Security 3 C * MR C or better in ITEC 245",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "445"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 445 Advanced Networking & Security 3 C * MR C or better in ITEC 245",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "MATH 174 Discrete Math. for Computer",
+            "source_text": "MATH 174 Discrete Math. for Computer 3 C CC-ARP C or better in MATH 112 or higher or MAP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "174"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 174 Discrete Math. for Computer 3 C CC-ARP C or better in MATH 112 or higher or MAP",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "SPCH 140 Public Communication or SPCH 145 Online Public Comm. or SPCH 230 Bus. & Prof. Speaking",
+            "source_text": "SPCH 140 Public Communication 3 CC-CMS or SPCH 145 Online Public Comm. or SPCH 230 Bus. & Prof. Speaking",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPCH 140 Public Communication 3 CC-CMS or SPCH 145 Online Public Comm. or SPCH 230 Bus. & Prof. Speaking",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPCH 140 Public Communication 3 CC-CMS or SPCH 145 Online Public Comm. or SPCH 230 Bus. & Prof. Speaking",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 444 Intro. to Human Computer",
+            "source_text": "ITEC 444 Intro. to Human Computer 3 C * MR C or better in either CSCE 104, ITEC 104, or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "444"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 444 Intro. to Human Computer 3 C * MR C or better in either CSCE 104, ITEC 104, or",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "ITEC 447 Management of Info. Tech.",
+            "source_text": "ITEC 447 Management of Info. Tech. 3 C * MR C or better in ITEC 101 & 245",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "447"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 447 Management of Info. Tech. 3 C * MR C or better in ITEC 101 & 245",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "ITEC 493 IT Security for Managers",
+            "source_text": "ITEC 493 IT Security for Managers 3 C * MR C or better in ITEC 445",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "493"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ITEC 493 IT Security for Managers 3 C * MR C or better in ITEC 445",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "SPTE 240 Business Law or ACCT 324 Survey of Commercial Law",
+            "source_text": "SPTE 240 Business Law 3 PR or ACCT 324 Survey of Commercial Law",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 240 Business Law 3 PR or ACCT 324 Survey of Commercial Law",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 240 Business Law 3 PR or ACCT 324 Survey of Commercial Law",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Elective6",
+            "source_text": "Elective6 2 PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective6 2 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "ITEC 495 – Professional Internship7",
+            "source_text": "! ITEC 495 – Professional Internship7 6 C * MR C or better in ITEC 301",
+            "credits": {
+              "minimum": 6,
+              "maximum": 6
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "495"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ITEC 495 – Professional Internship7 6 C * MR C or better in ITEC 301",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 12
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 560 Project Management Methods",
+            "source_text": "! ITEC 560 Project Management Methods 3 C * MR C or better in ITEC 264 or MGSC 290",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "560"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! ITEC 560 Project Management Methods 3 C * MR C or better in ITEC 264 or MGSC 290",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "HTMT 344 H.R. Mgmt. in HRSM or MGMT 371 Principles of Management",
+            "source_text": "HTMT 344 H.R. Mgmt. in HRSM 3 PR or MGMT 371 Principles of Management",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "HTMT 344 H.R. Mgmt. in HRSM 3 PR or MGMT 371 Principles of Management",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "HTMT 344 H.R. Mgmt. in HRSM 3 PR or MGMT 371 Principles of Management",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "ECON 224 Introduction to Economics",
+            "source_text": "ECON 224 Introduction to Economics 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECON",
+              "number": "224"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ECON 224 Introduction to Economics 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core AIU3",
+            "source_text": "Carolina Core AIU3 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU3"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core AIU3 3 CC-AIU",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 12
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "ITEC 564 Capstone Project for Info.",
+            "source_text": "ITEC 564 Capstone Project for Info. 3 C * MR C or better in ITEC 362 & ITEC 560",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ITEC",
+              "number": "564"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ITEC 564 Capstone Project for Info. 3 C * MR C or better in ITEC 362 & ITEC 560",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "ITEC Elective8 (400 level or above)",
+            "source_text": "ITEC Elective8 (400 level or above) 3 C * MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "ITEC Elective8 (400 level or above)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ITEC Elective8 (400 level or above) 3 C * MR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core GSS3",
+            "source_text": "Carolina Core GSS3 3 CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS3"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core GSS3 3 CC-GSS",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GHS3",
+            "source_text": "Carolina Core GHS3 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS3"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core GHS3 3 CC-GHS",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the Integrated Information Technology program GPA minimum requirement of 2.00.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the Integrated Information Technology program GPA minimum requirement of 2.00.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The ITEC program requires either: ACCT 222 and an approved elective or both RETL 261 and 262.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The ITEC program requires either: ACCT 222 and an approved elective or both RETL 261 and 262.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Engineering and Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 and 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Engineering and Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 and 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The IIT curriculum includes 3-14 hours of electives, depending on how students fulfill the Carolina Core, Founding Documents, and Supporting Courses requirements. Any course in the university can be used to satisfy the elective requirement (including additional electives in the major). Although not required, UNIV 101 is a recommended elective for all students in their first semester attending University of South Carolina.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The IIT curriculum includes 3-14 hours of electives, depending on how students fulfill the Carolina Core, Founding Documents, and Supporting Courses requirements. Any course in the university can be used to satisfy the elective requirement (including additional electives in the major). Although not required, UNIV 101 is a recommended elective for all students in their first semester attending University of South Carolina.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Internship coordinated by a faculty member and supervised by an approved business supervisor. Internship agreement approval by supervisor and instructor is required.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Internship coordinated by a faculty member and supervised by an approved business supervisor. Internship agreement approval by supervisor and instructor is required.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. ITEC Elective (3 hours): Any 3-credit ITEC course numbered 400 or above that is not used to satisfy a major or minor requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. ITEC Elective (3 hours): Any 3-credit ITEC course numbered 400 or above that is not used to satisfy a major or minor requirement.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

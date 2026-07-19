@@ -1,0 +1,330 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_c9aab20fc5bcfdcd",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_c9aab20fc5bcfdcd.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_cvt_3yrplan.pdf",
+    "sha256": "c76224b8999967da1319e875f48b7717c7e75ba43c850f158de88dda6a175ecc",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Cardiovascular Technology",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "College of Arts and Sciences",
+    "department": "Cardiovascular Technology",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Cardiovascular Technology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Year1 17-18",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Fall Year1 17-18: ENGL101; BIOL101L; CHEM111L; MATH122/141; UNIV101",
+            "source_text": "Fall Year1 17-18: ENGL101; BIOL101L; CHEM111L; MATH122/141; UNIV101",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Year1 17-18: ENGL101; BIOL101L; CHEM111L; MATH122/141; UNIV101",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Year1 17-18: ENGL101; BIOL101L; CHEM111L; MATH122/141; UNIV101",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Year1 17-18",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Spring Year1 17-18: ENGL102; BIOL102L; CHEM112L; Foreign Language; STAT201",
+            "source_text": "Spring Year1 17-18: ENGL102; BIOL102L; CHEM112L; Foreign Language; STAT201",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Year1 17-18: ENGL102; BIOL102L; CHEM112L; Foreign Language; STAT201",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Year1 17-18: ENGL102; BIOL102L; CHEM112L; Foreign Language; STAT201",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Year1 17",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Summer Year1 17: BIOL243L; BIOL303; CHEM333&331L; PSYC101; Foreign Language",
+            "source_text": "Summer Year1 17: BIOL243L; BIOL303; CHEM333&331L; PSYC101; Foreign Language",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Summer Year1 17: BIOL243L; BIOL303; CHEM333&331L; PSYC101; Foreign Language",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Summer Year1 17: BIOL243L; BIOL303; CHEM333&331L; PSYC101; Foreign Language",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Year2 16",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Fall Year2 16: BIOL244L; BIOL302; HSPM412; CLAS230; Foreign Language/CC",
+            "source_text": "Fall Year2 16: BIOL244L; BIOL302; HSPM412; CLAS230; Foreign Language/CC",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Year2 16: BIOL244L; BIOL302; HSPM412; CLAS230; Foreign Language/CC",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Year2 16: BIOL244L; BIOL302; HSPM412; CLAS230; Foreign Language/CC",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Year2 17",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Spring Year2 17: CSCE102; SOWK678; PHYS201L; BIOL/CHEM300-699; HIST; CC",
+            "source_text": "Spring Year2 17: CSCE102; SOWK678; PHYS201L; BIOL/CHEM300-699; HIST; CC",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Year2 17: CSCE102; SOWK678; PHYS201L; BIOL/CHEM300-699; HIST; CC",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Year2 17: CSCE102; SOWK678; PHYS201L; BIOL/CHEM300-699; HIST; CC",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Summer Year2 13",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Summer Year2 13: BIOL/CHEM300-699; CC; HSPM500; WGST113",
+            "source_text": "Summer Year2 13: BIOL/CHEM300-699; CC; HSPM500; WGST113",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Summer Year2 13: BIOL/CHEM300-699; CC; HSPM500; WGST113",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Summer Year2 13: BIOL/CHEM300-699; CC; HSPM500; WGST113",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Year3 CVT Training Program 18 months, 28 hours",
+        "academic_year": null,
+        "term": "unspecified",
+        "credits": {
+          "minimum": 3.0,
+          "maximum": 3.0
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Year3 CVT Training Program 18 months, 28 hours",
+            "source_text": "Year3 CVT Training Program 18 months, 28 hours",
+            "credits": {
+              "minimum": 3.0,
+              "maximum": 3.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Year3 CVT Training Program 18 months, 28 hours",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Year3 CVT Training Program 18 months, 28 hours",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "ready",
+    "confidence": 0.95,
+    "issues": [],
+    "summary": "Complete accelerated plan extracted from all PDF pages."
+  }
+}

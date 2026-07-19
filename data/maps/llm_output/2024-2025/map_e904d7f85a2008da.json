@@ -1,0 +1,1502 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_e904d7f85a2008da",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_e904d7f85a2008da.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_public-relations_map.pdf",
+    "sha256": "ce0d28c15e4adb48e2a9eac72b22cc38ad9544c1b4e6548011f2c306c2af9f8c",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Public Relations",
+    "degree_name": "Bachelor of Arts in Journalism & Mass Communications (B.A.J.M.C.)",
+    "degree_abbreviation": "B.A.J.M.C.",
+    "college": "Information & Communications",
+    "department": "Journalism & Mass Communication",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Public Relations",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "STAT 110 Intro. to Statistical Reasoning or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+            "source_text": "STAT 110 Intro. to Statistical Reasoning 3 CC-ARP See Bulletin Listing or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 110 Intro. to Statistical Reasoning 3 CC-ARP See Bulletin Listing or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 110 Intro. to Statistical Reasoning 3 CC-ARP See Bulletin Listing or STAT 112 Statistics and the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Bio. & Life Sci. or STAT 206 Elem. Statistics for Business",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "JOUR 101 Media & Society",
+            "source_text": "JOUR 101 Media & Society 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 101 Media & Society 3 C MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language3 or other Carolina Core Req.4",
+            "source_text": "Foreign language3 or other Carolina Core Req.4 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language3 or other Carolina Core Req.4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or other Carolina Core Req.4 3-4 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP",
+            "source_text": "Carolina Core ARP 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP 3 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "JOUR 201 Principles of Public Relations",
+            "source_text": "! JOUR 201 Principles of Public Relations 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! JOUR 201 Principles of Public Relations 3 C MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3-4 CC",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language3 or other Carolina Core Req.4",
+            "source_text": "Foreign language3 or other Carolina Core Req.4 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language3 or other Carolina Core Req.4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or other Carolina Core Req.4 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 291 Writing for Mass Communications",
+            "source_text": "! JOUR 291 Writing for Mass Communications 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "291"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! JOUR 291 Writing for Mass Communications 3 C MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course5",
+            "source_text": "Cognate or Minor Course5 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course5 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course5 3 C PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Social Science6",
+            "source_text": "Social Science6 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science6 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science6 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3-4 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language3 or Carolina Core Requirement4",
+            "source_text": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language3 or Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 203 Principles of Visual Communications",
+            "source_text": "JOUR 203 Principles of Visual Communications 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "203"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 203 Principles of Visual Communications 3 C MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "JOUR 303 Law & Ethics of Mass Communications or JOUR 304 Internet and Social Media Law",
+            "source_text": "JOUR 303 Law & Ethics of Mass Communications 3 C MR or JOUR 304 Internet and Social Media Law",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR 303 Law & Ethics of Mass Communications 3 C MR or JOUR 304 Internet and Social Media Law",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 303 Law & Ethics of Mass Communications 3 C MR or JOUR 304 Internet and Social Media Law",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course5",
+            "source_text": "Cognate or Minor Course5 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course5 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course5 3 C PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GHS Requirement4 (HIST 111, 112,",
+            "source_text": "Carolina Core GHS Requirement4 (HIST 111, 112, 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "HIST",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS Requirement4 (HIST 111, 112, 3 CC-GHS",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 332 Mass Communications Research",
+            "source_text": "! JOUR 332 Mass Communications Research 3 C MR JOUR 101 & a course in basic",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "332"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! JOUR 332 Mass Communications Research 3 C MR JOUR 101 & a course in basic",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course5",
+            "source_text": "Cognate or Minor Course5 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course5 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course5 3 C PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "ECON 224 Introduction to Economics or MKTG 350 Principles of Marketing Business majors (MKTG 350) or MGMT 371 Principles of Management",
+            "source_text": "ECON 224 Introduction to Economics 3 CR ECON 224 & ACCT 222 for non- or MKTG 350 Principles of Marketing Business majors (MKTG 350) or MGMT 371 Principles of Management",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 224 Introduction to Economics 3 CR ECON 224 & ACCT 222 for non- or MKTG 350 Principles of Marketing Business majors (MKTG 350) or MGMT 371 Principles of Management",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 224 Introduction to Economics 3 CR ECON 224 & ACCT 222 for non- or MKTG 350 Principles of Marketing Business majors (MKTG 350) or MGMT 371 Principles of Management",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4 or Approved Elective8",
+            "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 436 Public Relations Writing",
+            "source_text": "! JOUR 436 Public Relations Writing 3 C MR JOUR 201 & 291",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "436"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! JOUR 436 Public Relations Writing 3 C MR JOUR 201 & 291",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course5",
+            "source_text": "Cognate or Minor Course5 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course5 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course5 3 C PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4 or Approved Elective8",
+            "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+            "source_text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Minor Course5 or Approved Elective8",
+            "source_text": "Minor Course5 or Approved Elective8 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course5 or Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course5 or Approved Elective8 3 C (minor) PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Social or Behavioral Science9 (300-level or above)",
+            "source_text": "Social or Behavioral Science9 (300-level or above) 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social or Behavioral Science9 (300-level or above) 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social or Behavioral Science9 (300-level or above) 3 CR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "JOUR 531 Public Relations Campaigns or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+            "source_text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 531 Public Relations Campaigns 3 C MR JOUR 201, 436 & senior standing; or JOUR 533 Public Relations Management CC-INT & JOUR 332 (JOUR 531 only)",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "JOUR 539 Ethics in Public Relations & Public Policy",
+            "source_text": "JOUR 539 Ethics in Public Relations & Public Policy 3 C MR JOUR 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "JOUR",
+              "number": "539"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR 539 Ethics in Public Relations & Public Policy 3 C MR JOUR 101",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "JOUR Major Course7",
+            "source_text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "JOUR Major Course7 3 C MR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "JOUR Major Course7 3 C MR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Minor Course5 or Approved Elective8",
+            "source_text": "Minor Course5 or Approved Elective8 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course5 or Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course5 or Approved Elective8 3 C (minor) PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "History10",
+            "source_text": "History10 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History10 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History10 3 CR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.5 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.5 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students in the College of Information and Communications are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students in the College of Information and Communications are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students must complete either a minor (18 hours) or a cognate (12 hours) from courses outside the SJMC. The minor is intended to develop a coherent basic preparation in a second area of study. Courses applied toward general education requirements cannot be counted toward the minor. No course may satisfy both major and minor requirements. A cognate requires a minimum of 12 hours of courses in other departments related to the student’s major and/or career goals. Cognate courses may be taken in one or more departments depending on the interest and requirements of the student, but must have approval of the student’s advisor. Journalism courses may not be used in the cognate. At least 6 of the 12 hours must be at the 300-level or higher. No 100-level courses may be used in the cognate.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students must complete either a minor (18 hours) or a cognate (12 hours) from courses outside the SJMC. The minor is intended to develop a coherent basic preparation in a second area of study. Courses applied toward general education requirements cannot be counted toward the minor. No course may satisfy both major and minor requirements. A cognate requires a minimum of 12 hours of courses in other departments related to the student’s major and/or career goals. Cognate courses may be taken in one or more departments depending on the interest and requirements of the student, but must have approval of the student’s advisor. Journalism courses may not be used in the cognate. At least 6 of the 12 hours must be at the 300-level or higher. No 100-level courses may be used in the cognate.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Social Science (3 hours): any CC-GSS course or one of the following JOUR courses: JOUR 243, 285, 303, 304, 307, 308, 309, 311, 345, 391, 394, 398, 596.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Social Science (3 hours): any CC-GSS course or one of the following JOUR courses: JOUR 243, 285, 303, 304, 307, 308, 309, 311, 345, 391, 394, 398, 596.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Journalism major courses include: three Public Relations Directed Electives (12 hours): one writing course –3 hours; one supervised work experience –3 hours; one SJMC concept/lecture course –3 hours; and three JOUR electives (9 hours) of the student’s choice. Writing courses (3 hours) Supervised Work Experience (3 hours) Concept/Lecture Courses (3 hours) JOUR 362 – Editing (3) JOUR 518 – Brand Communications JOUR 205 – History & Philosophy of the Mass Practicum/Competitions (3) Media (3) JOUR 416 – Creative: Strategy to Execution (3) JOUR 537 – The Carolina Agency (3) JOUR 306 – Theories of Mass Comm. (3) JOUR 437 – Advanced P.R. Writing (3) JOUR 538 – The Bateman Team (3) JOUR 311 – Minorities, Women, & the Mass Media (3) JOUR 534 – Publication Writing & Design (3) JOUR 597 – Internship in Mass Comm. (3) JOUR 501 – Freedom, Responsibility, & Ethics of the Mass Media (3) JOUR 566 – Magazine Article Writing (3) JOUR 504 – International Mass Comm. (3) JOUR 506 – Mass Media Criticism (3) JOUR 507 – Health Communication: The Science and Practice (3) JOUR 508 – Faith, Values, & the Mass Media (3) JOUR 539 – Ethics in P.R. & Public Policy (3) JOUR 542 – Public Opinion & Persuasion (3) JOUR 499 – Special Topics (3) JOUR 599 – Advanced Special Topics (3)",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Journalism major courses include: three Public Relations Directed Electives (12 hours): one writing course –3 hours; one supervised work experience –3 hours; one SJMC concept/lecture course –3 hours; and three JOUR electives (9 hours) of the student’s choice. Writing courses (3 hours) Supervised Work Experience (3 hours) Concept/Lecture Courses (3 hours) JOUR 362 – Editing (3) JOUR 518 – Brand Communications JOUR 205 – History & Philosophy of the Mass Practicum/Competitions (3) Media (3) JOUR 416 – Creative: Strategy to Execution (3) JOUR 537 – The Carolina Agency (3) JOUR 306 – Theories of Mass Comm. (3) JOUR 437 – Advanced P.R. Writing (3) JOUR 538 – The Bateman Team (3) JOUR 311 – Minorities, Women, & the Mass Media (3) JOUR 534 – Publication Writing & Design (3) JOUR 597 – Internship in Mass Comm. (3) JOUR 501 – Freedom, Responsibility, & Ethics of the Mass Media (3) JOUR 566 – Magazine Article Writing (3) JOUR 504 – International Mass Comm. (3) JOUR 506 – Mass Media Criticism (3) JOUR 507 – Health Communication: The Science and Practice (3) JOUR 508 – Faith, Values, & the Mass Media (3) JOUR 539 – Ethics in P.R. & Public Policy (3) JOUR 542 – Public Opinion & Persuasion (3) JOUR 499 – Special Topics (3) JOUR 599 – Advanced Special Topics (3)",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Electives cannot include courses of a remedial or developmental nature.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Electives cannot include courses of a remedial or developmental nature.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. 300-level or higher course in Social or Behavioral Sciences (3 hours): any course from AFAM (African American Studies); ANTH (Anthropology); COLA (College of Liberal Arts); CRJU (Criminal Justice); GEOG (Geography – except GEOG 545 & 546); HIST (History); LASP (Latin American Studies); POLI (Political Science); PSYC (Psychology); SOCY (Sociology); SOST (Southern Studies); WGST (Women’s & Gender Studies) or any one of the following JOUR courses: JOUR 243, 285, 303, 304, 307, 308, 309, 311, 345, 391, 394, 398, 596.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. 300-level or higher course in Social or Behavioral Sciences (3 hours): any course from AFAM (African American Studies); ANTH (Anthropology); COLA (College of Liberal Arts); CRJU (Criminal Justice); GEOG (Geography – except GEOG 545 & 546); HIST (History); LASP (Latin American Studies); POLI (Political Science); PSYC (Psychology); SOCY (Sociology); SOST (Southern Studies); WGST (Women’s & Gender Studies) or any one of the following JOUR courses: JOUR 243, 285, 303, 304, 307, 308, 309, 311, 345, 391, 394, 398, 596.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. History Course (3 hours): HIST 101, 102, 103, 104, 105, 106, 107, 108, 109, 110; ARTH 107; FAMS 300; GERM 280.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. History Course (3 hours): HIST 101, 102, 103, 104, 105, 106, 107, 108, 109, 110; ARTH 107; FAMS 300; GERM 280.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

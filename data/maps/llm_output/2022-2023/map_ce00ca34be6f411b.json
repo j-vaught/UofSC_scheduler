@@ -1,0 +1,759 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_ce00ca34be6f411b",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_ce00ca34be6f411b.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_envr-ba_3yrplan.pdf",
+    "sha256": "0f79c24954480366112f44207d4d5829f40cf9edf9885c745b68038182c01026",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Environmental Studies",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Environmental Studies",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours",
+            "source_text": "ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or other Carolina Core, 3 hours",
+            "source_text": "Foreign Language or other Carolina Core, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other Carolina Core, 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other Carolina Core, 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC) , 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC) , 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC) , 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC) , 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours",
+            "source_text": "ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours",
+            "source_text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "History (CR), 3 hours                               Environmental Studies Major Course (MR), 3-4 hours",
+            "source_text": "History (CR), 3 hours                               Environmental Studies Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR), 3 hours                               Environmental Studies Major Course (MR), 3-4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR), 3 hours                               Environmental Studies Major Course (MR), 3-4 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC), 3 hours             ENVR 480 (MR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             ENVR 480 (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             ENVR 480 (MR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             ENVR 480 (MR), 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core Requirement       Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core Requirement       Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core Requirement       Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core Requirement       Approved Elective (PR), 3 hours",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "(CR/CC-GFL), 3 hrs",
+            "source_text": "(CR/CC-GFL), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "(CR/CC-GFL), 3 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "(CR/CC-GFL), 3 hrs",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 201 (MR/CC-INT), 4 hours",
+            "source_text": "ENVR 201 (MR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 201 (MR/CC-INT), 4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 201 (MR/CC-INT), 4 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Additional Science Course (PR), 4 hours",
+            "source_text": "Additional Science Course (PR), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Additional Science Course (PR), 4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Additional Science Course (PR), 4 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR), 4 hrs",
+            "source_text": "Humanities or Fine Arts (CR), 4 hrs",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 4 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 4 hrs",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Social Science (CR), 3 hours",
+            "source_text": "Social Science (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR), 3 hours",
+            "source_text": "Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 3 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Semester",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": null,
+          "maximum": null
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 202 (MR/CC-INT), 4 hours",
+            "source_text": "ENVR 202 (MR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 202 (MR/CC-INT), 4 hours",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 202 (MR/CC-INT), 4 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Humanities or Fine Arts (CR), 3 hrs",
+            "source_text": "Humanities or Fine Arts (CR), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hrs",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "Plan choice or course group"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [
+    {
+      "label": "Accelerated Study Plan Agreement",
+      "source_text": "May require Summer and/or Winter Session; must build and abide by 3-year plan for priority registration; remain in good academic standing.",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to accelerate my degree program.",
+          "region": "agreement"
+        }
+      ],
+      "id": "outside-requirement-1",
+      "sequence": 1,
+      "credits": {
+        "minimum": 0,
+        "maximum": 0
+      },
+      "critical": false,
+      "requirement_codes": [],
+      "rule": {
+        "type": "unresolved",
+        "text": "May require Summer and/or Winter Session; must build and abide by 3-year plan for priority registration; remain in good academic standing.",
+        "reason": "agreement"
+      },
+      "confidence": 1.0,
+      "review_flags": [],
+      "minimum_grade": null
+    }
+  ],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "generic_rules",
+        "message": "Some elective/group requirements are represented as unresolved choices from source.",
+        "evidence": []
+      }
+    ],
+    "summary": "Accelerated three-year plan extracted from all source pages."
+  }
+}

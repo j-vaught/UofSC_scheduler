@@ -1,0 +1,2117 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_dcbb7becfcb88314",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_dcbb7becfcb88314.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_musc-bm-mued-choral_map.pdf",
+    "sha256": "8e17e84dd9526250cf5ed48e3ba4c96401c3b55a786437d267485164e8d47601",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Music",
+    "degree_name": "Bachelor of Music (B.M.)",
+    "degree_abbreviation": "B.M.",
+    "college": "Music",
+    "department": "",
+    "total_credits": {
+      "minimum": 132,
+      "maximum": 132
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Music",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Secondary Applied Lessons4 (MUED 155 or MUED 165)",
+            "source_text": "Secondary Applied Lessons4 (MUED 155 or MUED 165) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Secondary Applied Lessons4 (MUED 155 or MUED 165) 2 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Secondary Applied Lessons4 (MUED 155 or MUED 165) 2 C * MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "MUSC 117 Aural Skills I",
+            "source_text": "! MUSC 117 Aural Skills I 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "117"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 117 Aural Skills I 1 C * MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "MUSC 100 Music Convocation",
+            "source_text": "MUSC 100 Music Convocation 0 S MR",
+            "credits": {
+              "minimum": 0,
+              "maximum": 0
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "100"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 100 Music Convocation 0 S MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "MUSC 278 Diction",
+            "source_text": "MUSC 278 Diction 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "278"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 278 Diction 2 C * MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-8",
+            "sequence": 8,
+            "label": "Foreign language5 or other Carolina Core Requirement6",
+            "source_text": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-9",
+            "sequence": 9,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 4 CC",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 4 CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Secondary Applied Lessons4 (MUED 156 or MUED 166)",
+            "source_text": "Secondary Applied Lessons4 (MUED 156 or MUED 166) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Secondary Applied Lessons4 (MUED 156 or MUED 166) 2 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Secondary Applied Lessons4 (MUED 156 or MUED 166) 2 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "MUSC 115 Music Theory I",
+            "source_text": "! MUSC 115 Music Theory I 3 C CC-AIU C or better in MUSC 114 (or passing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "115"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 115 Music Theory I 3 C CC-AIU C or better in MUSC 114 (or passing",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "MUSC 118 Aural Skills II",
+            "source_text": "! MUSC 118 Aural Skills II 1 C * MR MUSC 117",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "118"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 118 Aural Skills II 1 C * MR MUSC 117",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-7",
+            "sequence": 7,
+            "label": "MUSC 100 Music Convocation",
+            "source_text": "MUSC 100 Music Convocation 0 S MR",
+            "credits": {
+              "minimum": 0,
+              "maximum": 0
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "100"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 100 Music Convocation 0 S MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-8",
+            "sequence": 8,
+            "label": "MUSC 100L Recital Class Laboratory",
+            "source_text": "MUSC 100L Recital Class Laboratory 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "100L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 100L Recital Class Laboratory 1 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-9",
+            "sequence": 9,
+            "label": "Foreign language5 or other Carolina Core Requirement6",
+            "source_text": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Secondary Applied Lessons4 (MUED 355 or MUED 265)",
+            "source_text": "Secondary Applied Lessons4 (MUED 355 or MUED 265) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Secondary Applied Lessons4 (MUED 355 or MUED 265) 2 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Secondary Applied Lessons4 (MUED 355 or MUED 265) 2 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "MUSC 215 Music Theory II",
+            "source_text": "! MUSC 215 Music Theory II 3 C * MR C or better in MUSC 115",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "215"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 215 Music Theory II 3 C * MR C or better in MUSC 115",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "MUSC 217 Aural Skills III",
+            "source_text": "! MUSC 217 Aural Skills III 1 C * MR MUSC 118",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "217"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 217 Aural Skills III 1 C * MR MUSC 118",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "MUED 200 Music Education Practicum",
+            "source_text": "MUED 200 Music Education Practicum 1 S MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "200"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUED 200 Music Education Practicum 1 S MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-8",
+            "sequence": 8,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "MUSC 353 History of Western Music I",
+            "source_text": "MUSC 353 History of Western Music I 3 C * MR C or better in MUSC 100L, 115, & 215",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "353"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 353 History of Western Music I 3 C * MR C or better in MUSC 100L, 115, & 215",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 111A-MUSC 111Z) 2 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Secondary Applied Lessons4 (MUED 356 or MUED 266)",
+            "source_text": "Secondary Applied Lessons4 (MUED 356 or MUED 266) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Secondary Applied Lessons4 (MUED 356 or MUED 266) 2 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Secondary Applied Lessons4 (MUED 356 or MUED 266) 2 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "MUSC 218 Aural Skills IV",
+            "source_text": "! MUSC 218 Aural Skills IV 1 C * MR MUSC 217",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "218"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MUSC 218 Aural Skills IV 1 C * MR MUSC 217",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "EDTE 201 Issues & Trends in Teaching & Learning",
+            "source_text": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDTE",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "Theory Elective7",
+            "source_text": "Theory Elective7 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Theory Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Theory Elective7 3 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-8",
+            "sequence": 8,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-9",
+            "sequence": 9,
+            "label": "MUSC 100A Music Advocacy I",
+            "source_text": "MUSC 100A Music Advocacy I 0 S MR",
+            "credits": {
+              "minimum": 0,
+              "maximum": 0
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "100A"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 100A Music Advocacy I 0 S MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "MUSC 354 History of Western Music II",
+            "source_text": "MUSC 354 History of Western Music II 3 C * MR/CC- C or better in MUSC 353",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "354"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 354 History of Western Music II 3 C * MR/CC- C or better in MUSC 353",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Chamber Ensemble (MUSC 130A-Z)",
+            "source_text": "Chamber Ensemble (MUSC 130A-Z) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "130A"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Chamber Ensemble (MUSC 130A-Z) 1 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "MUSC 577 Vocal Pedagogy",
+            "source_text": "MUSC 577 Vocal Pedagogy 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "577"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 577 Vocal Pedagogy 2 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "MUSC 333 Basic Choral & Instrumental Conducting",
+            "source_text": "MUSC 333 Basic Choral & Instrumental Conducting 2 C * MR MUSC 217",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 333 Basic Choral & Instrumental Conducting 2 C * MR MUSC 217",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "MUED 107 Classroom Instruments",
+            "source_text": "MUED 107 Classroom Instruments 1 C * MR C or better in MUED 200 & 356 or",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "107"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUED 107 Classroom Instruments 1 C * MR C or better in MUED 200 & 356 or",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "Elective",
+            "source_text": "Elective 1 PR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 1 PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "MUSC 445 S. Topics in Musicology & Ethnomusicology or MUSC 544 Topics in Music History only)",
+            "source_text": "MUSC 445 S. Topics in Musicology & Ethnomusicology 3 C * MR C or better in MUSC 354 (MUSC 445 or MUSC 544 Topics in Music History only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MUSC 445 S. Topics in Musicology & Ethnomusicology 3 C * MR C or better in MUSC 354 (MUSC 445 or MUSC 544 Topics in Music History only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 445 S. Topics in Musicology & Ethnomusicology 3 C * MR C or better in MUSC 354 (MUSC 445 or MUSC 544 Topics in Music History only)",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "MUSC 335 Choral Conducting",
+            "source_text": "MUSC 335 Choral Conducting 2 C * MR MUSC 333, 218 & MUED 355",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUSC",
+              "number": "335"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUSC 335 Choral Conducting 2 C * MR MUSC 333, 218 & MUED 355",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "MUED 335L Choral Literature Lab II",
+            "source_text": "MUED 335L Choral Literature Lab II 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "335L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUED 335L Choral Literature Lab II 1 C * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "MUED 465 General Music in Elementary Schools",
+            "source_text": "MUED 465 General Music in Elementary Schools 2 C * MR C or better in MUED 200",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "465"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUED 465 General Music in Elementary Schools 2 C * MR C or better in MUED 200",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-7",
+            "sequence": 7,
+            "label": "MUED 465P Practicum in Elementary Music",
+            "source_text": "MUED 465P Practicum in Elementary Music 1 C * MR Coreq: MUED 465",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "465P"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MUED 465P Practicum in Elementary Music 1 C * MR Coreq: MUED 465",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-8",
+            "sequence": 8,
+            "label": "EDPY 401 Learners & the Diversity of Learning",
+            "source_text": "EDPY 401 Learners & the Diversity of Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDPY",
+              "number": "401"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDPY 401 Learners & the Diversity of Learning 3 C * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-9",
+            "sequence": 9,
+            "label": "Theory Elective7",
+            "source_text": "Theory Elective7 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Theory Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Theory Elective7 3 C * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+            "source_text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus) 1 C * MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z)",
+            "source_text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Primary Applied Lessons3 (MUSC 311A-MUSC 311Z) 2 C * MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "MUED 467 Choral Methods & Materials",
+            "source_text": "MUED 467 Choral Methods & Materials 3 C * MR C or better in MUSC 218 and MUED",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "467"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MUED 467 Choral Methods & Materials 3 C * MR C or better in MUSC 218 and MUED",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "MUED 467P Practicum in Choral Music",
+            "source_text": "MUED 467P Practicum in Choral Music 1 C * MR Coreq: MUED 467",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "467P"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MUED 467P Practicum in Choral Music 1 C * MR Coreq: MUED 467",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "MUED 359 Instrumental Techniques for Choral Majors",
+            "source_text": "MUED 359 Instrumental Techniques for Choral Majors 2 C * MR Passing grade in MUED 200",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "359"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MUED 359 Instrumental Techniques for Choral Majors 2 C * MR Passing grade in MUED 200",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-6",
+            "sequence": 6,
+            "label": "EDRD 500 Content Area Literacy PK-12 or EDEX 581 Teaching Rdg, to Adol. with Disabilities",
+            "source_text": "EDRD 500 Content Area Literacy PK-12 3 C * MR or EDEX 581 Teaching Rdg, to Adol. with Disabilities",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDRD 500 Content Area Literacy PK-12 3 C * MR or EDEX 581 Teaching Rdg, to Adol. with Disabilities",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "EDRD 500 Content Area Literacy PK-12 3 C * MR or EDEX 581 Teaching Rdg, to Adol. with Disabilities",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core Requirement6 or Elective",
+            "source_text": "Carolina Core Requirement6 or Elective 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Elective"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core Requirement6 or Elective 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-8",
+            "sequence": 8,
+            "label": "Carolina Core Requirement6 or Elective",
+            "source_text": "Carolina Core Requirement6 or Elective 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Elective"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core Requirement6 or Elective 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 12
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "MUED 477 Directed Teaching (Music)8",
+            "source_text": "MUED 477 Directed Teaching (Music)8 12 C * MR Senior Standing",
+            "credits": {
+              "minimum": 12,
+              "maximum": 12
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MUED",
+              "number": "477"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MUED 477 Directed Teaching (Music)8 12 C * MR Senior Standing",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.50 GPA on all MUSC & MUED courses and a 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.50 GPA on all MUSC & MUED courses and a 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Primary Applied Lessons must be completed satisfactorily for a minimum of 7 semesters & 14 hours of credit. Students who audition and choose to pursue the Performance Certificate should take 4 semesters of MUSC 211-Lower Division Applied Music-Performance Track & 3 semesters of MUSC 411-Upper Division Applied Music-Performance Track.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Primary Applied Lessons must be completed satisfactorily for a minimum of 7 semesters & 14 hours of credit. Students who audition and choose to pursue the Performance Certificate should take 4 semesters of MUSC 211-Lower Division Applied Music-Performance Track & 3 semesters of MUSC 411-Upper Division Applied Music-Performance Track.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Students must complete the requirements of an area of Secondary Applied Lessons from below. a. Voice Principal: MUED 155-Group Piano (2); MUED 156-Group Piano (2); MUED 355-Advanced Group Piano (2); & MUED 356-Advanced Group Piano (2) b. Keyboard Principal: MUED 165-Class Voice (Basic) (2); MUED 166-Class Voice (Basic) (2); MUED 265-Class Voice (Intermediate) (2); & MUED 266-Class Voice (Intermediate) (2)",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Students must complete the requirements of an area of Secondary Applied Lessons from below. a. Voice Principal: MUED 155-Group Piano (2); MUED 156-Group Piano (2); MUED 355-Advanced Group Piano (2); & MUED 356-Advanced Group Piano (2) b. Keyboard Principal: MUED 165-Class Voice (Basic) (2); MUED 166-Class Voice (Basic) (2); MUED 265-Class Voice (Intermediate) (2); & MUED 266-Class Voice (Intermediate) (2)",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the School of Music-Music Education concentration are required to demonstrate proficiency in one foreign language equivalent to the 121 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the School of Music-Music Education concentration are required to demonstrate proficiency in one foreign language equivalent to the 121 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. This sequence assumes that students complete two overlay-eligible Carolina Core courses. Students may need to complete additional hours in order to meet all requirements if no overlay-eligible courses are completed.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. This sequence assumes that students complete two overlay-eligible Carolina Core courses. Students may need to complete additional hours in order to meet all requirements if no overlay-eligible courses are completed.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Theory Electives (6 hours): MUSC 312, 313, 315, 319, 320, 515, 518, 525, 526, 528.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Theory Electives (6 hours): MUSC 312, 313, 315, 319, 320, 515, 518, 525, 526, 528.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Students must have a minimum 2.75 institutional GPA and be accepted into the Professional Program through the College of Education in order to enroll in MUED 477.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Students must have a minimum 2.75 institutional GPA and be accepted into the Professional Program through the College of Education in order to enroll in MUED 477.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

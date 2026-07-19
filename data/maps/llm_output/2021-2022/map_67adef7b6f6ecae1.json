@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_67adef7b6f6ecae1",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2021-2022/map_67adef7b6f6ecae1.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_biol_3yrplan.pdf",
+    "sha256": "7f9d92a2c554a79dc14c6181c38e50ea38f801f8904dd74cd853044539137661",
+    "page_count": 3,
+    "catalog_year": "2021-2022"
+  },
+  "program": {
+    "major": "Biological Sciences",
+    "degree_name": "Bachelor of Science (B.S)",
+    "degree_abbreviation": "B.S",
+    "college": "College of Arts and Sciences",
+    "department": "",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Biological Sciences",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Accelerated Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Accelerated Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Accelerated Year 1 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Accelerated Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Accelerated Year 2 Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Accelerated Year 2 Summer",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Accelerated Year 3 Fall",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Accelerated Year 3 Spring",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101/101L (SCI), 4 hours                            CHEM 334 (Cognate), 3 hours; CHEM 111/111L (SCI), 4 hours                            CHEM 332L (Cognate), 1 hour; (Must have placed into MATH 111, 115, or higher         HIST 101-109 (GHS), 3 hours; MATH); Carolina Core, 3 hours; Foreign Language or Carolina Core, 3 hours; Social Science, 3 hours; Spring Semester, 17-18 hours; Spring Semester, 18 hours; ENGL 102 (CMW, INF), 3 hours; Physiology or Plant Biology, 3 hours; MATH 170, 172, or 142 (ARP), 3 or 4 hours; BIOL 303 (Required Major Course), 3 hours; BIOL 102/102L (SCI), 4 hours; Carolina Core (CMS), 3 hours; CHEM 112/112L (SCI), 4 hours; STAT 205 (ARP), 3 hours; Foreign Language or Carolina Core (GFL), 3 hours; Humanities or Fine Arts, 3 hours; Minor (if applicable) or Elective course, 3 hours; Summer Semester, 14 hours; BIOL 301 (Required Major Course), 3 hours; Summer Semester, 12 hours; BIOL 301L (Major-level lab course option), 1 hour; Physiology or Plant Biology, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Biological Sciences – Bachelor of Science (B.S) College of Arts and Sciences Catalog Year: 2021-2022 YEAR ONE                                                YEAR TWO Fall Semester, 17-18 hours                              Fall Semester, 17 hours ENGL 101 (CMW), 3 hours                                 BIOL 302 (Required Major course), 3 hours MATH 122 OR 141 (ARP), 3 or 4 hours                     BIOL 302L (Major-level lab course option), 1 hour"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Full accelerated plan extracted from all source pages."
+  }
+}

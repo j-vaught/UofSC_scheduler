@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_b01224ddfed7e311",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_b01224ddfed7e311.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_biol_3yrplan.pdf",
+    "sha256": "27cf765df5d2e22c9fc3eeaec8223ef28b9a491d0dcb2d58d5a8e1fe34a91d1d",
+    "page_count": 3,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Biological Sciences",
+    "degree_name": "Bachelor of Science (B.S)",
+    "degree_abbreviation": "B.S",
+    "college": "Accelerated Study Plan",
+    "department": "Biological Sciences",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Biological Sciences",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Year One Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "ENGL 101, MATH 122/141, BIOL 101/101L, CHEM 111/111L, University 101; must place into MATH 111/115+",
+            "credits": {
+              "minimum": 17,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101, MATH 122/141, BIOL 101/101L, CHEM 111/111L, University 101; must place into MATH 111/115+",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101, MATH 122/141, BIOL 101/101L, CHEM 111/111L, University 101; must place into MATH 111/115+"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Year One Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "ENGL 102, MATH 170/172/142, BIOL 102/102L, CHEM 112/112L, Foreign Language",
+            "credits": {
+              "minimum": 17,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102, MATH 170/172/142, BIOL 102/102L, CHEM 112/112L, Foreign Language",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102, MATH 170/172/142, BIOL 102/102L, CHEM 112/112L, Foreign Language"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Year One Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 301, CHEM 333, CHEM 331L, Carolina Core, HIST 111/112/214",
+            "credits": {
+              "minimum": 13,
+              "maximum": 13
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301, CHEM 333, CHEM 331L, Carolina Core, HIST 111/112/214",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301, CHEM 333, CHEM 331L, Carolina Core, HIST 111/112/214"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Year Two Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 302/302L, BIOL 303/303L, HIST 101-109, Foreign Language, Minor/Elective",
+            "credits": {
+              "minimum": 18,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 302/302L, BIOL 303/303L, HIST 101-109, Foreign Language, Minor/Elective",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 302/302L, BIOL 303/303L, HIST 101-109, Foreign Language, Minor/Elective"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Year Two Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 420, BIOL 4/5/6XX, Carolina Core CMS, STAT 205, Foreign Language, Minor/Elective",
+            "credits": {
+              "minimum": 18,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 420, BIOL 4/5/6XX, Carolina Core CMS, STAT 205, Foreign Language, Minor/Elective",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 420, BIOL 4/5/6XX, Carolina Core CMS, STAT 205, Foreign Language, Minor/Elective"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Year Two Summer",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 460/460L, Carolina Core GSS, Minor/Electives x2",
+            "credits": {
+              "minimum": 13,
+              "maximum": 13
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 460/460L, Carolina Core GSS, Minor/Electives x2",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 460/460L, Carolina Core GSS, Minor/Electives x2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Year Three Fall",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 4/5/6XX, PHYS 201/201L or elective, Carolina Core GSS, VSR, Minor/Elective",
+            "credits": {
+              "minimum": 15,
+              "maximum": 16
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 4/5/6XX, PHYS 201/201L or elective, Carolina Core GSS, VSR, Minor/Elective",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 4/5/6XX, PHYS 201/201L or elective, Carolina Core GSS, VSR, Minor/Elective"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Year Three Spring",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Semester requirements",
+            "source_text": "BIOL 4/5/6XX, PHYS 202/202L or elective, CSCE 102, Carolina Core, Minor/Elective",
+            "credits": {
+              "minimum": 15,
+              "maximum": 16
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 4/5/6XX, PHYS 202/202L or elective, CSCE 102, Carolina Core, Minor/Elective",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 4/5/6XX, PHYS 202/202L or elective, CSCE 102, Carolina Core, Minor/Elective"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Full accelerated plan extracted from all source pages."
+  }
+}

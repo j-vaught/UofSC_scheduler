@@ -1,0 +1,1472 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_ad9b846886f9021b",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_ad9b846886f9021b.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_info-science_map.pdf",
+    "sha256": "882ef0f0fb8cda1b363ce5512490945716653f2925269c3d1f86be2be4975c21",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Information Science",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Information & Communications",
+    "department": "Library & Information Science",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Information Science",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "ISCI 201 Data, Information and Society",
+            "source_text": "! ISCI 201 Data, Information and Society 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ISCI 201 Data, Information and Society 3 C MR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "STAT 110 Introduction to Statistical Reasoning or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+            "source_text": "STAT 110 Introduction to Statistical Reasoning 3 CC-ARP See Bulletin listing. or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 110 Introduction to Statistical Reasoning 3 CC-ARP See Bulletin listing. or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 110 Introduction to Statistical Reasoning 3 CC-ARP See Bulletin listing. or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "ISCI 202 Information Literacy & Technology or ISCI 259 User Experience Research Methods & Tools or ISCI 310 Research Methods in Information Science",
+            "source_text": "ISCI 202 Information Literacy & Technology 3 C MR or ISCI 259 User Experience Research Methods & Tools or ISCI 310 Research Methods in Information Science",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ISCI 202 Information Literacy & Technology 3 C MR or ISCI 259 User Experience Research Methods & Tools or ISCI 310 Research Methods in Information Science",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 202 Information Literacy & Technology 3 C MR or ISCI 259 User Experience Research Methods & Tools or ISCI 310 Research Methods in Information Science",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement3 or UNIV 101 The Student in the University",
+            "source_text": "Carolina Core Requirement3 3 CC/PR or UNIV 101 The Student in the University",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement3 3 CC/PR or UNIV 101 The Student in the University",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 3 CC/PR or UNIV 101 The Student in the University",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "ISCI 250 Introduction to Content Management Systems",
+            "source_text": "ISCI 250 Introduction to Content Management Systems 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "250"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 250 Introduction to Content Management Systems 3 C MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "ISCI 301 Text Mining in Big Data Analytics (offered fall)",
+            "source_text": "ISCI 301 Text Mining in Big Data Analytics (offered fall) 3 C MR C or better in ISCI 201",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "301"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 301 Text Mining in Big Data Analytics (offered fall) 3 C MR C or better in ISCI 201",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language6 or other Carolina Core Requirement3",
+            "source_text": "Foreign language6 or other Carolina Core Requirement3 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language6 or other Carolina Core Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language6 or other Carolina Core Requirement3 3-4 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ISCI 410 Knowledge Management or ISCI 415 Social Issues in Info. & Comm. Technologies",
+            "source_text": "ISCI 410 Knowledge Management 3 C MR C or better in ISCI 301 (ISCI 410) or ISCI 415 Social Issues in Info. & Comm. Technologies",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ISCI 410 Knowledge Management 3 C MR C or better in ISCI 301 (ISCI 410) or ISCI 415 Social Issues in Info. & Comm. Technologies",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 410 Knowledge Management 3 C MR C or better in ISCI 301 (ISCI 410) or ISCI 415 Social Issues in Info. & Comm. Technologies",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "ISCI 434 Introduction to Knowledge Discovery",
+            "source_text": "ISCI 434 Introduction to Knowledge Discovery 3 C MR One from MATH 122, 141, 142,",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "434"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 434 Introduction to Knowledge Discovery 3 C MR One from MATH 122, 141, 142,",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core CMS Course5",
+            "source_text": "Carolina Core CMS Course5 3 CC-CMS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS Course5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS Course5 3 CC-CMS",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core SCI Requirement3",
+            "source_text": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language6 or other Carolina Core Requirement3",
+            "source_text": "Foreign language6 or other Carolina Core Requirement3 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language6 or other Carolina Core Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language6 or other Carolina Core Requirement3 3-4 CC-GFL",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ISCI 560 Data Visualization",
+            "source_text": "ISCI 560 Data Visualization 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "560"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 560 Data Visualization 3 C MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "ISCI Elective7",
+            "source_text": "ISCI Elective7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "ISCI Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI Elective7 3 C MR See Bulletin listing.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement3 or Elective",
+            "source_text": "Carolina Core Requirement3 or Elective 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3 or Elective"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 or Elective 3 CC/PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core SCI Requirement3",
+            "source_text": "Carolina Core SCI Requirement3 4 CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement3 4 CC-SCI",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement3",
+            "source_text": "Carolina Core Requirement3 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "ISCI Elective7",
+            "source_text": "ISCI Elective7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "ISCI Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI Elective7 3 C MR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Supporting Course4",
+            "source_text": "Supporting Course4 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Supporting Course4 3 PR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Supporting Course4 3 PR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Supporting Course4",
+            "source_text": "Supporting Course4 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Supporting Course4 3 PR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Supporting Course4 3 PR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement3 or Elective",
+            "source_text": "Carolina Core Requirement3 or Elective 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3 or Elective"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 or Elective 3 CC/PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement3 or Elective",
+            "source_text": "Carolina Core Requirement3 or Elective 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3 or Elective"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 or Elective 3 CC/PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "ISCI Elective7",
+            "source_text": "ISCI Elective7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "ISCI Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI Elective7 3 C MR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Supporting Course4",
+            "source_text": "Supporting Course4 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Supporting Course4 3 PR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Supporting Course4 3 PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Supporting Course4",
+            "source_text": "Supporting Course4 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Supporting Course4 3 PR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Supporting Course4 3 PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "ISCI Elective7",
+            "source_text": "ISCI Elective7 3 C MR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "ISCI Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI Elective7 3 C MR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Supporting Course4",
+            "source_text": "Supporting Course4 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Supporting Course4 3 PR See Bulletin listing.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Supporting Course4 3 PR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "ISCI 496 Internship in Info. Science",
+            "source_text": "ISCI 496 Internship in Info. Science 3 C MR C or better in any ISCI course",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ISCI",
+              "number": "496"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 496 Internship in Info. Science 3 C MR C or better in any ISCI course",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Elective",
+            "source_text": "Elective 2 PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 2 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Supporting Courses (15 hours): Complete the required credit hours for each category below and choose two additional courses from any category. a. Technology/Systems (3 hours): CSCE 101, CSCE 102, MGSC 290, GEOG 363, ITEC 444 b. Diversity, Equity, and Inclusion (3): Select 3 hours of the Diversity and Social Advocacy track of GLD c. Business/Management (3 hours): ACCT 222, ACCT 225, ECON 224, MKTG 350, MGMT 371, ISCI 402",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Supporting Courses (15 hours): Complete the required credit hours for each category below and choose two additional courses from any category. a. Technology/Systems (3 hours): CSCE 101, CSCE 102, MGSC 290, GEOG 363, ITEC 444 b. Diversity, Equity, and Inclusion (3): Select 3 hours of the Diversity and Social Advocacy track of GLD c. Business/Management (3 hours): ACCT 222, ACCT 225, ECON 224, MKTG 350, MGMT 371, ISCI 402",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. ISCI recommends one of the following: SAEL 200, SPCH 145, or SPCH 230. SAEL 200 is approved to fulfill the CC-CMS and VSR requirements. If SPCH 140, 230 or 260 is used to fulfill the CC-CMS requirement, then a separate CC-VSR course will be required.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. ISCI recommends one of the following: SAEL 200, SPCH 145, or SPCH 230. SAEL 200 is approved to fulfill the CC-CMS and VSR requirements. If SPCH 140, 230 or 260 is used to fulfill the CC-CMS requirement, then a separate CC-VSR course will be required.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Students in the School of Information Science are required to demonstrate proficiency in one foreign language equivalent to the 121 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Students in the School of Information Science are required to demonstrate proficiency in one foreign language equivalent to the 121 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. ISCI Electives (12 hours): Select 12 credits from ISCI or JOUR. No more than 6 credits may be from JOUR.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. ISCI Electives (12 hours): Select 12 credits from ISCI or JOUR. No more than 6 credits may be from JOUR.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

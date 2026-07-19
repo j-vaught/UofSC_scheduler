@@ -1,0 +1,1449 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_1b2d9f4ee68dfd58",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_1b2d9f4ee68dfd58.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_envr-science_map.pdf",
+    "sha256": "ae18e18cffa15381d6fcd052323c07f51fee8c2ed62bcbfb33bbb48209e323a2",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Environmental Science",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": 128,
+      "maximum": 128
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Environmental Science",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 13,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 101 & 101L – Biological Principles I or MSCI 101 The Ocean Environment",
+            "source_text": "BIOL 101 & 101L – Biological Principles I 4 CC-SCI or MSCI 101 The Ocean Environment",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101 & 101L – Biological Principles I 4 CC-SCI or MSCI 101 The Ocean Environment",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101 & 101L – Biological Principles I 4 CC-SCI or MSCI 101 The Ocean Environment",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "GEOL 101 Introduction to the Earth or GEOL 201 Observing the Earth (fall only) or GEOG 201 Landform Geography",
+            "source_text": "GEOL 101 Introduction to the Earth 3-4 PR or GEOL 201 Observing the Earth (fall only) or GEOG 201 Landform Geography",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "GEOL 101 Introduction to the Earth 3-4 PR or GEOL 201 Observing the Earth (fall only) or GEOG 201 Landform Geography",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GEOL 101 Introduction to the Earth 3-4 PR or GEOL 201 Observing the Earth (fall only) or GEOG 201 Landform Geography",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus I4",
+            "source_text": "MATH 141 Calculus I4 4 C CC-ARP C or better in MATH 115 or",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 Calculus I4 4 C CC-ARP C or better in MATH 115 or",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 102 & 102L – Biological Principles II or MSCI 102 The Living Ocean",
+            "source_text": "BIOL 102 & 102L – Biological Principles II 4 CC-SCI or MSCI 102 The Living Ocean",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 102 & 102L – Biological Principles II 4 CC-SCI or MSCI 102 The Living Ocean",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 & 102L – Biological Principles II 4 CC-SCI or MSCI 102 The Living Ocean",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "POLI 201 American National Government",
+            "source_text": "POLI 201 American National Government 3 CC-GSS/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 201 American National Government 3 CC-GSS/",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "MATH 142 Calculus II",
+            "source_text": "MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "ENVR 201 Environmental Science & Policy I (fall only)",
+            "source_text": "ENVR 201 Environmental Science & Policy I (fall only) 4 C PR/CC- Sophomore Standing",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENVR",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 201 Environmental Science & Policy I (fall only) 4 C PR/CC- Sophomore Standing",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 & 111L – General Chemistry I or CHEM 141 Principles of Chemistry I Math placement test score (CHEM 111",
+            "source_text": "CHEM 111 & 111L – General Chemistry I 4 PR C or better in MATH 115 or or CHEM 141 Principles of Chemistry I Math placement test score (CHEM 111",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & 111L – General Chemistry I 4 PR C or better in MATH 115 or or CHEM 141 Principles of Chemistry I Math placement test score (CHEM 111",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & 111L – General Chemistry I 4 PR C or better in MATH 115 or or CHEM 141 Principles of Chemistry I Math placement test score (CHEM 111",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement3",
+            "source_text": "Carolina Core Requirement3 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 3 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3 CC-GFL",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 202 Envir. Science and Policy II (spring only)",
+            "source_text": "ENVR 202 Envir. Science and Policy II (spring only) 4 C PR/CC-",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENVR",
+              "number": "202"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 202 Envir. Science and Policy II (spring only) 4 C PR/CC-",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 112 & 112L – General Chemistry II or CHEM 142 Principles of Chemistry II 111, 115 or higher math; Prereq or",
+            "source_text": "CHEM 112 & 112L – General Chemistry II 4 PR C or better in CHEM 111 and MATH or CHEM 142 Principles of Chemistry II 111, 115 or higher math; Prereq or",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112 & 112L – General Chemistry II 4 PR C or better in CHEM 111 and MATH or CHEM 142 Principles of Chemistry II 111, 115 or higher math; Prereq or",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & 112L – General Chemistry II 4 PR C or better in CHEM 111 and MATH or CHEM 142 Principles of Chemistry II 111, 115 or higher math; Prereq or",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "ECON 221 Principles of Microeconomics or ECON 223 Introduction to Economics or ECON 224 Introduction to Economics",
+            "source_text": "ECON 221 Principles of Microeconomics 3 CR or ECON 223 Introduction to Economics or ECON 224 Introduction to Economics",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 221 Principles of Microeconomics 3 CR or ECON 223 Introduction to Economics or ECON 224 Introduction to Economics",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 221 Principles of Microeconomics 3 CR or ECON 223 Introduction to Economics or ECON 224 Introduction to Economics",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "History6",
+            "source_text": "History6 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History6 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History6 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or Carolina Core Requirement3",
+            "source_text": "Foreign language5 or Carolina Core Requirement3 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language5 or Carolina Core Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or Carolina Core Requirement3 3 CR/CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 301 & 301L Ecology & Evolution",
+            "source_text": "BIOL 301 & 301L Ecology & Evolution 4 C MR BIOL 102/MSCI 102 or MSCI 311",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "301"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 & 301L Ecology & Evolution 4 C MR BIOL 102/MSCI 102 or MSCI 311",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "ENVR 548 Environmental Economics or POLI 477 Green Politics 548) or POLI 478 Environmental Policy",
+            "source_text": "ENVR 548 Environmental Economics 3 PR ECON 221 & 222 or ECON 224 (ENVR or POLI 477 Green Politics 548) or POLI 478 Environmental Policy",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 548 Environmental Economics 3 PR ECON 221 & 222 or ECON 224 (ENVR or POLI 477 Green Politics 548) or POLI 478 Environmental Policy",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 548 Environmental Economics 3 PR ECON 221 & 222 or ECON 224 (ENVR or POLI 477 Green Politics 548) or POLI 478 Environmental Policy",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+            "source_text": "PHYS 201 & 201L – General Physics I 4 PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 201 & 201L – General Physics I 4 PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 201 & 201L – General Physics I 4 PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement3 or Approved Elective7",
+            "source_text": "Carolina Core Requirement3 or Approved Elective7 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3 or Approved Elective7"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 or Approved Elective7 3 CC/PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 102 General Applications Programming or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+            "source_text": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "STAT 515 Statistical Methods I",
+            "source_text": "STAT 515 Statistical Methods I 3 C CR MATH 141 or MATH 115 & any stat.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "515"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 515 Statistical Methods I 3 C CR MATH 141 or MATH 115 & any stat.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement3 or Approved Elective7",
+            "source_text": "Carolina Core Requirement3 or Approved Elective7 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement3 or Approved Elective7"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement3 or Approved Elective7 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Ethics Course: ENVR 322 or PHIL 312, 320-325, 360,",
+            "source_text": "Ethics Course: ENVR 322 or PHIL 312, 320-325, 360, 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Ethics Course: ENVR 322 or PHIL 312, 320-325, 360, 3 CR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Ethics Course: ENVR 322 or PHIL 312, 320-325, 360, 3 CR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective7",
+            "source_text": "Approved Elective7 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective7 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 480 Environmental Issues Seminar",
+            "source_text": "ENVR 480 Environmental Issues Seminar 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENVR",
+              "number": "480"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ENVR 480 Environmental Issues Seminar 3 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Environmental Science Major Course8",
+            "source_text": "Environmental Science Major Course8 3-4 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course8 3-4 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course8 3-4 C MR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective7",
+            "source_text": "Approved Elective7 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective7",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective7 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective7 (only if needed to meet hours to",
+            "source_text": "Approved Elective7 (only if needed to meet hours to 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective7 (only if needed to meet hours to",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective7 (only if needed to meet hours to 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Students who place into MATH 115 will be required to successfully complete the corresponding prerequisite before taking MATH 141. MATH 115 may be used as an approved elective. Students who start with MATH 115 should take History in semester one & use the following sequence for semesters 2-4: Semester Two Semester Three Semester Four ENGL 102 MATH 141 MATH 142 BIOL 102 & 102L or MSCI 102 CHEM 111 & 111L ENVR 202 MATH 115 ENVR 201 CHEM 112 & 112L POLI 201 Carolina Core Requirement ECON 221 or 223 or 224 Foreign Language or other Carolina Core Req. Foreign language or Carolina Core Req. Foreign Language or other Carolina Core Req.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Students who place into MATH 115 will be required to successfully complete the corresponding prerequisite before taking MATH 141. MATH 115 may be used as an approved elective. Students who start with MATH 115 should take History in semester one & use the following sequence for semesters 2-4: Semester Two Semester Three Semester Four ENGL 102 MATH 141 MATH 142 BIOL 102 & 102L or MSCI 102 CHEM 111 & 111L ENVR 202 MATH 115 ENVR 201 CHEM 112 & 112L POLI 201 Carolina Core Requirement ECON 221 or 223 or 224 Foreign Language or other Carolina Core Req. Foreign language or Carolina Core Req. Foreign Language or other Carolina Core Req.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Environmental Science Major Courses (27-29 hours) a. Select 3 of 4 (10-11 hours): GEOL 315 – Surface & Near Surface Processes (4) (spring only) ECIV 350 – Intro. to Environmental Engineering (3) GEOG 202 – Weather & Climate (4) ENHS 660 – Concepts of Environmental Health Science (3) b. Selected Courses with Advisor Approval (17-18 hours): Students, in consultation with their advisor, will develop a program of study which either provides a broad set of environmental science courses or allows students to focus in a defined area. Given the current course offerings and faculty at the University, if a student wanted to focus their elective course work, possible areas include: Natural Systems, Climate and Weather, Water Resources, Energy, or Humans and the Environment. All students’ elective courses should include at least 6 hours taken at the 400 level or above. All courses may be selected from ENVR designator classes, but if not ENVR classes, then no more than 3 should be from a single discipline and no more than one Research Methods course. For a list of acceptable major course electives, please visit the Bulletin.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Environmental Science Major Courses (27-29 hours) a. Select 3 of 4 (10-11 hours): GEOL 315 – Surface & Near Surface Processes (4) (spring only) ECIV 350 – Intro. to Environmental Engineering (3) GEOG 202 – Weather & Climate (4) ENHS 660 – Concepts of Environmental Health Science (3) b. Selected Courses with Advisor Approval (17-18 hours): Students, in consultation with their advisor, will develop a program of study which either provides a broad set of environmental science courses or allows students to focus in a defined area. Given the current course offerings and faculty at the University, if a student wanted to focus their elective course work, possible areas include: Natural Systems, Climate and Weather, Water Resources, Energy, or Humans and the Environment. All students’ elective courses should include at least 6 hours taken at the 400 level or above. All courses may be selected from ENVR designator classes, but if not ENVR classes, then no more than 3 should be from a single discipline and no more than one Research Methods course. For a list of acceptable major course electives, please visit the Bulletin.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

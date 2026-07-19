@@ -1,0 +1,1405 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_6fb7d288bb12b180",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_6fb7d288bb12b180.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_middle-ed-ba-math-ss_map.pdf",
+    "sha256": "731dac789392481ed97dbcb8c1c3259a50cf0671a164ef230d2a5e06fb2afd6c",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Middle Level Education",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Education",
+    "department": "Instruction & Teacher Education",
+    "total_credits": {
+      "minimum": 122,
+      "maximum": 122
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Middle Level Education",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3 CC-ARP",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core AIU Requirement3",
+            "source_text": "Carolina Core AIU Requirement3 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU Requirement3 3 CC-AIU",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GHS Course",
+            "source_text": "Carolina Core GHS Course 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS Course"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS Course 3 CC-GHS",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Elective (UNIV 101 The Student in the University)",
+            "source_text": "Elective (UNIV 101 The Student in the University) 3 PR/CC (GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective (UNIV 101 The Student in the University) 3 PR/CC (GFL)",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core GSS Requirement3 (and/or Foreign language4)",
+            "source_text": "Carolina Core GSS Requirement3 (and/or Foreign language4) 3 CC-GSS (GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS Requirement3 (and/or Foreign language4)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS Requirement3 (and/or Foreign language4) 3 CC-GSS (GFL)",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core SCI Requirement 3",
+            "source_text": "Carolina Core SCI Requirement 3 4 CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI Requirement 3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement 3 4 CC-SCI",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "EDTE 201 Issues & Trends in Teaching & Learning",
+            "source_text": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDTE",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "EDFI 300 Schools in Communities",
+            "source_text": "EDFI 300 Schools in Communities 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDFI",
+              "number": "300"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDFI 300 Schools in Communities 3 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core SCI Requirement3",
+            "source_text": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-SCI",
+              "label": "Carolina Core SCI Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core SCI Requirement3 3-4 CC-SCI",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core CMS/VSR Requirement3",
+            "source_text": "Carolina Core CMS/VSR Requirement3 3 CC-CMS/VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS/VSR Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS/VSR Requirement3 3 CC-CMS/VSR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "EDPY 401 Learners and the Diversity of Learning",
+            "source_text": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDPY",
+              "number": "401"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3-4 C MR See listing in Bulletin.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Additional Literature or History7",
+            "source_text": "Additional Literature or History7 3 PR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Additional Literature or History7 3 PR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Additional Literature or History7 3 PR See listing in Bulletin.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "EDML 470 Foundations in Reading",
+            "source_text": "! EDML 470 Foundations in Reading 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "470"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 470 Foundations in Reading 3 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "EDEX 491 Intro. to Inclusion of Stud. w/ Mild Disabilities",
+            "source_text": "! EDEX 491 Intro. to Inclusion of Stud. w/ Mild Disabilities 2 C * MR Adm. to Professional Prog.",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEX",
+              "number": "491"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEX 491 Intro. to Inclusion of Stud. w/ Mild Disabilities 2 C * MR Adm. to Professional Prog.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "EDML 471 Middle Level Content Area Reading & Writing",
+            "source_text": "! EDML 471 Middle Level Content Area Reading & Writing 3 C * MR Adm. to Professional Prog.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "471"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 471 Middle Level Content Area Reading & Writing 3 C * MR Adm. to Professional Prog.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "EDML 321 Middle Level Teaching & Management",
+            "source_text": "! EDML 321 Middle Level Teaching & Management 3 C * MR Adm. to Professional Prog.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "321"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 321 Middle Level Teaching & Management 3 C * MR Adm. to Professional Prog.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Social Studies Content Course6",
+            "source_text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Studies Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "Mathematics Content Course6",
+            "source_text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Mathematics Content Course6 3 C MR See listing in Bulletin.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "EDML 498 Internship A in the Middle School8",
+            "source_text": "! EDML 498 Internship A in the Middle School8 3 B * MR Admission to Internship A",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "B",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "498"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 498 Internship A in the Middle School8 3 B * MR Admission to Internship A",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "EDTE 522 Integrated Curriculum at the Middle Level",
+            "source_text": "! EDTE 522 Integrated Curriculum at the Middle Level 3 C * MR Admission to Internship A",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDTE",
+              "number": "522"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDTE 522 Integrated Curriculum at the Middle Level 3 C * MR Admission to Internship A",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "EDRM 423 Introduction to Classroom Assessment",
+            "source_text": "! EDRM 423 Introduction to Classroom Assessment 2 C * MR Admission to Internship A",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDRM",
+              "number": "423"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDRM 423 Introduction to Classroom Assessment 2 C * MR Admission to Internship A",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "EDML 583 Methods & Materials for Teaching Math. in the",
+            "source_text": "! EDML 583 Methods & Materials for Teaching Math. in the 3 C * MR Admission to Internship A",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "583"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 583 Methods & Materials for Teaching Math. in the 3 C * MR Admission to Internship A",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "EDML 563 Methods & Materials for Teaching Social",
+            "source_text": "! EDML 563 Methods & Materials for Teaching Social 3 C * MR Admission to Internship A",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "563"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 563 Methods & Materials for Teaching Social 3 C * MR Admission to Internship A",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "EDML 499 Internship B in the Middle School9",
+            "source_text": "! EDML 499 Internship B in the Middle School9 12 C * MR Admission to Internship B",
+            "credits": {
+              "minimum": 12,
+              "maximum": 12
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "499"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 499 Internship B in the Middle School9 12 C * MR Admission to Internship B",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "EDML 584 Middle School Internship Seminar",
+            "source_text": "! EDML 584 Middle School Internship Seminar 3 C * MR Admission to Internship B",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDML",
+              "number": "584"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDML 584 Middle School Internship Seminar 3 C * MR Admission to Internship B",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Middle Level Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Middle Level Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core requires either two approved courses in one Foreign Language or a score of two or higher on the foreign language placement test. If a student in the Middle Level Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core requires either two approved courses in one Foreign Language or a score of two or higher on the foreign language placement test. If a student in the Middle Level Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Content Courses (36-38 hours) a. Social Studies Content Requirements (18 hours): HIST 101 (may not be used to meet the Carolina Core GHS requirement); HIST 102 (may not also be used to meet the Carolina Core GHS requirement); HIST 111 or 112 (may not also be used to meet the Carolina Core GHS requirement); GEOG 561; select one course from the following: HIST 409, 410, 442, SOST 201, SOST 202; select one course from the following: additional 300-level HIST, ANTH 205, 327, 331, 335, 341, ECON 224. b. Mathematics Content Requirements (18-20 hours): MATH 603, 142 (if not used for Carolina Core requirement), or EDTE 500; MATH 602, 531, or EDTE 501; MATH 401 or 241; STAT 201; select 2 courses from the following: MATH 141 (if not used for Carolina Core requirement); MATH 142 (if not used above); MATH 241(if not used above); MATH 170 or MATH 174 (–if not used for Carolina Core requirement); MATH 511; MATH 544; MATH 546; MATH 574; MATH 580; STAT 506; STAT 515; STAT 516.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Content Courses (36-38 hours) a. Social Studies Content Requirements (18 hours): HIST 101 (may not be used to meet the Carolina Core GHS requirement); HIST 102 (may not also be used to meet the Carolina Core GHS requirement); HIST 111 or 112 (may not also be used to meet the Carolina Core GHS requirement); GEOG 561; select one course from the following: HIST 409, 410, 442, SOST 201, SOST 202; select one course from the following: additional 300-level HIST, ANTH 205, 327, 331, 335, 341, ECON 224. b. Mathematics Content Requirements (18-20 hours): MATH 603, 142 (if not used for Carolina Core requirement), or EDTE 500; MATH 602, 531, or EDTE 501; MATH 401 or 241; STAT 201; select 2 courses from the following: MATH 141 (if not used for Carolina Core requirement); MATH 142 (if not used above); MATH 241(if not used above); MATH 170 or MATH 174 (–if not used for Carolina Core requirement); MATH 511; MATH 544; MATH 546; MATH 574; MATH 580; STAT 506; STAT 515; STAT 516.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Additional Literature or History (3 hours): ENGL 283, 285, 287, 288, an additional History course.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Additional Literature or History (3 hours): ENGL 283, 285, 287, 288, an additional History course.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. For admission into EDML 498 Internship A in the Middle School, a candidate must: 1) be admitted to the professional program; 2) complete with a grade of C or better EDEX 491, EDML 321, EDML 470, and EDML 471; 3) achieve a GPA of 3.00 or higher in all education course work; & 4) comply with criminal background check and health screening requirements.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. For admission into EDML 498 Internship A in the Middle School, a candidate must: 1) be admitted to the professional program; 2) complete with a grade of C or better EDEX 491, EDML 321, EDML 470, and EDML 471; 3) achieve a GPA of 3.00 or higher in all education course work; & 4) comply with criminal background check and health screening requirements.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. For admission to EDML 499 Internship B in the Middle School, a candidate must: 1) complete EDML 498 with a grade of B or better; 2) complete with a grade of C or better EDTE 522, the two EDML Methods courses, and EDRM 423; & 3) complete four of the six courses in each of the two content areas.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. For admission to EDML 499 Internship B in the Middle School, a candidate must: 1) complete EDML 498 with a grade of B or better; 2) complete with a grade of C or better EDTE 522, the two EDML Methods courses, and EDRM 423; & 3) complete four of the six courses in each of the two content areas.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

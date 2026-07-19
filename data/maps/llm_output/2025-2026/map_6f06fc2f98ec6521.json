@@ -1,0 +1,1642 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_6f06fc2f98ec6521",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_6f06fc2f98ec6521.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_biomed-engr-bs_map.pdf",
+    "sha256": "00c16a2af0d36df2ad7a045e6ecd36cd2faad96eb730035520f0670839186828",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Biomedical Engineering",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Engineering and Computing",
+    "department": "Biomedical Engineering",
+    "total_credits": {
+      "minimum": 122,
+      "maximum": 122
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Biomedical Engineering",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus I3",
+            "source_text": "! MATH 141 Calculus I3 4 C CC-ARP C or better in MATH 112/115/116 or placement",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 141 Calculus I3 4 C CC-ARP C or better in MATH 112/115/116 or placement",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 General Chemistry I",
+            "source_text": "! CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or higher",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or higher",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 111L General Chemistry I Lab",
+            "source_text": "! CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115 or higher; Prereq or Coreq:",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115 or higher; Prereq or Coreq:",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "BIOL 101 Biological Principles I",
+            "source_text": "! BIOL 101 Biological Principles I 3 C CC-SCI Coreq: BIOL 101L",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BIOL 101 Biological Principles I 3 C CC-SCI Coreq: BIOL 101L",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "BIOL 101L Biological Principles I Lab",
+            "source_text": "! BIOL 101L Biological Principles I Lab 1 C CC-SCI Prereq or coreq: BIOL 101",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "101L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BIOL 101L Biological Principles I Lab 1 C CC-SCI Prereq or coreq: BIOL 101",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "BMEN 101 Intro. to Biomedical Engr. fall only or ENCP 101 Introduction to Engineering",
+            "source_text": "BMEN 101 Intro. to Biomedical Engr. fall only 1-3 * PR or ENCP 101 Introduction to Engineering",
+            "credits": {
+              "minimum": 1,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BMEN 101 Intro. to Biomedical Engr. fall only 1-3 * PR or ENCP 101 Introduction to Engineering",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BMEN 101 Intro. to Biomedical Engr. fall only 1-3 * PR or ENCP 101 Introduction to Engineering",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "MATH 142 Calculus II",
+            "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 212 Fundamentals of Biomedical Systems",
+            "source_text": "! BMEN 212 Fundamentals of Biomedical Systems 3 C * PR C or better in MATH 141 or 122",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "212"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 212 Fundamentals of Biomedical Systems 3 C * PR C or better in MATH 141 or 122",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 211 Essentials of Physics I",
+            "source_text": "! PHYS 211 Essentials of Physics I 3 C PR C or better in MATH 141; Coreq: PHYS 211L",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211 Essentials of Physics I 3 C PR C or better in MATH 141; Coreq: PHYS 211L",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 211L Essentials of Physics I Lab",
+            "source_text": "! PHYS 211L Essentials of Physics I Lab 1 C PR Prereq/Coreq: C or better in PHYS 211",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211L Essentials of Physics I Lab 1 C PR Prereq/Coreq: C or better in PHYS 211",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 112 General Chemistry II",
+            "source_text": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "CHEM 112L General Chemistry II Lab",
+            "source_text": "! CHEM 112L General Chemistry II Lab 1 C PR C or higher in CHEM 111 & 111L or CHEM",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112L General Chemistry II Lab 1 C PR C or higher in CHEM 111 & 111L or CHEM",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 240 Cellular & Molecular Biol. with Engr.",
+            "source_text": "! BMEN 240 Cellular & Molecular Biol. with Engr. 4 C * PR C or better in BIOL 101",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "240"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 240 Cellular & Molecular Biol. with Engr. 4 C * PR C or better in BIOL 101",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "MATH 242 Elem. Differential Equations",
+            "source_text": "! MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "242"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 333 Organic Chemistry I",
+            "source_text": "! CHEM 333 Organic Chemistry I 3 C PR C or higher in CHEM 112 or 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 333 Organic Chemistry I 3 C PR C or higher in CHEM 112 or 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 331L Essentials of Organic Chem. Lab 1 or CHEM 333L Compr. Org. Chem. Lab 1",
+            "source_text": "CHEM 331L Essentials of Organic Chem. Lab 1 1 PR Coreq: CHEM 333 or CHEM 333L Compr. Org. Chem. Lab 1",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 331L Essentials of Organic Chem. Lab 1 1 PR Coreq: CHEM 333 or CHEM 333L Compr. Org. Chem. Lab 1",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 331L Essentials of Organic Chem. Lab 1 1 PR Coreq: CHEM 333 or CHEM 333L Compr. Org. Chem. Lab 1",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "STAT 509 Statistics for Engineers",
+            "source_text": "! STAT 509 Statistics for Engineers 3 PR MATH 142 or equivalent",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "509"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! STAT 509 Statistics for Engineers 3 PR MATH 142 or equivalent",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "BMEN 263 Introduction to Biomechanics spring",
+            "source_text": "! BMEN 263 Introduction to Biomechanics spring 3 C * MR C or better in BMEN 212 & PHYS 211",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "263"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 263 Introduction to Biomechanics spring 3 C * MR C or better in BMEN 212 & PHYS 211",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 290 Thermodynamics of Biomol. Sys.",
+            "source_text": "! BMEN 290 Thermodynamics of Biomol. Sys. 3 C * MR C or better in BMEN 240 & PHYS 211",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "290"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 290 Thermodynamics of Biomol. Sys. 3 C * MR C or better in BMEN 240 & PHYS 211",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "BMEN 345 Human Anat. & Phys. for BMEN",
+            "source_text": "! BMEN 345 Human Anat. & Phys. for BMEN 4 * PR C or better in BMEN 240",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "345"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 345 Human Anat. & Phys. for BMEN 4 * PR C or better in BMEN 240",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core AIU4",
+            "source_text": "Carolina Core AIU4 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU4 3 CC-AIU",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "BMEN 271 Introduction to Biomaterials fall only",
+            "source_text": "! BMEN 271 Introduction to Biomaterials fall only 3 * PR D or better in CHEM 333; C or better in BMEN",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "271"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 271 Introduction to Biomaterials fall only 3 * PR D or better in CHEM 333; C or better in BMEN",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 321 Biomonitoring & Electrophysiology fall",
+            "source_text": "! BMEN 321 Biomonitoring & Electrophysiology fall 3 * MR C or better in BMEN 212, BMEN 240, & MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "321"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 321 Biomonitoring & Electrophysiology fall 3 * MR C or better in BMEN 212, BMEN 240, & MATH",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "only",
+            "source_text": "only 242",
+            "credits": {
+              "minimum": 242,
+              "maximum": 242
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "only 242",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "only 242",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "BMEN 381 Biomedical Engineering Lab I fall only",
+            "source_text": "! BMEN 381 Biomedical Engineering Lab I fall only 2 * MR D or better in BMEN 263, STAT 509; Prereq or",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "381"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 381 Biomedical Engineering Lab I fall only 2 * MR D or better in BMEN 263, STAT 509; Prereq or",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Biomedical Engineering Elective5",
+            "source_text": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biomedical Engineering Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GSS4",
+            "source_text": "Carolina Core GSS4 3 CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS4 3 CC-GSS",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core CMS4",
+            "source_text": "Carolina Core CMS4 0-3 CC-CMS",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS4 0-3 CC-CMS",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "BMEN 302 Prof. Dev. & Ethics in BMEN spring",
+            "source_text": "BMEN 302 Prof. Dev. & Ethics in BMEN spring 2 * MR D or better in BMEN 101 or ENCP 101",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "302"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BMEN 302 Prof. Dev. & Ethics in BMEN spring 2 * MR D or better in BMEN 101 or ENCP 101",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 340 Biochemistry with Engr. Applications",
+            "source_text": "BMEN 340 Biochemistry with Engr. Applications 4 * PR D or better in BMEN 240",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "340"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BMEN 340 Biochemistry with Engr. Applications 4 * PR D or better in BMEN 240",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "BMEN 354 Biotransport spring only",
+            "source_text": "! BMEN 354 Biotransport spring only 3 * MR D or better in BMEN 263 & C or better in MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "354"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 354 Biotransport spring only 3 * MR D or better in BMEN 263 & C or better in MATH",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "BMEN 363 Biomed. Instrumentation spring only",
+            "source_text": "! BMEN 363 Biomed. Instrumentation spring only 3 * MR D or better in BMEN 321 or 360",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "363"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 363 Biomed. Instrumentation spring only 3 * MR D or better in BMEN 321 or 360",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "BMEN 382 Biomed. Engineering Lab II spring",
+            "source_text": "! BMEN 382 Biomed. Engineering Lab II spring 2 * MR D or better in BMEN 321 & 381; Prereq or",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "382"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BMEN 382 Biomed. Engineering Lab II spring 2 * MR D or better in BMEN 321 & 381; Prereq or",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "Biomedical Engineering Elective5",
+            "source_text": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biomedical Engineering Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "BMEN 427 Senior BMEN Design I fall only",
+            "source_text": "! BMEN 427 Senior BMEN Design I fall only 3 * MR D or better in BMEN 381 or 382",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "427"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! BMEN 427 Senior BMEN Design I fall only 3 * MR D or better in BMEN 381 or 382",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 411 Modeling and Simulation of",
+            "source_text": "BMEN 411 Modeling and Simulation of 3 * MR D or better in BMEN 271 & 354",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "411"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "BMEN 411 Modeling and Simulation of 3 * MR D or better in BMEN 271 & 354",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "BMEN 391 Kinetics in Biomolecular Systems fall",
+            "source_text": "BMEN 391 Kinetics in Biomolecular Systems fall 3 * MR D or better in BMEN 340 or CHEM 550 or BIOL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "391"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "BMEN 391 Kinetics in Biomolecular Systems fall 3 * MR D or better in BMEN 340 or CHEM 550 or BIOL",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Biomedical Engineering Elective5",
+            "source_text": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biomedical Engineering Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Program Elective6",
+            "source_text": "Program Elective6 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Program Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Program Elective6 3 * PR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GFL7",
+            "source_text": "Carolina Core GFL7 0-3 CC-GFL",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL7"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core GFL7 0-3 CC-GFL",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "BMEN 428 Senior BMEN Design II spring only",
+            "source_text": "BMEN 428 Senior BMEN Design II spring only 3 * MR D or better in BMEN 427",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "428"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "BMEN 428 Senior BMEN Design II spring only 3 * MR D or better in BMEN 427",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "BMEN 420 Control Systems in Biomed. Engr.",
+            "source_text": "BMEN 420 Control Systems in Biomed. Engr. 3 * MR C or better in MATH 242",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BMEN",
+              "number": "420"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "BMEN 420 Control Systems in Biomed. Engr. 3 * MR C or better in MATH 242",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Biomedical Engineering Elective5",
+            "source_text": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biomedical Engineering Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core VSR4",
+            "source_text": "Carolina Core VSR4 3 CC-VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-VSR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-VSR",
+              "label": "Carolina Core VSR4"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core VSR4 3 CC-VSR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GHS4",
+            "source_text": "Carolina Core GHS4 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS4"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core GHS4 3 CC-GHS",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GFL7",
+            "source_text": "Carolina Core GFL7 0-3 CC-GFL",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL7"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core GFL7 0-3 CC-GFL",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the BMEN program GPA of 2.00.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the BMEN program GPA of 2.00.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Biomedical Engineering Electives (12 hours): BMEN 342, 346, 389, 392, 499, 532, 537, 546, 547, 548, 565, 572, 575, 589, ECHE 430; ELCT 391; EMCH 580, EXSC 335. At most 3 credit hours may come from BMEN 499. In addition, BMEN courses numbered 700 and above may be used to satisfy this requirement, provided the student is admitted to an Accelerated Bachelor’s/Graduate Program.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Biomedical Engineering Electives (12 hours): BMEN 342, 346, 389, 392, 499, 532, 537, 546, 547, 548, 565, 572, 575, 589, ECHE 430; ELCT 391; EMCH 580, EXSC 335. At most 3 credit hours may come from BMEN 499. In addition, BMEN courses numbered 700 and above may be used to satisfy this requirement, provided the student is admitted to an Accelerated Bachelor’s/Graduate Program.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Program Electives (3 hours): The Program Elective may be satisfied by any Biomedical Engineering Elective, any CSCE course at a 200 level and above, as well as any ECHE, ELCT, EMCH, or INDE course at a 300 level and above, or any of the following: BIOL 102, 102L, 250, 250L, 270, 270L, 301, 302L, 303, 415, 460, 505, 530, 531 (or ENHS 661/EPID 661), 534, 553, 610, 612, 620, 635, 653, 655, 656, 662, 665, 667, 690; CHEM 321 or 322, 321L or 322L, 334, 332L, 340, 541, 541L, 542, 545, 550 (or BIOL 541), 550L (or BIOL 541L); CSCE 145, EMCH 111, EXSC 330, 562; MATH 241, 344 (or MATH 526), 374, 520, 524, 544, 546, 547, 550, 552; MGMT 371; PHYS 212, 212L, 515, 516, 517; STAT 516, 518, 519, 520 (or MGSC 520), 523, 525 (or MGSC 525), 528, 530, 582 (or CSCE 582); UNIV 101 .",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Program Electives (3 hours): The Program Elective may be satisfied by any Biomedical Engineering Elective, any CSCE course at a 200 level and above, as well as any ECHE, ELCT, EMCH, or INDE course at a 300 level and above, or any of the following: BIOL 102, 102L, 250, 250L, 270, 270L, 301, 302L, 303, 415, 460, 505, 530, 531 (or ENHS 661/EPID 661), 534, 553, 610, 612, 620, 635, 653, 655, 656, 662, 665, 667, 690; CHEM 321 or 322, 321L or 322L, 334, 332L, 340, 541, 541L, 542, 545, 550 (or BIOL 541), 550L (or BIOL 541L); CSCE 145, EMCH 111, EXSC 330, 562; MATH 241, 344 (or MATH 526), 374, 520, 524, 544, 546, 547, 550, 552; MGMT 371; PHYS 212, 212L, 515, 516, 517; STAT 516, 518, 519, 520 (or MGSC 520), 523, 525 (or MGSC 525), 528, 530, 582 (or CSCE 582); UNIV 101 .",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Students in the College of Engineering & Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 & 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Students in the College of Engineering & Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 & 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

@@ -27,6 +27,21 @@ For each manifest row, give the model four inputs.
 
 Write exactly one result to `data/maps/llm_output/<catalog-year>/<map-id>.json`. The output filename and `map_id` must match the manifest. Do not combine multiple maps in one response. Do not let one map influence another map's requirements.
 
+The local processing set currently contains all 1,295 manifest records. It spans seven catalog years and retains 10,192 ordered academic terms with 52,106 requirement rows. Every file passes the schema and manifest-integrity validator. Most records intentionally remain `needs_review` because unresolved choice wording and footnote dependencies must not be presented as authoritative degree-audit logic.
+
+Materialize a reproducible baseline from the deterministic imports with the following command. This is useful for regenerating missing files, but `--force` replaces any richer manual extraction.
+
+```bash
+uv run python scripts/materialize_llm_major_maps.py
+```
+
+Normalize manually extracted records and validate the complete local set with the following commands.
+
+```bash
+uv run python scripts/normalize_llm_major_maps.py
+uv run python scripts/validate_llm_major_maps.py --require-complete
+```
+
 The schema deliberately separates the recommended semester sequence from requirements outside the sequence. Every substantive fact must include page-level evidence. Logical rules are recursive, so the model can preserve combinations such as all of, any of, exactly one of, or a bounded number of choices. Ambiguous wording remains an `unresolved` rule and creates a review issue instead of becoming an invented course.
 
 ## Data to retain
@@ -42,4 +57,3 @@ Do not retain decorative headers, page numbers as requirements, accessibility bo
 An output is `ready` only when all eight or otherwise explicitly published semesters are present, credit totals are internally consistent or explained, every requirement has evidence, and no unresolved logic affects degree progress. Mark it `needs_review` when wording, a footnote, a course number, or a credit value is uncertain. Mark it `blocked` when pages are missing, unreadable, or the program identity cannot be established.
 
 The JSON is an extraction artifact, not an authoritative audit. The official PDF remains the source of truth. DegreeWorks can later supplement requirement and concentration data, while the major map remains the source for the recommended semester order.
-

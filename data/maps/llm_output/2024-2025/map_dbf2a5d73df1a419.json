@@ -1,0 +1,1468 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_dbf2a5d73df1a419",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_dbf2a5d73df1a419.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_stat-actuarial_map.pdf",
+    "sha256": "88f23169c2eef6324cfb4efa9dfdf6130fb52c9e93b5b3c03cd4021d6eba8006",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Statistics",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "Statistics",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Statistics",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "STAT 515 Statistical Methods I3",
+            "source_text": "STAT 515 Statistical Methods I3 3 C MR MATH 122 or 141; or MATH 111 and",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "515"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 515 Statistical Methods I3 3 C MR MATH 122 or 141; or MATH 111 and",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 14",
+            "source_text": "MATH 141 Calculus 14 4 C CC-ARP MATH 112, 115, 116 or Math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 Calculus 14 4 C CC-ARP MATH 112, 115, 116 or Math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "ECON 221 Principles of Microeconomics",
+            "source_text": "ECON 221 Principles of Microeconomics 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECON",
+              "number": "221"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 221 Principles of Microeconomics 3 CR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language5 or other Carolina Core Requirement6",
+            "source_text": "Foreign language5 or other Carolina Core Requirement6 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Requirement6 3-4 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "STAT 516 Stat. Methods II (offered spring & summer",
+            "source_text": "STAT 516 Stat. Methods II (offered spring & summer 3 C MR STAT 515, 509, 512 or equivalent",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "516"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 516 Stat. Methods II (offered spring & summer 3 C MR STAT 515, 509, 512 or equivalent",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "MATH 142 Calculus II7",
+            "source_text": "MATH 142 Calculus II7 4 C CC-ARP MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 Calculus II7 4 C CC-ARP MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "ECON 222 Principles of Macroeconomics8",
+            "source_text": "ECON 222 Principles of Macroeconomics8 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECON",
+              "number": "222"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 222 Principles of Macroeconomics8 3 C PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core Requirement6",
+            "source_text": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core Requirement6 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "STAT 540 Computing in Statistics (offered fall only)",
+            "source_text": "STAT 540 Computing in Statistics (offered fall only) 3 C MR C or better in STAT 301, 515, 509,",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "540"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 540 Computing in Statistics (offered fall only) 3 C MR C or better in STAT 301, 515, 509,",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "MATH 241 Vector Calculus",
+            "source_text": "MATH 241 Vector Calculus 3 C CR MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "241"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 241 Vector Calculus 3 C CR MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "STAT 511 Probability (cross-listed MATH 511)",
+            "source_text": "STAT 511 Probability (cross-listed MATH 511) 3 C MR Prereq or Coreq: MATH 241",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 511 Probability (cross-listed MATH 511) 3 C MR Prereq or Coreq: MATH 241",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 511 Probability (cross-listed MATH 511) 3 C MR Prereq or Coreq: MATH 241",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "ACCT 225 Introduction to Financial Accounting8",
+            "source_text": "ACCT 225 Introduction to Financial Accounting8 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ACCT",
+              "number": "225"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ACCT 225 Introduction to Financial Accounting8 3 C PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or Carolina Core Requirement6",
+            "source_text": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language5 or Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "STAT 512 Mathematical Stat. (offered spring & summer",
+            "source_text": "STAT 512 Mathematical Stat. (offered spring & summer 3 C MR STAT/MATH 511",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "512"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 512 Mathematical Stat. (offered spring & summer 3 C MR STAT/MATH 511",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "STAT Major Elective (500-level or above)",
+            "source_text": "STAT Major Elective (500-level or above) 3 C MR See course listing in Bulletin.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "STAT Major Elective (500-level or above)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT Major Elective (500-level or above) 3 C MR See course listing in Bulletin.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "FINA 363 Introduction to Finance8",
+            "source_text": "FINA 363 Introduction to Finance8 3 C PR ECON 221, ACCT 225, & 3 hrs.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FINA",
+              "number": "363"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 363 Introduction to Finance8 3 C PR ECON 221, ACCT 225, & 3 hrs.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "History9",
+            "source_text": "History9 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History9 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History9 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "STAT 513 Theory of Statistical Inference (offered fall",
+            "source_text": "STAT 513 Theory of Statistical Inference (offered fall 3 C MR/CC- STAT 512",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "513"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 513 Theory of Statistical Inference (offered fall 3 C MR/CC- STAT 512",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "FINA 469 Investment Analysis & Portfolio Mgmt.8",
+            "source_text": "FINA 469 Investment Analysis & Portfolio Mgmt.8 3 C PR C or better in FINA 363 and C or better",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FINA",
+              "number": "469"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 469 Investment Analysis & Portfolio Mgmt.8 3 C PR C or better in FINA 363 and C or better",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3-4 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "STAT 521 Applied Stochastic Processes (offered spring",
+            "source_text": "STAT 521 Applied Stochastic Processes (offered spring 3 C MR C or better in STAT 511",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "521"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 521 Applied Stochastic Processes (offered spring 3 C MR C or better in STAT 511",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "FINA 471 Derivative Securities8",
+            "source_text": "FINA 471 Derivative Securities8 3 C PR FINA 469",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FINA",
+              "number": "471"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 471 Derivative Securities8 3 C PR FINA 469",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 145 Algorithmic Design I or CSCE 106 Scientific Applications Programming (CSCE 145 only); C or better in MATH",
+            "source_text": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 or CSCE 106 Scientific Applications Programming (CSCE 145 only); C or better in MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 or CSCE 106 Scientific Applications Programming (CSCE 145 only); C or better in MATH",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 or CSCE 106 Scientific Applications Programming (CSCE 145 only); C or better in MATH",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3-4 CC",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "STAT 520 Forecasting & Time Series –cross-listed:",
+            "source_text": "STAT 520 Forecasting & Time Series –cross-listed: 3 C MR STAT 516 or MGSC 391",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "520"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 520 Forecasting & Time Series –cross-listed: 3 C MR STAT 516 or MGSC 391",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "MATH 344 Applied Linear Algebra10",
+            "source_text": "MATH 344 Applied Linear Algebra10 3 C PR MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "344"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 344 Applied Linear Algebra10 3 C PR MATH 142",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "ENGL 363 Introduction to Professional Writing or ENGL 462 Technical Writing or ENGL 463 Business Writing",
+            "source_text": "ENGL 363 Introduction to Professional Writing 3 C CR ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 363 Introduction to Professional Writing 3 C CR ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 363 Introduction to Professional Writing 3 C CR ENGL 101 & 102 or ENGL 462 Technical Writing or ENGL 463 Business Writing",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement6 or Approved Elective11",
+            "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Approved Elective11"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective11 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "FINA 475 Fixed Income Securities8",
+            "source_text": "FINA 475 Fixed Income Securities8 3 C PR FINA 469",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "FINA",
+              "number": "475"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 475 Fixed Income Securities8 3 C PR FINA 469",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement6 or Approved Elective11",
+            "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Approved Elective11"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective11 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective11 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 2 PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective11 2 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who placed into MATH 141 and have no previous STAT course will take STAT 515 in the second semester.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who placed into MATH 141 and have no previous STAT course will take STAT 515 in the second semester.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Students who place into MATH 115 will be required to take it before proceeding to MATH 141 and should also register for STAT 201 in the first semester and STAT 515 in the second semester. Students who have previously completed STAT 509 will not be required to take STAT 515.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Students who place into MATH 115 will be required to take it before proceeding to MATH 141 and should also register for STAT 201 in the first semester and STAT 515 in the second semester. Students who have previously completed STAT 509 will not be required to take STAT 515.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. If MATH 142 is not taken by the second semester, then students are encouraged to take it over the summer.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. If MATH 142 is not taken by the second semester, then students are encouraged to take it over the summer.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. The minor in Risk Management and Insurance is required for the concentration in Actuarial Science.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. The minor in Risk Management and Insurance is required for the concentration in Actuarial Science.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. Students who have previously completed MATH 544 will not be required to take MATH 344.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. Students who have previously completed MATH 544 will not be required to take MATH 344.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "11",
+      "text": "11. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "11. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

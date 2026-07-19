@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_b4f97a72db3f0625",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_b4f97a72db3f0625.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_geog-ba_3yrplan.pdf",
+    "sha256": "b7a16c2a2264e153d50398fc02e85e7568c62aec4a514844fb16bba43426bf92",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Geography",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "Geography",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Geography",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Accelerated Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Accelerated Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Accelerated Year 1 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Accelerated Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Accelerated Year 2 Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Accelerated Year 2 Summer",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Accelerated Year 3 Fall",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Accelerated Year 3 Spring",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours; Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Spring Semester, 15-16 hours                         Fall Semester, 15-16 hours; ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours; STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours; Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hours; History (CR), 3 hours                                Approved Elective (PR), 3 hours; Summer Semester, 15-17 hours; Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Geography – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2024 -2025 Required Hours: 120 YEAR ONE                                             Summer Semester, 15-17 hours Fall Semester, 15-17 hours                           GEOG Elective (200 level or above) (MR), 3-4 hours ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Full accelerated plan extracted from all source pages."
+  }
+}

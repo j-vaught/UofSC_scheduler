@@ -1,0 +1,1497 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_c707ab486c0c3dce",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2021-2022/map_c707ab486c0c3dce.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_crju_map.pdf",
+    "sha256": "4d23987169bff2ab7ab2761a5447205d98e26e5eb0f0251a47d4fdb74fded9c8",
+    "page_count": 2,
+    "catalog_year": "2021-2022"
+  },
+  "program": {
+    "major": "Criminology and Criminal Justice",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Arts and Sciences",
+    "department": "Criminology & Criminal Justice",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Criminology and Criminal Justice",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement",
+            "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement 3-4 CC-ARP",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Foreign language3 or other Carolina Core Requirement4",
+            "source_text": "Foreign language3 or other Carolina Core Requirement4 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language3 or other Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or other Carolina Core Requirement4 3-4 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "CRJU 101 The American Criminal Justice System",
+            "source_text": "CRJU 101 The American Criminal Justice System 3 C CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CRJU",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 101 The American Criminal Justice System 3 C CC-GSS",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement",
+            "source_text": "Carolina Core ARP Requirement 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement 3-4 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Foreign language3 or other Carolina Core Requirement4",
+            "source_text": "Foreign language3 or other Carolina Core Requirement4 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language3 or other Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or other Carolina Core Requirement4 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3-4 CC",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "CRJU 311 Policing or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "source_text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "CRJU 202 Research Methods in Criminology & Criminal",
+            "source_text": "CRJU 202 Research Methods in Criminology & Criminal 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CRJU",
+              "number": "202"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 202 Research Methods in Criminology & Criminal 3 C MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "CRJU 311 Policing or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "source_text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Foreign language3 or Carolina Core Requirement4",
+            "source_text": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language3 or Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language3 or Carolina Core Requirement4 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3-4 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3-4 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "History5",
+            "source_text": "History5 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History5 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History5 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CRJU 341 Sociology of Crime (Cross-listed: SOCY 353)",
+            "source_text": "CRJU 341 Sociology of Crime (Cross-listed: SOCY 353) 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 341 Sociology of Crime (Cross-listed: SOCY 353) 3 C MR",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 341 Sociology of Crime (Cross-listed: SOCY 353) 3 C MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "CRJU 311 Policing or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "source_text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 311 Policing 3 C MR or CRJU 312 Corrections or CRJU 313 Criminal Courts or CRJU 314 Criminal Law or CRJU 351 Juvenile Delinquency (Cross-listed: SOCY 350)",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course6",
+            "source_text": "Cognate or Minor Course6 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course6 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course6 3 C PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "CRJU 203 Criminal Procedure",
+            "source_text": "CRJU 203 Criminal Procedure 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CRJU",
+              "number": "203"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 203 Criminal Procedure 3 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "CRJU Elective7 (300-level or above)",
+            "source_text": "CRJU Elective7 (300-level or above) 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "CRJU Elective7 (300-level or above)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU Elective7 (300-level or above) 3 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course6",
+            "source_text": "Cognate or Minor Course6 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course6 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course6 3 C PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "CRJU Elective7 (300-level or above)",
+            "source_text": "CRJU Elective7 (300-level or above) 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "CRJU Elective7 (300-level or above)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU Elective7 (300-level or above) 3 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "CRJU Elective7 (300-level or above)",
+            "source_text": "CRJU Elective7 (300-level or above) 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "CRJU Elective7 (300-level or above)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU Elective7 (300-level or above) 3 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course6",
+            "source_text": "Cognate or Minor Course6 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course6 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course6 3 C PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4 or Approved Elective8",
+            "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "CRJU 426 Criminal Justice and Mental Health or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+            "source_text": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course6",
+            "source_text": "Cognate or Minor Course6 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course6 3 C PR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course6 3 C PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement4 or Approved Elective8",
+            "source_text": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective8 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective8",
+            "source_text": "Approved Elective8 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective8 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective8",
+            "source_text": "Approved Elective8 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective8 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 13,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "CRJU 426 Criminal Justice and Mental Health or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+            "source_text": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CRJU 426 Criminal Justice and Mental Health 3 C MR/CC- CRJU 341 (CRJU 430 or CRJU 430 Communities and Crime INT only) or CRJU 551 Adolescent Mentoring or CRJU 554 Women and Crime (Cross-listed: WGST 554) or CRJU 558 Crime over the Life Course or CRJU 563 Race, Crime, and Criminal Justice or CRJU 575 The Death Penalty or CRJU 577 Law & Criminal Justice Policy or CRJU 591 Selected Topics in Criminal Justice",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Minor Course6 or Approved Elective8",
+            "source_text": "Minor Course6 or Approved Elective8 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course6 or Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Minor Course6 or Approved Elective8 3 C (minor) PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Minor Course6 or Approved Elective8",
+            "source_text": "Minor Course6 or Approved Elective8 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course6 or Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Minor Course6 or Approved Elective8 3 C (minor) PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective8",
+            "source_text": "Approved Elective8 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective8 3 C PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective8 (only if needed to meet hours to graduate)",
+            "source_text": "Approved Elective8 (only if needed to meet hours to graduate) 1-3 PR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective8 (only if needed to meet hours to graduate)",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective8 (only if needed to meet hours to graduate) 1-3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The cognate is intended to support the course work in the major. The cognate must consist of twelve hours of courses at the advanced level, outside of, but related to the major. In place of a cognate, a student may choose a minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. A second major eliminates the minor/cognate requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The cognate is intended to support the course work in the major. The cognate must consist of twelve hours of courses at the advanced level, outside of, but related to the major. In place of a cognate, a student may choose a minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. A second major eliminates the minor/cognate requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Courses must be approved by the Department of Criminology and Criminal Justice Office of Academic Programs.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Courses must be approved by the Department of Criminology and Criminal Justice Office of Academic Programs.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

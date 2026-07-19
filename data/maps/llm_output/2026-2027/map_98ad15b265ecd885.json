@@ -1,0 +1,1420 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_98ad15b265ecd885",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2026-2027/map_98ad15b265ecd885.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2026-2027/2026_engr-phys-elct_map.pdf",
+    "sha256": "ff373ea00a2b14ee754c20c69af0e5c2d6f859d83860ae14e6483d50f6ba69fd",
+    "page_count": 2,
+    "catalog_year": "2026-2027"
+  },
+  "program": {
+    "major": "Physics",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "Physics & Astronomy",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Physics",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 13",
+            "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in Math 112/115/116 or placement",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 141 Calculus 13 4 C CC-ARP C or better in Math 112/115/116 or placement",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 & CHEM 111L – General Chemistry I",
+            "source_text": "CHEM 111 & CHEM 111L – General Chemistry I 4 C PR C or higher in MATH 111 or higher (or by",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & CHEM 111L – General Chemistry I 4 C PR C or higher in MATH 111 or higher (or by",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & CHEM 111L – General Chemistry I 4 C PR C or higher in MATH 111 or higher (or by",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II",
+            "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 211 & 211L Essentials of Physics I",
+            "source_text": "! PHYS 211 & 211L Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211 & 211L Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "MATH 241 Vector Calculus",
+            "source_text": "! MATH 241 Vector Calculus 3 C PR C or better in MATH 141",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "241"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 241 Vector Calculus 3 C PR C or better in MATH 141",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 212 & PHYS 212L Essentials of Physics II",
+            "source_text": "! PHYS 212 & PHYS 212L Essentials of Physics II 4 C CC-SCI C or better in PHYS 211 & MATH 142",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! PHYS 212 & PHYS 212L Essentials of Physics II 4 C CC-SCI C or better in PHYS 211 & MATH 142",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 212 & PHYS 212L Essentials of Physics II 4 C CC-SCI C or better in PHYS 211 & MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 145 Algorithmic Design I or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+            "source_text": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 (CSCE or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 (CSCE or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 145 Algorithmic Design I 3-4 C CR Prereq or Coreq: MATH 111 or 115 (CSCE or CSCE 106 Sci. Applications Programming 145); Prereq or Coreq: C or better in MATH",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language5 or other Carolina Core Req.4",
+            "source_text": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign Language5 or other Carolina Core Req.4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "MATH 242 Elementary Differential Equations or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+            "source_text": "! MATH 242 Elementary Differential Equations 3 C PR C or better in MATH 142 (MATH 242); C or or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! MATH 242 Elementary Differential Equations 3 C PR C or better in MATH 142 (MATH 242); C or or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 242 Elementary Differential Equations 3 C PR C or better in MATH 142 (MATH 242); C or or MATH 520 Ordinary Differential Equations better in MATH 344 or 544 (MATH 520)",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 307 Introduction to Modern Physics",
+            "source_text": "! PHYS 307 Introduction to Modern Physics 3 C MR C or better in PHYS 212 & MATH 241",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "307"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 307 Introduction to Modern Physics 3 C MR C or better in PHYS 212 & MATH 241",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+            "source_text": "STAT 509 Statistics for Engineers 3 C CR MATH 142 or equiv. (STAT 509); C or better or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 509 Statistics for Engineers 3 C CR MATH 142 or equiv. (STAT 509); C or better or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 509 Statistics for Engineers 3 C CR MATH 142 or equiv. (STAT 509); C or better or STAT 515 Statistical Methods I in MATH 112, 115, 122 or 141, or in both",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "ELCT 102 Electrical Science",
+            "source_text": "ELCT 102 Electrical Science 3 C MR Prereq or Coreq: MATH 141",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ELCT 102 Electrical Science 3 C MR Prereq or Coreq: MATH 141",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "History6",
+            "source_text": "History6 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History6 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History6 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "Foreign Language5 or other Carolina Core Req.4",
+            "source_text": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign Language5 or other Carolina Core Req.4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language5 or other Carolina Core Req.4 3 CC-GFL",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra 344)",
+            "source_text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 306 Principles of Physics III (offered fall",
+            "source_text": "PHYS 306 Principles of Physics III (offered fall 3 C PR C or better in PHYS 212 & MATH 142;",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "306"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 306 Principles of Physics III (offered fall 3 C PR C or better in PHYS 212 & MATH 142;",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 311 Intro. to Applied Numerical Methods",
+            "source_text": "PHYS 311 Intro. to Applied Numerical Methods 3 C MR Prereq: MATH 141 or Co-req: MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "311"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 311 Intro. to Applied Numerical Methods 3 C MR Prereq: MATH 141 or Co-req: MATH 142",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 501 Quantum Physics I (offered fall only)",
+            "source_text": "PHYS 501 Quantum Physics I (offered fall only) 3 C MR C or better in PHYS 307 & MATH 242 or 520",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "501"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 501 Quantum Physics I (offered fall only) 3 C MR C or better in PHYS 307 & MATH 242 or 520",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language5 or Carolina Core Req.4",
+            "source_text": "Foreign Language5 or Carolina Core Req.4 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign Language5 or Carolina Core Req.4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language5 or Carolina Core Req.4 3 CR/CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "MATH 300 Transition to Adv. Mathematics or MATH 344 Applied Linear Algebra 344)",
+            "source_text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 300 Transition to Adv. Mathematics 3 C PR C or better in MATH 142 (MATH 300 and or MATH 344 Applied Linear Algebra 344)",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 310 Intermediate Experimental Physics",
+            "source_text": "PHYS 310 Intermediate Experimental Physics 4 C MR C or better in PHYS 212 & STAT 509 or 515",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "310"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 310 Intermediate Experimental Physics 4 C MR C or better in PHYS 212 & STAT 509 or 515",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 506 Thermal Physics & Statistical",
+            "source_text": "PHYS 506 Thermal Physics & Statistical 3 C MR C or better in PHYS 306, 307, MATH 241",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "506"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 506 Thermal Physics & Statistical 3 C MR C or better in PHYS 306, 307, MATH 241",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "ELCT 221 Circuits",
+            "source_text": "ELCT 221 Circuits 3 C MR C or better in MATH 142 & ELCT 102 or D or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "221"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ELCT 221 Circuits 3 C MR C or better in MATH 142 & ELCT 102 or D or",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "CSCE 211 Digital Logic Design",
+            "source_text": "CSCE 211 Digital Logic Design 3 C MR MATH 141",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CSCE",
+              "number": "211"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 211 Digital Logic Design 3 C MR MATH 141",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "PHYS 503 Mechanics (offered fall only)",
+            "source_text": "PHYS 503 Mechanics (offered fall only) 4 C MR C or better in PHYS 211 & MATH 242 or 520",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "503"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 503 Mechanics (offered fall only) 4 C MR C or better in PHYS 211 & MATH 242 or 520",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "ELCT 222 Signals and Systems",
+            "source_text": "ELCT 222 Signals and Systems 3 C MR C or better in ELCT 221 & MATH 242",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "222"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ELCT 222 Signals and Systems 3 C MR C or better in ELCT 221 & MATH 242",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "ELCT 201 Introductory Electrical Engineering Lab",
+            "source_text": "ELCT 201 Introductory Electrical Engineering Lab 3 C MR C or better in ENGL 102 & CSCE 211;",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ELCT 201 Introductory Electrical Engineering Lab 3 C MR C or better in ENGL 102 & CSCE 211;",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 541 Advanced Experimental Physics I",
+            "source_text": "PHYS 541 Advanced Experimental Physics I 4 C MR C or better in PHYS 310",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "541"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 541 Advanced Experimental Physics I 4 C MR C or better in PHYS 310",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 13,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "PHYS 504 Electromagnetic Theory (offered spring",
+            "source_text": "PHYS 504 Electromagnetic Theory (offered spring 4 C MR C or better in PHYS 503",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "504"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "PHYS 504 Electromagnetic Theory (offered spring 4 C MR C or better in PHYS 503",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "ELCT 301 Electronics Lab",
+            "source_text": "ELCT 301 Electronics Lab 3 C MR D or better in ELCT 201; Prereq or Coreq: D",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "301"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ELCT 301 Electronics Lab 3 C MR D or better in ELCT 201; Prereq or Coreq: D",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "ELCT 371 Electronics",
+            "source_text": "ELCT 371 Electronics 3 C MR C or better in ELCT 222",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ELCT",
+              "number": "371"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ELCT 371 Electronics 3 C MR C or better in ELCT 222",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Engineering Physics Concentration course7",
+            "source_text": "Engineering Physics Concentration course7 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Engineering Physics Concentration course7 3 C MR See Bulletin listing",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Engineering Physics Concentration course7 3 C MR See Bulletin listing",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4 (only if needed to",
+            "source_text": "Carolina Core Requirement4 (only if needed to 0-3 CC",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 (only if needed to"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Carolina Core Requirement4 (only if needed to 0-3 CC",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who do not place into MATH 141 will be required to successfully complete MATH 112, 115, or 116 before taking MATH 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who do not place into MATH 141 will be required to successfully complete MATH 112, 115, or 116 before taking MATH 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the McCausland College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the McCausland College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. Engineering Physics Concentration courses (3-4 hours): PHYS 502, 511, or 542.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. Engineering Physics Concentration courses (3-4 hours): PHYS 502, 511, or 542.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

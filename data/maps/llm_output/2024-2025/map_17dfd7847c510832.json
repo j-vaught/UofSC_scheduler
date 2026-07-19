@@ -1,0 +1,1787 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_17dfd7847c510832",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_17dfd7847c510832.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_chem_engr_map.pdf",
+    "sha256": "0f6058480eb634127ba98a4e6e451b3ef8f93b7398a4a8c7bc7250b497705074",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Chemical Engineering",
+    "degree_name": "Bachelor of Science in Engineering (B.S.E.)",
+    "degree_abbreviation": "B.S.E.",
+    "college": "Engineering and Computing",
+    "department": "Chemical Engineering",
+    "total_credits": {
+      "minimum": 131,
+      "maximum": 131
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Chemical Engineering",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 13",
+            "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or Math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or Math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 General Chemistry I",
+            "source_text": "! CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or higher",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111 General Chemistry I 3 C CC-SCI C or better in MATH 111/115/122/141 or higher",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 111L General Chemistry I Lab",
+            "source_text": "! CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115; Prereq or Coreq: CHEM 111",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111L General Chemistry I Lab 1 C CC-SCI MATH 111 or 115; Prereq or Coreq: CHEM 111",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "ECHE 101 Intro. to Chemical Engineering (or",
+            "source_text": "ECHE 101 Intro. to Chemical Engineering (or 2 * PR",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECHE 101 Intro. to Chemical Engineering (or 2 * PR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECHE 101 Intro. to Chemical Engineering (or 2 * PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "Computer Programming Elective4",
+            "source_text": "Computer Programming Elective4 3-4 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Computer Programming Elective4",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Computer Programming Elective4 3-4 PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II",
+            "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 112 General Chemistry II",
+            "source_text": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH 111/115/122/141",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH 111/115/122/141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 112L General Chemistry II Lab",
+            "source_text": "! CHEM 112L General Chemistry II Lab 1 C PR C or better in CHEM 111/111L/141",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112L General Chemistry II Lab 1 C PR C or better in CHEM 111/111L/141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "PHYS 211 Essentials of Physics I",
+            "source_text": "! PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS 211L",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS 211L",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "PHYS 211L Essentials of Physics I Lab",
+            "source_text": "! PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Prereq or Coreq: C or better in PHYS 211",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Prereq or Coreq: C or better in PHYS 211",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-7",
+            "sequence": 7,
+            "label": "ECHE 300 Chemical Process Principles",
+            "source_text": "! ECHE 300 Chemical Process Principles 3 C * PR D or better in MATH 141; Prereq or Coreq: D or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "300"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 300 Chemical Process Principles 3 C * PR D or better in MATH 141; Prereq or Coreq: D or",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Professional Development Elective5",
+            "source_text": "Professional Development Elective5 1 * PR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Professional Development Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Professional Development Elective5 1 * PR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 310 Intro. to Chem. Engr.",
+            "source_text": "! ECHE 310 Intro. to Chem. Engr. 3 C * PR C or better in ECHE 300; Prereq or Coreq: MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "310"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 310 Intro. to Chem. Engr. 3 C * PR C or better in ECHE 300; Prereq or Coreq: MATH",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Thermodynamics (or ENCP 290)",
+            "source_text": "Thermodynamics (or ENCP 290) 241",
+            "credits": {
+              "minimum": 241,
+              "maximum": 241
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Thermodynamics (or ENCP 290) 241",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Thermodynamics (or ENCP 290) 241",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "MATH 241 Vector Calculus",
+            "source_text": "! MATH 241 Vector Calculus 3 PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "241"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 241 Vector Calculus 3 PR C or better in MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 333 Organic Chemistry I",
+            "source_text": "! CHEM 333 Organic Chemistry I 3 C PR C or better in CHEM 112 or CHEM 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 333 Organic Chemistry I 3 C PR C or better in CHEM 112 or CHEM 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "Chemistry Lab Electives6",
+            "source_text": "Chemistry Lab Electives6 2 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Chemistry Lab Electives6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Chemistry Lab Electives6 2 PR See Bulletin listing.",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "PHYS 212 Essentials of Physics II",
+            "source_text": "PHYS 212 Essentials of Physics II 3 PR C or better PHYS 211 and MATH 142;",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "212"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 212 Essentials of Physics II 3 PR C or better PHYS 211 and MATH 142;",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-8",
+            "sequence": 8,
+            "label": "PHYS 212L Essentials of Physics II Lab.",
+            "source_text": "! PHYS 212L Essentials of Physics II Lab. 1 PR Prereq or Coreq: C or better in PHYS 212",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "212L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 212L Essentials of Physics II Lab. 1 PR Prereq or Coreq: C or better in PHYS 212",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "ECHE 311 Chem. Engr. Thermodynamics",
+            "source_text": "! ECHE 311 Chem. Engr. Thermodynamics 3 C * PR C or better in ECHE 310, ENCP 290, CHEM 541,",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "311"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 311 Chem. Engr. Thermodynamics 3 C * PR C or better in ECHE 310, ENCP 290, CHEM 541,",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 320 Chem. Engr. Fluid Mechanics (or",
+            "source_text": "! ECHE 320 Chem. Engr. Fluid Mechanics (or 3 C * PR D or better in PHYS 211; Prereq or Coreq: D or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! ECHE 320 Chem. Engr. Fluid Mechanics (or 3 C * PR D or better in PHYS 211; Prereq or Coreq: D or",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 320 Chem. Engr. Fluid Mechanics (or 3 C * PR D or better in PHYS 211; Prereq or Coreq: D or",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "ECHE 456 Comp. Methods for Engr. Apps.",
+            "source_text": "ECHE 456 Comp. Methods for Engr. Apps. 3 * MR Prereq or Coreq: D or better in MATH 242",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "456"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECHE 456 Comp. Methods for Engr. Apps. 3 * MR Prereq or Coreq: D or better in MATH 242",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "MATH 242 Elem. Differential Equations",
+            "source_text": "! MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "242"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 334 Organic Chemistry II",
+            "source_text": "CHEM 334 Organic Chemistry II 3 PR C or better in CHEM 333",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "334"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 334 Organic Chemistry II 3 PR C or better in CHEM 333",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GHS7",
+            "source_text": "Carolina Core GHS7 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS7"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS7 3 CC-GHS",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "ECHE 321 Heat-Flow Analysis",
+            "source_text": "! ECHE 321 Heat-Flow Analysis 3 * MR C or better in ECHE 320 or ENCP 360 & MATH",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "321"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 321 Heat-Flow Analysis 3 * MR C or better in ECHE 320 or ENCP 360 & MATH",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 440 Separation Process Design fall only",
+            "source_text": "! ECHE 440 Separation Process Design fall only 3 * MR C or better in ECHE 300; Prereq or Coreq: ECHE",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "440"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 440 Separation Process Design fall only 3 * MR C or better in ECHE 300; Prereq or Coreq: ECHE",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "ECHE 550 Chem.-Proc. Dynamics & Control",
+            "source_text": "ECHE 550 Chem.-Proc. Dynamics & Control 3 * MR C or better in ECHE 300 & MATH 242; D or better",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "550"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECHE 550 Chem.-Proc. Dynamics & Control 3 * MR C or better in ECHE 300 & MATH 242; D or better",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Chemistry Elective9",
+            "source_text": "Chemistry Elective9 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Chemistry Elective9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Chemistry Elective9 3 PR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GSS7",
+            "source_text": "Carolina Core GSS7 3 CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS7"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS7 3 CC-GSS",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GFL12",
+            "source_text": "Carolina Core GFL12 0-3 CC-GFL",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL12"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GFL12 0-3 CC-GFL",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "ECHE 322 Mass Transfer spring only",
+            "source_text": "! ECHE 322 Mass Transfer spring only 3 * MR D or better in ECHE 321",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "322"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 322 Mass Transfer spring only 3 * MR D or better in ECHE 321",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 460 Chemical Engr. Lab 1 spring only",
+            "source_text": "! ECHE 460 Chemical Engr. Lab 1 spring only 3 * MR Prereq or Coreq: ECHE 311 & ECHE 321",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "460"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ECHE 460 Chemical Engr. Lab 1 spring only 3 * MR Prereq or Coreq: ECHE 311 & ECHE 321",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Engineering Elective10",
+            "source_text": "Engineering Elective10 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Engineering Elective10",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Engineering Elective10 3 * PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Technical Elective11",
+            "source_text": "Technical Elective11 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Technical Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Technical Elective11 3 PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core AIU7",
+            "source_text": "Carolina Core AIU7 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU7"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU7 3 CC-AIU",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core GFL12",
+            "source_text": "Carolina Core GFL12 0-3 CC-GFL",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL12"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GFL12 0-3 CC-GFL",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "ECHE 430 Chemical Engineering Kinetics",
+            "source_text": "! ECHE 430 Chemical Engineering Kinetics 3 * MR C or better in ECHE 311; Prereq or Coreq: D or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "430"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! ECHE 430 Chemical Engineering Kinetics 3 * MR C or better in ECHE 311; Prereq or Coreq: D or",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 461 Chemical Engineering Lab II fall",
+            "source_text": "! ECHE 461 Chemical Engineering Lab II fall 3 * MR D or better in ECHE 460; Prereq or Coreq: D or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "461"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! ECHE 461 Chemical Engineering Lab II fall 3 * MR D or better in ECHE 460; Prereq or Coreq: D or",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "ECHE 465 Chem. Proc. Anal. & Design I fall",
+            "source_text": "! ECHE 465 Chem. Proc. Anal. & Design I fall 3 * MR Prereq or Coreq: D or better in ECHE 430 & 440",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "465"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! ECHE 465 Chem. Proc. Anal. & Design I fall 3 * MR Prereq or Coreq: D or better in ECHE 430 & 440",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Technical Elective11",
+            "source_text": "Technical Elective11 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Technical Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Technical Elective11 3 PR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "PHIL 325 Engineering Ethics7",
+            "source_text": "PHIL 325 Engineering Ethics7 3 CC-CMS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHIL",
+              "number": "325"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "PHIL 325 Engineering Ethics7 3 CC-CMS",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "ECHE 466 Chemical Process Analysis &",
+            "source_text": "ECHE 466 Chemical Process Analysis & 3 * MR D or better in ECHE 430, 440, 465; Prereq or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "466"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ECHE 466 Chemical Process Analysis & 3 * MR D or better in ECHE 430, 440, 465; Prereq or",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "ECHE 567 Process Safety, Health & Loss",
+            "source_text": "ECHE 567 Process Safety, Health & Loss 3 * MR Prereq or Coreq: D or better in ECHE 466",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ECHE",
+              "number": "567"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "ECHE 567 Process Safety, Health & Loss 3 * MR Prereq or Coreq: D or better in ECHE 466",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Engineering Elective10",
+            "source_text": "Engineering Elective10 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Engineering Elective10",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Engineering Elective10 3 * PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Technical Elective11",
+            "source_text": "Technical Elective11 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Technical Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Technical Elective11 3 PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Technical Elective11",
+            "source_text": "Technical Elective11 3 PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Technical Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Technical Elective11 3 PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-6",
+            "sequence": 6,
+            "label": "Career Elective8",
+            "source_text": "Career Elective8 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Career Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Career Elective8 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the Chemical Engr. program GPA of 2.00.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the Chemical Engr. program GPA of 2.00.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Computer Programming Elective (3-4 hours): CSCE 145, 106.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Computer Programming Elective (3-4 hours): CSCE 145, 106.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. A list of acceptable Professional Development Elective courses is maintained in the department office and in the Bulletin. The list includes: ECHE 202 & ECHE 203.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. A list of acceptable Professional Development Elective courses is maintained in the department office and in the Bulletin. The list includes: ECHE 202 & ECHE 203.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Chemistry Lab Electives (2 hours): CHEM 321L (or 322L), 331L (or 333L), 332L (or 334L), 541L, 542L, 550L, 621L.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Chemistry Lab Electives (2 hours): CHEM 321L (or 322L), 331L (or 333L), 332L (or 334L), 541L, 542L, 550L, 621L.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Career Elective: The list includes Engineering Electives, Chemistry Electives, Chemistry Lab Electives and all Technical Electives courses, and other courses listed in the bulletin.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Career Elective: The list includes Engineering Electives, Chemistry Electives, Chemistry Lab Electives and all Technical Electives courses, and other courses listed in the bulletin.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. Chemistry Electives (3 hours): CHEM 321 OR 322, 511, 533, 541, 542, 545, 550, 555, 556, 621, 622, 623, 624, 633, 643, 644, 655.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. Chemistry Electives (3 hours): CHEM 321 OR 322, 511, 533, 541, 542, 545, 550, 555, 556, 621, 622, 623, 624, 633, 643, 644, 655.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. Engineering Electives (6 hours): ENCP 200 (or ECIV 200 or EMCH 200), 201 (or EMCH 201), 210 (or ECIV 210 or EMCH 310), 260 (or ECIV 220 or EMCH 260), 330 (or EMCH 330), 440, 460, 481, 499, 540; BMEN 212, 240, 263, 271, 290, 300 and above, except 301 and 303; CSCE 211, 212, 240, 274, 313, 317, 520, 567, 582, 587; ECHE 202 (or 203), 372, 389, 497, 499, 520, 521, 571, 572, 573, 574, 575, 589; ECIV 300 and above, except 360; ELCT 220, 221, 222, 300 and above; EMCH 300 and above, except 354 and 360.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. Engineering Electives (6 hours): ENCP 200 (or ECIV 200 or EMCH 200), 201 (or EMCH 201), 210 (or ECIV 210 or EMCH 310), 260 (or ECIV 220 or EMCH 260), 330 (or EMCH 330), 440, 460, 481, 499, 540; BMEN 212, 240, 263, 271, 290, 300 and above, except 301 and 303; CSCE 211, 212, 240, 274, 313, 317, 520, 567, 582, 587; ECHE 202 (or 203), 372, 389, 497, 499, 520, 521, 571, 572, 573, 574, 575, 589; ECIV 300 and above, except 360; ELCT 220, 221, 222, 300 and above; EMCH 300 and above, except 354 and 360.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "11",
+      "text": "11. Technical Electives (12 hours): Includes all courses listed as Engineering Electives, Chemistry Electives, & Chemistry Lab Electives as well as ENCP 102 (or EMCH 111), 530, 533, 535, 536; MATH 300, 374, MATH 500 and above; STAT 500 and above except 541 and 591; BIOL 101, 101L, 102, 102L, 120, 120L, 200 and above; ENVR 231, 321, 331; GEOL 300 and above; MSCI 300 and above; PHYS 300 and above; CSCE 145 (unless completed as the Computer Programming Elective), 146, 210, 215, 350; ACCT 222; FINA 333; MGMT 371; MGSC 290; MKTG 350.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "11. Technical Electives (12 hours): Includes all courses listed as Engineering Electives, Chemistry Electives, & Chemistry Lab Electives as well as ENCP 102 (or EMCH 111), 530, 533, 535, 536; MATH 300, 374, MATH 500 and above; STAT 500 and above except 541 and 591; BIOL 101, 101L, 102, 102L, 120, 120L, 200 and above; ENVR 231, 321, 331; GEOL 300 and above; MSCI 300 and above; PHYS 300 and above; CSCE 145 (unless completed as the Computer Programming Elective), 146, 210, 215, 350; ACCT 222; FINA 333; MGMT 371; MGSC 290; MKTG 350.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "12",
+      "text": "12. Students in the College of Engineering & Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 & 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "12. Students in the College of Engineering & Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 & 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

@@ -1,0 +1,1219 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_ba147c4c8b4da617",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_ba147c4c8b4da617.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_intl-studies_asp_map.pdf",
+    "sha256": "eee885c67f585c34a4e2fb019dcdc91668073113f566434d6b3b18a3477cc187",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "International Studies",
+    "degree_name": "B.A.",
+    "degree_abbreviation": null,
+    "college": "Accelerated Study Plan",
+    "department": "Political Science",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "International Studies",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Year One Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW)",
+            "source_text": "ENGL 101 (CMW)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW)",
+                "region": "Year One Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (ARP)",
+            "source_text": "Carolina Core Requirement (ARP)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core Requirement (ARP)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (ARP)",
+                "region": "Year One Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC (GFL)",
+            "source_text": "Foreign Language or other CC (GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Foreign Language or other CC (GFL)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL)",
+                "region": "Year One Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "POLI 101 (GSS)",
+            "source_text": "POLI 101 (GSS)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 101 (GSS)",
+                "region": "Year One Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 or Carolina Core",
+            "source_text": "UNIV 101 or Carolina Core",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 or Carolina Core",
+                "region": "Year One Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Year One Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF)",
+            "source_text": "ENGL 102 (CMW, INF)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF)",
+                "region": "Year One Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (ARP)",
+            "source_text": "Carolina Core Requirement (ARP)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core Requirement (ARP)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (ARP)",
+                "region": "Year One Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC (GFL)",
+            "source_text": "Foreign Language or other CC (GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Foreign Language or other CC (GFL)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL)",
+                "region": "Year One Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "POLI 201 (VSR)",
+            "source_text": "POLI 201 (VSR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 201 (VSR)",
+                "region": "Year One Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "HIST (U.S. or non-U.S.)",
+            "source_text": "HIST (U.S. or non-U.S.)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "HIST (U.S. or non-U.S.)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (U.S. or non-U.S.)",
+                "region": "Year One Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Year One Summer",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 12
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year One Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC)",
+            "source_text": "Carolina Core Requirement (CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core Requirement (CC)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC)",
+                "region": "Year One Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Cognate or Minor Course (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Year One Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core or Approved Elective (CC/PR)",
+            "source_text": "Carolina Core or Approved Elective (CC/PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core or Approved Elective (CC/PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR)",
+                "region": "Year One Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Year Two Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "POLI 105 (MR)",
+            "source_text": "POLI 105 (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "105"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 105 (MR)",
+                "region": "Year Two Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "POLI 315 or POLI 316 (MR, CC-INT)",
+            "source_text": "POLI 315 or POLI 316 (MR, CC-INT)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "315"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 315 or POLI 316 (MR, CC-INT)",
+                "region": "Year Two Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Humanities or Fine Arts (CR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Year Two Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC)",
+            "source_text": "Carolina Core Requirement (CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core Requirement (CC)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC)",
+                "region": "Year Two Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Cognate or Minor Course (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Year Two Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Year Two Spring",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "POLI 315 or POLI 316 (MR, CC-INT)",
+            "source_text": "POLI 315 or POLI 316 (MR, CC-INT)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "315"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 315 or POLI 316 (MR, CC-INT)",
+                "region": "Year Two Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "POLI 303 (CR)",
+            "source_text": "POLI 303 (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "course",
+              "subject": "POLI",
+              "number": "303"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 303 (CR)",
+                "region": "Year Two Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "International Studies Major Course (MR)",
+            "source_text": "International Studies Major Course (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "International Studies Major Course (MR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "International Studies Major Course (MR)",
+                "region": "Year Two Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Cognate or Minor Course (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Year Two Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Humanities or Fine Arts (CR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Year Two Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Year Two Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Humanities or Fine Arts (CR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Year Two Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Cognate or Minor Course (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Year Two Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language/Carolina Core (CR/CC)",
+            "source_text": "Foreign Language/Carolina Core (CR/CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Foreign Language/Carolina Core (CR/CC)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language/Carolina Core (CR/CC)",
+                "region": "Year Two Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC)",
+            "source_text": "Carolina Core Requirement (CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Carolina Core Requirement (CC)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC)",
+                "region": "Year Two Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Two Summer"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Year Three Fall",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "International Studies Major Course (MR)",
+            "source_text": "International Studies Major Course (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "International Studies Major Course (MR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "International Studies Major Course (MR)",
+                "region": "Year Three Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "International Studies Major Course (MR)",
+            "source_text": "International Studies Major Course (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "International Studies Major Course (MR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "International Studies Major Course (MR)",
+                "region": "Year Three Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Minor Course or Approved Elective (PR)",
+            "source_text": "Minor Course or Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Minor Course or Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course or Approved Elective (PR)",
+                "region": "Year Three Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Three Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Three Fall"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Year Three Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "International Studies Major Course (MR)",
+            "source_text": "International Studies Major Course (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "International Studies Major Course (MR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "International Studies Major Course (MR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "International Studies Major Course (MR)",
+            "source_text": "International Studies Major Course (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "International Studies Major Course (MR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "International Studies Major Course (MR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Minor Course or Approved Elective (PR)",
+            "source_text": "Minor Course or Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Minor Course or Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course or Approved Elective (PR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-6",
+            "sequence": 6,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "attribute",
+              "code": "PR",
+              "label": "Approved Elective (PR)"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Year Three Spring"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "ready",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Extracted from all source PDF pages."
+  }
+}

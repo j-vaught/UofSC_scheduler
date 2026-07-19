@@ -1,0 +1,1147 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_3794fcef143cea6c",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_3794fcef143cea6c.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_geog_ba_asp_map.pdf",
+    "sha256": "ec029c72da7a31f593b14ee0c61a3c05bb90d53c839c05429e5584c464154d79",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Geography",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "Geography",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Geography",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester 1",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                              GEOG Elective (200 level or above) (MR), 3-4 hours",
+                "region": "Semester 1"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language/Carolina Core (CC-GFL), 3-4 hrs     Approved Elective (PR), 3 hours",
+                "region": "Semester 1"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement, (CC), 3 hours             Approved Elective (PR), 3 hours",
+                "region": "Semester 1"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement (CC-ARP), 3-4 hrs      Cognate or Minor Course (PR), 3 hours",
+                "region": "Semester 1"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours",
+                "region": "Semester 1"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester 2",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                         GEOG 495 (MR/CC-INT), 3 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours",
+            "source_text": "STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 (CR), 3 hours                               GEOG Elective (500 level or above) (MR), 3-4 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours            Minor Course or Approved Elective (PR), 3 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Approved Elective (PR), 3 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement (CC), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "History (CR), 3 hours                                Approved Elective (PR), 3 hours",
+            "source_text": "History (CR), 3 hours                                Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR), 3 hours                                Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR), 3 hours                                Approved Elective (PR), 3 hours",
+                "region": "Semester 2"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester 3",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring Semester, 12-15 hours",
+            "source_text": "Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring Semester, 12-15 hours",
+            "credits": {
+              "minimum": 15,
+              "maximum": 15
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring Semester, 12-15 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Choose 1: GEOG 103/GEOG 104/GEOG 105/GEOG            Spring Semester, 12-15 hours",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "121/GEOG 201/GEOG 202/GEOG 210 (CC)*, 3-4",
+            "source_text": "121/GEOG 201/GEOG 202/GEOG 210 (CC)*, 3-4",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "121/GEOG 201/GEOG 202/GEOG 210 (CC)*, 3-4",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "121/GEOG 201/GEOG 202/GEOG 210 (CC)*, 3-4",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "hrs",
+            "source_text": "hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "hrs",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "hrs",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts (CR), 3 hours                GEOG Elective (500 level or above) (MR), 3-4 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours                GEOG Elective (500 level or above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours                GEOG Elective (500 level or above) (MR), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours                GEOG Elective (500 level or above) (MR), 3-4 hours",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Cognate or Minor Course (PR), 3 hours                GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours                GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours                GEOG Elective (200 level or above) (MR), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours                GEOG Elective (200 level or above) (MR), 3-4 hours",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core Requirement (CC), 3-4 hours            Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours            Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours            Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours            Approved Elective (PR), 3 hours",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-8",
+            "sequence": 8,
+            "label": "Approved Elective (PR), 1 hour",
+            "source_text": "Approved Elective (PR), 1 hour",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 1 hour",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 1 hour",
+                "region": "Semester 3"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester 4",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Choose 1: GEOG 341/GEOG 345/GEOG 263/GEOG",
+            "source_text": "Choose 1: GEOG 341/GEOG 345/GEOG 263/GEOG",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Choose 1: GEOG 341/GEOG 345/GEOG 263/GEOG",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Choose 1: GEOG 341/GEOG 345/GEOG 263/GEOG",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "551 (MR), 3 hours",
+            "source_text": "551 (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "551 (MR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "551 (MR), 3 hours",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR), 3 hours                *Summer GEOG courses are subject to availability.",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours                *Summer GEOG courses are subject to availability.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours                *Summer GEOG courses are subject to availability.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours                *Summer GEOG courses are subject to availability.",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course (PR), 3 hours                Students may substitute Carolina Core courses during",
+            "source_text": "Cognate or Minor Course (PR), 3 hours                Students may substitute Carolina Core courses during",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours                Students may substitute Carolina Core courses during",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours                Students may substitute Carolina Core courses during",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Social Science (CR), 3 hours                         summer and increase GEOG during spring or fall.",
+            "source_text": "Social Science (CR), 3 hours                         summer and increase GEOG during spring or fall.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR), 3 hours                         summer and increase GEOG during spring or fall.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR), 3 hours                         summer and increase GEOG during spring or fall.",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "Semester 4"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester 5",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "source_text": "GEOG Elective (200 level or above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "GEOG Elective (200 level or above) (MR), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GEOG Elective (200 level or above) (MR), 3-4 hours",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Approved Elective (PR), 3 hours",
+            "source_text": "Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 3 hours",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "graduating in three years.",
+            "source_text": "graduating in three years.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "graduating in three years.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "graduating in three years.",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to",
+            "source_text": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses in order to",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "accelerate my degree program.",
+            "source_text": "accelerate my degree program.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "accelerate my degree program.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "accelerate my degree program.",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "I understand I will build a 3-year study plan with my Academic Advisor. I must abide by this plan in order",
+            "source_text": "I understand I will build a 3-year study plan with my Academic Advisor. I must abide by this plan in order",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "I understand I will build a 3-year study plan with my Academic Advisor. I must abide by this plan in order",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "I understand I will build a 3-year study plan with my Academic Advisor. I must abide by this plan in order",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-10",
+            "sequence": 10,
+            "label": "to receive priority registration.",
+            "source_text": "to receive priority registration.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "to receive priority registration.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "to receive priority registration.",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-11",
+            "sequence": 11,
+            "label": "I understand that I must remain in good academic standing with my major in order to pursue an",
+            "source_text": "I understand that I must remain in good academic standing with my major in order to pursue an",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "I understand that I must remain in good academic standing with my major in order to pursue an",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "I understand that I must remain in good academic standing with my major in order to pursue an",
+                "region": "Semester 5"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "All semesters and requirements extracted from source PDF."
+  }
+}

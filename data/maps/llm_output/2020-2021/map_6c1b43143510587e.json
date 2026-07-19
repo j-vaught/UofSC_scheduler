@@ -1,0 +1,1446 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_6c1b43143510587e",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2020-2021/map_6c1b43143510587e.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2020-2021/2020_aero-engr_map.pdf",
+    "sha256": "02e8afe13af0cac86026360c681e07c4a38be65cac5ba36fd3cd9e9a49be99b5",
+    "page_count": 2,
+    "catalog_year": "2020-2021"
+  },
+  "program": {
+    "major": "Aerospace Engineering",
+    "degree_name": "Bachelor of Science in Engineering (B.S.E.)",
+    "degree_abbreviation": "B.S.E.",
+    "college": "Engineering & Computing",
+    "department": "Mechanical Engineering",
+    "total_credits": {
+      "minimum": 126,
+      "maximum": 126
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Aerospace Engineering",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 13",
+            "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 & CHEM 111L – General Chemistry I",
+            "source_text": "CHEM 111 & CHEM 111L – General Chemistry I 4 C CC-SCI C or better in MATH 111/115/122/141 or",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & CHEM 111L – General Chemistry I 4 C CC-SCI C or better in MATH 111/115/122/141 or",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & CHEM 111L – General Chemistry I 4 C CC-SCI C or better in MATH 111/115/122/141 or",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "AESP 101 Intro. to Aerospace Engineering",
+            "source_text": "AESP 101 Intro. to Aerospace Engineering 3 * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 101 Intro. to Aerospace Engineering 3 * PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core AIU4",
+            "source_text": "Carolina Core AIU4 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU4 3 CC-AIU",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II",
+            "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 112 & CHEM 112L – General Chemistry II",
+            "source_text": "CHEM 112 & CHEM 112L – General Chemistry II 4 PR C or better in CHEM 111, MATH",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112 & CHEM 112L – General Chemistry II 4 PR C or better in CHEM 111, MATH",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & CHEM 112L – General Chemistry II 4 PR C or better in CHEM 111, MATH",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 211 & PHYS 211L – Essentials of Physics I",
+            "source_text": "! PHYS 211 & PHYS 211L – Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! PHYS 211 & PHYS 211L – Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 211 & PHYS 211L – Essentials of Physics I 4 C CC-SCI C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "EMCH 111 Intro. to Computer-Aided Design",
+            "source_text": "EMCH 111 Intro. to Computer-Aided Design 3 * PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EMCH 111 Intro. to Computer-Aided Design 3 * PR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "EMCH 200 Statics",
+            "source_text": "! EMCH 200 Statics 3 C * PR C or better in MATH 141",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "200"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 200 Statics 3 C * PR C or better in MATH 141",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "EMCH 201 Intro. to Applied Numerical Methods",
+            "source_text": "! EMCH 201 Intro. to Applied Numerical Methods 3 * PR MATH 141; Prereq or Coreq: MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 201 Intro. to Applied Numerical Methods 3 * PR MATH 141; Prereq or Coreq: MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "MATH 241 Vector Calculus",
+            "source_text": "MATH 241 Vector Calculus 3 C PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "241"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 241 Vector Calculus 3 C PR C or better in MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "MATH 242 Elem. Differential Equations",
+            "source_text": "MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "242"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 242 Elem. Differential Equations 3 C PR C or better in MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GSS4",
+            "source_text": "Carolina Core GSS4 3 CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS4 3 CC-GSS",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "AESP 265 Aerodynamics I Incompressible Flow",
+            "source_text": "! AESP 265 Aerodynamics I Incompressible Flow 3 * MR MATH 242 & EMCH 201",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "265"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! AESP 265 Aerodynamics I Incompressible Flow 3 * MR MATH 242 & EMCH 201",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "EMCH 290 Thermodynamics",
+            "source_text": "EMCH 290 Thermodynamics 3 * PR C or better in PHYS 211 & MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "290"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EMCH 290 Thermodynamics 3 * PR C or better in PHYS 211 & MATH 142",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "EMCH 260 Solid Mechanics",
+            "source_text": "! EMCH 260 Solid Mechanics 3 * PR C or better in MATH 241 & EMCH 200 or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "260"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 260 Solid Mechanics 3 * PR C or better in MATH 241 & EMCH 200 or",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "STAT 509 Statistics for Engineers",
+            "source_text": "! STAT 509 Statistics for Engineers 3 PR MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "509"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! STAT 509 Statistics for Engineers 3 PR MATH 142",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "PHYS 212 & PHYS 212L – Essentials of Physics II",
+            "source_text": "PHYS 212 & PHYS 212L – Essentials of Physics II 4 PR C or better PHYS 211 and MATH 142",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 212 & PHYS 212L – Essentials of Physics II 4 PR C or better PHYS 211 and MATH 142",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 212 & PHYS 212L – Essentials of Physics II 4 PR C or better PHYS 211 and MATH 142",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "AESP 361 Aerospace Laboratory I",
+            "source_text": "! AESP 361 Aerospace Laboratory I 3 * MR STAT 509 & AESP 265; Prereq or Coreq:",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "361"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! AESP 361 Aerospace Laboratory I 3 * MR STAT 509 & AESP 265; Prereq or Coreq:",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "EMCH 310 Dynamics",
+            "source_text": "! EMCH 310 Dynamics 3 * MR C or better in MATH 242 & EMCH 200 or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "310"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 310 Dynamics 3 * MR C or better in MATH 242 & EMCH 200 or",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "EMCH 371 Materials",
+            "source_text": "! EMCH 371 Materials 3 * MR D or better in EMCH 260 or ENCP 260",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "371"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 371 Materials 3 * MR D or better in EMCH 260 or ENCP 260",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Track Elective5",
+            "source_text": "Track Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Track Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Track Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "MATH 344 Applied Linear Algebra",
+            "source_text": "MATH 344 Applied Linear Algebra 3 PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "344"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 344 Applied Linear Algebra 3 PR C or better in MATH 142",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "AESP 420 Flight and Orbital Mechanics",
+            "source_text": "AESP 420 Flight and Orbital Mechanics 3 * MR MATH 141, EMCH 200, & EMCH 310",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "420"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 420 Flight and Orbital Mechanics 3 * MR MATH 141, EMCH 200, & EMCH 310",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "AESP 350 Aerospace Systems",
+            "source_text": "! AESP 350 Aerospace Systems 3 * MR PHYS 212",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "350"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! AESP 350 Aerospace Systems 3 * MR PHYS 212",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "EMCH 330 Mechanical Vibrations",
+            "source_text": "EMCH 330 Mechanical Vibrations 3 * MR MATH 242 & EMCH 310",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "330"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EMCH 330 Mechanical Vibrations 3 * MR MATH 242 & EMCH 310",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "EMCH 577 Aerospace Structures I",
+            "source_text": "! EMCH 577 Aerospace Structures I 3 * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "577"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EMCH 577 Aerospace Structures I 3 * MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Track Elective5",
+            "source_text": "Track Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Track Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Track Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "AESP 314 Energy Power and Propulsion",
+            "source_text": "AESP 314 Energy Power and Propulsion 3 * MR EMCH 290",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "314"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 314 Energy Power and Propulsion 3 * MR EMCH 290",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "AESP 362 Aerospace Laboratory II",
+            "source_text": "AESP 362 Aerospace Laboratory II 3 * MR AESP 361",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "362"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 362 Aerospace Laboratory II 3 * MR AESP 361",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "EMCH 377 Manufacturing",
+            "source_text": "EMCH 377 Manufacturing 3 * MR EMCH 371",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EMCH",
+              "number": "377"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EMCH 377 Manufacturing 3 * MR EMCH 371",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Track Elective5",
+            "source_text": "Track Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Track Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Track Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GHS4",
+            "source_text": "Carolina Core GHS4 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS4 3 CC-GHS",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "AESP 428 Design I",
+            "source_text": "AESP 428 Design I 3 * MR AESP 350 & EMCH 577; Prereq or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "428"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 428 Design I 3 * MR AESP 350 & EMCH 577; Prereq or",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "AESP 466 Flight Dynamics and Control",
+            "source_text": "AESP 466 Flight Dynamics and Control 3 * MR EMCH 330 or ENCP 330 and AESP 420",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "AESP",
+              "number": "466"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "AESP 466 Flight Dynamics and Control 3 * MR EMCH 330 or ENCP 330 and AESP 420",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Track Elective5",
+            "source_text": "Track Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Track Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Track Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Track Elective5",
+            "source_text": "Track Elective5 3 * PR See Bulletin listing.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Track Elective5",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Track Elective5 3 * PR See Bulletin listing.",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core VSR4",
+            "source_text": "Carolina Core VSR4 3 CC-VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-VSR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-VSR",
+              "label": "Carolina Core VSR4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core VSR4 3 CC-VSR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core CMS4",
+            "source_text": "Carolina Core CMS4 0-3 CC-CMS",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS4 0-3 CC-CMS",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core GFL4",
+            "source_text": "Carolina Core GFL4 0-6 CC-GFL",
+            "credits": {
+              "minimum": 0,
+              "maximum": 6
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Carolina Core GFL4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GFL4 0-6 CC-GFL",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.00 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the program GPA of 2.00 for this program.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the program GPA of 2.00 for this program.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who place into MATH 115 will be required to successfully complete it before taking MATH 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Students in the College of Engineering and Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 and 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Students in the College of Engineering and Computing are required to demonstrate proficiency in one foreign language equivalent to the 121 course by 1) a score of two or better on the foreign language placement test; or 2) completion of the 109 and 110 courses in FREN, GERM, LATN, or SPAN or completion of the 121 course in another foreign language. Students who do not place out of the GFL requirement may need to take additional hours to meet this requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Track Electives (15 hours): Students must select one of the following tracks: a. Aeromechanical Systems: AESP 415. EMCH 585, EMCH 308, plus two of: EMCH 332, EMCH 354, EMCH 535, EMCH 544, EMCH 530. b. Integrated Information Technology: ITEC 233, ITEC 245; plus two of: ITEC 444, ITEC 445, ITEC 493; plus one of: ITEC 370, ITEC 447. c. Power Electronics Systems: ELCT 221, ELCT 222, ELCT 331, ELCT 371, ELCT 572 d. Control Systems: ELCT 221, ELCT 222, ELCT 331, ELCT 371, ELCT 531 e. Communication Systems: ELCT 221, ELCT 222; plus 3 of: ELCT 321. ELCT 361, ELCT 562, ELCT 564",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Track Electives (15 hours): Students must select one of the following tracks: a. Aeromechanical Systems: AESP 415. EMCH 585, EMCH 308, plus two of: EMCH 332, EMCH 354, EMCH 535, EMCH 544, EMCH 530. b. Integrated Information Technology: ITEC 233, ITEC 245; plus two of: ITEC 444, ITEC 445, ITEC 493; plus one of: ITEC 370, ITEC 447. c. Power Electronics Systems: ELCT 221, ELCT 222, ELCT 331, ELCT 371, ELCT 572 d. Control Systems: ELCT 221, ELCT 222, ELCT 331, ELCT 371, ELCT 531 e. Communication Systems: ELCT 221, ELCT 222; plus 3 of: ELCT 321. ELCT 361, ELCT 562, ELCT 564",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

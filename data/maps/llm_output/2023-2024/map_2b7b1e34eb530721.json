@@ -1,0 +1,1172 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_2b7b1e34eb530721",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_2b7b1e34eb530721.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_socy_3yrplan.pdf",
+    "sha256": "45550fede3dd959a46f02a0ac018c12b9c94cc572946a6735bb8d43e736adb84",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Sociology",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "Sociology",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Sociology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CC-CMW)",
+            "source_text": "ENGL 101 (CC-CMW)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CC-CMW)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CC-CMW)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC)",
+            "source_text": "Carolina Core Requirement (CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core ARP (CC-ARP)",
+            "source_text": "Carolina Core ARP (CC-ARP)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core ARP (CC-ARP)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP (CC-ARP)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or Carolina Core (CC-GFL)",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC)",
+            "source_text": "University 101 or Carolina Core (PR/CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "SOCY 392 (MR)",
+            "source_text": "SOCY 392 (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 392 (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 392 (MR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "SOCY Elective (300 level or above) (MR)",
+            "source_text": "SOCY Elective (300 level or above) (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY Elective (300 level or above) (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY Elective (300 level or above) (MR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "SOCY 393 (MR)",
+            "source_text": "SOCY 393 (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 393 (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 393 (MR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "SOCY Elective (300 level or above) (MR)",
+            "source_text": "SOCY Elective (300 level or above) (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY Elective (300 level or above) (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY Elective (300 level or above) (MR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "SOCY 391 (MR)",
+            "source_text": "SOCY 391 (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 391 (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 391 (MR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR)",
+            "source_text": "Humanities or Fine Arts (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core or Approved Elective (CC/PR)",
+            "source_text": "Carolina Core or Approved Elective (CC/PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core or Approved Elective (CC/PR)",
+            "source_text": "Carolina Core or Approved Elective (CC/PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Summer Semester",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "SOCY Elective (300 level or above) (MR)",
+            "source_text": "SOCY Elective (300 level or above) (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY Elective (300 level or above) (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY Elective (300 level or above) (MR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Foreign Language or Carolina Core (CR)",
+            "source_text": "Foreign Language or Carolina Core (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement (CC)",
+            "source_text": "Carolina Core Requirement (CC)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Social Science (CR)",
+            "source_text": "Social Science (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "History (CR)",
+            "source_text": "History (CR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR)",
+                "region": "Summer Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Fall Semester",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "SOCY 500-level (MR)",
+            "source_text": "SOCY 500-level (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 500-level (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 500-level (MR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 300-level (MR)",
+            "source_text": "SOCY 300-level (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 300-level (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 300-level (MR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course (PR)",
+            "source_text": "Cognate or Minor Course (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Spring Semester",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "SOCY 561 (MR/CC-INT)",
+            "source_text": "SOCY 561 (MR/CC-INT)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 561 (MR/CC-INT)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 561 (MR/CC-INT)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 500-level (MR)",
+            "source_text": "SOCY 500-level (MR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 500-level (MR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 500-level (MR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Minor Course or Approved Elective (PR)",
+            "source_text": "Minor Course or Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Minor Course or Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course or Approved Elective (PR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Minor Course or Approved Elective (PR)",
+            "source_text": "Minor Course or Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Minor Course or Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course or Approved Elective (PR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR)",
+            "source_text": "Approved Elective (PR)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR)",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR)",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [
+    {
+      "label": "Accelerated Study Plan Agreement",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "I understand I may be required to enroll in Summer Semester and/or Winter Session courses.",
+          "region": "agreement"
+        }
+      ],
+      "id": "outside-requirement-1",
+      "sequence": 1,
+      "critical": null,
+      "minimum_grade": null,
+      "requirement_codes": [],
+      "confidence": 0.8,
+      "review_flags": [
+        "missing_context"
+      ],
+      "rule": {
+        "type": "unresolved",
+        "text": "Accelerated Study Plan Agreement",
+        "reason": "The manually extracted source row requires semantic review."
+      },
+      "source_text": "Student must enroll in Summer and/or Winter sessions as needed, build and follow a 3-year plan with advisor for priority registration, and remain in good academic standing.",
+      "credits": {
+        "minimum": null,
+        "maximum": null
+      }
+    }
+  ],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Accelerated plan extracted from all source pages."
+  }
+}

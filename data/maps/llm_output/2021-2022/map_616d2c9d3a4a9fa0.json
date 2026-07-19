@@ -1,0 +1,803 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_616d2c9d3a4a9fa0",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2021-2022/map_616d2c9d3a4a9fa0.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_socy-ba_3yrplan.pdf",
+    "sha256": "7928a40e112672e069c1429307deaf35414fe21b8d8afb32afc7fd09d9861237",
+    "page_count": 2,
+    "catalog_year": "2021-2022"
+  },
+  "program": {
+    "major": "Sociology",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "College of Arts and Sciences",
+    "department": "",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Sociology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 16.0,
+          "maximum": 16.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW) 3 hours                SOCY 393 3 hours",
+            "source_text": "ENGL 101 (CMW) 3 hours                SOCY 393 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW) 3 hours                SOCY 393 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW) 3 hours                SOCY 393 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 101 (GSS) 3 hours                SOCY 392 3 hours",
+            "source_text": "SOCY 101 (GSS) 3 hours                SOCY 392 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 101 (GSS) 3 hours                SOCY 392 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 101 (GSS) 3 hours                SOCY 392 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Math (ARP) 3 hours                    SOCY major 3 hours",
+            "source_text": "Math (ARP) 3 hours                    SOCY major 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Math (ARP) 3 hours                    SOCY major 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Math (ARP) 3 hours                    SOCY major 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language (GFL) 4 hours        Cognate/Minor 3 hours",
+            "source_text": "Foreign Language (GFL) 4 hours        Cognate/Minor 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language (GFL) 4 hours        Cognate/Minor 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language (GFL) 4 hours        Cognate/Minor 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 3 hours                Cognate/Minor 3 hours",
+            "source_text": "University 101 3 hours                Cognate/Minor 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 3 hours                Cognate/Minor 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 3 hours                Cognate/Minor 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF) 3 hours           HIST 101-109 (GHS) 3 hours",
+            "source_text": "ENGL 102 (CMW, INF) 3 hours           HIST 101-109 (GHS) 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF) 3 hours           HIST 101-109 (GHS) 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF) 3 hours           HIST 101-109 (GHS) 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 391 (Major) 3 hours              SAEL 200 (VSR, CMS) 3 hours",
+            "source_text": "SOCY 391 (Major) 3 hours              SAEL 200 (VSR, CMS) 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 391 (Major) 3 hours              SAEL 200 (VSR, CMS) 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 391 (Major) 3 hours              SAEL 200 (VSR, CMS) 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Social Science (GSS) 3 hours          Lab Science (SCI) 4 hours",
+            "source_text": "Social Science (GSS) 3 hours          Lab Science (SCI) 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (GSS) 3 hours          Lab Science (SCI) 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (GSS) 3 hours          Lab Science (SCI) 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language (GFL) 3 hours        SOCY major 3 hours",
+            "source_text": "Foreign Language (GFL) 3 hours        SOCY major 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language (GFL) 3 hours        SOCY major 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language (GFL) 3 hours        SOCY major 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Fine Arts/Literature (AIU) 3 hours    SOCY major 3 hours",
+            "source_text": "Fine Arts/Literature (AIU) 3 hours    SOCY major 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fine Arts/Literature (AIU) 3 hours    SOCY major 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fine Arts/Literature (AIU) 3 hours    SOCY major 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Fine Arts/Humanities 3 hours",
+            "source_text": "Fine Arts/Humanities 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fine Arts/Humanities 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fine Arts/Humanities 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Fine Arts/Humanities 3 hours",
+            "source_text": "Fine Arts/Humanities 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fine Arts/Humanities 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fine Arts/Humanities 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 500-level 3 hours",
+            "source_text": "SOCY 500-level 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 500-level 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 500-level 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Math (ARP) 3 hours",
+            "source_text": "Math (ARP) 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Math (ARP) 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Math (ARP) 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Elective 3 hours",
+            "source_text": "Elective 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Elective 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Minor/Elective 3 hours",
+            "source_text": "Minor/Elective 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Minor/Elective 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor/Elective 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 15.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "SOCY major 3 hours",
+            "source_text": "SOCY major 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY major 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY major 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "SOCY 561 3 hours",
+            "source_text": "SOCY 561 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SOCY 561 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOCY 561 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Lab Science (SCI) 4 hours",
+            "source_text": "Lab Science (SCI) 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Lab Science (SCI) 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Lab Science (SCI) 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Minor/Elective 3 hours",
+            "source_text": "Minor/Elective 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Minor/Elective 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor/Elective 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "HIST 111/112 (GHS) 3 hours",
+            "source_text": "HIST 111/112 (GHS) 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST 111/112 (GHS) 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST 111/112 (GHS) 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "Elective 3 hours",
+            "source_text": "Elective 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Elective 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "Cognate/Minor 3 hours",
+            "source_text": "Cognate/Minor 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate/Minor 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate/Minor 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "graduating in three years.",
+            "source_text": "graduating in three years.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "graduating in three years.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "graduating in three years."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "plan in order to receive priority registration.",
+            "source_text": "plan in order to receive priority registration.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "plan in order to receive priority registration.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "plan in order to receive priority registration."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.7,
+    "issues": [],
+    "summary": "Full Sociology accelerated study plan extracted from all source pages."
+  }
+}

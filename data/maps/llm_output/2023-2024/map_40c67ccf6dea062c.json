@@ -1,0 +1,1039 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_40c67ccf6dea062c",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_40c67ccf6dea062c.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_msci_3yrplan.pdf",
+    "sha256": "403acef2d393b59b3a9930a1f377088a317a802a9c67c2ae49a152aadb08aa2e",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Marine Science: [major with no concentration]",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Accelerated Study Plan",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Marine Science: [major with no concentration]",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 18.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 111 & 111L (PR), 4 hours                       CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "source_text": "CHEM 111 & 111L (PR), 4 hours                       CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & 111L (PR), 4 hours                       CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & 111L (PR), 4 hours                       CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "MATH 141 (CC-ARP), 4 hours                          Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 (CC-ARP), 4 hours                          Carolina Core or Approved Elective (CC/PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "MSCI 101 (CC-SCI ), 4 hours",
+            "source_text": "MSCI 101 (CC-SCI ), 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 101 (CC-SCI ), 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 101 (CC-SCI ), 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 18.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours                        MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        MSCI Elective (300 level & above) (MR), 3-4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        MSCI Elective (300 level & above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MSCI 102 (CC-SCI), 4 hours                          MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "source_text": "MSCI 102 (CC-SCI), 4 hours                          MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 102 (CC-SCI), 4 hours                          MSCI Elective (300 level & above) (MR), 3-4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 102 (CC-SCI), 4 hours                          MSCI Elective (300 level & above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 112 & 112L (PR), 4 hours                       Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "CHEM 112 & 112L (PR), 4 hours                       Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112 & 112L (PR), 4 hours                       Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & 112L (PR), 4 hours                       Carolina Core or Approved Elective (CC/PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "MATH 142 (CC-ARP), 4 hours                          Approved Elective (PR), 3 hours",
+            "source_text": "MATH 142 (CC-ARP), 4 hours                          Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 (CC-ARP), 4 hours                          Approved Elective (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 (CC-ARP), 4 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement (CC-GFL), 3 hours",
+            "source_text": "Carolina Core Requirement (CC-GFL), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC-GFL), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC-GFL), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 16.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "MSCI 505 Senior Seminar (MR), 1 hour",
+            "source_text": "MSCI 505 Senior Seminar (MR), 1 hour",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 505 Senior Seminar (MR), 1 hour",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 505 Senior Seminar (MR), 1 hour"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Summer Semester",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 13.0,
+          "maximum": 15.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "PHYS 201 and 201L or PHYS 211 and 211L (PR), 4      MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "source_text": "PHYS 201 and 201L or PHYS 211 and 211L (PR), 4      MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 201 and 201L or PHYS 211 and 211L (PR), 4      MSCI Elective (300 level & above) (MR), 3-4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 201 and 201L or PHYS 211 and 211L (PR), 4      MSCI Elective (300 level & above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "hours                                               Approved Elective (PR), 3 hours",
+            "source_text": "hours                                               Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "hours                                               Approved Elective (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "hours                                               Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Approved Elective (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "History (CR), 3 hours                               Approved Elective (PR), 3 hours",
+            "source_text": "History (CR), 3 hours                               Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR), 3 hours                               Approved Elective (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR), 3 hours                               Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "Preapproved Field Experience or MSCI 460 (MR),",
+            "source_text": "Preapproved Field Experience or MSCI 460 (MR),",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Preapproved Field Experience or MSCI 460 (MR),",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Preapproved Field Experience or MSCI 460 (MR),"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "0-2 hrs",
+            "source_text": "0-2 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "0-2 hrs",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "0-2 hrs"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 17.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "MSCI 311 (MR/CC-INT), 4 hours",
+            "source_text": "MSCI 311 (MR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 311 (MR/CC-INT), 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 311 (MR/CC-INT), 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 202 & 202L or PHYS 212 & 212L (PR), 4 hours",
+            "source_text": "PHYS 202 & 202L or PHYS 212 & 212L (PR), 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 202 & 202L or PHYS 212 & 212L (PR), 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 202 & 202L or PHYS 212 & 212L (PR), 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "MSCI Elective (300 level and above) (MR), 3-4 hrs",
+            "source_text": "MSCI Elective (300 level and above) (MR), 3-4 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI Elective (300 level and above) (MR), 3-4 hrs",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI Elective (300 level and above) (MR), 3-4 hrs"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "STAT 515 (MR), 3 hours",
+            "source_text": "STAT 515 (MR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 515 (MR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 515 (MR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 17.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "MSCI 314 (MR/CC-INT), 4 hours",
+            "source_text": "MSCI 314 (MR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 314 (MR/CC-INT), 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 314 (MR/CC-INT), 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "MSCI 313 (MR/CC-INT), 4 hours",
+            "source_text": "MSCI 313 (MR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI 313 (MR/CC-INT), 4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 313 (MR/CC-INT), 4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "source_text": "MSCI Elective (300 level & above) (MR), 3-4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MSCI Elective (300 level & above) (MR), 3-4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI Elective (300 level & above) (MR), 3-4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR), 3 hours",
+            "source_text": "Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "graduating in three years.",
+            "source_text": "graduating in three years.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "graduating in three years.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "graduating in three years."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-7",
+            "sequence": 7,
+            "label": "accelerate my degree program.",
+            "source_text": "accelerate my degree program.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "accelerate my degree program.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "accelerate my degree program."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-8",
+            "sequence": 8,
+            "label": "to receive priority registration.",
+            "source_text": "to receive priority registration.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "to receive priority registration.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "to receive priority registration."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-9",
+            "sequence": 9,
+            "label": "Accelerated Study Plan.",
+            "source_text": "Accelerated Study Plan.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Accelerated Study Plan.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-10",
+            "sequence": 10,
+            "label": "On Your Time Signature",
+            "source_text": "On Your Time Signature",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "On Your Time Signature",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "On Your Time Signature"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.7,
+    "issues": [],
+    "summary": "Full accelerated study plan extracted from all source pages."
+  }
+}

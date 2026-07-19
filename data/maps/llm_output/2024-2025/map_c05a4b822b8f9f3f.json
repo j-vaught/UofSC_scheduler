@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_c05a4b822b8f9f3f",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_c05a4b822b8f9f3f.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_chem-bs_3yrplan.pdf",
+    "sha256": "25480748ea0cf1fa26fdd0109b4e4e7b9ee40ea5b8473648d0b843a3a6808298",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Chemistry",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Accelerated Study Plan",
+    "department": "Chemistry & Biochemistry",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Chemistry",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Accelerated Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Accelerated Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Accelerated Year 1 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Accelerated Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Accelerated Year 2 Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Accelerated Year 2 Summer",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Accelerated Year 3 Fall",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Accelerated Year 3 Spring",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours                          Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 141(PR), 4 hours                               Cognate/Minor Course or Approved Elective (PR), 3 hrs; Foreign Language or Carolina Core (CC-GFL), 3-4; hours; University 101 or Carolina Core (PR/CC), 3 hours; YEAR THREE; Fall Semester, 14-18 hours; Spring Semester, 18 hours                           CHEM 541/541L or CHEM 542/542L (MR/CC-INT), 5; hours; ENGL 102 (CC-CMW, CC-INF), 3 hours                  Cognate/Minor Course or Approved Elective (PR), 3 hrs; CHEM 142 (PR), 4 hours                              CSCE 206 or CSCE 145 (CR), 3-4 hours; MATH 142 (CC-ARP), 4 hours                          CHEM 496-499 (optional) (MR), 0-3 hours; PHYS 211/211L (CC-SCI), 4 hours                     Carolina Core or Approved Elective (CC-PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Summer Semester, 12 hours                           Spring Semester, 15 hours; CHEM 333/",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Chemistry – Bachelor of Science (B.S.) College of Arts and Sciences Catalog Year: 2024 - 2025 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 17-18 hours                          Social Science (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Carolina Core (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Full accelerated plan extracted from all source pages."
+  }
+}

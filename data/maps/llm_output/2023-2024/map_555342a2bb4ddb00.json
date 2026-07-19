@@ -1,0 +1,1462 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_555342a2bb4ddb00",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_555342a2bb4ddb00.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_bio-sciences_map.pdf",
+    "sha256": "3974baa0827b8dadaa0e297dbc54ce6d636efc829c93e417f04b32a0eee49b0d",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Biological Sciences",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "Biological Sciences",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Biological Sciences",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. or MATH 141 Calculus 13 122); C or better in MATH 115/116",
+            "source_text": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH or MATH 141 Calculus 13 122); C or better in MATH 115/116",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH or MATH 141 Calculus 13 122); C or better in MATH 115/116",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH or MATH 141 Calculus 13 122); C or better in MATH 115/116",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 101 & Lab – Biological Principles I or BIOL 102 & Lab – Biological Principles II",
+            "source_text": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 111 & Lab – General Chemistry I",
+            "source_text": "CHEM 111 & Lab – General Chemistry I 4 PR C or better in MATH 111, 115 or higher",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & Lab – General Chemistry I 4 PR C or better in MATH 111, 115 or higher",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language4 or other Carolina Core",
+            "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language4 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language4 or other Carolina Core 3 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II or MATH 170 Finite Mathematics or better in MATH 111/111I/122 or Math or MATH 172 Math. Modeling for the Life Sciences3 placement test (MATH 170); C or better",
+            "source_text": "MATH 142 Calculus II 3-4 CC-ARP C or better in MATH 141 (MATH 142); C or MATH 170 Finite Mathematics or better in MATH 111/111I/122 or Math or MATH 172 Math. Modeling for the Life Sciences3 placement test (MATH 170); C or better",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 Calculus II 3-4 CC-ARP C or better in MATH 141 (MATH 142); C or MATH 170 Finite Mathematics or better in MATH 111/111I/122 or Math or MATH 172 Math. Modeling for the Life Sciences3 placement test (MATH 170); C or better",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 Calculus II 3-4 CC-ARP C or better in MATH 141 (MATH 142); C or MATH 170 Finite Mathematics or better in MATH 111/111I/122 or Math or MATH 172 Math. Modeling for the Life Sciences3 placement test (MATH 170); C or better",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 101 & Lab – Biological Principles I or BIOL 102 & Lab – Biological Principles II",
+            "source_text": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! BIOL 101 & Lab – Biological Principles I 4 C CC-SCI or BIOL 102 & Lab – Biological Principles II",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 112 & Lab – General Chemistry II",
+            "source_text": "CHEM 112 & Lab – General Chemistry II 4 PR C or better in CHEM 111 and MATH 111,",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & Lab – General Chemistry II 4 PR C or better in CHEM 111 and MATH 111,",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language4 or other Carolina Core",
+            "source_text": "Foreign language4 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language4 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language4 or other Carolina Core 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "STAT 205 Elem. Stat. for the Biol. & Life Sciences",
+            "source_text": "STAT 205 Elem. Stat. for the Biol. & Life Sciences 3 CR MATH 111 or higher",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "205"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 205 Elem. Stat. for the Biol. & Life Sciences 3 CR MATH 111 or higher",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 301 (& optional Lab) – Ecology & Evolution or BIOL 302 (& optional Lab) – Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "source_text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab) – Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab) – Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab) – Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 333 & 331 Lab – Organic Chemistry I",
+            "source_text": "CHEM 333 & 331 Lab – Organic Chemistry I 4 PR C or better in CHEM 112 or CHEM 142",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333 & 331 Lab – Organic Chemistry I 4 PR C or better in CHEM 112 or CHEM 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language4 or Carolina Core Requirement5",
+            "source_text": "Foreign language4 or Carolina Core Requirement5 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language4 or Carolina Core Requirement5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language4 or Carolina Core Requirement5 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement5",
+            "source_text": "Carolina Core Requirement5 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 3 CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CSCE 102 General Applications Programming",
+            "source_text": "CSCE 102 General Applications Programming 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CSCE",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 General Applications Programming 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 301 (& optional Lab) – Ecology & Evolution or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "source_text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement5",
+            "source_text": "Carolina Core Requirement5 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 301 (& optional Lab) – Ecology & Evolution or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "source_text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 (& optional Lab) – Ecology & Evolution 3-4 C MR/CC- C or better in BIOL 101 and 102 or MSCI or BIOL 302 (& optional Lab)– Cell & Molecular Bio. INT 311; Prereq.: CHEM 112 or CHEM 142 or BIOL 303 (& optional Lab) – Fundamental (BIOL 302 only)",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Physiology or Plant Biology course7",
+            "source_text": "Physiology or Plant Biology course7 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Physiology or Plant Biology course7 3 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Physiology or Plant Biology course7 3 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "History8",
+            "source_text": "History8 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History8 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History8 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Physiology or Plant Biology course7",
+            "source_text": "Physiology or Plant Biology course7 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Physiology or Plant Biology course7 3 C MR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Physiology or Plant Biology course7 3 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "Biological Sciences Elective9",
+            "source_text": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biological Sciences Elective9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement5 or Approved Elective6",
+            "source_text": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5 or Approved Elective6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Biological Sciences Elective9",
+            "source_text": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biological Sciences Elective9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Biological Sciences Elective9",
+            "source_text": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biological Sciences Elective9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biological Sciences Elective9 3-4 C MR See Bulletin listing",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement5 or Approved Elective6",
+            "source_text": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5 or Approved Elective6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Biological Sciences Elective and lab9",
+            "source_text": "Biological Sciences Elective and lab9 4 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biological Sciences Elective and lab9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Biological Sciences Elective and lab9 4 C MR See Bulletin listing",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Approved Elective6",
+            "source_text": "Approved Elective6 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective6 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement5 or Approved Elective6",
+            "source_text": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5 or Approved Elective6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 or Approved Elective6 3 CC/PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who do not place into MATH 122 or 141 will be required to successfully complete the corresponding prerequisites before taking MATH 122 or",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who do not place into MATH 122 or 141 will be required to successfully complete the corresponding prerequisites before taking MATH 122 or",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. It is recommended that students take MATH 141 and 142. However, successful completion of MATH 122 and MATH 170 or 172 may be substituted.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. It is recommended that students take MATH 141 and 142. However, successful completion of MATH 122 and MATH 170 or 172 may be substituted.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences. A student may choose an optional minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. All minor courses must be passed with a grade of C or higher.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences. A student may choose an optional minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. All minor courses must be passed with a grade of C or higher.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Physiology courses (3 credit hours) Choose from the following: BIOL 425* – Plant Form & Function (3) –optional lab available BIOL 549* – Plant Physiology (4) BIOL 460 – Advanced Human Physiology (3) –optional lab available BIOL 635 Neurophysiology (4) BIOL 465 – Domestic Animal Nutrition (3) BIOL 543 – Comparative Physiology (3) –optional lab available Plant courses (3 credit hours) Choose from the following: BIOL 420 – Survey of the Plant Kingdom (3) –optional lab available BIOL 526^ – The Fall Flora (4) BIOL 423 – Medical Botany (3) BIOL 527^ – The Spring Flora (4) BIOL 425* – Plant Form & Function (3) –optional lab available BIOL 528^ – The Summer Flora (4) BIOL 523 – Plant Development (3) –optional lab available BIOL 549* – Plant Physiology (4) BIOL 524 – Mycology (4) BIOL 670 – Plant Ecology (4) –optional lab available BIOL 525 – Marine Plants (4) BIOL 671 – Plant Responses to the Environment (3) *BIOL 425 and 549 may ONLY be used for either the Physiology or Plant credit, NOT both. ^Only ONE of BIOL 526-528 may apply for major credit.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Physiology courses (3 credit hours) Choose from the following: BIOL 425* – Plant Form & Function (3) –optional lab available BIOL 549* – Plant Physiology (4) BIOL 460 – Advanced Human Physiology (3) –optional lab available BIOL 635 Neurophysiology (4) BIOL 465 – Domestic Animal Nutrition (3) BIOL 543 – Comparative Physiology (3) –optional lab available Plant courses (3 credit hours) Choose from the following: BIOL 420 – Survey of the Plant Kingdom (3) –optional lab available BIOL 526^ – The Fall Flora (4) BIOL 423 – Medical Botany (3) BIOL 527^ – The Spring Flora (4) BIOL 425* – Plant Form & Function (3) –optional lab available BIOL 528^ – The Summer Flora (4) BIOL 523 – Plant Development (3) –optional lab available BIOL 549* – Plant Physiology (4) BIOL 524 – Mycology (4) BIOL 670 – Plant Ecology (4) –optional lab available BIOL 525 – Marine Plants (4) BIOL 671 – Plant Responses to the Environment (3) *BIOL 425 and 549 may ONLY be used for either the Physiology or Plant credit, NOT both. ^Only ONE of BIOL 526-528 may apply for major credit.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. In addition to the required 15 hours of major coursework, Biological Science majors must select 13 hours of Biological Sciences courses 300-level or higher for a total of 28 major hours. At least three courses applied toward the major must have an associated laboratory. No more than three credits of 398/399 may be applied toward the major. Two of 301, 302, or 303 must be completed to advance to 400-600 level courses. At least twelve credits of major courses must be at the 400-699 level.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. In addition to the required 15 hours of major coursework, Biological Science majors must select 13 hours of Biological Sciences courses 300-level or higher for a total of 28 major hours. At least three courses applied toward the major must have an associated laboratory. No more than three credits of 398/399 may be applied toward the major. Two of 301, 302, or 303 must be completed to advance to 400-600 level courses. At least twelve credits of major courses must be at the 400-699 level.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

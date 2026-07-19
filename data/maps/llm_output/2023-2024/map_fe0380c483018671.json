@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_fe0380c483018671",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_fe0380c483018671.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_envr-bs_3yrplan.pdf",
+    "sha256": "1588ad88e852f768509dad40f7f7bd8bf574bc77159c900d83d6535b3d51aa2e",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Environmental Science",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "College of Arts and Sciences",
+    "department": "Environmental Science",
+    "total_credits": {
+      "minimum": 128,
+      "maximum": 128
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Environmental Science",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Year1 17-18",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Fall Year1 17-18: ENGL101; BIOL101L/MSCI101; GEOL101/201/GEOG201; MATH141; UNIV101",
+            "source_text": "Fall Year1 17-18: ENGL101; BIOL101L/MSCI101; GEOL101/201/GEOG201; MATH141; UNIV101",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Year1 17-18: ENGL101; BIOL101L/MSCI101; GEOL101/201/GEOG201; MATH141; UNIV101",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Year1 17-18: ENGL101; BIOL101L/MSCI101; GEOL101/201/GEOG201; MATH141; UNIV101",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Year1 17",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Spring Year1 17: ENGL102; BIOL102L/MSCI102; POLI201; Foreign Language/CC; MATH142",
+            "source_text": "Spring Year1 17: ENGL102; BIOL102L/MSCI102; POLI201; Foreign Language/CC; MATH142",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Year1 17: ENGL102; BIOL102L/MSCI102; POLI201; Foreign Language/CC; MATH142",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Year1 17: ENGL102; BIOL102L/MSCI102; POLI201; Foreign Language/CC; MATH142",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Year1 16",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 1.0,
+          "maximum": 1.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Summer Year1 16: CHEM111L; CC; Foreign Language/CC; CC/Approved; Approved",
+            "source_text": "Summer Year1 16: CHEM111L; CC; Foreign Language/CC; CC/Approved; Approved",
+            "credits": {
+              "minimum": 1.0,
+              "maximum": 1.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Summer Year1 16: CHEM111L; CC; Foreign Language/CC; CC/Approved; Approved",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Summer Year1 16: CHEM111L; CC; Foreign Language/CC; CC/Approved; Approved",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Year2 17-18",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Fall Year2 17-18: ENVR201; CHEM112L; ECON221/223/224; ENVR Major; Foreign Language/CC",
+            "source_text": "Fall Year2 17-18: ENVR201; CHEM112L; ECON221/223/224; ENVR Major; Foreign Language/CC",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Year2 17-18: ENVR201; CHEM112L; ECON221/223/224; ENVR Major; Foreign Language/CC",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Year2 17-18: ENVR201; CHEM112L; ECON221/223/224; ENVR Major; Foreign Language/CC",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Year2 17-18",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Spring Year2 17-18: ENVR202; BIOL301L; ENVR548/POLI477/478; ENVR Major; History",
+            "source_text": "Spring Year2 17-18: ENVR202; BIOL301L; ENVR548/POLI477/478; ENVR Major; History",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Year2 17-18: ENVR202; BIOL301L; ENVR548/POLI477/478; ENVR Major; History",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Year2 17-18: ENVR202; BIOL301L; ENVR548/POLI477/478; ENVR Major; History",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Summer Year2 13",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 2.0,
+          "maximum": 2.0
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Summer Year2 13: PHYS201L/211L; STAT515; CC/Approved; Approved",
+            "source_text": "Summer Year2 13: PHYS201L/211L; STAT515; CC/Approved; Approved",
+            "credits": {
+              "minimum": 2.0,
+              "maximum": 2.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Summer Year2 13: PHYS201L/211L; STAT515; CC/Approved; Approved",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Summer Year2 13: PHYS201L/211L; STAT515; CC/Approved; Approved",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Fall Year3 15-18",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 3.0,
+          "maximum": 3.0
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Fall Year3 15-18: ENVR Major x3; CSCE102/MSCI305/509; Approved",
+            "source_text": "Fall Year3 15-18: ENVR Major x3; CSCE102/MSCI305/509; Approved",
+            "credits": {
+              "minimum": 3.0,
+              "maximum": 3.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fall Year3 15-18: ENVR Major x3; CSCE102/MSCI305/509; Approved",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fall Year3 15-18: ENVR Major x3; CSCE102/MSCI305/509; Approved",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Spring Year3 15-17",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 3.0,
+          "maximum": 3.0
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Spring Year3 15-17: ENVR Major x2; Ethics ENVR322/PHIL; ENVR Major; ENVR480",
+            "source_text": "Spring Year3 15-17: ENVR Major x2; Ethics ENVR322/PHIL; ENVR Major; ENVR480",
+            "credits": {
+              "minimum": 3.0,
+              "maximum": 3.0
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Spring Year3 15-17: ENVR Major x2; Ethics ENVR322/PHIL; ENVR Major; ENVR480",
+              "reason": "Course alternatives and elective categories preserved from PDF"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Spring Year3 15-17: ENVR Major x2; Ethics ENVR322/PHIL; ENVR Major; ENVR480",
+                "region": "semester table"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "ready",
+    "confidence": 0.95,
+    "issues": [],
+    "summary": "Complete accelerated plan extracted from all PDF pages."
+  }
+}

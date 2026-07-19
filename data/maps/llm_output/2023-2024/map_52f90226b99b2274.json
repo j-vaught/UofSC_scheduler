@@ -1,0 +1,1015 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_52f90226b99b2274",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2023-2024/map_52f90226b99b2274.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2023-2024/2023_spte_3yrplan.pdf",
+    "sha256": "5ebea5054fae324f9df3bf08f56ebfa773e96bb21964a8afc0486eaf1d40c3c8",
+    "page_count": 2,
+    "catalog_year": "2023-2024"
+  },
+  "program": {
+    "major": "Sport and Entertainment Management",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Accelerated Study Plan",
+    "department": "Sport & Entertainment Management",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Sport and Entertainment Management",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester 2",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "SPTE 295 Practicum (Major)**, 6 hours",
+            "source_text": "SPTE 295 Practicum (Major)**, 6 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 295 Practicum (Major)**, 6 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 295 Practicum (Major)**, 6 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+            "source_text": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "source_text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "source_text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "ECON 224 (PR), 3 hours",
+            "source_text": "ECON 224 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 224 (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 224 (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "SPTE 195 (Major), 0 hours",
+            "source_text": "SPTE 195 (Major), 0 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 195 (Major), 0 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 195 (Major), 0 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-8",
+            "sequence": 8,
+            "label": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester 4",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "SPTE 440 (CR), 3 hours",
+            "source_text": "SPTE 440 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 440 (CR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 440 (CR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+            "source_text": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+            "source_text": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+            "source_text": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester 6",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 6,
+          "maximum": 9
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+            "source_text": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+            "source_text": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "MKTG 350 (PR), 3 hours",
+            "source_text": "MKTG 350 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MKTG 350 (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MKTG 350 (PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester 7",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "MGMT 371 (PR), 3 hours",
+            "source_text": "MGMT 371 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MGMT 371 (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MGMT 371 (PR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "SPTE 274 (CR), 3 hours",
+            "source_text": "SPTE 274 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 274 (CR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 274 (CR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+            "source_text": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "HRTM 344 (CR), 3 hours",
+            "source_text": "HRTM 344 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HRTM 344 (CR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HRTM 344 (CR), 3 hours",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+            "source_text": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+            "source_text": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+            "source_text": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+                "region": "Fall Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester 8",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "**Prereqs for SPTE 295: SPTE 202, 203, 274, & MKTG 350.",
+            "source_text": "**Prereqs for SPTE 295: SPTE 202, 203, 274, & MKTG 350.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "**Prereqs for SPTE 295: SPTE 202, 203, 274, & MKTG 350.",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "**Prereqs for SPTE 295: SPTE 202, 203, 274, & MKTG 350.",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "SPTE 380 (Major), 3 hours",
+            "source_text": "SPTE 380 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 380 (Major), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 380 (Major), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "FINA 363 or FINA 333 (PR), 3 hours",
+            "source_text": "FINA 363 or FINA 333 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "FINA 363 or FINA 333 (PR), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 363 or FINA 333 (PR), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "HRSM 301 (Major), 3 hours",
+            "source_text": "HRSM 301 (Major), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HRSM 301 (Major), 3 hours",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HRSM 301 (Major), 3 hours",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+                "region": "Spring Semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "text": "Accelerated Study Plan Agreement: summer/winter enrollment may be required; follow 3-year plan and maintain good academic standing.",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "I understand I may be required to enroll",
+          "region": "agreement"
+        }
+      ],
+      "marker": "1",
+      "applies_to": []
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.7,
+    "issues": [],
+    "summary": "Complete extraction"
+  }
+}

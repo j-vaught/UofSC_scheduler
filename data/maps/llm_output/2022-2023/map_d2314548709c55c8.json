@@ -1,0 +1,1580 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_d2314548709c55c8",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_d2314548709c55c8.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_chem-bs_map.pdf",
+    "sha256": "863dd1f390a341105ffd9ce2b6c523c37fff38ba2ce6e85cba886fe9c08c3c70",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Chemistry",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "Chemistry & Biochemistry",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Chemistry",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 13",
+            "source_text": "MATH 141 Calculus 13 4 CC-ARP C or better in Math 112/115/116 or Math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 Calculus 13 4 CC-ARP C or better in Math 112/115/116 or Math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 141 Principles of Chemistry I4",
+            "source_text": "CHEM 141 Principles of Chemistry I4 4 C PR C or better in MATH 141 or higher math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 141 Principles of Chemistry I4 4 C PR C or better in MATH 141 or higher math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MATH 142 Calculus II",
+            "source_text": "MATH 142 Calculus II 4 CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 Calculus II 4 CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 142 Principles of Chemistry II4",
+            "source_text": "! CHEM 142 Principles of Chemistry II4 4 C PR C or better in CHEM 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 142 Principles of Chemistry II4 4 C PR C or better in CHEM 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 211 Essentials of Physics I",
+            "source_text": "PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 211 Essentials of Physics I 3 C CC-SCI C or better in MATH 141; Coreq: PHYS",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "PHYS 211L Essentials of Physics I Lab",
+            "source_text": "PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Coreq: PHYS 211",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "211L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 211L Essentials of Physics I Lab 1 C CC-SCI Coreq: PHYS 211",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "MATH 241 Vector Calculus7",
+            "source_text": "MATH 241 Vector Calculus7 3 PR C or better in MATH 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "241"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 241 Vector Calculus7 3 PR C or better in MATH 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 333 Organic Chemistry I",
+            "source_text": "CHEM 333 Organic Chemistry I 3 C MR C or better in CHEM 112 or CHEM 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333 Organic Chemistry I 3 C MR C or better in CHEM 112 or CHEM 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 333L Organic Chemistry I Lab",
+            "source_text": "CHEM 333L Organic Chemistry I Lab 2 C MR Prereq or Coreq: CHEM 333",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333L Organic Chemistry I Lab 2 C MR Prereq or Coreq: CHEM 333",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "PHYS 212 Essentials of Physics II7",
+            "source_text": "PHYS 212 Essentials of Physics II7 3 C CC-SCI C or better in PHYS 211 & MATH 142;",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "212"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 212 Essentials of Physics II7 3 C CC-SCI C or better in PHYS 211 & MATH 142;",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "PHYS 212L Essentials of Physics II Lab7",
+            "source_text": "PHYS 212L Essentials of Physics II Lab7 1 C CC-SCI PHYS 212",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "212L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 212L Essentials of Physics II Lab7 1 C CC-SCI PHYS 212",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "Foreign language5 or Carolina Core Requirement6",
+            "source_text": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language5 or Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or Carolina Core Requirement6 3 CR/CC",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 322 Analytical Chemistry",
+            "source_text": "CHEM 322 Analytical Chemistry 3 C MR C or better in CHEM 112/112L or CHEM",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "322"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 322 Analytical Chemistry 3 C MR C or better in CHEM 112/112L or CHEM",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 322L Analytical Chemistry Lab",
+            "source_text": "CHEM 322L Analytical Chemistry Lab 1 C MR Coreq: CHEM 322",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "322L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 322L Analytical Chemistry Lab 1 C MR Coreq: CHEM 322",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 334 Organic Chemistry II",
+            "source_text": "CHEM 334 Organic Chemistry II 3 C MR C or better in CHEM 333",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "334"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 334 Organic Chemistry II 3 C MR C or better in CHEM 333",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 334L Organic Chemistry II Lab",
+            "source_text": "CHEM 334L Organic Chemistry II Lab 2 C MR CHEM 333L; Prereq/Coreq; CHEM 334",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "334L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 334L Organic Chemistry II Lab 2 C MR CHEM 333L; Prereq/Coreq; CHEM 334",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "History9",
+            "source_text": "History9 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History9 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History9 3 CR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 14,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "CHEM Elective10",
+            "source_text": "CHEM Elective10 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "CHEM Elective10",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM Elective10 3 C MR See Bulletin listing",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+            "source_text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+            "credits": {
+              "minimum": 5,
+              "maximum": 5
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+            "source_text": "STAT 509 Statistics for Engineers 0-3 CR MATH 142 (STAT 509 only); MATH 122 or or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 509 Statistics for Engineers 0-3 CR MATH 142 (STAT 509 only); MATH 122 or or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 509 Statistics for Engineers 0-3 CR MATH 142 (STAT 509 only); MATH 122 or or STAT 515 Statistical Methods I7 & 8 (only if needed) 141 or both MATH 111 or higher and any",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course7 or Approved Elective11",
+            "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Cognate or Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 541 & CHEM 541L – Physical Chemistry or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+            "source_text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+            "credits": {
+              "minimum": 5,
+              "maximum": 5
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 541 & CHEM 541L – Physical Chemistry 5 C MR/CC- See Bulletin listing or CHEM 542 & CHEM 542L – Physical Chemistry INT",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "CSCE 206 Scientific Applications Programming or CSCE 145 Algorithmic Design I or co-req: MATH 111 or 115 (CSCE 145",
+            "source_text": "CSCE 206 Scientific Applications Programming 3-4 CR MATH 122 or 141 (CSCE 206 only); pre- or CSCE 145 Algorithmic Design I or co-req: MATH 111 or 115 (CSCE 145",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 206 Scientific Applications Programming 3-4 CR MATH 122 or 141 (CSCE 206 only); pre- or CSCE 145 Algorithmic Design I or co-req: MATH 111 or 115 (CSCE 145",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 206 Scientific Applications Programming 3-4 CR MATH 122 or 141 (CSCE 206 only); pre- or CSCE 145 Algorithmic Design I or co-req: MATH 111 or 115 (CSCE 145",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course7 or Approved Elective11",
+            "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Cognate or Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement6",
+            "source_text": "Carolina Core Requirement6 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 3 CC",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 496-499 Undergraduate Research12",
+            "source_text": "CHEM 496-499 Undergraduate Research12 0-3 C MR Independent Study Contract Required",
+            "credits": {
+              "minimum": 0,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "496"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 496-499 Undergraduate Research12 0-3 C MR Independent Study Contract Required",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course7 or Approved Elective11",
+            "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Cognate or Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Cognate or Minor Course7 or Approved Elective11",
+            "source_text": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Cognate or Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement6 or Approved Elective11",
+            "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Approved Elective11"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Minor Course7 or Approved Elective11",
+            "source_text": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "Minor Course7 or Approved Elective11",
+            "source_text": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Minor Course7 or Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Minor Course7 or Approved Elective11 3 C (minor) PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement6 or Approved Elective11",
+            "source_text": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement6 or Approved Elective11"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement6 or Approved Elective11 3 CC/PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-4",
+            "sequence": 4,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective11 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective11",
+            "source_text": "Approved Elective11 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Elective11",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Elective11 3 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who do not place into MATH 141 will be required to successfully complete MATH 112, 115, or 116 before taking MATH 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who do not place into MATH 141 will be required to successfully complete MATH 112, 115, or 116 before taking MATH 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. CHEM 111 and CHEM 111L may be taken in place of CHEM 141, and CHEM 112 and CHEM 112L may be taken in place of CHEM 142.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. CHEM 111 and CHEM 111L may be taken in place of CHEM 141, and CHEM 112 and CHEM 112L may be taken in place of CHEM 142.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. The cognate is intended to support the course work in the major. The cognate must consist of twelve hours of courses at the advanced level, outside of, but related to the major. In place of a cognate, a student may choose a minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. All minor courses must be passed with a grade of C or higher. For B.S. degrees, grades of D are acceptable for completion of the cognate requirement, except where restricted by the major program. A second major eliminates the minor/cognate requirement. Students may use MATH 241, STAT 509/515, and PHYS 212 and 212L toward the cognate requirement, but would need to complete additional electives to meet hours to graduate.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. The cognate is intended to support the course work in the major. The cognate must consist of twelve hours of courses at the advanced level, outside of, but related to the major. In place of a cognate, a student may choose a minor consisting of at least 18 credit hours of courses concentrated in one area that follow a structured sequence. All minor courses must be passed with a grade of C or higher. For B.S. degrees, grades of D are acceptable for completion of the cognate requirement, except where restricted by the major program. A second major eliminates the minor/cognate requirement. Students may use MATH 241, STAT 509/515, and PHYS 212 and 212L toward the cognate requirement, but would need to complete additional electives to meet hours to graduate.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. If CHEM 141, 142, 322, and 322L (or CHEM 141, 142, 322 and 322L) are all completed at USC, STAT 509 or 515 is not required. Also, if CHEM 621 and 621L are completed, STAT 509 or 515 is not required. Students who exempt STAT 509 or 515 through this process will be required to take an approved elective to reach minimum hours for graduation.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. If CHEM 141, 142, 322, and 322L (or CHEM 141, 142, 322 and 322L) are all completed at USC, STAT 509 or 515 is not required. Also, if CHEM 621 and 621L are completed, STAT 509 or 515 is not required. Students who exempt STAT 509 or 515 through this process will be required to take an approved elective to reach minimum hours for graduation.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. CHEM Electives (3-4 hours) Choose one from the following: CHEM 511 Inorganic Chemistry (3) CHEM 621 Instrumental Analysis (3) (and CHEM 621L) CHEM 533 Comprehensive Organic Chemistry III (3) CHEM 623 Introductory Environmental Chemistry (3) CHEM 545 Physical Biochemistry (3) CHEM 624 Aquatic Chemistry (3) –cross-listed: MSCI 624 CHEM 550 Biochemistry (3) –cross-listed: BIOL 541 CHEM 633 Introduction to Polymer Synthesis (3) CHEM 555 Biochemistry/Molecular Biology I (3) –cross-listed: BIOL 545 CHEM 644 Materials Chemistry (3)",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. CHEM Electives (3-4 hours) Choose one from the following: CHEM 511 Inorganic Chemistry (3) CHEM 621 Instrumental Analysis (3) (and CHEM 621L) CHEM 533 Comprehensive Organic Chemistry III (3) CHEM 623 Introductory Environmental Chemistry (3) CHEM 545 Physical Biochemistry (3) CHEM 624 Aquatic Chemistry (3) –cross-listed: MSCI 624 CHEM 550 Biochemistry (3) –cross-listed: BIOL 541 CHEM 633 Introduction to Polymer Synthesis (3) CHEM 555 Biochemistry/Molecular Biology I (3) –cross-listed: BIOL 545 CHEM 644 Materials Chemistry (3)",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "11",
+      "text": "11. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "11. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "12",
+      "text": "12. Students are encouraged to start undergraduate research as early as possible to allow participation in long-term projects. Three credits of undergraduate research are required, but additional research experience is recommended. Extramural Research opportunities, such as REU’s may qualify for CHEM 496-499 credit; however, a request form must be submitted and preapproved by the Department of Chemistry.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "12. Students are encouraged to start undergraduate research as early as possible to allow participation in long-term projects. Three credits of undergraduate research are required, but additional research experience is recommended. Extramural Research opportunities, such as REU’s may qualify for CHEM 496-499 credit; however, a request form must be submitted and preapproved by the Department of Chemistry.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

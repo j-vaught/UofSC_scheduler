@@ -1,0 +1,1400 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_15c7bb305825bbcf",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_15c7bb305825bbcf.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_msci-bio-ocean_map.pdf",
+    "sha256": "8772d76ec51b745aef2456688d36cfc37f7baf11226b7e6b418d0cafc89cd5d8",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Marine Science",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": 128,
+      "maximum": 128
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Marine Science",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "MSCI 101 The Ocean Environment",
+            "source_text": "! MSCI 101 The Ocean Environment 4 C CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MSCI 101 The Ocean Environment 4 C CC-SCI",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 141 Calculus 13",
+            "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in Math 115 or Math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "141"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 141 Calculus 13 4 C CC-ARP C or better in Math 115 or Math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111 & 111L – General Chemistry I",
+            "source_text": "! CHEM 111 & 111L – General Chemistry I 4 C PR C or better in Math 115 or Math",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111 & 111L – General Chemistry I 4 C PR C or better in Math 115 or Math",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "UNIV 101 The Student in the University",
+            "source_text": "UNIV 101 The Student in the University 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the University 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 19
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "MSCI 102 The Living Ocean",
+            "source_text": "! MSCI 102 The Living Ocean 4 C CC-SCI",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MSCI 102 The Living Ocean 4 C CC-SCI",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "MATH 142 Calculus II",
+            "source_text": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MATH",
+              "number": "142"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 142 Calculus II 4 C CC-ARP C or better in MATH 141",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 112 & 112L – General Chemistry II",
+            "source_text": "! CHEM 112 & 112L – General Chemistry II 4 C PR C or better in CHEM 111 or 141 and",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112 & 112L – General Chemistry II 4 C PR C or better in CHEM 111 or 141 and",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3-4 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "Preapproved Field Experience or MSCI 4606",
+            "source_text": "Preapproved Field Experience or MSCI 4606 0-2 MR C or better in MSCI 101 and 102 or",
+            "credits": {
+              "minimum": 0,
+              "maximum": 2
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Preapproved Field Experience or MSCI 4606 0-2 MR C or better in MSCI 101 and 102 or",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Preapproved Field Experience or MSCI 4606 0-2 MR C or better in MSCI 101 and 102 or",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "MSCI 311 Biology of Marine Organisms (fall only)",
+            "source_text": "MSCI 311 Biology of Marine Organisms (fall only) 4 C MR/CC-INT MSCI 102 or BIOL 101",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "311"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 311 Biology of Marine Organisms (fall only) 4 C MR/CC-INT MSCI 102 or BIOL 101",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
+            "source_text": "! PHYS 201 & 201L – General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! PHYS 201 & 201L – General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 201 & 201L – General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language5 or other Carolina Core",
+            "source_text": "Foreign language5 or other Carolina Core 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language5 or other Carolina Core"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or other Carolina Core 3 CC-GFL",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "History7",
+            "source_text": "History7 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History7 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History7 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "MSCI 313 The Chemistry of the Sea (spring only)",
+            "source_text": "MSCI 313 The Chemistry of the Sea (spring only) 4 C MR/CC-INT C or better in MSCI 101, CHEM 111,",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "313"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 313 The Chemistry of the Sea (spring only) 4 C MR/CC-INT C or better in MSCI 101, CHEM 111,",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "MSCI 314 Physical Oceanography (spring only)",
+            "source_text": "MSCI 314 Physical Oceanography (spring only) 4 C MR/CC-INT MSCI 101, MATH 141, & PHYS 201",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "314"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 314 Physical Oceanography (spring only) 4 C MR/CC-INT MSCI 101, MATH 141, & PHYS 201",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II and MATH 142 (PHYS 212)",
+            "source_text": "! PHYS 202 & 202L – General Physics II 4 C PR PHYS 201 (PHYS 202); PHYS 211 or PHYS 212 & 212L – Essentials of Physics II and MATH 142 (PHYS 212)",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! PHYS 202 & 202L – General Physics II 4 C PR PHYS 201 (PHYS 202); PHYS 211 or PHYS 212 & 212L – Essentials of Physics II and MATH 142 (PHYS 212)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! PHYS 202 & 202L – General Physics II 4 C PR PHYS 201 (PHYS 202); PHYS 211 or PHYS 212 & 212L – Essentials of Physics II and MATH 142 (PHYS 212)",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Foreign language5 or Carolina Core Requirement4",
+            "source_text": "Foreign language5 or Carolina Core Requirement4 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CR",
+              "label": "Foreign language5 or Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language5 or Carolina Core Requirement4 3 CR/CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 333 – Organic Chemistry I",
+            "source_text": "CHEM 333 – Organic Chemistry I 3 C MR CHEM 112 or CHEM 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333 – Organic Chemistry I 3 C MR CHEM 112 or CHEM 142",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 301 Ecology & Evolution & BIOL 301L",
+            "source_text": "BIOL 301 Ecology & Evolution & BIOL 301L 3-4 C MR/CC-INT BIOL 101 and 102 or MSCI 311",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 Ecology & Evolution & BIOL 301L 3-4 C MR/CC-INT BIOL 101 and 102 or MSCI 311",
+              "reason": "Source presents multiple courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 Ecology & Evolution & BIOL 301L 3-4 C MR/CC-INT BIOL 101 and 102 or MSCI 311",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "STAT 515 Statistical Methods I",
+            "source_text": "STAT 515 Statistical Methods I 3 C CR MATH 141; or both MATH 111 or",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "STAT",
+              "number": "515"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 515 Statistical Methods I 3 C CR MATH 141; or both MATH 111 or",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "CSCE 102 General Applications Programming or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in",
+            "source_text": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 General Applications Programming 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4",
+            "source_text": "Carolina Core Requirement4 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "MSCI Bio-Oceanography Elective8",
+            "source_text": "MSCI Bio-Oceanography Elective8 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "MSCI Bio-Oceanography Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI Bio-Oceanography Elective8 3 C MR See Bulletin listing",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 302 Cell & Molecular Biology or BIOL 303 Fundamental Genetics 311;& CHEM 112 (BIOL 302)",
+            "source_text": "BIOL 302 Cell & Molecular Biology 3 C MR/CC-INT BIOL 101 and BIOL 102 or MSCI or BIOL 303 Fundamental Genetics 311;& CHEM 112 (BIOL 302)",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 302 Cell & Molecular Biology 3 C MR/CC-INT BIOL 101 and BIOL 102 or MSCI or BIOL 303 Fundamental Genetics 311;& CHEM 112 (BIOL 302)",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 302 Cell & Molecular Biology 3 C MR/CC-INT BIOL 101 and BIOL 102 or MSCI or BIOL 303 Fundamental Genetics 311;& CHEM 112 (BIOL 302)",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Social Science",
+            "source_text": "Social Science 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science 3 CR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Humanities or Fine Arts",
+            "source_text": "Humanities or Fine Arts 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts 3 CR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement4 or Approved Elective9",
+            "source_text": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective9"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 13,
+          "maximum": 13
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "MSCI Bio-Oceanography Elective8",
+            "source_text": "MSCI Bio-Oceanography Elective8 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "MSCI Bio-Oceanography Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI Bio-Oceanography Elective8 3 C MR See Bulletin listing",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "MSCI 505 Senior Seminar",
+            "source_text": "MSCI 505 Senior Seminar 1 C MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "MSCI",
+              "number": "505"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MSCI 505 Senior Seminar 1 C MR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement4 or Approved Elective9",
+            "source_text": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement4 or Approved Elective9"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement4 or Approved Elective9 3 CC/PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "Approved Electives9",
+            "source_text": "Approved Electives9 6 PR",
+            "credits": {
+              "minimum": 6,
+              "maximum": 6
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Electives9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Electives9 6 PR",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "MSCI Elective (300-level and above)10",
+            "source_text": "MSCI Elective (300-level and above)10 3-4 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "MSCI Elective (300-level and above)10",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MSCI Elective (300-level and above)10 3-4 C MR See Bulletin listing",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "MSCI Elective (300-level and above) 10 –only if",
+            "source_text": "MSCI Elective (300-level and above) 10 –only if 3 C MR See Bulletin listing",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "MSCI Elective (300-level and above) 10 –only if",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "MSCI Elective (300-level and above) 10 –only if 3 C MR See Bulletin listing",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-8-requirement-3",
+            "sequence": 3,
+            "label": "Approved Electives9",
+            "source_text": "Approved Electives9 9 PR",
+            "credits": {
+              "minimum": 9,
+              "maximum": 9
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Approved Electives9",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "Approved Electives9 9 PR",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who place into MATH 115 will be required to successfully complete it with a grade of C or better before taking MATH 141. MATH 115 can be used as an approved elective. Students who start with MATH 115 should use the following sequence for the first three semesters: Semester One Semester Two Semester Three ENGL 101 ENGL 102 MSCI 311 MSCI 101 MSCI 102 MATH 142 MATH 115 MATH 141 CHEM 112 & 112L UNIV 101 or other Carolina Core Requirement CHEM 111 & 111L PHYS 201 & 201L or PHYS 211 & 211L Foreign Language or other Carolina Core Req. Foreign language or other Carolina Core Req.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who place into MATH 115 will be required to successfully complete it with a grade of C or better before taking MATH 141. MATH 115 can be used as an approved elective. Students who start with MATH 115 should use the following sequence for the first three semesters: Semester One Semester Two Semester Three ENGL 101 ENGL 102 MSCI 311 MSCI 101 MSCI 102 MATH 142 MATH 115 MATH 141 CHEM 112 & 112L UNIV 101 or other Carolina Core Requirement CHEM 111 & 111L PHYS 201 & 201L or PHYS 211 & 211L Foreign Language or other Carolina Core Req. Foreign language or other Carolina Core Req.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. All MSCI majors are required to complete a minimum of 60 hours of marine science field effort. Possibilities include taking the MSCI 460 class, semester or summer internship, REU, semester at sea, or faculty-sponsored field research or cruise or field data collection/analysis. Students who opt for an experience other than the MSCI 460 class must submit a petition for an alternative field experience to the Undergraduate Director. If the alternative is approved, the student must submit a short (2-3 page minimum) report at the completion of the experience to the Undergraduate Director for approval. Upon approval, the Undergraduate Director will notify the Dean’s office of the substitution, and the student’s record will be updated to reflect zero credit hours in MSCI 460 for meeting the field effort requirement If the student takes the MSCI 460 class (2-credit hours), those credits will be counted towards their 23 major elective credit hours.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. All MSCI majors are required to complete a minimum of 60 hours of marine science field effort. Possibilities include taking the MSCI 460 class, semester or summer internship, REU, semester at sea, or faculty-sponsored field research or cruise or field data collection/analysis. Students who opt for an experience other than the MSCI 460 class must submit a petition for an alternative field experience to the Undergraduate Director. If the alternative is approved, the student must submit a short (2-3 page minimum) report at the completion of the experience to the Undergraduate Director for approval. Upon approval, the Undergraduate Director will notify the Dean’s office of the substitution, and the student’s record will be updated to reflect zero credit hours in MSCI 460 for meeting the field effort requirement If the student takes the MSCI 460 class (2-credit hours), those credits will be counted towards their 23 major elective credit hours.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Select two courses from the following list of marine biology, ecology or biology courses, or similar courses as approved by advisor: MSCI/BIOL 450, 503 (BIOL 502), 510, 525, 535, 536, 537, 538, 552, 574, 575, 576, 577, 627; MSCI 496, 497, 498, 499, 599 (if biology oriented); MSCI 566, 578; BIOL 302 (302L is optional, but may be taken with BIOL 302) or 303; BIOL 460, 505, 534, 541, 543, 550, 570, 640, 643, 652, 670, 690.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Select two courses from the following list of marine biology, ecology or biology courses, or similar courses as approved by advisor: MSCI/BIOL 450, 503 (BIOL 502), 510, 525, 535, 536, 537, 538, 552, 574, 575, 576, 577, 627; MSCI 496, 497, 498, 499, 599 (if biology oriented); MSCI 566, 578; BIOL 302 (302L is optional, but may be taken with BIOL 302) or 303; BIOL 460, 505, 534, 541, 543, 550, 570, 640, 643, 652, 670, 690.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences in Flinn Hall.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences in Flinn Hall.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "10",
+      "text": "10. In addition to the required 13 hours of major coursework, Marine Science majors must select 23 hours of Marine Science electives (which include the required Biological Oceanography Concentration courses) in consultation with a faculty advisor for a total of 36 major hours. The elective courses listed in the Undergraduate Studies Bulletin for Marine Science are commonly selected, but any course which is eligible for cognate credit in the College of Arts and Sciences can potentially be a major course in Marine Science. The determination of major courses in this interdisciplinary program is the result of consultation between the student and an advisor.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "10. In addition to the required 13 hours of major coursework, Marine Science majors must select 23 hours of Marine Science electives (which include the required Biological Oceanography Concentration courses) in consultation with a faculty advisor for a total of 36 major hours. The elective courses listed in the Undergraduate Studies Bulletin for Marine Science are commonly selected, but any course which is eligible for cognate credit in the College of Arts and Sciences can potentially be a major course in Marine Science. The determination of major courses in this interdisciplinary program is the result of consultation between the student and an advisor.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

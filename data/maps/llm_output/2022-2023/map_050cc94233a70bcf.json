@@ -1,0 +1,1055 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_050cc94233a70bcf",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2022-2023/map_050cc94233a70bcf.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2022-2023/2022_spte_3yrplan.pdf",
+    "sha256": "e0852c820cb53dc519f3623e835fef1599d8ee5dc0f2f65108f5bcefad9e2fce",
+    "page_count": 2,
+    "catalog_year": "2022-2023"
+  },
+  "program": {
+    "major": "Sport and Entertainment Management",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Accelerated Study Plan",
+    "department": "Sport & Entertainment Management",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Sport and Entertainment Management",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 18.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                             Carolina Core Requirement (CC), 3-4 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+            "source_text": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 261 (CR), 3 hours                              Approved Elective (PR), 2-3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "source_text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "ECON 224 (PR), 3 hours",
+            "source_text": "ECON 224 (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 224 (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 224 (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "SPTE 195 (Major), 0 hours",
+            "source_text": "SPTE 195 (Major), 0 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 195 (Major), 0 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 195 (Major), 0 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 18.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        Carolina Core or Approved Elective (CC/PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+            "source_text": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 262 (CR), 3 hours                              SPTE 444 (Major), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+            "source_text": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 (CC-ARP), 3 hours                          SPTE Elective (Major)*, 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+            "source_text": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 240 (CR), 3 hours                              SPTE Elective (Major)*, 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 201 or SPTE 202 or SPTE 203 (Major), 3 hours   Carolina Core or Approved Elective (CC/PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "SPTE Elective (Major)*, 3 hours",
+            "source_text": "SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE Elective (Major)*, 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE Elective (Major)*, 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Summer Semester",
+        "academic_year": null,
+        "term": "summer",
+        "credits": {
+          "minimum": 12.0,
+          "maximum": 13.0
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+            "source_text": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "RETL 242 or ENGL 463 (CR), 3 hours                  SPTE 495 Internship (Major), 6 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours           Carolina Core/Elective, if needed (CC/PR), 0-3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+            "source_text": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 122 or MATH 141 (CC-ARP), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 122 or MATH 141 (CC-ARP), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "MKTG 350 (PR), 3 hours",
+            "source_text": "MKTG 350 (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MKTG 350 (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MKTG 350 (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Fall Semester",
+        "academic_year": null,
+        "term": "fall",
+        "credits": {
+          "minimum": 17.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "MGMT 371 (PR), 3 hours",
+            "source_text": "MGMT 371 (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MGMT 371 (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MGMT 371 (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "SPTE 274 (CR), 3 hours",
+            "source_text": "SPTE 274 (CR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 274 (CR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 274 (CR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+            "source_text": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPCH 140 or SPCH 230 (CC-CMS), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "HRTM 344 (CR), 3 hours",
+            "source_text": "HRTM 344 (CR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HRTM 344 (CR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HRTM 344 (CR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+            "source_text": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other Carolina Core (CC-GFL),   *Select four of the following: SPTE 101, SPTE 330, SPTE"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+            "source_text": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "3 hours                                             330, SPTE 335, SPTE 340, SPTE 415, SPTE 550, SPTE 560,"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+            "source_text": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 2-3 hours                   SPTE 565, SPTE 585, SPTE 590, SPTE 655."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Spring Semester",
+        "academic_year": null,
+        "term": "spring",
+        "credits": {
+          "minimum": 18.0,
+          "maximum": 18.0
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "SPTE 380 (Major), 3 hours",
+            "source_text": "SPTE 380 (Major), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE 380 (Major), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE 380 (Major), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "FINA 363 or FINA 333 (PR), 3 hours",
+            "source_text": "FINA 363 or FINA 333 (PR), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "FINA 363 or FINA 333 (PR), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "FINA 363 or FINA 333 (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core Requirement (CC), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "HRSM 301 (Major), 3 hours",
+            "source_text": "HRSM 301 (Major), 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HRSM 301 (Major), 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HRSM 301 (Major), 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "SPTE Elective (Major)*, 3 hours",
+            "source_text": "SPTE Elective (Major)*, 3 hours",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SPTE Elective (Major)*, 3 hours",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SPTE Elective (Major)*, 3 hours"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "graduating in three years.",
+            "source_text": "graduating in three years.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "graduating in three years.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "graduating in three years."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "accelerate my degree program.",
+            "source_text": "accelerate my degree program.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "accelerate my degree program.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "accelerate my degree program."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "to receive priority registration.",
+            "source_text": "to receive priority registration.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "to receive priority registration.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "to receive priority registration."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-10",
+            "sequence": 10,
+            "label": "Accelerated Study Plan.",
+            "source_text": "Accelerated Study Plan.",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Accelerated Study Plan.",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan."
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-11",
+            "sequence": 11,
+            "label": "On Your Time Signature",
+            "source_text": "On Your Time Signature",
+            "credits": {
+              "minimum": null,
+              "maximum": null
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "On Your Time Signature",
+              "reason": "Course or elective rule retained from accelerated plan text."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "On Your Time Signature"
+              }
+            ],
+            "confidence": 0.85,
+            "review_flags": [
+              "missing_context"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.7,
+    "issues": [],
+    "summary": "Full accelerated study plan extracted from all source pages."
+  }
+}

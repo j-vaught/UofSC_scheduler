@@ -1,0 +1,1640 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_8a62764ea601b159",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2024-2025/map_8a62764ea601b159.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2024-2025/2024_envr-bs_3yrplan.pdf",
+    "sha256": "5a69671f772fabe548af7a23d5508b583f9e64ce53815edb50dc3ba1fd75b923",
+    "page_count": 2,
+    "catalog_year": "2024-2025"
+  },
+  "program": {
+    "major": "Environmental Science",
+    "degree_name": "B.S.",
+    "degree_abbreviation": null,
+    "college": "Accelerated Study Plan",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": null,
+      "maximum": null
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Environmental Science",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours STAT 515 (CR), 3 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                             STAT 515 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                             STAT 515 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                             STAT 515 (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 101 & 101L or MSCI 101 (CC-SCI), 4 hours Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "BIOL 101 & 101L or MSCI 101 (CC-SCI), 4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101 & 101L or MSCI 101 (CC-SCI), 4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101 & 101L or MSCI 101 (CC-SCI), 4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "GEOL 101 or GEOL 201 or GEOG 201 (PR), 3-4 Approved Elective (PR), 3 hours",
+            "source_text": "GEOL 101 or GEOL 201 or GEOG 201 (PR), 3-4          Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "GEOL 101 or GEOL 201 or GEOG 201 (PR), 3-4          Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "GEOL 101 or GEOL 201 or GEOG 201 (PR), 3-4          Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "MATH 141 (CC-ARP), 4 hours",
+            "source_text": "MATH 141 (CC-ARP), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 141 (CC-ARP), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 141 (CC-ARP), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "source_text": "University 101 or Carolina Core (PR/CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101 or Carolina Core (PR/CC), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101 or Carolina Core (PR/CC), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "ENGL 102 (CMW, INF), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-8",
+            "sequence": 8,
+            "label": "POLI 201 (CC-GSS/VSR), 3 hours CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "source_text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-9",
+            "sequence": 9,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "POLI 201 (CC-GSS/VSR), 3 hours CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "source_text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "MATH 142 (CC-ARP), 4 hours",
+            "source_text": "MATH 142 (CC-ARP), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 (CC-ARP), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 (CC-ARP), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "CHEM 111 & 111L (PR), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core Requirement (CC), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-8",
+            "sequence": 8,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-9",
+            "sequence": 9,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs 360/514/ 550 (CR), 3 hours",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-10",
+            "sequence": 10,
+            "label": "Approved Elective (CC/PR), 3 hrs Environmental Science Major Course (MR), 3 hours",
+            "source_text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Spring Semester",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        Environmental Science Major Course (MR), 3-4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 & 102L or MSCI 102 (CC-SCI), 4 hours       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "POLI 201 (CC-GSS/VSR), 3 hours CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "source_text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "POLI 201 (CC-GSS/VSR), 3 hours                      CSCE 102 or MSCI 305 or MSCI 509 (CR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3       Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "MATH 142 (CC-ARP), 4 hours",
+            "source_text": "MATH 142 (CC-ARP), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 142 (CC-ARP), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 142 (CC-ARP), 4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "CHEM 111 & 111L (PR), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core Requirement (CC), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-8",
+            "sequence": 8,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-9",
+            "sequence": 9,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs 360/514/ 550 (CR), 3 hours",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-10",
+            "sequence": 10,
+            "label": "Approved Elective (CC/PR), 3 hrs Environmental Science Major Course (MR), 3 hours",
+            "source_text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-11",
+            "sequence": 11,
+            "label": "ENVR 480 (MR), 3 hours",
+            "source_text": "ENVR 480 (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 480 (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 480 (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Summer Semester",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 111 & 111L (PR), 4 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111 & 111L (PR), 4 hours                       Environmental Science Major Course (MR), 3-4 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core Requirement (CC), 3 hours Environmental Science Major Course (MR), 3-4 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Environmental Science Major Course (MR), 3-4 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core (CC-GFL), 3 hrs Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "source_text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CC-GFL), 3 hrs   Ethics Course: ENVR 322 or PHIL 312/ 320-325/",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs 360/514/ 550 (CR), 3 hours",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs   360/514/ 550 (CR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (CC/PR), 3 hrs Environmental Science Major Course (MR), 3 hours",
+            "source_text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (CC/PR), 3 hrs                    Environmental Science Major Course (MR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "ENVR 480 (MR), 3 hours",
+            "source_text": "ENVR 480 (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 480 (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 480 (MR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "ENVR 201 (PR/CC-INT), 4 hours",
+            "source_text": "ENVR 201 (PR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 201 (PR/CC-INT), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 201 (PR/CC-INT), 4 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-8",
+            "sequence": 8,
+            "label": "CHEM 112 & 112L (PR), 4 hours",
+            "source_text": "CHEM 112 & 112L (PR), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112 & 112L (PR), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & 112L (PR), 4 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-9",
+            "sequence": 9,
+            "label": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+            "source_text": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-10",
+            "sequence": 10,
+            "label": "Environmental Science Major Course (MR), 3-4 hrs",
+            "source_text": "Environmental Science Major Course (MR), 3-4 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course (MR), 3-4 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course (MR), 3-4 hrs",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-11",
+            "sequence": 11,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Fall Semester",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 201 (PR/CC-INT), 4 hours",
+            "source_text": "ENVR 201 (PR/CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 201 (PR/CC-INT), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 201 (PR/CC-INT), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "CHEM 112 & 112L (PR), 4 hours",
+            "source_text": "CHEM 112 & 112L (PR), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112 & 112L (PR), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112 & 112L (PR), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+            "source_text": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ECON 221 or ECON 223 or ECON 224 (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Environmental Science Major Course (MR), 3-4 hrs",
+            "source_text": "Environmental Science Major Course (MR), 3-4 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course (MR), 3-4 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course (MR), 3-4 hrs",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "ENVR 202 (PR-CC-INT), 4 hours",
+            "source_text": "ENVR 202 (PR-CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 202 (PR-CC-INT), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 202 (PR-CC-INT), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "BIOL 301 & 301L (MR), 4 hours",
+            "source_text": "BIOL 301 & 301L (MR), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 & 301L (MR), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 & 301L (MR), 4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+            "source_text": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "Environmental Science Major Course (MR), 3-4 hrs",
+            "source_text": "Environmental Science Major Course (MR), 3-4 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course (MR), 3-4 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course (MR), 3-4 hrs",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-10",
+            "sequence": 10,
+            "label": "History (CR), 3 hours",
+            "source_text": "History (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Spring Semester",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "ENVR 202 (PR-CC-INT), 4 hours",
+            "source_text": "ENVR 202 (PR-CC-INT), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 202 (PR-CC-INT), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 202 (PR-CC-INT), 4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 301 & 301L (MR), 4 hours",
+            "source_text": "BIOL 301 & 301L (MR), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 301 & 301L (MR), 4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 301 & 301L (MR), 4 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+            "source_text": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENVR 548 or POLI 477 or POLI 478 (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Environmental Science Major Course (MR), 3-4 hrs",
+            "source_text": "Environmental Science Major Course (MR), 3-4 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Environmental Science Major Course (MR), 3-4 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Environmental Science Major Course (MR), 3-4 hrs",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "History (CR), 3 hours",
+            "source_text": "History (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "History (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History (CR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "agreement",
+      "text": "Student must enroll in summer and/or winter courses as needed, build plan with advisor, abide by plan for priority registration, and remain in good academic standing.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "I understand I may be required to enroll in Summer",
+          "region": "agreement"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Accelerated study plan extracted from all source pages."
+  }
+}

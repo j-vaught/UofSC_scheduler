@@ -1,0 +1,1441 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_bc5556b5f4b66d28",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_bc5556b5f4b66d28.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_cvt_map.pdf",
+    "sha256": "e62ee84747ef41129cb37a67b6a26d5dd7093894e1f270d48ace715f6b90d451",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Cardiovascular Technology",
+    "degree_name": "Bachelor of Science (B.S.)",
+    "degree_abbreviation": "B.S.",
+    "college": "Arts and Sciences",
+    "department": "Cardiovascular Technology",
+    "total_credits": {
+      "minimum": 128,
+      "maximum": 128
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Cardiovascular Technology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "MATH 122 Calculus for Bus. Admin. & Soc. Sci. or MATH 141 Calculus 1 C or better in MATH 112/115/116 (MATH 141);",
+            "source_text": "! MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); or MATH 141 Calculus 1 C or better in MATH 112/115/116 (MATH 141);",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); or MATH 141 Calculus 1 C or better in MATH 112/115/116 (MATH 141);",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! MATH 122 Calculus for Bus. Admin. & Soc. Sci. 3-4 CC-ARP C or better in MATH 111/111I/115 (MATH 122); or MATH 141 Calculus 1 C or better in MATH 112/115/116 (MATH 141);",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 101 Biological Principles I",
+            "source_text": "BIOL 101 Biological Principles I 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101 Biological Principles I 3 C PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "BIOL 101L Biological Principles I Lab",
+            "source_text": "BIOL 101L Biological Principles I Lab 1 C PR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "101L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101L Biological Principles I Lab 1 C PR",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 111 General Chemistry I",
+            "source_text": "! CHEM 111 General Chemistry I 3 C PR C or better in MATH 111/115/122/141 or higher",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 111 General Chemistry I 3 C PR C or better in MATH 111/115/122/141 or higher",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "CHEM 111L General Chemistry Lab",
+            "source_text": "CHEM 111L General Chemistry Lab 1 C PR MATH 111 or 115 or higher; Prereq or Coreq:",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "111L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111L General Chemistry Lab 1 C PR MATH 111 or 115 or higher; Prereq or Coreq:",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "UNIV 101 The Student in the Univ. (Elective) or PSYC 101 Introduction to Psychology",
+            "source_text": "UNIV 101 The Student in the Univ. (Elective) 3 PR/CR or PSYC 101 Introduction to Psychology",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "UNIV 101 The Student in the Univ. (Elective) 3 PR/CR or PSYC 101 Introduction to Psychology",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 The Student in the Univ. (Elective) 3 PR/CR or PSYC 101 Introduction to Psychology",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "STAT 201 Elementary Statistics or higher",
+            "source_text": "STAT 201 Elementary Statistics or higher 3 CC-ARP C or better in MATH 111 or higher; or C or better",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 Elementary Statistics or higher 3 CC-ARP C or better in MATH 111 or higher; or C or better",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 Elementary Statistics or higher 3 CC-ARP C or better in MATH 111 or higher; or C or better",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 102 Biological Principles II",
+            "source_text": "BIOL 102 Biological Principles II 3 C PR Coreq: BIOL 102L",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102 Biological Principles II 3 C PR Coreq: BIOL 102L",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "BIOL 102L Biological Principles II Lab",
+            "source_text": "BIOL 102L Biological Principles II Lab 1 C PR Coreq: BIOL 102",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "102L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102L Biological Principles II Lab 1 C PR Coreq: BIOL 102",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 112 General Chemistry II",
+            "source_text": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH 111/115/122/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 112 General Chemistry II 3 C PR C or better in CHEM 111, MATH 111/115/122/",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "CHEM 112L General Chemistry II Lab",
+            "source_text": "CHEM 112L General Chemistry II Lab 1 C PR C or higher in CHEM 111 & 111L or CHEM 141;",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "112L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112L General Chemistry II Lab 1 C PR C or higher in CHEM 111 & 111L or CHEM 141;",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-7",
+            "sequence": 7,
+            "label": "Foreign language4 or other Carolina Core Req.5",
+            "source_text": "Foreign language4 or other Carolina Core Req.5 3-4 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language4 or other Carolina Core Req.5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language4 or other Carolina Core Req.5 3-4 CC-GFL",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 243 Human Anatomy & Physiology I",
+            "source_text": "BIOL 243 Human Anatomy & Physiology I 3 C CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "243"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 243 Human Anatomy & Physiology I 3 C CC-SCI",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 243L Human Anatomy & Physiology Lab I",
+            "source_text": "BIOL 243L Human Anatomy & Physiology Lab I 1 C CC-SCI Prereq or Coreq: BIOL 243",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "243L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 243L Human Anatomy & Physiology Lab I 1 C CC-SCI Prereq or Coreq: BIOL 243",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 303 Fundamental Genetics",
+            "source_text": "BIOL 303 Fundamental Genetics 3 C MR C or better in BIOL 101 & 102 or in MSCI 311",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "303"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 303 Fundamental Genetics 3 C MR C or better in BIOL 101 & 102 or in MSCI 311",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 333 Organic Chemistry I",
+            "source_text": "! CHEM 333 Organic Chemistry I 3 C MR C or higher in CHEM 112 or 142",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "333"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 333 Organic Chemistry I 3 C MR C or higher in CHEM 112 or 142",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "CHEM 331L Essentials of Organic Chem. Lab I",
+            "source_text": "! CHEM 331L Essentials of Organic Chem. Lab I 1 C MR Coreq: CHEM 333",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CHEM",
+              "number": "331L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! CHEM 331L Essentials of Organic Chem. Lab I 1 C MR Coreq: CHEM 333",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "CLAS 230 Medical and Scientific Terminology",
+            "source_text": "CLAS 230 Medical and Scientific Terminology 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "CLAS",
+              "number": "230"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CLAS 230 Medical and Scientific Terminology 3 CR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "Foreign language4 or other Carolina Core Req.5",
+            "source_text": "Foreign language4 or other Carolina Core Req.5 3 CC-GFL",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GFL"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GFL",
+              "label": "Foreign language4 or other Carolina Core Req.5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign language4 or other Carolina Core Req.5 3 CC-GFL",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "BIOL 244 Human Anatomy & Physiology II",
+            "source_text": "BIOL 244 Human Anatomy & Physiology II 3 C CC-SCI BIOL 243",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "244"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 244 Human Anatomy & Physiology II 3 C CC-SCI BIOL 243",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 244L Human Anatomy & Physiology Lab II",
+            "source_text": "BIOL 244L Human Anatomy & Physiology Lab II 1 C CC-SCI Corequisite: BIOL 244",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "244L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 244L Human Anatomy & Physiology Lab II 1 C CC-SCI Corequisite: BIOL 244",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 302 Cell & Molecular Biology",
+            "source_text": "BIOL 302 Cell & Molecular Biology 3 C MR C or better in BIOL 101 & in 102 or MSCI 311 &",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "BIOL",
+              "number": "302"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 302 Cell & Molecular Biology 3 C MR C or better in BIOL 101 & in 102 or MSCI 311 &",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "HSPM 412 Health Economics or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+            "source_text": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "PHYS 201 General Physics I",
+            "source_text": "PHYS 201 General Physics I 3 C PR C or better in MATH 111/111i/112/115/116/122/",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 201 General Physics I 3 C PR C or better in MATH 111/111i/112/115/116/122/",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "PHYS 201L General Physics Lab I",
+            "source_text": "PHYS 201L General Physics Lab I 1 C PR Prereq or Coreq: C or better in PHYS 201",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PHYS",
+              "number": "201L"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 201L General Physics Lab I 1 C PR Prereq or Coreq: C or better in PHYS 201",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "PSYC 101 Introduction to Psychology",
+            "source_text": "PSYC 101 Introduction to Psychology 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PSYC",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 101 Introduction to Psychology 3 CR/CC",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "HSPM 412 Health Economics or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+            "source_text": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HSPM 412 Health Economics 3 MR or HSPM 500 Intro. to Health Care Mgmt. & Org.",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "Biology or Chemistry Elective6",
+            "source_text": "Biology or Chemistry Elective6 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biology or Chemistry Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biology or Chemistry Elective6 3 C MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "History7",
+            "source_text": "History7 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "History7 3 CR",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "History7 3 CR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "PSYC 101 Introduction to Psychology",
+            "source_text": "PSYC 101 Introduction to Psychology 3 CR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PSYC",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PSYC 101 Introduction to Psychology 3 CR/CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "WGST 113 Women’s Health",
+            "source_text": "WGST 113 Women’s Health 3 C PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "WGST",
+              "number": "113"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "WGST 113 Women’s Health 3 C PR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "Carolina Core Requirement5",
+            "source_text": "Carolina Core Requirement5 3 CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 3 CC",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Biology or Chemistry Elective6",
+            "source_text": "Biology or Chemistry Elective6 3 C MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Biology or Chemistry Elective6",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Biology or Chemistry Elective6 3 C MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "SOWK 678 Transforming Health Care for the",
+            "source_text": "SOWK 678 Transforming Health Care for the 1 MR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "SOWK",
+              "number": "678"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SOWK 678 Transforming Health Care for the 1 MR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 102 Gen. App. Programming (or higher)",
+            "source_text": "CSCE 102 Gen. App. Programming (or higher) 3 CR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 102 Gen. App. Programming (or higher) 3 CR",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 Gen. App. Programming (or higher) 3 CR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement5 or Elective8",
+            "source_text": "Carolina Core Requirement5 or Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5 or Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 or Elective8 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core Requirement5 or Elective8",
+            "source_text": "Carolina Core Requirement5 or Elective8 3 CC/PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC",
+              "PR"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC",
+              "label": "Carolina Core Requirement5 or Elective8"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement5 or Elective8 3 CC/PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "Elective8",
+            "source_text": "Elective8 1 PR",
+            "credits": {
+              "minimum": 1,
+              "maximum": 1
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective8",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective8 1 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must have a minimum 2.50 GPA upon completion of 30 credit hours and a minimum 2.75 GPA upon completion of 60 hours.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must have a minimum 2.50 GPA upon completion of 30 credit hours and a minimum 2.75 GPA upon completion of 60 hours.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. Students who do not place into MATH 122 or 141 will be required to successfully complete the required prerequisite before taking either MATH 122 or 141.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. Students who do not place into MATH 122 or 141 will be required to successfully complete the required prerequisite before taking either MATH 122 or 141.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. Students in the College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Biology or Chemistry Elective (6 hours): Select from BIOL/CHEM 300-699.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Biology or Chemistry Elective (6 hours): Select from BIOL/CHEM 300-699.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. The College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the College of Arts and Sciences. The College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the College of Arts and Sciences.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. Upon completion of the specified academic requirements, only students who have gained admission into an approved CVT training facility will be retained in the major. Following the academic portion of the Cardiovascular Technology Program, a 15-18 months clinical training program in an approved facility will be the final stage of the degree program. Students will be awarded 28 credit hours upon completion of the clinical portion of the training.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. Upon completion of the specified academic requirements, only students who have gained admission into an approved CVT training facility will be retained in the major. Following the academic portion of the Cardiovascular Technology Program, a 15-18 months clinical training program in an approved facility will be the final stage of the degree program. Students will be awarded 28 credit hours upon completion of the clinical portion of the training.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "source_import_warning",
+        "message": "The deterministic source import reported warnings requiring review.",
+        "evidence": [
+          {
+            "page": 1,
+            "quote": "Cardiovascular Technology",
+            "region": "header"
+          }
+        ]
+      }
+    ],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}

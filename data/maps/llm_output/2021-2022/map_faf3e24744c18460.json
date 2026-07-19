@@ -1,0 +1,964 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_faf3e24744c18460",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2021-2022/map_faf3e24744c18460.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2021-2022/2021_cvt_3yrplan.pdf",
+    "sha256": "56da4bb76a8e99e1561c4f55e175d56c448a22bc923cde90056baeea9979c04e",
+    "page_count": 2,
+    "catalog_year": "2021-2022"
+  },
+  "program": {
+    "major": "Cardiovascular Technology",
+    "degree_name": "Bachelor of Science (B.S)",
+    "degree_abbreviation": "B.S",
+    "college": "College of Arts and Sciences",
+    "department": "",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Cardiovascular Technology",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW)",
+            "source_text": "ENGL 101 (CMW), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW)",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 101, L (pre-major)",
+            "source_text": "BIOL 101, L (pre-major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 101, L (pre-major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 101, L (pre-major)",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 111, L (pre-major)",
+            "source_text": "CHEM 111, L (pre-major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 111, L (pre-major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 111, L (pre-major)",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language (GFL)",
+            "source_text": "Foreign Language (GFL), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language (GFL)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language (GFL)",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "University 101",
+            "source_text": "University 101, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "University 101",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "University 101",
+                "region": "Year 1 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF)",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF)",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 102, L (pre-major)",
+            "source_text": "BIOL 102, L (pre-major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 102, L (pre-major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 102, L (pre-major)",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "CHEM 112, L (pre-major)",
+            "source_text": "CHEM 112, L (pre-major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 112, L (pre-major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 112, L (pre-major)",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Foreign Language (GFL)",
+            "source_text": "Foreign Language (GFL), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language (GFL)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language (GFL)",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "MATH 122 (ARP)",
+            "source_text": "MATH 122 (ARP), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "MATH 122 (ARP)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "MATH 122 (ARP)",
+                "region": "Year 1 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Year 1 Summer",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "CLAS 230 (Humanity)",
+            "source_text": "CLAS 230 (Humanity), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CLAS 230 (Humanity)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CLAS 230 (Humanity)",
+                "region": "Year 1 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 243, L (major)",
+            "source_text": "BIOL 243, L (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 243, L (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 243, L (major)",
+                "region": "Year 1 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 303 (major)",
+            "source_text": "BIOL 303 (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 303 (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 303 (major)",
+                "region": "Year 1 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "CHEM 333 & CHEM 331L (major)",
+            "source_text": "CHEM 333 & CHEM 331L (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 333 & CHEM 331L (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 333 & CHEM 331L (major)",
+                "region": "Year 1 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "Foreign Language or Carolina Core",
+            "source_text": "Foreign Language or Carolina Core, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core",
+                "region": "Year 1 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "CHEM 334 & CHEM 332L (major)",
+            "source_text": "CHEM 334 & CHEM 332L (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CHEM 334 & CHEM 332L (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CHEM 334 & CHEM 332L (major)",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "BIOL 244, L (major)",
+            "source_text": "BIOL 244, L (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 244, L (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 244, L (major)",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "BIOL 302 (major)",
+            "source_text": "BIOL 302 (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL 302 (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL 302 (major)",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Fine Art/Literature (AIU)",
+            "source_text": "Fine Art/Literature (AIU), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Fine Art/Literature (AIU)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Fine Art/Literature (AIU)",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "HIST 101-109 (Non-US History)",
+            "source_text": "HIST 101-109 (Non-US History), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST 101-109 (Non-US History)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST 101-109 (Non-US History)",
+                "region": "Year 2 Fall"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Year 2 Spring",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "BIOL/CHEM 300-699 (major)",
+            "source_text": "BIOL/CHEM 300-699 (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL/CHEM 300-699 (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL/CHEM 300-699 (major)",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "BIOL/CHEM 300-699 (major)",
+            "source_text": "BIOL/CHEM 300-699 (major), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "BIOL/CHEM 300-699 (major)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "BIOL/CHEM 300-699 (major)",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Social Science (GSS)",
+            "source_text": "Social Science (GSS), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (GSS)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (GSS)",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "HIST 111 or 112 (GHS)",
+            "source_text": "HIST 111 or 112 (GHS), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST 111 or 112 (GHS)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST 111 or 112 (GHS)",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "SAEL 200 (CMS, VSR)",
+            "source_text": "SAEL 200 (CMS, VSR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "SAEL 200 (CMS, VSR)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "SAEL 200 (CMS, VSR)",
+                "region": "Year 2 Spring"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Year 2 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 14,
+          "maximum": 14
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "PHYS 201, L (SCI)",
+            "source_text": "PHYS 201, L (SCI), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 201, L (SCI)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 201, L (SCI)",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "PHYS 202, L (SCI)",
+            "source_text": "PHYS 202, L (SCI), 4 hours",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "PHYS 202, L (SCI)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PHYS 202, L (SCI)",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "CSCE 102 (ARP)",
+            "source_text": "CSCE 102 (ARP), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CSCE 102 (ARP)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CSCE 102 (ARP)",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Social Science",
+            "source_text": "Social Science, 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "STAT 201 (ARP)",
+            "source_text": "STAT 201 (ARP), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "STAT 201 (ARP)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "STAT 201 (ARP)",
+                "region": "Year 2 Summer"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Year 3 Training",
+        "academic_year": 3,
+        "term": "unspecified",
+        "credits": {
+          "minimum": 28,
+          "maximum": 28
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "CVT Training Program (18 months)",
+            "source_text": "CVT Training Program (18 months), 28 hours",
+            "credits": {
+              "minimum": 28,
+              "maximum": 28
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "CVT Training Program (18 months)",
+              "reason": "The source row is a course or program requirement."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "CVT Training Program (18 months)",
+                "region": "Year 3 Training"
+              }
+            ],
+            "confidence": 0.9,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.9,
+    "issues": [],
+    "summary": "Accelerated plan transcribed from source PDF."
+  }
+}

@@ -1,0 +1,1411 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_d6517043974bc78c",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_d6517043974bc78c.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_hist_asp_map.pdf",
+    "sha256": "13a7dc17a8e817e10c59255f2b3fd95c36b1193204c062dfd2572dd24c3354c5",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "History",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "History",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "History",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 (CMW), 3 hours Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "ENGL 101 (CMW), 3 hours                             Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 101 (CMW), 3 hours                             Humanities or Fine Arts (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 (CMW), 3 hours                             Humanities or Fine Arts (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core (ARP), 3-4 hours Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Carolina Core (ARP), 3-4 hours                      Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (ARP), 3-4 hours                      Cognate or Minor Course (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (ARP), 3-4 hours                      Cognate or Minor Course (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC (GFL), 3-4 hours Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "source_text": "Foreign Language or other CC (GFL), 3-4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC (GFL), 3-4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL), 3-4 hours       Carolina Core or Approved Elective (CC/PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "UNIV 101 or Carolina Core (PR/CC), 3 hours YEAR THREE",
+            "source_text": "UNIV 101 or Carolina Core (PR/CC), 3 hours          YEAR THREE",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "UNIV 101 or Carolina Core (PR/CC), 3 hours          YEAR THREE",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "UNIV 101 or Carolina Core (PR/CC), 3 hours          YEAR THREE",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-6",
+            "sequence": 6,
+            "label": "ENGL 102 (CMW, INF), 3 hours HIST (MR), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-7",
+            "sequence": 7,
+            "label": "Carolina Core (ARP), 3-4 hours HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "source_text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-8",
+            "sequence": 8,
+            "label": "Foreign Language or other CC (GFL), 3-4 hours Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-9",
+            "sequence": 9,
+            "label": "Carolina Core Requirement (CC), 3 hours Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Fall Semester",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 18,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours HIST (MR), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core (ARP), 3-4 hours HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "source_text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC (GFL), 3-4 hours Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3 hours Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "HIST (U.S. or non-U.S.) (CR), 3 hours Approved Elective (PR), 3 hours",
+            "source_text": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-6",
+            "sequence": 6,
+            "label": "Social Science (CR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-7",
+            "sequence": 7,
+            "label": "Cognate or Minor Course (PR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-8",
+            "sequence": 8,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Spring Semester",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 (CMW, INF), 3 hours HIST (MR), 3 hours",
+            "source_text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 (CMW, INF), 3 hours                        HIST (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core (ARP), 3-4 hours HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "source_text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core (ARP), 3-4 hours                      HIST 497/498/499 (MR/CC-INT), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or other CC (GFL), 3-4 hours Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or other CC (GFL), 3-4 hours       Minor Course or Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3 hours Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3 hours             Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "HIST (U.S. or non-U.S.) (CR), 3 hours Approved Elective (PR), 3 hours",
+            "source_text": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (U.S. or non-U.S.) (CR), 3 hours               Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-6",
+            "sequence": 6,
+            "label": "Social Science (CR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-7",
+            "sequence": 7,
+            "label": "Cognate or Minor Course (PR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-8",
+            "sequence": 8,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-9",
+            "sequence": 9,
+            "label": "Carolina Core Requirement (CC), 3-4 hours Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Summer Semester",
+        "academic_year": 1,
+        "term": "summer",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Social Science (CR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Social Science (CR), 3 hours                        HIST (MR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "Cognate or Minor Course (PR), 3 hours HIST (MR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours               HIST (MR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "Foreign Language or Carolina Core (CR/CC), 3 hrs Minor Course or Approved Elective (PR), 3 hours",
+            "source_text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Foreign Language or Carolina Core (CR/CC), 3 hrs    Minor Course or Approved Elective (PR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3-4 hours Approved Elective (PR), 3 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours           Approved Elective (PR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Approved Elective (PR), 3 hours Approved Elective, if needed (PR), 1-3 hours",
+            "source_text": "Approved Elective (PR), 3 hours                     Approved Elective, if needed (PR), 1-3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Approved Elective (PR), 3 hours                     Approved Elective, if needed (PR), 1-3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Approved Elective (PR), 3 hours                     Approved Elective, if needed (PR), 1-3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-6",
+            "sequence": 6,
+            "label": "HIST 300 (MR/CC-INT), 3 hours",
+            "source_text": "HIST 300 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST 300 (MR/CC-INT), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST 300 (MR/CC-INT), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-7",
+            "sequence": 7,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-8",
+            "sequence": 8,
+            "label": "Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours",
+                "region": "summer semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Fall Semester",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "HIST 300 (MR/CC-INT), 3 hours",
+            "source_text": "HIST 300 (MR/CC-INT), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST 300 (MR/CC-INT), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST 300 (MR/CC-INT), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core Requirement (CC), 3-4 hours",
+            "source_text": "Carolina Core Requirement (CC), 3-4 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core Requirement (CC), 3-4 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core Requirement (CC), 3-4 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-6",
+            "sequence": 6,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-7",
+            "sequence": 7,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-8",
+            "sequence": 8,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-9",
+            "sequence": 9,
+            "label": "Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours",
+                "region": "fall semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Spring Semester",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "HIST (MR), 3 hours",
+            "source_text": "HIST (MR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "HIST (MR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "HIST (MR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "source_text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core or Approved Elective (CC/PR), 3 hrs",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "Cognate or Minor Course (PR), 3 hours",
+            "source_text": "Cognate or Minor Course (PR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Cognate or Minor Course (PR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Cognate or Minor Course (PR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "Humanities or Fine Arts (CR), 3 hours",
+            "source_text": "Humanities or Fine Arts (CR), 3 hours",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Humanities or Fine Arts (CR), 3 hours",
+              "reason": "Accelerated plan requirement"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Humanities or Fine Arts (CR), 3 hours",
+                "region": "spring semester"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": []
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Accelerated study plan extracted from all source pages."
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_108a18c86a0c82c1",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_108a18c86a0c82c1.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_envr_studies_asp_map.pdf",
+    "sha256": "85544a88969a7e7f65dfd39ff32701224bd133b2d3c569fd94f11dbf670b7b1e",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Environmental Studies",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Accelerated Study Plan",
+    "department": "School of Earth, Ocean and Environment",
+    "total_credits": {
+      "minimum": 120,
+      "maximum": 120
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Environmental Studies",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "accelerated",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Accelerated Year 1 Fall",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Accelerated Year 1 Spring",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Accelerated Year 1 Summer",
+        "academic_year": 2,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Accelerated Year 2 Fall",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Accelerated Year 2 Spring",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Accelerated Year 2 Summer",
+        "academic_year": 3,
+        "term": "summer",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Accelerated Year 3 Fall",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Accelerated Year 3 Spring",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 18
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "Curriculum requirements",
+            "source_text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies ",
+            "credits": {
+              "minimum": 12,
+              "maximum": 18
+            },
+            "critical": null,
+            "minimum_grade": null,
+            "requirement_codes": [],
+            "rule": {
+              "type": "unresolved",
+              "text": "Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Approved Elective (PR), 3 hours; Foreign Language or other Carolina Core, 3 hours; University 101 or Carolina Core (PR/CC) , 3 hours; YEAR THREE; Fall Semester, 15-18 hours; Spring Semester, 16-17 hours                        Environmental Studies Major Course (MR), 3-4 hours; ENGL 102 (CC-CMW), 3 hours                          Environmental Studies Major Course (MR), 3-4 hours; Carolina Core ARP Requirement (CC-ARP), 3-4 hrs     Environmental Studies Major Course (MR), 3-4 hours; Carolina Core SCI Requirement (CC-SCI), 4 hours     Approved Elective (PR), 3 hours; Carolina Core Requirement (CC), 3 hrs               Approved Elective (PR), 3 hours; Foreign Language or Carolina Core (CC-GFL), 3 hrs; Spring Semester, 15-18 hours; Environmental Studies Major Course (MR), 3-4 hours; Summer Semester, 12 hours                           Environmental Studies",
+              "reason": "The manually extracted source row requires semantic review."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Accelerated Study Plan Environmental Studies – Bachelor of Arts (B.A.) College of Arts and Sciences Catalog Year: 2025 - 2026 Required Hours: 120 YEAR ONE                                            Summer Semester, 12 hours Fall Semester, 16-17 hours                          Humanities or Fine Arts (CR), 3 hours ENGL 101 (CC-CMW), 3 hours                          Approved Elective (PR), 3 hours"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "missing_context",
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "Full accelerated plan extracted from all source pages."
+  }
+}

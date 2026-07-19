@@ -1,0 +1,1398 @@
+{
+  "schema_version": "major-map-llm-v1",
+  "map_id": "map_c00e3d8ee7eb5e6d",
+  "source": {
+    "pdf_path": "data/maps/source_pdfs/2025-2026/map_c00e3d8ee7eb5e6d.pdf",
+    "pdf_url": "https://sc.edu/about/offices_and_divisions/advising/documents/major_maps/2025-2026/2025_early-childhood_map.pdf",
+    "sha256": "56a7f9e13c51c23fc6cd12c4075b52655c222538e502c94e57e594615c02017e",
+    "page_count": 2,
+    "catalog_year": "2025-2026"
+  },
+  "program": {
+    "major": "Early Childhood Education",
+    "degree_name": "Bachelor of Arts (B.A.)",
+    "degree_abbreviation": "B.A.",
+    "college": "Education",
+    "department": "Instruction & Teacher Education",
+    "total_credits": {
+      "minimum": 122,
+      "maximum": 122
+    },
+    "concentrations": [],
+    "evidence": [
+      {
+        "page": 1,
+        "quote": "Early Childhood Education",
+        "region": "header"
+      }
+    ]
+  },
+  "plan": {
+    "format": "four_year",
+    "semesters": [
+      {
+        "number": 1,
+        "label": "Semester One",
+        "academic_year": 1,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-1-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 101 Critical Reading and Composition",
+            "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-1-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3-4 CC-ARP",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core AIU Requirement3",
+            "source_text": "Carolina Core AIU Requirement3 3 CC-AIU",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-AIU"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-AIU",
+              "label": "Carolina Core AIU Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core AIU Requirement3 3 CC-AIU",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-4",
+            "sequence": 4,
+            "label": "Life Science4",
+            "source_text": "Life Science4 3-4 C CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Life Science4 3-4 C CC-SCI",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Life Science4 3-4 C CC-SCI",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-1-requirement-5",
+            "sequence": 5,
+            "label": "Elective (UNIV 101 The Student in the University)",
+            "source_text": "Elective (UNIV 101 The Student in the University) 3 PR/CC",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR",
+              "CC"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "UNIV",
+              "number": "101"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective (UNIV 101 The Student in the University) 3 PR/CC",
+                "region": "Semester One"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "label": "Semester Two",
+        "academic_year": 1,
+        "term": "spring",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-2-requirement-1",
+            "sequence": 1,
+            "label": "ENGL 102 Rhetoric and Composition",
+            "source_text": "ENGL 102 Rhetoric and Composition 3 C CC-CMW/INF C or better in ENGL 101",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "CC-CMW"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "ENGL",
+              "number": "102"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ENGL 102 Rhetoric and Composition 3 C CC-CMW/INF C or better in ENGL 101",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-2",
+            "sequence": 2,
+            "label": "Carolina Core ARP Requirement3",
+            "source_text": "Carolina Core ARP Requirement3 3 CC-ARP",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-ARP"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-ARP",
+              "label": "Carolina Core ARP Requirement3"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core ARP Requirement3 3 CC-ARP",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-2-requirement-3",
+            "sequence": 3,
+            "label": "Carolina Core CMS/VSR Requirement3 (and/or Foreign",
+            "source_text": "Carolina Core CMS/VSR Requirement3 (and/or Foreign 3 CC-CMS/ VSR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-CMS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-CMS",
+              "label": "Carolina Core CMS/VSR Requirement3 (and/or Foreign"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core CMS/VSR Requirement3 (and/or Foreign 3 CC-CMS/ VSR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-4",
+            "sequence": 4,
+            "label": "Carolina Core GHS Course",
+            "source_text": "Carolina Core GHS Course 3 CC-GHS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GHS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GHS",
+              "label": "Carolina Core GHS Course"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GHS Course 3 CC-GHS",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          },
+          {
+            "id": "semester-2-requirement-5",
+            "sequence": 5,
+            "label": "EDTE 201 Issues & Trends in Teaching & Learning",
+            "source_text": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDTE",
+              "number": "201"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 201 Issues & Trends in Teaching & Learning 3 C * MR",
+                "region": "Semester Two"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 3,
+        "label": "Semester Three",
+        "academic_year": 2,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-3-requirement-1",
+            "sequence": 1,
+            "label": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 or MATH 221 Basic Concepts of Elementary Mathematics I 111/111I or placement",
+            "source_text": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH or MATH 221 Basic Concepts of Elementary Mathematics I 111/111I or placement",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH or MATH 221 Basic Concepts of Elementary Mathematics I 111/111I or placement",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 500 Mathematics Knowledge for Teaching I: PK-8 3 C PR C or better in MATH or MATH 221 Basic Concepts of Elementary Mathematics I 111/111I or placement",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-2",
+            "sequence": 2,
+            "label": "Physical/Earth Science4",
+            "source_text": "Physical/Earth Science4 3-4 CC-SCI",
+            "credits": {
+              "minimum": 3,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-SCI"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "Physical/Earth Science4 3-4 CC-SCI",
+              "reason": "The source row does not define a uniquely normalizable course rule."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Physical/Earth Science4 3-4 CC-SCI",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "footnote_dependency",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-3",
+            "sequence": 3,
+            "label": "ISCI 325 Children’s Literature or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+            "source_text": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ISCI 325 Children’s Literature 3 C PR C or better in ENGL 101 & or ENGL 431A Children’s Literature 102 (ENGL 431A & 431B) or ENGL 431B Picture Books",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-3-requirement-4",
+            "sequence": 4,
+            "label": "EDEC 250 Play and Early Learning",
+            "source_text": "EDEC 250 Play and Early Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "250"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDEC 250 Play and Early Learning 3 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-3-requirement-5",
+            "sequence": 5,
+            "label": "EDFI 300 Schools in Communities",
+            "source_text": "EDFI 300 Schools in Communities 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDFI",
+              "number": "300"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDFI 300 Schools in Communities 3 C * MR",
+                "region": "Semester Three"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 4,
+        "label": "Semester Four",
+        "academic_year": 2,
+        "term": "spring",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-4-requirement-1",
+            "sequence": 1,
+            "label": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+            "source_text": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDTE 501 Mathematics Knowledge for Teaching II: PK-8 3 C PR C or better in MATH 221 or MATH 222 Basic Concepts of Elem. Mathematics II (MATH 222); C or better in",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-2",
+            "sequence": 2,
+            "label": "ARTE 260 Interdisciplinary Relationships in the Arts or ARTE 520 Art for Elementary Schools or ARTE 530 Art of Children or MUED 555 Integrating Music into PK & Elem. Classrooms or THEA 522 Drama in Education",
+            "source_text": "ARTE 260 Interdisciplinary Relationships in the Arts 3 C PR or ARTE 520 Art for Elementary Schools or ARTE 530 Art of Children or MUED 555 Integrating Music into PK & Elem. Classrooms or THEA 522 Drama in Education",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "ARTE 260 Interdisciplinary Relationships in the Arts 3 C PR or ARTE 520 Art for Elementary Schools or ARTE 530 Art of Children or MUED 555 Integrating Music into PK & Elem. Classrooms or THEA 522 Drama in Education",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "ARTE 260 Interdisciplinary Relationships in the Arts 3 C PR or ARTE 520 Art for Elementary Schools or ARTE 530 Art of Children or MUED 555 Integrating Music into PK & Elem. Classrooms or THEA 522 Drama in Education",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-4-requirement-3",
+            "sequence": 3,
+            "label": "EDEC 340 & 340P The Young Child: Development, Care,",
+            "source_text": "EDEC 340 & 340P The Young Child: Development, Care, 4 C * MR",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "340"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDEC 340 & 340P The Young Child: Development, Care, 4 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-4",
+            "sequence": 4,
+            "label": "EDPY 401 Learners and the Diversity of Learning",
+            "source_text": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDPY",
+              "number": "401"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDPY 401 Learners and the Diversity of Learning 3 C * MR",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-4-requirement-5",
+            "sequence": 5,
+            "label": "Carolina Core GSS",
+            "source_text": "Carolina Core GSS 3 CC-GSS",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "CC-GSS"
+            ],
+            "rule": {
+              "type": "attribute",
+              "code": "CC-GSS",
+              "label": "Carolina Core GSS"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Carolina Core GSS 3 CC-GSS",
+                "region": "Semester Four"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 5,
+        "label": "Semester Five",
+        "academic_year": 3,
+        "term": "fall",
+        "credits": {
+          "minimum": 15,
+          "maximum": 15
+        },
+        "requirements": [
+          {
+            "id": "semester-5-requirement-1",
+            "sequence": 1,
+            "label": "EDEX 523 Introduction to Exceptional Children or EDEX 530 Intro. to Early Childhood Special Ed.7",
+            "source_text": "EDEX 523 Introduction to Exceptional Children 3 C * MR or EDEX 530 Intro. to Early Childhood Special Ed.7",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "EDEX 523 Introduction to Exceptional Children 3 C * MR or EDEX 530 Intro. to Early Childhood Special Ed.7",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "EDEX 523 Introduction to Exceptional Children 3 C * MR or EDEX 530 Intro. to Early Childhood Special Ed.7",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-5-requirement-2",
+            "sequence": 2,
+            "label": "PEDU 575 Physical Education for the Classroom Teacher",
+            "source_text": "PEDU 575 Physical Education for the Classroom Teacher 3 C PR EDTE 201",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "PEDU",
+              "number": "575"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "PEDU 575 Physical Education for the Classroom Teacher 3 C PR EDTE 201",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-3",
+            "sequence": 3,
+            "label": "EDEC 335 African and Africa Diaspora Literacies in the",
+            "source_text": "! EDEC 335 African and Africa Diaspora Literacies in the 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "335"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 335 African and Africa Diaspora Literacies in the 3 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-4",
+            "sequence": 4,
+            "label": "EDEC 336 Culturally Relevant Pedagogy in Early",
+            "source_text": "! EDEC 336 Culturally Relevant Pedagogy in Early 3 C * MR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "336"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 336 Culturally Relevant Pedagogy in Early 3 C * MR",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-5-requirement-5",
+            "sequence": 5,
+            "label": "EDEC 410 Parent/Fam. Dyn. in Early Childhood Ed. or EDEX 692 P’ships in Early Childhood Special Ed.7",
+            "source_text": "! EDEC 410 Parent/Fam. Dyn. in Early Childhood Ed. 3 C * MR or EDEX 692 P’ships in Early Childhood Special Ed.7",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! EDEC 410 Parent/Fam. Dyn. in Early Childhood Ed. 3 C * MR or EDEX 692 P’ships in Early Childhood Special Ed.7",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 410 Parent/Fam. Dyn. in Early Childhood Ed. 3 C * MR or EDEX 692 P’ships in Early Childhood Special Ed.7",
+                "region": "Semester Five"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 6,
+        "label": "Semester Six",
+        "academic_year": 3,
+        "term": "spring",
+        "credits": {
+          "minimum": 17,
+          "maximum": 17
+        },
+        "requirements": [
+          {
+            "id": "semester-6-requirement-1",
+            "sequence": 1,
+            "label": "EDEC 345 Teaching Reading in Early Childhood Ed.8",
+            "source_text": "! EDEC 345 Teaching Reading in Early Childhood Ed.8 3 C * MR Adm. to Professional Pgrm.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "345"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 345 Teaching Reading in Early Childhood Ed.8 3 C * MR Adm. to Professional Pgrm.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-2",
+            "sequence": 2,
+            "label": "EDEC 342 The Young Child: Dvmt, Care, & Ed. 8 & 9",
+            "source_text": "! EDEC 342 The Young Child: Dvmt, Care, & Ed. 8 & 9 3 C * MR Adm. to Professional Pgrm.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "342"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 342 The Young Child: Dvmt, Care, & Ed. 8 & 9 3 C * MR Adm. to Professional Pgrm.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-3",
+            "sequence": 3,
+            "label": "EDEC 347 Community of Learners & Classroom Mgmt. in or EDEX 643 Social/Emotional Dev. & Guidance for",
+            "source_text": "! EDEC 347 Community of Learners & Classroom Mgmt. in 3 C * MR Adm. to Professional Pgrm. or EDEX 643 Social/Emotional Dev. & Guidance for",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "unresolved",
+              "text": "! EDEC 347 Community of Learners & Classroom Mgmt. in 3 C * MR Adm. to Professional Pgrm. or EDEX 643 Social/Emotional Dev. & Guidance for",
+              "reason": "Source presents alternative courses."
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 347 Community of Learners & Classroom Mgmt. in 3 C * MR Adm. to Professional Pgrm. or EDEX 643 Social/Emotional Dev. & Guidance for",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.8,
+            "review_flags": [
+              "ambiguous_logic",
+              "missing_context"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-4",
+            "sequence": 4,
+            "label": "EDEC 344 Supporting Linguistic Pluralism Across the",
+            "source_text": "! EDEC 344 Supporting Linguistic Pluralism Across the 3 C * MR Adm. to Professional Pgrm.",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "344"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDEC 344 Supporting Linguistic Pluralism Across the 3 C * MR Adm. to Professional Pgrm.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-6-requirement-5",
+            "sequence": 5,
+            "label": "EDRM 423 Introduction to Classroom Assessment8",
+            "source_text": "! EDRM 423 Introduction to Classroom Assessment8 2 C * MR Adm. to Professional Pgrm.",
+            "credits": {
+              "minimum": 2,
+              "maximum": 2
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDRM",
+              "number": "423"
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "! EDRM 423 Introduction to Classroom Assessment8 2 C * MR Adm. to Professional Pgrm.",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-6-requirement-6",
+            "sequence": 6,
+            "label": "Elective",
+            "source_text": "Elective 3 PR",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": false,
+            "minimum_grade": null,
+            "requirement_codes": [
+              "PR"
+            ],
+            "rule": {
+              "type": "elective",
+              "label": "Elective",
+              "subject_filters": [],
+              "number_filter": null
+            },
+            "evidence": [
+              {
+                "page": 1,
+                "quote": "Elective 3 PR",
+                "region": "Semester Six"
+              }
+            ],
+            "confidence": 0.6,
+            "review_flags": [
+              "unresolved_elective_definition"
+            ]
+          }
+        ]
+      },
+      {
+        "number": 7,
+        "label": "Semester Seven",
+        "academic_year": 4,
+        "term": "fall",
+        "credits": {
+          "minimum": 16,
+          "maximum": 16
+        },
+        "requirements": [
+          {
+            "id": "semester-7-requirement-1",
+            "sequence": 1,
+            "label": "EDEC 441 Teaching Mathematics in Early Childhood8",
+            "source_text": "! EDEC 441 Teaching Mathematics in Early Childhood8 3 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "441"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 441 Teaching Mathematics in Early Childhood8 3 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-2",
+            "sequence": 2,
+            "label": "EDEC 442 Teaching Science in Early Childhood8",
+            "source_text": "! EDEC 442 Teaching Science in Early Childhood8 3 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "442"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 442 Teaching Science in Early Childhood8 3 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-3",
+            "sequence": 3,
+            "label": "EDEC 443 Internship in Integrated Curriculum in Early",
+            "source_text": "! EDEC 443 Internship in Integrated Curriculum in Early 4 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 4,
+              "maximum": 4
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "443"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 443 Internship in Integrated Curriculum in Early 4 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-7-requirement-4",
+            "sequence": 4,
+            "label": "EDEC 444 Teaching Soc. Studies in Early Childhood8",
+            "source_text": "! EDEC 444 Teaching Soc. Studies in Early Childhood8 3 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "444"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 444 Teaching Soc. Studies in Early Childhood8 3 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          },
+          {
+            "id": "semester-7-requirement-5",
+            "sequence": 5,
+            "label": "EDEC 445 Teaching Writing in Early Childhood",
+            "source_text": "! EDEC 445 Teaching Writing in Early Childhood 3 C * MR Admission to Internship I",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "445"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 445 Teaching Writing in Early Childhood 3 C * MR Admission to Internship I",
+                "region": "Semester Seven"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          }
+        ]
+      },
+      {
+        "number": 8,
+        "label": "Semester Eight",
+        "academic_year": 4,
+        "term": "spring",
+        "credits": {
+          "minimum": 12,
+          "maximum": 12
+        },
+        "requirements": [
+          {
+            "id": "semester-8-requirement-1",
+            "sequence": 1,
+            "label": "EDEC 492 Internship in Curriculum, Assessment,",
+            "source_text": "! EDEC 492 Internship in Curriculum, Assessment, 9 C * MR Admission to Internship II",
+            "credits": {
+              "minimum": 9,
+              "maximum": 9
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "492"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 492 Internship in Curriculum, Assessment, 9 C * MR Admission to Internship II",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.95,
+            "review_flags": []
+          },
+          {
+            "id": "semester-8-requirement-2",
+            "sequence": 2,
+            "label": "EDEC 491 Seminar on Teaching in Early Childhood8",
+            "source_text": "! EDEC 491 Seminar on Teaching in Early Childhood8 3 C * MR/CC-INT Admission to Internship II",
+            "credits": {
+              "minimum": 3,
+              "maximum": 3
+            },
+            "critical": true,
+            "minimum_grade": "C",
+            "requirement_codes": [
+              "MR",
+              "CC-INT"
+            ],
+            "rule": {
+              "type": "course",
+              "subject": "EDEC",
+              "number": "491"
+            },
+            "evidence": [
+              {
+                "page": 2,
+                "quote": "! EDEC 491 Seminar on Teaching in Early Childhood8 3 C * MR/CC-INT Admission to Internship II",
+                "region": "Semester Eight"
+              }
+            ],
+            "confidence": 0.89,
+            "review_flags": [
+              "footnote_dependency"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "requirements_outside_plan": [],
+  "footnotes": [
+    {
+      "marker": "1",
+      "text": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "1. Regardless of individual course grades, students must maintain a minimum 2.75 cumulative GPA.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "2",
+      "text": "2. Some colleges require a minimum GPA for major courses. Courses indicated below are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "2. Some colleges require a minimum GPA for major courses. Courses indicated below are included in the major GPA for this program of study. A 3.0 GPA must be achieved in all education courses.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "3",
+      "text": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Early Childhood Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "3. The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students. Although students may take up to 43 hours to meet all Carolina Core requirements, students in the Early Childhood Education program must complete two Carolina Core approved “overlay-eligible” courses in order to graduate on time and avoid summer courses or taking more than five courses in some semesters.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "4",
+      "text": "4. One Life Science and one Physical/Earth Science are required (at least one must be four credit hours with a lab). a. For Life Science, choose from the following: BIOL 110, BIOL 120 & 120L, BIOL 220. b. For Physical/Earth Science, choose from the following: ASTR 101 (4), CHEM 101 (4), CHEM 102 (4), CHEM 105 (4), CHEM 107 (3), CHEM 111 & 111L (4), ENVR 101 & 101L (4), ENVR 200 (4), GEOG 104 (3), GEOG 202 (4), GEOL 101 (4), GEOL 103 (4), MSCI 101 (4), MSCI 210 (3), MSCI 215 (3), PHYS 101 & 101L (4), PHYS 201 & 201L (4).",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "4. One Life Science and one Physical/Earth Science are required (at least one must be four credit hours with a lab). a. For Life Science, choose from the following: BIOL 110, BIOL 120 & 120L, BIOL 220. b. For Physical/Earth Science, choose from the following: ASTR 101 (4), CHEM 101 (4), CHEM 102 (4), CHEM 105 (4), CHEM 107 (3), CHEM 111 & 111L (4), ENVR 101 & 101L (4), ENVR 200 (4), GEOG 104 (3), GEOG 202 (4), GEOL 101 (4), GEOL 103 (4), MSCI 101 (4), MSCI 210 (3), MSCI 215 (3), PHYS 101 & 101L (4), PHYS 201 & 201L (4).",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "5",
+      "text": "5. The Carolina Core requires either two approved courses in one foreign language or a score of two or higher on the foreign language placement test. If a student in the Early Childhood Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "5. The Carolina Core requires either two approved courses in one foreign language or a score of two or higher on the foreign language placement test. If a student in the Early Childhood Education program is not exempted from the foreign language requirement through the foreign language placement test, additional courses may be required to meet all Carolina Core components.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "6",
+      "text": "6. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "6. Information for the Praxis Core exam can be found on the College of Education, Office of Student Services website.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "7",
+      "text": "7. EDEX 530, EDEX 643, and EDEX 692 may be taken with special permission of early childhood faculty, see advisor.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "7. EDEX 530, EDEX 643, and EDEX 692 may be taken with special permission of early childhood faculty, see advisor.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "8",
+      "text": "8. Must meet all professional program and internship admissions requirements by set deadlines prior to participation in these courses. Professional program and internship admission requirements can be found on the Bulletin.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "8. Must meet all professional program and internship admissions requirements by set deadlines prior to participation in these courses. Professional program and internship admission requirements can be found on the Bulletin.",
+          "region": "footnotes"
+        }
+      ]
+    },
+    {
+      "marker": "9",
+      "text": "9. A grade of B or better in EDEC 443 is required to meet the dispositions requirement for admission to Internship II. Students making below a grade of B in this course is not eligible to progress. An action plan is required for students who make a grade of C or C+ in EDEC 443. For all internship admission requirements, please visit the Bulletin.",
+      "applies_to": [],
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "9. A grade of B or better in EDEC 443 is required to meet the dispositions requirement for admission to Internship II. Students making below a grade of B in this course is not eligible to progress. An action plan is required for students who make a grade of C or C+ in EDEC 443. For all internship admission requirements, please visit the Bulletin.",
+          "region": "footnotes"
+        }
+      ]
+    }
+  ],
+  "review": {
+    "status": "needs_review",
+    "confidence": 0.8,
+    "issues": [],
+    "summary": "The source requires review for unresolved or generic curriculum rules."
+  }
+}
