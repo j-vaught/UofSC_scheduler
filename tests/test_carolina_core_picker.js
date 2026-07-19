@@ -3,7 +3,27 @@ const fs = require('node:fs');
 const test = require('node:test');
 const vm = require('node:vm');
 
+const path = require('node:path');
+const ROOT_DIR = path.resolve(__dirname, '..');
+
 const CarolinaCore = require('../static/js/carolina-core.js');
+
+/*
+ * Composition points construct their feature from `Features.<name>`, so the
+ * feature modules have to be in the context before the file under test runs.
+ * Loading all of them is deliberate: each only registers itself, so this costs
+ * nothing, and the next extraction needs no change here.
+ */
+function featureSources(rootDir) {
+    const dir = path.join(rootDir, 'static/js/features');
+    if (!fs.existsSync(dir)) return '';
+    return fs.readdirSync(dir)
+        .map(name => path.join(dir, name, 'index.js'))
+        .filter(file => fs.existsSync(file))
+        .map(file => fs.readFileSync(file, 'utf8'))
+        .join('\n');
+}
+
 
 function loadDegreePlan(overrides = {}) {
     const context = vm.createContext({
@@ -13,7 +33,11 @@ function loadDegreePlan(overrides = {}) {
         document: overrides.document || {},
         CarolinaCore,
     });
-    const source = `${fs.readFileSync('static/js/degree-plan.js', 'utf8')}\nglobalThis.__DegreePlan = DegreePlan;`;
+    const source = [
+        featureSources(ROOT_DIR),
+        fs.readFileSync('static/js/degree-plan.js', 'utf8'),
+        'globalThis.__DegreePlan = DegreePlan;',
+    ].join('\n');
     vm.runInContext(source, context);
     return context.__DegreePlan;
 }
@@ -89,13 +113,25 @@ test('selecting an approved course replaces the requirement in place', () => {
     assert.equal(rendered, true);
 });
 
+/*
+ * Reads the fenced feature, where this logic now lives, and asserts its own
+ * anchors first. The slice below previously came from degree-plan.js; when the
+ * logic moved, both indexOf calls returned -1, the slice came back empty, and
+ * doesNotMatch passed against nothing -- reporting success while checking no
+ * code at all. Source-text assertions fail open, so they have to prove they
+ * found the code before judging it.
+ */
 test('planner uses the in-place Core chooser instead of navigating to Search', () => {
-    const source = fs.readFileSync('static/js/degree-plan.js', 'utf8');
-    const coreBranch = source.slice(
-        source.indexOf('if (this.isCarolinaCoreRequirement(course))'),
-        source.indexOf("if (!course.options || course.options.length === 0)"),
-    );
+    const source = fs.readFileSync(
+        path.join(ROOT_DIR, 'static/js/features/degree-plan/index.js'), 'utf8');
+    const from = source.indexOf('if (this.isCarolinaCoreRequirement(course))');
+    const to = source.indexOf("if (!course.options || course.options.length === 0)");
+    assert.notEqual(from, -1, 'the Carolina Core branch moved; this test is not reading it');
+    assert.notEqual(to, -1, 'the end of the Core branch moved; this test is not reading it');
+    assert.ok(to > from, 'the slice bounds are inverted, so nothing is being checked');
 
+    const coreBranch = source.slice(from, to);
     assert.match(coreBranch, /openCarolinaCorePicker/);
-    assert.doesNotMatch(coreBranch, /Tabs\.switchTo|Search\.doSearch/);
+    // searchFor is the fenced navigation seam; the Core branch must not use it.
+    assert.doesNotMatch(coreBranch, /Tabs\.switchTo|Search\.doSearch|deps\.searchFor/);
 });

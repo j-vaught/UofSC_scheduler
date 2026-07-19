@@ -22,9 +22,28 @@ function mapSource() {
 }
 
 
-function loadObject(path, name, contextValues) {
+const ROOT_DIR = require('node:path').resolve(__dirname, '..');
+const path = require('node:path');
+
+/*
+ * Composition points construct their feature from `Features.<name>`, so the
+ * feature modules have to be in the context before the file under test runs.
+ * Loading all of them is deliberate: each one only registers itself, so this
+ * costs nothing, and it means the next extraction needs no change here.
+ */
+function featureSources() {
+    const dir = path.join(ROOT_DIR, 'static/js/features');
+    if (!fs.existsSync(dir)) return '';
+    return fs.readdirSync(dir)
+        .map(name => path.join(dir, name, 'index.js'))
+        .filter(file => fs.existsSync(file))
+        .map(file => fs.readFileSync(file, 'utf8'))
+        .join('\n');
+}
+
+function loadObject(file, name, contextValues) {
     const context = vm.createContext({ ...contextValues });
-    const source = `${fs.readFileSync(path, 'utf8')}\nglobalThis.__result = ${name};`;
+    const source = `${featureSources()}\n${fs.readFileSync(file, 'utf8')}\nglobalThis.__result = ${name};`;
     vm.runInContext(source, context);
     return context.__result;
 }

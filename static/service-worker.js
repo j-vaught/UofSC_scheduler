@@ -37,6 +37,7 @@ const SHELL_ASSETS = [
     '/static/js/export.js',
     '/static/js/features/profile/index.js',
     '/static/js/profile.js',
+    '/static/js/features/degree-plan/index.js',
     '/static/js/degree-plan.js',
     '/static/js/features/custom-major-map/index.js',
     '/static/js/custom-major-map.js',

@@ -75,11 +75,15 @@ test('major map source metadata supports legacy and structured values', () => {
 });
 
 test('degree plan includes selected map context and official source link behavior', () => {
-    const source = fs.readFileSync('static/js/degree-plan.js', 'utf8');
+    // Both halves: the catalog-year label is supplied at the composition point,
+    // the link attributes are set in the fenced feature.
+    const composition = fs.readFileSync('static/js/degree-plan.js', 'utf8');
+    const feature = fs.readFileSync('static/js/features/degree-plan/index.js', 'utf8');
     const html = fs.readFileSync('static/index.html', 'utf8');
 
     assert.match(html, /id="major-program-select"/);
     assert.match(html, /id="degree-map-context"/);
-    assert.match(source, /Profile\.catalogYearLabel\(map\)/);
-    assert.match(source, /rel = 'noopener noreferrer'/);
+    assert.match(composition, /Profile\.catalogYearLabel\(map\)/);
+    assert.match(feature, /deps\.catalogYearLabel\(map\)/);
+    assert.match(feature, /rel = 'noopener noreferrer'/);
 });
