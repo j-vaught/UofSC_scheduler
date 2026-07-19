@@ -15,9 +15,7 @@ static/data/releases/**               -diff -merge linguist-generated=true
 # Binary originals. Never worth a textual diff attempt.
 data/raw/major_map_pdfs/**            binary
 data/raw/registrar_grades/**          binary
-docs/research/**                      binary
 docs/screenshots/**                   binary
-docs/diagrams/**.png                  binary
 
 # Hand-authored despite living beside generated siblings. Diff this one normally.
 static/data/site_notices.json         diff
