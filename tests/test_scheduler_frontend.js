@@ -3001,6 +3001,8 @@ test('Top-level tab history preserves Search when returning to an unparameterize
 });
 
 test('A plain site visit opens Search even when another tab was used previously', () => {
+    const html = fs.readFileSync('static/index.html', 'utf8');
+    assert.match(html, /\/static\/js\/tabs\.js\?v=\d+/);
     const switched = [];
     const tabs = loadObject('static/js/tabs.js', 'Tabs', {
         URL,
