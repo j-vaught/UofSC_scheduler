@@ -28,6 +28,7 @@ const SHELL_ASSETS = [
     '/static/js/search.js',
     '/static/js/preferences.js',
     '/static/js/prereqs.js',
+    '/static/js/features/history/index.js',
     '/static/js/history.js',
     '/static/js/grades.js',
     '/static/js/scheduler.js',

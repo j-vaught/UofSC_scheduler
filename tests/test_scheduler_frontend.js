@@ -9,6 +9,10 @@ function bootSource() {
     return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
 }
 
+// history.js composes the fenced feature in features/history/index.js, so the
+// sandbox needs it present just as the browser does via its script tag.
+const historyFeature = require('../static/js/features/history/index.js');
+
 function loadObject(path, name, contextValues) {
     const context = vm.createContext({ ...contextValues });
     const source = `${fs.readFileSync(path, 'utf8')}\nglobalThis.__result = ${name};`;
@@ -3116,6 +3120,7 @@ test('Offering history uses one aggregate request and ignores stale loads', asyn
         },
     };
     const history = loadObject('static/js/history.js', 'History', {
+        Features: { history: historyFeature },
         API: {
             getHistory(code, onProgress) {
                 calls.push(code);
@@ -3233,6 +3238,7 @@ test('Offering history applies the earlier boundary and renders API errors safel
         },
     };
     const history = loadObject('static/js/history.js', 'History', {
+        Features: { history: historyFeature },
         API: { getHistory: async () => { throw new Error('<script>unsafe</script>'); } },
         State: { term: '202708' },
         document,
@@ -3275,6 +3281,7 @@ test('Offering history groups terms by year and reveals details on colored seaso
         },
     };
     const history = loadObject('static/js/history.js', 'History', {
+        Features: { history: historyFeature },
         State: { term: '202608' },
         document,
     });
