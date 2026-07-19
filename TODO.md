@@ -87,6 +87,20 @@ Context that may be relevant when picking this up:
 - Section status dots, the plan navigator with a typeable index, and the compact
   My Courses strip are all specified in the manual's roadmap but unbuilt.
 
+## Search result cards can hang on "Loading course summary"
+
+Reproduced on a cold load: searching `CSCE 145` renders the card with live
+section counts, but the historical-GPA line stays on "Loading course summary"
+indefinitely. The relay log shows the catalog shard fetched and **no grades shard
+requested at all**, so the lookup never starts rather than failing. Present on
+`main` before the error-taxonomy work, so it is not a regression from it.
+
+It resolves once the course detail has been opened at least once, which suggests
+the card summary depends on a prefetch or cache warm that does not fire from a
+plain search. Worth fixing because the stuck state is indistinguishable from slow
+loading, and because the taxonomy added in `static/js/errors.js` cannot help a
+request that is never made.
+
 ## Known noise
 
 - **Transformers.js triggers four `script-src: eval` CSP violations per model load.**
