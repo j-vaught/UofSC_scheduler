@@ -225,18 +225,34 @@ const API = {
         }
     },
 
+    /*
+     * Request bodies are built by the codec, not here. `srcdb` and the criteria
+     * grammar are upstream vocabulary, and hand-building them at each call site
+     * is how those names spread through the application. The codec also refuses
+     * a malformed request before the round trip, so an invalid term surfaces as
+     * a thrown error at the call rather than as a relay 400 the user has to read.
+     *
+     * Falls back to the literal shape when the codec has not loaded, so the
+     * existing behaviour is preserved rather than replaced by a hard dependency.
+     */
+    _foseCodec() {
+        return (globalThis.UniversityWire || {}).foseV1 || null;
+    },
+
     async searchCourses(term, criteria, options = {}) {
-        return this.post('/api/search', {
-            other: { srcdb: term },
-            criteria,
-        }, { cacheTtl: 5 * 60 * 1000, ...options });
+        const codec = this._foseCodec();
+        const body = codec
+            ? codec.encodeSearch({ term, criteria: criteria || [] })
+            : { other: { srcdb: term }, criteria };
+        return this.post('/api/search', body, { cacheTtl: 5 * 60 * 1000, ...options });
     },
 
     async getDetails(crn, term, options = {}) {
-        return this.post('/api/details', {
-            group: `crn:${crn}`,
-            srcdb: term,
-        }, { cacheTtl: 5 * 60 * 1000, ...options });
+        const codec = this._foseCodec();
+        const body = codec
+            ? codec.encodeDetails(crn, term)
+            : { group: `crn:${crn}`, srcdb: term };
+        return this.post('/api/details', body, { cacheTtl: 5 * 60 * 1000, ...options });
     },
 
     async bulletinSearch(subject, srcdb = '2026', options = {}) {

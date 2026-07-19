@@ -556,10 +556,18 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 > upstream field rename surfaces at the codec instead of as a wrong number three files
 > downstream.
 >
-> **Still outstanding:** replacing the existing leak sites in `api.js`, `search.js` and
-> `scheduler.js` to route through it, which the plan sequences as file-by-file work
-> after `createSection` exists. Until that happens the firewall is available and
-> proven but not yet the only crossing point.
+> **The encode sites are migrated.** `api.js` and `live-university-client.js` build
+> their search and details bodies through `encodeSearch` and `encodeDetails` rather
+> than by hand, verified in a live browser by instrumenting the codec and confirming
+> the real call path invokes it. A side effect worth having: an invalid term is now
+> refused at the boundary before any network call, instead of coming back as a relay
+> 400 the student has to interpret.
+>
+> **Still outstanding:** the decode side. Responses still reach the UI as raw upstream
+> rows rather than `Section` objects, so `search.js` and `scheduler.js` continue to
+> read fields like `no` and `total` directly. Migrating those is the file-by-file
+> remainder, and it is safe to do incrementally now that `createSection` and the codec
+> exist and the encode direction is proven.
 
 ### Phase 6 — The wire contract and the firewall. Six to eight weeks. Constraint 6 lands here.
 
