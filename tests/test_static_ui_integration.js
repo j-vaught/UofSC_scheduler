@@ -19,7 +19,15 @@ const UI_FILES = [
 ];
 
 test('UI modules use the API adapter instead of process-backed fetches', () => {
-    for (const path of UI_FILES) {
+    // Every composition point and every fenced feature, so a raw relay call
+    // cannot hide in either half.
+    const featureDir = 'static/js/features';
+    const featureFiles = fs.existsSync(featureDir)
+        ? fs.readdirSync(featureDir)
+            .map(name => `${featureDir}/${name}/index.js`)
+            .filter(file => fs.existsSync(file))
+        : [];
+    for (const path of [...UI_FILES, ...featureFiles]) {
         const source = fs.readFileSync(path, 'utf8');
         assert.doesNotMatch(source, /fetch\s*\(\s*['"]\/api\//, path);
     }
@@ -28,7 +36,18 @@ test('UI modules use the API adapter instead of process-backed fetches', () => {
     assert.match(fs.readFileSync('static/js/profile.js', 'utf8'), /API\.parseTranscriptCSV\(/);
     assert.match(fs.readFileSync('static/js/degree-plan.js', 'utf8'), /API\.getDegreePlan\(/);
     assert.match(fs.readFileSync('static/js/grades.js', 'utf8'), /API\.getProfessorGrades\(/);
-    assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /API\.getSubjects\(\)/);
+
+    /*
+     * Search reaches the adapter through an injected collaborator rather than
+     * the global, so the assertion is in two parts: the feature asks its api
+     * collaborator, and the composition point is what supplies the real one.
+     * Checking only one half would pass while the other was wired to nothing.
+     */
+    assert.match(
+        fs.readFileSync('static/js/features/search/index.js', 'utf8'),
+        /deps\.api\.getSubjects\(\)/,
+    );
+    assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /get api\(\)[^}]*\bAPI\b/);
 });
 
 test('static data and browser runtimes load before the API adapter', () => {

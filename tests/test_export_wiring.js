@@ -23,7 +23,12 @@ const test = require('node:test');
 
 const { ROOT, createContext, loadModule, elementIdsFromMarkup } = require('./support/harness.js');
 
-const exportSource = fs.readFileSync(path.join(ROOT, 'static/js/export.js'), 'utf8');
+// Both halves: the controls are bound in the fenced feature, the state seams
+// are supplied by the composition point.
+const exportSource = [
+    fs.readFileSync(path.join(ROOT, 'static/js/features/export/index.js'), 'utf8'),
+    fs.readFileSync(path.join(ROOT, 'static/js/export.js'), 'utf8'),
+].join('\n');
 const html = fs.readFileSync(path.join(ROOT, 'static/index.html'), 'utf8');
 
 function boundIds(source) {

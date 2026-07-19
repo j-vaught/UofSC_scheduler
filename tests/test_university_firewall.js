@@ -197,9 +197,19 @@ test('compat decode carries both shapes so readers migrate one at a time', () =>
     assert.equal(decoded.results.length, payload.results.length);
 });
 
+/*
+ * Reads the fenced feature, and anchors before slicing. Written as a bare
+ * indexOf, this returned -1 the moment the filter moved into features/search,
+ * the slice came back as the file's tail, and the assertion failed for a reason
+ * that had nothing to do with seat sizes. The same shape passes silently when
+ * the assertion is doesNotMatch -- which is how five other guards in this suite
+ * were found checking nothing at all.
+ */
 test('the seat-size filter reads the domain field', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'static/js/search.js'), 'utf8');
+    const source = fs.readFileSync(path.join(ROOT, 'static/js/features/search/index.js'), 'utf8');
     const index = source.indexOf("filters.sizeMode && filters.sizeValue");
+    assert.notEqual(index, -1, 'the seat-size filter moved; this test is not reading it');
+
     const block = source.slice(index, index + 600);
     assert.match(block, /section\.seatsOpen/, 'the filter should use the converted number');
 });
