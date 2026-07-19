@@ -4,6 +4,12 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const test = require('node:test');
 
+// The startup sequence moved out of an inline <script> in index.html and
+// into static/js/boot.js, because the site's CSP forbids inline scripts.
+function bootSource() {
+    return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
+}
+
 const UI_FILES = [
     'static/index.html',
     'static/js/grades.js',
@@ -45,8 +51,8 @@ test('static worker registration and desktop-only guidance are nonblocking', () 
     const html = fs.readFileSync('static/index.html', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
-    assert.match(html, /window\.addEventListener\('load',[\s\S]*navigator\.serviceWorker\.register/);
-    assert.match(html, /source\.includes\('__STATIC_BUILD_ID__'\)/);
+    assert.match(html + bootSource(), /window\.addEventListener\('load',[\s\S]*navigator\.serviceWorker\.register/);
+    assert.match(html + bootSource(), /source\.includes\('__STATIC_BUILD_ID__'\)/);
     assert.match(html, /class="desktop-only-gate" role="dialog" aria-modal="true"/);
     assert.match(styles, /@media screen and \(max-width: 720px\)[\s\S]*\.desktop-only-gate\s*{/);
 });

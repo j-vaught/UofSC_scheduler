@@ -33,6 +33,7 @@ const SHELL_ASSETS = [
     '/static/js/degree-wizard.js',
     '/static/js/notices.js',
     '/static/js/carolina-core.js',
+    '/static/js/boot.js',
     '/static/js/runtime/transcript-parser.js',
     '/static/js/transcript-pdf.js',
     '/static/js/transcript-upload-dialog.js',

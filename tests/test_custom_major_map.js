@@ -4,6 +4,12 @@ const test = require('node:test');
 
 const customMaps = require('../static/js/custom-major-map.js');
 
+// The startup sequence moved out of an inline <script> in index.html and
+// into static/js/boot.js, because the site's CSP forbids inline scripts.
+function bootSource() {
+    return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
+}
+
 test('custom major maps preserve semester order and detailed requirement types', () => {
     const map = customMaps.buildMajorMap({
         id: 'custom-map:test',
@@ -82,6 +88,6 @@ test('degree wizard exposes the device-local custom major map builder', () => {
     const css = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(html, /id="btn-add-custom-major-map"/);
     assert.match(html, /static\/js\/custom-major-map\.js/);
-    assert.match(html, /CustomMajorMap\.init\(\)/);
+    assert.match(html + bootSource(), /CustomMajorMap\.init\(\)/);
     assert.match(css, /custom-major-map-modal/);
 });
