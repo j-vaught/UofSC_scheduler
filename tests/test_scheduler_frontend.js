@@ -3707,6 +3707,24 @@ test('preview renders a candidate without replacing selected sections', () => {
     assert.equal(state.selectedSections['TEST 101'].crn, '10101');
 });
 
+/*
+ * State restores a saved schedule before any module initialises, so by the time
+ * Calendar.init() runs the sections may already be there and no change event is
+ * ever coming. Subscribing was sufficient only while startup was always empty.
+ * Without this the calendar sits blank over a schedule the student can see
+ * listed in the sidebar, which reads as data loss.
+ */
+test('calendar paints an already-restored schedule at init', () => {
+    const calendar = loadObject('static/js/calendar.js', 'Calendar', {
+        State: { on() {} },
+    });
+    let renders = 0;
+    calendar.buildGrid = () => {};
+    calendar.render = () => { renders += 1; };
+    calendar.init();
+    assert.equal(renders, 1, 'init must render current state, not only subscribe');
+});
+
 test('calendar runs from 8 AM through 10 PM', () => {
     const calendar = loadObject('static/js/calendar.js', 'Calendar', {});
 

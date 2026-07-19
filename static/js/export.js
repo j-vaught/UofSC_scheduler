@@ -1,116 +1,19 @@
-/* ICS calendar export + plan management */
+/*
+ * ICS calendar export.
+ *
+ * This module used to own the Saved Plans panel as well: name a plan, press
+ * SAVE, press LOAD to get it back. That panel is gone, and its removal is why
+ * State now persists on every change and rehydrates at startup. The manual
+ * controls were the only thing that ever called savePlan(), so a student who
+ * never found the panel lost their schedule -- and their imported transcript --
+ * on every refresh. Automatic persistence is what a student expects anyway.
+ */
 const Export = {
     DAY_MAP: { 0: 'MO', 1: 'TU', 2: 'WE', 3: 'TH', 4: 'FR', 5: 'SA', 6: 'SU' },
 
     init() {
-        // ICS export
         const btnExport = document.getElementById('btn-export');
         if (btnExport) btnExport.addEventListener('click', () => this.exportICS());
-
-        // Plan save/load/delete
-        const btnSave = document.getElementById('btn-save-plan');
-        if (btnSave) btnSave.addEventListener('click', () => this.savePlan());
-        const btnLoad = document.getElementById('btn-load-plan');
-        if (btnLoad) btnLoad.addEventListener('click', () => this.loadPlan());
-        const btnDelete = document.getElementById('btn-delete-plan');
-        if (btnDelete) btnDelete.addEventListener('click', () => this.deletePlan());
-
-        // JSON export/import
-        const btnExportJSON = document.getElementById('btn-export-json');
-        if (btnExportJSON) btnExportJSON.addEventListener('click', () => this.exportJSON());
-        const jsonImport = document.getElementById('json-import');
-        if (jsonImport) jsonImport.addEventListener('change', (e) => this.importJSON(e));
-
-        this.renderSavedPlans();
-    },
-
-    savePlan() {
-        const nameInput = document.getElementById('plan-name-input');
-        const name = (nameInput.value || '').trim() || 'Plan A';
-        State.currentPlan = name;
-        State.savePlan();
-        this.renderSavedPlans();
-    },
-
-    loadPlan() {
-        const nameInput = document.getElementById('plan-name-input');
-        const name = (nameInput.value || '').trim();
-        if (!name || !State.loadPlan(name)) {
-            alert('No saved plan found with name: ' + name);
-        } else {
-            this.renderSavedPlans();
-        }
-    },
-
-    deletePlan() {
-        const nameInput = document.getElementById('plan-name-input');
-        const name = (nameInput.value || '').trim();
-        if (!name) return;
-        if (confirm(`Delete plan "${name}"?`)) {
-            State.deletePlan(name);
-            this.renderSavedPlans();
-        }
-    },
-
-    renderSavedPlans() {
-        const container = document.getElementById('plans-container');
-        if (!container) return;
-
-        const plans = State.listPlans();
-        if (plans.length === 0) {
-            container.innerHTML = '<p class="hint">No saved plans yet.</p>';
-            return;
-        }
-
-        let html = '';
-        plans.forEach(name => {
-            const plan = State.savedPlans[name];
-            const courses = Object.keys(plan.sections || {}).length;
-            const completed = (plan.completedCourses || []).length;
-            html += `
-                <div class="saved-plan-item">
-                    <div class="saved-plan-name">${name}</div>
-                    <div class="saved-plan-info">${courses} courses selected, ${completed} completed</div>
-                    <button class="btn-small btn-garnet load-plan-btn" data-name="${name}">LOAD</button>
-                </div>
-            `;
-        });
-        container.innerHTML = html;
-
-        container.querySelectorAll('.load-plan-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const name = btn.dataset.name;
-                State.loadPlan(name);
-                document.getElementById('plan-name-input').value = name;
-            });
-        });
-    },
-
-    exportJSON() {
-        const json = State.exportToJSON();
-        const blob = new Blob([json], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `uosc-plan-${State.term}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
-    },
-
-    importJSON(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            if (State.importFromJSON(ev.target.result)) {
-                alert('Plan imported successfully.');
-                this.renderSavedPlans();
-            } else {
-                alert('Failed to import plan. Invalid file format.');
-            }
-        };
-        reader.readAsText(file);
-        e.target.value = '';
     },
 
     exportICS() {

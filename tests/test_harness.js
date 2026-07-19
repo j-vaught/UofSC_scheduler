@@ -22,7 +22,7 @@ test('element ids come from the real markup, not a hand-written list', () => {
     assert.ok(ids.length > 80, `expected the full markup, found ${ids.length} ids`);
     // Spot-check ids that matter and that this session touched.
     for (const id of ['keyword-input', 'btn-search', 'btn-solve', 'solver-container',
-        'major-program-select', 'plans-container', 'btn-export', 'site-notices']) {
+        'major-program-select', 'cal-body', 'btn-export', 'site-notices']) {
         assert.ok(ids.includes(id), `${id} should exist in index.html`);
     }
 });
@@ -65,8 +65,9 @@ test('State is a working emitter, so wiring bugs surface instead of hiding', () 
 });
 
 test('a real module loads and binds against the harness', () => {
-    // Export is a good probe: it binds nine ids and nothing else, so a
-    // successful load proves the document satisfies a real module's needs.
+    // Export is a small probe -- it binds one control -- but a real one: a
+    // successful load proves the document satisfies an actual module's needs
+    // rather than a shape invented by the test.
     const context = createContext();
     const { module: exporter } = loadModule('static/js/export.js', 'Export', context);
     assert.equal(typeof exporter.init, 'function');
@@ -78,25 +79,28 @@ test('a real module loads and binds against the harness', () => {
         1,
         'Export.init should bind the calendar export control',
     );
-    assert.equal(
-        context.document.getElementById('json-import')._listenerCount('change'),
-        1,
-        'Export.init should bind the JSON import control',
-    );
 });
 
 test('a real module renders into the harness document', () => {
-    const context = createContext({
-        State: {
-            savedPlans: { 'Plan A': { sections: { 'CSCE 350': {} }, completedCourses: ['MATH 141'] } },
-            listPlans: () => ['Plan A'],
-        },
-    });
-    const { module: exporter } = loadModule('static/js/export.js', 'Export', context);
-    exporter.renderSavedPlans();
-    const rendered = context.document.getElementById('plans-container').innerHTML;
-    assert.match(rendered, /Plan A/);
-    assert.match(rendered, /1 courses selected, 1 completed/);
+    // Notices took over this probe from Export, which no longer renders
+    // anything: its saved-plans panel was replaced by automatic persistence.
+    const context = createContext();
+    const { module: notices } = loadModule('static/js/notices.js', 'SiteNotices', context);
+    const container = context.document.getElementById('site-notices');
+    const rendered = notices.render(
+        { notices: [{ id: 'n1', title: 'Registration opens Monday', message: 'Advising holds clear Friday.' }] },
+        { container, documentRef: context.document, storage: null },
+    );
+
+    assert.equal(rendered.length, 1, 'one notice in should mean one element out');
+    assert.equal(container.children.length, 1, 'the element should land in the real container');
+    assert.equal(container.hidden, false, 'a container with a notice should not stay hidden');
+    // The harness builds a real tree rather than a string, so read the text
+    // back the way a browser would: by walking it.
+    const textOf = node => [node.textContent || '', ...(node.children || []).map(textOf)].join(' ');
+    const text = textOf(rendered[0]);
+    assert.match(text, /Registration opens Monday/);
+    assert.match(text, /Advising holds clear Friday/);
 });
 
 test('the runtime modules load unchanged, which is what an MCP or CLI would need', () => {

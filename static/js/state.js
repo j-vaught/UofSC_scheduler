@@ -370,6 +370,49 @@ const State = {
         };
     },
 
+    /*
+     * True while loadPlan() is assigning fields, so the autosave subscription
+     * below does not write back what it is in the middle of reading.
+     */
+    _loading: false,
+
+    /*
+     * Persist on every change, and rehydrate at startup.
+     *
+     * These used to be manual. A Saved Plans panel on the schedule tab let a
+     * student name a plan and press SAVE, and savePlan() had no other caller.
+     * Nothing loaded a plan at startup either, so the default experience was
+     * that closing the tab discarded the schedule and the imported transcript,
+     * and the only way to keep them was to find a collapsed panel below the
+     * calendar and use it correctly every session.
+     *
+     * Removing the panel is what forced this: with no SAVE button there is no
+     * manual path left, so persistence has to be automatic. That is the better
+     * behaviour regardless. A student building a schedule does not think of it
+     * as a document to save; they expect to come back and find their work.
+     *
+     * Writes are synchronous rather than debounced. The events below are user
+     * actions -- adding a course, changing a preference -- not a stream, and a
+     * synchronous write means what is on screen and what is in storage never
+     * disagree, including when the tab is closed mid-interaction.
+     */
+    _autosave() {
+        if (this._loading) return;
+        this.savePlan();
+    },
+
+    _startAutosave() {
+        [
+            'sections-changed',
+            'courses-changed',
+            'section-locks-changed',
+            'preferences-changed',
+            'profile-updated',
+            'degree-plan-updated',
+            'transcript-updated',
+        ].forEach(event => this.on(event, () => this._autosave()));
+    },
+
     savePlan() {
         this.savedPlans[this.currentPlan] = {
             term: this.term,
@@ -424,6 +467,7 @@ const State = {
     loadPlan(name) {
         const plan = this.savedPlans[name];
         if (!plan) return false;
+        this._loading = true;
         this.currentPlan = name;
         this.term = plan.term || this.term;
         this.selectedSections = JSON.parse(JSON.stringify(plan.sections || {}));
@@ -466,6 +510,8 @@ const State = {
             ? document.getElementById('term-select')
             : null;
         if (termSelect) termSelect.value = this.term;
+        // Assignment is done, so listeners reacting to these events may save.
+        this._loading = false;
         this.emit('sections-changed', this.selectedSections);
         this.emit('courses-changed', this.selectedCourses);
         this.emit('section-locks-changed', this.sectionLocks);
@@ -635,8 +681,21 @@ const State = {
     },
 };
 
-// Restore on load
+/*
+ * Restore on load, then rehydrate the working plan.
+ *
+ * _restore() only reads the stored plans into memory; it never put one back
+ * into the live fields, which is why a refresh looked like the work was gone
+ * even when it was on disk the whole time. loadPlan() does that, and running it
+ * here -- before any feature module initialises -- means each one renders from
+ * restored state on its first pass rather than having to react to a late event.
+ *
+ * The emits inside loadPlan() therefore reach no listeners yet, which is fine:
+ * they exist for a mid-session load, and there is no longer any such thing.
+ */
 State._restore();
+if (State.savedPlans[State.currentPlan]) State.loadPlan(State.currentPlan);
+State._startAutosave();
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = State;

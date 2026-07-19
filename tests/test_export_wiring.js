@@ -3,7 +3,11 @@
 /*
  * Export.init() binds by element id. Every id it looks up must exist in
  * index.html, or the feature loads, initializes, and silently does nothing --
- * which is exactly how ICS export and plan save/load went unreachable.
+ * which is exactly how ICS export went unreachable once before.
+ *
+ * The Saved Plans panel this file used to cover is gone. Its tests moved to
+ * test_state_autosave.js, which checks the behaviour that replaced it: state
+ * persists on change and comes back at startup, with no control to press.
  *
  * Migrated onto tests/support/harness.js. This previously carried its own
  * element stub, which meant it asserted against a DOM the test itself invented
@@ -28,7 +32,7 @@ function boundIds(source) {
 
 test('every id Export binds resolves in index.html', () => {
     const ids = boundIds(exportSource);
-    assert.ok(ids.length >= 8, `expected Export to bind several ids, found ${ids.length}`);
+    assert.ok(ids.length >= 1, `expected Export to bind at least one id, found ${ids.length}`);
     const markupIds = new Set(elementIdsFromMarkup());
     const missing = ids.filter(id => !markupIds.has(id));
     assert.deepEqual(missing, [], `Export binds ids absent from index.html: ${missing.join(', ')}`);
@@ -39,11 +43,7 @@ test('Export.init attaches a handler to every control it looks up', () => {
     const { module: exporter } = loadModule('static/js/export.js', 'Export', context);
     exporter.init();
 
-    // plans-container is rendered into and plan-name-input is read via .value;
-    // neither takes a listener. Every remaining control must get a handler.
-    const passive = new Set(['plans-container', 'plan-name-input']);
-    const expected = [...new Set(boundIds(exportSource))].filter(id => !passive.has(id)).sort();
-
+    const expected = [...new Set(boundIds(exportSource))].sort();
     const unbound = expected.filter(id => {
         const element = context.document.getElementById(id);
         return !element || (element._listenerCount('click') + element._listenerCount('change')) === 0;
@@ -67,30 +67,18 @@ test('the export control is reachable from the schedule tab', () => {
         scheduleTab.includes('id="btn-export"'),
         'the calendar export button must live inside the schedule tab',
     );
-    assert.ok(
-        scheduleTab.includes('id="plans-container"'),
-        'the saved-plans panel must live inside the schedule tab',
-    );
 });
 
-test('Export renders saved plans into the real container', () => {
-    const context = createContext({
-        State: {
-            savedPlans: { 'Plan A': { sections: { 'CSCE 350': {} }, completedCourses: ['MATH 141'] } },
-            listPlans: () => ['Plan A'],
-        },
-    });
-    const { module: exporter } = loadModule('static/js/export.js', 'Export', context);
-    exporter.renderSavedPlans();
-    const rendered = context.document.getElementById('plans-container').innerHTML;
-    assert.match(rendered, /Plan A/);
-    assert.match(rendered, /1 courses selected, 1 completed/);
-});
-
-test('an empty plan list renders a hint rather than nothing', () => {
-    const context = createContext();
-    const { module: exporter } = loadModule('static/js/export.js', 'Export', context);
-    exporter.renderSavedPlans();
-    const rendered = context.document.getElementById('plans-container').innerHTML;
-    assert.match(rendered, /No saved plans yet/);
+/*
+ * The panel is gone from the markup, and the module no longer reaches for it.
+ * Asserting on its absence keeps a later change from reintroducing controls
+ * that would now compete with automatic persistence for the same storage.
+ */
+test('no saved-plan controls remain in the markup or the module', () => {
+    const gone = ['plans-panel', 'plan-name-input', 'btn-save-plan', 'btn-load-plan',
+        'btn-delete-plan', 'plans-container', 'btn-export-json', 'json-import'];
+    const inMarkup = gone.filter(id => html.includes(`id="${id}"`));
+    assert.deepEqual(inMarkup, [], `saved-plan controls still in index.html: ${inMarkup.join(', ')}`);
+    const inModule = gone.filter(id => exportSource.includes(`'${id}'`));
+    assert.deepEqual(inModule, [], `Export still binds removed controls: ${inModule.join(', ')}`);
 });
