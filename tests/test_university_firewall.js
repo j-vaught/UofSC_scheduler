@@ -149,3 +149,32 @@ test('the facade returns domain types and never leaks the transport shape', asyn
 test('the facade refuses a transport it cannot call', () => {
     assert.throws(() => University.create({}), /transport/);
 });
+
+test('api.js and the live client route requests through the codec', () => {
+    // The firewall only holds while these are the encode sites. A hand-built
+    // body reintroduces upstream vocabulary at a call site, which is the leak
+    // this phase exists to close.
+    for (const file of ['static/js/api.js', 'static/js/live-university-client.js']) {
+        const source = fs.readFileSync(path.join(ROOT, file), 'utf8');
+        const searchFn = source.slice(source.indexOf('async searchCourses'), source.indexOf('async searchCourses') + 700);
+        assert.match(searchFn, /encodeSearch/, `${file} should encode through the codec`);
+        const detailsFn = source.slice(source.indexOf('async getDetails'), source.indexOf('async getDetails') + 700);
+        assert.match(detailsFn, /encodeDetails/, `${file} should encode details through the codec`);
+    }
+});
+
+test('the firewall loads before the modules that use it', () => {
+    const html = fs.readFileSync(path.join(ROOT, 'static/index.html'), 'utf8');
+    const at = src => html.indexOf(`src="${src}`);
+    const term = at('/static/js/platform/university/domain/term.js');
+    const section = at('/static/js/platform/university/domain/section.js');
+    const codecTag = at('/static/js/platform/university/wire/fose-v1.js');
+    const api = at('/static/js/api.js');
+    const client = at('/static/js/live-university-client.js');
+
+    assert.ok(term > 0 && section > 0 && codecTag > 0, 'the firewall must be loaded');
+    assert.ok(term < codecTag, 'Term must load before the codec that uses it');
+    assert.ok(section < codecTag, 'Section must load before the codec that uses it');
+    assert.ok(codecTag < api, 'the codec must load before api.js');
+    assert.ok(codecTag < client, 'the codec must load before the live client');
+});

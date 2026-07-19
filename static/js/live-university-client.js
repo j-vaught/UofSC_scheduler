@@ -148,18 +148,28 @@
             this.cacheMaxEntries = Math.max(10, Number(options.cacheMaxEntries) || 250);
         }
 
+        // Encoded by the codec for the same reason as in api.js: the request
+        // grammar is upstream vocabulary. The literal shape remains as a
+        // fallback so this client still works when loaded on its own, which the
+        // tests do.
+        _codec() {
+            return (global.UniversityWire || {}).foseV1 || null;
+        }
+
         async searchCourses(term, criteria, options = {}) {
-            return this.request('courseSearch', {
-                other: { srcdb: String(term || '') },
-                criteria: criteria || [],
-            }, options);
+            const codec = this._codec();
+            const body = codec
+                ? codec.encodeSearch({ term: String(term || ''), criteria: criteria || [] })
+                : { other: { srcdb: String(term || '') }, criteria: criteria || [] };
+            return this.request('courseSearch', body, options);
         }
 
         async getDetails(crn, term, options = {}) {
-            return this.request('courseDetails', {
-                group: `crn:${crn}`,
-                srcdb: String(term || ''),
-            }, options);
+            const codec = this._codec();
+            const body = codec
+                ? codec.encodeDetails(crn, String(term || ''))
+                : { group: `crn:${crn}`, srcdb: String(term || '') };
+            return this.request('courseDetails', body, options);
         }
 
         async bulletinSearch(subject, srcdb = '2026', options = {}) {
