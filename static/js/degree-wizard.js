@@ -67,9 +67,9 @@ const DegreeWizard = {
                 const title = requirement.course_codes?.length
                     ? requirement.course_codes.join(' + ')
                     : requirement.title || 'Degree requirement';
-                return `<li><span>${this.escape(title)}</span><strong>${Number(requirement.credit_hours) || 0}</strong></li>`;
+                return `<li><span>${this.escape(title)}</span><strong>${this.creditLabel(requirement.credit_hours)}</strong></li>`;
             }).join('');
-            return `<section class="major-map-semester"><header><strong>${this.escape(semester.label || `Semester ${semester.number}`)}</strong><span>${Number(semester.planned_credit_hours) || ''} cr</span></header><ul>${rows}</ul></section>`;
+            return `<section class="major-map-semester"><header><strong>${this.escape(semester.label || `Semester ${semester.number}`)}</strong><span>${this.creditLabel(semester.planned_credit_hours)} cr</span></header><ul>${rows}</ul></section>`;
         }).join('');
         container.innerHTML = `
             <div class="major-map-preview-header">
@@ -143,6 +143,16 @@ const DegreeWizard = {
         const span = document.createElement('span');
         span.textContent = String(value ?? '');
         return span.innerHTML;
+    },
+
+    creditLabel(value) {
+        if (Array.isArray(value)) {
+            const values = value.map(Number).filter(Number.isFinite);
+            if (!values.length) return '—';
+            return values.length === 1 ? String(values[0]) : `${Math.min(...values)}–${Math.max(...values)}`;
+        }
+        const credits = Number(value);
+        return Number.isFinite(credits) ? String(credits) : '—';
     },
 };
 
