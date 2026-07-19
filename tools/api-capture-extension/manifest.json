@@ -1,9 +1,0 @@
-{
-  "manifest_version": 3,
-  "name": "UofSC API Capture",
-  "version": "1.0",
-  "description": "Captures API calls from DegreeWorks and Banner",
-  "devtools_page": "devtools.html",
-  "permissions": [],
-  "icons": {}
-}
