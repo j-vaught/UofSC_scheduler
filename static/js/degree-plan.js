@@ -205,8 +205,15 @@ const DegreePlan = {
         document.getElementById('progress-overall-fill').style.width = pct + '%';
         document.getElementById('progress-overall-text').textContent = `${completed} / ${totalRequired} credits (${pct}%)`;
 
-        const categories = majorData.category_labels || {};
         const catData = State.degreePlan.categories || {};
+        // No published major map carries category_labels — all 185 omit it — so
+        // relying on it alone left the requirements panel showing its "generate a
+        // plan" placeholder forever, for every major, even with a plan on screen.
+        // The categories the planner returns are the real source; labels are only
+        // presentation, so derive them when the map does not supply any.
+        const categories = Object.keys(majorData.category_labels || {}).length
+            ? majorData.category_labels
+            : Object.fromEntries(Object.keys(catData).map(key => [key, this.categoryLabel(key)]));
 
         let html = '';
         for (const [catKey, catLabel] of Object.entries(categories)) {
@@ -226,6 +233,28 @@ const DegreePlan = {
         }
 
         list.innerHTML = html || '<p class="hint">Generate a plan to see requirement details.</p>';
+    },
+
+    // Human-readable name for a requirement category key. Known keys are spelled
+    // out; anything new degrades to a title-cased version of the key rather than
+    // disappearing from the panel.
+    CATEGORY_LABELS: {
+        carolina_core: 'Carolina Core',
+        program_requirements: 'Program requirements',
+        major_courses: 'Major courses',
+        major_core: 'Major core',
+        major_electives: 'Major electives',
+        electives: 'Electives',
+        cognate: 'Cognate or minor',
+        other: 'Other requirements',
+    },
+
+    categoryLabel(key) {
+        if (this.CATEGORY_LABELS[key]) return this.CATEGORY_LABELS[key];
+        return String(key || '')
+            .replace(/[_-]+/g, ' ')
+            .replace(/^\s*\w/, match => match.toUpperCase())
+            .trim() || 'Requirements';
     },
 
     renderMapContext(majorData) {
