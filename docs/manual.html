@@ -644,6 +644,21 @@ fence around the JSON.</p>
 <p>Each verified against a specific implementation rather than a claim. This supersedes the three historical
 TODO files, whose own status lines had drifted well out of date.</p>
 
+<div class="note"><span class="lbl">How semantic search actually works</span>
+<p>It is not a lookup over precomputed vectors alone. The corpus side is precomputed —
+<code>course_embeddings.json</code>, <code>phrase_embeddings.json</code>, and <code>pca_params.json</code>
+ship in the release — but the <em>query</em> has to be embedded at request time, which needs a real model in
+the browser. <code>search.js</code> dynamically imports Transformers.js from
+<code>cdn.jsdelivr.net</code>, then downloads <code>Xenova/all-MiniLM-L6-v2</code> quantized, roughly 23 MB,
+on first use. The 384-dimension output is reduced to 128 by the stored PCA before it is compared against the
+corpus.</p>
+<p>That makes <code>connect-src</code> load-bearing. Model metadata comes from <code>huggingface.co</code>,
+but the weights redirect to <code>*.hf.co</code>, a different domain. With only
+<code>huggingface.co</code> listed the download is blocked, <code>pipeline()</code> throws
+<code>Failed to fetch</code>, and search degrades to direct matching behind the banner
+<em>"Meaning-based matching is unavailable"</em> — correct behavior, but the cause is invisible from the
+interface.</p></div>
+
 <h3>Search and discovery</h3>
 <ul>
 <li><span class="tag t-ship">Ship</span>Subject codes, exact courses, ranges, wildcards, CRNs, and scoped natural-language queries — <code>search.js</code> <code>doSearch</code>, with a syntax guide in the UI</li>
