@@ -570,6 +570,10 @@
                                     <span class="schedule-action-label-wide" aria-hidden="true">REGISTRATION INFO</span>
                                     <span class="schedule-action-label-compact" aria-hidden="true">REGISTER</span>
                                 </button>
+                                <button id="btn-export" class="btn-panel-secondary" type="button" aria-label="Download the applied schedule as a calendar file" title="Download .ics calendar">
+                                    <span class="schedule-action-label-wide" aria-hidden="true">EXPORT CALENDAR</span>
+                                    <span class="schedule-action-label-compact" aria-hidden="true">EXPORT</span>
+                                </button>
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
@@ -594,6 +598,27 @@
                             </div>
                         </section>
                     </div>
+                    <details id="plans-panel" class="plans-panel">
+                        <summary class="plans-summary">Saved Plans</summary>
+                        <div class="plans-body">
+                            <div class="plans-row">
+                                <label class="plans-label" for="plan-name-input">Plan name</label>
+                                <input id="plan-name-input" class="plans-input" type="text" placeholder="Plan A" autocomplete="off">
+                            </div>
+                            <div class="plans-row plans-actions">
+                                <button id="btn-save-plan" class="btn-small btn-garnet" type="button">SAVE</button>
+                                <button id="btn-load-plan" class="btn-small" type="button">LOAD</button>
+                                <button id="btn-delete-plan" class="btn-small" type="button">DELETE</button>
+                            </div>
+                            <div id="plans-container" class="plans-container"></div>
+                            <div class="plans-row plans-actions">
+                                <button id="btn-export-json" class="btn-small" type="button">EXPORT JSON</button>
+                                <input id="json-import" class="plans-import-input" type="file" accept="application/json,.json">
+                                <label class="btn-small plans-import-label" for="json-import">IMPORT JSON</label>
+                            </div>
+                            <p class="hint">Plans are stored in this browser only. Export to move them between devices.</p>
+                        </div>
+                    </details>
                     <div id="schedule-vertical-resizer" class="schedule-vertical-resizer" role="separator" aria-label="Resize calendar and route map" aria-orientation="horizontal" tabindex="0">
                         <span>DRAG TO RESIZE</span>
                     </div>

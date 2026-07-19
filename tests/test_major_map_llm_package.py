@@ -51,7 +51,7 @@ def test_schema_and_manifest_cross_checks(tmp_path: Path) -> None:
     schema_path = Path("schemas/major_map_llm_v1.schema.json")
     Draft202012Validator.check_schema(json.loads(schema_path.read_text()))
     map_id = "map_0123456789abcdef"
-    source_path = "data/maps/source_pdfs/2026-2027/map_0123456789abcdef.pdf"
+    source_path = "data/raw/major_map_pdfs/2026-2027/map_0123456789abcdef.pdf"
     manifest_path = tmp_path / "manifest.json"
     _write_json(
         manifest_path,

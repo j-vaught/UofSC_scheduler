@@ -29,7 +29,7 @@ test('degree planner shell uses four guided full-page stages', () => {
 
 test('Electrical Engineering plans every official required credit', () => {
     const map = JSON.parse(fs.readFileSync(
-        path.join(root, 'data/maps/imported/2026-2027/map_374cc4bc138c13c7.json'),
+        path.join(root, 'data/curated/major_maps/2026-2027/map_374cc4bc138c13c7.json'),
         'utf8',
     ));
     const plan = planner.planDegree(map, [], { start_term: '202608', strategy: 'major_map' });

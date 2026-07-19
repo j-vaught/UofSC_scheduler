@@ -36,6 +36,21 @@
         return value;
     }
 
+    // A relative endpoint is same-origin by definition. An absolute one only
+    // counts when its origin matches ours; if we cannot determine our own
+    // origin, treat it as cross-origin, since that is the safer default.
+    function isSameOriginUrl(endpoint, origin) {
+        if (typeof endpoint !== 'string' || endpoint === '') return false;
+        const isAbsolute = endpoint.startsWith('//') || /^[a-z][a-z0-9+.-]*:/i.test(endpoint);
+        if (!isAbsolute) return true;
+        if (!origin) return false;
+        try {
+            return new URL(endpoint, origin).origin === origin;
+        } catch (error) {
+            return false;
+        }
+    }
+
     function abortError(message = 'Request was cancelled') {
         const error = new Error(message);
         error.name = 'AbortError';
@@ -249,7 +264,12 @@
                     method,
                     headers,
                     signal: controller?.signal || signal || undefined,
-                    credentials: 'include',
+                    // Credentials only make sense for the same-origin relay. Sending
+                    // them cross-origin obliges the upstream to answer with both
+                    // Access-Control-Allow-Credentials and a specific origin; a
+                    // wildcard makes the browser reject the response outright, which
+                    // would silently degrade bulletin lookups to the static catalog.
+                    credentials: isSameOriginUrl(endpoint, this.origin) ? 'include' : 'omit',
                     mode: 'cors',
                     cache: 'no-store',
                 };

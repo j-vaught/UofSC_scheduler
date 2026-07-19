@@ -23,10 +23,10 @@ from typing import Any
 import pandas as pd
 import requests
 
-ROOT = Path(__file__).resolve().parent
-DEFAULT_GRADE_DIR = ROOT / "ANALYSIS_and TODO__UofSC Course Scheduler" / "uofsc_grade_data"
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_GRADE_DIR = ROOT / "data" / "raw" / "registrar_grades"
 DEFAULT_CACHE = ROOT / "data" / "grade_matching_cache.sqlite"
-DEFAULT_OUTPUT = ROOT / "data" / "grade_analytics.json"
+DEFAULT_OUTPUT = ROOT / "data" / "generated" / "grade_analytics.json"
 BANNER_BASE = "https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb"
 GRADE_POINTS = {
     "A": 4.0,

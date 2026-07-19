@@ -15,7 +15,7 @@ from offering_analyzer import (
     next_term,
 )
 
-MAPS_DIR = os.path.join(os.path.dirname(__file__), "data", "maps")
+MAPS_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "curated", "major_maps")
 
 # Planning mode credit limits
 MODE_CREDITS = {

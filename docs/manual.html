@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UofSC Course Scheduler — Technical Manual</title>
+<style>
+:root{
+  --garnet:#73000A; --black:#000; --white:#fff;
+  --b90:#363636; --b70:#5C5C5C; --b50:#A2A2A2; --b30:#C7C7C7; --b10:#ECECEC;
+  --warm:#676156; --sand:#FFF2E3;
+  --rose:#CC2E40; --atlantic:#466A9F; --congaree:#1F414D;
+  --horseshoe:#65780B; --grass:#CED318; --honeycomb:#A49137;
+
+  --bg:var(--white); --fg:var(--black); --muted:var(--b70);
+  --rule:var(--b30); --panel:var(--b10); --accent:var(--garnet);
+  --code-bg:var(--sand);
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#0d0d0d; --fg:#f2f2f2; --muted:var(--b50); --rule:#3a3a3a;
+         --panel:#1a1a1a; --accent:#e8555f; --code-bg:#151515; }
+}
+:root[data-theme="dark"]{ --bg:#0d0d0d; --fg:#f2f2f2; --muted:var(--b50); --rule:#3a3a3a;
+  --panel:#1a1a1a; --accent:#e8555f; --code-bg:#151515; }
+:root[data-theme="light"]{ --bg:var(--white); --fg:var(--black); --muted:var(--b70);
+  --rule:var(--b30); --panel:var(--b10); --accent:var(--garnet); --code-bg:var(--sand); }
+
+*{box-sizing:border-box;border-radius:0!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+
+.wrap{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0;max-width:1500px;margin:0 auto}
+nav{position:sticky;top:0;height:100vh;overflow-y:auto;padding:28px 20px 60px;
+  border-right:2px solid var(--rule);background:var(--panel)}
+nav h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  margin:22px 0 8px;font-weight:700}
+nav h2:first-of-type{margin-top:14px}
+nav a{display:block;padding:5px 8px;color:var(--fg);text-decoration:none;font-size:13.5px;
+  border-left:3px solid transparent}
+nav a:hover{background:var(--bg);border-left-color:var(--accent)}
+nav a.on{border-left-color:var(--accent);font-weight:600;background:var(--bg)}
+.brand{font-weight:800;font-size:17px;line-height:1.25;color:var(--accent);
+  border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:6px}
+.brand small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);
+  letter-spacing:.06em;text-transform:uppercase;margin-top:5px}
+#q{width:100%;padding:7px 9px;border:2px solid var(--rule);background:var(--bg);
+  color:var(--fg);font-size:13px;margin:12px 0 4px}
+#q:focus{outline:none;border-color:var(--accent)}
+
+main{padding:34px 46px 120px;min-width:0}
+section{scroll-margin-top:20px;margin-bottom:56px}
+h1{font-size:31px;line-height:1.2;margin:0 0 6px;letter-spacing:-.015em}
+h2{font-size:23px;margin:0 0 14px;padding-bottom:8px;border-bottom:2px solid var(--accent);
+  letter-spacing:-.01em}
+h3{font-size:16.5px;margin:26px 0 8px;color:var(--accent)}
+h4{font-size:14px;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+p{margin:0 0 13px;max-width:78ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:78ch}
+li{margin-bottom:5px}
+a{color:var(--accent)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.875em;
+  background:var(--code-bg);padding:1px 5px;border:1px solid var(--rule)}
+pre{background:var(--code-bg);border:2px solid var(--rule);border-left:5px solid var(--accent);
+  padding:13px 15px;overflow-x:auto;margin:0 0 15px}
+pre code{background:none;border:none;padding:0;font-size:12.8px;line-height:1.55}
+
+.tablewrap{overflow-x:auto;margin-bottom:16px;border:2px solid var(--rule)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{background:var(--accent);color:#fff;text-align:left;padding:8px 11px;font-weight:600;
+  font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+td{padding:7px 11px;border-top:1px solid var(--rule);vertical-align:top}
+tr:nth-child(even) td{background:var(--panel)}
+
+.note{border-left:5px solid var(--atlantic);background:var(--panel);padding:12px 16px;margin:0 0 16px}
+.warn{border-left:5px solid var(--rose);background:var(--panel);padding:12px 16px;margin:0 0 16px}
+.good{border-left:5px solid var(--horseshoe);background:var(--panel);padding:12px 16px;margin:0 0 16px}
+.note p:last-child,.warn p:last-child,.good p:last-child{margin-bottom:0}
+.lbl{font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.09em;
+  display:block;margin-bottom:4px}
+.warn .lbl{color:var(--rose)} .note .lbl{color:var(--atlantic)} .good .lbl{color:var(--horseshoe)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:2px;
+  margin-bottom:18px;background:var(--rule);border:2px solid var(--rule)}
+.stat{background:var(--bg);padding:13px 15px}
+.stat b{display:block;font-size:25px;line-height:1.1;color:var(--accent);font-weight:800}
+.stat span{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+blockquote{margin:0 0 15px;padding:14px 18px;border-left:5px solid var(--warm);
+  background:var(--panel);font-size:14.5px}
+blockquote p:last-child{margin-bottom:0}
+.sub{color:var(--muted);font-size:14.5px;margin-bottom:26px;max-width:78ch}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;padding:2px 7px;color:#fff;margin-right:6px;vertical-align:2px}
+.t-ship{background:var(--horseshoe)} .t-open{background:var(--honeycomb)}
+.t-bug{background:var(--rose)} .t-stale{background:var(--warm)}
+hr{border:none;border-top:2px solid var(--rule);margin:34px 0}
+.hide{display:none!important}
+#themeBtn{margin-top:14px;width:100%;padding:6px;border:2px solid var(--rule);
+  background:var(--bg);color:var(--fg);font-size:11.5px;cursor:pointer;
+  text-transform:uppercase;letter-spacing:.07em;font-weight:600}
+#themeBtn:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  nav{position:static;height:auto;border-right:none;border-bottom:2px solid var(--rule)}
+  main{padding:24px 18px 80px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <div class="brand">UofSC Course Scheduler<small>Technical Manual</small></div>
+  <input id="q" type="search" placeholder="Filter sections…" autocomplete="off">
+  <button id="themeBtn">Toggle theme</button>
+
+  <h2>Orientation</h2>
+  <a href="#overview">What this is</a>
+  <a href="#layout">Repository layout</a>
+  <a href="#start">Getting started</a>
+
+  <h2>System</h2>
+  <a href="#runtime">Runtime architecture</a>
+  <a href="#relay">Relay &amp; upstream APIs</a>
+  <a href="#banner">Banner field notes</a>
+
+  <h2>Data</h2>
+  <a href="#pipeline">Build pipeline</a>
+  <a href="#majormaps">Major map extraction</a>
+
+  <h2>Product</h2>
+  <a href="#shipped">Shipped features</a>
+  <a href="#open">Open design work</a>
+
+  <h2>Maintenance</h2>
+  <a href="#issues">Known issues</a>
+  <a href="#conventions">Conventions</a>
+</nav>
+
+<main>
+<h1>UofSC Course Scheduler</h1>
+<p class="sub">Single-source technical manual. This page replaces the former README, <code>ARCHITECTURE.md</code>,
+the major-map package docs, the Banner and data-source references, the serverless feasibility note, and the
+three separate TODO files. Every figure below was verified against the working tree rather than carried
+forward from prose.</p>
+
+<div class="grid">
+  <div class="stat"><b>509</b><span>Release artifacts</span></div>
+  <div class="stat"><b>39.5 MB</b><span>Verified payload</span></div>
+  <div class="stat"><b>1,295</b><span>Major maps</span></div>
+  <div class="stat"><b>101 / 238</b><span>Python / JS tests</span></div>
+</div>
+
+<!-- ───────────────────────── OVERVIEW ───────────────────────── -->
+<section id="overview">
+<h2>What this is</h2>
+
+<p>A desktop-first semester planning tool for University of South Carolina students. A student adds courses
+without committing to sections, optionally locks exact sections, and generates ranked conflict-free
+schedules. Applying an option updates the weekly calendar, campus pins, walking-route estimates, and a
+registration handoff with per-CRN copy actions.</p>
+
+<p>Course discovery accepts subject codes, exact courses, ranges, CRNs, and descriptive natural-language
+phrases. Each result carries live seat availability alongside verified historical grade distributions,
+professor teaching profiles, and a year-by-season offering-history matrix. A secondary degree planner
+imports official major maps spanning catalog years 2020-2021 through 2026-2027 and combines them with an
+uploaded advising transcript. Plans and transcript-derived progress never leave the device.</p>
+
+<h3>Architecture in one breath</h3>
+<p>A static site plus a three-route relay. Everything interactive runs in the browser: search parsing and
+ranking, the schedule solver, prerequisite evaluation, transcript parsing, degree planning, and offering
+analysis. Hosting serves files and forwards exactly three validated read-only requests to fixed upstream
+University addresses, because those APIs do not authorize a cross-origin browser caller. Python is offline
+build tooling and a parity oracle. No visitor ever executes it, and
+<code>scripts/build_static_site.py</code> refuses to copy <code>.py</code>, <code>.pyc</code>,
+<code>.db</code>, or <code>.sqlite</code> into the deployed tree at all.</p>
+
+<div class="note"><span class="lbl">Why not fully static</span>
+<p><code>classes.sc.edu</code> does not permit browser requests from another origin, and Banner session
+cookies are <code>HttpOnly</code>/<code>SameSite</code>-restricted, so a page on a different origin cannot
+reuse a student's registration session even in principle. Live seat counts therefore require something
+server-side. The answer was to shrink the proxy rather than delete it: three fixed upstreams, no dynamic URL
+construction, strict schema validation on every body, a 16&nbsp;KiB cap, a 10-second timeout, same-origin
+enforcement, and no credential forwarding in either direction. It holds no secrets, no database, and no
+per-user state — a validating pipe, not an application server.</p></div>
+
+<p>A second constraint was load on University systems. A shared server cache turns ten students asking the
+same question into one upstream request; a service worker cache does not. The mitigation is snapshot-first
+reads. Versioned catalog, grade, offering-history, building, and major-map bundles are served immutable with
+a one-year cache, the manifest is <code>no-cache</code> so a new release is picked up promptly, and live
+upstream calls are reserved for seat counts and faculty names.</p>
+</section>
+
+<!-- ───────────────────────── LAYOUT ───────────────────────── -->
+<section id="layout">
+<h2>Repository layout</h2>
+
+<p>Four data directories carry meaning. The distinction they encode is <em>what can be rebuilt</em>, which
+was previously invisible.</p>
+
+<pre><code>src/                  Application modules and offline tooling
+  scheduler.py        Reference solver — parity oracle for solver-core.js
+  planner.py          Reference degree planner — parity oracle
+  transcript.py       Reference transcript parser — parity oracle
+  offering_analyzer.py Reference offering summaries — parity oracle
+  grade_pipeline.py   Registrar workbook ingestion and Banner matching
+  build_embeddings.py Semantic-search vector generation
+  scrape_courses.py   Bulletin catalog scrape
+  prototypes/         Runnable experiments whose output nothing consumes
+
+scripts/              19 offline build scripts. Name is load-bearing:
+                      `from scripts.X import Y` appears in 8 files and tests.
+
+data/
+  raw/                Originals with no regeneration path anywhere
+    registrar_grades/   26 registrar .xlsx workbooks — irreplaceable
+    major_map_pdfs/     1,295 official PDFs + hash manifest
+  curated/            Machine-extracted, then human-reviewed
+    major_maps/         1,295 JSON records — source of truth for shipped maps
+  interim/            Machine output no release consumes yet
+    major_maps_llm/     1,295 staged LLM extractions
+  generated/          Fully rebuildable from raw + scripts
+    course_data.json, grade_analytics.json, major_maps_manifest.json
+
+static/               THE DEPLOYED SITE. Name is load-bearing — every URL in
+                      index.html, the service worker, and 31 JS modules is
+                      absolute `/static/...`. Renaming breaks all of them.
+  index.html          Sole entry point
+  service-worker.js   Precache + four-strategy fetch router
+  js/                 31 modules, incl. runtime/ and workers/
+  data/               Generated payload + releases/&lt;id&gt;/
+
+docs/                 This manual, plus:
+  research/           Banner + data-source references, site captures
+  notes/              Historical TODO and feasibility notes
+  figures/, diagrams/, screenshots/, major_maps/
+
+tools/api-capture-extension/   Chrome DevTools extension for API discovery
+tests/                14 Python + 16 JavaScript suites
+schemas/              major_map_llm_v1.schema.json</code></pre>
+
+<div class="note"><span class="lbl">Reading the data tree</span>
+<p><code>raw/</code> is what you cannot get back if you lose it. <code>generated/</code> is what a script
+rebuilds. The two in between are labelled honestly: <code>curated/</code> carries human review and
+<code>interim/</code> does not feed anything yet. A <code>.gitattributes</code> marks the generated trees
+<code>-diff -merge linguist-generated=true</code>, so regenerated artifacts stay out of pull-request diffs
+and a conflict fails loudly instead of splicing two builds together.</p></div>
+</section>
+
+<!-- ───────────────────────── GETTING STARTED ───────────────────────── -->
+<section id="start">
+<h2>Getting started</h2>
+
+<pre><code>git clone https://github.com/j-vaught/UofSC_scheduler.git
+cd UofSC_scheduler
+uv sync</code></pre>
+
+<p>Python 3.12 or newer. Runtime dependencies are <code>jsonschema</code>, <code>openpyxl</code>,
+<code>pandas</code>, and <code>requests</code>; the dev group adds <code>pytest</code>, <code>ruff</code>,
+and <code>ty</code>.</p>
+
+<h3>Quality gate</h3>
+<pre><code>uv run ruff format .
+uv run ruff check . --fix
+uv run ty check .
+uv run pytest -q            # 101 passed
+node --test tests/*.js      # 238 pass, 0 fail</code></pre>
+
+<p>The JavaScript suite runs on the Node built-in test runner. There is no external framework and no
+<code>npm install</code> step. <code>tests/conftest.py</code> prepends both the repository root and
+<code>src/</code> to <code>sys.path</code>; <code>pyproject.toml</code> sets
+<code>pythonpath = ["src"]</code> as well.</p>
+
+<h3>Serving locally</h3>
+<pre><code>uv run python scripts/build_static_site.py
+uv run python -m http.server 8766 --directory dist/client</code></pre>
+
+<p>Then open <code>http://127.0.0.1:8766</code>. That Python process is a plain static file server for local
+testing and is not part of the deployment. There is no application server to run.</p>
+
+<div class="warn"><span class="lbl">Two hard serving constraints</span>
+<p><code>dist/client/</code> must be served from a <strong>domain root</strong>, because
+<code>index.html</code> uses absolute <code>/static/</code> paths and the service worker registers at scope
+<code>/</code>. And it must be <code>localhost</code> rather than <code>file://</code> —
+<code>crypto.subtle</code> is unavailable on insecure origins, and
+<code>static/js/data-store.js:438</code> treats that as a hard failure rather than degrading to unverified
+data.</p></div>
+
+<p>If you have not built a full release, <code>build_static_site.py</code> refuses to run
+(<code>validate_source</code>). Use <code>--allow-representative</code> for local validation only.</p>
+</section>
+
+<!-- ───────────────────────── RUNTIME ───────────────────────── -->
+<section id="runtime">
+<h2>Runtime architecture</h2>
+
+<h3>Page load</h3>
+<p><code>static/index.html</code> links three stylesheets, then loads 27 classic (non-module) scripts. Order
+is load-bearing: <code>data-store.js</code> first, then the three runtime cores
+(<code>runtime/offering-analyzer.js</code>, <code>runtime/transcript-parser.js</code>,
+<code>runtime/degree-planner.js</code>), then <code>solver-core.js</code>,
+<code>live-university-client.js</code>, and <code>api.js</code> before any UI layer. Several tags carry
+hand-maintained cache-busting query strings such as <code>api.js?v=20260718</code> — these are not
+build-generated, so they must be bumped by hand when the file changes.</p>
+
+<p><code>data-store.js</code> instantiates a singleton <code>global.CourseDataStore</code> at load time, so
+the store exists before any UI module runs. Service worker registration is gated on
+<code>'serviceWorker' in navigator &amp;&amp; location.protocol !== 'file:'</code>.</p>
+
+<h3>Service worker</h3>
+<p><code>BUILD_ID</code> is the literal <code>'__STATIC_BUILD_ID__'</code>, substituted at build time with a
+16-hex digest of every copied file. <code>SHELL_ASSETS</code> lists 38 entries and the install handler does
+a single atomic <code>cache.addAll</code> — one missing asset fails the entire install.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Match</th><th>Strategy</th><th>Cache</th></tr>
+<tr><td><code>/static/data/manifest.json</code></td><td>network-first, forced <code>cache: 'no-store'</code></td><td><code>…-data-manifests-v1</code></td></tr>
+<tr><td><code>/static/data/releases/*</code></td><td>cache-first</td><td>per-release, content-addressed</td></tr>
+<tr><td><code>request.mode === 'navigate'</code></td><td>network, falling back to cached <code>/</code></td><td>shell</td></tr>
+<tr><td>CSS, JS, other <code>/static/data/</code></td><td>stale-while-revalidate</td><td>shell</td></tr>
+</table></div>
+
+<p>Non-GET requests return early, so the three relay POSTs never touch the worker.</p>
+
+<h3>Manifest and integrity verification</h3>
+<p><code>getManifest()</code> serves from memory inside a 5-minute TTL and coalesces concurrent calls through
+an in-flight map. <code>_loadManifest()</code> is a four-tier fallback ladder — network
+(<code>no-store</code>) → Cache Storage → IndexedDB → last in-memory record — throwing only if all four
+fail.</p>
+
+<p>The integrity gate is <code>_verifyArtifact()</code>. It encodes the response with
+<code>TextEncoder</code>, compares <code>byteLength</code> against the descriptor, then computes
+<code>crypto.subtle.digest('SHA-256', bytes)</code> and hex-compares against the manifest digest.
+Verification runs on <strong>both</strong> the cached and network paths; a cached artifact that fails is
+evicted and refetched. <code>_activateRelease()</code> retains exactly the current and previous release,
+which is what lets a browser keep serving the old release if a new one fails validation.</p>
+
+<h3>Solver in a worker</h3>
+<p><code>api.js</code> owns the boundary. If <code>Worker</code> is undefined it calls
+<code>SolverCore.solve(params)</code> synchronously on the main thread; the same fallback catches
+worker-construction failure. Otherwise it lazily constructs one long-lived worker, correlating requests
+through a monotonic sequence and a request map. An <code>error</code> event rejects every in-flight request,
+terminates, and nulls the worker so the next call rebuilds it.</p>
+
+<p><code>solver-worker.js</code> is 16 lines: <code>importScripts('/static/js/solver-core.js')</code> and a
+message handler returning <code>{id, result}</code> or <code>{id, error}</code>. Transcript,
+degree-planning, and offering-analysis use a parallel but separate mechanism keyed by kind, with the same
+fallback-to-core behavior.</p>
+
+<div class="good"><span class="lbl">Parity oracles</span>
+<p><code>src/scheduler.py</code>, <code>planner.py</code>, <code>transcript.py</code>, and
+<code>offering_analyzer.py</code> are executed by the JavaScript suites through
+<code>importlib</code>, and their outputs are asserted against the browser implementations. They are the
+correctness baseline for the client solver, not a second runtime. Note that nothing in the repository
+contains the literal text <code>scheduler.py</code> — the modules are referenced by bare string through
+dynamic import, so a filename grep will not find these call sites.</p></div>
+</section>
+
+<!-- ───────────────────────── RELAY ───────────────────────── -->
+<section id="relay">
+<h2>Relay &amp; upstream APIs</h2>
+
+<div class="warn"><span class="lbl">The relay is not a committed file</span>
+<p><code>dist/server/index.js</code> is written at build time from the <code>SITES_WORKER</code> string
+constant in <code>scripts/build_static_site.py</code> — a roughly 340-line JavaScript program embedded in a
+Python string literal. <strong>All relay behavior changes are made in that Python constant.</strong> It is
+covered by <code>tests/test_sites_relay_worker.js</code>.</p></div>
+
+<h3>Shared contract</h3>
+<p>Applies to all three routes.</p>
+<ul>
+<li><strong>POST only.</strong> Anything else is 405 with <code>Allow: POST</code>.</li>
+<li><strong>Content-Type</strong> must start with <code>application/json</code>, else 415.</li>
+<li><strong>Body cap</strong> 16&nbsp;KiB, checked on both <code>Content-Length</code> and actual encoded bytes, else 413.</li>
+<li><strong>Same-origin only.</strong> A mismatched <code>Origin</code> or <code>Sec-Fetch-Site: cross-site</code> is 403. There is no CORS allowance.</li>
+<li><strong>Credentials never forwarded.</strong> The upstream fetch sends only <code>Accept</code> and <code>Content-Type</code>. Upstream <code>Set-Cookie</code> never reaches the client.</li>
+<li><strong>Timeout</strong> 10 s via <code>AbortController</code> → 504; other failures → 502.</li>
+<li><strong>Term format</strong> <code>/^\d{4}(?:01|05|08)$/</code>. Nothing else is a valid term anywhere in the relay.</li>
+</ul>
+
+<div class="tablewrap"><table>
+<tr><th>Route</th><th>Upstream</th><th>Required body</th><th>Caps</th></tr>
+<tr><td><code>POST /api/search</code></td><td><code>classes.sc.edu/api/?page=fose&amp;route=search</code></td>
+<td>Exactly <code>{other:{srcdb}, criteria:[…]}</code>. 1–6 criteria, each exactly <code>{field, value}</code>;
+field ∈ <code>alias, crn, keyword, stat, subject</code>; no repeats; value 1–120 chars. At least one
+criterion must not be <code>stat</code>.</td><td>1 MiB response; must contain array <code>results</code></td></tr>
+<tr><td><code>POST /api/details</code></td><td><code>classes.sc.edu/api/?page=fose&amp;route=details</code></td>
+<td>Exactly <code>{group, srcdb}</code>. <code>group</code> matches <code>^crn:\d{5}$</code>.</td><td>256 KiB</td></tr>
+<tr><td><code>POST /api/faculty</code></td><td>Banner, synthesized server-side</td>
+<td>Exactly <code>{term, crns}</code>. 1–12 unique CRNs matching <code>^\d{5}$</code>.</td><td>256 KiB per response; 4 concurrent</td></tr>
+</table></div>
+
+<p><code>/api/faculty</code> issues <code>GET {BANNER_BASE}/searchResults/getFacultyMeetingTimes</code> per
+CRN and returns <code>{faculty:[{crn, name, email, primary, professor_id, identity_source}]}</code>.
+<code>professor_id</code> is <code>prof_</code> plus the first 16 hex characters of
+<code>SHA-256("uofsc-scheduler:" + lowercased bannerId)</code>, emitted only when a <code>bannerId</code>
+exists.</p>
+
+<h3>Upstream data sources</h3>
+<div class="tablewrap"><table>
+<tr><th>Source</th><th>Used for</th><th>Reached by</th></tr>
+<tr><td>FOSE course API — <code>classes.sc.edu</code></td><td>Live sections, seats, per-section detail</td><td>Browser, via relay only</td></tr>
+<tr><td>Bulletin FOSE — <code>academicbulletins.sc.edu</code></td><td>~9,700 course codes, titles, descriptions. Uses a <strong>4-digit</strong> <code>srcdb</code>, not a term code.</td><td><code>src/scrape_courses.py</code> offline; browser calls it <strong>directly, cross-origin</strong> — not relayed</td></tr>
+<tr><td>Banner 9 — <code>banner.onecarolina.sc.edu</code></td><td>Term section snapshots, faculty identity, grade matching</td><td><code>scripts/pull_banner_term_sections.py</code>, <code>src/grade_pipeline.py</code>, relay</td></tr>
+<tr><td>Registrar grade spreads</td><td>26 <code>.xlsx</code>, Summer 2017 – Spring 2026, one row per section</td><td>Downloaded manually; <code>src/grade_pipeline.py</code></td></tr>
+<tr><td>Major maps</td><td>Official program PDFs</td><td><code>scripts/import_major_maps.py</code>, <code>download_major_map_pdfs.py</code></td></tr>
+<tr><td>Concept3D campus map</td><td>Building coordinates</td><td><code>scripts/sync_campus_buildings.py</code></td></tr>
+</table></div>
+
+<div class="note"><span class="lbl">Paths that look like endpoints but are not</span>
+<p><code>static/js/api.js</code> names <code>/api/subjects</code>, <code>/api/history</code>,
+<code>/api/major-map</code>, <code>/api/degree-plan</code>, <code>/api/offering-analysis</code>,
+<code>/api/course-grades</code>, <code>/api/professor-grades</code>, and
+<code>/api/parse-transcript</code>. On the deployed site these are <strong>routing keys, not URLs</strong> —
+<code>_postStatic</code> intercepts each and serves it from the data store or a web worker. A real request to
+one returns the SPA shell or 405. The registration-action group in the historical Banner reference
+(<code>addRegistrationItem</code>, <code>submitRegistration</code>, and siblings) is labelled inferred and
+never triggered; the site links users out to official Banner instead of ever writing.</p></div>
+</section>
+
+<!-- ───────────────────────── BANNER ───────────────────────── -->
+<section id="banner">
+<h2>Banner field notes</h2>
+<p>Hard-won reverse-engineering detail. Where the historical capture notes disagree with the code, the code
+is authoritative and the discrepancy is called out.</p>
+
+<h3>Term codes</h3>
+<p><code>YYYYMM</code>, where <code>01</code> = Spring, <code>05</code> = Summer, <code>08</code> = Fall.
+Both live code paths — the worker's <code>validTerm</code> and <code>TERM_RE</code> in
+<code>scripts/build_offering_history.py</code> — accept only these three suffixes.</p>
+
+<div class="warn"><span class="lbl">Corrections to the old capture notes</span>
+<p>The claim that <code>06</code> = Summer I and <code>07</code> = Summer II is unsupported by any code
+here; a <code>202606</code> term is rejected with a 400 before it reaches Banner. The
+<code>srcdb: "999999"</code> all-terms sentinel appears nowhere and fails validation. The FOSE details body
+was documented with <code>key</code> and <code>matched</code> fields — the relay returns 400 for either
+extra key. The documented FOSE criteria list omitted <code>crn</code>, which the browser actively uses, and
+included five fields the relay rejects.</p></div>
+
+<h3>Session behavior</h3>
+<p>Offline pullers do the full dance: <code>GET /classSearch/classSearch</code> to mint a cookie, then
+<code>POST /term/search?mode=search</code> with <code>mepCode=COL</code>. The term is <em>sticky on the
+session</em>, which is why a fresh session is created per term and never shared.</p>
+
+<div class="good"><span class="lbl">The single most useful quirk</span>
+<p><code>getFacultyMeetingTimes</code> needs no session at all. The relay calls it cold with only
+<code>term</code>, <code>courseReferenceNumber</code>, and <code>mepCode=COL</code>, no cookie, and the tests
+assert this. It is the one JSON endpoint that works unauthenticated from an arbitrary origin — which is why
+the faculty route can exist at all.</p></div>
+
+<h3>Traps</h3>
+<ul>
+<li><strong><code>mepCode</code> vs <code>txt_campus</code>.</strong> <code>mepCode=COL</code> is the session/tenant selector; <code>txt_campus=COL</code> is the search filter. Not interchangeable.</li>
+<li><strong>Faculty is always empty in search results.</strong> Instructor identity requires a per-CRN call. This is why the relay caps at 12 CRNs and why grade matching needs a SQLite cache.</li>
+<li><strong>Only <code>getFacultyMeetingTimes</code> returns JSON.</strong> Every other Banner detail endpoint returns HTML fragments, so they could not be relayed as-is even if a route existed.</li>
+<li><strong>Numeric fields arrive as decimal strings.</strong> IDs come back with a trailing <code>.0</code>; both the worker and <code>normalize_code</code> strip it. The same contamination appears in the Excel grade spreads.</li>
+<li><strong><code>primaryIndicator</code> is not reliably boolean.</strong> Accepts <code>true</code>, <code>"true"</code>, <code>"yes"</code>, <code>"y"</code>, <code>"1"</code>.</li>
+<li><strong>CRNs are exactly 5 digits.</strong> Hard-coded in two regexes; 4 or 6 digits is a 400.</li>
+<li><strong><code>pageOffset</code> is a row offset, not a page number.</strong> Both pullers use <code>pageMaxSize=500</code>.</li>
+</ul>
+
+<h3>Pagination paranoia, and why</h3>
+<p><code>pull_banner_term_sections.py</code> treats the response envelope as a trust boundary. It verifies
+the echoed offset matches the request, the echoed page size is exactly 500, <code>totalCount</code> never
+changes mid-download, each page returns exactly <code>min(500, total − offset)</code> rows,
+<code>sectionsFetchedCount == totalCount</code>, the final row count equals <code>totalCount</code>, and
+CRNs are unique across the term. A term is written only if every one of those holds, and only via an atomic
+<code>os.replace</code>. That exists because Banner will return a short page or a silently truncated result
+set rather than an error, and will shift <code>totalCount</code> underneath you if the term is being edited.</p>
+
+<h3>Rate limits</h3>
+<p>Banner refuses connections under sustained rapid requests. Observed working settings: 2 worker threads
+per term, 8 concurrent page fetches within a term, exponential backoff at <code>0.5 × 2^attempt</code> over
+4 attempts, 60 s page timeout, 45 s faculty timeout. Both pullers set a descriptive
+<code>User-Agent</code>; the default <code>python-requests</code> value is worth avoiding.
+<code>grade_pipeline.py</code> discards and rebuilds its thread-local session on retry, because a session
+that has started failing usually stays failed.</p>
+
+<h3>Grade spread specifics</h3>
+<p>Join key is <code>SUBJECT</code> + <code>COURSE_NUMBER</code> + <code>COURSE_SECTION_NUMBER</code>
+against Banner's <code>subject</code> + <code>courseNumber</code> + <code>sequenceNumber</code>, with
+sections zero-padded to three characters because Excel stores <code>1</code> where Banner says
+<code>001</code>. <code>_GF</code> columns are grade-forgiveness counts. <code>J60</code>/<code>J50</code>
+are distance sections and usually carry no grades. Public aggregates are suppressed below
+<strong>10 counted grades</strong>.</p>
+</section>
+
+<!-- ───────────────────────── PIPELINE ───────────────────────── -->
+<section id="pipeline">
+<h2>Build pipeline</h2>
+<p>Ordered stages from raw inputs to a published release. Paths are relative to the repository root.</p>
+
+<div class="tablewrap"><table>
+<tr><th>#</th><th>Stage</th><th>Script</th><th>Reads</th><th>Writes</th></tr>
+<tr><td>1</td><td>Catalog scrape</td><td><code>src/scrape_courses.py</code></td><td>Bulletin API</td><td><code>data/generated/course_data.json</code></td></tr>
+<tr><td>2</td><td>Embeddings</td><td><code>src/build_embeddings.py</code></td><td><code>course_data.json</code></td><td><code>static/data/{phrase_embeddings, course_embeddings, pca_params}.json</code></td></tr>
+<tr><td>3</td><td>Carolina Core</td><td><code>scripts/build_carolina_core_catalog.py</code></td><td>Bulletin URL or <code>--input-html</code></td><td><code>static/data/carolina_core_courses.json</code></td></tr>
+<tr><td>4</td><td>Campus buildings</td><td><code>scripts/sync_campus_buildings.py</code></td><td>Concept3D API</td><td><code>static/data/campus_buildings.json</code></td></tr>
+<tr><td>5</td><td>Grades + section cache</td><td><code>src/grade_pipeline.py</code></td><td><code>data/raw/registrar_grades/</code>, Banner</td><td><code>data/generated/grade_analytics.json</code> <strong>and</strong> populates <code>grade_matching_cache.sqlite</code></td></tr>
+<tr><td>6</td><td>Term sections</td><td><code>scripts/pull_banner_term_sections.py</code></td><td>Banner</td><td><code>&lt;out&gt;/&lt;term&gt;.json</code>; raises unless provably complete</td></tr>
+<tr><td>7</td><td>Map import</td><td><code>scripts/import_major_maps.py</code></td><td>USC repo or <code>--inventory</code></td><td><code>data/curated/major_maps/</code>. Needs <code>pdftotext</code>.</td></tr>
+<tr><td>8</td><td>PDF download</td><td><code>scripts/download_major_map_pdfs.py</code></td><td><code>data/curated/major_maps</code></td><td><code>data/raw/major_map_pdfs/</code> + manifest. Needs <code>pdfinfo</code>.</td></tr>
+<tr><td>9</td><td>LLM materialize</td><td><code>scripts/materialize_llm_major_maps.py</code></td><td>Schema, PDF manifest, curated rows</td><td><code>data/interim/major_maps_llm/</code>. Raises on SHA-256 mismatch.</td></tr>
+<tr><td>10</td><td>LLM normalize</td><td><code>scripts/normalize_llm_major_maps.py</code></td><td>Interim tier</td><td>Rewrites in place</td></tr>
+<tr><td>11</td><td>LLM validate</td><td><code>scripts/validate_llm_major_maps.py</code></td><td>Interim, schema, manifest</td><td>stdout; exit 1 on any error</td></tr>
+<tr><td>12</td><td>Map normalize</td><td><code>scripts/normalize_major_maps.py</code></td><td><code>data/curated/major_maps</code></td><td><code>--report</code> (required)</td></tr>
+<tr><td>13</td><td>Map validate</td><td><code>scripts/validate_major_maps.py</code></td><td>Maps dir + active manifest</td><td><code>--json-output</code></td></tr>
+<tr><td>14</td><td><strong>Release build</strong></td><td><code>scripts/build_static_release.py</code></td><td>Grade analytics, cache <em>xor</em> <code>--term-dir</code>, catalog, curated maps</td><td><code>static/data/releases/&lt;id&gt;/</code> + <code>manifest.json</code></td></tr>
+<tr><td>15</td><td><strong>Static site</strong></td><td><code>scripts/build_static_site.py</code></td><td><code>static/</code></td><td><code>dist/client/</code> + <code>dist/server/</code></td></tr>
+</table></div>
+
+<div class="note"><span class="lbl">Stage 14 is one in-process step</span>
+<p><code>build_static_release.py</code> <em>imports</em> the shard builders as functions and calls them
+directly. There is no subprocess orchestration. <code>--release-id</code> is required;
+<code>--history-cache</code> and <code>--term-dir</code> are mutually exclusive and one is mandatory.
+<code>scripts/build_data_manifest.py</code> is <strong>not</strong> part of this — the manifest is built
+inline. It is a standalone recovery path that rescans an existing release tree.</p></div>
+
+<h3>Integrity primitives</h3>
+<p>All in <code>scripts/static_release.py</code>: <code>canonical_json_bytes()</code> (sorted keys, compact
+separators, for reproducible digests), <code>sha256_bytes()</code>, <code>write_immutable_json()</code>
+(content-addresses the filename), <code>verify_artifact()</code> (re-reads and re-hashes), and
+<code>write_manifest_atomic()</code> (mkstemp + fsync + <code>os.replace</code> + directory fsync).
+<strong>The manifest is written last</strong>, which is what makes release activation atomic.</p>
+
+<p>Stage 15 builds into a temp staging directory, copies <code>index.html</code> to both
+<code>client/index.html</code> and <code>404.html</code>, filters forbidden suffixes, substitutes the build
+ID (raising if the placeholder is absent), writes <code>_headers</code> with CSP and immutable cache rules,
+emits the server bundle, re-scans staging for forbidden files, and atomically replaces <code>dist/</code>
+with rollback.</p>
+
+<div class="warn"><span class="lbl">A fresh clone cannot rebuild a full release</span>
+<p><code>data/grade_matching_cache.sqlite</code> is gitignored despite being the default history input for
+stage 14, and it is absent from the working tree. Two recovery routes exist, both requiring live network
+access: rerun <code>src/grade_pipeline.py</code>, which rebuilds the cache as a side effect of stage 5, or
+bypass it with <code>pull_banner_term_sections.py</code> → <code>build_static_release.py --term-dir</code>.
+Neither is a pure-offline rebuild. This is the single largest reproducibility gap in the project.</p></div>
+</section>
+
+<!-- ───────────────────────── MAJOR MAPS ───────────────────────── -->
+<section id="majormaps">
+<h2>Major map extraction</h2>
+
+<p>Extraction converts one official PDF into one JSON document. The model receives exactly four inputs: the
+PDF, its manifest row, <code>schemas/major_map_llm_v1.schema.json</code>, and the prompt below. Exactly one
+result is written per map; filename and <code>map_id</code> must match the manifest, maps are never
+combined, and one map must not influence another.</p>
+
+<div class="grid">
+  <div class="stat"><b>1,295</b><span>PDFs archived</span></div>
+  <div class="stat"><b>10,192</b><span>Ordered terms</span></div>
+  <div class="stat"><b>52,106</b><span>Requirement rows</span></div>
+  <div class="stat"><b>28</b><span>Source gaps</span></div>
+</div>
+
+<p><code>data/generated/major_maps_manifest.json</code> records 1,323 repository rows, 1,295 with an official
+PDF, and 28 recorded as source gaps rather than fabricated. It reports 1,292 of 1,295 maps as
+<code>needs_review</code>, which is <em>intentional</em>: unresolved choice wording and footnote dependencies
+must not be presented as authoritative degree-audit logic.</p>
+
+<h3>Schema contract</h3>
+<p><code>additionalProperties: false</code> at every level. Top-level required keys:
+<code>schema_version</code>, <code>map_id</code>, <code>source</code>, <code>program</code>,
+<code>plan</code>, <code>requirements_outside_plan</code>, <code>footnotes</code>, <code>review</code>.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Object</th><th>Contract</th></tr>
+<tr><td><code>source</code></td><td><code>pdf_path</code>, <code>pdf_url</code>, <code>sha256</code> (<code>^[0-9a-f]{64}$</code>), <code>page_count</code> ≥ 1, <code>catalog_year</code> (<code>^20\d{2}-20\d{2}$</code>). All copied verbatim from the manifest.</td></tr>
+<tr><td><code>plan</code></td><td><code>format</code> ∈ <code>four_year | accelerated | transfer | other</code>; <code>semesters</code> min 1. Each carries <code>number</code>, <code>label</code>, <code>academic_year</code>, <code>term</code>, <code>credits</code>, <code>requirements</code>.</td></tr>
+<tr><td><code>requirement</code></td><td>Twelve required fields. <code>id</code> matches <code>^(semester-[1-9]\d*|outside)-requirement-[1-9]\d*$</code>, structurally enforcing the split between recommended sequence and out-of-sequence. <code>evidence</code> has <code>minItems: 1</code> — every requirement must cite a page.</td></tr>
+<tr><td><code>rule</code></td><td>Recursive <code>oneOf</code> over six variants: <code>course</code>, <code>attribute</code>, <code>elective</code>, <code>unresolved</code>, <code>logicalRule</code> (<code>all_of | any_of | one_of</code>), <code>nOfRule</code>.</td></tr>
+<tr><td><code>creditRange</code></td><td><code>minimum</code> and <code>maximum</code> both <code>["number","null"]</code>. A blank credit cell is <code>null</code>, not zero; a 0-3 range stays 0-3.</td></tr>
+<tr><td><code>review</code></td><td><code>status</code> ∈ <code>ready | needs_review | blocked</code>, <code>confidence</code> 0-1, <code>issues</code>, <code>summary</code>.</td></tr>
+</table></div>
+
+<h3>Validation gates</h3>
+<p>Four layers, in order. <code>normalize_llm_major_maps.py</code> canonicalizes in place and raises on the
+first schema violation. <code>validate_llm_major_maps.py --require-complete</code> checks every file against
+both schema and source manifest. <code>materialize_llm_major_maps.py</code> raises on PDF SHA-256 mismatch,
+so a record can never drift from the document it claims to describe.
+<code>validate_major_maps.py</code> cross-checks course codes against the active catalog release — the last
+run checked 26,765 codes, matched 25,638, and left 1,127 as historical-or-unmatched with 0 blocking
+errors.</p>
+
+<h3>Review policy</h3>
+<p><code>ready</code> only when all published semesters are present, credit totals are internally consistent
+or explained, every requirement has evidence, and no unresolved logic affects degree progress.
+<code>needs_review</code> when any wording, footnote, course number, or credit value is uncertain.
+<code>blocked</code> when pages are missing or unreadable, or program identity cannot be established.
+<strong>The JSON is an extraction artifact, not an authoritative audit — the official PDF remains the source
+of truth.</strong></p>
+
+<h3>Extraction prompt</h3>
+<blockquote>
+<p>You are converting one official University of South Carolina major-map PDF into a single JSON document.
+Return JSON only. The result must validate against <code>schemas/major_map_llm_v1.schema.json</code>.</p>
+<p>You will receive the PDF and one manifest record. Copy <code>map_id</code>, <code>catalog_year</code>,
+<code>pdf_path</code>, <code>pdf_url</code>, <code>sha256</code>, and <code>page_count</code> from the
+manifest exactly. Extract information only from the supplied PDF. Do not use knowledge from other programs,
+catalogs, websites, or earlier documents.</p>
+<p>Preserve the published semester order and every curriculum requirement. Each requirement must contain the
+cleaned display label, the original source wording, its credit range, critical-course marker, minimum grade,
+requirement codes, a normalized rule, confidence, review flags, and at least one evidence quote with a
+one-based PDF page number.</p>
+<p>Represent logic exactly. Use <code>course</code> for one explicit course. Use <code>all_of</code> only
+when all children are required. Use <code>one_of</code> when exactly one alternative must be chosen. Use
+<code>any_of</code> when the source permits one or more alternatives without an exact count. Use
+<code>n_of</code> when the source states a number or range of selections. Use <code>attribute</code> for
+Carolina Core or another coded attribute. Use <code>elective</code> only when the PDF defines an elective
+category or filter. Use <code>unresolved</code> when the wording cannot be represented without guessing.</p>
+<p>Never turn a general label such as elective, major course, cognate, minor course, Carolina Core
+requirement, or approved course into a specific course unless the PDF explicitly identifies the allowed
+course. Never infer prerequisites or corequisites from subject knowledge. Extract them only when the PDF or
+its footnotes state them. Do not convert a slash, comma, plus sign, or the word "or" into a logical
+relationship without reading the entire row and relevant footnotes.</p>
+<p>Footnote numbers attached to labels are markers, not part of course titles. Remove the marker from the
+normalized label, preserve the full footnote separately, and list the requirement identifiers to which it
+applies. Preserve credit ranges exactly. A blank credit cell becomes <code>null</code>, not zero. A
+zero-to-three range remains zero to three.</p>
+<p>Concentrations must be explicit. If the map has no concentration, return an empty array. Do not create a
+concentration named "None." When a document contains several pathways, retain every explicitly named pathway
+and identify uncertainty in the review section.</p>
+<p>Set requirement confidence between zero and one according to the clarity of the PDF. Confidence below
+0.90 requires at least one review flag. Add a review issue whenever the extraction depends on ambiguous
+layout, broken text, an unreadable symbol, an unresolved footnote, inconsistent totals, or uncertain program
+metadata.</p>
+<p>Before returning the JSON, verify that semester numbers are ordered, identifiers are unique, every
+evidence page is within the source page count, minimum credits do not exceed maximum credits, logical groups
+are not empty, and the review status reflects all unresolved issues. Return no prose, Markdown, or code
+fence around the JSON.</p>
+</blockquote>
+</section>
+
+<!-- ───────────────────────── SHIPPED ───────────────────────── -->
+<section id="shipped">
+<h2>Shipped features</h2>
+<p>Each verified against a specific implementation rather than a claim. This supersedes the three historical
+TODO files, whose own status lines had drifted well out of date.</p>
+
+<h3>Search and discovery</h3>
+<ul>
+<li><span class="tag t-ship">Ship</span>Subject codes, exact courses, ranges, wildcards, CRNs, and scoped natural-language queries — <code>search.js</code> <code>doSearch</code>, with a syntax guide in the UI</li>
+<li><span class="tag t-ship">Ship</span>Level shorthand such as <code>EMCH 500+</code> and <code>CSCE 5xx</code> — <code>parseStandaloneCourseScope</code></li>
+<li><span class="tag t-ship">Ship</span>Semantic search warming in the background on first visit; expanded sources show the phrases used and per-source result counts</li>
+<li><span class="tag t-ship">Ship</span>Prerequisite status badge on result cards — <code>CAN TAKE</code> / <code>PREREQS NEEDED</code> with a missing-course tooltip</li>
+<li><span class="tag t-ship">Ship</span>Full filter suite: delivery method, part of term, course attribute, honors, meeting pattern, class size, seats available, Carolina Core</li>
+</ul>
+
+<h3>Course intelligence</h3>
+<ul>
+<li><span class="tag t-ship">Ship</span>Two-panel workspace with a drag- and keyboard-resizable divider</li>
+<li><span class="tag t-ship">Ship</span>Prerequisite tree with met/missing coloring and corequisites as companion branches — <code>prereqs.js</code></li>
+<li><span class="tag t-ship">Ship</span>Historical grade distributions split by professor, queried once and cached — <code>grades.js</code></li>
+<li><span class="tag t-ship">Ship</span>Professor profiles: contact, courses taught, semesters on record, typical annual load, GPA by year</li>
+<li><span class="tag t-ship">Ship</span>Offering history with frequency percentage and per-term enrollment detail — <code>history.js</code></li>
+<li><span class="tag t-ship">Ship</span>Resource workspace: official class details, bookstore materials, bulletin, two-step syllabus archive flow, faculty directory</li>
+</ul>
+
+<h3>Scheduling</h3>
+<ul>
+<li><span class="tag t-ship">Ship</span>Weekly calendar with colored blocks, auto-expanding to a 7-day view when a section meets on a weekend — <code>calendar.js</code></li>
+<li><span class="tag t-ship">Ship</span>Section pinning constraining plan generation — locks honored by the solver</li>
+<li><span class="tag t-ship">Ship</span>Campus map with walking routes, and a minimum-walking-buffer constraint enforced in <code>solver-core.js</code></li>
+<li><span class="tag t-ship">Ship</span>Registration handoff with section-specific checks and per-CRN copy actions</li>
+<li><span class="tag t-ship">Ship</span>Preference-based ranking: preferred start/end times, gap penalty, day compactness, consecutive-class penalty, preferred and avoided instructors, plus an avoid-time-blocks grid</li>
+</ul>
+
+<h3>Degree planning</h3>
+<ul>
+<li><span class="tag t-ship">Ship</span>Four-step degree wizard — <code>degree-wizard.js</code></li>
+<li><span class="tag t-ship">Ship</span>1,295 official major maps with catalog year, semester order, credit ranges, Carolina Core requirements, and a source-PDF link</li>
+<li><span class="tag t-ship">Ship</span>PDF transcript parsing in a worker — <code>transcript-pdf.js</code>, <code>runtime/transcript-parser.js</code></li>
+<li><span class="tag t-ship">Ship</span>Custom major map builder — <code>custom-major-map.js</code></li>
+<li><span class="tag t-ship">Ship</span>Future terms excluded from availability math</li>
+</ul>
+</section>
+
+<!-- ───────────────────────── OPEN ───────────────────────── -->
+<section id="open">
+<h2>Open design work</h2>
+<p>Preserved from the historical design notes, with the author's specific intent kept intact. Anything the
+code proved already built has been moved to the previous section, and anything the code contradicted is in
+Known issues.</p>
+
+<h3>Not built</h3>
+<ul>
+<li><span class="tag t-open">Open</span><strong>Seat availability alerts.</strong> No watch, notify, waitlist, or subscription code exists anywhere.</li>
+<li><span class="tag t-open">Open</span><strong>Enrollment broken out by section modality.</strong> Per-term enrollment, capacity, and fill rate render today, but not the requested split across online, hybrid, face-to-face, and honors.</li>
+<li><span class="tag t-open">Open</span><strong>Offering history covering two future semesters.</strong> Only the exclusion half shipped — future terms are dropped outright rather than shown while being excluded from the availability percentage.</li>
+<li><span class="tag t-open">Open</span><strong>Instructor-name search.</strong> A query like <code>Deng</code> returning that instructor's sections. No instructor branch exists in <code>doSearch</code>.</li>
+<li><span class="tag t-open">Open</span><strong>Results header showing section count</strong> — <code>24 courses (167 total sections)</code>. Only the course count renders.</li>
+<li><span class="tag t-open">Open</span><strong>HOME / landing dashboard</strong> — recently viewed courses, current schedule summary, degree progress.</li>
+<li><span class="tag t-open">Open</span><strong>PROFILE page.</strong> <code>profile.js</code> exists but drives the degree wizard's controls; there is no PROFILE tab.</li>
+<li><span class="tag t-open">Open</span><strong>Error, empty, and onboarding states.</strong> What a student sees on no results, API down, stale data, or first visit with nothing entered.</li>
+<li><span class="tag t-open">Open</span><strong>Accessibility.</strong> Keyboard navigation, screen reader support, and color-blind-safe alternatives to any color-coded status system.</li>
+</ul>
+
+<h3>Specified in detail, not implemented</h3>
+<ul>
+<li><span class="tag t-open">Open</span><strong>Section status dots.</strong> Green = seats available, no conflicts, prereqs met; yellow = low seats or minor issue; red = full, conflict, or prereqs unmet; gray = no profile so status unknown. Hover or tap expands to a brief explanation — <em>"Section full (0 seats)"</em>, <em>"Conflicts with CSCE 350 (MWF 10:00-10:50)"</em>, <em>"Missing prereq: EMCH 201"</em>. A section with more than one issue shows the worst color and reads only <em>"Multiple issues"</em>, forcing a click through rather than an overwhelming tooltip. Dots update live as courses are added or removed. The note proposed brand accents then wondered whether traffic-light colors would be clearer, and never decided.</li>
+<li><span class="tag t-open">Open</span><strong>Advanced Search as a three-panel mode.</strong> Panel 1 wide (search plus every filter stacked vertically, <code>[BACK]</code> bottom-left), Panel 2 thin (results), Panel 3 wide (details). My Courses hidden; clicking <code>[+]</code> adds the course without kicking the student out. Shipped instead: a modal filter panel.</li>
+<li><span class="tag t-open">Open</span><strong>My Courses as a compact horizontal strip.</strong> Header <em>"MY COURSES (5)"</em> with the count in parentheses and total credits right-aligned; tags showing only the course code and a small ✕, wrapping horizontally, each colored to match that course's calendar block. Visible only in the schedule state. Shipped instead: a vertical list with <code>REMOVE</code> buttons and no color matching.</li>
+<li><span class="tag t-open">Open</span><strong>Plan navigator bar</strong> — <code>SCHEDULE ◄ [1] of 23 ► [APPLY]</code>. The <code>[1]</code> is an <em>editable field</em> so a student can jump directly, which matters with hundreds of plans. Plan 1 is always the student's manual picks. Shipped instead: a scrollable card list with <code>SHOW MORE</code>.</li>
+<li><span class="tag t-open">Open</span><strong>Preview vs applied semantics.</strong> Navigating away while previewing should snap back to the applied plan; adding a course while previewing should add it to the <em>applied</em> plan. Preview block styling exists; these rules do not.</li>
+<li><span class="tag t-open">Open</span><strong>Preview mode indicator.</strong> Three options were offered and left to implementation: a grid background tint, a banner reading <em>"Previewing Plan 3 — click Apply to use this schedule"</em>, or a prominent <code>[APPLY]</code>.</li>
+<li><span class="tag t-open">Open</span><strong>Lock icon on pinned blocks</strong>, optionally with a thicker border or solid fill, so it is obvious which courses are fixed when cycling plans.</li>
+<li><span class="tag t-open">Open</span><strong>Grid block popup actions</strong> — course code and section, instructor and meeting time, then <em>Fix Section</em> (toggling to <em>Unfix</em>), <em>View Details</em>, <em>Remove</em>. Shipped instead: a large modal with no fix or remove actions.</li>
+<li><span class="tag t-open">Open</span><strong>Collapsed-by-default course description and More Info</strong>, each behind a chevron.</li>
+<li><span class="tag t-open">Open</span><strong>Condensed offering-history summary.</strong> A ⚠ next to the header when a course is offered under roughly half the time, meaning <em>"Rare — take it when you can"</em>; a summary line <code>Typically: Fall only | 3 of 16 terms (19%)</code>; a last-offered line; and a <em>Show full history</em> expander.</li>
+<li><span class="tag t-open">Open</span><strong>Delivery method in the title bar only when not face-to-face</strong>, since face-to-face is the assumed default.</li>
+</ul>
+</section>
+
+<!-- ───────────────────────── ISSUES ───────────────────────── -->
+<section id="issues">
+<h2>Known issues</h2>
+
+<h3>Resolved defects</h3>
+<p>Four defects were found while verifying this manual and have since been fixed. They are recorded because
+each was invisible from normal use, and the shapes are worth recognising again.</p>
+
+<div class="good"><span class="lbl">Fixed — export.js was entirely unreachable</span>
+<p><code>static/js/export.js</code> was loaded and <code>Export.init()</code> ran, but <strong>all nine</strong>
+element ids it binds were absent from <code>index.html</code>. Every <code>getElementById</code> returned
+null and every binding was silently skipped, so a complete ICS calendar export plus plan save, load, delete,
+and JSON import/export — 213 lines of working code with its CSS already written — had no way to be invoked.
+The controls now live in the schedule tab: an <strong>Export Calendar</strong> button beside Registration
+Info, and a collapsible <strong>Saved Plans</strong> panel. The vestigial
+<code>btn-export-quick</code> lookup, a duplicate of <code>btn-export</code>, was removed rather than given
+invented UI. <code>tests/test_export_wiring.js</code> now asserts that every id
+<code>Export</code> looks up resolves in <code>index.html</code> and receives a handler, so this cannot
+silently rot again.</p></div>
+
+<div class="good"><span class="lbl">Fixed — carolina-core.js missing from the precache</span>
+<p>It was the only <code>index.html</code> script absent from <code>SHELL_ASSETS</code>. It worked online,
+because the fetch handler matches any <code>/static/js/</code> path with stale-while-revalidate, but the
+Carolina Core requirement picker failed on a cold offline start. It is now precached, and a sweep confirmed
+no other script is missing.</p></div>
+
+<div class="good"><span class="lbl">Fixed — credentials sent on cross-origin bulletin calls</span>
+<p><code>live-university-client.js</code> set <code>credentials: 'include'</code> unconditionally, including
+on direct cross-origin calls to <code>academicbulletins.sc.edu</code>. With <code>mode: 'cors'</code> that
+obliges the upstream to answer with both <code>Access-Control-Allow-Credentials: true</code> and a specific
+non-wildcard origin; a wildcard makes the browser reject the response, silently degrading bulletin lookups to
+the static catalog. Credentials are now sent only when the endpoint is same-origin. Relative endpoints count
+as same-origin, absolute ones must match the configured origin, and an unknown origin is treated as
+cross-origin because that is the safer default.</p></div>
+
+<div class="good"><span class="lbl">Fixed — calendar course colors</span>
+<p>Course blocks drew from <code>['#73000A', '#1a4a8a', '#2e7d32', …]</code> — garnet first, then off-brand
+Material entries. Assignment now follows the documented order: Atlantic, Congaree, Horseshoe, Rose,
+Honeycomb, then Warm Grey for the sixth course and beyond. Garnet is no longer reachable as a course color.
+Note the change from modulo cycling to a fixed overflow color: a seventh course now shares Warm Grey with the
+sixth rather than wrapping back to Atlantic and colliding with the first.</p></div>
+
+<h3>Inconsistencies worth resolving</h3>
+<ul>
+<li><strong>CSP drift within one file.</strong> The worker header block omits <code>banner.onecarolina.sc.edu</code> from <code>connect-src</code>; the <code>_headers</code> block includes it. The worker runs first and its headers win, so the <code>_headers</code> entry is stale and grants a permission no browser code uses.</li>
+<li><strong><code>build_data_manifest.py</code> duplicates the integrity primitive</strong> with a raw <code>hashlib</code> call instead of importing <code>static_release.sha256_bytes</code>. Harmless today; a second implementation of the thing that guarantees correctness is worth collapsing.</li>
+<li><strong><code>build_embeddings.py</code> documents an output it never writes</strong> — the docstring advertises <code>word_embeddings.json</code>, which no constant produces.</li>
+<li><strong><code>planner.py</code>'s local map loader is stale.</strong> It does a flat <code>os.listdir</code> over its maps directory, but maps have lived in catalog-year subdirectories for some time, so it finds nothing. Left unchanged rather than modified inside a parity oracle.</li>
+<li><strong>Manual cache-busting query strings</strong> on several <code>&lt;script&gt;</code> tags are hand-maintained and will silently go stale, unlike the build-generated service worker <code>BUILD_ID</code>.</li>
+</ul>
+
+<h3>Design notes that the code contradicts</h3>
+<ul>
+<li><span class="tag t-stale">Stale</span><strong>Preference-based ranking was recorded as "explicitly removed from scope."</strong> The solver implements it in full, with a preferences modal and an avoid-times grid. The code is the reliable witness; the note is stale.</li>
+<li><span class="tag t-stale">Stale</span><strong>Mobile and tablet layout listed as open.</strong> It was in fact decided against — the product renders a "Desktop browser required" gate at 720px and below.</li>
+<li><span class="tag t-stale">Stale</span><strong>Navigation structure.</strong> The notes documented tabs as <code>HOME | DEGREE PLAN | BROWSE | SCHEDULE | PROFILE | EXPORT</code> and recommended collapsing them. Shipped is a third structure entirely: <code>SEARCH | DEGREE PLAN | SCHEDULE</code>. Both lists in the notes were inaccurate, and "the Browse tab" no longer exists under that name.</li>
+<li><span class="tag t-stale">Stale</span><strong>"All features are built."</strong> Directly contradicted by the same document's own nine-item remaining-work list.</li>
+<li><span class="tag t-stale">Stale</span><strong><code>[+]</code> / <code>[╳]</code> button vocabulary.</strong> The notes carry a self-correction about which symbol appears on conflicting sections. The shipped UI uses neither — it uses <code>ADD</code>/<code>REMOVE</code> text and a section dropdown — so the correction is moot.</li>
+</ul>
+</section>
+
+<!-- ───────────────────────── CONVENTIONS ───────────────────────── -->
+<section id="conventions">
+<h2>Conventions</h2>
+
+<h3>Things whose names are load-bearing</h3>
+<ul>
+<li><strong><code>static/</code></strong> — every asset URL in <code>index.html</code>, the service worker precache, and 31 JS modules is an absolute <code>/static/…</code> path, and the release manifest bakes the prefix into all 509 artifact URLs. Renaming means a full release rebuild and a service-worker cache invalidation for every existing visitor.</li>
+<li><strong><code>scripts/</code></strong> — <code>from scripts.X import Y</code> appears in eight files plus tests, via <code>scripts/__init__.py</code>.</li>
+<li><strong><code>tests/</code></strong> — <code>pyproject.toml</code> sets <code>testpaths = ["tests"]</code>, and two JS suites resolve paths from the repository root.</li>
+</ul>
+
+<h3>Colors</h3>
+<p>Garnet <code>#73000A</code> is reserved for application chrome and must not be used as a per-course
+identifier. Course colors are assigned in order: Atlantic <code>#466A9F</code>, Congaree
+<code>#1F414D</code>, Horseshoe <code>#65780B</code>, Rose <code>#CC2E40</code>, Honeycomb
+<code>#A49137</code>, then Warm Grey <code>#676156</code> for the sixth and beyond. No rounded corners on
+any figure or interface element. High contrast throughout.</p>
+
+<h3>Repository weight</h3>
+<p>Everything stays in version control, raw inputs and generated output alike. The working tree is roughly
+740&nbsp;MB and the pack around 240&nbsp;MB. No single file approaches the 100&nbsp;MB hard limit — the
+largest is <code>grade_analytics.json</code> at 22&nbsp;MB — so nothing is at risk of rejection.</p>
+<p>Consumers who do not need the data tree can use
+<code>git clone --filter=blob:none</code> or
+<code>git sparse-checkout set static src scripts tests docs</code>. Prefer
+<code>rebuild_major_map_release.py</code> over full rebuilds where possible: it carries unchanged artifacts
+forward by copy, so identical content re-hashes to identical filenames and git stores nothing new. Full
+release builds are what grow the pack.</p>
+</section>
+
+<hr>
+<p style="color:var(--muted);font-size:13px">Generated from the verified working tree. Figures — 509
+artifacts, 39,466,931 bytes, 1,295 maps, 101 Python and 238 JavaScript tests — were measured, not carried
+forward from prose. Line-specific references should be re-checked after any restructuring.</p>
+</main>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+
+  // scroll spy
+  function spy(){
+    var y=window.scrollY+120,cur=0;
+    secs.forEach(function(s,i){ if(s&&s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on',i===cur); });
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+
+  // section filter
+  var q=document.getElementById('q');
+  q.addEventListener('input',function(){
+    var t=q.value.trim().toLowerCase();
+    links.forEach(function(a,i){
+      var s=secs[i];
+      var hit=!t || a.textContent.toLowerCase().indexOf(t)>-1 ||
+              (s && s.textContent.toLowerCase().indexOf(t)>-1);
+      a.classList.toggle('hide',!hit);
+      if(s) s.classList.toggle('hide',!!t && !hit);
+    });
+  });
+
+  // theme
+  var btn=document.getElementById('themeBtn');
+  btn.addEventListener('click',function(){
+    var r=document.documentElement;
+    var dark=r.getAttribute('data-theme')==='dark' ||
+      (!r.getAttribute('data-theme') && matchMedia('(prefers-color-scheme:dark)').matches);
+    r.setAttribute('data-theme',dark?'light':'dark');
+  });
+})();
+</script>
+</body>
+</html>

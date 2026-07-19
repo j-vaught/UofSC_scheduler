@@ -3,11 +3,9 @@ const Export = {
     DAY_MAP: { 0: 'MO', 1: 'TU', 2: 'WE', 3: 'TH', 4: 'FR', 5: 'SA', 6: 'SU' },
 
     init() {
-        // ICS export buttons (main + quick)
+        // ICS export
         const btnExport = document.getElementById('btn-export');
         if (btnExport) btnExport.addEventListener('click', () => this.exportICS());
-        const btnQuick = document.getElementById('btn-export-quick');
-        if (btnQuick) btnQuick.addEventListener('click', () => this.exportICS());
 
         // Plan save/load/delete
         const btnSave = document.getElementById('btn-save-plan');

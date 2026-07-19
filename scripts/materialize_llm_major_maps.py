@@ -16,9 +16,9 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas/major_map_llm_v1.schema.json"
-MANIFEST_PATH = ROOT / "data/maps/source_pdfs/manifest.json"
-IMPORTED_ROOT = ROOT / "data/maps/imported"
-OUTPUT_ROOT = ROOT / "data/maps/llm_output"
+MANIFEST_PATH = ROOT / "data/raw/major_map_pdfs/manifest.json"
+IMPORTED_ROOT = ROOT / "data/curated/major_maps"
+OUTPUT_ROOT = ROOT / "data/interim/major_maps_llm"
 
 COURSE_RE = re.compile(r"^([A-Z]{2,5})\s+([0-9]{3}[A-Z]?)$")
 FOOTNOTE_RE = re.compile(r"(?:[a-z)]|Requirement|Elective|Course)([0-9]{1,2})$")

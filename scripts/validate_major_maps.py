@@ -1134,7 +1134,7 @@ def summary_text(report: dict[str, Any]) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--maps-dir", type=Path, default=Path("data/maps"))
+    parser.add_argument("--maps-dir", type=Path, default=Path("data/curated/major_maps"))
     parser.add_argument("--static-data-dir", type=Path, default=Path("static/data"))
     parser.add_argument(
         "--json-output",

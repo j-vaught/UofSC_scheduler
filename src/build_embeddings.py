@@ -20,7 +20,9 @@ import re
 import numpy as np
 from collections import Counter
 
-INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "course_data.json")
+INPUT = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "data", "generated", "course_data.json"
+)
 PHRASE_OUT = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "static", "data", "phrase_embeddings.json"
 )

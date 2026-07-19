@@ -22,13 +22,17 @@ function pythonResult(moduleName, functionName, args = [], kwargs = {}) {
         'result = function(*payload["args"], **payload["kwargs"])',
         'print(json.dumps(result, sort_keys=True))',
     ].join('\n');
-    const process = childProcess.spawnSync(PYTHON, ['-c', script], {
+    // python -c puts cwd on sys.path, not src/. Without PYTHONPATH the reference
+    // modules are unimportable and the failure surfaces only as a status assert.
+    const childEnv = { ...process.env, PYTHONPATH: path.join(ROOT, 'src') };
+    const result = childProcess.spawnSync(PYTHON, ['-c', script], {
         cwd: ROOT,
         input: JSON.stringify({ args, kwargs }),
         encoding: 'utf8',
+        env: childEnv,
     });
-    assert.equal(process.status, 0, process.stderr);
-    return JSON.parse(process.stdout);
+    assert.equal(result.status, 0, result.stderr);
+    return JSON.parse(result.stdout);
 }
 
 function loadWorker(relativePath) {

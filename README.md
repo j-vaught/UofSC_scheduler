@@ -64,108 +64,24 @@ The degree planner guides students through program selection, prior coursework, 
 
 The screenshots show a Fall 2026 desktop session captured from the deployed site. Live sections, seats, instructors, and restrictions can change after capture.
 
-## Static Build
+## Documentation
 
-Install [uv](https://docs.astral.sh/uv/), clone the repository, and build the static distribution.
+Everything technical lives in one place: **[docs/manual.html](docs/manual.html)** — architecture, the
+relay contract, Banner field notes, the fifteen-stage build pipeline, the major-map schema and extraction
+prompt, the feature roadmap, and known issues. Open it in a browser.
+
+## Quick Start
 
 ```bash
 git clone https://github.com/j-vaught/UofSC_scheduler.git
 cd UofSC_scheduler
 uv sync
 uv run python scripts/build_static_site.py
-```
-
-The generated `dist/client/` directory contains the browser application. Any ordinary static host can serve that directory from the domain root, but live course search, section details, and current faculty identities require the generated managed-host entry point in `dist/server/index.js`. That entry point serves assets and exposes only three fixed read-only relay operations. A local file server remains sufficient for testing browser-local features and static data.
-
-```bash
 uv run python -m http.server 8766 --directory dist/client
 ```
 
-Open `http://127.0.0.1:8766` in a desktop browser. The Python process in this command only serves files during local testing. It is not part of the deployed application.
-
-The older comparison runtime remains available with `uv run python app.py`. It is useful for parity checks and local live-data testing, but it is not required by the static application shell, workers, solver, historical data, or degree planner.
-
-## Live University Data
-
-The University APIs work inside University-owned pages because those pages share an origin with the APIs. A separately hosted scheduler is a cross-origin caller. Managed deployment therefore uses same-origin `POST /api/search`, `POST /api/details`, and `POST /api/faculty` routes. The hosting runtime forwards only validated course-search, Course Reference Number detail, and bounded faculty requests to fixed upstream addresses. It returns fresh JSON without forwarding visitor cookies or upstream response headers.
-
-The live client coalesces duplicate requests, limits concurrency, applies short freshness windows, and supports cancellation. Current faculty records use a privacy-safe hash of the University's stable faculty identifier. Email is normalized and displayed as corroborating contact information, while a unique token-bounded name match remains the conservative fallback when no stable identifier is available. If the relay or upstream service is unavailable, the interface labels live availability as unavailable and continues with verified static catalog, grade, and offering data. It never reports an unverified course as closed or not offered.
-
-## Browser Data and Caching
-
-The active release is described by `static/data/manifest.json`. It currently covers 168 catalog subjects, 9,732 courses, 26 completed terms, 168 Columbia offering-history subject shards, 4,605 publishable course-grade records, 6,442 professor aggregates, and 1,295 official major-map documents spanning the 2020-2021 through 2026-2027 catalog years. Major maps are indexed compactly and loaded in catalog-year bundles, so selecting a map does not download the complete archive.
-
-The service worker caches the application shell and content-hashed artifacts. Cache Storage retains immutable files. IndexedDB stores release metadata and fallback records. Local storage retains user-owned plans, pane sizes, collapsed panels, and preferences. A page refresh revalidates the manifest and current live requests while preserving the selected search, course, section, and detail tab in the URL.
-
-The official registrar workbooks remain unchanged in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data`. Generated public artifacts suppress aggregates with fewer than ten counted grades. Banner identifiers, source email addresses, and the private matching database are excluded from the static release.
-
-Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded. Team-taught sections remain labeled because section-level outcomes cannot be attributed to one instructor independently.
-
-## Release Generation
-
-The one-time migration and periodic release flow are shown below. Python remains an offline build tool for pulling source data, matching registrar records, generating embeddings, validating privacy, and publishing content-hashed releases. No visitor executes that Python code.
-
-![One-time browser migration and periodic static-data generation](docs/diagrams/data_generation_workflow.png)
-
-Completed-term section data is pulled once and reused for grade matching, professor summaries, enrollment statistics, capacity, and offering history. Catalog records and embeddings regenerate only when bulletin text or the model changes. Campus aliases, curriculum maps, and notices update independently. Immutable artifacts publish before the small mutable manifest so browsers never activate a partial release.
-
-Major maps are imported offline from the official repository PDFs. The importer preserves PDF provenance and the recommended semester sequence, produces conservative planner-compatible fields, and records ambiguous requirements for review instead of fabricating course choices. The standalone validator checks identifiers, catalog years, credits, semester ordering, source integrity metadata, duplicate records, and course-code coverage against the active catalog. Coverage and source gaps are summarized in `data/major_maps_manifest.json`.
-
-The complete local source archive and the model-assisted extraction contract are documented in [Major Map Processing Package](docs/major_maps/README.md). Each of the 1,295 available official maps has a stable PDF path under `data/maps/source_pdfs/`, a manifest row with its SHA-256 digest and page count, and a prescribed one-file JSON destination. The package includes a strict JSON Schema, an evidence-based extraction prompt, and a validator that cross-checks every result against the source manifest.
-
-The complete architecture, current file tree, cache policy, deployment dependency, and release cadence are documented in [Browser-First Architecture](docs/ARCHITECTURE.md).
-
-![Current browser-first static architecture](docs/diagrams/browser_first_architecture.png)
-
-## Quality Checks
-
-Run the full formatting, linting, type, Python, JavaScript, static-build, and integrity checks locally.
-
-```bash
-uv sync
-uv run ruff format .
-uv run ruff check . --fix
-uv run ty check .
-uv run pytest -q
-node --test tests/*.js
-uv run python scripts/build_static_site.py
-```
-
-The current release passes 73 Python tests and 190 JavaScript tests. The builder validates every manifest byte count and SHA-256 digest, rejects representative data by default, excludes application processes and databases from `dist/`, and emits deployment security and cache headers. Production relay verification loads live search results, section details, and stable current-faculty identities while rejecting cross-origin and unsupported-method requests.
-
-## Application Structure
-
-```text
-static/
-├── index.html                     Browser application shell.
-├── service-worker.js              Offline shell and immutable-data cache.
-├── css/                           Search, schedule, grade, map, and modal styles.
-├── js/
-│   ├── api.js                     Static data boundary and legacy comparison switch.
-│   ├── live-university-client.js  Bounded current-term relay client.
-│   ├── data-store.js              Manifest, integrity, Cache Storage, and IndexedDB.
-│   ├── solver-core.js             Browser-safe semester solver.
-│   ├── solver-worker.js           Schedule-generation worker.
-│   ├── runtime/                    Transcript, degree, and offering-analysis cores.
-│   └── workers/                    Transcript, degree, and offering-analysis workers.
-└── data/
-    ├── manifest.json              Mutable active-release pointer.
-    ├── releases/                  Immutable catalog, grade, history, and major-map shards.
-    ├── course_embeddings.json     Browser semantic-search data.
-    ├── phrase_embeddings.json     Generated search phrases.
-    ├── pca_params.json            Search projection parameters.
-    ├── campus_buildings.json      Campus aliases and coordinates.
-    └── site_notices.json          Static maintenance and action banners.
-
-scripts/                           Offline release and static-site builders.
-data/maps/imported/                Reviewed JSON projections of official major-map PDFs.
-data/major_maps_manifest.json      Archive coverage and validation summary.
-tests/                             Python and JavaScript parity and regression checks.
-dist/client/                       Generated static deployment directory.
-dist/server/index.js               Managed asset server and fixed live-data relay.
-app.py                             Optional legacy comparison runtime.
-grade_pipeline.py                  Offline registrar and section matching pipeline.
-```
+Then open `http://127.0.0.1:8766`. It must be served from a domain root on `localhost` rather than
+`file://`; the manual explains why. Tests are `uv run pytest -q` and `node --test tests/*.js`.
 
 ## Site Notices
 
