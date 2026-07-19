@@ -44,7 +44,10 @@ const TranscriptImport = {
     },
 
     persist() {
-        State.savePlan();
+        // Not savePlan(): that snapshots the whole application state over the
+        // student's saved plan, so importing a transcript destroyed the schedule
+        // stored under that name. An import only learns coursework.
+        State.saveCompletedCoursework();
     },
 
     async apply({ result, mode, level }) {
