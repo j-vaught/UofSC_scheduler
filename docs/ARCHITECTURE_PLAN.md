@@ -541,6 +541,18 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 
 ---
 
+> **Status 2026-07-19: the contract spine has landed.** `contracts/wire/fose-v1.json`
+> exists and is enforced by `tests/test_wire_contract.js`, which builds the relay and
+> runs it against the contract's own examples, and by `tests/test_wire_contract.py`,
+> which pins the Python side. Verified to catch drift by altering the contract and
+> observing failure. Constraint 6 is met for the request grammar: a term-format change
+> is now one edit plus mechanical follower updates.
+>
+> **Still outstanding in this phase:** the `platform/university/` firewall itself --
+> domain types, codecs, and replacing the leak sites file by file. That is the bulk of
+> the six-to-eight-week estimate. The contract was done first because it is what the
+> firewall would be built against, and because it delivers on its own.
+
 ### Phase 6 — The wire contract and the firewall. Six to eight weeks. Constraint 6 lands here.
 
 **Scope.** Create `contracts/wire/fose-v1.json` from the verified relay routes. Generate `validateSearchPayload` and the response guard from it; point `scripts/lib/wire_contract.py` at it. Create `platform/university/` with `domain/term.js`, `domain/query.js`, `domain/section.js`, the three codecs and golden fixtures.
