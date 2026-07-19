@@ -197,6 +197,18 @@
                         <button id="btn-search" class="btn-garnet">SEARCH</button>
                     </div>
                     <p id="search-input-error" class="search-input-error hidden" role="alert"></p>
+                    <div class="browse-search-examples" aria-label="Search examples">
+                        <span>Try</span>
+                        <div class="regular-search-examples">
+                            <button type="button" data-search-example="Machine Learning">Machine Learning</button>
+                            <button type="button" data-search-example="CSCE 145">CSCE 145</button>
+                            <button type="button" data-search-example="Computer Science">Computer Science</button>
+                            <button type="button" data-search-example="CSCE 500+">CSCE 500+</button>
+                            <button type="button" data-search-example="CSCE 5xx">CSCE 5xx</button>
+                            <button type="button" data-search-example="CSCE 140-199">CSCE 140-199</button>
+                            <button type="button" id="search-syntax-open" class="search-helper-link" aria-haspopup="dialog" aria-controls="filter-panel">Syntax examples</button>
+                        </div>
+                    </div>
                     <div class="search-planning-paths" id="search-planning-paths" aria-label="Planning tools">
                         <button type="button" class="search-planning-card" id="search-degree-btn">
                             <span class="search-planning-kicker">LONG-TERM ROADMAP</span>
@@ -210,18 +222,6 @@
                             <span>Choose courses and generate schedules that fit your preferences.</span>
                             <i aria-hidden="true">&rarr;</i>
                         </button>
-                    </div>
-                    <div class="browse-search-examples" aria-label="Search examples">
-                        <span>Try</span>
-                        <div class="regular-search-examples">
-                            <button type="button" data-search-example="Machine Learning">Machine Learning</button>
-                            <button type="button" data-search-example="CSCE 145">CSCE 145</button>
-                            <button type="button" data-search-example="Computer Science">Computer Science</button>
-                            <button type="button" data-search-example="CSCE 500+">CSCE 500+</button>
-                            <button type="button" data-search-example="CSCE 5xx">CSCE 5xx</button>
-                            <button type="button" data-search-example="CSCE 140-199">CSCE 140-199</button>
-                            <button type="button" id="search-syntax-open" class="search-helper-link" aria-haspopup="dialog" aria-controls="filter-panel">Syntax examples</button>
-                        </div>
                     </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-backdrop hidden" id="filter-backdrop" aria-hidden="true"></div>
