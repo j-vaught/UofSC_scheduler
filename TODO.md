@@ -101,6 +101,13 @@ plain search. Worth fixing because the stuck state is indistinguishable from slo
 loading, and because the taxonomy added in `static/js/errors.js` cannot help a
 request that is never made.
 
+Amended after a later observation: on a warm cache it is slow rather than stuck.
+Searching `MATH 142` sat on the placeholder for roughly ten seconds and then
+filled in normally (`2.79 historical GPA / 7,370 grades`). So there are probably
+two behaviours filed here as one, and "indefinitely" is only established for the
+cold path. Whoever picks this up should time the cold case before assuming it
+never completes -- the fix for a ten-second wait is a different fix.
+
 ## Known noise
 
 - **Transformers.js triggers four `script-src: eval` CSP violations per model load.**
