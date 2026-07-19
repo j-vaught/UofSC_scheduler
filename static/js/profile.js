@@ -17,7 +17,11 @@ const Profile = {
 
     async loadMajorMaps() {
         try {
-            this.majorMaps = this.normalizeMajorMaps(await API.getMajorMaps());
+            const officialMaps = this.normalizeMajorMaps(await API.getMajorMaps());
+            const customMaps = typeof CustomMajorMap !== 'undefined'
+                ? CustomMajorMap.listMaps()
+                : [];
+            this.majorMaps = [...officialMaps, ...customMaps];
             this.populateProgramSelect();
 
             const saved = this.resolveSavedMap(State.profile.major, State.profile.majorData);
@@ -176,7 +180,10 @@ const Profile = {
         }
 
         try {
-            const data = await API.getMajorMap(mapId);
+            const customMap = typeof CustomMajorMap !== 'undefined'
+                ? CustomMajorMap.get(mapId)
+                : null;
+            const data = customMap || await API.getMajorMap(mapId);
             State.profile.major = mapId;
             State.profile.majorData = data;
 

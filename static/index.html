@@ -77,6 +77,11 @@
                             <option value="general">None available</option>
                         </select>
                     </div>
+                    <div class="custom-major-map-actions">
+                        <button type="button" id="btn-add-custom-major-map">ADD MY OWN MAJOR MAP</button>
+                        <button type="button" id="btn-edit-custom-major-map" hidden>EDIT MY MAJOR MAP</button>
+                        <small>Build a personal semester-by-semester map. It stays on this device.</small>
+                    </div>
                     <div id="major-summary" class="major-summary"></div>
                     </div>
                     <div id="major-map-preview" class="major-map-preview">
@@ -630,6 +635,7 @@
     <script src="/static/js/degree-plan.js"></script>
     <script src="/static/js/transcript-upload-dialog.js?v=2026071802"></script>
     <script src="/static/js/transcript-import.js?v=20260718"></script>
+    <script src="/static/js/custom-major-map.js?v=20260718"></script>
     <script src="/static/js/degree-wizard.js?v=2026071802"></script>
     <script src="/static/js/notices.js"></script>
     <script>
@@ -638,6 +644,7 @@
         Tabs.init();
         TranscriptImport.init();
         Profile.init();
+        CustomMajorMap.init();
         Calendar.init();
         WalkingMap.init();
         Search.init();
@@ -727,6 +734,7 @@
             'registration-info-modal',
             'schedule-preferences-modal',
             'professor-profile-modal',
+            'custom-major-map-modal',
         ];
         const closeModal = () => {
             if (modalOverlay.classList.contains('hidden')) return;
