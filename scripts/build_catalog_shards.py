@@ -52,6 +52,15 @@ def major_map_runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
         "informational",
         "requires_review",
     )
+    semester_requirement_fields = (
+        "id",
+        "title",
+        "course_codes",
+        "credit_hours",
+        "critical",
+        "relation",
+        "sequence",
+    )
 
     def select(record: Any, fields: tuple[str, ...]) -> dict[str, Any]:
         if not isinstance(record, dict):
@@ -76,6 +85,19 @@ def major_map_runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
         ],
         "elective_groups": [
             select(group, elective_fields) for group in payload.get("elective_groups", [])
+        ],
+        "semester_plan": [
+            {
+                "label": semester.get("label", ""),
+                "number": semester.get("number"),
+                "planned_credit_hours": semester.get("planned_credit_hours"),
+                "requirements": [
+                    select(requirement, semester_requirement_fields)
+                    for requirement in semester.get("requirements", [])
+                ],
+            }
+            for semester in payload.get("semester_plan", [])
+            if isinstance(semester, dict)
         ],
     }
 

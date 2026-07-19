@@ -325,6 +325,7 @@
             include_summer: includeSummer = false,
             custom_credits: customCredits = null,
             concentration = 'general',
+            strategy = 'major_map',
             offering_history: offeringHistory = {},
         } = options;
         void offeringHistory;
@@ -332,6 +333,25 @@
         const offeringHints = majorMap?.offering_hints || {};
         const remaining = computeRemaining(majorMap, completed, concentration);
         let remainingCourses = [...remaining.required_remaining];
+        for (const group of remaining.elective_groups_remaining) {
+            const slotCount = Math.max(1, Number(group.remaining_pick) || 1);
+            const totalCredits = Number(group.remaining_credits) || Number(group.credits_required) || 3;
+            const creditsEach = Number(group.credits_each) || (totalCredits / slotCount);
+            for (let index = 0; index < slotCount; index += 1) {
+                remainingCourses.push({
+                    code: `[${group.label || 'Degree requirement'}${slotCount > 1 ? ` ${index + 1}` : ''}]`,
+                    title: group.label || 'Degree requirement',
+                    credits: creditsEach,
+                    category: group.category || 'electives',
+                    is_elective_slot: true,
+                    elective_group_id: group.id || '',
+                    options: group.remaining_options || group.options || [],
+                    prerequisites: [],
+                    corequisites: [],
+                    typical_year: 4,
+                });
+            }
+        }
         const dag = buildPrerequisiteDag(remainingCourses, majorMap);
         const creditLimits = mode === 'custom' && customCredits
             ? customCredits
@@ -370,11 +390,32 @@
                 available = available.filter(item => item.code !== code);
             }
 
-            available.sort((left, right) => (
-                (left.typical_year ?? 5) - (right.typical_year ?? 5)
-                || (dag.prereqs[right.code]?.length || 0) - (dag.prereqs[left.code]?.length || 0)
-                || (right.credits ?? 3) - (left.credits ?? 3)
-            ));
+            const mapOrder = new Map();
+            (majorMap?.semester_plan || []).forEach((semester, semesterIndex) => {
+                (semester.requirements || []).forEach((requirement, requirementIndex) => {
+                    (requirement.course_codes || []).forEach(code => {
+                        if (!mapOrder.has(code)) mapOrder.set(code, (semesterIndex * 100) + requirementIndex);
+                    });
+                });
+            });
+            const categoryRank = course => ['major_core', 'major_electives'].includes(course.category) ? 0 : 1;
+            available.sort((left, right) => {
+                if (strategy === 'critical_path') {
+                    return (dag.adjacency[right.code]?.length || 0) - (dag.adjacency[left.code]?.length || 0)
+                        || (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999);
+                }
+                if (strategy === 'major_first') {
+                    return categoryRank(left) - categoryRank(right)
+                        || (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999);
+                }
+                if (strategy === 'balanced') {
+                    return (right.credits ?? 3) - (left.credits ?? 3)
+                        || categoryRank(left) - categoryRank(right)
+                        || (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999);
+                }
+                return (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999)
+                    || (left.typical_year ?? 5) - (right.typical_year ?? 5);
+            });
             for (const course of available) {
                 const credits = course.credits ?? 3;
                 if (semesterCredits + credits <= creditLimits.max) {
@@ -395,6 +436,9 @@
                         title: course.title || '',
                         credits: course.credits ?? 3,
                         category: course.category || '',
+                        is_elective_slot: Boolean(course.is_elective_slot),
+                        elective_group_id: course.elective_group_id || '',
+                        options: course.options || [],
                         pinned: course.pinned || false,
                         offering_restriction: course.offering_restriction || offeringHints[course.code] || null,
                     })),
@@ -405,19 +449,6 @@
                 remainingCourses = remainingCourses.filter(course => !placedCodes.has(course.code));
             }
             currentTerm = offering.nextTerm(currentTerm, includeSummer);
-        }
-
-        const electiveSemesters = distributeElectives(
-            remaining.elective_groups_remaining,
-            semesters,
-            creditLimits,
-        );
-        for (const [indexValue, electives] of Object.entries(electiveSemesters)) {
-            const index = Number(indexValue);
-            if (index >= semesters.length) continue;
-            semesters[index].courses.push(...electives);
-            semesters[index].total_credits += electives
-                .reduce((sum, elective) => sum + (elective.credits ?? 3), 0);
         }
 
         return {

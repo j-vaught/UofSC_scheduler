@@ -503,6 +503,108 @@ a.major-map-source:focus-visible { color: #73000A; }
     flex-direction: column;
     overflow-y: auto;
 }
+.degree-wizard { min-height: calc(100vh - 64px); }
+.degree-wizard-progress {
+    background: #000000;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+    margin: 0;
+    padding: 0 28px;
+}
+.degree-wizard-progress button {
+    background: #000000;
+    border: 0;
+    border-bottom: 5px solid transparent;
+    color: #A2A2A2;
+    font-size: 0.78rem;
+    font-weight: 800;
+    min-height: 56px;
+}
+.degree-wizard-progress button span {
+    border: 1px solid currentColor;
+    display: inline-grid;
+    height: 23px;
+    margin-right: 7px;
+    place-items: center;
+    width: 23px;
+}
+.degree-wizard-progress button.active { border-bottom-color: #73000A; color: #FFFFFF; }
+.degree-wizard-progress button.complete { color: #CED318; }
+.degree-wizard-progress button:disabled { cursor: not-allowed; opacity: 0.52; }
+.degree-wizard-step { min-height: calc(100vh - 120px); padding: 34px clamp(24px, 5vw, 82px) 42px; }
+.degree-wizard-step[hidden] { display: none; }
+.degree-step-heading { margin: 0 auto 24px; max-width: 1500px; }
+.degree-step-heading h2 { color: #73000A; font-size: clamp(1.65rem, 3vw, 2.45rem); margin: 5px 0 8px; }
+.degree-step-heading p { color: #5C5C5C; margin: 0; max-width: 760px; }
+.degree-program-grid,
+.degree-coursework-grid,
+.degree-strategy-grid { display: grid; gap: 22px; margin: 0 auto; max-width: 1500px; }
+.degree-program-grid { grid-template-columns: minmax(300px, 0.72fr) minmax(520px, 1.55fr); }
+.degree-coursework-grid { grid-template-columns: minmax(320px, 0.8fr) minmax(520px, 1.35fr); }
+.degree-strategy-grid { grid-template-columns: 1fr 1fr; }
+.degree-program-form,
+.degree-import-panel,
+.degree-transcript-review,
+.degree-strategy-section { border: 2px solid #000000; padding: 20px; }
+.degree-program-form .major-summary { border-top: 1px solid #C7C7C7; margin-top: 18px; padding-top: 12px; }
+.degree-step-actions { display: flex; gap: 12px; justify-content: space-between; margin: 24px auto 0; max-width: 1500px; }
+.degree-step-actions-end { justify-content: flex-end; }
+.degree-step-actions button { min-height: 44px; padding: 0 20px; }
+.major-map-preview { border: 2px solid #000000; min-height: 380px; min-width: 0; }
+.major-map-preview-header { align-items: center; background: #000000; color: #FFFFFF; display: flex; justify-content: space-between; padding: 17px 19px; }
+.major-map-preview-header > div { display: grid; gap: 3px; }
+.major-map-preview-header strong { font-size: 1.1rem; }
+.major-map-preview-header small { color: #C7C7C7; }
+.major-map-preview-header a { background: #FFFFFF; border: 2px solid #FFFFFF; color: #000000; font-size: 0.75rem; font-weight: 800; padding: 10px 14px; text-decoration: none; }
+.major-map-preview-header a:hover { background: #73000A; color: #FFFFFF; }
+.major-map-semesters { display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(160px, 1fr)); padding: 14px; }
+.major-map-semester { border: 1px solid #A2A2A2; min-width: 0; }
+.major-map-semester header { align-items: center; background: #ECECEC; border-bottom: 1px solid #A2A2A2; display: flex; justify-content: space-between; padding: 8px; }
+.major-map-semester header strong { color: #73000A; font-size: 0.72rem; text-transform: uppercase; }
+.major-map-semester header span { color: #5C5C5C; font-size: 0.66rem; }
+.major-map-semester ul { list-style: none; margin: 0; padding: 5px 8px; }
+.major-map-semester li { align-items: start; border-bottom: 1px solid #ECECEC; display: grid; font-size: 0.68rem; gap: 5px; grid-template-columns: 1fr auto; padding: 5px 0; }
+.major-map-semester li:last-child { border-bottom: 0; }
+.major-map-total-note { border-top: 1px solid #C7C7C7; color: #5C5C5C; font-size: 0.7rem; margin: 0; padding: 9px 14px; }
+.degree-empty-state { align-content: center; display: grid; gap: 7px; min-height: 180px; padding: 24px; text-align: center; }
+.degree-empty-state strong { color: #73000A; }
+.degree-empty-state span { color: #5C5C5C; font-size: 0.8rem; }
+.degree-empty-coursework { background: #FFFFFF; border: 2px solid #000000; font-weight: 800; margin: 14px 0; min-height: 46px; width: 100%; }
+.degree-empty-coursework.selected { background: #000000; color: #FFFFFF; }
+.degree-advanced-import { border-top: 1px solid #C7C7C7; padding-top: 13px; }
+.degree-advanced-import summary { color: #73000A; cursor: pointer; font-weight: 800; }
+.degree-substitution-entry { border-top: 1px solid #C7C7C7; display: grid; gap: 7px; grid-template-columns: 1fr auto; margin-top: 15px; padding-top: 14px; }
+.degree-substitution-entry label,
+.degree-substitution-entry small { grid-column: 1 / -1; }
+.degree-substitution-entry small { color: #5C5C5C; }
+.degree-transcript-review { padding: 0; }
+.degree-transcript-review-heading { align-items: center; background: #000000; color: #FFFFFF; display: flex; justify-content: space-between; padding: 14px 16px; }
+.degree-transcript-review-heading span { color: #C7C7C7; font-size: 0.75rem; }
+.degree-coursework-review { max-height: 55vh; overflow-y: auto; padding: 14px; }
+.coursework-term { border: 1px solid #A2A2A2; margin-bottom: 12px; }
+.coursework-term header { align-items: center; background: #ECECEC; display: flex; justify-content: space-between; padding: 8px 10px; }
+.coursework-term header strong { color: #73000A; }
+.coursework-term header span { color: #5C5C5C; font-size: 0.75rem; }
+.coursework-term > div { display: grid; grid-template-columns: repeat(2, 1fr); }
+.coursework-term article { border-right: 1px solid #ECECEC; border-top: 1px solid #ECECEC; display: grid; gap: 2px; padding: 9px 10px; }
+.coursework-term article > span,
+.coursework-term article small { color: #5C5C5C; font-size: 0.7rem; }
+.degree-strategy-section h3 { color: #73000A; margin: 0 0 14px; text-transform: uppercase; }
+.degree-strategy-options { display: grid; gap: 9px; }
+.degree-strategy-options label,
+.degree-summer-option { align-items: start; border: 1px solid #A2A2A2; display: flex; gap: 10px; padding: 12px; }
+.degree-strategy-options label:has(input:checked),
+.degree-summer-option:has(input:checked) { border: 2px solid #73000A; padding: 11px; }
+.degree-strategy-options input,
+.degree-summer-option input { accent-color: #73000A; margin-top: 2px; }
+.degree-strategy-options span,
+.degree-summer-option span { display: grid; gap: 3px; }
+.degree-strategy-options small,
+.degree-summer-option small { color: #5C5C5C; }
+.degree-summer-option { margin-top: 14px; }
+.degree-plan-step { padding-inline: 28px; }
+.degree-plan-heading-actions { align-items: center; display: flex; gap: 12px; }
+.degree-plan-heading-actions button { min-height: 36px; }
 .degree-setup {
     border-bottom: 4px solid #000000;
     padding: 24px 28px 28px;
@@ -644,18 +746,27 @@ a.major-map-source:focus-visible { color: #73000A; }
     margin-top: 8px;
     font-weight: 600;
 }
+.course-card-actions { align-items: center; display: inline-flex; gap: 7px; }
+.course-card-info { background: #FFFFFF; border: 1px solid #73000A; color: #73000A; font-size: 0.68rem; font-weight: 900; height: 20px; line-height: 1; padding: 0; width: 20px; }
+.course-card-info:hover { background: #73000A; color: #FFFFFF; }
 
 .requirement-picker-empty { padding: 6px 4px 10px; }
 .requirement-picker-empty h2 { color: #73000A; margin: 4px 0 8px; }
 .requirement-picker-empty p { color: #5C5C5C; margin: 0 0 18px; max-width: 520px; }
 
 @media (max-width: 1180px) {
+    .major-map-semesters { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+    .degree-program-grid,
+    .degree-coursework-grid { grid-template-columns: minmax(280px, 0.7fr) 1fr; }
     .degree-setup-grid { grid-template-columns: 1fr 1fr; }
     .degree-mode-card { grid-column: 1 / -1; }
     .degree-mode-card .mode-options { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (max-width: 900px) {
+    .degree-program-grid,
+    .degree-coursework-grid,
+    .degree-strategy-grid { grid-template-columns: 1fr; }
     .degree-setup,
     .degree-roadmap { padding-inline: 16px; }
     .degree-setup-grid { grid-template-columns: 1fr; }

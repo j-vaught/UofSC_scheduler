@@ -38,6 +38,7 @@ const State = {
         planMode: 'full_time',
         customCredits: { min: 12, max: 18, target: 15 },
         includeSummer: false,
+        degreeStrategy: 'major_map',
     },
 
     // Degree plan state

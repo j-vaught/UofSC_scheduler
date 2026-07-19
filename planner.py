@@ -280,6 +280,7 @@ def plan_degree(
     custom_credits=None,
     concentration="general",
     offering_history=None,
+    strategy="major_map",
 ):
     """Generate a multi-semester degree plan.
 
@@ -308,6 +309,26 @@ def plan_degree(
     # Get remaining courses
     remaining = compute_remaining(major_map, completed, concentration)
     remaining_courses = list(remaining["required_remaining"])
+    for group in remaining["elective_groups_remaining"]:
+        slot_count = max(1, int(group.get("remaining_pick") or 1))
+        total_credits = group.get("remaining_credits") or group.get("credits_required") or 3
+        credits_each = group.get("credits_each") or (total_credits / slot_count)
+        for index in range(slot_count):
+            suffix = f" {index + 1}" if slot_count > 1 else ""
+            remaining_courses.append(
+                {
+                    "code": f"[{group.get('label') or 'Degree requirement'}{suffix}]",
+                    "title": group.get("label") or "Degree requirement",
+                    "credits": credits_each,
+                    "category": group.get("category", "electives"),
+                    "is_elective_slot": True,
+                    "elective_group_id": group.get("id", ""),
+                    "options": group.get("remaining_options") or group.get("options") or [],
+                    "prerequisites": [],
+                    "corequisites": [],
+                    "typical_year": 4,
+                }
+            )
 
     # Build the DAG
     adjacency, in_degree, prereqs = build_prerequisite_dag(remaining_courses, major_map)
@@ -369,13 +390,25 @@ def plan_degree(
 
         # Fill remaining capacity with available courses
         # Sort by: typical_year (earlier first), then prerequisite chain depth
-        available.sort(
-            key=lambda c: (
-                c.get("typical_year", 5),
-                -len(prereqs.get(c["code"], set())),
-                -c.get("credits", 3),
-            )
-        )
+        map_order = {}
+        for semester_index, semester in enumerate(major_map.get("semester_plan", [])):
+            for requirement_index, requirement in enumerate(semester.get("requirements", [])):
+                for course_code in requirement.get("course_codes", []):
+                    map_order.setdefault(course_code, semester_index * 100 + requirement_index)
+
+        def strategy_key(course):
+            code = course["code"]
+            order = map_order.get(code, 9999)
+            major_rank = 0 if course.get("category") in {"major_core", "major_electives"} else 1
+            if strategy == "critical_path":
+                return (-len(adjacency.get(code, [])), order)
+            if strategy == "major_first":
+                return (major_rank, order)
+            if strategy == "balanced":
+                return (-course.get("credits", 3), major_rank, order)
+            return (order, course.get("typical_year", 5))
+
+        available.sort(key=strategy_key)
 
         for course in available:
             credits = course.get("credits", 3)
@@ -401,6 +434,9 @@ def plan_degree(
                             "title": c.get("title", ""),
                             "credits": c.get("credits", 3),
                             "category": c.get("category", ""),
+                            "is_elective_slot": bool(c.get("is_elective_slot")),
+                            "elective_group_id": c.get("elective_group_id", ""),
+                            "options": c.get("options", []),
                             "pinned": c.get("pinned", False),
                             "offering_restriction": c.get("offering_restriction")
                             or offering_hints.get(c["code"]),
@@ -419,17 +455,6 @@ def plan_degree(
             remaining_courses = [c for c in remaining_courses if c["code"] not in placed_codes]
 
         current_term = next_term(current_term, include_summer=include_summer)
-
-    # Add elective placeholders
-    elective_semesters = _distribute_electives(
-        remaining["elective_groups_remaining"], semesters, credit_limits, offering_history
-    )
-
-    # Merge elective placeholders into semesters
-    for sem_idx, electives in elective_semesters.items():
-        if sem_idx < len(semesters):
-            semesters[sem_idx]["courses"].extend(electives)
-            semesters[sem_idx]["total_credits"] += sum(e.get("credits", 3) for e in electives)
 
     # Generate warnings
     warnings = _generate_warnings(

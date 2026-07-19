@@ -54,6 +54,7 @@ const DegreePlan = {
                 include_summer: State.profile.includeSummer,
                 custom_credits: State.profile.planMode === 'custom' ? State.profile.customCredits : null,
                 concentration: State.profile.concentration,
+                strategy: State.profile.degreeStrategy || 'major_map',
             });
 
             if (plan.error) {
@@ -418,7 +419,7 @@ const DegreePlan = {
                 <div class="${cardClass}" data-code="${course.code}" data-semester="${sem.term}" data-section="planned" draggable="true">
                     <div class="course-card-header">
                         <span class="course-card-code">${course.code}</span>
-                        <span class="course-card-credits">${course.credits} cr</span>
+                        <span class="course-card-actions"><button type="button" class="course-card-info" aria-label="View details and current offerings for ${course.code}" title="View course details, grades, history, and current offerings">i</button><span class="course-card-credits">${course.credits} cr</span></span>
                     </div>
                     <div class="course-card-title">${course.title}</div>
                     <div class="course-card-badges">${badges}</div>
@@ -659,6 +660,17 @@ const DegreePlan = {
                 }
             });
         });
+        document.querySelectorAll('#semester-columns .course-card-info').forEach(button => {
+            button.addEventListener('click', async event => {
+                event.stopPropagation();
+                const card = button.closest('.course-card');
+                const code = card?.dataset.code;
+                if (!code || code.startsWith('ELECTIVE-')) return;
+                const course = State.profile.majorData?.required_courses?.find(item => item.code === code) || { code };
+                Tabs.switchTo('semester');
+                await Search.openCourseFromExternal({ code, title: course.title || code, sections: [] });
+            });
+        });
     },
 
     async openElectivePicker(card) {
@@ -843,10 +855,51 @@ const DegreePlan = {
 
         const course = fromSem.courses[courseIdx];
 
+        if (fromSection === 'planned' && toSection === 'planned') {
+            const majorCourses = State.profile.majorData?.required_courses || [];
+            const definition = majorCourses.find(item => item.code === code) || {};
+            const priorTerms = new Set(State.completedCourses || []);
+            State.degreePlan.semesters.forEach(semester => {
+                if (String(semester.term) < String(toTerm)) {
+                    semester.courses.forEach(item => priorTerms.add(item.code));
+                }
+            });
+            const groups = DegreePlannerRuntime.requirementGroupsForCourse(definition);
+            const requirementStatus = DegreePlannerRuntime.evaluateRequirementGroups(groups, priorTerms);
+            if (!requirementStatus.eligible) {
+                alert(`${code} cannot be moved to ${toSem.label}. Complete ${requirementStatus.missing.join(' or ')} first.`);
+                return;
+            }
+            const restriction = definition.offering_restriction || course.offering_restriction;
+            const destinationLabel = String(toSem.label || '').toLowerCase();
+            if ((restriction === 'fall_only' && !destinationLabel.startsWith('fall'))
+                || (restriction === 'spring_only' && !destinationLabel.startsWith('spring'))) {
+                alert(`${code} is marked ${restriction === 'fall_only' ? 'Fall only' : 'Spring only'} and cannot be placed in ${toSem.label}.`);
+                return;
+            }
+        }
+
         fromSem.courses.splice(courseIdx, 1);
         fromSem.total_credits -= course.credits;
         toSem.courses.push(course);
         toSem.total_credits += course.credits;
+
+        if (fromSection === 'planned' && toSection === 'planned') {
+            const definition = State.profile.majorData?.required_courses?.find(item => item.code === code) || {};
+            const linked = new Set(definition.corequisites || []);
+            (State.profile.majorData?.required_courses || []).forEach(item => {
+                if ((item.corequisites || []).includes(code)) linked.add(item.code);
+            });
+            linked.forEach(linkedCode => {
+                const index = fromSem.courses.findIndex(item => item.code === linkedCode);
+                if (index < 0) return;
+                const [linkedCourse] = fromSem.courses.splice(index, 1);
+                fromSem.total_credits -= linkedCourse.credits;
+                toSem.courses.push(linkedCourse);
+                toSem.total_credits += linkedCourse.credits;
+                State.degreePlan.pins[linkedCode] = toTerm;
+            });
+        }
 
         if (toSection === 'planned') {
             State.degreePlan.pins[code] = toTerm;

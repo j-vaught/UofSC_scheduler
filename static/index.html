@@ -43,18 +43,22 @@
     <main>
         <!-- ===== DEGREE PLAN TAB ===== -->
         <div id="tab-degree" class="main-tab">
-            <section class="degree-setup" aria-labelledby="degree-setup-title">
-                <div class="degree-setup-heading">
-                    <div>
-                        <span class="degree-eyebrow">START HERE</span>
-                        <h2 id="degree-setup-title">Build your degree plan</h2>
-                        <p>Choose your official major map, bring in completed coursework, then generate a semester-by-semester roadmap.</p>
-                    </div>
-                    <button id="btn-generate-plan" class="btn-garnet">GENERATE DEGREE PLAN</button>
+            <section class="degree-wizard" aria-labelledby="degree-setup-title">
+                <div class="degree-wizard-progress" aria-label="Degree planning progress">
+                    <button type="button" class="active" data-degree-step-target="1"><span>1</span> PROGRAM</button>
+                    <button type="button" data-degree-step-target="2" disabled><span>2</span> COURSEWORK</button>
+                    <button type="button" data-degree-step-target="3" disabled><span>3</span> STRATEGY</button>
+                    <button type="button" data-degree-step-target="4" disabled><span>4</span> PLAN</button>
                 </div>
-                <div class="degree-setup-grid">
-                <section class="degree-setup-card">
-                    <h3><span>1</span> Choose your program</h3>
+
+                <section class="degree-wizard-step active" data-degree-step="1">
+                    <div class="degree-step-heading">
+                        <span class="degree-eyebrow">STEP 1 OF 3</span>
+                        <h2 id="degree-setup-title">Choose your program</h2>
+                        <p>Select the catalog that applies to you. You can inspect the imported map before continuing.</p>
+                    </div>
+                    <div class="degree-program-grid">
+                    <div class="degree-program-form">
                     <div class="form-row">
                         <label for="major-program-select">Major and program</label>
                         <select id="major-program-select">
@@ -70,14 +74,31 @@
                     <div class="form-row">
                         <label for="concentration-select">Concentration</label>
                         <select id="concentration-select">
-                            <option value="general">General (no concentration)</option>
+                            <option value="general">None available</option>
                         </select>
                     </div>
                     <div id="major-summary" class="major-summary"></div>
+                    </div>
+                    <div id="major-map-preview" class="major-map-preview">
+                        <div class="degree-empty-state">
+                            <strong>Your major map will appear here.</strong>
+                            <span>Choose a program and catalog year to review its eight-semester sequence.</span>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="degree-step-actions degree-step-actions-end">
+                        <button type="button" class="btn-garnet" data-degree-next="2" disabled>CONTINUE TO COURSEWORK</button>
+                    </div>
                 </section>
 
-                <section class="degree-setup-card">
-                    <h3><span>2</span> Add completed courses</h3>
+                <section class="degree-wizard-step" data-degree-step="2" hidden>
+                    <div class="degree-step-heading">
+                        <span class="degree-eyebrow">STEP 2 OF 3</span>
+                        <h2>Add completed coursework</h2>
+                        <p>Import your advising transcript, then check every course and credit before planning.</p>
+                    </div>
+                    <div class="degree-coursework-grid">
+                    <div class="degree-import-panel">
                     <div class="transcript-import-entry">
                         <div>
                             <strong>Import an advising transcript</strong>
@@ -85,7 +106,10 @@
                         </div>
                         <div data-transcript-upload-launch="degree"></div>
                     </div>
-                    <p class="section-hint">Or enter course codes separated by commas, semicolons, periods, or new lines.</p>
+                    <button type="button" id="btn-no-completed-courses" class="degree-empty-coursework">I HAVE NOT TAKEN ANY COURSES YET</button>
+                    <details class="degree-advanced-import">
+                        <summary>Advanced course entry</summary>
+                    <p class="section-hint">Enter course codes separated by commas, semicolons, periods, or new lines.</p>
                     <textarea id="transcript-input" rows="4" placeholder="CSCE 145, CSCE 146, MATH 141, ENGL 101..."></textarea>
                     <div class="transcript-actions">
                         <button id="btn-parse-transcript" class="btn-garnet">ADD COURSES</button>
@@ -94,12 +118,50 @@
                             <input type="file" id="csv-upload" accept=".csv,.txt" style="display:none">
                         </label>
                     </div>
+                    <div class="degree-substitution-entry">
+                        <label for="degree-substitution-input">Substitutions or assumed credit</label>
+                        <input id="degree-substitution-input" type="text" placeholder="Example: MATH 141">
+                        <button id="btn-add-substitution" type="button">ADD SUBSTITUTION</button>
+                        <small>Use only for an approved substitution or planning scenario. It does not change your official record.</small>
+                    </div>
+                    </details>
+                    </div>
+                    <div class="degree-transcript-review" aria-live="polite">
+                        <div class="degree-transcript-review-heading">
+                            <strong>COURSEWORK REVIEW</strong>
+                            <span id="degree-coursework-count">No courses added</span>
+                        </div>
+                        <div id="degree-coursework-review" class="degree-coursework-review">
+                            <div class="degree-empty-state"><strong>Nothing to review yet.</strong><span>Upload a transcript or choose the new-student option.</span></div>
+                        </div>
+                    </div>
+                    </div>
                     <div id="completed-chips" class="completed-list"></div>
                     <div id="credit-summary" class="credit-summary"></div>
+                    <div class="degree-step-actions">
+                        <button type="button" data-degree-back="1">BACK</button>
+                        <button type="button" class="btn-garnet" data-degree-next="3">CONTINUE TO STRATEGY</button>
+                    </div>
                 </section>
 
-                <section class="degree-setup-card degree-mode-card">
-                    <h3><span>3</span> Set your pace</h3>
+                <section class="degree-wizard-step" data-degree-step="3" hidden>
+                    <div class="degree-step-heading">
+                        <span class="degree-eyebrow">STEP 3 OF 3</span>
+                        <h2>Choose how to build your plan</h2>
+                        <p>This changes how valid courses are prioritized. Prerequisites and linked course requirements still apply.</p>
+                    </div>
+                    <div class="degree-strategy-grid">
+                    <section class="degree-strategy-section">
+                    <h3>Planning strategy</h3>
+                    <div class="degree-strategy-options">
+                        <label><input type="radio" name="degree-strategy" value="major_map" checked><span><strong>Follow the official map</strong><small>Stay closest to the recommended semester order.</small></span></label>
+                        <label><input type="radio" name="degree-strategy" value="critical_path"><span><strong>Finish critical paths early</strong><small>Prioritize courses that unlock the most later requirements.</small></span></label>
+                        <label><input type="radio" name="degree-strategy" value="major_first"><span><strong>Major courses first</strong><small>Prioritize program courses before flexible requirements.</small></span></label>
+                        <label><input type="radio" name="degree-strategy" value="balanced"><span><strong>Balanced workload</strong><small>Mix demanding program courses with flexible requirements.</small></span></label>
+                    </div>
+                    </section>
+                    <section class="degree-strategy-section">
+                    <h3>Course load</h3>
                     <div class="mode-options">
                         <label class="mode-option">
                             <input type="radio" name="plan-mode" value="full_time" checked>
@@ -138,40 +200,41 @@
                     <div id="scholarship-warning" class="warning-banner hidden">
                         At 12 + 12 credits/year, you will need 6 summer credits to maintain most scholarship eligibility (30 credits/year minimum).
                     </div>
+                    <label class="degree-summer-option"><input id="degree-include-summer" type="checkbox"> <span><strong>Include summer terms</strong><small>Allow the planner to place courses in summer when available.</small></span></label>
+                    </section>
+                    </div>
+                    <div class="degree-step-actions">
+                        <button type="button" data-degree-back="2">BACK</button>
+                        <button id="btn-generate-plan" class="btn-garnet">GENERATE DEGREE PLAN</button>
+                    </div>
                 </section>
+
+                <section class="degree-wizard-step degree-plan-step" data-degree-step="4" hidden>
+                    <div class="degree-roadmap-heading">
+                        <div>
+                            <span class="degree-eyebrow">YOUR ROADMAP</span>
+                            <h2 id="degree-roadmap-title">Degree progress and semesters</h2>
+                        </div>
+                        <div class="degree-plan-heading-actions"><div id="plan-mode-label" class="plan-mode-label"></div><button type="button" data-degree-back="3">EDIT PLAN SETTINGS</button></div>
+                    </div>
+                    <div class="degree-layout">
+                        <aside id="degree-sidebar">
+                            <h2>Requirements</h2>
+                            <div id="degree-map-context" class="degree-map-context" hidden></div>
+                            <div id="degree-progress-overall" class="progress-section">
+                                <div class="progress-label">Overall Progress</div>
+                                <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
+                                <div class="progress-text" id="progress-overall-text">0 / 120 credits</div>
+                            </div>
+                            <div id="degree-requirements-list" class="requirements-list"><p class="hint">Choose a program to see its requirements.</p></div>
+                        </aside>
+                        <section id="degree-content">
+                            <div id="degree-warnings" class="warnings-container"></div>
+                            <div id="semester-columns" class="semester-columns"><p class="hint" style="padding:20px">Generate a plan to build your roadmap.</p></div>
+                        </section>
+                    </div>
                 </div>
             </section>
-            <section class="degree-roadmap" aria-labelledby="degree-roadmap-title">
-                <div class="degree-roadmap-heading">
-                    <div>
-                        <span class="degree-eyebrow">YOUR ROADMAP</span>
-                        <h2 id="degree-roadmap-title">Degree progress and semesters</h2>
-                    </div>
-                    <div id="plan-mode-label" class="plan-mode-label"></div>
-                </div>
-            <div class="degree-layout">
-                <!-- Left: Requirements Sidebar -->
-                <aside id="degree-sidebar">
-                    <h2>Requirements</h2>
-                    <div id="degree-map-context" class="degree-map-context" hidden></div>
-                    <div id="degree-progress-overall" class="progress-section">
-                        <div class="progress-label">Overall Progress</div>
-                        <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
-                        <div class="progress-text" id="progress-overall-text">0 / 120 credits</div>
-                    </div>
-                    <div id="degree-requirements-list" class="requirements-list">
-                        <p class="hint">Choose a program above to see its requirements.</p>
-                    </div>
-                </aside>
-
-                <!-- Right: Semester Columns -->
-                <section id="degree-content">
-                    <div id="degree-warnings" class="warnings-container"></div>
-                    <div id="semester-columns" class="semester-columns">
-                        <p class="hint" style="padding:20px">Choose a program, add completed coursework, and generate your plan.</p>
-                    </div>
-                </section>
-            </div>
             </section>
         </div>
 
@@ -567,6 +630,7 @@
     <script src="/static/js/degree-plan.js"></script>
     <script src="/static/js/transcript-upload-dialog.js?v=2026071802"></script>
     <script src="/static/js/transcript-import.js?v=20260718"></script>
+    <script src="/static/js/degree-wizard.js?v=20260718"></script>
     <script src="/static/js/notices.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -581,6 +645,7 @@
         Scheduler.init();
         Export.init();
         DegreePlan.init();
+        DegreeWizard.init();
 
         State.on('courses-changed', () => ScheduleSidebar.render());
         State.on('sections-changed', () => ScheduleSidebar.render());

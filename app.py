@@ -785,6 +785,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     custom_credits=params.get("custom_credits"),
                     concentration=params.get("concentration", "general"),
                     offering_history=params.get("offering_history"),
+                    strategy=params.get("strategy", "major_map"),
                 )
                 self._send_json(json.dumps(result))
 

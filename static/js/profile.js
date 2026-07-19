@@ -187,12 +187,21 @@ const Profile = {
             const concSel = document.getElementById('concentration-select');
             concSel.innerHTML = '';
             const concs = data.concentrations || {};
-            for (const [key, val] of Object.entries(concs)) {
+            const concentrationEntries = Object.entries(concs);
+            if (!concentrationEntries.length) {
+                const option = document.createElement('option');
+                option.value = 'general';
+                option.textContent = 'None available';
+                concSel.appendChild(option);
+                concSel.disabled = true;
+                State.profile.concentration = 'general';
+            } else for (const [key, val] of concentrationEntries) {
                 const opt = document.createElement('option');
                 opt.value = key;
                 opt.textContent = val.label;
                 concSel.appendChild(opt);
             }
+            if (concentrationEntries.length) concSel.disabled = false;
             if (State.profile.concentration && concs[State.profile.concentration]) {
                 concSel.value = State.profile.concentration;
             }
