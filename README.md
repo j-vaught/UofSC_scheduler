@@ -97,7 +97,7 @@ The active release is described by `static/data/manifest.json`. It currently cov
 
 The service worker caches the application shell and content-hashed artifacts. Cache Storage retains immutable files. IndexedDB stores release metadata and fallback records. Local storage retains user-owned plans, pane sizes, collapsed panels, and preferences. A page refresh revalidates the manifest and current live requests while preserving the selected search, course, section, and detail tab in the URL.
 
-The official registrar workbooks remain unchanged in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data`. Generated public artifacts suppress aggregates with fewer than ten counted grades. Banner identifiers, source email addresses, and the private matching database are excluded from the static release.
+The official registrar workbooks remain unchanged in `data/raw/registrar_grades`. Generated public artifacts suppress aggregates with fewer than ten counted grades. Banner identifiers, source email addresses, and the private matching database are excluded from the static release.
 
 Historical grade point average uses A, B+, B, C+, C, D+, D, F, and FN outcomes. Withdrawals, audits, incompletes, pass or fail outcomes, transfers, and missing grades are excluded. Team-taught sections remain labeled because section-level outcomes cannot be attributed to one instructor independently.
 

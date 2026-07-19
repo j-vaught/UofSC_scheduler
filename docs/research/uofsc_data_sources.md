@@ -106,7 +106,7 @@ Returns `fmt` array with:
 
 **URL:** https://sc.edu/about/offices_and_divisions/registrar/toolbox/grade_processing/grade_spreads/
 **Format:** Excel (.xlsx), one file per semester
-**Range:** Summer 2017 – Spring 2026 (26 files in `ANALYSIS_and TODO__UofSC Course Scheduler/uofsc_grade_data/`)
+**Range:** Summer 2017 – Spring 2026 (26 files in `data/raw/registrar_grades/`)
 **Granularity:** One row per course section
 
 ### Columns (34 total)
