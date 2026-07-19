@@ -81,7 +81,13 @@ const Grades = {
             });
         } catch (error) {
             if (loadId !== this._courseLoadId) return;
-            container.innerHTML = '<p class="hint">No Columbia grade history is available for this course.</p>';
+            // Absence and failure used to render identically here, so a relay
+            // 502 told the student their course has no grade history and they
+            // stopped looking. Only a genuine not-found may say that now.
+            const message = typeof AppErrors !== 'undefined'
+                ? AppErrors.toUserMessage(error)
+                : 'Something went wrong loading grade history. Try again.';
+            container.innerHTML = `<p class="hint">${message}</p>`;
         }
     },
 

@@ -11,6 +11,7 @@ const SHELL_ASSETS = [
     '/static/css/style.css',
     '/static/css/grades.css',
     '/static/css/map.css',
+    '/static/js/errors.js',
     '/static/js/data-store.js',
     '/static/js/solver-core.js',
     '/static/js/solver-worker.js',
