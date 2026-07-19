@@ -65,3 +65,40 @@ test('boot.js owns the startup sequence and tolerates either document state', ()
     assert.match(boot, /\bboot\(\);/, 'boot must run immediately when the document is already parsed');
     assert.match(html, /<script src="\/static\/js\/boot\.js"><\/script>/, 'index.html must load boot.js');
 });
+
+/*
+ * connect-src has to list every host the page actually reaches, and the two
+ * copies of the policy have to agree. Semantic search was silently disabled
+ * because model weights redirect from huggingface.co to *.hf.co, which was not
+ * listed -- the browser blocked the download and search fell back to direct
+ * matching with no error beyond a banner.
+ */
+
+function connectSrc(source) {
+    const policy = source.match(/Content-Security-Policy'?:?\s*"?([^"\n]*connect-src[^";]*)/);
+    assert.ok(policy, 'expected a policy containing connect-src');
+    return policy[1].slice(policy[1].indexOf('connect-src'));
+}
+
+test('connect-src lists every host the application fetches from', () => {
+    const directive = connectSrc(worker);
+    const required = [
+        "'self'",                            // relay routes and static release artifacts
+        'https://academicbulletins.sc.edu',  // bulletin search, called cross-origin
+        'https://cdn.jsdelivr.net',          // transformers.js runtime
+        'https://huggingface.co',            // model metadata
+        'https://*.hf.co',                   // model weights redirect here, not to huggingface.co
+        'https://*.tile.openstreetmap.org',  // campus map tiles
+    ];
+    const missing = required.filter(host => !directive.includes(host));
+    assert.deepEqual(missing, [], `connect-src is missing hosts the app uses: ${missing.join(', ')}`);
+});
+
+test('the worker policy and the _headers policy agree', () => {
+    const builder = fs.readFileSync(path.join(ROOT, 'scripts/build_static_site.py'), 'utf8');
+    assert.equal(
+        connectSrc(worker).trim(),
+        connectSrc(builder).trim(),
+        'the worker runs first and its headers win, so a divergent _headers entry is misleading',
+    );
+});
