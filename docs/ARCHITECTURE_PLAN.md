@@ -497,17 +497,33 @@ Every extraction follows a three-commit rule:
 
 ---
 
-### Phase 4 — ESM cutover, flat. Two weeks.
+### Phase 4 — REMOVED. Cache-busting only.
 
-**Scope.** Convert files to ESM **in place** — same names, same directories — each still assigning its global at the end (`window.Search = Search`) so no call site changes. `index.html` drops 28 tags for one `<script type="module">`. Deployment switches to release directories with K=3 retention and the CSP self-test. `State._restore()` becomes an explicit call.
+**The ESM cutover is cancelled**, by the repository owner's decision on 2026-07-19,
+and this section records why so it is not proposed again.
 
-**Ordering hazard, stated:** `<script type="module">` is deferred and runs after classic scripts. Because **all** scripts convert in this phase, there is no mixed window. That is why it is one commit and why it precedes anything moving between files.
+It was contested from the start: the two review passes that produced this plan
+disagreed on whether to do it at all, and one deleted it outright as unjustifiable
+cost. It carried the largest risk in the document — one atomic commit converting
+28 files, a rewrite of every `vm`-plus-global test call site, a new total-404
+failure class the current query strings do not have, and reintroduction of the
+inline-script construct that had just caused a full outage.
 
-**Required test edits:** `test_csp_inline_scripts.js:50` asserts `sources.length > 20` and line 65 pins `<script src="/static/js/boot.js"></script>` verbatim. Both must change to reflect the single module entry. This is the assertion doing its job — it is pinning a deployment contract that is deliberately changing.
+Its two claimed wins were load-order safety and automated cache-busting.
+**Load-order safety was already delivered by phase 1**, which supervises each
+feature's startup so a throw stops one feature rather than the nine after it.
+That leaves cache-busting, which does not need a module system.
 
-**Verify:** the harness boots the built `dist/client`; measure cold load against the 28-script baseline and record it.
+**What replaces it.** `scripts/build_static_site.py` stamps `?v=<digest>` onto
+every script and stylesheet URL in `index.html` at build time, computed from the
+file hashes the build already calculates for the service-worker build id. The
+hand-maintained query strings on some tags — and their absence on `runtime/*.js`
+— are what let a rebuilt file keep serving stale from the worker's
+`max-age=3600`, which cost real debugging time during the QA pass.
 
----
+**Not done, deliberately:** module scope. Modules still communicate through
+globals. That is a genuine shortcoming, and the honest trade is that it costs
+less than the cutover would.
 
 ### Phase 5 — Snapshot versioning + state ownership bugs. Three weeks.
 

@@ -485,16 +485,63 @@ const State = {
         return Object.keys(this.savedPlans);
     },
 
+    /*
+     * Persisted-document version.
+     *
+     * The stored document had no version field, so a future change to the plan
+     * shape would have had no way to recognise old data. This matters more here
+     * than in most applications: the site is static, plans live only in the
+     * student's browser, and nothing can re-derive them. Getting a migration
+     * wrong is permanent for that student.
+     *
+     * Version 1 is the shape that shipped unversioned. Writing the field now
+     * means the next change has something to branch on, and reading tolerates
+     * its absence forever, because documents already in the wild will never
+     * have it.
+     */
+    PLANS_STORAGE_VERSION: 1,
+    PLANS_STORAGE_KEY: 'uosc-scheduler-plans',
+
     _persist() {
         try {
-            localStorage.setItem('uosc-scheduler-plans', JSON.stringify(this.savedPlans));
+            localStorage.setItem(this.PLANS_STORAGE_KEY, JSON.stringify({
+                version: this.PLANS_STORAGE_VERSION,
+                plans: this.savedPlans,
+            }));
         } catch (e) { /* ignore */ }
+    },
+
+    /*
+     * Read either shape. An unversioned document is the bare plan map that
+     * shipped first; a versioned one wraps it. Anything unrecognisable is left
+     * alone rather than replaced, because discarding a student's plans to
+     * recover from a parse error is worse than starting empty for one session.
+     */
+    _migratePlansDocument(parsed) {
+        if (!parsed || typeof parsed !== 'object') return null;
+        if (Array.isArray(parsed)) return null;
+
+        if (typeof parsed.version === 'number' && parsed.plans && typeof parsed.plans === 'object') {
+            if (parsed.version > this.PLANS_STORAGE_VERSION) {
+                // Written by a newer build in another tab. Read what is there
+                // rather than overwriting data this version does not understand.
+                return parsed.plans;
+            }
+            return parsed.plans;
+        }
+
+        // Unversioned: the original shape, a map of plan name to plan.
+        const looksLikePlanMap = Object.values(parsed)
+            .every(value => value && typeof value === 'object' && !Array.isArray(value));
+        return looksLikePlanMap ? parsed : null;
     },
 
     _restore() {
         try {
-            const data = localStorage.getItem('uosc-scheduler-plans');
-            if (data) this.savedPlans = JSON.parse(data);
+            const data = localStorage.getItem(this.PLANS_STORAGE_KEY);
+            if (!data) return;
+            const migrated = this._migratePlansDocument(JSON.parse(data));
+            if (migrated) this.savedPlans = migrated;
         } catch (e) { /* ignore */ }
     },
 

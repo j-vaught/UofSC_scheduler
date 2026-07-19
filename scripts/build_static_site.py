@@ -106,6 +106,35 @@ def write_headers(output: Path) -> None:
     )
 
 
+ASSET_URL_RE = re.compile(r'(?P<attr>src|href)="(?P<url>/static/[^"?]+\.(?:js|css))(?:\?[^"]*)?"')
+
+
+def stamp_asset_urls(html: str, source: Path) -> tuple[str, int]:
+    """Give every script and stylesheet URL a content digest.
+
+    Some tags carried a hand-written ``?v=20260718``; the runtime modules carried
+    nothing at all. The worker serves everything under /static/ with
+    ``max-age=3600``, so a file whose query string nobody remembered to bump keeps
+    serving stale for an hour after a deploy, and a rebuilt file appears not to
+    have changed. Deriving the marker from the bytes removes the remembering.
+    """
+    stamped = 0
+
+    def replace(match: re.Match[str]) -> str:
+        nonlocal stamped
+        url = match.group("url")
+        asset = source / url[len("/static/"):]
+        if not asset.is_file():
+            # Left alone rather than guessed at; validate_source reports a genuinely
+            # missing asset, and a wrong digest here would be worse than none.
+            return match.group(0)
+        digest = hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
+        stamped += 1
+        return f'{match.group("attr")}="{url}?v={digest}"'
+
+    return ASSET_URL_RE.sub(replace, html), stamped
+
+
 def static_build_id(source: Path) -> str:
     digest = hashlib.sha256()
     for path in sorted(item for item in source.rglob("*") if item.is_file()):
@@ -134,8 +163,12 @@ def build_site(
         server = staging / "server"
         client.mkdir(parents=True)
         server.mkdir(parents=True)
-        shutil.copy2(source / "index.html", client / "index.html")
-        shutil.copy2(source / "index.html", client / "404.html")
+        index_html, stamped_assets = stamp_asset_urls(
+            (source / "index.html").read_text(encoding="utf-8"), source,
+        )
+        (client / "index.html").write_text(index_html, encoding="utf-8")
+        (client / "404.html").write_text(index_html, encoding="utf-8")
+        print(f"Stamped {stamped_assets} asset URLs with content digests", flush=True)
         shutil.copytree(
             source,
             client / "static",

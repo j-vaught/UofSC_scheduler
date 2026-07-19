@@ -84,8 +84,11 @@ test('coursework persists to storage, not only to memory', () => {
     state.currentPlan = 'Plan A';
     state.completedCourses = ['CSCE 145'];
     state.saveCompletedCoursework();
+    // The stored document is versioned; tests/test_plan_storage_migration.js
+    // owns that format, so read it back through _restore rather than pinning
+    // the shape in two places.
     const written = JSON.parse(store.get('uosc-scheduler-plans'));
-    sameValue(written['Plan A'].completedCourses, ['CSCE 145']);
+    sameValue(written.plans['Plan A'].completedCourses, ['CSCE 145']);
 });
 
 test('saving coursework for an unseen plan name creates it rather than throwing', () => {

@@ -136,3 +136,52 @@ def test_representative_release_requires_explicit_opt_in(tmp_path: Path) -> None
         tmp_path / "dist",
         allow_representative=True,
     ).is_dir()
+
+
+def test_asset_urls_are_stamped_with_content_digests(tmp_path: Path) -> None:
+    """Every script and stylesheet URL gets a digest derived from its bytes.
+
+    The hand-maintained query strings drifted -- some tags carried a date, the
+    runtime modules carried nothing -- and the worker caches everything under
+    /static/ for an hour, so a rebuilt file kept serving stale.
+    """
+    from scripts.build_static_site import stamp_asset_urls
+
+    source = tmp_path / "static"
+    (source / "js").mkdir(parents=True)
+    (source / "css").mkdir()
+    (source / "js" / "app.js").write_text("console.log(1);", encoding="utf-8")
+    (source / "css" / "app.css").write_text("body{}", encoding="utf-8")
+
+    html = (
+        '<link rel="stylesheet" href="/static/css/app.css">'
+        '<script src="/static/js/app.js"></script>'
+        '<script src="/static/js/app.js?v=hand-written"></script>'
+    )
+    stamped, count = stamp_asset_urls(html, source)
+
+    assert count == 3, "every asset URL should be stamped"
+    assert "?v=hand-written" not in stamped, "a stale hand-written marker must be replaced"
+    digest = hashlib.sha256(b"console.log(1);").hexdigest()[:12]
+    assert f"/static/js/app.js?v={digest}" in stamped
+
+    # The digest must follow the bytes, or it cannot prevent a stale cache.
+    (source / "js" / "app.js").write_text("console.log(2);", encoding="utf-8")
+    restamped, _ = stamp_asset_urls(html, source)
+    assert restamped != stamped, "changing a file must change its digest"
+
+
+def test_stamping_leaves_unknown_assets_alone(tmp_path: Path) -> None:
+    """A missing asset keeps its URL rather than gaining a wrong digest.
+
+    validate_source reports a genuinely missing file; inventing a marker here
+    would hide that and cache a 404 under a plausible-looking version.
+    """
+    from scripts.build_static_site import stamp_asset_urls
+
+    source = tmp_path / "static"
+    source.mkdir()
+    html = '<script src="/static/js/missing.js"></script>'
+    stamped, count = stamp_asset_urls(html, source)
+    assert count == 0
+    assert stamped == html
