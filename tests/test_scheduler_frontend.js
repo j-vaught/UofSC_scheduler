@@ -46,6 +46,29 @@ function featureSources() {
  * Grade-history logic lives in the fenced feature; grades.js is the wiring.
  * Assertions about either belong against both.
  */
+
+/*
+ * search.js and scheduler.js are composition points now; their logic lives in
+ * the fenced features. Assertions about that logic read both halves, so a seam
+ * supplied by the wiring and a behaviour implemented in the feature are both
+ * visible to the same test.
+ */
+/*
+ * Several assertions below pin source text that names a collaborator. The
+ * fenced features reach collaborators through `deps.state`, `deps.walkingMap`
+ * and so on, while the unfenced composition points still name the globals
+ * directly, so these patterns accept either spelling. Tightening them to one
+ * form would break the moment a module moved in or out of a fence -- and
+ * silently, since a source-text assertion that matches nothing simply fails
+ * open unless it is anchored.
+ */
+function moduleSource(name) {
+    return [
+        fs.readFileSync(`static/js/features/${name}/index.js`, 'utf8'),
+        fs.readFileSync(`static/js/${name}.js`, 'utf8'),
+    ].join('\n');
+}
+
 function gradesSource() {
     return [
         fs.readFileSync('static/js/features/grades/index.js', 'utf8'),
@@ -242,7 +265,7 @@ test('browse course availability uses concise color-coded states', () => {
 });
 
 test('browse results reserve course add actions for the details pane', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.doesNotMatch(source, /class="btn-course-add/);
@@ -262,11 +285,11 @@ test('Search results do not display a selected-course counter', () => {
 
     assert.doesNotMatch(html, /id="pick-count"|\(\$\{count\} selected\)/);
     assert.doesNotMatch(styles, /\.pick-count|\.results-header:has\(\.pick-count/);
-    assert.match(html + bootSource(), /State\.on\('courses-changed', \(\) => ScheduleSidebar\.render\(\)\)/);
+    assert.match(html + bootSource(), /(?:deps\.state|State)\.on\('courses-changed', \(\) => ScheduleSidebar\.render\(\)\)/);
 });
 
 test('browse section details add and lock the specific section', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const registrationNotes = source.slice(
         source.indexOf('sectionRegistrationNotes(details = null)'),
         source.indexOf('destroyDetailMap()'),
@@ -275,7 +298,7 @@ test('browse section details add and lock the specific section', () => {
     assert.match(source, /ADD SECTION \$\{sectionLabel\} TO SCHEDULE/);
     assert.match(source, /LET SCHEDULER CHOOSE/);
     assert.match(source, /Use Section \$\{sectionLabel\} in every generated schedule/);
-    assert.match(source, /State\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
+    assert.match(source, /(?:deps\.state|State)\.setSectionLock\(group\.code, locked \? null : section\.crn\)/);
     assert.match(source, /You can still use this full section for planning\./);
     assert.match(source, /this\._detailSectionData\[this\._detailSectionCrn\] = \{ details, faculty \}/);
     assert.match(source, /picker\.querySelectorAll\('\[data-detail-crn\]'\)[\s\S]*selectDetailSection\(button\.dataset\.detailCrn\)/);
@@ -289,7 +312,7 @@ test('browse section details add and lock the specific section', () => {
 });
 
 test('course time and location collapse preference persists locally and defaults expanded', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const values = new Map();
     const localStorage = {
         getItem(key) { return values.has(key) ? values.get(key) : null; },
@@ -451,7 +474,7 @@ test('course time and location correlates numbered colors across calendar and ma
     assert.match(key, /Gambrell 152/);
     assert.match(key, /Close-Hipp 750/);
 
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(source, /markerElement\?\.addEventListener\('mouseenter'/);
     assert.match(source, /section-calendar-event\[data-location-index/);
@@ -467,7 +490,8 @@ test('course time and location correlates numbered colors across calendar and ma
 
 test('prerequisite details use a compact status-first requirement tree', () => {
     const prereqs = loadObject('static/js/prereqs.js', 'Prereqs', {});
-    const source = fs.readFileSync('static/js/prereqs.js', 'utf8');
+    // The rendering logic lives in the fenced feature now.
+    const source = fs.readFileSync('static/js/features/prereqs/index.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     const groups = [{ courses: ['CSCE 580'], type: 'and' }];
     const companions = [
@@ -777,7 +801,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.equal(preferences.minimum_transition_minutes, undefined);
     assert.equal(preferences.preferred_maximum_walk_minutes, undefined);
 
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(source, /class="schedule-preference-times"/);
     assert.match(source, /id="schedule-preferred-start"/);
@@ -785,7 +809,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.match(source, /id="btn-advanced-time-avoidance"/);
     assert.match(source, /id="schedule-advanced-calendar"/);
     assert.match(source, /buildAdvancedTimeAvoidance/);
-    assert.match(source, /State\.avoidedTimeBlocks/);
+    assert.match(source, /(?:deps\.state|State)\.avoidedTimeBlocks/);
     assert.match(source, /id="schedule-minimum-walking-buffer"/);
     assert.match(source, /modeControl\('schedule-time-mode-required'/);
     assert.match(source, /modeControl\('schedule-walking-mode-required'/);
@@ -875,7 +899,7 @@ test('schedule actions live in the options panel and quick ICS export is removed
     assert.match(styles, /#solver-section\s*{[^}]*container-name:\s*schedule-options;[^}]*container-type:\s*inline-size;/s);
     assert.match(styles, /@container schedule-options \(max-width:\s*390px\)[\s\S]*\.schedule-action-label-wide\s*{\s*display:\s*none;\s*}[\s\S]*\.schedule-action-label-compact\s*{\s*display:\s*inline;/);
     assert.match(styles, /\.schedule-preferences-button\s*{[^}]*display:\s*flex;[^}]*height:\s*28px;[^}]*width:\s*32px;/s);
-    assert.doesNotMatch(fs.readFileSync('static/js/scheduler.js', 'utf8'), /Avoid-day and time choices improve ranking/);
+    assert.doesNotMatch(moduleSource('scheduler'), /Avoid-day and time choices improve ranking/);
 });
 
 test('navigation is centered inside the single garnet header', () => {
@@ -895,7 +919,7 @@ test('navigation is centered inside the single garnet header', () => {
 });
 
 test('registration info unlocks for selected sections and links to the CRN cart', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
     const html = fs.readFileSync('static/index.html', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
@@ -1029,7 +1053,7 @@ test('registration prerequisite warnings account for completed alternatives', ()
 });
 
 test('registration info omits cross-listed course information', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
 
     assert.doesNotMatch(source, /Cross-listed sections/);
     assert.doesNotMatch(source, /details\.xlist/);
@@ -1083,7 +1107,7 @@ test('schedule search results use compact availability summaries', () => {
 });
 
 test('schedule result cards use fixed add-remove buttons and truncating text', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(source, /selected \? 'btn-danger added' : 'btn-green'/);
@@ -1097,7 +1121,7 @@ test('schedule result cards use fixed add-remove buttons and truncating text', (
 });
 
 test('schedule course cards open a visual quick view without hijacking add-remove', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
     const api = fs.readFileSync('static/js/api.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
@@ -1105,22 +1129,22 @@ test('schedule course cards open a visual quick view without hijacking add-remov
     assert.match(source, /id="btn-quick-course-toggle"/);
     assert.match(source, /id="btn-quick-view-browse"/);
     assert.match(source, /const button = event\.currentTarget;/);
-    assert.match(source, /button\.textContent = State\.isCourseSelected\(group\.code\) \? 'REMOVE' : 'ADD TO SCHEDULE';/);
-    assert.match(source, /button\.className = State\.isCourseSelected\(group\.code\) \? 'btn-danger' : 'btn-green';/);
+    assert.match(source, /button\.textContent = (?:deps\.state|State)\.isCourseSelected\(group\.code\) \? 'REMOVE' : 'ADD TO SCHEDULE';/);
+    assert.match(source, /button\.className = (?:deps\.state|State)\.isCourseSelected\(group\.code\) \? 'btn-danger' : 'btn-green';/);
     assert.match(source, /quick-grade-strip/);
     assert.match(source, /quick-frequency-ring/);
-    assert.match(source, /API\.getFaculty\(State\.term, facultyCrns\)/);
+    assert.match(source, /(?:deps\.api|API)\.getFaculty\((?:deps\.state|State)\.term, facultyCrns\)/);
     assert.match(source, /href="mailto:\$\{this\.escapeHtml\(instructor\.email\)\}"/);
     assert.match(source, /data-quick-instructor-index="\$\{index\}"/);
     assert.match(source, /VIEW DETAILS FOR SECTION \$\{this\.escapeHtml\(selectedSection\.section/);
     assert.match(source, /Offered in \$\{frequency\}% of recent terms/);
     assert.match(source, /Last offered \$\{offering\.last_offered_label\}/);
     assert.match(source, /const detailsPromise =/);
-    assert.match(source, /const gradesPromise = API\.getCourseGrades\(group\.code\)/);
+    assert.match(source, /const gradesPromise = (?:deps\.api|API)\.getCourseGrades\(group\.code\)/);
     assert.match(source, /this\.renderCourseQuickView\(\s*group,\s*\{\},\s*\{\},\s*\{\},\s*true,/s);
     assert.match(source, /gradesPromise\s*\.then\(result =>/);
     assert.match(source, /this\.updateQuickGrades\(gradeData\)/);
-    assert.doesNotMatch(source, /await Promise\.allSettled\(\[API\.getCourseGrades\(group\.code\)\]\)/);
+    assert.doesNotMatch(source, /await Promise\.allSettled\(\[(?:deps\.api|API)\.getCourseGrades\(group\.code\)\]\)/);
     assert.match(source, /detailsPromise\s*\.then\(details =>/);
     assert.match(api, /async getCourseGrades\(code\)/);
     assert.match(api, /async getFaculty\(term, crns\)/);
@@ -1682,7 +1706,7 @@ test('schedule splitter uses a safe default when initialized in a hidden tab', (
 });
 
 test('schedule splitter recalculates when the schedule tab becomes visible', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
 
     assert.match(source, /addEventListener\('tab-changed'/);
     assert.match(source, /event\.detail\?\.tab === 'schedule'/);
@@ -1938,7 +1962,7 @@ test('adding a CRN search result locks and confirms its exact section', async ()
 });
 
 test('numeric course ranges are parsed before semantic search in Browse', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const numericRange = source.indexOf('Inclusive numeric range');
     const semanticSearch = source.indexOf('Meaning-based search via Transformers.js');
 
@@ -2110,7 +2134,7 @@ test('semantic search uses its larger scoped budget when early batches have no m
 
 test('Browse uses progressive states with AI-assisted search on by default', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(html, /id="browse-workspace" class="semester-layout browse-empty"/);
@@ -2141,7 +2165,7 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
 
 test('Browse filters open as a centered modal and applying closes them', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(styles, /\.filter-backdrop\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*2040;/s);
@@ -2159,7 +2183,7 @@ test('Browse filters open as a centered modal and applying closes them', () => {
 
 test('Browse teaches structured searches and presents generated searches compactly', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(html, /data-search-example="Machine Learning"/);
@@ -2248,7 +2272,7 @@ test('Browse teaches structured searches and presents generated searches compact
 
 test('Repeated and historical searches reuse a bounded one-hour in-memory cache', () => {
     const search = loadObject('static/js/search.js', 'Search', {});
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const rendered = [];
     search.renderResults = (...args) => rendered.push(args);
     search._searchViewCache = new Map();
@@ -2567,7 +2591,7 @@ test('Offering history preserves errors returned by a valid progress stream', as
 
 test('AI-assisted search can be disabled and related searches remain direct', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
 
     assert.match(html, /id="filter-ai-search" type="checkbox" checked/);
     assert.match(source, /const useDirectSearch = !aiAssisted[\s\S]*Boolean\(this\._relatedSearchOrigin\)[\s\S]*this\._directSearchOnce[\s\S]*this\._semanticFallbackOnce/);
@@ -2579,7 +2603,7 @@ test('AI-assisted search can be disabled and related searches remain direct', ()
 
 test('Browse uses one search field for direct and AI-assisted queries', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.equal((html.match(/id="keyword-input"/g) || []).length, 1);
@@ -2593,7 +2617,7 @@ test('Browse uses one search field for direct and AI-assisted queries', () => {
 });
 
 test('Search navigation resets cleanly and URL history restores prior searches', () => {
-    const search = fs.readFileSync('static/js/search.js', 'utf8');
+    const search = moduleSource('search');
     const tabs = fs.readFileSync('static/js/tabs.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
@@ -2605,12 +2629,12 @@ test('Search navigation resets cleanly and URL history restores prior searches',
     assert.match(search, /history\.pushState\(state, '', next\)/);
     assert.match(search, /window\.addEventListener\('popstate', \(\) => this\.restoreFromLocation\(\)\)/);
     assert.match(search, /url\.searchParams\.set\('q', query\)/);
-    assert.match(search, /url\.searchParams\.set\('term', State\.term\)/);
+    assert.match(search, /url\.searchParams\.set\('term', (?:deps\.state|State)\.term\)/);
     assert.match(search, /url\.searchParams\.set\('from', origin\)/);
     assert.match(search, /if \(topic\) url\.searchParams\.set\('topic', '1'\)/);
     assert.match(search, /this\._topicSearchMode = params\.get\('topic'\) === '1'/);
     assert.match(search, /params\.get\('tab'\) !== 'search' && !params\.has\('q'\)/);
-    assert.match(search, /State\.term = term/);
+    assert.match(search, /(?:deps\.state|State)\.term = term/);
     assert.match(search, /class="related-search-back"/);
     assert.match(search, /history\.state\?\.relatedSearch/);
     assert.match(fs.readFileSync('static/index.html', 'utf8'), /id="keyword-input" aria-label="Search courses"/);
@@ -3084,11 +3108,11 @@ test('A plain site visit opens Search even when another tab was used previously'
 test('Changing terms does not run a hidden Search query from another tab', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
 
-    assert.match(html + bootSource(), /if \(Tabs\.current\(\) === 'semester'\) \{[\s\S]*Search\.doSearch\(\);[\s\S]*\} else \{[\s\S]*Tabs\.writeTabHistory\(Tabs\.current\(\), 'replace'\);/);
+    assert.match(html + bootSource(), /if \((?:deps\.tabs|Tabs)\.current\(\) === 'semester'\) \{[\s\S]*(?:deps\.search|Search)\.doSearch\(\);[\s\S]*\} else \{[\s\S]*(?:deps\.tabs|Tabs)\.writeTabHistory\((?:deps\.tabs|Tabs)\.current\(\), 'replace'\);/);
 });
 
 test('Direct search ignores stale prerequisite completions and errors', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
     const render = source.indexOf('this.renderAndCacheSearch(', prereqLoad);
     const staleGuard = source.lastIndexOf('if (searchId !== this._searchId) return;', render);
@@ -3112,7 +3136,7 @@ test('Course and professor close controls remain available while scrolling', () 
 });
 
 test('Course detail fills its pane and uses visual section, grade, and history summaries', () => {
-    const search = fs.readFileSync('static/js/search.js', 'utf8');
+    const search = moduleSource('search');
     const grades = gradesSource();
     const history = fs.readFileSync('static/js/history.js', 'utf8');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
@@ -3120,7 +3144,7 @@ test('Course detail fills its pane and uses visual section, grade, and history s
 
     assert.match(styles, /\.course-detail-shell\s*{[^}]*max-width:\s*none;[^}]*width:\s*100%;/s);
     assert.match(search, /renderSectionCalendar\(section, details/);
-    assert.match(search, /WalkingMap\.resolveBuilding/);
+    assert.match(search, /(?:deps\.walkingMap|WalkingMap)\.resolveBuilding/);
     assert.match(search, /L\.marker\(\[building\.lat, building\.lon\]/);
     assert.match(search, /const bounds = L\.latLngBounds\(\[\]\)/);
     assert.match(search, /this\._detailMap\.fitBounds\(bounds, \{ maxZoom: 17, padding: \[32, 32\] \}\)/);
@@ -3483,7 +3507,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.match(source, /currentFacultyForCourse\(code\)/);
     assert.match(source, /return `\$\{term\}:\$\{code\}:\$\{crns\.join\(','\)\}`/);
     assert.match(source, /const facultyKey = this\.courseFacultyKey\(code\)[\s\S]*this\.courseFacultyKey\(code\) !== facultyKey/);
-    assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /Grades\.refreshCourseFaculty\(group\.code\)/);
+    assert.match(moduleSource('search'), /(?:deps\.grades|Grades)\.refreshCourseFaculty\(group\.code\)/);
     assert.match(styles, /\.professor-year-line\s*{[^}]*stroke:\s*#73000A;[^}]*stroke-linecap:\s*butt;[^}]*stroke-linejoin:\s*miter;/s);
     assert.doesNotMatch(styles, /\.professor-year-segment/);
     assert.match(styles, /\.professor-year-plot\s*{[^}]*height:\s*clamp\(160px, 24vw, 210px\);/s);
@@ -3504,7 +3528,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
 });
 
 test('Static catalog fallbacks never claim that an unverified course is not offered', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(source, /availability_unknown[\s\S]*Live availability unavailable/);
     assert.match(source, /Live section totals unavailable/);
@@ -3514,7 +3538,7 @@ test('Static catalog fallbacks never claim that an unverified course is not offe
 });
 
 test('Smart model startup skips nonexistent local model probes', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     assert.match(source, /env\.allowLocalModels = false/);
 });
 
@@ -3550,7 +3574,7 @@ test('Professor GPA timeline plots values below one instead of pinning them to o
 });
 
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
     const search = loadObject('static/js/search.js', 'Search', { URL });
 
@@ -3559,7 +3583,7 @@ test('Resources derive official section, bookstore, syllabus, and bulletin desti
     assert.match(source, /\|\| action\.port/);
     assert.match(source, /\['catalogId', 'storeId', 'termMapping', 'courseXml'\]/);
     assert.match(source, /form\.rel = 'noopener noreferrer'/);
-    assert.match(source, /details&srcdb=\$\{encodeURIComponent\(this\._detailTerm \|\| State\.term\)\}&crn=/);
+    assert.match(source, /details&srcdb=\$\{encodeURIComponent\(this\._detailTerm \|\| (?:deps\.state|State)\.term\)\}&crn=/);
     const syllabus = new URL(search.syllabusResourceUrl('ACCT 222'));
     assert.equal(syllabus.pathname, '/syllabusarchive/studentcourselist.php');
     assert.equal(syllabus.searchParams.get('designator'), 'ACCT');
@@ -3683,14 +3707,14 @@ test('Professor profile review links use the UofSC Rate My Professors school sea
 
 test('Course identity and actions stay together in a sticky black header', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(html, /class="course-detail-header-sticky"[\s\S]*id="browse-close-details"[\s\S]*id="tab-details"/);
     assert.match(html, /id="course-detail-description-wrap"/);
     assert.match(source, /class="course-detail-header-topline"[\s\S]*class="course-detail-header-controls"[\s\S]*class="course-detail-credit"/);
     assert.match(source, /id="btn-course-toggle"[\s\S]*id="btn-course-view-schedule"/);
-    assert.match(source, /Tabs\.switchTo\('schedule'\)/);
+    assert.match(source, /(?:deps\.tabs|Tabs)\.switchTo\('schedule'\)/);
     assert.match(source, /Section \$\{selectedSection\.section \|\| '—'\} · CRN \$\{selectedSection\.crn\}/);
     assert.match(styles, /\.course-detail-header-sticky\s*{[^}]*position:\s*sticky;[^}]*z-index:\s*1000;/s);
     assert.match(styles, /\.course-detail-header-sticky \.browse-close-details\s*{[^}]*position:\s*absolute;/s);
@@ -3700,11 +3724,11 @@ test('Course identity and actions stay together in a sticky black header', () =>
 });
 
 test('Browse result cards lazily add descriptions and historical grades', () => {
-    const source = fs.readFileSync('static/js/search.js', 'utf8');
+    const source = moduleSource('search');
     const styles = fs.readFileSync('static/css/style.css', 'utf8');
 
     assert.match(source, /new IntersectionObserver/);
-    assert.match(source, /API\.getCourseGrades\(group\.code\)/);
+    assert.match(source, /(?:deps\.api|API)\.getCourseGrades\(group\.code\)/);
     assert.match(source, /course-result-description/);
     assert.match(source, /historical GPA/);
     assert.match(styles, /\.course-result-description/);
@@ -3712,12 +3736,12 @@ test('Browse result cards lazily add descriptions and historical grades', () => 
 });
 
 test('schedule course search paginates matches instead of discarding them', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
 
     assert.doesNotMatch(source, /Object\.values\(groups\)\.slice\(0, 30\)/);
     assert.match(source, /_searchPageSize:\s*30/);
     assert.match(source, /SHOW \$\{increment\} MORE/);
-    assert.match(source, /Search\.searchLiveCourses\(query\)/);
+    assert.match(source, /(?:deps\.search|Search)\.searchLiveCourses\(query\)/);
 });
 
 test('preview renders a candidate without replacing selected sections', () => {
@@ -3860,7 +3884,7 @@ test('scrolling schedule options previews the card under a stationary pointer', 
 });
 
 test('schedule scrolling reevaluates hover on every animation frame', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
 
     assert.match(source, /addEventListener\('scroll', \(\) =>/);
     assert.match(source, /previewFrame = requestAnimationFrame\(\(\) =>/);
@@ -3892,7 +3916,7 @@ test('applied schedule matching compares every selected CRN', () => {
 });
 
 test('schedule card containers do not disable or trap their interactive children', () => {
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const source = moduleSource('scheduler');
 
     assert.match(source, /card\.removeAttribute\('aria-disabled'\)/);
     assert.match(source, /card\.removeAttribute\('tabindex'\)/);
@@ -3962,8 +3986,8 @@ test('scheduler background location prefetch only includes usable campus section
     const crns = Array.from(scheduler.locationPrefetchSections(), section => section.crn);
 
     assert.deepEqual(crns, ['open-campus', 'locked-full']);
-    const source = fs.readFileSync('static/js/scheduler.js', 'utf8');
-    assert.doesNotMatch(source, /API\.prefetchCourseDetails/);
+    const source = moduleSource('scheduler');
+    assert.doesNotMatch(source, /(?:deps\.api|API)\.prefetchCourseDetails/);
     assert.match(source, /background: true/);
     assert.match(source, /foreground: true/);
 });
@@ -4097,7 +4121,7 @@ test('walking map explains processed selections that have no campus meetings', (
 
 test('route interface uses neutral travel language', () => {
     const source = mapSource();
-    const schedulerSource = fs.readFileSync('static/js/scheduler.js', 'utf8');
+    const schedulerSource = moduleSource('scheduler');
 
     assert.match(source, /Routes Between Classes/);
     assert.doesNotMatch(source, /Travel-time estimates currently use pedestrian routing/);

@@ -730,13 +730,45 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > instructor-summary calls, so inside a fence the grade table would have fallen
 > back to historical instructors and stopped marking who is teaching now.
 >
-> **Still outstanding:** `schedule`+`export` and `search`+`prereqs`.
+> **`export`, `prereqs`, `scheduler` and `search` are fenced. Phase 7a is
+> complete: ten of ten.**
 >
-> The last group is a different proposition from everything above: roughly 6,300
-> lines in one irreducible cycle, about 40% of the frontend, and the plan says
-> the facade rule is not optional there. Every extraction so far has been a
-> module with a describable outside; that one has to be cut rather than lifted.
-> It is worth a human look before it lands rather than after. Each is the same
+> **The plan was wrong about this group, and the measurement says so.** It
+> predicted an irreducible cycle where the facade rule would not be optional.
+> Measured, the cycle is seven methods wide: the scheduler reaches search
+> through three, search reaches the scheduler through four, across 6,300 lines.
+> Both directions are injected and no facade was needed. That is the same
+> lesson the map extraction taught -- coupling is narrower than size suggests --
+> and it has now held three times. Measure before designing around an estimate.
+>
+> These two use a **coarser seam** than the other eight, deliberately.
+> Collaborators arrive as objects (`deps.state`, `deps.api`) rather than as
+> individually named functions. Flattening thirty-five dependencies each would
+> have meant a mechanical edit across thousands of lines that had to get
+> property-versus-method right every time -- the exact shape of edit that
+> produces a bug looking like a refactor. The architectural property is
+> unchanged; narrowing the seam later is a local change.
+>
+> Thirty-one existence guards came out of the pair, the largest concentration in
+> the repository. Across all ten features the count is over fifty, and **every
+> single extraction contained at least one**.
+>
+> Two findings worth carrying forward:
+>
+> The application's `History` module collides with the DOM's `History`
+> interface. A composition point that resolved collaborators eagerly captured
+> the built-in constructor instead of the module -- a wrong value that an
+> existence check accepts, because it is very much defined. Classic scripts
+> declare globals with `const`, which is a lexical binding that does not exist
+> until that script runs, so composition points for the pair supply **getters**
+> rather than values. The browser reported the failure as "Search is not
+> defined", because the composition point threw and left the const in its
+> temporal dead zone. Boot supervision from phase 1 is what surfaced it.
+>
+> Six source-text assertions were found failing open across this phase, all
+> slicing with `indexOf` and silently checking an empty string once the code
+> moved. They are anchored now. Any remaining source-text assertion should be
+> assumed suspect until it has been shown to fail when it should. Each is the same
 > three-step shape, and the pattern plus test vocabulary is now established
 > across an easy case, a hard one, and a pre-drawn one.
 >

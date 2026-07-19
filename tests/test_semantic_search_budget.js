@@ -5,7 +5,7 @@ const vm = require('node:vm');
 
 function loadSearch(contextValues = {}) {
     const context = vm.createContext({ ...contextValues });
-    const source = `${fs.readFileSync('static/js/search.js', 'utf8')}\nglobalThis.__result = Search;`;
+    const source = `${[fs.readFileSync('static/js/features/search/index.js', 'utf8'), fs.readFileSync('static/js/search.js', 'utf8')].join('\n')}\nglobalThis.__result = Search;`;
     vm.runInContext(source, context);
     return context.__result;
 }

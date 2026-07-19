@@ -191,10 +191,26 @@ function createDocument(ids = elementIdsFromMarkup()) {
  * scripts assigning a top-level const, so the name has to be read back out of
  * the sandbox explicitly.
  */
+/*
+ * Composition points construct their feature from `Features.<name>`, so the
+ * feature modules have to be in the context before the file under test runs.
+ * Loading all of them is deliberate: each only registers itself, so this costs
+ * nothing, and the next extraction needs no change here.
+ */
+function featureSources() {
+    const dir = path.join(ROOT, 'static/js/features');
+    if (!fs.existsSync(dir)) return '';
+    return fs.readdirSync(dir)
+        .map(name => path.join(dir, name, 'index.js'))
+        .filter(file => fs.existsSync(file))
+        .map(file => fs.readFileSync(file, 'utf8'))
+        .join('\n');
+}
+
 function loadModule(relativePath, exportName, context = {}) {
     const source = fs.readFileSync(path.join(ROOT, relativePath), 'utf8');
     const sandbox = vm.createContext({ console, JSON, Math, Date, Set, Map, Promise, ...context });
-    vm.runInContext(`${source}\nglobalThis.__exported = ${exportName};`, sandbox, {
+    vm.runInContext(`${featureSources()}\n${source}\nglobalThis.__exported = ${exportName};`, sandbox, {
         filename: relativePath,
     });
     return { module: sandbox.__exported, sandbox };
@@ -251,5 +267,6 @@ module.exports = {
     createDocument,
     createContext,
     elementIdsFromMarkup,
+    featureSources,
     loadModule,
 };

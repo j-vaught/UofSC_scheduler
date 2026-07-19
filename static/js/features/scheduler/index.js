@@ -1,0 +1,2288 @@
+/*
+ * The scheduler, fenced: solver runs, section selection, and course quick view.
+ *
+ * The eighth extraction under phase 7a and the first half of the pair the plan
+ * called an irreducible cycle. It is a cycle, but a narrow one: measured, this
+ * module reaches Search through exactly three methods and Search reaches back
+ * through four. Seven edges across 6,300 lines. The plan predicted the facade
+ * rule would not be optional here; the measurement says otherwise, and the same
+ * lesson has now appeared twice -- coupling is narrower than size suggests.
+ *
+ * A deliberately coarser seam than the other features.
+ *
+ * The earlier extractions named every dependency individually -- getDetails,
+ * currentTerm, onStateChange. That works when a module needs five things. This
+ * one needs roughly thirty-five, and flattening them would mean a mechanical
+ * edit across thousands of lines that has to get the property-versus-method
+ * distinction right every single time. That is precisely the kind of edit that
+ * introduces a bug which reads as a refactor, and this session has already
+ * shipped one of those.
+ *
+ * So collaborators arrive as objects: deps.state, deps.api, deps.walkingMap.
+ * The body change is then a pure prefix rename, verifiable by asserting that no
+ * bare global identifier survives. The architectural property is unchanged --
+ * nothing ambient is reachable, every collaborator is chosen by the composition
+ * point, and a test can pass fakes -- but the seam is at the module boundary
+ * rather than the method. Narrowing it later is a local change; getting the
+ * extraction wrong now is not.
+ *
+ * The existence guards are the reason this needed doing. There were thirty-one
+ * across this pair, the largest concentration in the repository, every one of
+ * the form `typeof X !== 'undefined'`. Inside a fenced module that global is
+ * always undefined, so each guard would have silently taken its negative branch
+ * and the feature would have done nothing while appearing to work.
+ *
+ * They are checks on injected collaborators now, which is what they were always
+ * pretending to be. Where a call site was never guarded it still is not: an
+ * absent collaborator throws there exactly as it did before, because changing
+ * that would be a behaviour change hiding inside an extraction.
+ */
+(function initSchedulerFeature(root, factory) {
+    const api = factory();
+    if (typeof module === 'object' && module.exports) module.exports = api;
+    if (!root.Features) root.Features = {};
+    root.Features.scheduler = api;
+}(typeof globalThis === 'object' ? globalThis : self, () => {
+    'use strict';
+
+    function createSchedulerFeature(deps) {
+        /*
+         * Every collaborator is optional and type-checked, which is faithful
+         * rather than lax. The original module referenced State and API lazily
+         * inside its methods, not at load, so a page or a test could construct
+         * it without them and only fail on the path that actually needed one.
+         * Requiring them here would be a behaviour change smuggled inside an
+         * extraction -- the thing this whole phase is trying not to do.
+         *
+         * The guarantee this fence makes is that nothing ambient is reachable,
+         * not that construction fails fast. An absent collaborator throws at
+         * the same call site it always did.
+         */
+        /*
+         * No collaborator inspection at construction, deliberately.
+         *
+         * The composition point supplies these as getters, because classic
+         * scripts declare their globals with `const` and that binding does not
+         * exist until the declaring script has run. Touching a collaborator
+         * here would force it to resolve at exactly the moment it is least
+         * likely to be ready -- and would resolve `History` to the DOM's
+         * built-in constructor rather than the module, which is a wrong value
+         * that no existence check would reject.
+         *
+         * The original referenced these lazily inside its methods, long after
+         * every script had run. Reproducing that is the point.
+         */
+
+        const feature = {        _lastSearchGroups: [],
+        _searchPageSize: 30,
+        _searchVisibleCount: 30,
+        _courseSearchRequestId: 0,
+        _preferredWorkspaceHeight: 620,
+        _quickViewRequestId: 0,
+        _locationPrefetchGeneration: 0,
+        _locationPrefetchTimer: null,
+        _locationPrefetchController: null,
+
+        init() {
+            document.getElementById('btn-solve').addEventListener('click', () => this.solve());
+            document.getElementById('btn-schedule-preferences').addEventListener('click', () => this.openSchedulePreferences());
+            document.getElementById('btn-registration-info').addEventListener('click', () => this.openRegistrationInfo());
+            document.getElementById('btn-search-schedule-courses').addEventListener('click', () => this.searchFromInput());
+            document.getElementById('schedule-course-input').addEventListener('keydown', event => {
+                if (event.key === 'Enter') this.searchFromInput();
+            });
+            deps.state.on('courses-changed', () => {
+                this.clearResults();
+                this.renderCourseSearchResults();
+                this.scheduleLocationPrefetch();
+            });
+            deps.state.on('section-locks-changed', () => this.clearResults());
+            deps.state.on('sections-changed', () => {
+                this.refreshAppliedResultState();
+                this.updateRegistrationButton();
+            });
+            deps.state.on('preferences-changed', () => this.clearResults());
+            this.renderCourseSearchResults();
+            this.initCourseDivider();
+            this.initScheduleSidebarResize();
+            this.initScheduleSidebarCollapse();
+            this.initVerticalResizer();
+            this.initScheduleScrollPreview();
+            this.updateRegistrationButton();
+            this.scheduleLocationPrefetch();
+            document.getElementById('term-select')?.addEventListener('change', () => {
+                Promise.resolve().then(() => {
+                    this.scheduleLocationPrefetch();
+                    if (deps.walkingMap) deps.walkingMap.refresh();
+                });
+            });
+        },
+
+        scheduleLocationPrefetch() {
+            const generation = ++this._locationPrefetchGeneration;
+            if (this._locationPrefetchTimer) clearTimeout(this._locationPrefetchTimer);
+            this._locationPrefetchController?.abort();
+            this._locationPrefetchController = null;
+            const sections = this.locationPrefetchSections();
+            if (sections.length === 0 || (typeof navigator !== 'undefined' && navigator.connection?.saveData)) return;
+            const controller = new AbortController();
+            this._locationPrefetchController = controller;
+            const run = async () => {
+                this._locationPrefetchTimer = null;
+                if (generation !== this._locationPrefetchGeneration || controller.signal.aborted) return;
+                try {
+                    if (deps.walkingMap) {
+                        await deps.walkingMap.hydrateSectionDetails(sections, {
+                            background: true,
+                            concurrency: 1,
+                            delayMs: 400,
+                            maxConsecutiveFailures: 2,
+                            signal: controller.signal,
+                        });
+                    }
+                } catch (error) {
+                    // Background prefetch is optional. Generate retries unfinished details in the foreground.
+                }
+            };
+            this._locationPrefetchTimer = setTimeout(run, 75);
+        },
+
+        hasScheduledCampusMeeting(section) {
+            if (!section || !section.meetingTimes) return false;
+            const method = [
+                (section.instructionalMethod || section.inst_mthd),
+                section.meets,
+                section.instructionalMethod,
+                section.instructional_method,
+            ].filter(Boolean).join(' ').toLowerCase();
+            if (/online|web|remote|asynchronous|does not meet|distance/.test(method)) return false;
+            try {
+                const meetings = typeof section.meetingTimes === 'string'
+                    ? JSON.parse(section.meetingTimes)
+                    : section.meetingTimes;
+                return Array.isArray(meetings) && meetings.some(meeting => (
+                    Number.isFinite(Number(meeting?.meet_day))
+                    && Number.isFinite(Number(meeting?.start_time))
+                    && Number.isFinite(Number(meeting?.end_time))
+                ));
+            } catch (error) {
+                return false;
+            }
+        },
+
+        locationPrefetchSections() {
+            return Object.entries(deps.state.selectedCourses || {}).flatMap(([code, course]) => {
+                const lockedCrn = String(deps.state.sectionLocks?.[code] || '');
+                return (course.sections || []).filter(section => {
+                    const locked = lockedCrn && String(section?.crn || '') === lockedCrn;
+                    return section?.crn
+                        && (lockedCrn ? locked : this.isOpenSection(section))
+                        && this.hasScheduledCampusMeeting(section);
+                });
+            });
+        },
+
+        registrationSections() {
+            return Object.entries(deps.state.selectedSections || {})
+                .map(([code, section]) => ({ code, ...section, crn: String(section.crn || '').trim() }))
+                .filter(section => section.crn);
+        },
+
+        updateRegistrationButton() {
+            const button = document.getElementById('btn-registration-info');
+            if (!button) return;
+            button.disabled = this.registrationSections().length === 0;
+        },
+
+        async copyRegistrationCrn(section, button, status) {
+            const text = section.crn;
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const input = document.createElement('textarea');
+                    input.value = text;
+                    input.setAttribute('readonly', '');
+                    input.style.position = 'fixed';
+                    input.style.opacity = '0';
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    input.remove();
+                }
+                button.textContent = 'COPIED';
+                status.textContent = `${section.code} CRN ${section.crn} copied to your clipboard.`;
+            } catch (error) {
+                button.textContent = 'COPY CRN';
+                status.textContent = `Copying was blocked. Select CRN ${section.crn} and copy it manually.`;
+            }
+        },
+
+        registrationSeatDetails(details, section) {
+            const maximum = String(details.seats || '').match(/seats_max[^>]*>(\d+)/);
+            const available = String(details.seats || '').match(/seats_avail[^>]*>(\d+)/);
+            if (maximum && available) {
+                const open = Number(available[1]);
+                return {
+                    text: open > 0 ? `${open} of ${maximum[1]} seats available` : `All ${maximum[1]} seats are full`,
+                    kind: open > 0 ? 'open' : 'full',
+                };
+            }
+            return {
+                text: this.isOpenSection(section) ? 'Listed as open' : 'Listed as full',
+                kind: this.isOpenSection(section) ? 'open' : 'full',
+            };
+        },
+
+        registrationRequirementSatisfied(value, eligibleCourses) {
+            const normalizeCode = code => String(code).toUpperCase()
+                .replace(/\s+/g, '')
+                .replace(/^([A-Z]{2,4})(\d)/, '$1 $2');
+            const text = this.stripHtml(value || '').toUpperCase();
+            if (deps.prereqs
+                && deps.prereqs.parsePrereqGroups
+                && deps.prereqs.evaluateGroups) {
+                const groups = deps.prereqs.parsePrereqGroups(text);
+                if (groups.length) return deps.prereqs.evaluateGroups(groups, eligibleCourses).satisfied;
+            }
+            const rawCodes = text.match(/\b[A-Z]{2,4}\s*\d{3}[A-Z]?\b/g) || [];
+            if (rawCodes.length === 0) return false;
+            const normalized = rawCodes.map(normalizeCode);
+            const groups = text.split(/;|\bAND\b/).map(group => {
+                const groupCodes = normalized.filter((code, index) => group.includes(rawCodes[index]));
+                return groupCodes.length > 0 ? groupCodes : null;
+            }).filter(Boolean);
+            if (groups.length > 1) {
+                return groups.every(group => group.some(code => eligibleCourses.has(code)));
+            }
+            return /\bOR\b/.test(text)
+                ? normalized.some(code => eligibleCourses.has(code))
+                : normalized.every(code => eligibleCourses.has(code));
+        },
+
+        registrationRestrictionNeedsAttention(value) {
+            const restriction = this.stripHtml(value || '').toLowerCase();
+            if (!restriction) return false;
+            const major = String(deps.state.profile?.majorData?.major || '').trim().toLowerCase();
+            if (!major) return true;
+            return !restriction.includes(major);
+        },
+
+        registrationRestrictionText(value) {
+            return this.stripHtml(value || '')
+                .replace(/([.!?])(?=[A-Z])/g, '$1 ')
+                .split(/(?<=[.!?])\s+/)
+                .filter(sentence => !/columbia campus/i.test(sentence)
+                    || /major|concentration|program|college|school|student level/i.test(sentence))
+                .join(' ')
+                .trim();
+        },
+
+        registrationRequirementRows(details, bulletin) {
+            const combined = values => [...new Set(values
+                .map(value => this.stripHtml(value || ''))
+                .filter(Boolean))].join(' · ');
+            const normalizeCode = code => String(code).toUpperCase()
+                .replace(/\s+/g, '')
+                .replace(/^([A-Z]{2,4})(\d)/, '$1 $2');
+            const completed = new Set((deps.state.completedCourses || []).map(normalizeCode));
+            const completedOrSelected = new Set([
+                ...completed,
+                ...Object.keys(deps.state.selectedCourses || {}).map(normalizeCode),
+            ]);
+            const rows = [
+                { label: 'Prerequisites', value: combined([bulletin.prereq]), type: 'prerequisite' },
+                { label: 'Prerequisite or corequisite', value: combined([bulletin.prerequisite_or_corequisite]), type: 'prerequisite' },
+                { label: 'Corequisites or linked sections', value: combined([
+                    bulletin.corequisite,
+                    details.course_coreqs,
+                    details.section_coreqs,
+                ]), type: 'corequisite' },
+                { label: 'Registration restrictions', value: this.registrationRestrictionText(details.registration_restrictions), type: 'restriction' },
+                { label: 'Class notes', value: combined([details.clssnotes]), type: 'note' },
+            ];
+            const attentionLabels = [];
+            const html = rows.map(({ label, value, type }) => {
+                if (!value) return '';
+                const attention = Boolean(value) && (
+                    (type === 'prerequisite' && !this.registrationRequirementSatisfied(value, completed))
+                    || (type === 'corequisite' && !this.registrationRequirementSatisfied(value, completedOrSelected))
+                    || (type === 'restriction' && this.registrationRestrictionNeedsAttention(value))
+                    || type === 'note'
+                );
+                if (attention) attentionLabels.push(label);
+                const shortened = value.length > 240 ? `${value.slice(0, 237)}…` : value;
+                return `<p class="${attention ? 'attention' : ''}"><strong>${label}</strong><span>${this.escapeHtml(shortened)}</span></p>`;
+            }).filter(Boolean).join('');
+            return { html, attentionLabels };
+        },
+
+        async hydrateRegistrationCourse(section) {
+            const card = document.getElementById(`registration-course-${section.crn}`);
+            if (!card || !deps.api.getDetails) return;
+            try {
+                const [details, bulletin] = await Promise.all([
+                    deps.api.getDetails(section.crn, deps.state.term),
+                    deps.search && deps.search.fetchBulletinDetailsForCourse
+                        ? deps.search.fetchBulletinDetailsForCourse(section.code)
+                        : Promise.resolve({}),
+                ]);
+                if (!document.body.contains(card)) return;
+                const seats = this.registrationSeatDetails(details, section);
+                const credits = this.parseCreditHours(details.hours_html || bulletin.hours_html || section.hours);
+                const requirements = this.registrationRequirementRows(details, bulletin || {});
+                card.querySelector('[data-registration-seats]').textContent = seats.text;
+                card.querySelector('[data-registration-seats]').className = `registration-value registration-seats ${seats.kind}`;
+                card.querySelector('[data-registration-seat-row]').classList.toggle('attention', seats.kind === 'full');
+                card.querySelector('[data-registration-credits]').textContent = credits === null ? 'Credits unavailable' : `${credits} credit${credits === 1 ? '' : 's'}`;
+                card.querySelector('[data-registration-dates]').textContent = section.start_date && section.end_date
+                    ? `${section.start_date} through ${section.end_date}`
+                    : 'Course dates unavailable';
+                const requirementList = card.querySelector('[data-registration-requirements]');
+                requirementList.innerHTML = requirements.html;
+                requirementList.closest('.registration-requirements').hidden = !requirements.html;
+                const attention = seats.kind === 'full'
+                    ? ['Full section', ...requirements.attentionLabels]
+                    : requirements.attentionLabels;
+                const indicator = card.querySelector('[data-registration-indicator]');
+                const hasAttention = attention.length > 0;
+                indicator.classList.toggle('registration-warning-icon', hasAttention);
+                indicator.classList.toggle('registration-success-icon', !hasAttention);
+                indicator.textContent = hasAttention ? '!' : '✓';
+                indicator.hidden = false;
+                indicator.title = hasAttention ? attention.join(' · ') : 'No registration warnings found';
+                indicator.setAttribute('aria-label', hasAttention
+                    ? `Registration warning. ${attention.join('. ')}`
+                    : 'No registration warnings found');
+                card.classList.toggle('has-registration-warning', attention.length > 0);
+            } catch (error) {
+                if (!document.body.contains(card)) return;
+                card.querySelector('[data-registration-seats]').textContent = this.isOpenSection(section) ? 'Listed as open' : 'Listed as full';
+            }
+        },
+
+        openRegistrationInfo() {
+            const sections = this.registrationSections();
+            if (sections.length === 0) return;
+
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            if (!overlay || !modal || !content) return;
+            modal.classList.remove('course-quick-modal', 'schedule-preferences-modal');
+            modal.classList.add('registration-info-modal');
+
+            const rows = sections.map(section => {
+                const open = this.isOpenSection(section);
+                const credits = this.parseCreditHours(section.hours);
+                return `
+                <article id="registration-course-${this.escapeHtml(section.crn)}" class="registration-course-card">
+                    <header class="registration-course-header">
+                        <div class="registration-course-copy">
+                            <strong>${this.escapeHtml(section.code)}</strong>
+                            <span>${this.escapeHtml(section.title || 'Course title unavailable')}</span>
+                        </div>
+                        <button class="registration-copy-crn btn-green" type="button" data-registration-copy="${this.escapeHtml(section.crn)}">COPY CRN</button>
+                        <button class="registration-expand" type="button" data-registration-expand="${this.escapeHtml(section.crn)}" aria-expanded="false" aria-controls="registration-details-${this.escapeHtml(section.crn)}" aria-label="Show registration details for ${this.escapeHtml(section.code)}">
+                            <span class="registration-status-icon ${open ? 'registration-success-icon' : 'registration-warning-icon'}" data-registration-indicator${open ? ' hidden' : ''} title="${open ? '' : 'Full section'}" aria-label="${open ? '' : 'Registration warning. Full section'}">${open ? '✓' : '!'}</span>
+                            <span class="registration-chevron" aria-hidden="true">▼</span>
+                        </button>
+                    </header>
+                    <div id="registration-details-${this.escapeHtml(section.crn)}" class="registration-course-details" data-registration-details hidden>
+                        <div class="registration-identifiers">
+                            <span>Section <strong>${this.escapeHtml(section.section || '—')}</strong></span>
+                            <span>CRN <strong>${this.escapeHtml(section.crn)}</strong></span>
+                            <span data-registration-credits>${credits === null ? 'Checking credits' : `${credits} credit${credits === 1 ? '' : 's'}`}</span>
+                        </div>
+                        <div class="registration-detail-grid">
+                            <div data-registration-seat-row${open ? '' : ' class="attention"'}>
+                                <span class="registration-label">LIVE SEAT STATUS</span>
+                                <span class="registration-value registration-seats ${open ? 'open' : 'full'}" data-registration-seats>${open ? 'Checking available seats' : 'Listed as full — planning only'}</span>
+                            </div>
+                            <div class="registration-detail-wide">
+                                <span class="registration-label">COURSE DATES</span>
+                                <span class="registration-value" data-registration-dates>${section.start_date && section.end_date ? `${this.escapeHtml(section.start_date)} through ${this.escapeHtml(section.end_date)}` : 'Checking dates'}</span>
+                            </div>
+                        </div>
+                        <section class="registration-requirements">
+                            <h3>Registration checks</h3>
+                            <div data-registration-requirements>
+                                <p><strong>Requirements</strong><span>Checking prerequisites, corequisites, and restrictions</span></p>
+                            </div>
+                        </section>
+                    </div>
+                </article>
+            `;
+            }).join('');
+
+            content.innerHTML = `
+                <section class="registration-dialog" aria-labelledby="registration-dialog-title">
+                    <header class="registration-dialog-header">
+                        <h2 id="registration-dialog-title">Registration Info</h2>
+                    </header>
+                    <div class="registration-instructions">
+                        Review highlighted items, then copy each CRN into OneCarolina.
+                    </div>
+                    <div class="registration-course-list">${rows}</div>
+                    <p id="registration-copy-status" class="registration-copy-status" aria-live="polite"></p>
+                    <div class="registration-dialog-actions">
+                        <a class="registration-onecarolina-link" href="https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb/classRegistration/classRegistration#" target="_blank" rel="noopener noreferrer">OPEN CRN SHOPPING CART</a>
+                    </div>
+                </section>
+            `;
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'registration-dialog-title');
+            if (window.AppModal) {
+                AppModal.open(content.innerHTML, { className: 'registration-info-modal', label: 'Registration information' });
+            } else {
+                overlay.classList.remove('hidden');
+            }
+
+            const copyStatus = document.getElementById('registration-copy-status');
+            content.querySelectorAll('[data-registration-copy]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const section = sections.find(item => item.crn === button.dataset.registrationCopy);
+                    if (section) this.copyRegistrationCrn(section, button, copyStatus);
+                });
+            });
+            content.querySelectorAll('[data-registration-expand]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const details = document.getElementById(`registration-details-${button.dataset.registrationExpand}`);
+                    if (!details) return;
+                    const expanded = button.getAttribute('aria-expanded') === 'true';
+                    content.querySelectorAll('[data-registration-expand][aria-expanded="true"]').forEach(otherButton => {
+                        if (otherButton === button) return;
+                        const otherDetails = document.getElementById(`registration-details-${otherButton.dataset.registrationExpand}`);
+                        otherButton.setAttribute('aria-expanded', 'false');
+                        otherButton.setAttribute('aria-label', `Show registration details for ${otherButton.closest('.registration-course-card').querySelector('.registration-course-copy strong').textContent}`);
+                        if (otherDetails) otherDetails.hidden = true;
+                        otherButton.closest('.registration-course-card').classList.remove('expanded');
+                    });
+                    button.setAttribute('aria-expanded', String(!expanded));
+                    button.setAttribute('aria-label', `${expanded ? 'Show' : 'Hide'} registration details for ${button.closest('.registration-course-card').querySelector('.registration-course-copy strong').textContent}`);
+                    details.hidden = expanded;
+                    button.closest('.registration-course-card').classList.toggle('expanded', !expanded);
+                });
+            });
+            content.querySelector('[data-registration-copy]')?.focus();
+            sections.forEach(section => this.hydrateRegistrationCourse(section));
+        },
+
+        formatPreferenceTime(value) {
+            const numeric = Number(value);
+            const hours = Math.floor(numeric / 100);
+            const minutes = numeric % 100;
+            return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+        },
+
+        parsePreferenceTime(value) {
+            const [hours, minutes] = String(value || '').split(':').map(Number);
+            return hours * 100 + minutes;
+        },
+
+        openSchedulePreferences() {
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            if (!overlay || !modal || !content) return;
+            modal.classList.remove('course-quick-modal', 'registration-info-modal');
+            modal.classList.add('schedule-preferences-modal');
+
+            const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const avoidedDays = new Set((deps.state.avoidedDays || []).map(Number));
+            const modeControl = (id, label, required) => `
+                <label class="schedule-preference-mode" for="${id}">
+                    <input id="${id}" type="checkbox"${required ? ' checked' : ''} aria-label="${label}">
+                    <span class="schedule-preference-mode-track" aria-hidden="true">
+                        <span class="prefer">PREFER</span><span class="require">REQUIRE</span>
+                    </span>
+                </label>
+            `;
+            const dayOptions = dayNames.map((name, day) => `
+                <label>
+                    <input type="checkbox" name="schedule-avoid-day" value="${day}"${avoidedDays.has(day) ? ' checked' : ''}>
+                    ${name.slice(0, 3).toUpperCase()}
+                </label>
+            `).join('');
+
+            content.innerHTML = `
+                <section class="schedule-preferences-dialog" aria-labelledby="schedule-preferences-title">
+                    <h2 id="schedule-preferences-title">Schedule Preferences</h2>
+                    <div class="schedule-preference-grid">
+                        <fieldset class="schedule-preference-times">
+                            <legend>Class times to avoid</legend>
+                            ${modeControl('schedule-time-mode-required', 'Require all class-time choices', deps.state.timePreferencesRequired)}
+                            <div class="schedule-time-options">
+                                <label for="schedule-preferred-start">
+                                    <span>Before</span>
+                                    <input id="schedule-preferred-start" type="time" value="${this.formatPreferenceTime(deps.state.preferredStart)}">
+                                </label>
+                                <label for="schedule-preferred-end">
+                                    <span>Ending after</span>
+                                    <input id="schedule-preferred-end" type="time" value="${this.formatPreferenceTime(deps.state.preferredEnd)}">
+                                </label>
+                            </div>
+                            <button id="btn-advanced-time-avoidance" class="btn-panel-secondary schedule-advanced-toggle" type="button" aria-expanded="false" aria-controls="schedule-advanced-time-panel">ADVANCED TIME BLOCKS</button>
+                            <div id="schedule-advanced-time-panel" class="schedule-advanced-time-panel hidden">
+                                <div class="schedule-advanced-heading">
+                                    <span>Draw over times you would rather avoid.</span>
+                                    <button id="btn-clear-advanced-times" type="button">CLEAR</button>
+                                </div>
+                                <div class="schedule-advanced-calendar-wrap">
+                                    <div id="schedule-advanced-calendar" class="schedule-advanced-calendar" aria-label="Weekly times to avoid"></div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="schedule-preference-walking">
+                            <legend>Minimum time between classes</legend>
+                            ${modeControl('schedule-walking-mode-required', 'Require the minimum time between classes', deps.state.walkingBufferRequired)}
+                            <label for="schedule-minimum-walking-buffer">
+                                <span>Extra time after walking between classes</span>
+                                <input id="schedule-minimum-walking-buffer" type="number" min="1" max="120" step="1" value="${Math.max(1, Number(deps.state.minimumWalkingBuffer) || 1)}">
+                            </label>
+                            <small>Choose 10 to arrive at least ten minutes early.</small>
+                        </fieldset>
+                        <fieldset class="schedule-preference-days">
+                            <legend>Days to avoid</legend>
+                            ${modeControl('schedule-days-mode-required', 'Require classes to avoid the selected days', deps.state.avoidedDaysRequired)}
+                            <div class="schedule-day-options">${dayOptions}</div>
+                        </fieldset>
+                    </div>
+                    <p id="schedule-preferences-error" class="schedule-preferences-error" role="alert"></p>
+                    <div class="schedule-preference-actions">
+                        <button id="btn-save-schedule-preferences" type="button" class="btn-garnet">SAVE PREFERENCES</button>
+                    </div>
+                </section>
+            `;
+            modal.setAttribute('role', 'dialog');
+            modal.setAttribute('aria-modal', 'true');
+            modal.setAttribute('aria-labelledby', 'schedule-preferences-title');
+            if (window.AppModal) {
+                AppModal.open(content.innerHTML, { className: 'schedule-preferences-modal', label: 'Schedule preferences' });
+            } else {
+                overlay.classList.remove('hidden');
+            }
+
+            const saveButton = document.getElementById('btn-save-schedule-preferences');
+            saveButton.addEventListener('click', () => this.saveSchedulePreferences());
+            const advancedToggle = document.getElementById('btn-advanced-time-avoidance');
+            advancedToggle.addEventListener('click', () => {
+                const panel = document.getElementById('schedule-advanced-time-panel');
+                const expanded = advancedToggle.getAttribute('aria-expanded') === 'true';
+                advancedToggle.setAttribute('aria-expanded', String(!expanded));
+                advancedToggle.textContent = expanded ? 'ADVANCED TIME BLOCKS' : 'HIDE ADVANCED';
+                panel.classList.toggle('hidden', expanded);
+            });
+            document.getElementById('btn-clear-advanced-times').addEventListener('click', () => {
+                document.querySelectorAll('#schedule-advanced-calendar .schedule-advanced-cell.selected')
+                    .forEach(cell => {
+                        cell.classList.remove('selected');
+                        cell.setAttribute('aria-pressed', 'false');
+                    });
+            });
+            this.buildAdvancedTimeAvoidance();
+            saveButton.focus();
+        },
+
+        buildAdvancedTimeAvoidance() {
+            const calendar = document.getElementById('schedule-advanced-calendar');
+            if (!calendar) return;
+            const selected = new Set((deps.state.avoidedTimeBlocks || [])
+                .map(block => `${Number(block.day)}-${Number(block.start)}-${Number(block.end)}`));
+            const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+            calendar.innerHTML = `<div class="schedule-advanced-corner"></div>${days
+                .map(day => `<div class="schedule-advanced-day">${day}</div>`).join('')}`;
+
+            for (let hour = 8; hour < 22; hour++) {
+                for (let half = 0; half < 2; half++) {
+                    const start = hour * 100 + half * 30;
+                    const end = half === 0 ? hour * 100 + 30 : (hour + 1) * 100;
+                    const displayHour = hour > 12 ? hour - 12 : hour;
+                    calendar.insertAdjacentHTML('beforeend', `<div class="schedule-advanced-time">${half === 0 ? `${displayHour}${hour >= 12 ? 'p' : 'a'}` : ''}</div>`);
+                    days.forEach((day, dayIndex) => {
+                        const key = `${dayIndex}-${start}-${end}`;
+                        calendar.insertAdjacentHTML('beforeend', `
+                            <button type="button" class="schedule-advanced-cell${selected.has(key) ? ' selected' : ''}" data-day="${dayIndex}" data-start="${start}" data-end="${end}" aria-label="${day} ${this.formatPreferenceTime(start)} to ${this.formatPreferenceTime(end)}" aria-pressed="${selected.has(key)}"></button>
+                        `);
+                    });
+                }
+            }
+
+            const setCell = (cell, value) => {
+                if (!cell?.classList.contains('schedule-advanced-cell')) return;
+                cell.classList.toggle('selected', value);
+                cell.setAttribute('aria-pressed', String(value));
+            };
+            calendar.querySelectorAll('.schedule-advanced-cell').forEach(cell => {
+                cell.addEventListener('pointerdown', event => {
+                    event.preventDefault();
+                    const paint = !cell.classList.contains('selected');
+                    setCell(cell, paint);
+                    const move = moveEvent => {
+                        const target = document.elementFromPoint?.(moveEvent.clientX, moveEvent.clientY);
+                        setCell(target?.closest?.('.schedule-advanced-cell'), paint);
+                    };
+                    const finish = () => {
+                        document.removeEventListener('pointermove', move);
+                        document.removeEventListener('pointerup', finish);
+                        document.removeEventListener('pointercancel', finish);
+                    };
+                    document.addEventListener('pointermove', move);
+                    document.addEventListener('pointerup', finish);
+                    document.addEventListener('pointercancel', finish);
+                });
+                cell.addEventListener('keydown', event => {
+                    if (!['Enter', ' '].includes(event.key)) return;
+                    event.preventDefault();
+                    setCell(cell, !cell.classList.contains('selected'));
+                });
+            });
+        },
+
+        saveSchedulePreferences() {
+            const start = this.parsePreferenceTime(document.getElementById('schedule-preferred-start').value);
+            const end = this.parsePreferenceTime(document.getElementById('schedule-preferred-end').value);
+            const error = document.getElementById('schedule-preferences-error');
+            if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end) {
+                error.textContent = 'The preferred end time must be later than the preferred start time.';
+                return false;
+            }
+
+            const minimumWalkingBuffer = Number(document.getElementById('schedule-minimum-walking-buffer').value);
+            deps.state.minimumWalkingBuffer = Math.max(1, Math.min(120, Number.isFinite(minimumWalkingBuffer) ? Math.round(minimumWalkingBuffer) : 1));
+            deps.state.preferredStart = start;
+            deps.state.preferredEnd = end;
+            deps.state.avoidedDays = Array.from(document.querySelectorAll('input[name="schedule-avoid-day"]:checked'))
+                .map(input => Number(input.value));
+            deps.state.avoidedTimeBlocks = Array.from(document.querySelectorAll('#schedule-advanced-calendar .schedule-advanced-cell.selected'))
+                .map(cell => ({
+                    day: Number(cell.dataset.day),
+                    start: Number(cell.dataset.start),
+                    end: Number(cell.dataset.end),
+                }));
+            deps.state.timePreferencesRequired = document.getElementById('schedule-time-mode-required').checked;
+            deps.state.walkingBufferRequired = document.getElementById('schedule-walking-mode-required').checked;
+            deps.state.avoidedDaysRequired = document.getElementById('schedule-days-mode-required').checked;
+            if (typeof window !== 'undefined' && window.AppModal) window.AppModal.close();
+            deps.state.emit('preferences-changed');
+            return true;
+        },
+
+        normalizeCourseCode(value) {
+            return String(value || '')
+                .trim()
+                .toUpperCase()
+                .replace(/([A-Z]{2,4})\s*-?\s*(\d{3}[A-Z]?)/, '$1 $2');
+        },
+
+        setCourseStatus(message, kind = '') {
+            const status = document.getElementById('schedule-course-status');
+            if (!status) return;
+            status.textContent = message;
+            status.className = `schedule-course-status ${kind}`.trim();
+        },
+
+        parseCreditHours(value) {
+            const matches = String(value ?? '').match(/\d+(?:\.\d+)?/g) || [];
+            if (matches.length === 0) return null;
+            return Math.max(...matches.map(Number));
+        },
+
+        async hydrateCourseCredits(group) {
+            let credits = this.parseCreditHours(group.credits);
+            if (credits === null) {
+                credits = this.parseCreditHours((group.sections || []).find(section => section.hours)?.hours);
+            }
+            const firstCrn = (group.sections || []).find(section => section.crn)?.crn;
+            if (credits === null && firstCrn && deps.api.getDetails) {
+                try {
+                    const details = await deps.api.getDetails(firstCrn, deps.state.term);
+                    credits = this.parseCreditHours(details.hours_html);
+                } catch (error) {
+                    credits = null;
+                }
+            }
+            if (credits !== null) {
+                group.credits = credits;
+                (group.sections || []).forEach(section => {
+                    if (!section.hours) section.hours = credits;
+                });
+            }
+            return group;
+        },
+
+        async lookupCourseGroup(courseCode) {
+            const code = this.normalizeCourseCode(courseCode);
+            const match = code.match(/^([A-Z]{2,4})\s+(\d{3}[A-Z]?)$/);
+            if (!match) throw new Error('Use a course code such as CSCE 145.');
+
+            const result = await deps.api.searchCourses(deps.state.term, [
+                { field: 'subject', value: match[1] },
+            ]);
+            const sections = (result.results || []).filter(section =>
+                this.normalizeCourseCode(section.code) === code,
+            );
+            if (sections.length === 0) {
+                throw new Error(`${code} has no sections in the selected term.`);
+            }
+            return {
+                code,
+                title: sections[0].title || code,
+                sections,
+            };
+        },
+
+        async addCourseGroup(group) {
+            try {
+                let liveGroup = group;
+                const sections = group?.sections || [];
+                if (sections.length === 0 || sections.every(section => section._isCatalog || !section.crn)) {
+                    liveGroup = await this.lookupCourseGroup(group.code);
+                }
+                await this.hydrateCourseCredits(liveGroup);
+                deps.state.addCourse(liveGroup);
+                const exactSection = liveGroup._exactCrn
+                    ? (liveGroup.sections || []).find(section => String(section.crn) === String(liveGroup._exactCrn))
+                    : null;
+                if (exactSection) {
+                    deps.state.setSectionLock(liveGroup.code, exactSection.crn);
+                    this.setCourseStatus(
+                        `${liveGroup.code} Section ${exactSection.section || exactSection.crn} added from CRN ${exactSection.crn}.`,
+                        'success',
+                    );
+                } else {
+                    this.setCourseStatus(`${liveGroup.code} added. The solver will choose its section.`, 'success');
+                }
+                return liveGroup;
+            } catch (error) {
+                this.setCourseStatus(error.message, 'error');
+                throw error;
+            }
+        },
+
+        async addCourseByCode(courseCode) {
+            const group = await this.lookupCourseGroup(courseCode);
+            await this.hydrateCourseCredits(group);
+            deps.state.addCourse(group);
+            return group;
+        },
+
+        async searchCourseGroups(query) {
+            const result = await deps.search.searchLiveCourses(query);
+            const groups = {};
+            (result.results || []).forEach(section => {
+                if (!section.code) return;
+                if (!groups[section.code]) {
+                    groups[section.code] = {
+                        code: section.code,
+                        title: section.title || section.code,
+                        sections: [],
+                        _exactCrn: result.queryType === 'crn' ? result.crn : null,
+                    };
+                }
+                groups[section.code].sections.push(section);
+            });
+            return Object.values(groups);
+        },
+
+        async searchFromInput() {
+            const requestId = ++this._courseSearchRequestId;
+            const input = document.getElementById('schedule-course-input');
+            const button = document.getElementById('btn-search-schedule-courses');
+            button.disabled = true;
+            this.setCourseStatus('Searching courses');
+            const results = document.getElementById('schedule-search-results');
+            results.innerHTML = '<p class="loading">Searching courses</p>';
+            try {
+                const groups = await this.searchCourseGroups(input.value);
+                if (requestId !== this._courseSearchRequestId) return;
+                this._lastSearchGroups = groups;
+                this._searchVisibleCount = this._searchPageSize;
+                if (this._lastSearchGroups.length === 0) {
+                    this.setCourseStatus('No direct matches in the selected term. Try the Search tab for broader results.', 'error');
+                } else {
+                    this.setCourseStatus(`${this._lastSearchGroups.length} course${this._lastSearchGroups.length === 1 ? '' : 's'} found.`);
+                }
+                this.renderCourseSearchResults();
+            } catch (error) {
+                if (requestId !== this._courseSearchRequestId) return;
+                this.setCourseStatus(error.message, 'error');
+                results.innerHTML = `<p class="hint">${error.message}</p>`;
+            } finally {
+                if (requestId === this._courseSearchRequestId) button.disabled = false;
+            }
+        },
+
+        renderCourseSearchResults() {
+            const container = document.getElementById('schedule-search-results');
+            if (!container) return;
+            if (this._lastSearchGroups.length === 0) {
+                const query = document.getElementById('schedule-course-input')?.value.trim();
+                const message = query
+                    ? 'No direct matches. Try the Search tab for broader results.'
+                    : 'Search here by course, CRN, range, or keyword. Use the Search tab for the full search experience.';
+                container.innerHTML = `<p class="hint schedule-results-empty">${message}</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            this._lastSearchGroups.slice(0, this._searchVisibleCount).forEach(group => {
+                const availability = this.scheduleCourseAvailability(group);
+                const selected = deps.state.isCourseSelected(group.code);
+                const course = document.createElement('div');
+                course.className = `schedule-search-course${selected ? ' selected' : ''}`;
+                course.innerHTML = `
+                    <div class="schedule-search-course-copy" role="button" tabindex="0" aria-label="View details for ${this.escapeHtml(group.code)}">
+                        <strong>${group.code}</strong>
+                        <span>${group.title}</span>
+                        <small class="schedule-course-availability ${availability.kind}">${availability.text}</small>
+                    </div>
+                    <button class="btn-course-add schedule-course-add ${selected ? 'btn-danger added' : 'btn-green'}" data-code="${group.code}">${selected ? 'REMOVE' : 'ADD'}</button>
+                `;
+                const courseCopy = course.querySelector('.schedule-search-course-copy');
+                courseCopy.addEventListener('click', () => this.openCourseQuickView(group));
+                courseCopy.addEventListener('keydown', event => {
+                    if (!['Enter', ' '].includes(event.key)) return;
+                    event.preventDefault();
+                    this.openCourseQuickView(group);
+                });
+                course.querySelector('.btn-course-add').addEventListener('click', async () => {
+                    if (deps.state.isCourseSelected(group.code)) deps.state.removeCourse(group.code);
+                    else await this.addCourseGroup(group);
+                });
+                container.appendChild(course);
+            });
+            if (this._searchVisibleCount < this._lastSearchGroups.length) {
+                const remaining = this._lastSearchGroups.length - this._searchVisibleCount;
+                const increment = Math.min(this._searchPageSize, remaining);
+                const showMore = document.createElement('button');
+                showMore.type = 'button';
+                showMore.className = 'btn-show-more schedule-search-show-more';
+                showMore.textContent = `SHOW ${increment} MORE`;
+                showMore.addEventListener('click', () => {
+                    this._searchVisibleCount += this._searchPageSize;
+                    this.renderCourseSearchResults();
+                });
+                container.appendChild(showMore);
+            }
+        },
+
+        escapeHtml(value) {
+            return String(value ?? '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        },
+
+        stripHtml(value) {
+            const element = document.createElement('div');
+            element.innerHTML = String(value || '');
+            return (element.textContent || '').replace(/\s+/g, ' ').trim();
+        },
+
+        normalizeInstructorName(value) {
+            return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+        },
+
+        instructorSurname(value) {
+            const raw = String(value || '').trim();
+            if (!raw) return '';
+            if (raw.includes(',')) return raw.slice(0, raw.indexOf(',')).trim();
+            return raw.split(/\s+/).at(-1) || '';
+        },
+
+        matchingInstructorRecords(records, name) {
+            const normalized = this.normalizeInstructorName(name);
+            if (!normalized) return [];
+            const candidates = records || [];
+            const exact = candidates.filter(record => this.normalizeInstructorName(record.name) === normalized);
+            if (exact.length) return exact;
+            const queryTokens = normalized.split(' ').filter(Boolean);
+            if (queryTokens.length === 1) {
+                return candidates.filter(record => (
+                    this.normalizeInstructorName(this.instructorSurname(record.name)) === normalized
+                ));
+            }
+            const querySet = new Set(queryTokens);
+            return candidates.filter(record => {
+                const candidateTokens = this.normalizeInstructorName(record.name).split(' ').filter(Boolean);
+                const candidateSet = new Set(candidateTokens);
+                const sameTokens = candidateTokens.length === queryTokens.length
+                    && queryTokens.every(token => candidateSet.has(token));
+                if (sameTokens) return true;
+                return queryTokens.every(token => candidateSet.has(token))
+                    || candidateTokens.every(token => querySet.has(token));
+            });
+        },
+
+        currentInstructorCrns(group) {
+            const groups = new Map();
+            (group.sections || []).forEach(section => {
+                const instructor = String((section.instructor || section.instr) || '').trim().toLowerCase();
+                if (!section.crn || !instructor || ['staff', 'undecided', 'tba'].includes(instructor)) return;
+                if (!groups.has(instructor)) groups.set(instructor, []);
+                groups.get(instructor).push(String(section.crn));
+            });
+            const crns = [];
+            let added = true;
+            while (crns.length < 12 && added) {
+                added = false;
+                for (const groupCrns of groups.values()) {
+                    const crn = groupCrns.shift();
+                    if (!crn) continue;
+                    crns.push(crn);
+                    added = true;
+                    if (crns.length === 12) break;
+                }
+            }
+            return crns;
+        },
+
+        currentInstructorSummaries(group, gradeData = {}, facultyData = []) {
+            const instructors = {};
+            const historical = gradeData.instructors || [];
+            const facultyKey = member => {
+                const professorId = String(member?.professor_id || '').trim();
+                if (professorId) return `id:${professorId}`;
+                const name = this.normalizeInstructorName(member?.name);
+                return name ? `name:${name}` : '';
+            };
+            const facultyByKey = (facultyData || []).reduce((records, member) => {
+                const key = facultyKey(member);
+                if (!key) return records;
+                const existing = records[key] || {};
+                records[key] = {
+                    ...existing,
+                    ...member,
+                    name: member.name || existing.name || '',
+                    email: String(member.email || existing.email || '').trim().toLowerCase(),
+                    professor_id: member.professor_id || existing.professor_id || '',
+                };
+                return records;
+            }, {});
+            const uniqueFaculty = Object.values(facultyByKey);
+            const matchingNames = (records, name) => this.matchingInstructorRecords(records, name);
+            const resolveFaculty = name => {
+                const normalized = this.normalizeInstructorName(name);
+                if (!normalized) return null;
+                const exact = uniqueFaculty.filter(member => this.normalizeInstructorName(member.name) === normalized);
+                if (exact.length === 1) return exact[0];
+                if (exact.length > 1) return null;
+                const partial = matchingNames(uniqueFaculty, name);
+                const historicalMatches = matchingNames(historical, name);
+                return partial.length === 1 && historicalMatches.length === 1 ? partial[0] : null;
+            };
+            (group.sections || []).filter(section => section.crn && !section._isCatalog).forEach(section => {
+                const liveFaculty = Object.values((facultyData || [])
+                    .filter(member => String(member.crn) === String(section.crn))
+                    .reduce((records, member) => {
+                        const key = facultyKey(member);
+                        if (key) records[key] = facultyByKey[key] || member;
+                        return records;
+                    }, {}));
+                const identities = liveFaculty.length > 0
+                    ? liveFaculty
+                    : String((section.instructor || section.instr) || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
+                        const name = rawName.trim();
+                        return resolveFaculty(name) || { name, email: '' };
+                    });
+                identities.forEach(identity => {
+                    const name = String(identity.name || '').trim();
+                    if (!name || ['staff', 'undecided', 'tba'].includes(name.toLowerCase())) return;
+                    const professorId = String(identity.professor_id || '').trim();
+                    const key = professorId
+                        ? `id:${professorId}`
+                        : `name:${this.normalizeInstructorName(name)}`;
+                    if (!instructors[key]) {
+                        instructors[key] = {
+                            name,
+                            displayName: name,
+                            email: String(identity.email || '').trim().toLowerCase(),
+                            professorId,
+                            sections: 0,
+                            open: 0,
+                            grade: null,
+                            matchStatus: 'unmatched',
+                        };
+                    } else if (!instructors[key].email && identity.email) {
+                        instructors[key].email = String(identity.email).trim().toLowerCase();
+                    }
+                    instructors[key].sections += 1;
+                    if (this.isOpenSection(section)) instructors[key].open += 1;
+                });
+            });
+            Object.values(instructors).forEach(summary => {
+                const idMatches = summary.professorId
+                    ? historical.filter(record => String(record.id || '') === summary.professorId)
+                    : [];
+                const nameMatches = summary.professorId ? [] : matchingNames(historical, summary.name);
+                const matches = summary.professorId ? idMatches : nameMatches;
+                summary.grade = matches.length === 1 ? matches[0] : null;
+                summary.matchStatus = summary.grade ? 'matched' : matches.length > 1 ? 'ambiguous' : 'unmatched';
+                summary.displayName = summary.name.includes(',')
+                    ? summary.name
+                    : summary.grade?.name || summary.name;
+                if (!summary.email && summary.grade?.email) summary.email = summary.grade.email;
+            });
+            return Object.values(instructors)
+                .sort((a, b) => b.open - a.open || b.sections - a.sections || a.displayName.localeCompare(b.displayName));
+        },
+
+        instructorCardsMarkup(instructors) {
+            return instructors.map((instructor, index) => {
+                const grade = instructor.grade;
+                const gpa = Number(grade?.average_gpa);
+                const gpaPosition = Number.isFinite(gpa) ? Math.max(0, Math.min(100, gpa / 4 * 100)) : 0;
+                return `
+                    <article class="quick-instructor-card">
+                        <div class="quick-instructor-heading">
+                            <a href="#" data-quick-instructor-index="${index}" title="View this instructor's full profile in Search"><strong>${this.escapeHtml(instructor.displayName || instructor.name)}</strong></a>
+                            <span>${instructor.open} open / ${instructor.sections} section${instructor.sections === 1 ? '' : 's'}</span>
+                        </div>
+                        ${instructor.email ? `<a class="quick-instructor-email" href="mailto:${this.escapeHtml(instructor.email)}">${this.escapeHtml(instructor.email)}</a>` : '<span class="quick-instructor-email unavailable">Email unavailable</span>'}
+                        ${Number.isFinite(gpa) ? `
+                            <div class="quick-gpa-track" aria-label="Historical course GPA ${gpa.toFixed(2)} out of 4">
+                                <span style="width:${gpaPosition}%"></span>
+                            </div>
+                            <small>${gpa.toFixed(2)} historical course GPA · ${Number(grade.graded_students || 0).toLocaleString()} grades</small>
+                        ` : `<small>${instructor.matchStatus === 'ambiguous' ? 'Multiple historical records share this name.' : 'No matched grade history for this course.'}</small>`}
+                    </article>
+                `;
+            }).join('');
+        },
+
+        bindQuickInstructorActions(container, instructors, group, selectedSection = null) {
+            if (!container) return;
+            container.querySelectorAll('[data-quick-instructor-index]').forEach(link => {
+                link.addEventListener('click', event => {
+                    event.preventDefault();
+                    const instructor = instructors[Number(link.dataset.quickInstructorIndex)];
+                    if (!instructor) return;
+                    this.openProfessorInBrowse(group, selectedSection?.crn || '', instructor);
+                });
+            });
+        },
+
+        updateQuickFaculty(group, gradeData = {}, facultyData = [], selectedSection = null) {
+            const count = document.getElementById('quick-instructor-count');
+            const grid = document.getElementById('quick-instructor-grid');
+            const more = document.getElementById('quick-instructor-more');
+            if (!count || !grid || !more) return;
+            const instructors = this.currentInstructorSummaries(group, gradeData, facultyData);
+            const visible = instructors.slice(0, 4);
+            count.textContent = `${instructors.length} listed this term`;
+            grid.innerHTML = this.instructorCardsMarkup(visible)
+                || '<p class="quick-empty">Instructor assignments have not been posted.</p>';
+            this.bindQuickInstructorActions(grid, visible, group, selectedSection);
+            const remaining = instructors.length - visible.length;
+            more.textContent = remaining > 0
+                ? `${remaining} additional instructor${remaining === 1 ? '' : 's'} available in deps.search.`
+                : '';
+        },
+
+        gradeBuckets(gradeData = {}) {
+            const counts = gradeData.grade_counts || {};
+            const buckets = [
+                { label: 'A', count: Number(counts.A) || 0, className: 'grade-a' },
+                { label: 'B', count: (Number(counts['B+']) || 0) + (Number(counts.B) || 0), className: 'grade-b' },
+                { label: 'C', count: (Number(counts['C+']) || 0) + (Number(counts.C) || 0), className: 'grade-c' },
+                { label: 'D / F', count: ['D+', 'D', 'F', 'FN'].reduce((sum, grade) => sum + (Number(counts[grade]) || 0), 0), className: 'grade-df' },
+            ];
+            const total = buckets.reduce((sum, bucket) => sum + bucket.count, 0);
+            return buckets.map(bucket => ({
+                ...bucket,
+                percent: total ? Math.round(bucket.count / total * 100) : 0,
+            }));
+        },
+
+        renderCourseQuickView(group, details = {}, gradeData = {}, offering = {}, detailsPending = false, selectedSection = null) {
+            const content = document.getElementById('modal-content');
+            if (!content) return;
+            const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+            const openSections = liveSections.filter(section => this.isOpenSection(section)).length;
+            const availabilityPercent = liveSections.length ? Math.round(openSections / liveSections.length * 100) : 0;
+            const availability = this.scheduleCourseAvailability(group);
+            const credits = this.parseCreditHours(details.hours_html || group.credits || liveSections[0]?.hours);
+            const description = this.stripHtml(details.description || '').slice(0, 280);
+            const prerequisite = this.stripHtml(details.prereq || details.prerequisite || '');
+            const buckets = this.gradeBuckets(gradeData);
+            const instructors = this.currentInstructorSummaries(group, gradeData);
+            const visibleInstructors = instructors.slice(0, 4);
+            const courseGpa = Number(gradeData.average_gpa);
+            const hasGrades = Number.isFinite(courseGpa) && Number(gradeData.graded_students) > 0;
+            const hasOffering = Number.isFinite(Number(offering.frequency))
+                && Number(offering.total_terms_checked) > 0;
+            const frequency = hasOffering
+                ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
+                : 0;
+            const offeringCount = offering.total_terms_checked
+                ? `${offering.times_offered} of ${offering.total_terms_checked} recent terms${offering.last_offered_label ? ` · Last offered ${offering.last_offered_label}` : ''}`
+                : '';
+
+            const gradeStrip = buckets.map(bucket => bucket.percent > 0
+                ? `<span class="quick-grade-segment ${bucket.className}" style="width:${bucket.percent}%" title="${bucket.label}: ${bucket.percent}%"></span>`
+                : '').join('');
+            const gradeLegend = buckets.map(bucket => `
+                <span><i class="${bucket.className}"></i><strong>${bucket.percent}%</strong> ${bucket.label}</span>
+            `).join('');
+            const instructorCards = this.instructorCardsMarkup(visibleInstructors);
+
+            content.innerHTML = `
+                <section class="course-quick-view" aria-labelledby="course-quick-title">
+                    <header class="course-quick-header">
+                        <div>
+                            <span class="course-quick-kicker">QUICK COURSE DETAILS</span>
+                            <h2 id="course-quick-title">${this.escapeHtml(group.code)}</h2>
+                            <p id="course-quick-name">${this.escapeHtml(details.title || group.title)}</p>
+                            ${selectedSection ? `<p class="course-quick-section-context">Section ${this.escapeHtml(selectedSection.section || '?')} · CRN ${this.escapeHtml(selectedSection.crn || '—')}</p>` : ''}
+                        </div>
+                        <div class="course-quick-credits"><strong id="course-quick-credit-value">${credits ?? '—'}</strong><span>CREDITS</span></div>
+                    </header>
+
+                    <div class="course-quick-overview">
+                        <section class="quick-availability-card">
+                            <div class="quick-section-heading">
+                                <h3>This term</h3>
+                                <span class="schedule-course-availability ${availability.kind}">${availability.text}</span>
+                            </div>
+                            <div class="quick-availability-track" aria-label="${availabilityPercent}% of sections open">
+                                <span style="width:${availabilityPercent}%"></span>
+                            </div>
+                            <small>${openSections} open · ${Math.max(0, liveSections.length - openSections)} full</small>
+                        </section>
+                        <section class="quick-offering-card">
+                            <div id="quick-frequency-ring" class="quick-frequency-ring" style="--frequency:${frequency * 3.6}deg"><strong>${hasOffering ? `${frequency}%` : '…'}</strong></div>
+                            <div><h3>How often it runs</h3><p id="quick-offering-label">${this.escapeHtml(hasOffering ? `Offered in ${frequency}% of recent terms` : 'Checking offering history')}</p><small id="quick-offering-count">${this.escapeHtml(offeringCount)}</small></div>
+                        </section>
+                    </div>
+
+                    <section id="course-quick-summary" class="course-quick-summary${description || prerequisite ? '' : ' quick-summary-loading'}">
+                        ${description || prerequisite ? `
+                            ${description ? `<p>${this.escapeHtml(description)}${this.stripHtml(details.description || '').length > 280 ? '…' : ''}</p>` : ''}
+                            <div class="quick-prerequisite"><strong>PREREQUISITES</strong><span>${this.escapeHtml(prerequisite || 'None listed')}</span></div>
+                        ` : `<p>${detailsPending ? 'Loading description and prerequisites' : 'Course description and prerequisites are unavailable.'}</p>`}
+                    </section>
+
+                    <section class="course-quick-section">
+                        <div class="quick-section-heading"><h3>Current instructors</h3><span id="quick-instructor-count">${instructors.length} listed this term</span></div>
+                        <div id="quick-instructor-grid" class="quick-instructor-grid">${instructorCards || '<p class="quick-empty">Instructor assignments have not been posted.</p>'}</div>
+                        <small id="quick-instructor-more" class="quick-more-note">${instructors.length > visibleInstructors.length ? `${instructors.length - visibleInstructors.length} additional instructor${instructors.length - visibleInstructors.length === 1 ? '' : 's'} available in deps.search.` : ''}</small>
+                    </section>
+
+                    <section class="course-quick-section quick-grade-section">
+                        <div class="quick-section-heading"><h3>Historical grades</h3>${hasGrades ? `<span>${courseGpa.toFixed(2)} GPA · ${Number(gradeData.graded_students).toLocaleString()} grades</span>` : ''}</div>
+                        ${hasGrades ? `<div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div><div class="quick-grade-legend">${gradeLegend}</div>` : `<p class="quick-empty">${detailsPending ? 'Loading historical grade data' : 'No historical grade data is available.'}</p>`}
+                    </section>
+
+                    <footer class="course-quick-actions">
+                        <button id="btn-quick-course-toggle" class="${deps.state.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}">${deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
+                        <button id="btn-quick-view-browse" class="btn-secondary">${selectedSection ? `VIEW DETAILS FOR SECTION ${this.escapeHtml(selectedSection.section || '?')}` : 'VIEW FULL COURSE DETAILS'}</button>
+                    </footer>
+                </section>
+            `;
+
+            this.bindQuickInstructorActions(
+                document.getElementById('quick-instructor-grid'),
+                visibleInstructors,
+                group,
+                selectedSection,
+            );
+
+            document.getElementById('btn-quick-course-toggle')?.addEventListener('click', async event => {
+                const button = event.currentTarget;
+                if (deps.state.isCourseSelected(group.code)) deps.state.removeCourse(group.code);
+                else await this.addCourseGroup(group);
+                button.textContent = deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
+                button.className = deps.state.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
+            });
+            document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group, selectedSection?.crn || ''));
+        },
+
+        updateQuickGrades(gradeData = {}) {
+            const section = document.querySelector('.course-quick-view .quick-grade-section');
+            if (!section) return;
+            const courseGpa = Number(gradeData.average_gpa);
+            const hasGrades = Number.isFinite(courseGpa) && Number(gradeData.graded_students) > 0;
+            if (!hasGrades) {
+                section.innerHTML = '<div class="quick-section-heading"><h3>Historical grades</h3></div><p class="quick-empty">No historical grade data is available.</p>';
+                return;
+            }
+            const buckets = this.gradeBuckets(gradeData);
+            const gradeStrip = buckets.map(bucket => bucket.percent > 0
+                ? `<span class="quick-grade-segment ${bucket.className}" style="width:${bucket.percent}%" title="${bucket.label}: ${bucket.percent}%"></span>`
+                : '').join('');
+            const gradeLegend = buckets.map(bucket => `
+                <span><i class="${bucket.className}"></i><strong>${bucket.percent}%</strong> ${bucket.label}</span>
+            `).join('');
+            section.innerHTML = `
+                <div class="quick-section-heading"><h3>Historical grades</h3><span>${courseGpa.toFixed(2)} GPA · ${Number(gradeData.graded_students).toLocaleString()} grades</span></div>
+                <div class="quick-grade-strip" aria-label="Historical grade distribution">${gradeStrip}</div>
+                <div class="quick-grade-legend">${gradeLegend}</div>
+            `;
+        },
+
+        updateQuickDetails(details = {}, group = {}, unavailable = false) {
+            const name = document.getElementById('course-quick-name');
+            const creditValue = document.getElementById('course-quick-credit-value');
+            const summary = document.getElementById('course-quick-summary');
+            if (!name || !creditValue || !summary) return;
+            const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+            const credits = this.parseCreditHours(details.hours_html || group.credits || liveSections[0]?.hours);
+            const fullDescription = this.stripHtml(details.description || '');
+            const description = fullDescription.slice(0, 280);
+            const prerequisite = this.stripHtml(details.prereq || details.prerequisite || '');
+            name.textContent = details.title || group.title || group.code || '';
+            creditValue.textContent = credits ?? '—';
+            summary.classList.remove('quick-summary-loading');
+            if (description || prerequisite) {
+                summary.innerHTML = `
+                    ${description ? `<p>${this.escapeHtml(description)}${fullDescription.length > 280 ? '…' : ''}</p>` : ''}
+                    <div class="quick-prerequisite"><strong>PREREQUISITES</strong><span>${this.escapeHtml(prerequisite || 'None listed')}</span></div>
+                `;
+            } else {
+                summary.innerHTML = `<p>${unavailable ? 'Course description and prerequisites are unavailable.' : 'No description or prerequisites are listed.'}</p>`;
+            }
+        },
+
+        updateQuickOffering(offering = {}) {
+            const ring = document.getElementById('quick-frequency-ring');
+            const label = document.getElementById('quick-offering-label');
+            const count = document.getElementById('quick-offering-count');
+            if (!ring || !label || !count) return;
+            const hasOffering = Number.isFinite(Number(offering.frequency))
+                && Number(offering.total_terms_checked) > 0;
+            const frequency = hasOffering
+                ? Math.max(0, Math.min(100, Math.round(Number(offering.frequency) * 100)))
+                : 0;
+            ring.style.setProperty('--frequency', `${frequency * 3.6}deg`);
+            ring.querySelector('strong').textContent = hasOffering ? `${frequency}%` : '—';
+            label.textContent = hasOffering
+                ? `Offered in ${frequency}% of recent terms`
+                : 'Offering history unavailable';
+            const countParts = offering.total_terms_checked
+                ? [`${offering.times_offered} of ${offering.total_terms_checked} recent terms`]
+                : [];
+            if (offering.last_offered_label) countParts.push(`Last offered ${offering.last_offered_label}`);
+            count.textContent = countParts.join(' · ');
+        },
+
+        async openCourseQuickView(group, selectedSection = null) {
+            const overlay = document.getElementById('modal-overlay');
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+            if (!overlay || !modal || !content) return;
+            const loadingMarkup = '<div class="course-quick-loading"><span></span><p>Loading course details</p></div>';
+            if (window.AppModal) {
+                AppModal.open(loadingMarkup, { className: 'course-quick-modal', label: `Course details for ${group.code}` });
+            } else {
+                modal.classList.remove('registration-info-modal', 'schedule-preferences-modal');
+                modal.classList.add('course-quick-modal');
+                content.innerHTML = loadingMarkup;
+                overlay.classList.remove('hidden');
+            }
+            const requestId = ++this._quickViewRequestId;
+
+            const detailsPromise = deps.search && deps.search.fetchBulletinDetailsForCourse
+                ? deps.search.fetchBulletinDetailsForCourse(group.code)
+                : Promise.resolve({});
+            const facultyCrns = this.currentInstructorCrns(group);
+            const facultyPromise = facultyCrns.length > 0
+                ? deps.api.getFaculty(deps.state.term, facultyCrns)
+                : Promise.resolve({ faculty: [] });
+            const offeringPromise = deps.api.getOfferingAnalysis(group.code, deps.state.term);
+            const gradesPromise = deps.api.getCourseGrades(group.code);
+            this.renderCourseQuickView(
+                group,
+                {},
+                {},
+                {},
+                true,
+                selectedSection,
+            );
+            document.getElementById('modal-close')?.focus();
+            let gradeData = {};
+            let facultyData = [];
+            const updateFaculty = () => {
+                if (requestId === this._quickViewRequestId) {
+                    this.updateQuickFaculty(group, gradeData, facultyData, selectedSection);
+                }
+            };
+            gradesPromise
+                .then(result => {
+                    if (requestId !== this._quickViewRequestId) return;
+                    gradeData = result?.error ? {} : result || {};
+                    this.updateQuickGrades(gradeData);
+                    updateFaculty();
+                })
+                .catch(() => {
+                    if (requestId === this._quickViewRequestId) this.updateQuickGrades({});
+                });
+            facultyPromise
+                .then(result => {
+                    facultyData = result.faculty || [];
+                    updateFaculty();
+                })
+                .catch(() => {});
+            detailsPromise
+                .then(details => {
+                    if (requestId === this._quickViewRequestId) this.updateQuickDetails(details || {}, group);
+                })
+                .catch(() => {
+                    if (requestId === this._quickViewRequestId) this.updateQuickDetails({}, group, true);
+                });
+            offeringPromise
+                .then(offering => {
+                    if (requestId === this._quickViewRequestId && !offering?.error) this.updateQuickOffering(offering);
+                })
+                .catch(() => {
+                    if (requestId === this._quickViewRequestId) this.updateQuickOffering({});
+                });
+        },
+
+        courseGroupForSection(section) {
+            if (!section?.code) return null;
+            const stored = deps.state.selectedCourses?.[section.code];
+            if (!stored) {
+                return { code: section.code, title: section.title || section.code, sections: [section] };
+            }
+            const hasSection = (stored.sections || []).some(candidate => String(candidate.crn) === String(section.crn));
+            return hasSection ? stored : { ...stored, sections: [...(stored.sections || []), section] };
+        },
+
+        openSectionQuickView(section) {
+            const group = this.courseGroupForSection(section);
+            if (group) this.openCourseQuickView(group, section);
+        },
+
+        async openCourseInBrowse(group, sectionCrn = '') {
+            if (window.AppModal) AppModal.close();
+            else document.getElementById('modal-overlay')?.classList.add('hidden');
+            if (deps.tabs) deps.tabs.switchTo('semester');
+            if (!deps.search) return;
+            await deps.search.openCourseFromExternal(group, sectionCrn);
+        },
+
+        async openProfessorInBrowse(group, sectionCrn = '', instructor = {}) {
+            await this.openCourseInBrowse(group, sectionCrn);
+            if (!deps.grades || !deps.grades.showProfessorForCourseName) return;
+            const displayName = instructor.displayName || instructor.name || 'Instructor';
+            const professorId = instructor.professorId || instructor.grade?.id || '';
+            await deps.grades.showProfessorForCourseName(
+                group.code,
+                displayName,
+                instructor.email || '',
+                professorId,
+            );
+        },
+
+        scheduleCourseAvailability(group) {
+            const liveSections = (group.sections || []).filter(section => section.crn && !section._isCatalog);
+            if (liveSections.length === 0) return { kind: 'unavailable', text: 'Not offered' };
+            const openCount = liveSections.filter(section => this.isOpenSection(section)).length;
+            if (openCount > 0) {
+                return { kind: 'open', text: `${openCount} of ${liveSections.length} open` };
+            }
+            return { kind: 'full', text: `All ${liveSections.length} are full` };
+        },
+
+        clearResults() {
+            deps.state.solverResults = [];
+            const container = document.getElementById('solver-container');
+            if (container) {
+                container.innerHTML = '<p class="hint">Generate schedules to compare section combinations for these courses.</p>';
+            }
+        },
+
+        fitCoursePanelSizes(resultsHeight, availableHeight) {
+            const available = Math.max(0, Math.round(availableHeight));
+            const minimumResults = Math.min(72, available);
+            const minimumSelected = Math.min(190, Math.max(0, available - minimumResults));
+            const maximumResults = Math.max(minimumResults, available - minimumSelected);
+            const results = Math.max(minimumResults, Math.min(maximumResults, Math.round(resultsHeight)));
+            return { results, selected: Math.max(0, available - results) };
+        },
+
+        initialCourseResultsHeight(stored, availableHeight) {
+            const available = Math.max(0, Number(availableHeight) || 0);
+            if (available <= 0) return 0;
+            const midpoint = available / 2;
+            const storedHeight = Number(stored?.resultsHeight);
+            const storedRatio = Number(stored?.resultsRatio);
+            if (Number(stored?.version) >= 2
+                && Number.isFinite(storedRatio)
+                && storedRatio > 0
+                && storedRatio < 1) {
+                return available * storedRatio;
+            }
+            if (!Number.isFinite(storedHeight) || storedHeight <= 0) return midpoint;
+            const isLegacyDefault = Math.abs(storedHeight - 170) <= 1;
+            const isStaleTinyValue = storedHeight < Math.min(140, available * 0.24);
+            return isLegacyDefault || isStaleTinyValue ? midpoint : storedHeight;
+        },
+
+        setCoursePanelSizes(resultsHeight) {
+            const sidebar = document.getElementById('schedule-sidebar');
+            const search = sidebar?.querySelector('.schedule-search-section');
+            const divider = document.getElementById('schedule-course-divider');
+            if (!sidebar || !search || !divider) return;
+            const available = sidebar.clientHeight
+                - search.getBoundingClientRect().height
+                - divider.getBoundingClientRect().height;
+            if (available <= 0) {
+                sidebar.style.setProperty('--schedule-results-height', `${Math.max(72, Math.round(resultsHeight))}px`);
+                return;
+            }
+            const { results } = this.fitCoursePanelSizes(resultsHeight, available);
+            sidebar.style.setProperty('--schedule-results-height', `${results}px`);
+            divider.setAttribute('aria-valuemin', '72');
+            divider.setAttribute('aria-valuemax', String(Math.max(72, Math.round(available - 190))));
+            divider.setAttribute('aria-valuenow', String(results));
+        },
+
+        initCourseDivider() {
+            const divider = document.getElementById('schedule-course-divider');
+            const sidebar = document.getElementById('schedule-sidebar');
+            const results = document.getElementById('schedule-search-results');
+            const search = sidebar?.querySelector('.schedule-search-section');
+            if (!divider || !sidebar || !results || !search) return;
+
+            let stored = null;
+            try {
+                stored = JSON.parse(localStorage.getItem('uofsc-course-divider-v1') || 'null');
+            } catch (error) {
+                stored = null;
+            }
+            let initialSizeApplied = false;
+            let preferredRatio = Number(stored?.version) >= 2
+                && Number.isFinite(Number(stored?.resultsRatio))
+                ? Number(stored.resultsRatio)
+                : null;
+            const availableHeight = () => sidebar.clientHeight
+                - search.getBoundingClientRect().height
+                - divider.getBoundingClientRect().height;
+            const rememberRatio = () => {
+                const available = availableHeight();
+                const resultsHeight = results.getBoundingClientRect().height;
+                preferredRatio = available > 0 ? resultsHeight / available : preferredRatio;
+                return { available, resultsHeight };
+            };
+            const savePosition = () => {
+                const { available, resultsHeight } = rememberRatio();
+                try {
+                    localStorage.setItem('uofsc-course-divider-v1', JSON.stringify({
+                        version: 2,
+                        resultsHeight,
+                        resultsRatio: available > 0 ? resultsHeight / available : null,
+                    }));
+                } catch (error) {
+                    // Resizing should remain usable when browser storage is unavailable.
+                }
+            };
+            const applyInitialSize = () => {
+                const available = availableHeight();
+                if (available <= 0) {
+                    sidebar.style.setProperty('--schedule-results-height', '50%');
+                    return;
+                }
+                this.setCoursePanelSizes(this.initialCourseResultsHeight(stored, available));
+                rememberRatio();
+                initialSizeApplied = true;
+            };
+            applyInitialSize();
+
+            let startY = 0;
+            let startHeight = 0;
+            const move = event => this.setCoursePanelSizes(startHeight + event.clientY - startY);
+            const stop = () => {
+                document.removeEventListener('pointermove', move);
+                document.removeEventListener('pointerup', stop);
+                document.removeEventListener('pointercancel', stop);
+                divider.classList.remove('active');
+                document.body.classList.remove('resizing-course-divider');
+                savePosition();
+            };
+
+            divider.addEventListener('pointerdown', event => {
+                startY = event.clientY;
+                startHeight = results.getBoundingClientRect().height;
+                divider.classList.add('active');
+                document.body.classList.add('resizing-course-divider');
+                document.addEventListener('pointermove', move);
+                document.addEventListener('pointerup', stop);
+                document.addEventListener('pointercancel', stop);
+                event.preventDefault();
+            });
+            divider.addEventListener('keydown', event => {
+                if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+                const delta = event.key === 'ArrowDown' ? 24 : -24;
+                this.setCoursePanelSizes(results.getBoundingClientRect().height + delta);
+                savePosition();
+                event.preventDefault();
+            });
+            window.addEventListener('resize', () => {
+                const available = availableHeight();
+                if (available <= 0) return;
+                const ratio = preferredRatio;
+                this.setCoursePanelSizes(Number.isFinite(ratio)
+                    ? available * ratio
+                    : results.getBoundingClientRect().height);
+            });
+            document.addEventListener('tab-changed', event => {
+                if (event.detail?.tab !== 'schedule') return;
+                if (initialSizeApplied) {
+                    const available = availableHeight();
+                    this.setCoursePanelSizes(Number.isFinite(preferredRatio) && available > 0
+                        ? available * preferredRatio
+                        : results.getBoundingClientRect().height);
+                }
+                else applyInitialSize();
+            });
+        },
+
+        setScheduleSidebarCollapsed(collapsed, persist = true) {
+            const layout = document.querySelector('#tab-schedule .schedule-layout');
+            const sidebar = document.getElementById('schedule-sidebar');
+            const button = document.getElementById('btn-toggle-schedule-sidebar');
+            const handle = document.getElementById('schedule-sidebar-resize-handle');
+            if (!layout || !sidebar || !button) return;
+
+            const isCollapsed = Boolean(collapsed);
+            layout.classList.toggle('schedule-sidebar-collapsed', isCollapsed);
+            sidebar.setAttribute('aria-hidden', String(isCollapsed));
+            button.setAttribute('aria-expanded', String(!isCollapsed));
+            button.setAttribute('aria-label', isCollapsed ? 'Show course tools' : 'Hide course tools');
+            button.title = isCollapsed ? 'Show course tools' : 'Hide course tools';
+            if (!isCollapsed && this._scheduleSidebarPreferredWidth) {
+                this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
+            }
+            if (handle) {
+                const expandedWidth = Math.round(
+                    sidebar.getBoundingClientRect().width
+                    || this.scheduleSidebarWidthLimits(this._scheduleSidebarPreferredWidth).width
+                    || 340,
+                );
+                handle.setAttribute('aria-valuenow', String(isCollapsed ? 0 : expandedWidth));
+                handle.setAttribute('aria-valuetext', isCollapsed ? 'Collapsed' : `${expandedWidth} pixels`);
+                handle.setAttribute('tabindex', isCollapsed ? '-1' : '0');
+            }
+
+            if (persist && typeof localStorage !== 'undefined') {
+                try {
+                    localStorage.setItem(
+                        'uofsc-schedule-sidebar-collapsed-v1',
+                        String(isCollapsed),
+                    );
+                } catch (error) {
+                    // Device storage can be unavailable without affecting the layout control.
+                }
+            }
+
+            const refreshLayout = () => {
+                if (!isCollapsed) {
+                    const results = document.getElementById('schedule-search-results');
+                    if (results) this.setCoursePanelSizes(results.getBoundingClientRect().height);
+                }
+                if (deps.walkingMap && deps.walkingMap._map) {
+                    deps.walkingMap._map.invalidateSize();
+                }
+            };
+            if (typeof requestAnimationFrame === 'function') requestAnimationFrame(refreshLayout);
+            else refreshLayout();
+        },
+
+        initScheduleSidebarCollapse() {
+            const button = document.getElementById('btn-toggle-schedule-sidebar');
+            if (!button) return;
+
+            let collapsed = false;
+            if (typeof localStorage !== 'undefined') {
+                try {
+                    collapsed = localStorage.getItem('uofsc-schedule-sidebar-collapsed-v1') === 'true';
+                } catch (error) {
+                    collapsed = false;
+                }
+            }
+            this.setScheduleSidebarCollapsed(collapsed, false);
+            button.addEventListener('click', () => {
+                if (button.dataset?.ignoreNextClick === 'true') {
+                    delete button.dataset.ignoreNextClick;
+                    return;
+                }
+                const expanded = button.getAttribute('aria-expanded') === 'true';
+                this.setScheduleSidebarCollapsed(expanded);
+            });
+        },
+
+        fitScheduleSidebarWidth(width, availableWidth) {
+            const minimum = 200;
+            const collapseAt = 160;
+            const available = Number(availableWidth) > 0 ? Number(availableWidth) : 1024;
+            const contentReserve = 420;
+            const maximum = Math.max(
+                minimum,
+                Math.min(
+                    560,
+                    Math.round(available * 0.55),
+                    Math.round(available - 10 - contentReserve),
+                ),
+            );
+            const requested = Number(width);
+            const safeWidth = Number.isFinite(requested) && requested > 0 ? requested : 340;
+            return {
+                collapseAt,
+                maximum,
+                minimum,
+                width: Math.max(minimum, Math.min(maximum, Math.round(safeWidth))),
+            };
+        },
+
+        scheduleSidebarWidthLimits(width = 340) {
+            const layout = document.querySelector('#tab-schedule .schedule-layout');
+            const available = layout?.getBoundingClientRect().width || window.innerWidth || 1024;
+            return this.fitScheduleSidebarWidth(width, available);
+        },
+
+        setScheduleSidebarWidth(width, persist = true) {
+            const sidebar = document.getElementById('schedule-sidebar');
+            const handle = document.getElementById('schedule-sidebar-resize-handle');
+            if (!sidebar) return 0;
+
+            const { maximum, width: nextWidth } = this.scheduleSidebarWidthLimits(width);
+            sidebar.style.setProperty('--schedule-sidebar-width', `${nextWidth}px`);
+            if (handle) {
+                handle.setAttribute('aria-valuemin', '0');
+                handle.setAttribute('aria-valuemax', String(maximum));
+                handle.setAttribute('aria-valuenow', String(nextWidth));
+                handle.setAttribute('aria-valuetext', `${nextWidth} pixels`);
+            }
+            if (persist && typeof localStorage !== 'undefined') {
+                try {
+                    localStorage.setItem('uofsc-schedule-sidebar-width-v1', String(nextWidth));
+                } catch (error) {
+                    // Device storage can be unavailable without affecting sidebar resizing.
+                }
+            }
+            if (typeof requestAnimationFrame === 'function') {
+                requestAnimationFrame(() => {
+                    if (deps.walkingMap && deps.walkingMap._map) {
+                        deps.walkingMap._map.invalidateSize();
+                    }
+                });
+            }
+            return nextWidth;
+        },
+
+        initScheduleSidebarResize() {
+            const layout = document.querySelector('#tab-schedule .schedule-layout');
+            const sidebar = document.getElementById('schedule-sidebar');
+            const handle = document.getElementById('schedule-sidebar-resize-handle');
+            const button = document.getElementById('btn-toggle-schedule-sidebar');
+            if (!layout || !sidebar || !handle || !button) return;
+
+            let preferredWidth = 340;
+            if (typeof localStorage !== 'undefined') {
+                try {
+                    const savedWidth = Number(localStorage.getItem('uofsc-schedule-sidebar-width-v1'));
+                    if (Number.isFinite(savedWidth) && savedWidth >= 200) preferredWidth = savedWidth;
+                } catch (error) {
+                    preferredWidth = 340;
+                }
+            }
+            this._scheduleSidebarPreferredWidth = preferredWidth;
+            this.setScheduleSidebarWidth(preferredWidth, false);
+
+            let startX = 0;
+            let startWidth = preferredWidth;
+            let pendingCollapse = false;
+            let pointerStartedOnButton = false;
+            let pointerMoved = false;
+            const move = event => {
+                const delta = event.clientX - startX;
+                if (pointerStartedOnButton && !pointerMoved && Math.abs(delta) < 4) return;
+                pointerMoved = true;
+                if (event.cancelable) event.preventDefault();
+                const requestedWidth = startWidth + delta;
+                const { collapseAt } = this.scheduleSidebarWidthLimits();
+                pendingCollapse = requestedWidth < collapseAt;
+                if (pendingCollapse) {
+                    finish(true);
+                    return;
+                }
+                const fitted = this.scheduleSidebarWidthLimits(requestedWidth);
+                this.setScheduleSidebarWidth(requestedWidth, false);
+                if (requestedWidth >= fitted.minimum) {
+                    this._scheduleSidebarPreferredWidth = fitted.width;
+                }
+            };
+            const finish = commit => {
+                document.removeEventListener('pointermove', move);
+                document.removeEventListener('pointerup', stop);
+                document.removeEventListener('pointercancel', cancel);
+                handle.classList.remove('active');
+                document.body.classList.remove('resizing-schedule-sidebar');
+                if (commit && pointerStartedOnButton && pointerMoved) {
+                    button.dataset.ignoreNextClick = 'true';
+                    const clearIgnoredClick = () => {
+                        const clear = () => {
+                            if (button.dataset.ignoreNextClick === 'true') {
+                                delete button.dataset.ignoreNextClick;
+                            }
+                        };
+                        if (typeof window.setTimeout === 'function') window.setTimeout(clear, 0);
+                        else clear();
+                    };
+                    if (pendingCollapse) {
+                        const clearAfterRelease = () => {
+                            document.removeEventListener('pointerup', clearAfterRelease);
+                            document.removeEventListener('pointercancel', clearAfterRelease);
+                            clearIgnoredClick();
+                        };
+                        document.addEventListener('pointerup', clearAfterRelease, { once: true });
+                        document.addEventListener('pointercancel', clearAfterRelease, { once: true });
+                    } else {
+                        clearIgnoredClick();
+                    }
+                }
+                if (!commit) {
+                    pendingCollapse = false;
+                    this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
+                    pointerStartedOnButton = false;
+                    pointerMoved = false;
+                    return;
+                }
+                if (pendingCollapse) {
+                    this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, true);
+                    this.setScheduleSidebarCollapsed(true);
+                } else {
+                    this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, true);
+                }
+                pendingCollapse = false;
+                pointerStartedOnButton = false;
+                pointerMoved = false;
+            };
+            const stop = () => finish(true);
+            const cancel = () => finish(false);
+            const begin = (event, fromButton) => {
+                if (
+                    window.innerWidth <= 760
+                    || layout.classList.contains('schedule-sidebar-collapsed')
+                ) return;
+                startX = event.clientX;
+                startWidth = sidebar.getBoundingClientRect().width;
+                pendingCollapse = false;
+                pointerStartedOnButton = fromButton;
+                pointerMoved = false;
+                handle.classList.add('active');
+                document.body.classList.add('resizing-schedule-sidebar');
+                document.addEventListener('pointermove', move);
+                document.addEventListener('pointerup', stop);
+                document.addEventListener('pointercancel', cancel);
+                if (!fromButton) event.preventDefault();
+            };
+
+            handle.addEventListener('pointerdown', event => begin(event, false));
+            button.addEventListener('pointerdown', event => begin(event, true));
+            handle.addEventListener('keydown', event => {
+                if (!['ArrowLeft', 'ArrowRight'].includes(event.key) || window.innerWidth <= 760) return;
+                if (layout.classList.contains('schedule-sidebar-collapsed')) return;
+                const currentWidth = sidebar.getBoundingClientRect().width;
+                const limits = this.scheduleSidebarWidthLimits(currentWidth);
+                if (event.key === 'ArrowLeft' && currentWidth <= limits.minimum) {
+                    this.setScheduleSidebarCollapsed(true);
+                    event.preventDefault();
+                    return;
+                }
+                const requestedWidth = currentWidth + (event.key === 'ArrowRight' ? 24 : -24);
+                if (requestedWidth < limits.collapseAt) {
+                    this.setScheduleSidebarCollapsed(true);
+                } else {
+                    this._scheduleSidebarPreferredWidth = this.setScheduleSidebarWidth(requestedWidth, true);
+                }
+                event.preventDefault();
+            });
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 760 || layout.classList.contains('schedule-sidebar-collapsed')) return;
+                this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
+            });
+        },
+
+        initVerticalResizer() {
+            const handle = document.getElementById('schedule-vertical-resizer');
+            const content = document.getElementById('schedule-content');
+            const workspace = content?.querySelector('.schedule-workspace');
+            if (!handle || !content || !workspace) return;
+
+            let stored = null;
+            try {
+                stored = JSON.parse(localStorage.getItem('uofsc-schedule-split-v1') || 'null');
+            } catch (error) {
+                stored = null;
+            }
+            const availableAtInit = this.availablePanelHeight(content, handle);
+            const storedRatio = Number(stored?.workspaceRatio);
+            let storedWorkspace = stored?.workspace;
+            if (Number(stored?.version) >= 2
+                && Number.isFinite(storedRatio)
+                && storedRatio >= 0
+                && storedRatio <= 1
+                && availableAtInit > 0) {
+                storedWorkspace = availableAtInit * storedRatio;
+            } else if (Number.isFinite(Number(storedWorkspace))
+                && Number(storedWorkspace) > availableAtInit - 80
+                && availableAtInit > 0) {
+                // Migrate the old absolute-height preference without letting a
+                // shorter window start with the route map accidentally hidden.
+                storedWorkspace = availableAtInit * 0.62;
+            }
+            const initialWorkspaceHeight = this.initialPanelHeight(
+                storedWorkspace,
+                workspace.getBoundingClientRect().height,
+            );
+            this._preferredWorkspaceRatio = Number.isFinite(storedRatio)
+                && storedRatio >= 0
+                && storedRatio <= 1
+                ? storedRatio
+                : null;
+            this._preferredWorkspaceHeight = this.preferredPanelHeight(
+                availableAtInit,
+                this._preferredWorkspaceRatio,
+                initialWorkspaceHeight,
+            );
+            this.setVerticalSizes(this._preferredWorkspaceHeight);
+
+            document.addEventListener('tab-changed', event => {
+                if (event.detail?.tab === 'schedule') {
+                    const available = this.availablePanelHeight(content, handle);
+                    this.setVerticalSizes(this.preferredPanelHeight(
+                        available,
+                        this._preferredWorkspaceRatio,
+                        this._preferredWorkspaceHeight,
+                    ));
+                }
+            });
+
+            let startY = 0;
+            let startWorkspace = 0;
+            const resize = clientY => {
+                const delta = clientY - startY;
+                this.setVerticalSizes(startWorkspace + delta);
+            };
+            const stop = () => {
+                document.removeEventListener('pointermove', move);
+                document.removeEventListener('pointerup', stop);
+                document.removeEventListener('pointercancel', stop);
+                handle.classList.remove('active');
+                document.body.classList.remove('resizing-schedule');
+                this.saveVerticalSizes();
+            };
+            const move = event => resize(event.clientY);
+
+            handle.addEventListener('pointerdown', event => {
+                startY = event.clientY;
+                startWorkspace = workspace.getBoundingClientRect().height;
+                handle.classList.add('active');
+                document.body.classList.add('resizing-schedule');
+                document.addEventListener('pointermove', move);
+                document.addEventListener('pointerup', stop);
+                document.addEventListener('pointercancel', stop);
+                event.preventDefault();
+            });
+            handle.addEventListener('keydown', event => {
+                if (!['ArrowUp', 'ArrowDown'].includes(event.key)) return;
+                const workspaceHeight = workspace.getBoundingClientRect().height;
+                const availableHeight = this.availablePanelHeight(content, handle);
+                const delta = event.key === 'ArrowDown' ? 30 : -30;
+                let requestedHeight = workspaceHeight + delta;
+                // A collapsed panel must be reachable with the keyboard as well as
+                // the pointer. Move past the endpoint snap zone on the first keypress.
+                if (event.key === 'ArrowDown' && workspaceHeight <= 0) requestedHeight = 90;
+                if (event.key === 'ArrowUp' && workspaceHeight >= availableHeight) {
+                    requestedHeight = Math.max(0, availableHeight - 90);
+                }
+                this.setVerticalSizes(requestedHeight);
+                this.saveVerticalSizes();
+                event.preventDefault();
+            });
+            this._verticalResizeHandler = () => {
+                const available = this.availablePanelHeight(content, handle);
+                this.setVerticalSizes(this.preferredPanelHeight(
+                    available,
+                    this._preferredWorkspaceRatio,
+                    workspace.getBoundingClientRect().height,
+                ));
+            };
+            window.addEventListener('resize', this._verticalResizeHandler);
+        },
+
+        fitPanelSizes(workspaceHeight, availableHeight) {
+            const total = Math.max(0, Math.round(availableHeight));
+            if (total === 0) return { workspace: 0, map: 0 };
+
+            const requested = Number(workspaceHeight);
+            const bounded = Math.max(
+                0,
+                Math.min(total, Math.round(Number.isFinite(requested) ? requested : total * 0.62)),
+            );
+            const endpointSnap = Math.min(48, Math.max(20, Math.round(total * 0.06)));
+            const workspace = bounded <= endpointSnap
+                ? 0
+                : bounded >= total - endpointSnap
+                    ? total
+                    : bounded;
+            return { workspace, map: Math.max(0, total - workspace) };
+        },
+
+        initialPanelHeight(storedHeight, measuredHeight) {
+            const stored = Number(storedHeight);
+            if (storedHeight !== null && storedHeight !== undefined
+                && Number.isFinite(stored) && stored >= 0) return stored;
+            const measured = Number(measuredHeight);
+            if (Number.isFinite(measured) && measured > 0) return measured;
+            return 620;
+        },
+
+        preferredPanelHeight(availableHeight, preferredRatio, fallbackHeight) {
+            const available = Math.max(0, Number(availableHeight) || 0);
+            if (preferredRatio !== null && preferredRatio !== undefined) {
+                const ratio = Number(preferredRatio);
+                if (Number.isFinite(ratio) && ratio >= 0 && ratio <= 1) return available * ratio;
+            }
+            const fallback = Number(fallbackHeight);
+            const requested = Number.isFinite(fallback) ? fallback : available * 0.62;
+            if (available <= 0) return requested;
+            const mapReserve = Math.min(240, Math.max(160, available * 0.3));
+            return Math.min(requested, Math.max(0, available - mapReserve));
+        },
+
+        availablePanelHeight(content, handle) {
+            const contentStyle = window.getComputedStyle(content);
+            const handleStyle = window.getComputedStyle(handle);
+            const padding = parseFloat(contentStyle.paddingTop) + parseFloat(contentStyle.paddingBottom);
+            const gap = parseFloat(contentStyle.rowGap || contentStyle.gap) || 0;
+            const handleHeight = handle.getBoundingClientRect().height
+                + parseFloat(handleStyle.marginTop)
+                + parseFloat(handleStyle.marginBottom);
+            return Math.max(0, content.clientHeight - padding - (gap * 2) - handleHeight);
+        },
+
+        setVerticalSizes(workspaceHeight) {
+            const content = document.getElementById('schedule-content');
+            const handle = document.getElementById('schedule-vertical-resizer');
+            if (!content || !handle) return;
+            const available = this.availablePanelHeight(content, handle);
+            if (available <= 0) return;
+            const { workspace, map } = this.fitPanelSizes(workspaceHeight, available);
+            this._preferredWorkspaceHeight = workspace;
+            this._preferredWorkspaceRatio = available > 0 ? workspace / available : null;
+            content.style.setProperty('--schedule-workspace-height', `${workspace}px`);
+            content.classList.toggle('schedule-workspace-hidden', workspace === 0);
+            content.classList.toggle('schedule-map-hidden', map === 0);
+            handle.setAttribute('aria-valuemin', '0');
+            handle.setAttribute('aria-valuemax', String(available));
+            handle.setAttribute('aria-valuenow', String(workspace));
+            handle.setAttribute(
+                'aria-valuetext',
+                workspace === 0
+                    ? 'Map only'
+                    : map === 0
+                        ? 'Calendar and schedule options only'
+                        : `${workspace} pixels for calendar and schedule options; ${map} pixels for map`,
+            );
+            if (deps.walkingMap && deps.walkingMap._map) {
+                requestAnimationFrame(() => deps.walkingMap._map.invalidateSize());
+            }
+        },
+
+        saveVerticalSizes() {
+            const content = document.getElementById('schedule-content');
+            const handle = document.getElementById('schedule-vertical-resizer');
+            const workspace = Number(document.querySelector('.schedule-workspace')
+                ?.getBoundingClientRect().height);
+            if (!Number.isFinite(workspace)) return;
+            const available = content && handle ? this.availablePanelHeight(content, handle) : 0;
+            try {
+                localStorage.setItem('uofsc-schedule-split-v1', JSON.stringify({
+                    version: 2,
+                    workspace,
+                    workspaceRatio: Number.isFinite(Number(this._preferredWorkspaceRatio))
+                        ? this._preferredWorkspaceRatio
+                        : (available > 0 ? workspace / available : null),
+                }));
+            } catch (error) {
+                // A denied or full storage area must not break schedule resizing.
+            }
+        },
+
+        isSchedulableSection(section) {
+            if (section.meetingTimes) return true;
+            const description = [
+                section.meets,
+                (section.instructionalMethod || section.inst_mthd),
+                section.instructionalMethod,
+                section.instructional_method,
+            ].filter(Boolean).join(' ').toLowerCase();
+            return ['asynchronous', 'does not meet', 'online', 'distance', 'web', 'dweb', 'b3web']
+                .some(marker => description.includes(marker));
+        },
+
+        isOpenSection(section) {
+            return !section.stat || section.stat === 'A';
+        },
+
+        async addWalkingLocations(courses) {
+            if (!deps.walkingMap) return;
+
+            const sections = courses.flatMap(course => course.sections || []);
+            await deps.walkingMap.hydrateSectionDetails(sections, { concurrency: 8, foreground: true });
+            sections.forEach(section => {
+                const details = deps.walkingMap.sectionDetails.get(deps.walkingMap.sectionDetailKey(section)) || [];
+                section._walking_locations = deps.walkingMap.parseMeetingTimes(section.meetingTimes)
+                    .map(meeting => {
+                        const detail = details.find(item => item.days.includes(meeting.day)
+                            && item.start !== null && Math.abs(item.start - meeting.start) <= 5)
+                            || details.find(item => item.days.includes(meeting.day));
+                        if (!detail || detail.building?.kind !== 'known') return null;
+                        return {
+                            day: meeting.day,
+                            start: meeting.start,
+                            latitude: Number(detail.building.lat),
+                            longitude: Number(detail.building.lon),
+                        };
+                    })
+                    .filter(Boolean);
+            });
+        },
+
+        async solve(maxResults = 10) {
+            const courseGroups = Object.values(deps.state.selectedCourses || {});
+            if (courseGroups.length === 0) {
+                // Rendered in place rather than through alert(). A modal dialog for an
+                // empty state stops the page, has to be dismissed before anything else
+                // can happen, and says nothing the panel cannot say in place.
+                const container = document.getElementById('solver-container');
+                if (container) {
+                    container.innerHTML = '<p class="hint">Add at least one course from the '
+                        + 'sidebar, then generate schedules.</p>';
+                }
+                return;
+            }
+
+            if (deps.tabs) deps.tabs.switchTo('schedule');
+
+            const container = document.getElementById('solver-container');
+            container.innerHTML = '<p class="loading">Generating schedule options</p>';
+
+            const courses = courseGroups.map(group => {
+                const lockedCrn = deps.state.sectionLocks?.[group.code];
+                return {
+                    code: group.code,
+                    sections: (group.sections || []).filter(section => {
+                        const locked = lockedCrn && String(section.crn) === String(lockedCrn);
+                        return this.isSchedulableSection(section)
+                            && (lockedCrn ? locked : this.isOpenSection(section));
+                    }),
+                };
+            });
+
+            const unschedulable = courses.filter(course => course.sections.length === 0);
+            if (unschedulable.length > 0) {
+                const codes = unschedulable.map(course => course.code).join(', ');
+                const locked = unschedulable.filter(course => deps.state.sectionLocks?.[course.code]).map(course => course.code);
+                container.innerHTML = locked.length > 0
+                    ? `<p class="solver-error">The locked section for ${locked.join(', ')} is not available for scheduling. Choose another section or allow all open sections.</p>`
+                    : `<p class="hint">No open scheduled or asynchronous sections were found for ${codes} in this term.</p>`;
+                return;
+            }
+
+            const preferences = deps.state.getPreferences();
+            const configuredMax = deps.state.profile?.customCredits?.max;
+            preferences.max_credits = Number.isFinite(Number(configuredMax)) ? Number(configuredMax) : 18;
+
+            try {
+                this._locationPrefetchController?.abort();
+                await this.addWalkingLocations(courses);
+                const resultLimit = Math.max(10, Number(maxResults) || 10);
+                const result = await deps.api.solve(courses, preferences, resultLimit);
+                deps.state.solverResults = result.schedules || [];
+                this.renderResults(result, container);
+            } catch (error) {
+                container.innerHTML = `<p class="hint">Solver error: ${error.message}</p>`;
+            }
+        },
+
+        renderResults(result, container) {
+            const { total_found, returned, schedules } = result;
+            if (!schedules || schedules.length === 0) {
+                const hasLocks = Object.keys(deps.state.sectionLocks || {}).length > 0;
+                const hasRequirements = deps.state.timePreferencesRequired
+                    || deps.state.walkingBufferRequired
+                    || deps.state.avoidedDaysRequired;
+                if (hasLocks) {
+                    container.innerHTML = '<p class="solver-error">No conflict-free schedule works with the locked sections. Change a section preference or remove a course.</p>';
+                } else if (hasRequirements) {
+                    container.innerHTML = '<p class="solver-error">No schedule meets every required preference. Switch a requirement to Prefer or adjust its choices.</p>';
+                } else {
+                    container.innerHTML = '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
+                }
+                return;
+            }
+
+            let html = `<p class="solver-summary">Ranked ${total_found} valid schedules. Showing the top ${returned}.</p>`;
+            schedules.forEach((schedule, index) => {
+                const applied = this.isAppliedSchedule(schedule);
+                const courseList = Object.entries(schedule.sections).map(([code, section]) =>
+                    `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${code} ${section.section || ''}</strong><span>${((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</button>`,
+                ).join('');
+                html += `
+                    <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}">
+                        <div class="schedule-card-header">
+                            <span class="score">Option ${index + 1}</span>
+                            <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
+                        </div>
+                        <div class="sched-courses">${courseList}</div>
+                    </article>
+                `;
+            });
+            if (total_found > returned) {
+                html += `<button class="btn-show-more" type="button" data-next-limit="${returned + 10}">SHOW 10 MORE</button>`;
+            }
+            container.innerHTML = html;
+
+            container.querySelectorAll('.btn-apply').forEach(button => {
+                button.addEventListener('click', event => {
+                    event.stopPropagation();
+                    this.applySchedule(Number(button.dataset.idx));
+                });
+            });
+            container.querySelectorAll('.sched-course').forEach(button => {
+                button.addEventListener('click', event => {
+                    event.stopPropagation();
+                    const schedule = deps.state.solverResults[Number(button.dataset.scheduleIndex)];
+                    const section = schedule?.sections?.[button.dataset.courseCode];
+                    if (section) this.openSectionQuickView(section);
+                });
+            });
+            container.querySelectorAll('.schedule-card').forEach(card => {
+                this.bindScheduleCardPreview(card, container);
+            });
+            const showMore = container.querySelector('.btn-show-more');
+            if (showMore) {
+                showMore.addEventListener('click', () => {
+                    this.solve(Number(showMore.dataset.nextLimit));
+                });
+            }
+        },
+
+        bindScheduleCardPreview(card, container) {
+            const preview = () => {
+                if (this.isAppliedSchedule(deps.state.solverResults[Number(card.dataset.idx)])) return;
+                this.previewSchedule(Number(card.dataset.idx));
+                container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
+                card.classList.add('selected');
+            };
+            const clearPreview = () => {
+                this.clearSchedulePreview();
+                card.classList.remove('selected');
+            };
+            const apply = () => {
+                if (this.isAppliedSchedule(deps.state.solverResults[Number(card.dataset.idx)])) return;
+                card.classList.remove('selected');
+                this.applySchedule(Number(card.dataset.idx));
+            };
+            card.addEventListener('mouseenter', preview);
+            card.addEventListener('mouseleave', clearPreview);
+            card.addEventListener('focusin', preview);
+            card.addEventListener('focusout', clearPreview);
+            card.addEventListener('click', apply);
+        },
+
+        initScheduleScrollPreview() {
+            const container = document.getElementById('solver-container');
+            if (!container || container.dataset.scrollPreviewBound === 'true') return;
+            container.dataset.scrollPreviewBound = 'true';
+
+            let pointer = null;
+            let previewFrame = null;
+            const rememberPointer = event => {
+                pointer = { x: event.clientX, y: event.clientY };
+            };
+            container.addEventListener('pointerenter', rememberPointer);
+            container.addEventListener('pointermove', rememberPointer);
+            container.addEventListener('pointerleave', () => {
+                pointer = null;
+                container.querySelectorAll('.schedule-card').forEach(card => card.classList.remove('selected'));
+                this.clearSchedulePreview();
+            });
+            container.addEventListener('scroll', () => {
+                if (!pointer || previewFrame !== null) return;
+                previewFrame = requestAnimationFrame(() => {
+                    previewFrame = null;
+                    this.previewScheduleAtPoint(container, pointer.x, pointer.y);
+                });
+            }, { passive: true });
+        },
+
+        previewScheduleAtPoint(container, clientX, clientY) {
+            const target = document.elementFromPoint(clientX, clientY);
+            const card = target?.closest?.('.schedule-card');
+            if (!card || !container.contains(card)) return null;
+            const index = Number(card.dataset.idx);
+            if (!Number.isInteger(index) || this.isAppliedSchedule(deps.state.solverResults[index])) return null;
+            container.querySelectorAll('.schedule-card').forEach(item => item.classList.remove('selected'));
+            card.classList.add('selected');
+            this.previewSchedule(index);
+            return index;
+        },
+
+        previewSchedule(index) {
+            const schedule = deps.state.solverResults[index];
+            if (!schedule || !deps.calendar || typeof deps.calendar.render !== 'function') return;
+            const selectedSections = deps.state.selectedSections;
+            deps.state.selectedSections = { ...schedule.sections };
+            deps.calendar.render({ preview: true });
+            deps.state.selectedSections = selectedSections;
+        },
+
+        clearSchedulePreview() {
+            if (!deps.calendar || typeof deps.calendar.render !== 'function') return;
+            deps.calendar.render();
+        },
+
+        applySchedule(index) {
+            const schedule = deps.state.solverResults[index];
+            if (!schedule) return;
+            deps.state.applySolverSchedule(schedule);
+            this.refreshAppliedResultState();
+        },
+
+        isAppliedSchedule(schedule) {
+            const entries = Object.entries(schedule?.sections || {});
+            const applied = deps.state.selectedSections || {};
+            if (entries.length === 0 || entries.length !== Object.keys(applied).length) return false;
+            return entries.every(([code, section]) => String(applied[code]?.crn) === String(section.crn));
+        },
+
+        refreshAppliedResultState() {
+            const container = document.getElementById('solver-container');
+            if (!container || !deps.state.solverResults?.length) return;
+            container.querySelectorAll('.schedule-card').forEach(card => {
+                const applied = this.isAppliedSchedule(deps.state.solverResults[Number(card.dataset.idx)]);
+                card.classList.toggle('applied', applied);
+                card.removeAttribute('aria-disabled');
+                card.removeAttribute('tabindex');
+                const button = card.querySelector('.btn-apply');
+                if (button) {
+                    button.disabled = applied;
+                    button.textContent = applied ? 'APPLIED' : 'APPLY';
+                }
+            });
+        },};
+
+        return feature;
+    }
+
+    return { createSchedulerFeature };
+}));
