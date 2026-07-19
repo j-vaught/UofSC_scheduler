@@ -140,6 +140,16 @@
         return (course?.prerequisites || []).map(code => ({ courses: [String(code)], type: 'and' }));
     }
 
+    function corequisiteGroupsForCourse(course) {
+        const explicit = Array.isArray(course?.corequisite_groups)
+            ? course.corequisite_groups.map(normalizeRequirementGroup).filter(Boolean)
+            : (course?.corequisites || []).map(code => ({ courses: [String(code)], type: 'and' }));
+        const either = Array.isArray(course?.prerequisite_or_corequisite_groups)
+            ? course.prerequisite_or_corequisite_groups.map(normalizeRequirementGroup).filter(Boolean)
+            : [];
+        return [...explicit, ...either];
+    }
+
     function groupIsMet(group, completed) {
         return group.type === 'or'
             ? group.courses.some(code => completed.has(code))
@@ -169,12 +179,16 @@
         const inDegree = {};
         const prerequisites = {};
         const requirementGroups = {};
+        const corequisiteGroups = {};
 
         for (const course of courses || []) {
             const allPrerequisites = lookup[course.code] || new Set();
             const relevant = [...allPrerequisites].filter(code => courseCodes.has(code));
             prerequisites[course.code] = relevant;
             requirementGroups[course.code] = requirementGroupsForCourse(
+                (majorMap?.required_courses || []).find(item => item.code === course.code) || course,
+            );
+            corequisiteGroups[course.code] = corequisiteGroupsForCourse(
                 (majorMap?.required_courses || []).find(item => item.code === course.code) || course,
             );
             inDegree[course.code] = relevant.length;
@@ -188,7 +202,29 @@
             in_degree: inDegree,
             prereqs: prerequisites,
             requirement_groups: requirementGroups,
+            corequisite_groups: corequisiteGroups,
         };
+    }
+
+    function requiredCorequisiteCodes(groups, satisfiedCodes, availableCodes) {
+        const satisfied = satisfiedCodes instanceof Set ? satisfiedCodes : new Set(satisfiedCodes || []);
+        const available = availableCodes instanceof Set ? availableCodes : new Set(availableCodes || []);
+        const required = [];
+        for (const group of groups || []) {
+            if (groupIsMet(group, satisfied)) continue;
+            if ((group.conditions || []).length) continue;
+            if (group.type === 'or') {
+                const choice = (group.courses || []).find(code => available.has(code));
+                if (!choice) return null;
+                required.push(choice);
+                continue;
+            }
+            for (const code of group.courses || []) {
+                if (!available.has(code)) return null;
+                required.push(code);
+            }
+        }
+        return [...new Set(required)];
     }
 
     function topologicalSort(courses, adjacency, inDegree) {
@@ -319,9 +355,6 @@
     }
 
     function planDegree(majorMap, completedCodes, options = {}) {
-        // Corequisite pairing is not modeled yet. It needs normalized
-        // corequisite groups plus atomic same-semester placement, not another
-        // interpretation of catalog prose in this module.
         const {
             mode = 'full_time',
             pins = {},
@@ -440,9 +473,22 @@
                     || (left.typical_year ?? 5) - (right.typical_year ?? 5);
             });
             for (const course of available) {
-                const credits = course.credits ?? 3;
+                if (semesterCourses.some(item => item.code === course.code)) continue;
+                const availableCodes = new Set(available.map(item => item.code));
+                const companionCodes = requiredCorequisiteCodes(
+                    dag.corequisite_groups[course.code] || [],
+                    new Set([...completedOrPlaced, ...semesterCourses.map(item => item.code)]),
+                    availableCodes,
+                );
+                if (companionCodes === null) continue;
+                const companions = companionCodes
+                    .map(code => available.find(item => item.code === code))
+                    .filter(Boolean)
+                    .filter(item => !semesterCourses.some(placedCourse => placedCourse.code === item.code));
+                const bundle = [course, ...companions];
+                const credits = bundle.reduce((sum, item) => sum + (item.credits ?? 3), 0);
                 if (semesterCredits + credits <= creditLimits.max) {
-                    semesterCourses.push({ ...course, pinned: false });
+                    bundle.forEach(item => semesterCourses.push({ ...item, pinned: false }));
                     semesterCredits += credits;
                 }
                 if (strategy !== 'major_map' && semesterCredits >= creditLimits.target) break;
@@ -495,7 +541,9 @@
         SCHOLARSHIP_ANNUAL_MIN,
         computeRemaining,
         requirementGroupsForCourse,
+        corequisiteGroupsForCourse,
         evaluateRequirementGroups,
+        requiredCorequisiteCodes,
         buildPrerequisiteDag,
         topologicalSort,
         planDegree,

@@ -2,6 +2,9 @@
 const Prereqs = {
     _cache: {},
     _loadId: 0,
+    _degreeRequirementCache: new Map(),
+    _degreeRequirementCacheVersion: 1,
+    _degreeRequirementCacheTtl: 30 * 24 * 60 * 60 * 1000,
 
     async loadForCourse(courseCode) {
         const container = document.getElementById('prereq-container');
@@ -171,6 +174,154 @@ const Prereqs = {
         });
 
         return groups;
+    },
+
+    catalogYearSource(map) {
+        const value = String(
+            map?.catalog_year
+            || map?.bulletin_year
+            || map?.academic_year
+            || '2026',
+        );
+        return value.match(/\d{4}/)?.[0] || '2026';
+    },
+
+    normalizeCatalogRequirements(details = {}) {
+        const prerequisiteText = details.prereq || details.prerequisite_text || '';
+        const corequisiteText = details.corequisite || details.corequisite_text || '';
+        const eitherText = details.prerequisite_or_corequisite
+            || details.prerequisite_or_corequisite_text
+            || '';
+        const prerequisiteGroups = this.parsePrereqGroups(prerequisiteText);
+        const corequisiteGroups = this.parsePrereqGroups(corequisiteText);
+        const eitherGroups = this.parsePrereqGroups(eitherText);
+        return {
+            prerequisite_groups: prerequisiteGroups,
+            corequisite_groups: corequisiteGroups,
+            prerequisite_or_corequisite_groups: eitherGroups,
+            prerequisites: [...new Set(prerequisiteGroups.flatMap(group => group.courses || []))],
+            corequisites: [...new Set([
+                ...corequisiteGroups.flatMap(group => group.courses || []),
+                ...eitherGroups.flatMap(group => group.courses || []),
+            ])],
+            prerequisite_text: this.cleanRequirementText(prerequisiteText),
+            corequisite_text: this.cleanRequirementText(corequisiteText),
+            prerequisite_or_corequisite_text: this.cleanRequirementText(eitherText),
+        };
+    },
+
+    degreeRequirementCacheKey(courseCode, catalogYear) {
+        return `degree-requirements:v${this._degreeRequirementCacheVersion}:${catalogYear}:${courseCode}`;
+    },
+
+    readDegreeRequirementCache(courseCode, catalogYear) {
+        const key = this.degreeRequirementCacheKey(courseCode, catalogYear);
+        if (this._degreeRequirementCache.has(key)) {
+            const memory = this._degreeRequirementCache.get(key);
+            if (Date.now() - Number(memory.saved_at || 0) <= this._degreeRequirementCacheTtl) {
+                return memory.value;
+            }
+            this._degreeRequirementCache.delete(key);
+        }
+        try {
+            const stored = globalThis.localStorage?.getItem(key);
+            if (!stored) return null;
+            const parsed = JSON.parse(stored);
+            if (!parsed?.value || Date.now() - Number(parsed.saved_at || 0) > this._degreeRequirementCacheTtl) {
+                globalThis.localStorage?.removeItem(key);
+                return null;
+            }
+            this._degreeRequirementCache.set(key, parsed);
+            return parsed.value;
+        } catch (error) {
+            return null;
+        }
+    },
+
+    writeDegreeRequirementCache(courseCode, catalogYear, value) {
+        const key = this.degreeRequirementCacheKey(courseCode, catalogYear);
+        const record = { saved_at: Date.now(), value };
+        this._degreeRequirementCache.set(key, record);
+        try {
+            globalThis.localStorage?.setItem(key, JSON.stringify(record));
+        } catch (error) {
+            // Memory caching still prevents duplicate work when storage is unavailable.
+        }
+    },
+
+    async loadDegreeRequirements(course, catalogYear, catalogByCode = new Map()) {
+        const courseCode = String(course?.code || '').trim().toUpperCase();
+        if (!/^[A-Z]{2,8}\s+\d{3}[A-Z]?$/.test(courseCode)) return null;
+        const cached = this.readDegreeRequirementCache(courseCode, catalogYear);
+        if (cached) return cached;
+
+        const catalog = catalogByCode.get(courseCode);
+        if (!catalog) return null;
+        let details = catalog;
+        if (catalog.key) {
+            try {
+                details = await API.bulletinDetails(catalog.key, catalogYear);
+            } catch (error) {
+                details = catalog;
+            }
+        }
+        const normalized = this.normalizeCatalogRequirements({ ...catalog, ...details });
+        this.writeDegreeRequirementCache(courseCode, catalogYear, normalized);
+        return normalized;
+    },
+
+    async enrichMajorMap(majorMap) {
+        if (!majorMap || !Array.isArray(majorMap.required_courses)) return majorMap;
+        const catalogYear = this.catalogYearSource(majorMap);
+        const courses = majorMap.required_courses;
+        const uncachedCourses = courses.filter(course => !this.readDegreeRequirementCache(
+            String(course.code || '').trim().toUpperCase(),
+            catalogYear,
+        ));
+        const subjects = [...new Set(uncachedCourses
+            .map(course => String(course.code || '').split(' ')[0])
+            .filter(Boolean))];
+        const catalogByCode = new Map();
+
+        await Promise.all(subjects.map(async subject => {
+            try {
+                const response = await API.bulletinSearch(subject, catalogYear);
+                (response.results || []).forEach(item => {
+                    if (item?.code) catalogByCode.set(String(item.code).toUpperCase(), item);
+                });
+            } catch (error) {
+                // Existing map requirements remain usable when a catalog shard is unavailable.
+            }
+        }));
+
+        const enrichedCourses = await Promise.all(courses.map(async course => {
+            const normalized = await this.loadDegreeRequirements(course, catalogYear, catalogByCode);
+            if (!normalized) return course;
+            const hasCatalogPrerequisites = normalized.prerequisite_groups.length > 0;
+            const hasCatalogCorequisites = normalized.corequisite_groups.length > 0
+                || normalized.prerequisite_or_corequisite_groups.length > 0;
+            return {
+                ...course,
+                ...normalized,
+                prerequisites: hasCatalogPrerequisites
+                    ? normalized.prerequisites
+                    : (course.prerequisites || []),
+                corequisites: hasCatalogCorequisites
+                    ? normalized.corequisites
+                    : (course.corequisites || []),
+                prerequisite_groups: hasCatalogPrerequisites
+                    ? normalized.prerequisite_groups
+                    : course.prerequisite_groups,
+                corequisite_groups: normalized.corequisite_groups.length
+                    ? normalized.corequisite_groups
+                    : course.corequisite_groups,
+                prerequisite_or_corequisite_groups: normalized.prerequisite_or_corequisite_groups.length
+                    ? normalized.prerequisite_or_corequisite_groups
+                    : course.prerequisite_or_corequisite_groups,
+            };
+        }));
+
+        return { ...majorMap, required_courses: enrichedCourses };
     },
 
     trailingRequirementAlternatives(part, lastCourseMatch) {

@@ -45,8 +45,13 @@ const DegreePlan = {
         btn.disabled = true;
 
         try {
+            const enrichedMajorData = typeof Prereqs !== 'undefined' && Prereqs.enrichMajorMap
+                ? await Prereqs.enrichMajorMap(majorData)
+                : majorData;
+            State.profile.majorData = enrichedMajorData;
             const plan = await API.getDegreePlan({
                 map_id: State.profile.major,
+                major_map: enrichedMajorData,
                 completed: State.completedCourses,
                 mode: State.profile.planMode,
                 pins: State.degreePlan.pins || {},
@@ -845,6 +850,91 @@ const DegreePlan = {
         });
     },
 
+    linkedCourseCodesForMove(code, fromSem) {
+        const majorCourses = State.profile.majorData?.required_courses || [];
+        const definition = majorCourses.find(item => item.code === code) || {};
+        const linked = new Set(definition.corequisites || []);
+        DegreePlannerRuntime.corequisiteGroupsForCourse(definition).forEach(group => {
+            const candidates = group.courses || [];
+            if (group.type === 'or') {
+                const selected = candidates.find(linkedCode => (
+                    fromSem.courses.some(item => item.code === linkedCode)
+                ));
+                if (selected) linked.add(selected);
+            } else candidates.forEach(linkedCode => linked.add(linkedCode));
+        });
+        if (/\d{3}L$/.test(code)) linked.add(code.slice(0, -1));
+        else if (/\d{3}$/.test(code)) linked.add(`${code}L`);
+        majorCourses.forEach(item => {
+            if ((item.corequisites || []).includes(code)) linked.add(item.code);
+            if (DegreePlannerRuntime.corequisiteGroupsForCourse(item)
+                .some(group => (group.courses || []).includes(code))) linked.add(item.code);
+        });
+        return new Set([code, ...[...linked].filter(linkedCode => (
+            fromSem.courses.some(item => item.code === linkedCode)
+        ))]);
+    },
+
+    validatePlannedMove(code, fromTerm, toTerm) {
+        const semesters = State.degreePlan.semesters || [];
+        const fromSem = semesters.find(semester => semester.term === fromTerm);
+        const toSem = semesters.find(semester => semester.term === toTerm);
+        if (!fromSem || !toSem) return { valid: false, reason: 'missing_semester' };
+        const definitions = State.profile.majorData?.required_courses || [];
+        const definitionsByCode = new Map(definitions.map(course => [course.code, course]));
+        const movedCodes = this.linkedCourseCodesForMove(code, fromSem);
+        const termByCode = new Map();
+        semesters.forEach(semester => {
+            semester.courses.forEach(course => termByCode.set(course.code, String(semester.term)));
+        });
+        movedCodes.forEach(movedCode => termByCode.set(movedCode, String(toTerm)));
+
+        const affected = new Set(movedCodes);
+        definitions.forEach(definition => {
+            const groups = DegreePlannerRuntime.requirementGroupsForCourse(definition);
+            if (groups.some(group => (group.courses || []).some(required => movedCodes.has(required)))) {
+                affected.add(definition.code);
+            }
+        });
+
+        for (const affectedCode of affected) {
+            const definition = definitionsByCode.get(affectedCode) || {};
+            const targetTerm = termByCode.get(affectedCode);
+            if (!targetTerm) continue;
+            const priorTerms = new Set(State.completedCourses || []);
+            termByCode.forEach((term, plannedCode) => {
+                if (term < targetTerm) priorTerms.add(plannedCode);
+            });
+            const groups = DegreePlannerRuntime.requirementGroupsForCourse(definition);
+            const requirementStatus = DegreePlannerRuntime.evaluateRequirementGroups(groups, priorTerms);
+            if (!requirementStatus.eligible) {
+                return {
+                    valid: false,
+                    reason: affectedCode === code ? 'prerequisite' : 'dependent',
+                    course: affectedCode,
+                    missing: requirementStatus.missing,
+                };
+            }
+
+            const plannedCourse = semesters
+                .flatMap(semester => semester.courses)
+                .find(course => course.code === affectedCode) || {};
+            const restriction = definition.offering_restriction || plannedCourse.offering_restriction;
+            const destination = semesters.find(semester => String(semester.term) === targetTerm);
+            const destinationLabel = String(destination?.label || '').toLowerCase();
+            if ((restriction === 'fall_only' && !destinationLabel.startsWith('fall'))
+                || (restriction === 'spring_only' && !destinationLabel.startsWith('spring'))) {
+                return {
+                    valid: false,
+                    reason: 'offering',
+                    course: affectedCode,
+                    restriction,
+                };
+            }
+        }
+        return { valid: true, movedCodes };
+    },
+
     moveCourse(code, fromTerm, toTerm, fromSection, toSection) {
         const fromList = fromSection === 'completed' ? State.degreePlan.completedSemesters : State.degreePlan.semesters;
         const toList = toSection === 'completed' ? State.degreePlan.completedSemesters : State.degreePlan.semesters;
@@ -860,27 +950,20 @@ const DegreePlan = {
         const course = fromSem.courses[courseIdx];
 
         if (fromSection === 'planned' && toSection === 'planned') {
-            const majorCourses = State.profile.majorData?.required_courses || [];
-            const definition = majorCourses.find(item => item.code === code) || {};
-            const priorTerms = new Set(State.completedCourses || []);
-            State.degreePlan.semesters.forEach(semester => {
-                if (String(semester.term) < String(toTerm)) {
-                    semester.courses.forEach(item => priorTerms.add(item.code));
-                }
-            });
-            const groups = DegreePlannerRuntime.requirementGroupsForCourse(definition);
-            const requirementStatus = DegreePlannerRuntime.evaluateRequirementGroups(groups, priorTerms);
-            if (!requirementStatus.eligible) {
-                alert(`${code} cannot be moved to ${toSem.label}. Complete ${requirementStatus.missing.join(' or ')} first.`);
+            const validation = this.validatePlannedMove(code, fromTerm, toTerm);
+            if (!validation.valid && validation.reason === 'dependent') {
+                alert(`${code} cannot be moved to ${toSem.label} because ${validation.course} requires it first.`);
                 return;
             }
-            const restriction = definition.offering_restriction || course.offering_restriction;
-            const destinationLabel = String(toSem.label || '').toLowerCase();
-            if ((restriction === 'fall_only' && !destinationLabel.startsWith('fall'))
-                || (restriction === 'spring_only' && !destinationLabel.startsWith('spring'))) {
-                alert(`${code} is marked ${restriction === 'fall_only' ? 'Fall only' : 'Spring only'} and cannot be placed in ${toSem.label}.`);
+            if (!validation.valid && validation.reason === 'prerequisite') {
+                alert(`${code} cannot be moved to ${toSem.label}. Complete ${validation.missing.join(' or ')} first.`);
                 return;
             }
+            if (!validation.valid && validation.reason === 'offering') {
+                alert(`${validation.course} is marked ${validation.restriction === 'fall_only' ? 'Fall only' : 'Spring only'} and cannot be placed in ${toSem.label}.`);
+                return;
+            }
+            if (!validation.valid) return;
         }
 
         fromSem.courses.splice(courseIdx, 1);
@@ -889,13 +972,8 @@ const DegreePlan = {
         toSem.total_credits += course.credits;
 
         if (fromSection === 'planned' && toSection === 'planned') {
-            const definition = State.profile.majorData?.required_courses?.find(item => item.code === code) || {};
-            const linked = new Set(definition.corequisites || []);
-            if (/\d{3}L$/.test(code)) linked.add(code.slice(0, -1));
-            else if (/\d{3}$/.test(code)) linked.add(`${code}L`);
-            (State.profile.majorData?.required_courses || []).forEach(item => {
-                if ((item.corequisites || []).includes(code)) linked.add(item.code);
-            });
+            const linked = this.linkedCourseCodesForMove(code, fromSem);
+            linked.delete(code);
             linked.forEach(linkedCode => {
                 const index = fromSem.courses.findIndex(item => item.code === linkedCode);
                 if (index < 0) return;
