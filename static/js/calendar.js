@@ -20,6 +20,11 @@ const Calendar = {
     init() {
         this.buildGrid(5);
         State.on('sections-changed', () => this.render());
+        // Paint what is already selected. Subscribing alone was enough while
+        // the schedule was always empty at startup; now that State restores a
+        // saved schedule before any module initialises, the first change event
+        // may never come, and the calendar would sit empty over real data.
+        this.render();
     },
 
     getColor(code) {
