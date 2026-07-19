@@ -244,7 +244,11 @@ const API = {
         const body = codec
             ? codec.encodeSearch({ term, criteria: criteria || [] })
             : { other: { srcdb: term }, criteria };
-        return this.post('/api/search', body, { cacheTtl: 5 * 60 * 1000, ...options });
+        const payload = await this.post('/api/search', body, { cacheTtl: 5 * 60 * 1000, ...options });
+        // Normalised on ingest, additively: every section gains the domain
+        // fields while keeping its upstream ones, so readers migrate one at a
+        // time instead of in a single commit touching every render path.
+        return codec ? codec.decodeSearchCompat(payload, term) : payload;
     },
 
     async getDetails(crn, term, options = {}) {
