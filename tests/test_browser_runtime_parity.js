@@ -10,11 +10,28 @@ const transcript = require('../static/js/runtime/transcript-parser.js');
 const planner = require('../static/js/runtime/degree-planner.js');
 
 const ROOT = path.resolve(__dirname, '..');
-const PYTHON = fs.existsSync(path.join(ROOT, '.venv/bin/python'))
-    ? path.join(ROOT, '.venv/bin/python')
-    : 'python3';
+const FIXTURES = path.join(__dirname, 'fixtures/reference_outputs.json');
 
-function pythonResult(moduleName, functionName, args = [], kwargs = {}) {
+/*
+ * These cases were originally computed live by Python reference modules. Those
+ * modules have been removed; their outputs are frozen here instead, so the
+ * browser runtimes are still pinned to a known-good result on every run.
+ *
+ * To re-record after an intentional behavior change, restore the reference
+ * modules and run: node tests/tools/record_reference_outputs.js
+ */
+const RECORDING = process.env.PARITY_RECORD === '1';
+const recorded = RECORDING || !fs.existsSync(FIXTURES)
+    ? {}
+    : JSON.parse(fs.readFileSync(FIXTURES, 'utf8'));
+
+function referenceKey(moduleName, functionName, args, kwargs) {
+    return JSON.stringify([moduleName, functionName, args, kwargs]);
+}
+
+// Recording path. Only reachable with PARITY_RECORD=1 and the reference modules
+// restored on PYTHONPATH; the normal test run never spawns a subprocess.
+function computeFromPython(moduleName, functionName, args, kwargs) {
     const script = [
         'import importlib, json, sys',
         'payload = json.load(sys.stdin)',
@@ -22,17 +39,32 @@ function pythonResult(moduleName, functionName, args = [], kwargs = {}) {
         'result = function(*payload["args"], **payload["kwargs"])',
         'print(json.dumps(result, sort_keys=True))',
     ].join('\n');
-    // python -c puts cwd on sys.path, not src/. Without PYTHONPATH the reference
-    // modules are unimportable and the failure surfaces only as a status assert.
-    const childEnv = { ...process.env, PYTHONPATH: path.join(ROOT, 'src') };
-    const result = childProcess.spawnSync(PYTHON, ['-c', script], {
+    const python = fs.existsSync(path.join(ROOT, '.venv/bin/python'))
+        ? path.join(ROOT, '.venv/bin/python')
+        : 'python3';
+    const result = childProcess.spawnSync(python, ['-c', script], {
         cwd: ROOT,
         input: JSON.stringify({ args, kwargs }),
         encoding: 'utf8',
-        env: childEnv,
+        env: { ...process.env, PYTHONPATH: path.join(ROOT, 'src') },
     });
     assert.equal(result.status, 0, result.stderr);
     return JSON.parse(result.stdout);
+}
+
+function pythonResult(moduleName, functionName, args = [], kwargs = {}) {
+    const key = referenceKey(moduleName, functionName, args, kwargs);
+    if (RECORDING) {
+        recorded[key] = computeFromPython(moduleName, functionName, args, kwargs);
+        fs.writeFileSync(FIXTURES, `${JSON.stringify(recorded, null, 2)}\n`);
+        return recorded[key];
+    }
+    assert.ok(
+        Object.prototype.hasOwnProperty.call(recorded, key),
+        `No recorded output for ${moduleName}.${functionName}. Restore the reference `
+        + 'modules and re-record with PARITY_RECORD=1.',
+    );
+    return recorded[key];
 }
 
 function loadWorker(relativePath) {

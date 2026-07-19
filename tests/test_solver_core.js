@@ -27,7 +27,21 @@ function section(crn, meetingTimes, overrides = {}) {
     };
 }
 
-function pythonSolve(fixtures) {
+/*
+ * These expectations were originally produced by a Python reference solver,
+ * which has since been removed. Its outputs are frozen in the fixture file so
+ * the browser solver stays pinned to a known-good result on every run.
+ *
+ * To re-record after an intentional change, restore src/scheduler.py and run
+ * this file with PARITY_RECORD=1.
+ */
+const SOLVER_FIXTURES = path.join(__dirname, 'fixtures/solver_reference.json');
+const SOLVER_RECORDING = process.env.PARITY_RECORD === '1';
+const solverRecorded = SOLVER_RECORDING || !fs.existsSync(SOLVER_FIXTURES)
+    ? {}
+    : JSON.parse(fs.readFileSync(SOLVER_FIXTURES, 'utf8'));
+
+function computeSolveFromPython(fixtures) {
     const projectPython = path.resolve('.venv/bin/python');
     const python = fs.existsSync(projectPython) ? projectPython : 'python3';
     const script = [
@@ -40,11 +54,25 @@ function pythonSolve(fixtures) {
         cwd: process.cwd(),
         encoding: 'utf8',
         input: JSON.stringify(fixtures),
-        // scheduler.py lives in src/, which python -c does not put on sys.path.
         env: { ...process.env, PYTHONPATH: path.resolve('src') },
     });
     assert.equal(result.status, 0, result.stderr);
     return JSON.parse(result.stdout);
+}
+
+function pythonSolve(fixtures) {
+    const key = JSON.stringify(fixtures);
+    if (SOLVER_RECORDING) {
+        solverRecorded[key] = computeSolveFromPython(fixtures);
+        fs.writeFileSync(SOLVER_FIXTURES, `${JSON.stringify(solverRecorded, null, 2)}\n`);
+        return solverRecorded[key];
+    }
+    assert.ok(
+        Object.prototype.hasOwnProperty.call(solverRecorded, key),
+        'No recorded solver output for this fixture set. Restore src/scheduler.py '
+        + 'and re-record with PARITY_RECORD=1.',
+    );
+    return solverRecorded[key];
 }
 
 test('browser solver matches Python solver across representative schedules', () => {

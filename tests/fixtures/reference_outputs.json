@@ -1,0 +1,327 @@
+{
+  "[\"offering_analyzer\",\"analyze_offering_pattern\",[{\"terms\":[{\"term\":\"202401\",\"offered\":true,\"enrollment\":20,\"capacity\":25},{\"term\":\"202405\",\"offered\":false,\"error\":true},{\"term\":\"202408\",\"offered\":true,\"enrolled\":\"30\",\"max_enrollment\":\"40\"},{\"term\":\"202501\",\"offered\":false},{\"term\":\"202508\",\"offered\":true},{\"term\":\"202601\",\"offered\":false}]}],{\"as_of_term\":\"202601\"}]": {
+    "avg_gap": 2.5,
+    "confidence": 0.5,
+    "enrollment": {
+      "average_enrollment": 25,
+      "average_fill_rate": 0.769,
+      "latest_capacity": 40,
+      "latest_enrollment": 30,
+      "latest_term": "202408",
+      "terms_with_data": 2
+    },
+    "frequency": 0.75,
+    "label": "Offered in 75% of recent terms",
+    "last_offered_label": "Fall 2025",
+    "last_offered_term": "202508",
+    "pattern": "every_2_semesters",
+    "pattern_label": "Offered approximately every 2 semesters",
+    "semesters_offered": [
+      "Fall"
+    ],
+    "times_offered": 3,
+    "total_terms_checked": 4
+  },
+  "[\"offering_analyzer\",\"analyze_offering_pattern\",[{\"terms\":[{\"term\":\"202301\",\"offered\":true},{\"term\":\"202305\",\"offered\":true},{\"term\":\"202308\",\"offered\":true},{\"term\":\"202401\",\"offered\":true},{\"term\":\"202405\",\"offered\":true},{\"term\":\"202408\",\"offered\":false},{\"term\":\"202501\",\"offered\":false},{\"term\":\"202505\",\"offered\":false}]}],{\"as_of_term\":\"202508\"}]": {
+    "avg_gap": 1,
+    "confidence": 0.5,
+    "enrollment": null,
+    "frequency": 0.62,
+    "label": "Offered in 62% of recent terms",
+    "last_offered_label": "Summer 2024",
+    "last_offered_term": "202405",
+    "pattern": "irregular",
+    "pattern_label": "Offered irregularly, typically in Spring, Summer",
+    "semesters_offered": [
+      "Spring",
+      "Summer"
+    ],
+    "times_offered": 5,
+    "total_terms_checked": 8
+  },
+  "[\"offering_analyzer\",\"analyze_offering_pattern\",[{\"terms\":[]}],{\"as_of_term\":\"202608\"}]": {
+    "avg_gap": null,
+    "confidence": 0,
+    "enrollment": null,
+    "frequency": 0,
+    "label": "No offering history available",
+    "last_offered_label": null,
+    "last_offered_term": null,
+    "pattern": "unknown",
+    "pattern_label": "No offering history available",
+    "semesters_offered": [],
+    "times_offered": 0,
+    "total_terms_checked": 0
+  },
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"every_semester\"},\"202608\"],{}]": "202701",
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"fall_and_spring\"},\"202605\"],{}]": "202608",
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"fall_only\"},\"202608\"],{}]": "202708",
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"spring_only\"},\"202601\"],{}]": "202701",
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"every_3_semesters\",\"avg_gap\":3},\"202608\"],{}]": "202801",
+  "[\"offering_analyzer\",\"predict_next_offering\",[{\"pattern\":\"unknown\"},\"202608\"],{}]": null,
+  "[\"transcript\",\"parse_text\",[\"csce145, MATH 141; bad value. Csce145\\nENGL101a\"],{}]": [
+    "CSCE 145",
+    "MATH 141",
+    "ENGL 101A"
+  ],
+  "[\"transcript\",\"normalize_code\",[\"csce145\"],{}]": "CSCE 145",
+  "[\"transcript\",\"normalize_code\",[\"prefix MATH 141 suffix\"],{}]": "MATH 141",
+  "[\"transcript\",\"normalize_code\",[\"bad value\"],{}]": null,
+  "[\"transcript\",\"normalize_code\",[\"ENGL101a\"],{}]": "ENGL 101A",
+  "[\"transcript\",\"parse_csv\",[\"Subject,Number,Grade,Credit Hours,Term\\nCSCE,145,A,4,Fall 2025\\nMATH,141,B+,4,Spring 2026\\nCSCE,145,C,4,Fall 2024\\nENGL,101,,3.0,\\\"Fall, 2025\\\"\"],{}]": [
+    {
+      "code": "CSCE 145",
+      "credits": 4,
+      "grade": "A",
+      "semester": "Fall 2025"
+    },
+    {
+      "code": "MATH 141",
+      "credits": 4,
+      "grade": "B+",
+      "semester": "Spring 2026"
+    },
+    {
+      "code": "ENGL 101",
+      "credits": 3,
+      "grade": null,
+      "semester": "Fall, 2025"
+    }
+  ],
+  "[\"transcript\",\"parse_csv\",[\"CSCE 145,MATH141\\nENGL 101,not a course\"],{}]": [
+    {
+      "code": "CSCE 145",
+      "credits": null,
+      "grade": null,
+      "semester": null
+    },
+    {
+      "code": "MATH 141",
+      "credits": null,
+      "grade": null,
+      "semester": null
+    },
+    {
+      "code": "ENGL 101",
+      "credits": null,
+      "grade": null,
+      "semester": null
+    }
+  ],
+  "[\"transcript\",\"parse_csv\",[\"Course,Grade\\n\\\"CSCE 145\\\",A\\n\\\"HIST 111\\\",W\"],{}]": [
+    {
+      "code": "CSCE 145",
+      "credits": null,
+      "grade": "A",
+      "semester": null
+    },
+    {
+      "code": "HIST 111",
+      "credits": null,
+      "grade": "W",
+      "semester": null
+    }
+  ],
+  "[\"transcript\",\"is_passing\",[null],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[null],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[null],{\"min_grade\":\"D\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"A-\"],{\"min_grade\":\"B\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"A-\"],{\"min_grade\":\"C\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"A-\"],{\"min_grade\":\"D\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"C\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"C\"],{\"min_grade\":\"C\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"C\"],{\"min_grade\":\"D\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"C-\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"C-\"],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"C-\"],{\"min_grade\":\"D\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"D+\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"D+\"],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"D+\"],{\"min_grade\":\"D\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"F\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"F\"],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"F\"],{\"min_grade\":\"D\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"W\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"W\"],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"W\"],{\"min_grade\":\"D\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"S\"],{\"min_grade\":\"B\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"S\"],{\"min_grade\":\"C\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"S\"],{\"min_grade\":\"D\"}]": true,
+  "[\"transcript\",\"is_passing\",[\"unknown\"],{\"min_grade\":\"B\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"unknown\"],{\"min_grade\":\"C\"}]": false,
+  "[\"transcript\",\"is_passing\",[\"unknown\"],{\"min_grade\":\"D\"}]": false,
+  "[\"planner\",\"compute_remaining\",[{\"total_credits_required\":16,\"offering_hints\":{},\"concentrations\":{\"general\":{\"extra_required\":[]}},\"required_courses\":[{\"code\":\"TEST 101\",\"title\":\"First\",\"credits\":4,\"typical_year\":1,\"prerequisites\":[],\"category\":\"major\"},{\"code\":\"TEST 102\",\"title\":\"Second\",\"credits\":4,\"typical_year\":1,\"prerequisites\":[\"TEST 101\"],\"category\":\"major\"},{\"code\":\"TEST 201\",\"title\":\"Third\",\"credits\":3,\"typical_year\":2,\"prerequisites\":[],\"category\":\"major\"},{\"code\":\"TEST 301\",\"title\":\"Fourth\",\"credits\":3,\"typical_year\":3,\"prerequisites\":[\"TEST 102\"],\"category\":\"major\"}],\"elective_groups\":[{\"id\":\"choice\",\"label\":\"Program elective\",\"options\":[\"TEST 250\"],\"pick\":1,\"credits_each\":2,\"category\":\"elective\"}]},[\"TEST 101\"]],{\"concentration\":\"general\"}]": {
+    "categories": {
+      "elective": {
+        "completed": 0,
+        "remaining": 2,
+        "required": 0
+      },
+      "major": {
+        "completed": 4,
+        "remaining": 10,
+        "required": 14
+      }
+    },
+    "completed_credits": 4,
+    "elective_groups_remaining": [
+      {
+        "category": "elective",
+        "completed_count": 0,
+        "credits_each": 2,
+        "id": "choice",
+        "label": "Program elective",
+        "options": [
+          "TEST 250"
+        ],
+        "pick": 1,
+        "remaining_credits": 2,
+        "remaining_options": [
+          "TEST 250"
+        ],
+        "remaining_pick": 1
+      }
+    ],
+    "required_remaining": [
+      {
+        "category": "major",
+        "code": "TEST 102",
+        "credits": 4,
+        "prerequisites": [
+          "TEST 101"
+        ],
+        "title": "Second",
+        "typical_year": 1
+      },
+      {
+        "category": "major",
+        "code": "TEST 201",
+        "credits": 3,
+        "prerequisites": [],
+        "title": "Third",
+        "typical_year": 2
+      },
+      {
+        "category": "major",
+        "code": "TEST 301",
+        "credits": 3,
+        "prerequisites": [
+          "TEST 102"
+        ],
+        "title": "Fourth",
+        "typical_year": 3
+      }
+    ],
+    "total_credits_remaining": 12
+  },
+  "[\"planner\",\"plan_degree\",[{\"total_credits_required\":16,\"offering_hints\":{},\"concentrations\":{\"general\":{\"extra_required\":[]}},\"required_courses\":[{\"code\":\"TEST 101\",\"title\":\"First\",\"credits\":4,\"typical_year\":1,\"prerequisites\":[],\"category\":\"major\"},{\"code\":\"TEST 102\",\"title\":\"Second\",\"credits\":4,\"typical_year\":1,\"prerequisites\":[\"TEST 101\"],\"category\":\"major\"},{\"code\":\"TEST 201\",\"title\":\"Third\",\"credits\":3,\"typical_year\":2,\"prerequisites\":[],\"category\":\"major\"},{\"code\":\"TEST 301\",\"title\":\"Fourth\",\"credits\":3,\"typical_year\":3,\"prerequisites\":[\"TEST 102\"],\"category\":\"major\"}],\"elective_groups\":[{\"id\":\"choice\",\"label\":\"Program elective\",\"options\":[\"TEST 250\"],\"pick\":1,\"credits_each\":2,\"category\":\"elective\"}]},[]],{\"mode\":\"full_time\",\"pins\":{\"TEST 201\":\"202608\"},\"start_term\":\"202608\",\"include_summer\":false,\"concentration\":\"general\"}]": {
+    "categories": {
+      "elective": {
+        "completed": 0,
+        "remaining": 2,
+        "required": 0
+      },
+      "major": {
+        "completed": 0,
+        "remaining": 14,
+        "required": 14
+      }
+    },
+    "completed_credits": 0,
+    "estimated_graduation": "Fall 2027",
+    "semesters": [
+      {
+        "courses": [
+          {
+            "category": "major",
+            "code": "TEST 201",
+            "credits": 3,
+            "elective_group_id": "",
+            "is_elective_slot": false,
+            "offering_restriction": null,
+            "options": [],
+            "pinned": true,
+            "title": "Third"
+          },
+          {
+            "category": "major",
+            "code": "TEST 101",
+            "credits": 4,
+            "elective_group_id": "",
+            "is_elective_slot": false,
+            "offering_restriction": null,
+            "options": [],
+            "pinned": false,
+            "title": "First"
+          },
+          {
+            "category": "elective",
+            "code": "[REQ-1-1]",
+            "credits": 2,
+            "elective_group_id": "choice",
+            "is_elective_slot": true,
+            "offering_restriction": null,
+            "options": [
+              "TEST 250"
+            ],
+            "pinned": false,
+            "title": "Program elective"
+          }
+        ],
+        "label": "Fall 2026",
+        "term": "202608",
+        "total_credits": 9
+      },
+      {
+        "courses": [
+          {
+            "category": "major",
+            "code": "TEST 102",
+            "credits": 4,
+            "elective_group_id": "",
+            "is_elective_slot": false,
+            "offering_restriction": null,
+            "options": [],
+            "pinned": false,
+            "title": "Second"
+          }
+        ],
+        "label": "Spring 2027",
+        "term": "202701",
+        "total_credits": 4
+      },
+      {
+        "courses": [
+          {
+            "category": "major",
+            "code": "TEST 301",
+            "credits": 3,
+            "elective_group_id": "",
+            "is_elective_slot": false,
+            "offering_restriction": null,
+            "options": [],
+            "pinned": false,
+            "title": "Fourth"
+          }
+        ],
+        "label": "Fall 2027",
+        "term": "202708",
+        "total_credits": 3
+      }
+    ],
+    "total_credits_remaining": 16,
+    "warnings": [
+      {
+        "message": "Fall 2026: Only 9 credits planned. Consider adding electives to reach 14 credits.",
+        "type": "info"
+      },
+      {
+        "message": "Spring 2027: Only 4 credits planned. Consider adding electives to reach 14 credits.",
+        "type": "info"
+      },
+      {
+        "message": "Fall 2027: Only 3 credits planned. Consider adding electives to reach 14 credits.",
+        "type": "info"
+      }
+    ]
+  }
+}
