@@ -12,6 +12,15 @@ function bootSource() {
 // history.js composes the fenced feature in features/history/index.js, so the
 // sandbox needs it present just as the browser does via its script tag.
 const historyFeature = require('../static/js/features/history/index.js');
+const mapFeature = require('../static/js/features/map/index.js');
+
+// map.js is now a composition point; its logic lives in the fenced feature, so
+// assertions about that logic read both.
+function mapSource() {
+    return fs.readFileSync('static/js/map.js', 'utf8')
+        + fs.readFileSync('static/js/features/map/index.js', 'utf8');
+}
+
 
 function loadObject(path, name, contextValues) {
     const context = vm.createContext({ ...contextValues });
@@ -3869,7 +3878,8 @@ test('switching day patterns clears only automatic blocks', () => {
 });
 
 test('walking map defaults to the all-days view', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
 
     assert.equal(walkingMap.selectedDay, 'all');
 });
@@ -3908,7 +3918,8 @@ test('scheduler background location prefetch only includes usable campus section
 
 test('walking map includes weekend meetings and term-specific section details', () => {
     const State = { term: '202608' };
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', { State });
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature }, State });
     const section = {
         code: 'TEST 101',
         crn: '10001',
@@ -3933,6 +3944,7 @@ test('failed background location details are retried by the foreground', async (
     const State = { term: '202608' };
     const section = { crn: '10001' };
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },
         State,
         API: {
             async getDetails() {
@@ -3960,6 +3972,7 @@ test('background detail hydration pauses after consecutive failures and foregrou
         meetingTimes: '[{"meet_day":1,"start_time":900,"end_time":950}]',
     }));
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },
         State,
         API: {
             async getDetails() {
@@ -4002,6 +4015,7 @@ test('location detail hydration skips online and unscheduled sections', async ()
     let calls = 0;
     const State = { term: '202608' };
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },
         State,
         API: {
             async getDetails() {
@@ -4023,14 +4037,14 @@ test('location detail hydration skips online and unscheduled sections', async ()
 });
 
 test('walking map explains processed selections that have no campus meetings', () => {
-    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const source = mapSource();
 
     assert.match(source, /All selected classes were processed, but none has a scheduled campus meeting to map/);
     assert.match(source, /No two selected classes meet consecutively on the same day/);
 });
 
 test('route interface uses neutral travel language', () => {
-    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const source = mapSource();
     const schedulerSource = fs.readFileSync('static/js/scheduler.js', 'utf8');
 
     assert.match(source, /Routes Between Classes/);
@@ -4045,7 +4059,8 @@ test('route interface uses neutral travel language', () => {
 });
 
 test('walking map resolves Storey schedule labels to the official building', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;
 
     const resolved = walkingMap.resolveBuilding('Storey Eng & Innovation Ctr 1400');
@@ -4055,7 +4070,8 @@ test('walking map resolves Storey schedule labels to the official building', () 
 });
 
 test('walking map resolves Science and Technology Banner labels', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;
 
     const resolved = walkingMap.resolveBuilding('Science and Technology Bldg 352');
@@ -4065,7 +4081,8 @@ test('walking map resolves Science and Technology Banner labels', () => {
 });
 
 test('walking map resolves abbreviated Callcott Banner labels', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.buildings = JSON.parse(fs.readFileSync('static/data/campus_buildings.json', 'utf8')).buildings;
 
     const resolved = walkingMap.resolveBuilding('Callcot Soc Sci Ctr 011');
@@ -4101,7 +4118,8 @@ test('selecting a walking transition highlights its route and zooms the map', ()
     const cards = [routeCard(0), routeCard(1)];
     const layers = [routeLayer(), routeLayer()];
     let fittedBounds;
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.listElement = { querySelectorAll: () => cards };
     walkingMap._currentTransitions = [
         { geometry: [[1, 1], [2, 2]] },
@@ -4150,7 +4168,8 @@ test('hovering a walking transition previews its route and restores the overview
     const cards = [routeCard(0), routeCard(1)];
     const layers = [routeLayer(), routeLayer()];
     const fittedBounds = [];
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.listElement = { querySelectorAll: () => cards };
     walkingMap._currentTransitions = [
         { geometry: [[1, 1], [2, 2]] },
@@ -4191,7 +4210,8 @@ test('leaving a hover preview returns to the clicked walking route', () => {
 
     const cards = [routeCard(0), routeCard(1)];
     const fittedBounds = [];
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.listElement = { querySelectorAll: () => cards };
     walkingMap._currentTransitions = [
         { geometry: [[1, 1], [2, 2]] },
@@ -4213,7 +4233,7 @@ test('leaving a hover preview returns to the clicked walking route', () => {
 });
 
 test('walking transition cards wire hover and keyboard previews', () => {
-    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const source = mapSource();
 
     assert.match(source, /addEventListener\('mouseenter', \(\) => this\.previewTransition\(index\)\)/);
     assert.match(source, /this\.listElement\.addEventListener\('mouseleave'/);
@@ -4223,7 +4243,8 @@ test('walking transition cards wire hover and keyboard previews', () => {
 });
 
 test('transition cards and map routes share the same colors', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     const mondayTransition = { from: { day: 0 } };
     const tuesdayTransition = { from: { day: 1 } };
 
@@ -4233,7 +4254,7 @@ test('transition cards and map routes share the same colors', () => {
     walkingMap.selectedDay = 1;
     assert.equal(walkingMap.routeColor(tuesdayTransition), '#73000A');
 
-    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const source = mapSource();
     const styles = fs.readFileSync('static/css/map.css', 'utf8');
     assert.match(source, /--transition-color', this\.routeColor\(transition\)/);
     assert.match(source, /color: this\.routeColor\(transition\)/);
@@ -4241,13 +4262,14 @@ test('transition cards and map routes share the same colors', () => {
 });
 
 test('online and same-building transitions use disabled no-route cards', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     const building = { kind: 'known', code: 'TEST', lat: 1, lon: 2 };
 
     assert.equal(walkingMap.transitionStatus({ kind: 'online' }).className, 'neutral');
     assert.equal(walkingMap.transitionStatus({ kind: 'same' }).label, 'Same building');
 
-    const source = fs.readFileSync('static/js/map.js', 'utf8');
+    const source = mapSource();
     const styles = fs.readFileSync('static/css/map.css', 'utf8');
     assert.match(source, /transition\.kind === 'online' \|\| transition\.kind === 'same'/);
     assert.match(source, /card\.classList\.add\('no-route-needed'\)/);
@@ -4261,6 +4283,7 @@ test('online and same-building transitions use disabled no-route cards', () => {
 test('route cache keys include catalog revision and coordinates', async () => {
     let calls = 0;
     const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },
         fetch: async () => {
             calls += 1;
             return {
@@ -4291,7 +4314,8 @@ test('route cache keys include catalog revision and coordinates', async () => {
 });
 
 test('route cache expires stale entries and evicts its oldest entry', () => {
-    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {});
+    const walkingMap = loadObject('static/js/map.js', 'WalkingMap', {
+        Features: { map: mapFeature },});
     walkingMap.ROUTE_CACHE_MAX_ENTRIES = 2;
     walkingMap.ROUTE_CACHE_TTL_MS = 60_000;
 
