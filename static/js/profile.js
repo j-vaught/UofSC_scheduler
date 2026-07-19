@@ -1,4 +1,4 @@
-/* Profile tab: major selection, transcript entry, planning preferences */
+/* Degree-planning setup: major selection, transcript entry, and planning pace */
 const Profile = {
     majorMaps: [],
 

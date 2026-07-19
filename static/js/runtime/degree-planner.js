@@ -66,7 +66,7 @@
             const options = group.options || [];
             const totalPick = group.pick || 0;
             const pickCredits = group.pick_credits || 0;
-            const creditsEach = group.credits_each ?? 3;
+            const creditsEach = group.credits_each ?? group.credits_required ?? 3;
             const completedInGroup = options.filter(code => completed.has(code));
 
             if (pickCredits > 0) {
@@ -243,7 +243,7 @@
                     if (!result[index]) result[index] = [];
                     result[index].push({
                         code: `[${label}]`,
-                        title: `Choose from ${groupId}`,
+                        title: label,
                         credits: creditsEach,
                         category: group.category || 'electives',
                         is_elective_slot: true,

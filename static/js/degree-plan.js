@@ -30,7 +30,7 @@ const DegreePlan = {
     async generatePlan() {
         const majorData = State.profile.majorData;
         if (!majorData) {
-            alert('Please select a major in the Profile tab first.');
+            alert('Choose your major and catalog year above before generating a plan.');
             return;
         }
 
@@ -178,7 +178,7 @@ const DegreePlan = {
         this.renderMapContext(majorData);
 
         if (!majorData) {
-            list.innerHTML = '<p class="hint">Select a major in the Profile tab to see requirements.</p>';
+            list.innerHTML = '<p class="hint">Choose a program above to see its requirements.</p>';
             return;
         }
 
@@ -668,15 +668,39 @@ const DegreePlan = {
         if (!sem) return;
 
         const course = sem.courses.find(c => c.code === groupId);
-        if (!course || !course.options || course.options.length === 0) {
-            alert('No specific options listed for this elective group. Choose any course that satisfies: ' + (course.title || groupId));
+        if (!course) return;
+
+        const coreCode = this.carolinaCoreCode(course);
+        if (!course.options || course.options.length === 0) {
+            const modal = document.getElementById('modal-overlay');
+            const content = document.getElementById('modal-content');
+            const isCore = Boolean(coreCode);
+            content.innerHTML = `
+                <div class="requirement-picker-empty">
+                    <span class="degree-eyebrow">${isCore ? 'CAROLINA CORE' : 'DEGREE REQUIREMENT'}</span>
+                    <h2>${course.title || 'Choose a course'}</h2>
+                    <p>${isCore
+                        ? `Search current courses that satisfy the ${coreCode} Carolina Core requirement.`
+                        : 'The official map identifies the requirement but does not prescribe a fixed course list.'}</p>
+                    <button type="button" id="requirement-search-btn" class="btn-garnet">${isCore ? `FIND ${coreCode} COURSES` : 'FIND A COURSE'}</button>
+                </div>`;
+            modal.classList.remove('hidden');
+            content.querySelector('#requirement-search-btn').addEventListener('click', () => {
+                modal.classList.add('hidden');
+                Tabs.switchTo('semester');
+                const coreFilter = document.getElementById('filter-carolina-core');
+                if (coreFilter) coreFilter.value = coreCode || '';
+                const input = Search.activeSearchInput();
+                if (input) input.value = isCore ? `Carolina Core ${coreCode}` : course.title;
+                Search.doSearch();
+            });
             return;
         }
 
         const modal = document.getElementById('modal-overlay');
         const content = document.getElementById('modal-content');
 
-        let optionsHtml = `<h2>Choose an Elective</h2><p>${course.title}</p><div class="elective-options">`;
+        let optionsHtml = `<h2>${coreCode ? 'Choose a Carolina Core course' : 'Choose a course'}</h2><p>${course.title}</p><div class="elective-options">`;
         for (const opt of course.options.slice(0, 20)) {
             optionsHtml += `
                 <div class="elective-option" data-code="${opt}">
@@ -735,6 +759,13 @@ const DegreePlan = {
                 }
             });
         });
+    },
+
+    carolinaCoreCode(course) {
+        if (course.category !== 'carolina_core' && !/carolina core|\bcc[- ]/i.test(course.title || '')) return '';
+        const text = `${course.title || ''} ${course.elective_group_id || ''}`.toUpperCase();
+        const match = text.match(/(?:CC[- _]?)?(AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/);
+        return match ? match[1] : '';
     },
 
     bindDragDrop() {

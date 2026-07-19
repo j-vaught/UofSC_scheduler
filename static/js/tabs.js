@@ -1,7 +1,7 @@
 /* Tab navigation system */
 const Tabs = {
     _listeners: [],
-    _current: 'home',
+    _current: 'semester',
 
     init() {
         const nav = document.getElementById('main-tabs');
@@ -19,7 +19,7 @@ const Tabs = {
         // Restore the URL tab first, then the last tab used on this device.
         const urlTab = this.tabFromUrl(new URL(window.location.href).searchParams.get('tab'));
         const saved = localStorage.getItem('uosc-active-tab');
-        const initial = urlTab || saved || 'home';
+        const initial = urlTab || this.tabFromUrl(saved) || 'semester';
         this.switchTo(initial, { historyMode: 'none' });
         if (!urlTab) {
             history.replaceState({ ...(history.state || {}), tab: initial }, '', window.location.href);
@@ -29,7 +29,10 @@ const Tabs = {
 
     tabFromUrl(value) {
         if (value === 'search' || value === 'semester') return 'semester';
-        return ['home', 'degree', 'schedule', 'profile', 'export'].includes(value) ? value : '';
+        if (value === 'home') return 'semester';
+        if (value === 'profile') return 'degree';
+        if (value === 'export') return 'schedule';
+        return ['degree', 'schedule'].includes(value) ? value : '';
     },
 
     writeTabHistory(tabName, mode = 'push') {
@@ -49,7 +52,7 @@ const Tabs = {
     restoreFromLocation() {
         const urlTab = this.tabFromUrl(new URL(window.location.href).searchParams.get('tab'));
         const stateTab = this.tabFromUrl(history.state?.tab);
-        this.switchTo(urlTab || stateTab || 'home', { historyMode: 'none' });
+        this.switchTo(urlTab || stateTab || 'semester', { historyMode: 'none' });
     },
 
     switchTo(tabName, { historyMode = 'push' } = {}) {

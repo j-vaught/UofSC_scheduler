@@ -6,12 +6,12 @@ const test = require('node:test');
 
 const TranscriptUploadDialog = require('../static/js/transcript-upload-dialog.js');
 
-test('one reusable transcript dialog serves home, profile, and degree plan', () => {
+test('one reusable transcript dialog serves the consolidated degree planner', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const launchers = [...html.matchAll(/data-transcript-upload-launch="([^"]+)"/g)]
         .map(match => match[1]);
 
-    assert.deepEqual(launchers, ['home', 'profile', 'degree']);
+    assert.deepEqual(launchers, ['degree']);
     assert.equal((html.match(/id="transcript-upload-dialog"/g) || []).length, 0);
     assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js\?v=\d+"/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);

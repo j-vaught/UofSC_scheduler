@@ -475,7 +475,7 @@ def _distribute_electives(elective_groups, semesters, credit_limits, offering_hi
                 result[i].append(
                     {
                         "code": f"[{label}]",
-                        "title": f"Choose from {group_id}",
+                        "title": label,
                         "credits": credits_each,
                         "category": group.get("category", "electives"),
                         "is_elective_slot": True,

@@ -18,12 +18,9 @@
     <header>
         <h1>Course Scheduler</h1>
         <nav id="main-tabs" aria-label="Main navigation">
-            <button data-tab="home" class="main-tab-btn active">HOME</button>
+            <button data-tab="semester" class="main-tab-btn active">SEARCH</button>
             <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
-            <button data-tab="semester" class="main-tab-btn">SEARCH</button>
             <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
-            <button data-tab="profile" class="main-tab-btn">PROFILE</button>
-            <button data-tab="export" class="main-tab-btn">EXPORT</button>
         </nav>
         <div class="header-controls">
             <label for="term-select">TERM:</label>
@@ -44,71 +41,20 @@
     <div id="site-notices" class="site-notices" hidden aria-live="polite"></div>
 
     <main>
-        <!-- ===== HOME TAB ===== -->
-        <div id="tab-home" class="main-tab active">
-            <div class="home-container">
-                <div class="home-welcome">
-                    <h2>Welcome to the Course Scheduler</h2>
-                    <p>Plan your degree or build your semester schedule.</p>
-                </div>
-
-                <div class="home-paths">
-                    <button type="button" class="home-card" id="home-degree-btn">
-                        <span class="home-card-icon" aria-hidden="true">&#127891;</span>
-                        <span class="home-card-title">Plan My Degree</span>
-                        <span class="home-card-copy">I want to see what classes I will take each semester through graduation.</span>
-                        <span class="home-card-action">Get Started &rarr;</span>
-                    </button>
-
-                    <button type="button" class="home-card" id="home-schedule-btn">
-                        <span class="home-card-icon" aria-hidden="true">&#128197;</span>
-                        <span class="home-card-title">Build a Schedule</span>
-                        <span class="home-card-copy">I know what courses I want to take. I just need to find sections, times, and professors.</span>
-                        <span class="home-card-action">Get Started &rarr;</span>
-                    </button>
-                </div>
-
-                <section class="home-transcript-import" aria-labelledby="home-transcript-title">
+        <!-- ===== DEGREE PLAN TAB ===== -->
+        <div id="tab-degree" class="main-tab">
+            <section class="degree-setup" aria-labelledby="degree-setup-title">
+                <div class="degree-setup-heading">
                     <div>
-                        <h3 id="home-transcript-title">Bring in your completed courses</h3>
-                        <p>Download your UofSC advising transcript, then review the courses before adding them to your profile.</p>
+                        <span class="degree-eyebrow">START HERE</span>
+                        <h2 id="degree-setup-title">Build your degree plan</h2>
+                        <p>Choose your official major map, bring in completed coursework, then generate a semester-by-semester roadmap.</p>
                     </div>
-                    <div data-transcript-upload-launch="home"></div>
-                </section>
-
-                <div class="home-quickstart">
-                    <h3>Quick Start</h3>
-                    <p>Select your major to estimate your course completion based on the major map.</p>
-                    <div class="quickstart-form">
-                        <div class="quickstart-row">
-                            <label for="home-major-select">Major</label>
-                            <select id="home-major-select">
-                                <option value="">-- Select Your Major --</option>
-                            </select>
-                        </div>
-                        <div class="quickstart-row">
-                            <label for="home-year-select">Year</label>
-                            <select id="home-year-select">
-                                <option value="">-- How far along? --</option>
-                                <option value="freshman">Freshman (0-29 credits)</option>
-                                <option value="sophomore">Sophomore (30-59 credits)</option>
-                                <option value="junior">Junior (60-89 credits)</option>
-                                <option value="senior">Senior (90+ credits)</option>
-                            </select>
-                        </div>
-                        <button id="btn-quickstart" class="btn-garnet">ESTIMATE MY PLAN</button>
-                    </div>
-                    <div id="quickstart-result"></div>
+                    <button id="btn-generate-plan" class="btn-garnet">GENERATE DEGREE PLAN</button>
                 </div>
-            </div>
-        </div>
-
-        <!-- ===== SETTINGS TAB (was PROFILE) ===== -->
-        <div id="tab-profile" class="main-tab">
-            <div class="profile-grid">
-                <!-- Major Selection -->
-                <section class="profile-section">
-                    <h2>Major & Concentration</h2>
+                <div class="degree-setup-grid">
+                <section class="degree-setup-card">
+                    <h3><span>1</span> Choose your program</h3>
                     <div class="form-row">
                         <label for="major-program-select">Major and program</label>
                         <select id="major-program-select">
@@ -130,17 +76,16 @@
                     <div id="major-summary" class="major-summary"></div>
                 </section>
 
-                <!-- Transcript Entry -->
-                <section class="profile-section">
-                    <h2>Completed Courses</h2>
+                <section class="degree-setup-card">
+                    <h3><span>2</span> Add completed courses</h3>
                     <div class="transcript-import-entry">
                         <div>
-                            <strong>Import from UofSC</strong>
-                            <span>Use an advising-transcript PDF to add completed and in-progress courses.</span>
+                            <strong>Import an advising transcript</strong>
+                            <span>Upload the PDF from Self Service, then review the detected coursework.</span>
                         </div>
-                        <div data-transcript-upload-launch="profile"></div>
+                        <div data-transcript-upload-launch="degree"></div>
                     </div>
-                    <p class="section-hint">Enter courses separated by commas, semicolons, periods, or one per line. Case-insensitive, space optional (e.g., csce145, MATH 141; engl101).</p>
+                    <p class="section-hint">Or enter course codes separated by commas, semicolons, periods, or new lines.</p>
                     <textarea id="transcript-input" rows="4" placeholder="CSCE 145, CSCE 146, MATH 141, ENGL 101..."></textarea>
                     <div class="transcript-actions">
                         <button id="btn-parse-transcript" class="btn-garnet">ADD COURSES</button>
@@ -153,9 +98,8 @@
                     <div id="credit-summary" class="credit-summary"></div>
                 </section>
 
-                <!-- Planning Mode -->
-                <section class="profile-section">
-                    <h2>Planning Mode</h2>
+                <section class="degree-setup-card degree-mode-card">
+                    <h3><span>3</span> Set your pace</h3>
                     <div class="mode-options">
                         <label class="mode-option">
                             <input type="radio" name="plan-mode" value="full_time" checked>
@@ -195,55 +139,16 @@
                         At 12 + 12 credits/year, you will need 6 summer credits to maintain most scholarship eligibility (30 credits/year minimum).
                     </div>
                 </section>
-
-                <!-- Scheduling Preferences -->
-                <section class="profile-section">
-                    <h2>Scheduling Preferences</h2>
-                    <div class="prefs-grid">
-                        <div class="pref-column">
-                            <h3>Block Out Times</h3>
-                            <p class="section-hint">Click or drag to block times you are NOT available.</p>
-                            <div id="block-calendar"></div>
-                        </div>
-                        <div class="pref-column">
-                            <div class="pref-group">
-                                <h3>Earliest / Latest Class</h3>
-                                <label>Earliest start: <input type="time" id="pref-start" value="08:00"></label>
-                                <label>Latest end: <input type="time" id="pref-end" value="21:00"></label>
-                            </div>
-                            <div class="pref-group">
-                                <h3>Day Preferences</h3>
-                                <div class="day-toggles">
-                                    <label><input type="checkbox" data-day="MWF" id="pref-mwf"> Prefer MWF only</label>
-                                    <label><input type="checkbox" data-day="TR" id="pref-tr"> Prefer TR only</label>
-                                </div>
-                            </div>
-                            <div class="pref-group">
-                                <h3>Professor Preferences</h3>
-                                <div id="prof-prefs-list"></div>
-                                <div class="prof-pref-add">
-                                    <input type="text" id="prof-name-input" placeholder="Last name" style="flex:1">
-                                    <select id="prof-pref-type" style="width:auto">
-                                        <option value="prefer">Prefer</option>
-                                        <option value="avoid">Avoid</option>
-                                    </select>
-                                    <button id="btn-add-prof-pref">ADD</button>
-                                </div>
-                            </div>
-                            <div class="pref-group">
-                                <h3>Scoring Weights</h3>
-                                <label>Gap penalty: <input type="range" id="weight-gap" min="0" max="10" value="2" step="0.5"><span id="weight-gap-val">2</span></label>
-                                <label>Fewer days: <input type="range" id="weight-compact" min="0" max="10" value="3" step="0.5"><span id="weight-compact-val">3</span></label>
-                                <label>Back-to-back: <input type="range" id="weight-consec" min="0" max="10" value="2" step="0.5"><span id="weight-consec-val">2</span></label>
-                            </div>
-                        </div>
+                </div>
+            </section>
+            <section class="degree-roadmap" aria-labelledby="degree-roadmap-title">
+                <div class="degree-roadmap-heading">
+                    <div>
+                        <span class="degree-eyebrow">YOUR ROADMAP</span>
+                        <h2 id="degree-roadmap-title">Degree progress and semesters</h2>
                     </div>
-                </section>
-            </div>
-        </div>
-
-        <!-- ===== DEGREE PLAN TAB ===== -->
-        <div id="tab-degree" class="main-tab">
+                    <div id="plan-mode-label" class="plan-mode-label"></div>
+                </div>
             <div class="degree-layout">
                 <!-- Left: Requirements Sidebar -->
                 <aside id="degree-sidebar">
@@ -254,29 +159,24 @@
                         <div class="progress-bar"><div class="progress-fill" id="progress-overall-fill"></div></div>
                         <div class="progress-text" id="progress-overall-text">0 / 120 credits</div>
                     </div>
-                    <div class="degree-transcript-entry">
-                        <p>Already have UofSC coursework?</p>
-                        <div data-transcript-upload-launch="degree"></div>
-                    </div>
                     <div id="degree-requirements-list" class="requirements-list">
-                        <p class="hint">Select a major in the Profile tab to see requirements.</p>
+                        <p class="hint">Choose a program above to see its requirements.</p>
                     </div>
-                    <button id="btn-generate-plan" class="btn-garnet" style="width:100%;margin-top:12px">GENERATE DEGREE PLAN</button>
-                    <div id="plan-mode-label" class="plan-mode-label"></div>
                 </aside>
 
                 <!-- Right: Semester Columns -->
                 <section id="degree-content">
                     <div id="degree-warnings" class="warnings-container"></div>
                     <div id="semester-columns" class="semester-columns">
-                        <p class="hint" style="padding:20px">Set up your profile and click "Generate Degree Plan" to see your semester-by-semester course plan.</p>
+                        <p class="hint" style="padding:20px">Choose a program, add completed coursework, and generate your plan.</p>
                     </div>
                 </section>
             </div>
+            </section>
         </div>
 
         <!-- ===== SEMESTER TAB ===== -->
-        <div id="tab-semester" class="main-tab">
+        <div id="tab-semester" class="main-tab active">
             <div id="browse-workspace" class="semester-layout browse-empty">
                 <section class="browse-search-shell" aria-label="Course search">
                     <div class="browse-search-intro">
@@ -297,6 +197,20 @@
                         <button id="btn-search" class="btn-garnet">SEARCH</button>
                     </div>
                     <p id="search-input-error" class="search-input-error hidden" role="alert"></p>
+                    <div class="search-planning-paths" id="search-planning-paths" aria-label="Planning tools">
+                        <button type="button" class="search-planning-card" id="search-degree-btn">
+                            <span class="search-planning-kicker">LONG-TERM ROADMAP</span>
+                            <strong>PLAN A DEGREE</strong>
+                            <span>Use an official major map and your transcript to plan through graduation.</span>
+                            <i aria-hidden="true">&rarr;</i>
+                        </button>
+                        <button type="button" class="search-planning-card" id="search-schedule-btn">
+                            <span class="search-planning-kicker">NEXT SEMESTER</span>
+                            <strong>BUILD A SEMESTER</strong>
+                            <span>Choose courses and generate schedules that fit your preferences.</span>
+                            <i aria-hidden="true">&rarr;</i>
+                        </button>
+                    </div>
                     <div class="browse-search-examples" aria-label="Search examples">
                         <span>Try</span>
                         <div class="regular-search-examples">
@@ -620,47 +534,6 @@
             </div>
         </div>
 
-        <!-- ===== EXPORT TAB ===== -->
-        <div id="tab-export" class="main-tab">
-            <div class="export-grid">
-                <section class="export-section">
-                    <h2>Export Calendar</h2>
-                    <p>Download your current schedule as an .ICS file compatible with Google Calendar, Apple Calendar, and Outlook.</p>
-                    <button id="btn-export" class="btn-garnet">DOWNLOAD .ICS FILE</button>
-                </section>
-
-                <section class="export-section">
-                    <h2>Save / Load Plans</h2>
-                    <div class="plan-management">
-                        <div class="form-row">
-                            <label for="plan-name-input">Plan Name</label>
-                            <input type="text" id="plan-name-input" placeholder="My Plan" value="Plan A">
-                        </div>
-                        <div class="plan-buttons">
-                            <button id="btn-save-plan" class="btn-garnet">SAVE PLAN</button>
-                            <button id="btn-load-plan" class="btn-black">LOAD PLAN</button>
-                            <button id="btn-delete-plan" class="btn-danger">DELETE PLAN</button>
-                        </div>
-                        <div id="saved-plans-list" class="saved-plans-list">
-                            <h3>Saved Plans</h3>
-                            <div id="plans-container"></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="export-section">
-                    <h2>Export / Import Plan Data</h2>
-                    <p>Save your entire degree plan and schedule as a JSON file, or import a previously saved plan.</p>
-                    <div class="plan-buttons">
-                        <button id="btn-export-json" class="btn-garnet">EXPORT AS JSON</button>
-                        <label class="file-upload-label">
-                            IMPORT JSON
-                            <input type="file" id="json-import" accept=".json" style="display:none">
-                        </label>
-                    </div>
-                </section>
-            </div>
-        </div>
     </main>
 
     <!-- Modal -->
@@ -726,117 +599,12 @@
             }
         });
 
-        // Home tab: path cards
-        document.getElementById('home-degree-btn').addEventListener('click', () => {
+        // Search landing: planning paths
+        document.getElementById('search-degree-btn').addEventListener('click', () => {
             Tabs.switchTo('degree');
         });
-        document.getElementById('home-schedule-btn').addEventListener('click', () => {
-            Tabs.switchTo('semester');
-        });
-
-        // Home tab: quick start major dropdown
-        API.getMajorMaps().then(maps => {
-            const sel = document.getElementById('home-major-select');
-            Profile.majorMaps = Profile.normalizeMajorMaps(maps);
-            Profile.sortedProgramGroups().forEach(group => {
-                const first = group.maps[0];
-                const options = document.createElement('optgroup');
-                options.label = `${first.major} — ${first.program}`;
-                group.maps.forEach(map => {
-                    const opt = document.createElement('option');
-                    opt.value = map.id;
-                    opt.textContent = Profile.catalogYearLabel(map);
-                    options.appendChild(opt);
-                });
-                sel.appendChild(options);
-            });
-        });
-
-        // Home tab: quick start estimate
-        document.getElementById('btn-quickstart').addEventListener('click', async () => {
-            const mapId = document.getElementById('home-major-select').value;
-            const year = document.getElementById('home-year-select').value;
-            const resultEl = document.getElementById('quickstart-result');
-
-            if (!mapId) {
-                resultEl.innerHTML = '<p class="hint">Please select a major.</p>';
-                return;
-            }
-            if (!year) {
-                resultEl.innerHTML = '<p class="hint">Please select your year.</p>';
-                return;
-            }
-
-            resultEl.innerHTML = '<p class="loading">Generating your degree plan</p>';
-
-            try {
-                // Load the major map
-                const majorData = await API.getMajorMap(mapId);
-
-                // Estimate completed courses based on year using the major map's typical_year
-                const yearNum = { freshman: 1, sophomore: 2, junior: 3, senior: 4 }[year] || 0;
-                const estimatedCompleted = [];
-                if (yearNum > 0 && majorData.required_courses) {
-                    majorData.required_courses.forEach(c => {
-                        if (c.typical_year && c.typical_year < yearNum) {
-                            estimatedCompleted.push(c.code);
-                        }
-                        // For same year, include fall courses if they're a sophomore+ starting in spring, etc.
-                        if (c.typical_year === yearNum && c.typical_semester === 'Fall' && yearNum > 1) {
-                            estimatedCompleted.push(c.code);
-                        }
-                    });
-                }
-
-                // Set state
-                State.profile.major = mapId;
-                State.profile.majorData = majorData;
-                State.profile.planMode = 'full_time';
-                State.profile.concentration = 'general';
-                State.replaceCompletedWithManualRecords(estimatedCompleted.map(code => {
-                    const mc = majorData.required_courses.find(c => c.code === code);
-                    return { code, grade: null, credits: mc ? mc.credits : 3, semester: null };
-                }));
-
-                // Sync profile tab UI
-                if (typeof Profile !== 'undefined') {
-                    const selectedMap = Profile.majorMaps.find(map => map.id === mapId);
-                    if (selectedMap) {
-                        const programKey = Profile.programKey(selectedMap);
-                        document.getElementById('major-program-select').value = programKey;
-                        Profile.populateCatalogYears(programKey, mapId);
-                    }
-                    Profile.onMajorChange(mapId);
-                    Profile.renderCompletedChips();
-                    Profile.renderCreditSummary();
-                }
-
-                // Generate the degree plan
-                const plan = await API.getDegreePlan({
-                    map_id: mapId,
-                    completed: State.completedCourses,
-                    mode: 'full_time',
-                    start_term: State.term,
-                    concentration: 'general',
-                });
-
-                // Store plan in state
-                State.degreePlan.semesters = plan.semesters || [];
-                State.degreePlan.warnings = plan.warnings || [];
-                State.degreePlan.totalRemaining = plan.total_credits_remaining || 0;
-                State.degreePlan.completedCredits = plan.completed_credits || 0;
-                State.degreePlan.estimatedGraduation = plan.estimated_graduation || '';
-                State.degreePlan.categories = plan.categories || {};
-
-                State.emit('profile-updated');
-                State.emit('degree-plan-updated');
-
-                // Switch to degree plan tab
-                Tabs.switchTo('degree');
-                resultEl.innerHTML = '';
-            } catch (e) {
-                resultEl.innerHTML = '<p class="hint">The plan could not be generated. Please try again.</p>';
-            }
+        document.getElementById('search-schedule-btn').addEventListener('click', () => {
+            Tabs.switchTo('schedule');
         });
 
         // Resizable search sidebar
