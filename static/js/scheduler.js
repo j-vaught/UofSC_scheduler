@@ -1986,7 +1986,14 @@ const Scheduler = {
     async solve(maxResults = 10) {
         const courseGroups = Object.values(State.selectedCourses || {});
         if (courseGroups.length === 0) {
-            alert('Add the courses you want to schedule first.');
+            // Rendered in place rather than through alert(). A modal dialog for an
+            // empty state stops the page, has to be dismissed before anything else
+            // can happen, and says nothing the panel cannot say in place.
+            const container = document.getElementById('solver-container');
+            if (container) {
+                container.innerHTML = '<p class="hint">Add at least one course from the '
+                    + 'sidebar, then generate schedules.</p>';
+            }
             return;
         }
 
