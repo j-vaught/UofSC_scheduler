@@ -83,7 +83,7 @@ uv run python -m http.server 8766 --directory dist/client
 
 Open `http://127.0.0.1:8766` in a desktop browser. The Python process in this command only serves files during local testing. It is not part of the deployed application.
 
-The older comparison runtime remains available with `uv run python app.py`. It is useful for parity checks and local live-data testing, but it is not required by the static application shell, workers, solver, historical data, or degree planner.
+The application is static-only. There is no server runtime to run locally, and live data reaches the browser through the three relay routes described in Live University Data.
 
 ## Live University Data
 
@@ -163,7 +163,8 @@ data/major_maps_manifest.json      Archive coverage and validation summary.
 tests/                             Python and JavaScript parity and regression checks.
 dist/client/                       Generated static deployment directory.
 dist/server/index.js               Managed asset server and fixed live-data relay.
-app.py                             Optional legacy comparison runtime.
+scheduler.py, planner.py           Reference implementations; parity oracles for the
+transcript.py, offering_analyzer.py  browser solver, executed by the JavaScript tests.
 grade_pipeline.py                  Offline registrar and section matching pipeline.
 ```
 

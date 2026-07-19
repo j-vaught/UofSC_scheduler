@@ -69,7 +69,10 @@ scripts/
 └── sync_campus_buildings.py
 
 dist/                               Generated static deployment.
-app.py                              Optional legacy comparison runtime.
+scheduler.py                        Reference solver; parity oracle for solver-core.js.
+planner.py                          Reference degree planner; parity oracle.
+transcript.py                       Reference transcript parser; parity oracle.
+offering_analyzer.py                Reference offering summaries; parity oracle.
 grade_pipeline.py                   Offline grade and section matching.
 build_embeddings.py                 Offline semantic-search generation.
 scrape_courses.py                   Offline bulletin catalog generation.
@@ -81,7 +84,9 @@ The browser executes search parsing and ranking, schedule generation, prerequisi
 
 Offline generation executes source pulls, registrar matching, privacy suppression, catalog normalization, embedding generation, offering-history aggregation, release sharding, manifest construction, integrity validation, and the final static build. These tasks run once per data release rather than once per visitor.
 
-The optional `app.py` runtime remains in the repository for parity comparison and local live-data testing. It is not copied into `dist/`. Managed deployment uses `dist/server/index.js` to serve assets and handle `POST /api/search`, `POST /api/details`, and `POST /api/faculty`. Every other application operation remains in `dist/client/` and the visitor's browser.
+Managed deployment uses `dist/server/index.js` to serve assets and handle `POST /api/search`, `POST /api/details`, and `POST /api/faculty`. That worker is not a committed file. It is emitted at build time from the `SITES_WORKER` string constant in `scripts/build_static_site.py`, so changes to relay behavior are made there. Every other application operation remains in `dist/client/` and the visitor's browser.
+
+The Python modules at the repository root are offline tooling and reference implementations, never deployed. `scheduler.py`, `planner.py`, `transcript.py`, and `offering_analyzer.py` are executed by the JavaScript test suites through `importlib`, and their outputs are asserted against the browser implementations in `static/js/`. They are the correctness baseline for the client solver rather than a second runtime.
 
 ## Startup and Caching
 
