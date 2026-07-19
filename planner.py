@@ -6,6 +6,7 @@ to generate optimal semester-by-semester course plans to graduation.
 
 import json
 import os
+import re
 from collections import defaultdict, deque
 from offering_analyzer import (
     term_to_parts,
@@ -24,6 +25,10 @@ MODE_CREDITS = {
 }
 
 SCHOLARSHIP_ANNUAL_MIN = 30
+
+
+def _clean_requirement_label(value):
+    return re.sub(r"(Elective|Core [A-Z-]+)\d+$", r"\1", str(value or ""), flags=re.I).strip()
 
 
 def load_major_map(map_id):
@@ -335,7 +340,7 @@ def plan_degree(
             remaining_courses.append(
                 {
                     "code": f"[REQ-{group_index + 1}-{index + 1}]",
-                    "title": group.get("label") or "Degree requirement",
+                    "title": _clean_requirement_label(group.get("label")) or "Degree requirement",
                     "credits": credits_each,
                     "category": group.get("category", "electives"),
                     "is_elective_slot": True,

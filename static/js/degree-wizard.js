@@ -66,7 +66,7 @@ const DegreeWizard = {
             const rows = (semester.requirements || []).map(requirement => {
                 const title = requirement.course_codes?.length
                     ? requirement.course_codes.join(' + ')
-                    : requirement.title || 'Degree requirement';
+                    : this.cleanRequirementTitle(requirement.title || 'Degree requirement');
                 return `<li><span>${this.escape(title)}</span><strong>${this.creditLabel(requirement.credit_hours)}</strong></li>`;
             }).join('');
             return `<section class="major-map-semester"><header><strong>${this.escape(semester.label || `Semester ${semester.number}`)}</strong><span>${this.creditLabel(semester.planned_credit_hours)} cr</span></header><ul>${rows}</ul></section>`;
@@ -153,6 +153,10 @@ const DegreeWizard = {
         }
         const credits = Number(value);
         return Number.isFinite(credits) ? String(credits) : '—';
+    },
+
+    cleanRequirementTitle(value) {
+        return String(value || '').replace(/(Elective|Core [A-Z-]+)\d+$/i, '$1').trim();
     },
 };
 

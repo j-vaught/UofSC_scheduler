@@ -16,6 +16,10 @@
     });
     const SCHOLARSHIP_ANNUAL_MIN = 30;
 
+    function cleanRequirementLabel(value) {
+        return String(value || '').replace(/(Elective|Core [A-Z-]+)\d+$/i, '$1').trim();
+    }
+
     function ensureCategory(categories, name) {
         if (!categories[name]) categories[name] = { required: 0, completed: 0, remaining: 0 };
         return categories[name];
@@ -362,7 +366,7 @@
             for (let index = 0; index < slotCount; index += 1) {
                 remainingCourses.push({
                     code: `[REQ-${groupIndex + 1}-${index + 1}]`,
-                    title: group.label || 'Degree requirement',
+                    title: cleanRequirementLabel(group.label) || 'Degree requirement',
                     credits: creditsEach,
                     category: group.category || 'electives',
                     is_elective_slot: true,
