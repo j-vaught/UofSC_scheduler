@@ -157,9 +157,17 @@ worker, and a content-addressed release payload of 509 artifacts totalling 39.5 
 in the browser before use. No Python ever reaches it; the build refuses to copy `.py`, `.db`, or `.sqlite`
 into the output at all.
 
-The only server-side component is a three-route relay — `/api/search`, `/api/details`, `/api/faculty` — and
-it is **not a committed file**. It is generated at build time from a string constant inside
-`scripts/build_static_site.py`, which is where relay changes are made.
+The only server-side component is a three-route relay — `/api/search`, `/api/details`, `/api/faculty` —
+which lives in [`server/index.js`](server/index.js) and is copied verbatim into `dist/server/` at build time.
+It validates every request body against an exact shape, caps size and timeout, enforces same-origin, and
+forwards no credentials in either direction.
+
+Run it locally against a build:
+
+```bash
+uv run python scripts/build_static_site.py --allow-representative
+node server/dev-server.js
+```
 
 ---
 

@@ -363,11 +363,15 @@ expected values by hand rather than recording them from a second implementation.
 <section id="relay">
 <h2>Relay &amp; upstream APIs</h2>
 
-<div class="warn"><span class="lbl">The relay is not a committed file</span>
-<p><code>dist/server/index.js</code> is written at build time from the <code>SITES_WORKER</code> string
-constant in <code>scripts/build_static_site.py</code> — a roughly 340-line JavaScript program embedded in a
-Python string literal. <strong>All relay behavior changes are made in that Python constant.</strong> It is
-covered by <code>tests/test_sites_relay_worker.js</code>.</p></div>
+<div class="note"><span class="lbl">Where the relay lives</span>
+<p>The worker is ordinary JavaScript in <code>server/index.js</code>, copied verbatim into
+<code>dist/server/</code> at build time along with a generated <code>package.json</code> and
+<code>wrangler.json</code>. Edit it directly. It was previously a 336-line string constant inside
+<code>scripts/build_static_site.py</code>, which meant no highlighting, no linting, and no usable diffs.</p>
+<p><code>node server/dev-server.js</code> hosts the same file on plain Node, supplying the
+<code>env.ASSETS</code> binding from a local build, so the relay can be exercised end to end without a deploy
+or wrangler. <code>tests/test_sites_relay_worker.js</code> builds and imports the emitted copy, so it
+verifies what actually ships rather than the source.</p></div>
 
 <h3>Shared contract</h3>
 <p>Applies to all three routes.</p>
