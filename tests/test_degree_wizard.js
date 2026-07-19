@@ -29,6 +29,7 @@ test('Electrical Engineering plans every official required credit', () => {
     assert.equal(map.total_credits_required, 126);
     assert.equal(plan.total_credits_remaining, 126);
     assert.equal(plannedCredits, 126);
+    assert.deepEqual(plan.semesters.map(semester => semester.total_credits), [15, 17, 16, 18, 18, 15, 15, 12]);
 });
 
 test('major maps without concentrations expose an explicit unavailable state', () => {

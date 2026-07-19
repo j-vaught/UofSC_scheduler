@@ -308,13 +308,29 @@ def plan_degree(
 
     # Get remaining courses
     remaining = compute_remaining(major_map, completed, concentration)
-    remaining_courses = list(remaining["required_remaining"])
+    map_order = {}
+    map_semester = {}
+    requirement_semester_queues = defaultdict(list)
+    for semester_index, semester in enumerate(major_map.get("semester_plan", [])):
+        for requirement_index, requirement in enumerate(semester.get("requirements", [])):
+            for course_code in requirement.get("course_codes", []):
+                map_order.setdefault(course_code, semester_index * 100 + requirement_index)
+                map_semester.setdefault(course_code, semester_index)
+            label = str(requirement.get("title") or "").strip().lower()
+            if label:
+                requirement_semester_queues[label].append(semester_index)
+    remaining_courses = [
+        {**course, "map_semester_index": map_semester.get(course["code"])}
+        for course in remaining["required_remaining"]
+    ]
     for group_index, group in enumerate(remaining["elective_groups_remaining"]):
         slot_count = max(1, int(group.get("remaining_pick") or 1))
         total_credits = group.get("remaining_credits") or group.get("credits_required") or 0
         if total_credits <= 0:
             continue
         credits_each = group.get("credits_each") or (total_credits / slot_count)
+        label_key = str(group.get("label") or "").strip().lower()
+        semester_queue = requirement_semester_queues[label_key]
         for index in range(slot_count):
             remaining_courses.append(
                 {
@@ -328,6 +344,7 @@ def plan_degree(
                     "prerequisites": [],
                     "corequisites": [],
                     "typical_year": 4,
+                    "map_semester_index": semester_queue.pop(0) if semester_queue else None,
                 }
             )
 
@@ -365,6 +382,13 @@ def plan_degree(
             code = course["code"]
             if code in placed:
                 continue
+            map_semester_index = course.get("map_semester_index")
+            if (
+                strategy == "major_map"
+                and isinstance(map_semester_index, int)
+                and map_semester_index > len(semesters)
+            ):
+                continue
 
             # Check prereqs are satisfied
             course_prereqs = prereqs.get(code, set())
@@ -391,15 +415,12 @@ def plan_degree(
 
         # Fill remaining capacity with available courses
         # Sort by: typical_year (earlier first), then prerequisite chain depth
-        map_order = {}
-        for semester_index, semester in enumerate(major_map.get("semester_plan", [])):
-            for requirement_index, requirement in enumerate(semester.get("requirements", [])):
-                for course_code in requirement.get("course_codes", []):
-                    map_order.setdefault(course_code, semester_index * 100 + requirement_index)
-
         def strategy_key(course):
             code = course["code"]
             order = map_order.get(code, 9999)
+            semester_order = course.get("map_semester_index")
+            if not isinstance(semester_order, int):
+                semester_order = 9999
             major_rank = 0 if course.get("category") in {"major_core", "major_electives"} else 1
             if strategy == "critical_path":
                 return (-len(adjacency.get(code, [])), order)
@@ -407,7 +428,7 @@ def plan_degree(
                 return (major_rank, order)
             if strategy == "balanced":
                 return (-course.get("credits", 3), major_rank, order)
-            return (order, course.get("typical_year", 5))
+            return (semester_order, order, course.get("typical_year", 5))
 
         available.sort(key=strategy_key)
 
@@ -417,7 +438,7 @@ def plan_degree(
                 semester_courses.append({**course, "pinned": False})
                 semester_credits += credits
 
-            if semester_credits >= credit_limits["target"]:
+            if strategy != "major_map" and semester_credits >= credit_limits["target"]:
                 break
 
         # Only create a semester entry if there are courses to take

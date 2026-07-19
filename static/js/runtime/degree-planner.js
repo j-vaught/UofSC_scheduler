@@ -332,12 +332,33 @@
         const completed = new Set(completedCodes || []);
         const offeringHints = majorMap?.offering_hints || {};
         const remaining = computeRemaining(majorMap, completed, concentration);
-        let remainingCourses = [...remaining.required_remaining];
+        const mapOrder = new Map();
+        const mapSemester = new Map();
+        const requirementSemesterQueues = new Map();
+        (majorMap?.semester_plan || []).forEach((semester, semesterIndex) => {
+            (semester.requirements || []).forEach((requirement, requirementIndex) => {
+                (requirement.course_codes || []).forEach(code => {
+                    if (!mapOrder.has(code)) mapOrder.set(code, (semesterIndex * 100) + requirementIndex);
+                    if (!mapSemester.has(code)) mapSemester.set(code, semesterIndex);
+                });
+                const label = String(requirement.title || '').trim().toLowerCase();
+                if (label) {
+                    if (!requirementSemesterQueues.has(label)) requirementSemesterQueues.set(label, []);
+                    requirementSemesterQueues.get(label).push(semesterIndex);
+                }
+            });
+        });
+        let remainingCourses = remaining.required_remaining.map(course => ({
+            ...course,
+            map_semester_index: mapSemester.get(course.code),
+        }));
         for (const [groupIndex, group] of remaining.elective_groups_remaining.entries()) {
             const slotCount = Math.max(1, Number(group.remaining_pick) || 1);
             const totalCredits = Number(group.remaining_credits) || Number(group.credits_required) || 0;
             if (totalCredits <= 0) continue;
             const creditsEach = Number(group.credits_each) || (totalCredits / slotCount);
+            const labelKey = String(group.label || '').trim().toLowerCase();
+            const semesterQueue = requirementSemesterQueues.get(labelKey) || [];
             for (let index = 0; index < slotCount; index += 1) {
                 remainingCourses.push({
                     code: `[REQ-${groupIndex + 1}-${index + 1}]`,
@@ -350,6 +371,7 @@
                     prerequisites: [],
                     corequisites: [],
                     typical_year: 4,
+                    map_semester_index: semesterQueue.shift(),
                 });
             }
         }
@@ -375,6 +397,9 @@
             const completedOrPlaced = new Set([...completed, ...placed]);
             let available = remainingCourses.filter(course => {
                 if (placed.has(course.code)) return false;
+                if (strategy === 'major_map'
+                    && Number.isInteger(course.map_semester_index)
+                    && course.map_semester_index > semesters.length) return false;
                 const groups = dag.requirement_groups[course.code] || [];
                 if (!evaluateRequirementGroups(groups, completedOrPlaced).eligible) return false;
                 return canOfferInTerm(course, currentTerm, offeringHints);
@@ -391,14 +416,6 @@
                 available = available.filter(item => item.code !== code);
             }
 
-            const mapOrder = new Map();
-            (majorMap?.semester_plan || []).forEach((semester, semesterIndex) => {
-                (semester.requirements || []).forEach((requirement, requirementIndex) => {
-                    (requirement.course_codes || []).forEach(code => {
-                        if (!mapOrder.has(code)) mapOrder.set(code, (semesterIndex * 100) + requirementIndex);
-                    });
-                });
-            });
             const categoryRank = course => ['major_core', 'major_electives'].includes(course.category) ? 0 : 1;
             available.sort((left, right) => {
                 if (strategy === 'critical_path') {
@@ -414,7 +431,8 @@
                         || categoryRank(left) - categoryRank(right)
                         || (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999);
                 }
-                return (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999)
+                return (left.map_semester_index ?? 9999) - (right.map_semester_index ?? 9999)
+                    || (mapOrder.get(left.code) ?? 9999) - (mapOrder.get(right.code) ?? 9999)
                     || (left.typical_year ?? 5) - (right.typical_year ?? 5);
             });
             for (const course of available) {
@@ -423,7 +441,7 @@
                     semesterCourses.push({ ...course, pinned: false });
                     semesterCredits += credits;
                 }
-                if (semesterCredits >= creditLimits.target) break;
+                if (strategy !== 'major_map' && semesterCredits >= creditLimits.target) break;
             }
 
             if (semesterCourses.length) {

@@ -661,14 +661,18 @@ const DegreePlan = {
             });
         });
         document.querySelectorAll('#semester-columns .course-card-info').forEach(button => {
-            button.addEventListener('click', async event => {
+            button.addEventListener('click', event => {
                 event.stopPropagation();
                 const card = button.closest('.course-card');
                 const code = card?.dataset.code;
                 if (!code || code.startsWith('ELECTIVE-')) return;
                 const course = State.profile.majorData?.required_courses?.find(item => item.code === code) || { code };
-                Tabs.switchTo('semester');
-                await Search.openCourseFromExternal({ code, title: course.title || code, sections: [] });
+                Scheduler.openCourseQuickView({
+                    code,
+                    title: course.title || code,
+                    credits: course.credits,
+                    sections: [],
+                });
             });
         });
     },
@@ -887,6 +891,8 @@ const DegreePlan = {
         if (fromSection === 'planned' && toSection === 'planned') {
             const definition = State.profile.majorData?.required_courses?.find(item => item.code === code) || {};
             const linked = new Set(definition.corequisites || []);
+            if (/\d{3}L$/.test(code)) linked.add(code.slice(0, -1));
+            else if (/\d{3}$/.test(code)) linked.add(`${code}L`);
             (State.profile.majorData?.required_courses || []).forEach(item => {
                 if ((item.corequisites || []).includes(code)) linked.add(item.code);
             });
