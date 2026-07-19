@@ -11,9 +11,9 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 
-DEFAULT_INPUT_DIR = Path("data/maps/llm_output")
+DEFAULT_INPUT_DIR = Path("data/interim/major_maps_llm")
 DEFAULT_SCHEMA = Path("schemas/major_map_llm_v1.schema.json")
-DEFAULT_MANIFEST = Path("data/maps/source_pdfs/manifest.json")
+DEFAULT_MANIFEST = Path("data/raw/major_map_pdfs/manifest.json")
 
 
 def _load_json(path: Path) -> Any:

@@ -19,7 +19,7 @@ import re
 import os
 from collections import Counter, defaultdict
 
-INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "course_data.json")
+INPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "generated", "course_data.json")
 OUTPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "data", "term_map.json")
 
 # Common English stopwords + academic filler words

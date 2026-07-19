@@ -31,7 +31,7 @@ from scripts.static_release import (
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "static" / "data" / "manifest.json"
-DEFAULT_MAPS_DIR = ROOT / "data" / "maps"
+DEFAULT_MAPS_DIR = ROOT / "data" / "curated" / "major_maps"
 
 
 def _release_relative_path(

@@ -38,10 +38,10 @@ from scripts.static_release import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_GRADES = ROOT / "data" / "grade_analytics.json"
+DEFAULT_GRADES = ROOT / "data" / "generated" / "grade_analytics.json"
 DEFAULT_HISTORY_CACHE = ROOT / "data" / "grade_matching_cache.sqlite"
-DEFAULT_CATALOG = ROOT / "course_data.json"
-DEFAULT_MAPS_DIR = ROOT / "data" / "maps"
+DEFAULT_CATALOG = ROOT / "data" / "generated" / "course_data.json"
+DEFAULT_MAPS_DIR = ROOT / "data" / "curated" / "major_maps"
 DEFAULT_OUTPUT_ROOT = ROOT / "static" / "data"
 
 

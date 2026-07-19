@@ -10,8 +10,8 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = json.loads((ROOT / "schemas/major_map_llm_v1.schema.json").read_text())
-OUTPUT_ROOT = ROOT / "data/maps/llm_output"
-MANIFEST_PATH = ROOT / "data/maps/source_pdfs/manifest.json"
+OUTPUT_ROOT = ROOT / "data/interim/major_maps_llm"
+MANIFEST_PATH = ROOT / "data/raw/major_map_pdfs/manifest.json"
 RULE_VALIDATOR = Draft202012Validator({"$ref": "#/$defs/rule", "$defs": SCHEMA["$defs"]})
 DOCUMENT_VALIDATOR = Draft202012Validator(SCHEMA)
 

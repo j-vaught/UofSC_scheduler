@@ -4,9 +4,9 @@ This package keeps the official major-map PDFs locally and defines a conservativ
 
 ## Local inputs
 
-The archive lives in `data/maps/source_pdfs/<catalog-year>/<map-id>.pdf`. Its manifest is `data/maps/source_pdfs/manifest.json`. Each manifest row contains the map identifier, program metadata, official URL, local path, SHA-256 digest, byte size, page count, and comparisons with the earlier deterministic import.
+The archive lives in `data/raw/major_map_pdfs/<catalog-year>/<map-id>.pdf`. Its manifest is `data/raw/major_map_pdfs/manifest.json`. Each manifest row contains the map identifier, program metadata, official URL, local path, SHA-256 digest, byte size, page count, and comparisons with the earlier deterministic import.
 
-The expected archive contains 1,295 map records from the 2020-2021 through 2026-2027 catalogs. The 28 repository rows that do not expose an official PDF remain source gaps in `data/major_maps_manifest.json`; they are not fabricated.
+The expected archive contains 1,295 map records from the 2020-2021 through 2026-2027 catalogs. The 28 repository rows that do not expose an official PDF remain source gaps in `data/generated/major_maps_manifest.json`; they are not fabricated.
 
 Rebuild or resume the archive with the following command.
 
@@ -25,7 +25,7 @@ For each manifest row, give the model four inputs.
 3. `schemas/major_map_llm_v1.schema.json`.
 4. `docs/major_maps/LLM_EXTRACTION_PROMPT.md`.
 
-Write exactly one result to `data/maps/llm_output/<catalog-year>/<map-id>.json`. The output filename and `map_id` must match the manifest. Do not combine multiple maps in one response. Do not let one map influence another map's requirements.
+Write exactly one result to `data/interim/major_maps_llm/<catalog-year>/<map-id>.json`. The output filename and `map_id` must match the manifest. Do not combine multiple maps in one response. Do not let one map influence another map's requirements.
 
 The local processing set currently contains all 1,295 manifest records. It spans seven catalog years and retains 10,192 ordered academic terms with 52,106 requirement rows. Every file passes the schema and manifest-integrity validator. Most records intentionally remain `needs_review` because unresolved choice wording and footnote dependencies must not be presented as authoritative degree-audit logic.
 

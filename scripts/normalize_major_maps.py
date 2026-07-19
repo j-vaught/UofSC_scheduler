@@ -526,7 +526,7 @@ def materialize_directory(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input-dir", type=Path, default=Path("data/maps/imported"))
+    parser.add_argument("--input-dir", type=Path, default=Path("data/curated/major_maps"))
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument(
         "--allow-output-overwrite",

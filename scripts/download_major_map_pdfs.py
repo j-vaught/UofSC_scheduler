@@ -20,8 +20,8 @@ from typing import Any, Iterable
 import requests
 
 
-DEFAULT_INPUT_DIR = Path("data/maps/imported")
-DEFAULT_OUTPUT_DIR = Path("data/maps/source_pdfs")
+DEFAULT_INPUT_DIR = Path("data/curated/major_maps")
+DEFAULT_OUTPUT_DIR = Path("data/raw/major_map_pdfs")
 USER_AGENT = "USC-Course-Scheduler-Major-Map-Archive/1.0"
 _THREAD_LOCAL = threading.local()
 
