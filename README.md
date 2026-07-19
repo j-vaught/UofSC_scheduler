@@ -111,6 +111,8 @@ Completed-term section data is pulled once and reused for grade matching, profes
 
 Major maps are imported offline from the official repository PDFs. The importer preserves PDF provenance and the recommended semester sequence, produces conservative planner-compatible fields, and records ambiguous requirements for review instead of fabricating course choices. The standalone validator checks identifiers, catalog years, credits, semester ordering, source integrity metadata, duplicate records, and course-code coverage against the active catalog. Coverage and source gaps are summarized in `data/major_maps_manifest.json`.
 
+The complete local source archive and the model-assisted extraction contract are documented in [Major Map Processing Package](docs/major_maps/README.md). Each of the 1,295 available official maps has a stable PDF path under `data/maps/source_pdfs/`, a manifest row with its SHA-256 digest and page count, and a prescribed one-file JSON destination. The package includes a strict JSON Schema, an evidence-based extraction prompt, and a validator that cross-checks every result against the source manifest.
+
 The complete architecture, current file tree, cache policy, deployment dependency, and release cadence are documented in [Browser-First Architecture](docs/ARCHITECTURE.md).
 
 ![Current browser-first static architecture](docs/diagrams/browser_first_architecture.png)
