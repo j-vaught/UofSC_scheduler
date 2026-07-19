@@ -584,6 +584,21 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 
 ---
 
+> **Status 2026-07-19: accounts have landed; feature extraction has not.**
+> `static/js/keyspace.js` implements device-local accounts as a storage-key prefix
+> plus a reload, which is the simplification this plan identified and it kept the
+> work to one small module. Separation is verified in a real browser: two accounts
+> cannot see each other's plans, and a device with no account keeps the unprefixed
+> keys so existing data is untouched. Constraint 2 is met.
+>
+> Constraint 7 needs no work: `static/js/runtime/*.js` already carry a dual export
+> and `require()` cleanly with no DOM, which `tests/test_harness.js` asserts. An MCP
+> or CLI surface can reuse the solver, planner, and transcript parser today.
+>
+> **Still outstanding:** 7a, extracting the ten features into fenced folders. That is
+> the multi-month bulk of this phase and remains genuinely optional -- everything
+> above improves the current architecture, while 7a changes it.
+
 ### Phase 7 — Optional: fenced features and accounts. Three to five months.
 
 Everything above improves the *current* architecture. This phase changes it, and it is the one that can be paused indefinitely.
