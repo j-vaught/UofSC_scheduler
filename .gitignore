@@ -15,3 +15,6 @@ data/grade_matching_cache.sqlite-*
 
 # Apple double files
 ._*
+
+# Local preview/launch configuration
+.claude/
