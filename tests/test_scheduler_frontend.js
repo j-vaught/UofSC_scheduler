@@ -3,6 +3,12 @@ const fs = require('node:fs');
 const test = require('node:test');
 const vm = require('node:vm');
 
+// The startup sequence moved out of an inline <script> in index.html and
+// into static/js/boot.js, because the site's CSP forbids inline scripts.
+function bootSource() {
+    return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
+}
+
 function loadObject(path, name, contextValues) {
     const context = vm.createContext({ ...contextValues });
     const source = `${fs.readFileSync(path, 'utf8')}\nglobalThis.__result = ${name};`;
@@ -212,7 +218,7 @@ test('Search results do not display a selected-course counter', () => {
 
     assert.doesNotMatch(html, /id="pick-count"|\(\$\{count\} selected\)/);
     assert.doesNotMatch(styles, /\.pick-count|\.results-header:has\(\.pick-count/);
-    assert.match(html, /State\.on\('courses-changed', \(\) => ScheduleSidebar\.render\(\)\)/);
+    assert.match(html + bootSource(), /State\.on\('courses-changed', \(\) => ScheduleSidebar\.render\(\)\)/);
 });
 
 test('browse section details add and lock the specific section', () => {
@@ -897,12 +903,12 @@ test('registration info unlocks for selected sections and links to the CRN cart'
 test('course and registration dialogs close when the backdrop is pressed', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
 
-    assert.match(html, /window\.AppModal = \{/);
-    assert.match(html, /modalOverlay\.addEventListener\('click'/);
-    assert.match(html, /if \(event\.target === modalOverlay\) closeModal\(\);/);
-    assert.match(html, /if \(event\.key === 'Escape'\)/);
-    assert.match(html, /modal\.classList\.remove\(\.\.\.modalClasses\)/);
-    assert.match(html, /requestAnimationFrame\(\(\) => restore\?\.isConnected && restore\.focus\(\)\)/);
+    assert.match(html + bootSource(), /window\.AppModal = \{/);
+    assert.match(html + bootSource(), /modalOverlay\.addEventListener\('click'/);
+    assert.match(html + bootSource(), /if \(event\.target === modalOverlay\) closeModal\(\);/);
+    assert.match(html + bootSource(), /if \(event\.key === 'Escape'\)/);
+    assert.match(html + bootSource(), /modal\.classList\.remove\(\.\.\.modalClasses\)/);
+    assert.match(html + bootSource(), /requestAnimationFrame\(\(\) => restore\?\.isConnected && restore\.focus\(\)\)/);
 });
 
 test('registration prerequisite warnings account for completed alternatives', () => {
@@ -3034,7 +3040,7 @@ test('A plain site visit opens Search even when another tab was used previously'
 test('Changing terms does not run a hidden Search query from another tab', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
 
-    assert.match(html, /if \(Tabs\.current\(\) === 'semester'\) \{[\s\S]*Search\.doSearch\(\);[\s\S]*\} else \{[\s\S]*Tabs\.writeTabHistory\(Tabs\.current\(\), 'replace'\);/);
+    assert.match(html + bootSource(), /if \(Tabs\.current\(\) === 'semester'\) \{[\s\S]*Search\.doSearch\(\);[\s\S]*\} else \{[\s\S]*Tabs\.writeTabHistory\(Tabs\.current\(\), 'replace'\);/);
 });
 
 test('Direct search ignores stale prerequisite completions and errors', () => {
@@ -3440,7 +3446,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
     assert.doesNotMatch(source, /<button[^>]*class="professor-year-point"/);
     assert.match(styles, /\.professor-year-point:focus\s*{/);
     assert.match(styles, /@media \(max-width: 520px\)[\s\S]*\.professor-year-label:not\(\.compact-visible\)/);
-    assert.match(html, /update\(markup, options = \{\}\)/);
+    assert.match(html + bootSource(), /update\(markup, options = \{\}\)/);
     assert.match(source, /AppModal\.update\(markup/);
     assert.match(source, /const professorId = instructor\?\.professorId \|\| instructor\?\.grade\?\.id/);
     assert.match(source, /!this\.professorDetailContextIsCurrent\(detailToken, detailCode\)\) return;/);

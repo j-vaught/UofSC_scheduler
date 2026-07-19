@@ -6,6 +6,12 @@ const test = require('node:test');
 
 const TranscriptUploadDialog = require('../static/js/transcript-upload-dialog.js');
 
+// The startup sequence moved out of an inline <script> in index.html and
+// into static/js/boot.js, because the site's CSP forbids inline scripts.
+function bootSource() {
+    return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
+}
+
 test('one reusable transcript dialog serves the consolidated degree planner', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const launchers = [...html.matchAll(/data-transcript-upload-launch="([^"]+)"/g)]
@@ -15,7 +21,7 @@ test('one reusable transcript dialog serves the consolidated degree planner', ()
     assert.equal((html.match(/id="transcript-upload-dialog"/g) || []).length, 0);
     assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js\?v=\d+"/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
-    assert.match(html, /TranscriptImport\.init\(\)/);
+    assert.match(html + bootSource(), /TranscriptImport\.init\(\)/);
 });
 
 test('dialog provides direct and fallback UofSC transcript guidance', () => {

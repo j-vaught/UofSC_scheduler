@@ -7,6 +7,12 @@ const test = require('node:test');
 const State = require('../static/js/state.js');
 const TranscriptUploadDialog = require('../static/js/transcript-upload-dialog.js');
 
+// The startup sequence moved out of an inline <script> in index.html and
+// into static/js/boot.js, because the site's CSP forbids inline scripts.
+function bootSource() {
+    return require('node:fs').readFileSync('static/js/boot.js', 'utf8');
+}
+
 function resetState() {
     State.savedPlans = {};
     State.currentPlan = 'Plan A';
@@ -177,7 +183,7 @@ test('dialog and static shell expose attempt review, immediate undo, and integra
     assert.match(markup, /id="transcript-undo" hidden>UNDO IMPORT/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
     assert.match(html, /src="\/static\/js\/api\.js\?v=\d+"/);
-    assert.match(html, /TranscriptImport\.init\(\)/);
+    assert.match(html + bootSource(), /TranscriptImport\.init\(\)/);
     assert.match(worker, /\/static\/js\/transcript-upload-dialog\.js/);
     assert.match(worker, /\/static\/js\/transcript-import\.js/);
 });
