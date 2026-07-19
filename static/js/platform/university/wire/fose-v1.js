@@ -79,6 +79,30 @@
         return rows.map(row => decodeSection(row, term));
     }
 
+    /*
+     * Decode while preserving the upstream row.
+     *
+     * The plan's sequencing: normalise on ingest so every reader gains the
+     * domain fields at once, then migrate readers independently. A hard swap
+     * would mean editing 44 read sites across search.js and scheduler.js in one
+     * commit, which is the atomic change the critics warned about.
+     *
+     * So the result carries both: the original fields, unchanged, plus the
+     * domain shape. New code reads `seatsOpen` and `availabilityKnown`; existing
+     * code keeps working; and a reader can be moved over one at a time with the
+     * suite green throughout. The upstream names disappear from the UI when the
+     * last reader moves, not before.
+     */
+    function decodeSectionCompat(row, term) {
+        const section = decodeSection(row, term);
+        return { ...row, ...section };
+    }
+
+    function decodeSearchCompat(payload, term) {
+        const rows = Array.isArray(payload?.results) ? payload.results : [];
+        return { ...payload, results: rows.map(row => decodeSectionCompat(row, term)) };
+    }
+
     return {
         ALLOWED_FIELDS,
         MAX_CRITERIA,
@@ -87,5 +111,7 @@
         encodeDetails,
         decodeSection,
         decodeSearch,
+        decodeSectionCompat,
+        decodeSearchCompat,
     };
 }));

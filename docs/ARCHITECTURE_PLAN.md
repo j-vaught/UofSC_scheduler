@@ -563,11 +563,21 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 > refused at the boundary before any network call, instead of coming back as a relay
 > 400 the student has to interpret.
 >
-> **Still outstanding:** the decode side. Responses still reach the UI as raw upstream
-> rows rather than `Section` objects, so `search.js` and `scheduler.js` continue to
-> read fields like `no` and `total` directly. Migrating those is the file-by-file
-> remainder, and it is safe to do incrementally now that `createSection` and the codec
-> exist and the encode direction is proven.
+> **Decode is normalised on ingest.** `api.js` runs search responses through
+> `decodeSearchCompat`, so every section arrives carrying the domain shape --
+> `seatsOpen` as a number, `availabilityKnown`, `source` -- alongside its original
+> upstream fields. Verified live: 192 sections carry both, `seatsOpen: 9` next to
+> `total: "9"`. The seat-size filter in `search.js` is migrated to the domain field
+> and confirmed working in a browser, 44 results narrowing to 10.
+>
+> Keeping both shapes is the plan's own sequencing rather than a compromise: a hard
+> swap would mean editing 44 read sites in one commit, which is precisely the atomic
+> change the critics flagged. Readers move independently now, and the upstream names
+> disappear from the UI when the last one moves.
+>
+> **Still outstanding:** the remaining 43 reads of `instr` and `inst_mthd` in
+> `search.js` and `scheduler.js`. Each is now a one-line change with the suite green,
+> rather than a coordinated rewrite.
 
 ### Phase 6 — The wire contract and the firewall. Six to eight weeks. Constraint 6 lands here.
 

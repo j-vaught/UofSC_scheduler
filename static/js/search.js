@@ -2434,7 +2434,13 @@ const Search = {
         }
         if (filters.sizeMode && filters.sizeValue) {
             filtered = filtered.filter(section => {
-                const total = parseInt(section.total);
+                // seatsOpen comes from the firewall already converted; `total`
+                // was the upstream name arriving as a decimal string. The
+                // fallback keeps catalog-only sections working while the
+                // remaining readers migrate.
+                const total = Number.isFinite(section.seatsOpen)
+                    ? section.seatsOpen
+                    : parseInt(section.total, 10);
                 if (!Number.isFinite(total)) return false;
                 return filters.sizeMode === 'above'
                     ? total >= filters.sizeValue

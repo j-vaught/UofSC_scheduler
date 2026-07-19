@@ -178,3 +178,34 @@ test('the firewall loads before the modules that use it', () => {
     assert.ok(codecTag < api, 'the codec must load before api.js');
     assert.ok(codecTag < client, 'the codec must load before the live client');
 });
+
+test('compat decode carries both shapes so readers migrate one at a time', () => {
+    const decoded = codec.decodeSearchCompat(payload, '202608');
+    const [section] = decoded.results;
+
+    // Domain shape, for new readers.
+    assert.equal(typeof section.seatsOpen, 'number', 'seatsOpen should be converted');
+    assert.equal(typeof section.availabilityKnown, 'boolean');
+    assert.equal(section.source, 'live');
+
+    // Upstream shape, so existing readers keep working during the migration.
+    assert.ok('total' in section, 'the upstream field must survive until its last reader moves');
+    assert.equal(typeof section.total, 'string', 'upstream still sends a decimal string');
+    assert.equal(section.seatsOpen, parseInt(section.total, 10), 'both must agree');
+
+    // The envelope is preserved, not replaced.
+    assert.equal(decoded.results.length, payload.results.length);
+});
+
+test('the seat-size filter reads the domain field', () => {
+    const source = fs.readFileSync(path.join(ROOT, 'static/js/search.js'), 'utf8');
+    const index = source.indexOf("filters.sizeMode && filters.sizeValue");
+    const block = source.slice(index, index + 600);
+    assert.match(block, /section\.seatsOpen/, 'the filter should use the converted number');
+});
+
+test('api.js normalises search responses on ingest', () => {
+    const source = fs.readFileSync(path.join(ROOT, 'static/js/api.js'), 'utf8');
+    const fn = source.slice(source.indexOf('async searchCourses'), source.indexOf('async searchCourses') + 900);
+    assert.match(fn, /decodeSearchCompat/, 'responses should be normalised at the boundary');
+});
