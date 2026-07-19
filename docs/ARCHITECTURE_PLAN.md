@@ -548,10 +548,18 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 > observing failure. Constraint 6 is met for the request grammar: a term-format change
 > is now one edit plus mechanical follower updates.
 >
-> **Still outstanding in this phase:** the `platform/university/` firewall itself --
-> domain types, codecs, and replacing the leak sites file by file. That is the bulk of
-> the six-to-eight-week estimate. The contract was done first because it is what the
-> firewall would be built against, and because it delivers on its own.
+> **The firewall has landed too.** `static/js/platform/university/` holds the `Term`
+> and `Section` domain types, the `fose-v1` codec in both directions, and the facade.
+> Verified against the live relay: 192 sections cross it with no upstream field name
+> surviving, seat counts converted from decimal strings, and provenance required so a
+> catalog section reads as unknown availability rather than zero seats. A simulated
+> upstream field rename surfaces at the codec instead of as a wrong number three files
+> downstream.
+>
+> **Still outstanding:** replacing the existing leak sites in `api.js`, `search.js` and
+> `scheduler.js` to route through it, which the plan sequences as file-by-file work
+> after `createSection` exists. Until that happens the firewall is available and
+> proven but not yet the only crossing point.
 
 ### Phase 6 — The wire contract and the firewall. Six to eight weeks. Constraint 6 lands here.
 
