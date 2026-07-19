@@ -7,31 +7,69 @@
  * Nothing visible failed and no error surfaced -- every control was simply
  * inert. It lives in an external file so the strict policy holds.
  *
- * Note the ordering contract: this is one sequential handler, so a throw in any
- * init() silently skips every module after it.
+ * Features start under supervision below, so a throw in one no longer takes the
+ * rest of the application with it.
  */
 
+// Startup was one unguarded sequence: a throw in any init() skipped every
+// module after it, leaving a page that looks finished and does nothing. The
+// failure is silent because nothing catches it and nothing reports it.
+//
+// Each feature now starts in isolation. One broken feature costs that feature
+// only, and says so, rather than taking the rest of the application with it.
+const BOOT_FAILURES = [];
+
+function startFeature(name, start) {
+    try {
+        start();
+        return true;
+    } catch (error) {
+        BOOT_FAILURES.push({ name, error });
+        // eslint-disable-next-line no-console
+        console.error(`[boot] ${name} failed to start; other features continue.`, error);
+        return false;
+    }
+}
+
+// Rendered into a container of its own rather than #site-notices, which
+// SiteNotices repopulates asynchronously once its feed resolves and would
+// otherwise erase this message moments after it appeared.
+function reportBootFailures() {
+    if (!BOOT_FAILURES.length) return;
+    const names = BOOT_FAILURES.map(entry => entry.name).join(', ');
+    const banner = document.createElement('div');
+    banner.id = 'boot-failure-notice';
+    banner.setAttribute('role', 'status');
+    banner.textContent = `${names} did not load. The rest of the page still works. `
+        + 'Reloading may fix it.';
+    document.body.prepend(banner);
+}
+
 function boot() {
-    SiteNotices.init();
-    Tabs.init();
-    TranscriptImport.init();
-    Profile.init();
-    CustomMajorMap.init();
-    Calendar.init();
-    WalkingMap.init();
-    Search.init();
-    Preferences.init();
-    Scheduler.init();
-    Export.init();
-    DegreePlan.init();
-    DegreeWizard.init();
+    startFeature('Notices', () => SiteNotices.init());
+    startFeature('Tabs', () => Tabs.init());
+    startFeature('Transcript import', () => TranscriptImport.init());
+    startFeature('Profile', () => Profile.init());
+    startFeature('Custom major map', () => CustomMajorMap.init());
+    startFeature('Calendar', () => Calendar.init());
+    startFeature('Campus map', () => WalkingMap.init());
+    startFeature('Search', () => Search.init());
+    startFeature('Preferences', () => Preferences.init());
+    startFeature('Scheduler', () => Scheduler.init());
+    startFeature('Export', () => Export.init());
+    startFeature('Degree plan', () => DegreePlan.init());
+    startFeature('Degree wizard', () => DegreeWizard.init());
 
-    State.on('courses-changed', () => ScheduleSidebar.render());
-    State.on('sections-changed', () => ScheduleSidebar.render());
-    State.on('section-locks-changed', () => ScheduleSidebar.render());
-    ScheduleSidebar.render();
+    startFeature('Selected courses', () => {
+        State.on('courses-changed', () => ScheduleSidebar.render());
+        State.on('sections-changed', () => ScheduleSidebar.render());
+        State.on('section-locks-changed', () => ScheduleSidebar.render());
+        ScheduleSidebar.render();
+    });
 
-    // Term change
+    // Term change. Guarded because this ran before window.AppModal was assigned
+    // further down, so a missing element here used to take the modal with it.
+    startFeature('Term selector', () => {
     document.getElementById('term-select').addEventListener('change', (e) => {
         State.term = e.target.value;
         if (Tabs.current() === 'semester') {
@@ -42,13 +80,16 @@ function boot() {
             Tabs.writeTabHistory(Tabs.current(), 'replace');
         }
     });
+    });
 
     // Search landing: planning paths
+    startFeature('Landing shortcuts', () => {
     document.getElementById('search-degree-btn').addEventListener('click', () => {
         Tabs.switchTo('degree');
     });
     document.getElementById('search-schedule-btn').addEventListener('click', () => {
         Tabs.switchTo('schedule');
+    });
     });
 
     // Resizable search sidebar
@@ -178,7 +219,29 @@ function boot() {
             first.focus();
         }
     });
+
+    reportBootFailures();
 }
+
+// Nothing reported uncaught failures before, so a broken feature and a healthy
+// one looked identical. A CSP violation in particular produced no console entry
+// at all, which is how a blocked script went unnoticed until every control on
+// the page turned out to be inert.
+window.addEventListener('error', event => {
+    // eslint-disable-next-line no-console
+    console.error('[uncaught]', event.message, event.filename, event.lineno);
+});
+window.addEventListener('unhandledrejection', event => {
+    // eslint-disable-next-line no-console
+    console.error('[unhandled rejection]', event.reason);
+});
+document.addEventListener('securitypolicyviolation', event => {
+    // eslint-disable-next-line no-console
+    console.error(
+        `[csp] blocked ${event.violatedDirective}: ${event.blockedURI}. `
+        + 'The page will behave as if that code does not exist.',
+    );
+});
 
 // Run now if the document is already parsed, otherwise wait. Guarding on
 // readyState means the boot cannot be missed because of when this file runs.

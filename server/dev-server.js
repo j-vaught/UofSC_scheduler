@@ -55,7 +55,14 @@ function createAssets(assetsDir) {
             }
             return new Response(fs.readFileSync(candidate), {
                 status: 200,
-                headers: { 'Content-Type': CONTENT_TYPES[path.extname(candidate)] || 'application/octet-stream' },
+                headers: {
+                    'Content-Type': CONTENT_TYPES[path.extname(candidate)] || 'application/octet-stream',
+                    // Local iteration only. Without this the browser serves a cached
+                    // copy of a file you just edited and rebuilt, which is
+                    // indistinguishable from the fix not working. Production sets
+                    // immutable caching on hashed release artifacts instead.
+                    'Cache-Control': 'no-store, max-age=0, must-revalidate',
+                },
             });
         },
     };
