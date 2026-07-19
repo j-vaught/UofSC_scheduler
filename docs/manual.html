@@ -207,10 +207,9 @@ was previously invisible.</p>
   grade_pipeline.py   Registrar workbook ingestion and Banner matching
   build_embeddings.py Semantic-search vector generation
   scrape_courses.py   Bulletin catalog scrape
-  prototypes/         Runnable experiments whose output nothing consumes
 
-scripts/              19 offline build scripts. Name is load-bearing:
-                      `from scripts.X import Y` appears in 8 files and tests.
+scripts/              18 build scripts + README.md. Name is load-bearing:
+                      `from scripts.X import Y` resolves through __init__.py.
 
 data/
   raw/                Originals with no regeneration path anywhere
@@ -235,9 +234,9 @@ docs/
   manual.html         This document — the single documentation source
   screenshots/        Feature-tour images used by README.md
 
-tools/api-capture-extension/   Chrome DevTools extension for API discovery
-tests/                14 Python + 16 JavaScript suites
-schemas/              major_map_llm_v1.schema.json</code></pre>
+tests/                14 Python + 17 JavaScript suites
+schemas/              major_map_llm_v1.schema.json — the LLM extraction
+                      contract, loaded by three scripts and one test</code></pre>
 
 <div class="note"><span class="lbl">Reading the data tree</span>
 <p><code>raw/</code> is what you cannot get back if you lose it. <code>generated/</code> is what a script
