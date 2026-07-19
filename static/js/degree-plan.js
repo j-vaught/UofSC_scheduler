@@ -30,15 +30,22 @@ const DegreePlan = {
     async generatePlan() {
         const majorData = State.profile.majorData;
         if (!majorData) {
-            alert('Choose your major and catalog year above before generating a plan.');
+            // Shown in place for the same reason as the scheduler's empty state:
+            // the control the student needs is on screen, so a modal dialog only
+            // stands between them and it.
+            const list = document.getElementById('requirements-list');
+            if (list) {
+                list.innerHTML = '<p class="hint">Choose a major and catalog year above, '
+                    + 'then generate a plan.</p>';
+            }
             return;
         }
 
-        if (State.completedCourses.length === 0) {
-            if (!confirm('No completed courses entered. Generate plan as a new student?')) {
-                return;
-            }
-        }
+        // No confirmation for an empty coursework list. The wizard's second step
+        // has an explicit "I have not taken any courses yet" control, so the
+        // student has already answered this question; asking again blocks the
+        // page on a modal dialog to learn nothing. Starting from zero completed
+        // courses is the normal case for an incoming student.
 
         const btn = document.getElementById('btn-generate-plan');
         btn.textContent = 'GENERATING...';
