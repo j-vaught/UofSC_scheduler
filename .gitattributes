@@ -1,0 +1,23 @@
+# Generated and bulk data. Everything here stays in version control; these rules
+# only change how git and GitHub present it.
+#
+# -diff        keep regenerated artifacts out of pull-request diffs and blame
+# -merge       fail loudly on a conflict instead of splicing two builds together;
+#              the resolution is to re-run the generator, never to hand-merge
+# linguist-generated  keep the language bar describing source, not output
+
+data/generated/**                     -diff -merge linguist-generated=true
+data/interim/**                       -diff -merge linguist-generated=true
+data/curated/**                       -diff -merge linguist-generated=true
+static/data/*.json                    -diff -merge linguist-generated=true
+static/data/releases/**               -diff -merge linguist-generated=true
+
+# Binary originals. Never worth a textual diff attempt.
+data/raw/major_map_pdfs/**            binary
+data/raw/registrar_grades/**          binary
+docs/research/**                      binary
+docs/screenshots/**                   binary
+docs/diagrams/**.png                  binary
+
+# Hand-authored despite living beside generated siblings. Diff this one normally.
+static/data/site_notices.json         diff
