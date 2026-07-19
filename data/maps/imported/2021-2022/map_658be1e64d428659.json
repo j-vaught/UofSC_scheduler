@@ -315,142 +315,7 @@
   "plan_format": "four_year",
   "program": "Bachelor of Arts (B.A.)",
   "program_family_id": "program_90c8200fa2cfb7aa",
-  "required_courses": [
-    {
-      "carolina_core": "CMW",
-      "category": "carolina_core",
-      "code": "ENGL 101",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_29a20eab13005398",
-      "title": "Critical Reading and Composition",
-      "typical_semester": "Fall",
-      "typical_year": 1
-    },
-    {
-      "category": "program_requirements",
-      "code": "UNIV 101",
-      "corequisites": [],
-      "credits": 3,
-      "prerequisites": [],
-      "source_requirement_id": "req_cf35eb9305eb888d",
-      "title": "The Student in the University",
-      "typical_semester": "Fall",
-      "typical_year": 1
-    },
-    {
-      "carolina_core": "CMW",
-      "category": "carolina_core",
-      "code": "ENGL 102",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_89e698d5c7b8e693",
-      "title": "Rhetoric and Composition",
-      "typical_semester": "Spring",
-      "typical_year": 1
-    },
-    {
-      "category": "major_courses",
-      "code": "SPAN 302",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_20361053aa5de90b",
-      "title": "Advanced Spanish",
-      "typical_semester": "Fall",
-      "typical_year": 2
-    },
-    {
-      "category": "major_courses",
-      "code": "SPAN 303",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_db1bbd7c4346b3ba",
-      "title": "Cultural Readings & Adv. Comp.",
-      "typical_semester": "Spring",
-      "typical_year": 2
-    },
-    {
-      "carolina_core": "INT",
-      "category": "major_courses",
-      "code": "SPAN 312",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_7ac751f38d520778",
-      "title": "Intro. to Reading Hispanic Literary",
-      "typical_semester": "Fall",
-      "typical_year": 3
-    },
-    {
-      "category": "program_requirements",
-      "code": "FORL 511",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_e0b7280b071f8aa5",
-      "title": "Teaching Foreign Lang. in",
-      "typical_semester": "Spring",
-      "typical_year": 3
-    },
-    {
-      "category": "program_requirements",
-      "code": "FORL 472",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_48ad3114f19963b5",
-      "title": "Intro. to Technology in Language",
-      "typical_semester": "Spring",
-      "typical_year": 3
-    },
-    {
-      "category": "program_requirements",
-      "code": "FORL 510",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_7db5be01603187ed",
-      "title": "Teaching Second Languages to",
-      "typical_semester": "Fall",
-      "typical_year": 4
-    },
-    {
-      "category": "major_courses",
-      "code": "FORL 448",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_ea83c071c52a0729",
-      "title": "Teaching Internship in Foreign",
-      "typical_semester": "Fall",
-      "typical_year": 4
-    },
-    {
-      "category": "major_courses",
-      "code": "FORL 474",
-      "corequisites": [],
-      "credits": 15,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_5294381ffd3a9724",
-      "title": "Directed Teaching in Foreign",
-      "typical_semester": "Spring",
-      "typical_year": 4
-    }
-  ],
+  "required_courses": [],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -1223,7 +1088,7 @@
   "total_credits_required": 120,
   "validation": {
     "low_confidence_requirement_count": 21,
-    "requirement_count": 36,
+    "requirement_count": 0,
     "requires_review": true,
     "semester_count": 8
   },
