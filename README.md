@@ -4,6 +4,8 @@ The UofSC Course Scheduler is a desktop-first semester planning tool for Univers
 
 The primary workflow remains planning one semester effectively. Degree planning is available as a secondary browser-local tool.
 
+[Open the live scheduler](https://scheduler.j-vaught.chatgpt.site/)
+
 ## Feature Tour
 
 ### Build a semester schedule
@@ -35,9 +37,9 @@ Selecting an instructor opens a general teaching profile with contact informatio
 
 ![Professor history with contact information, courses taught, teaching experience by semester, GPA by year, and a professor-review link](docs/screenshots/14-professor-profile.png)
 
-Completed-term history shows observed offering frequency, seasons, section counts, enrollment, and fill rates.
+Completed-term history uses a year-by-year Spring, Summer, and Fall matrix. Color distinguishes offered, not offered, and unavailable terms, while each offered term exposes section, enrollment, and fill-rate details.
 
-![ELCT 101 offering history with recent-term frequency, observed seasons, enrollment, and term-by-term availability](docs/screenshots/15-live-offering-history.png)
+![CSCE 190 offering history with recent-term frequency, most recent offering, average enrollment, and a year-by-season availability matrix](docs/screenshots/15-live-offering-history.png)
 
 The resource workspace connects the selected course and section to official class details, bookstore materials, the academic bulletin, the two-step syllabus archive flow, the faculty directory, and external course and professor review searches.
 
@@ -56,9 +58,9 @@ The registration handoff includes section-specific checks, individual Course Ref
 
 </details>
 
-The degree planner also runs in a browser worker and stores student-entered progress locally.
+The degree planner guides students through program selection, prior coursework, planning strategy, and the generated multi-semester plan. Imported official major maps preserve catalog year, recommended semester order, credit ranges, Carolina Core requirements, and a link to the source PDF. Students can also upload an advising transcript or build a custom major map. Plans and transcript-derived progress remain on the student's device.
 
-![Browser-local degree plan](docs/screenshots/07-static-degree-plan.png)
+![Electrical Engineering major-map selection with its official eight-semester sequence and source PDF](docs/screenshots/07-static-degree-plan.png)
 
 The screenshots show a Fall 2026 desktop session captured from the deployed site. Live sections, seats, instructors, and restrictions can change after capture.
 
