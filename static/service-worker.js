@@ -30,6 +30,7 @@ const SHELL_ASSETS = [
     '/static/js/prereqs.js',
     '/static/js/features/history/index.js',
     '/static/js/history.js',
+    '/static/js/features/grades/index.js',
     '/static/js/grades.js',
     '/static/js/scheduler.js',
     '/static/js/features/map/index.js',
