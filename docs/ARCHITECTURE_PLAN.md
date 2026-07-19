@@ -621,9 +621,20 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > and `require()` cleanly with no DOM, which `tests/test_harness.js` asserts. An MCP
 > or CLI surface can reuse the solver, planner, and transcript parser today.
 >
-> **Still outstanding:** 7a, extracting the ten features into fenced folders. That is
-> the multi-month bulk of this phase and remains genuinely optional -- everything
-> above improves the current architecture, while 7a changes it.
+> **7a has started.** `history` is fenced in `static/js/features/history/`, chosen
+> because it had one inbound caller and the fewest outbound dependencies. It names
+> its four dependencies and reaches no ambient global, asserted by a test rather
+> than claimed. `static/js/history.js` is now the composition point that supplies
+> the real ones, and it exposes the instance rather than wrapping it because the
+> suites override internals to control time.
+>
+> Extraction immediately surfaced hidden coupling, which is the argument for doing
+> it: `_escape` reached for `document.createElement` to escape text, a DOM
+> dependency inside a function that reads as pure. It is now declared.
+>
+> **Still outstanding:** the other nine, in the plan's order. Each is the same
+> three-step shape, and the first one establishes the pattern and the test
+> vocabulary for the rest.
 
 ### Phase 7 — Optional: fenced features and accounts. Three to five months.
 
