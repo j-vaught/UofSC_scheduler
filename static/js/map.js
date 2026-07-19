@@ -413,7 +413,7 @@ const WalkingMap = {
     },
 
     isOnline(section) {
-        const method = `${section.inst_mthd || ''} ${section.meets || ''}`.toLowerCase();
+        const method = `${(section.instructionalMethod || section.inst_mthd) || ''} ${section.meets || ''}`.toLowerCase();
         return /online|web|remote|asynchronous|does not meet/.test(method);
     },
 

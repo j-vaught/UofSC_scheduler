@@ -77,7 +77,7 @@ const Scheduler = {
     hasScheduledCampusMeeting(section) {
         if (!section || !section.meetingTimes) return false;
         const method = [
-            section.inst_mthd,
+            (section.instructionalMethod || section.inst_mthd),
             section.meets,
             section.instructionalMethod,
             section.instructional_method,
@@ -848,7 +848,7 @@ const Scheduler = {
     currentInstructorCrns(group) {
         const groups = new Map();
         (group.sections || []).forEach(section => {
-            const instructor = String(section.instr || '').trim().toLowerCase();
+            const instructor = String((section.instructor || section.instr) || '').trim().toLowerCase();
             if (!section.crn || !instructor || ['staff', 'undecided', 'tba'].includes(instructor)) return;
             if (!groups.has(instructor)) groups.set(instructor, []);
             groups.get(instructor).push(String(section.crn));
@@ -912,7 +912,7 @@ const Scheduler = {
                 }, {}));
             const identities = liveFaculty.length > 0
                 ? liveFaculty
-                : String(section.instr || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
+                : String((section.instructor || section.instr) || '').split(/;|\s+\/\s+|\s+and\s+/i).map(rawName => {
                     const name = rawName.trim();
                     return resolveFaculty(name) || { name, email: '' };
                 });
@@ -1947,7 +1947,7 @@ const Scheduler = {
         if (section.meetingTimes) return true;
         const description = [
             section.meets,
-            section.inst_mthd,
+            (section.instructionalMethod || section.inst_mthd),
             section.instructionalMethod,
             section.instructional_method,
         ].filter(Boolean).join(' ').toLowerCase();
@@ -2061,7 +2061,7 @@ const Scheduler = {
         schedules.forEach((schedule, index) => {
             const applied = this.isAppliedSchedule(schedule);
             const courseList = Object.entries(schedule.sections).map(([code, section]) =>
-                `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${code} ${section.section || ''}</strong><span>${(section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</button>`,
+                `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${code} ${section.section || ''}</strong><span>${((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</button>`,
             ).join('');
             html += `
                 <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}">

@@ -2250,7 +2250,7 @@ const Search = {
     matchesInstructionalMethod(section, selectedMethod) {
         if (!selectedMethod) return true;
         const method = String(
-            section.inst_mthd || section.instructionalMethod || section.instructional_method || '',
+            (section.instructionalMethod || section.inst_mthd) || section.instructionalMethod || section.instructional_method || '',
         ).toLowerCase();
         if (selectedMethod === 'online') return /online|web|distance|remote/.test(method);
         if (selectedMethod === 'hybrid') return /hybrid|blended/.test(method);
@@ -2921,7 +2921,7 @@ const Search = {
             <button type="button" class="course-section-option ${section.stat === 'A' ? 'open' : 'full'}" data-detail-crn="${this.escapeText(section.crn)}" aria-pressed="${selected}" tabindex="${selected ? '0' : '-1'}" title="View Section ${this.escapeText(section.section || '—')} details">
                 <span><i aria-hidden="true"></i>Section ${this.escapeText(section.section || '—')}<b>${section.stat === 'A' ? 'Open' : 'Full'}</b></span>
                 <small>${this.escapeText(section.meets || 'Time TBA')}</small>
-                <em>${this.escapeText(section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA')} · CRN ${this.escapeText(section.crn)}</em>
+                <em>${this.escapeText((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Instructor TBA')} · CRN ${this.escapeText(section.crn)}</em>
             </button>
         `;
         }).join('');
@@ -3447,7 +3447,7 @@ const Search = {
         const seatsMax = String(details?.seats || '').match(/seats_max[^>]*>(\d+)/)?.[1];
         const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
         const instructorRawName = primaryFaculty?.name
-            || (section.instr && section.instr !== 'Staff' ? section.instr : 'Instructor TBA');
+            || ((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Instructor TBA');
         const instructorName = instructorRawName === 'Instructor TBA'
             ? instructorRawName
             : (typeof Grades !== 'undefined' && Grades.displayProfessorName
@@ -3482,7 +3482,7 @@ const Search = {
                 <div><span>Meeting</span><strong>${this.escapeText(times)}</strong></div>
                 <div><span>Location</span><strong>${this.escapeText(locations)}</strong></div>
                 <div><span>CRN</span><strong>${this.escapeText(section.crn)}</strong></div>
-                <div><span>Method</span><strong>${this.escapeText(details?.inst_mthd || section.inst_mthd || 'Not listed')}</strong></div>
+                <div><span>Method</span><strong>${this.escapeText((details?.instructionalMethod || details?.inst_mthd) || (section.instructionalMethod || section.inst_mthd) || 'Not listed')}</strong></div>
                 <div><span>Course dates</span><strong>${this.escapeText(section.start_date && section.end_date ? `${section.start_date}–${section.end_date}` : 'Full-term dates')}</strong></div>
             </div>
             ${fullNotice}
@@ -3609,7 +3609,7 @@ const Search = {
         const group = this._detailGroup;
         if (!container || !group) return;
         const primaryFaculty = faculty.find(person => person.primary) || faculty[0];
-        const professorRaw = primaryFaculty?.name || (section?.instr && section.instr !== 'Staff' ? section.instr : '');
+        const professorRaw = primaryFaculty?.name || ((section?.instructor || section?.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : '');
         const professor = this.professorSearchName(professorRaw);
         const query = encodeURIComponent(`${group.code} ${group.title || ''} University of South Carolina course review`);
         const professorReviewsUrl = this.rateMyProfessorsUrl(professorRaw);
@@ -3843,7 +3843,7 @@ const Search = {
             const availability = this.courseAvailability(group);
             const liveSections = group.sections.filter(section => !section._isCatalog);
             const instructors = new Set(liveSections
-                .map(section => section.instr)
+                .map(section => (section.instructor || section.instr))
                 .filter(name => name && name !== 'Staff'));
             const sectionLabel = availability.kind === 'unknown'
                 ? 'Live section details unavailable'

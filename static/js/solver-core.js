@@ -184,7 +184,7 @@ const SolverCore = (() => {
         const allMeetings = [];
 
         for (const section of Object.values(assignment)) {
-            const instructor = section.instr || '';
+            const instructor = (section.instructor || section.instr) || '';
             if (Object.hasOwn(preferences.preferred_instructors || {}, instructor)) {
                 score += preferences.preferred_instructors[instructor] * 10;
             }

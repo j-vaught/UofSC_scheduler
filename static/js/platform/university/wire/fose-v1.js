@@ -95,7 +95,12 @@
      */
     function decodeSectionCompat(row, term) {
         const section = decodeSection(row, term);
-        return { ...row, ...section };
+        // Row last, deliberately. Spreading the domain shape over the upstream
+        // one replaced fields whose representations differ -- meetingTimes
+        // arrives as a JSON string upstream and as an array in the domain -- and
+        // silently destroyed the value every existing reader depends on. A
+        // compat layer adds; it must never overwrite.
+        return { ...section, ...row };
     }
 
     function decodeSearchCompat(payload, term) {

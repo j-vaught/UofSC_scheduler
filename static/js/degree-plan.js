@@ -1222,7 +1222,7 @@ const ScheduleSidebar = {
                 );
             });
             const sectionOptions = sortedSections.map(section => {
-                const instructor = section.instr && section.instr !== 'Staff' ? section.instr : 'Undecided';
+                const instructor = (section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided';
                 const availability = !section.stat || section.stat === 'A' ? '' : ' — FULL';
                 const selected = String(section.crn) === String(lockedCrn) ? ' selected' : '';
                 return `<option value="${section.crn}"${selected}>Section ${section.section || '?'} — ${instructor} — ${section.meets || 'TBA'}${availability}</option>`;

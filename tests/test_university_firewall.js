@@ -209,3 +209,41 @@ test('api.js normalises search responses on ingest', () => {
     const fn = source.slice(source.indexOf('async searchCourses'), source.indexOf('async searchCourses') + 900);
     assert.match(fn, /decodeSearchCompat/, 'responses should be normalised at the boundary');
 });
+
+test('meeting times survive decoding, including the upstream string form', () => {
+    // Upstream sends this as a JSON string. Treating a non-array as empty
+    // discarded every meeting time and left the solver unable to place any
+    // section -- the scheduler reported "no conflict-free schedules" for a
+    // single course with nineteen open sections.
+    const raw = '[{"meet_day":"0","start_time":"1050","end_time":"1140"}]';
+    const parsed = Section.normaliseMeetingTimes(raw);
+    assert.equal(Array.isArray(parsed), true);
+    assert.equal(parsed.length, 1);
+    assert.equal(parsed[0].start_time, '1050');
+
+    assert.deepEqual(Section.normaliseMeetingTimes([{ a: 1 }]), [{ a: 1 }], 'an array passes through');
+    assert.deepEqual(Section.normaliseMeetingTimes('not json'), [], 'unparseable is empty, not a throw');
+    assert.deepEqual(Section.normaliseMeetingTimes(undefined), []);
+});
+
+test('compat decode never overwrites an upstream field', () => {
+    // The regression: spreading the domain shape over the row replaced
+    // meetingTimes, whose representation differs between the two.
+    const [row] = payload.results;
+    const [compat] = codec.decodeSearchCompat(payload, '202608').results;
+    for (const key of Object.keys(row)) {
+        assert.deepEqual(
+            compat[key], row[key],
+            `${key} was altered by the compat layer; it must only add fields`,
+        );
+    }
+    // And the domain fields are still present alongside.
+    assert.equal(typeof compat.seatsOpen, 'number');
+    assert.equal(typeof compat.availabilityKnown, 'boolean');
+});
+
+test('a decoded section still exposes meeting times as an array', () => {
+    const [section] = codec.decodeSearch(payload, '202608');
+    assert.equal(Array.isArray(section.meetingTimes), true);
+    assert.ok(section.meetingTimes.length > 0, 'the fixture has real meeting times');
+});
