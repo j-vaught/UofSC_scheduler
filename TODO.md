@@ -87,6 +87,18 @@ Context that may be relevant when picking this up:
 - Section status dots, the plan navigator with a typeable index, and the compact
   My Courses strip are all specified in the manual's roadmap but unbuilt.
 
+## Known noise
+
+- **Transformers.js triggers four `script-src: eval` CSP violations per model load.**
+  Surfaced by the `securitypolicyviolation` handler added with boot supervision. They
+  fire between "Loading Transformers.js model" and "Model loaded", so the ONNX runtime
+  probes an `eval` path, is refused, and falls back to something permitted. Semantic
+  search works, so this is non-fatal. It is worth resolving anyway: four violations on
+  every load is exactly the noise that hides a real one, which is how the two genuine
+  CSP faults went unnoticed. Either narrow the policy to admit what the runtime
+  actually needs, or filter these specific violations from the handler so a real block
+  still stands out. Do not add `'unsafe-eval'`; that would defeat the policy.
+
 ## Deployment
 
 - The live site currently returns **no `Content-Security-Policy`** and no
