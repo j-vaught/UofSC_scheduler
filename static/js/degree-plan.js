@@ -692,27 +692,26 @@ const DegreePlan = {
         if (!course) return;
 
         const coreCode = this.carolinaCoreCode(course);
+        if (this.isCarolinaCoreRequirement(course)) {
+            await this.openCarolinaCorePicker({ course, groupId, term, coreCode });
+            return;
+        }
         if (!course.options || course.options.length === 0) {
             const modal = document.getElementById('modal-overlay');
             const content = document.getElementById('modal-content');
-            const isCore = Boolean(coreCode);
             content.innerHTML = `
                 <div class="requirement-picker-empty">
-                    <span class="degree-eyebrow">${isCore ? 'CAROLINA CORE' : 'DEGREE REQUIREMENT'}</span>
+                    <span class="degree-eyebrow">DEGREE REQUIREMENT</span>
                     <h2>${course.title || 'Choose a course'}</h2>
-                    <p>${isCore
-                        ? `Search current courses that satisfy the ${coreCode} Carolina Core requirement.`
-                        : 'The official map identifies the requirement but does not prescribe a fixed course list.'}</p>
-                    <button type="button" id="requirement-search-btn" class="btn-garnet">${isCore ? `FIND ${coreCode} COURSES` : 'FIND A COURSE'}</button>
+                    <p>The official map identifies the requirement but does not prescribe a fixed course list.</p>
+                    <button type="button" id="requirement-search-btn" class="btn-garnet">FIND A COURSE</button>
                 </div>`;
             modal.classList.remove('hidden');
             content.querySelector('#requirement-search-btn').addEventListener('click', () => {
                 modal.classList.add('hidden');
                 Tabs.switchTo('semester');
-                const coreFilter = document.getElementById('filter-carolina-core');
-                if (coreFilter) coreFilter.value = coreCode || '';
                 const input = Search.activeSearchInput();
-                if (input) input.value = isCore ? `Carolina Core ${coreCode}` : course.title;
+                if (input) input.value = course.title;
                 Search.doSearch();
             });
             return;
@@ -782,11 +781,158 @@ const DegreePlan = {
         });
     },
 
+    async openCarolinaCorePicker({ course, groupId, term, coreCode = '' }) {
+        const loadingMarkup = `
+            <section class="core-course-picker" aria-busy="true">
+                <span class="degree-eyebrow">CAROLINA CORE</span>
+                <h2>Choose a Carolina Core course</h2>
+                <p>Loading approved courses from the current Academic Bulletin&hellip;</p>
+            </section>`;
+        if (window.AppModal?.open) {
+            window.AppModal.open(loadingMarkup, {
+                className: 'carolina-core-picker-modal',
+                label: 'Choose a Carolina Core course',
+            });
+        } else {
+            document.getElementById('modal-content').innerHTML = loadingMarkup;
+            document.getElementById('modal-overlay').classList.remove('hidden');
+        }
+        const modalVersion = window.AppModal?.version;
+
+        let catalog;
+        try {
+            catalog = await CarolinaCore.loadCatalog();
+        } catch (error) {
+            if (modalVersion !== undefined && modalVersion !== window.AppModal?.version) return;
+            document.getElementById('modal-content').innerHTML = `
+                <section class="core-course-picker core-course-picker-error">
+                    <span class="degree-eyebrow">CAROLINA CORE</span>
+                    <h2>Approved courses could not be loaded</h2>
+                    <p>Close this window and try again.</p>
+                </section>`;
+            return;
+        }
+        if (modalVersion !== undefined && modalVersion !== window.AppModal?.version) return;
+
+        const fixedOutcome = String(coreCode || '').toUpperCase();
+        const categoryControl = fixedOutcome
+            ? `<div class="core-picker-fixed-category"><strong>${fixedOutcome}</strong><span>${this.escapeText(CarolinaCore.label(fixedOutcome))}</span></div>`
+            : `<label class="core-picker-field" for="core-picker-outcome">
+                    <span>Core requirement</span>
+                    <select id="core-picker-outcome">
+                        <option value="">All Carolina Core areas</option>
+                        ${Object.entries(CarolinaCore.labels).map(([code, label]) => (
+                            `<option value="${code}">${code} — ${this.escapeText(label)}</option>`
+                        )).join('')}
+                    </select>
+                </label>`;
+        const content = document.getElementById('modal-content');
+        content.innerHTML = `
+            <section class="core-course-picker" aria-busy="false">
+                <header class="core-picker-header">
+                    <span class="degree-eyebrow">CAROLINA CORE</span>
+                    <h2>Choose a course</h2>
+                    <p>${this.escapeText(course.title || 'Carolina Core Requirement')}</p>
+                </header>
+                <div class="core-picker-controls">
+                    ${categoryControl}
+                    <label class="core-picker-field" for="core-picker-query">
+                        <span>Filter courses</span>
+                        <input id="core-picker-query" type="search" placeholder="Course code or title" autocomplete="off">
+                    </label>
+                </div>
+                <div id="core-picker-summary" class="core-picker-summary" aria-live="polite"></div>
+                <div id="core-picker-results" class="core-picker-results"></div>
+                <footer class="core-picker-footer">
+                    <span>Approved foundational courses from the ${this.escapeText(catalog.catalog_year || 'current')} Academic Bulletin.</span>
+                    <a href="${this.escapeText(catalog.source_url || 'https://academicbulletins.sc.edu/undergraduate/carolina-core-courses/')}" target="_blank" rel="noopener noreferrer">VIEW OFFICIAL LIST</a>
+                </footer>
+            </section>`;
+
+        const renderResults = () => {
+            const selectedOutcome = fixedOutcome
+                || content.querySelector('#core-picker-outcome')?.value
+                || '';
+            const query = content.querySelector('#core-picker-query')?.value || '';
+            const matches = CarolinaCore.filterCourses(catalog.courses, {
+                outcome: selectedOutcome,
+                query,
+            });
+            const summary = content.querySelector('#core-picker-summary');
+            const results = content.querySelector('#core-picker-results');
+            summary.innerHTML = `<strong>${matches.length} approved ${matches.length === 1 ? 'course' : 'courses'}</strong>${selectedOutcome ? `<span>${selectedOutcome} — ${this.escapeText(CarolinaCore.label(selectedOutcome))}</span>` : '<span>Choose any Core area or narrow the list.</span>'}`;
+            results.innerHTML = matches.length ? matches.map(item => `
+                <article class="core-picker-course">
+                    <div class="core-picker-course-copy">
+                        <div class="core-picker-course-heading">
+                            <strong>${this.escapeText(item.code)}</strong>
+                            <span>${(item.outcomes || []).map(outcome => `<b>${this.escapeText(outcome)}</b>`).join('')}</span>
+                        </div>
+                        <p>${this.escapeText(item.title)}</p>
+                        <small>${item.overlay ? 'Overlay eligible · ' : ''}Effective ${this.escapeText(item.effective_term || 'current catalog')}</small>
+                    </div>
+                    <button type="button" class="btn-small btn-garnet core-course-select" data-code="${this.escapeText(item.code)}">SELECT</button>
+                </article>`).join('') : '<p class="core-picker-no-results">No approved courses match these filters.</p>';
+            results.querySelectorAll('.core-course-select').forEach(button => {
+                button.addEventListener('click', () => {
+                    const selected = catalog.courses.find(item => item.code === button.dataset.code);
+                    if (!selected) return;
+                    this.selectRequirementCourse({
+                        groupId,
+                        term,
+                        slot: course,
+                        selected,
+                    });
+                });
+            });
+        };
+
+        content.querySelector('#core-picker-outcome')?.addEventListener('change', renderResults);
+        content.querySelector('#core-picker-query')?.addEventListener('input', renderResults);
+        renderResults();
+    },
+
+    selectRequirementCourse({ groupId, term, slot, selected }) {
+        const semester = State.degreePlan.semesters.find(item => item.term === term);
+        if (!semester) return;
+        const index = semester.courses.findIndex(item => item.code === groupId);
+        if (index < 0) return;
+        semester.courses[index] = {
+            code: selected.code,
+            title: selected.title || selected.code,
+            credits: slot.credits,
+            category: 'carolina_core',
+            carolina_core: selected.outcomes || [],
+            satisfies_requirement: slot.title || '',
+            elective_group_id: slot.elective_group_id || groupId,
+            pinned: true,
+            is_elective_slot: false,
+        };
+        State.degreePlan.pins[selected.code] = term;
+        if (window.AppModal?.close) window.AppModal.close();
+        else document.getElementById('modal-overlay').classList.add('hidden');
+        this.render();
+    },
+
+    isCarolinaCoreRequirement(course) {
+        return course.category === 'carolina_core'
+            || /carolina core|\bcc[- ]/i.test(course.title || '');
+    },
+
     carolinaCoreCode(course) {
-        if (course.category !== 'carolina_core' && !/carolina core|\bcc[- ]/i.test(course.title || '')) return '';
+        if (!this.isCarolinaCoreRequirement(course)) return '';
         const text = `${course.title || ''} ${course.elective_group_id || ''}`.toUpperCase();
         const match = text.match(/(?:CC[- _]?)?(AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/);
         return match ? match[1] : '';
+    },
+
+    escapeText(value) {
+        return String(value ?? '')
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#39;');
     },
 
     bindDragDrop() {

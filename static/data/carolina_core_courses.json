@@ -1,0 +1,2876 @@
+{
+  "schema_version": 1,
+  "kind": "carolina_core_catalog",
+  "catalog_year": "2026-2027",
+  "generated_at": "2026-07-19T02:31:58+00:00",
+  "source_url": "https://academicbulletins.sc.edu/undergraduate/carolina-core-courses/",
+  "counts": {
+    "AIU": 51,
+    "ARP": 19,
+    "CMS": 8,
+    "CMW": 2,
+    "GFL": 34,
+    "GHS": 21,
+    "GSS": 56,
+    "INF": 4,
+    "SCI": 66,
+    "VSR": 47
+  },
+  "courses": [
+    {
+      "code": "AFAM 200",
+      "title": "Freedom Papers: Narratives of Race and Nation",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2021"
+    },
+    {
+      "code": "AFAM 201",
+      "title": "Introduction to African American Studies: Social and Historical Foundations",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "AFAM 202",
+      "title": "Introduction to African-American Studies",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "AFAM 218",
+      "title": "Convergence and Divergence in African American and Jewish Relations: Historical and Contemporary",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "AFAM 355",
+      "title": "Race and Ethnic Relations",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "ANTH 101",
+      "title": "Primates, People, and Prehistory",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "ANTH 102",
+      "title": "Understanding Other Cultures",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ANTH 161",
+      "title": "Human Origins: An Introduction to Biological Anthropology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ANTH 204",
+      "title": "Plagues Past and Present",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ANTH 210",
+      "title": "Human Life Cycles in Different Cultures",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ANTH 211",
+      "title": "Learning Across Cultures",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ANTH 212",
+      "title": "Food and Culture",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "ANTH 213",
+      "title": "Ethnobotany: Plants and Peoples",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "ANTH 216",
+      "title": "Violence and Peace: Anthropological Perspectives",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2018"
+    },
+    {
+      "code": "ANTH 244",
+      "title": "American Indian Nations Today: From Hard Times to Hard Rock",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "ANTH 273",
+      "title": "Cross-Cultural Communication",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Summer 2020"
+    },
+    {
+      "code": "ANTH 280",
+      "title": "Humans Going Nuclear: Atomic Bombs, Cold War, and the Fallout",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "ARAB 121",
+      "title": "Elementary Arabic",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARAB 122",
+      "title": "Basic Proficiency in Arabic",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTE 101",
+      "title": "Introduction to Art",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTE 260",
+      "title": "Interdisciplinary Relationships in the Arts",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "ARTH 105",
+      "title": "History of Western Art I",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTH 106",
+      "title": "History of Western Art II",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTH 107",
+      "title": "History of Asian Art",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2018"
+    },
+    {
+      "code": "ARTS 103",
+      "title": "Fundamentals of Art",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTS 104",
+      "title": "3-Dimensional Design I",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ARTS 107",
+      "title": "Color and Composition",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ARTS 111",
+      "title": "Basic Drawing I",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ARTS 210",
+      "title": "Introduction to Painting",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2015"
+    },
+    {
+      "code": "ARTS 215",
+      "title": "Introduction to Printmaking",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ARTS 241",
+      "title": "Color for Art and Design",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ARTS 260",
+      "title": "Photography for Non-Majors",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ARTS 261",
+      "title": "Introduction to Film and Darkroom Photography",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ASLG 121",
+      "title": "Principles of American Sign Language I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2024"
+    },
+    {
+      "code": "ASLG 122",
+      "title": "Principles of American Sign Language II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2024"
+    },
+    {
+      "code": "ASTR 101",
+      "title": "Introduction to Astronomy",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2014"
+    },
+    {
+      "code": "ASTR 201",
+      "title": "Introduction to Astronomy II: The Dark Universe",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2016"
+    },
+    {
+      "code": "BIOL 101",
+      "title": "Biological Principles I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 101L",
+      "title": "Biological Principles I Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 102",
+      "title": "Biological Principles II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 102L",
+      "title": "Biological Principles II Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 110",
+      "title": "General Biology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 120",
+      "title": "Human Biology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 120L",
+      "title": "Laboratory in Human Biology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 202",
+      "title": "Infectious Diseases, Human Health, and Ethics",
+      "outcomes": [
+        "SCI",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2022"
+    },
+    {
+      "code": "BIOL 206",
+      "title": "Genetics and Society",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 208",
+      "title": "Our Hungry World from Malthus to McDonalds",
+      "outcomes": [
+        "SCI",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 210",
+      "title": "The Biology of Dogs",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "BIOL 220",
+      "title": "Elementary Life Science",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2023"
+    },
+    {
+      "code": "BIOL 243",
+      "title": "Human Anatomy and Physiology I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 243L",
+      "title": "Human Anatomy and Physiology Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 244",
+      "title": "Human Anatomy and Physiology II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 244L",
+      "title": "Human Anatomy and Physiology Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 270",
+      "title": "Introduction to Environmental Biology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "BIOL 270L",
+      "title": "Introduction to Environmental Biology Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHEM 101",
+      "title": "Fundamental Chemistry I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2015"
+    },
+    {
+      "code": "CHEM 102",
+      "title": "Fundamental Chemistry II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "CHEM 105",
+      "title": "Chemistry and Modern Society I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHEM 106",
+      "title": "Chemistry and Modern Society II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2024"
+    },
+    {
+      "code": "CHEM 107",
+      "title": "Introduction to Forensic Science",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "CHEM 107L",
+      "title": "Introduction to Forensic Science Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2023"
+    },
+    {
+      "code": "CHEM 111",
+      "title": "General Chemistry I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHEM 111L",
+      "title": "General Chemistry I Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "CHEM 112",
+      "title": "General Chemistry II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHEM 112L",
+      "title": "General Chemistry II Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "CHEM 141",
+      "title": "Principles of Chemistry I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHEM 141L",
+      "title": "Principles of Chemistry I Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "CHEM 142",
+      "title": "Principles of Chemistry II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "CHEM 142L",
+      "title": "Principles of Chemistry II Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "CHIN 121",
+      "title": "Elementary Chinese Mandarin",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CHIN 122",
+      "title": "Basic Proficiency in Mandarin Chinese",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CLAS 220",
+      "title": "Introduction to Classical Mythology",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "COLA 298",
+      "title": "Interdisciplinary Special Topics in the Liberal Arts: Social Sciences",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CPLT 150",
+      "title": "Values and Ethics in Literature",
+      "outcomes": [
+        "AIU",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "CPLT 270",
+      "title": "World Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CRJU 101",
+      "title": "The American Criminal Justice System",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CRJU 216",
+      "title": "History of Crime and Punishment",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "CSCE 101",
+      "title": "Introduction to Computer and Programming Concepts using AI Tools",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CSCE 102",
+      "title": "Web Design and Development using AI Tools",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CSCE 145",
+      "title": "Algorithmic Design I",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CSCE 390",
+      "title": "Professional Issues in Computer Science and Engineering",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "CYBR 101",
+      "title": "Internet and Society in a Connected World",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2024"
+    },
+    {
+      "code": "DANC 101",
+      "title": "Dance Appreciation",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "EDEX 205",
+      "title": "Understanding the Foundations of Disability",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "Education",
+      "overlay": false,
+      "effective_term": "Summer 2018"
+    },
+    {
+      "code": "EDTE 202",
+      "title": "Global Citizenship and Social Responsibility through Education",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "Education",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "EDTE 218",
+      "title": "Convergence and Divergence in African American and Jewish Relations: Historical and Contemporary",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "Education",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "EDUC 360",
+      "title": "Global and Multicultural Perspectives on Education in International Settings",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "Education",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENCP 111",
+      "title": "The Science and Design of Coffee",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "ENGL 101",
+      "title": "Critical Reading and Composition",
+      "outcomes": [
+        "CMW"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 102",
+      "title": "Rhetoric and Composition",
+      "outcomes": [
+        "CMW",
+        "INF"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 200",
+      "title": "Creative Writing, Voice, and Community",
+      "outcomes": [
+        "AIU",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2019"
+    },
+    {
+      "code": "ENGL 240",
+      "title": "Film and Media Analysis",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2025"
+    },
+    {
+      "code": "ENGL 270",
+      "title": "World Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 280",
+      "title": "Literature and Society",
+      "outcomes": [
+        "AIU",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "ENGL 282",
+      "title": "Special Topics in Fiction",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 283",
+      "title": "Special Topics in British Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 284",
+      "title": "Drama",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 285",
+      "title": "Special Topics in American Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 286",
+      "title": "Poetry",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 287",
+      "title": "American Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENGL 288",
+      "title": "English Literature",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENVR 101",
+      "title": "Introduction to the Environment",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENVR 101L",
+      "title": "Introduction to the Environment Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ENVR 200",
+      "title": "Natural History of South Carolina",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "ENVR 232",
+      "title": "Introduction to Global Sustainability",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Summer 2026"
+    },
+    {
+      "code": "ENVR 322",
+      "title": "Environmental Ethics",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "FAME 101",
+      "title": "Making Media That Matters",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 110",
+      "title": "Media Culture",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 180",
+      "title": "Film Culture",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 201",
+      "title": "Foundations of Media Arts Production",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 210",
+      "title": "Digital Media Arts Fundamentals",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 240",
+      "title": "Film and Media Analysis",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FAME 300",
+      "title": "Film and Media History",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "FREN 109",
+      "title": "Beginning French I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "FREN 110",
+      "title": "Beginning French II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "FREN 121",
+      "title": "Elementary French",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "FREN 122",
+      "title": "Basic Proficiency in French",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "FREN 290",
+      "title": "French Literature in Translation",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 103",
+      "title": "Foundations of Geography",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 104",
+      "title": "Introduction to Physical Geography",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 105",
+      "title": "The Digital Earth",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "GEOG 121",
+      "title": "Geographies of Global Change",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 201",
+      "title": "Landform Geography",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 202",
+      "title": "Weather and Climate",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 210",
+      "title": "Peoples, Places, and Environments",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 221",
+      "title": "Geography of South Carolina",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 223",
+      "title": "Geography of Latin America",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 224",
+      "title": "Geography of North America",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 225",
+      "title": "Geography of Europe",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 226",
+      "title": "Geography of the Middle East",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 228",
+      "title": "Geography of Sub-Saharan Africa",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOG 232",
+      "title": "Introduction to Global Sustainability",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Summer 2026"
+    },
+    {
+      "code": "GEOL 101",
+      "title": "Introduction to the Earth",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 103",
+      "title": "Environment of the Earth",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 110",
+      "title": "Cultural Geology",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 170",
+      "title": "The Water Planet",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2023"
+    },
+    {
+      "code": "GEOL 205",
+      "title": "Earth Resources",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 215",
+      "title": "Coastal Environments of the Southeastern U.S.",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 215L",
+      "title": "Coastal Environments of the Southeastern U.S. (Laboratory)",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GEOL 230",
+      "title": "Geology of the National Parks",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 109",
+      "title": "Beginning German I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 110",
+      "title": "Beginning German II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 121",
+      "title": "Elementary German",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 122",
+      "title": "Basic Proficiency in German",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 270",
+      "title": "Knights and Ladies",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2015"
+    },
+    {
+      "code": "GERM 280",
+      "title": "German Culture and Civilization",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GERM 290",
+      "title": "Viking Mythology",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GLST 101",
+      "title": "Global Studies: Context, Connection, and Change",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2024"
+    },
+    {
+      "code": "GLST 107",
+      "title": "Global Economic Relations",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "GLST 140",
+      "title": "Introduction to Middle East Studies",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "GREK 121",
+      "title": "Elementary Ancient Greek I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "GREK 122",
+      "title": "Elementary Ancient Greek II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 101",
+      "title": "European Civilization from Ancient Times to the Mid-17th Century",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 102",
+      "title": "European Civilization from the Mid-17th Century",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 103",
+      "title": "Introduction to South Asian History",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "HIST 104",
+      "title": "Introduction to the Civilization of the Islamic Middle East",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 105",
+      "title": "Introduction to East Asian Civilization",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 106",
+      "title": "Introduction to African History",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 108",
+      "title": "Science and Technology in World History",
+      "outcomes": [
+        "GHS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 109",
+      "title": "Introduction to Latin American Civilization",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 110",
+      "title": "Conquest, Colonization, and Captivity: A Cultural History of the Americas from 1441 to 1888",
+      "outcomes": [
+        "GHS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2021"
+    },
+    {
+      "code": "HIST 111",
+      "title": "United States History to 1865",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 112",
+      "title": "United States History since 1865",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 201",
+      "title": "American Founding Documents",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2022"
+    },
+    {
+      "code": "HIST 205",
+      "title": "Origins of Capitalism",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2026"
+    },
+    {
+      "code": "HIST 214",
+      "title": "The Practice of Public History",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "HIST 216",
+      "title": "History of Crime and Punishment",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "HIST 220",
+      "title": "Introduction to Latinx History",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "HTMT 280",
+      "title": "Foundations of Tourism",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "College Hosp Retail Sport Mgmt",
+      "overlay": false,
+      "effective_term": "Fall 2024"
+    },
+    {
+      "code": "ISCI 202",
+      "title": "Information Literacy and Technology",
+      "outcomes": [
+        "INF"
+      ],
+      "college": "Information & Communications",
+      "overlay": false,
+      "effective_term": "Fall 2022"
+    },
+    {
+      "code": "ISCI 215",
+      "title": "Ethics in the Era of Big Data",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "Information & Communications",
+      "overlay": false,
+      "effective_term": "Spring 2024"
+    },
+    {
+      "code": "ITAL 121",
+      "title": "Elementary Italian",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ITAL 122",
+      "title": "Basic Proficiency in Italian",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "ITAL 130",
+      "title": "Accelerated Basic Proficiency in Italian",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2026"
+    },
+    {
+      "code": "ITEC 101",
+      "title": "Thriving in the Tech Age",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "Molinaroli Engineering and Computing",
+      "overlay": false,
+      "effective_term": "Fall 2023"
+    },
+    {
+      "code": "JAPA 121",
+      "title": "Elementary Japanese",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "JAPA 122",
+      "title": "Basic Proficiency in Japanese",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "JSTU 101",
+      "title": "Introduction to Jewish Studies: History, Culture, Literature, and Religion",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Summer 2025"
+    },
+    {
+      "code": "JSTU 218",
+      "title": "Convergence and Divergence in African American and Jewish Relations: Historical and Contemporary",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2020"
+    },
+    {
+      "code": "LASP 331",
+      "title": "Geography of Latin America",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "LATN 109",
+      "title": "Beginning Latin I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "LATN 110",
+      "title": "Beginning Latin II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "LATN 121",
+      "title": "Elementary Latin",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "LATN 122",
+      "title": "Basic Proficiency in Latin",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "LING 101",
+      "title": "Linguistics 1: Introduction to Language",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2014"
+    },
+    {
+      "code": "LING 233",
+      "title": "Language, Race, and Culture",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2025"
+    },
+    {
+      "code": "LING 240",
+      "title": "Language Conflict and Language Rights",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2014"
+    },
+    {
+      "code": "LING 273",
+      "title": "Cross-Cultural Communication",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Summer 2020"
+    },
+    {
+      "code": "MATH 122",
+      "title": "Calculus for Business Administration and Social Sciences",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MATH 141",
+      "title": "Calculus I",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MATH 142",
+      "title": "Calculus II",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MATH 170",
+      "title": "Finite Mathematics",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MATH 172",
+      "title": "Mathematical Modeling for the Life Sciences",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MATH 174",
+      "title": "Discrete Mathematics for Computer Science",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "MSCI 101",
+      "title": "The Ocean Environment",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MSCI 102",
+      "title": "The Living Ocean",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MSCI 210",
+      "title": "Oceans and Society",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MSCI 210L",
+      "title": "Oceans and Society Laboratory",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MSCI 215",
+      "title": "Coastal Environments of the Southeastern U.S.",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MSCI 215L",
+      "title": "Coastal Environments of the Southeastern U.S. (Laboratory)",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 110",
+      "title": "Introduction to Music",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 113",
+      "title": "Special Topics in Popular Music",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 114",
+      "title": "Introduction to Music Theory",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 115",
+      "title": "Music Theory I",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 140",
+      "title": "Jazz and American Popular Music",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "MUSC 210",
+      "title": "Understanding the Psychology of Music",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "School of Music",
+      "overlay": false,
+      "effective_term": "Summer 2017"
+    },
+    {
+      "code": "PHIL 103",
+      "title": "Special Topics in Ethics and Values",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 111",
+      "title": "Introduction to Logic II",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "PHIL 114",
+      "title": "Introduction to Formal Logic I",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "PHIL 115",
+      "title": "Introduction to Formal Logic II",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "PHIL 211",
+      "title": "Contemporary Moral Issues",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 213",
+      "title": "Communicating Moral Issues",
+      "outcomes": [
+        "CMS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "PHIL 320",
+      "title": "Ethics",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 321",
+      "title": "Medical Ethics",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 322",
+      "title": "Environmental Ethics",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 324",
+      "title": "Business Ethics",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "PHIL 325",
+      "title": "Engineering Ethics",
+      "outcomes": [
+        "CMS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHIL 335",
+      "title": "Disobedience, Dissent, and Revolution",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2021"
+    },
+    {
+      "code": "PHYS 101",
+      "title": "The Physics of How Things Work I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "PHYS 101L",
+      "title": "The Physics of How Things Work I Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "PHYS 201",
+      "title": "General Physics I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 201L",
+      "title": "General Physics Laboratory I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 202",
+      "title": "General Physics II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 202L",
+      "title": "General Physics Laboratory II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 211",
+      "title": "Essentials of Physics I",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 211L",
+      "title": "Essentials of Physics I Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 212",
+      "title": "Essentials of Physics II",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PHYS 212L",
+      "title": "Essentials of Physics II Lab",
+      "outcomes": [
+        "SCI"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "POLI 101",
+      "title": "Introduction to Global Politics",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "POLI 201",
+      "title": "American National Government",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "POLI 240",
+      "title": "Language Conflict and Language Rights",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2018"
+    },
+    {
+      "code": "POLI 302",
+      "title": "Classical and Medieval Political Theory",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "POLI 303",
+      "title": "Modern Political Theory",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "POLI 304",
+      "title": "Contemporary Political Theory",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PORT 121",
+      "title": "Elementary Portuguese",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PORT 122",
+      "title": "Basic Proficiency in Portuguese",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "PSYC 101",
+      "title": "Introduction to Psychology",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "RELG 101",
+      "title": "Exploring Religion",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "RELG 205",
+      "title": "Morality, Ethics, and Religion",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2014"
+    },
+    {
+      "code": "RELG 219",
+      "title": "Ethics and the Good Life in Asian Religions",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2025"
+    },
+    {
+      "code": "RELG 220",
+      "title": "Introduction to Buddhism",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2025"
+    },
+    {
+      "code": "RELG 270",
+      "title": "Religion and the Arts",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2015"
+    },
+    {
+      "code": "RELG 338",
+      "title": "Religion and Sociology",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "RUSS 121",
+      "title": "Elementary Russian",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "RUSS 122",
+      "title": "Basic Proficiency in Russian",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "RUSS 280",
+      "title": "Introduction to Russian Civilization",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SAEL 200",
+      "title": "Social Advocacy and Ethical Life",
+      "outcomes": [
+        "CMS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SOCY 101",
+      "title": "Introductory Sociology",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2014"
+    },
+    {
+      "code": "SOCY 301",
+      "title": "Sex and Gender",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2018"
+    },
+    {
+      "code": "SOCY 307",
+      "title": "Religion and Sociology",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "SOCY 309",
+      "title": "An Introduction to Social Inequality",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "SOCY 310",
+      "title": "Social Demography",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "SOCY 340",
+      "title": "Introduction to Social Problems",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "SOCY 355",
+      "title": "Race and Ethnic Relations",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2017"
+    },
+    {
+      "code": "SOST 201",
+      "title": "Introduction to Southern Studies 1580-1900",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2023"
+    },
+    {
+      "code": "SOST 202",
+      "title": "Introduction to Southern Studies: The Twentieth Century",
+      "outcomes": [
+        "GHS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2023"
+    },
+    {
+      "code": "SOST 206",
+      "title": "Popular Musics of the U.S. South",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2025"
+    },
+    {
+      "code": "SOST 280",
+      "title": "The Literary South",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2024"
+    },
+    {
+      "code": "SOWK 222",
+      "title": "Social Welfare Policies and Programs",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "Social Work",
+      "overlay": false,
+      "effective_term": "Fall 2018"
+    },
+    {
+      "code": "SPAN 109",
+      "title": "Beginning Spanish I",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPAN 110",
+      "title": "Beginning Spanish II",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPAN 111",
+      "title": "Intensive Beginning Spanish",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPAN 121",
+      "title": "Elementary Spanish",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPAN 122",
+      "title": "Basic Proficiency in Spanish",
+      "outcomes": [
+        "GFL"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPAN 220",
+      "title": "Selected Works of Hispanic Literature in English Translation",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPCH 140",
+      "title": "Public Communication",
+      "outcomes": [
+        "CMS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "SPCH 145",
+      "title": "Online Public Communication",
+      "outcomes": [
+        "CMS",
+        "INF"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Spring 2017"
+    },
+    {
+      "code": "SPCH 213",
+      "title": "Communicating Moral Issues",
+      "outcomes": [
+        "CMS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2016"
+    },
+    {
+      "code": "SPCH 230",
+      "title": "Business and Professional Speaking",
+      "outcomes": [
+        "CMS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2015"
+    },
+    {
+      "code": "SPCH 260",
+      "title": "Argumentation and Debate",
+      "outcomes": [
+        "CMS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2015"
+    },
+    {
+      "code": "SPTE 385",
+      "title": "Ethics in Sport and Entertainment Business",
+      "outcomes": [
+        "VSR"
+      ],
+      "college": "College Hosp Retail Sport Mgmt",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    },
+    {
+      "code": "STAT 110",
+      "title": "Introduction to Statistical Reasoning",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "STAT 112",
+      "title": "Statistics and the Media",
+      "outcomes": [
+        "ARP",
+        "INF"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "STAT 201",
+      "title": "Elementary Statistics",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "STAT 205",
+      "title": "Elementary Statistics for the Biological and Life Sciences",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "STAT 206",
+      "title": "Elementary Statistics for Business",
+      "outcomes": [
+        "ARP"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Spring 2016"
+    },
+    {
+      "code": "THEA 170",
+      "title": "Fundamentals of Acting",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "THEA 181",
+      "title": "Shakespeare in Performance",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "THEA 200",
+      "title": "Understanding and Appreciation of Theatre",
+      "outcomes": [
+        "AIU"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "WGST 112",
+      "title": "Introduction to Women's and Gender Studies",
+      "outcomes": [
+        "GSS",
+        "VSR"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": true,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "WGST 113",
+      "title": "Women's Health",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "WGST 210",
+      "title": "Human Life Cycles in Different Cultures",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2013"
+    },
+    {
+      "code": "WGST 300",
+      "title": "Sex and Gender",
+      "outcomes": [
+        "GSS"
+      ],
+      "college": "McCausland Arts and Sciences",
+      "overlay": false,
+      "effective_term": "Fall 2020"
+    }
+  ]
+}
