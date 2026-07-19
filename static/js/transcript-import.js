@@ -1,77 +1,65 @@
-/* Connect the reusable transcript dialog to local PDF extraction and profile state. */
-const TranscriptImport = {
-    init() {
-        if (typeof TranscriptUploadDialog === 'undefined') return;
-        TranscriptUploadDialog.init({
-            processor: input => this.process(input),
-            applyHandler: detail => this.apply(detail),
-        });
-    },
+/*
+ * Composition point for the fenced transcript feature.
+ *
+ * The logic moved to static/js/features/transcript/index.js. What is left is
+ * the wiring: this file is the only place that knows the feature is driven by
+ * API, State, Profile and DegreePlan, and it is deliberately the boring half.
+ *
+ * TranscriptImport is the feature instance rather than a wrapper around it.
+ * Wrapping was tried during the history extraction and dropped: a facade that
+ * forwards methods drops anything a caller replaces on the object, and the
+ * failure is silent because the forwarding still works.
+ */
+const TranscriptImport = (() => {
+    const factory = (typeof Features !== 'undefined' && Features.transcript)
+        || (typeof require === 'function' ? require('./features/transcript/index.js') : null);
+    if (!factory) throw new Error('transcript feature is not loaded');
 
-    progressEvent(onProgress, event = {}) {
-        if (typeof onProgress !== 'function') return;
-        const phase = String(event.phase || 'extracting');
-        const sourcePercent = Math.max(0, Math.min(100, Number(event.percent) || 0));
-        const ranges = {
-            opening: [2, 12, 'Opening PDF'],
-            extracting: [12, 92, 'Reading transcript pages'],
-            parsing: [92, 100, 'Organizing coursework'],
-        };
-        const [start, end, message] = ranges[phase] || ranges.extracting;
-        onProgress({
-            percent: Math.round(start + ((end - start) * sourcePercent / 100)),
-            message,
-        });
-    },
+    const feature = factory.createTranscriptFeature({
+        parsePDF: (file, options) => API.parseTranscriptPDF(file, options),
 
-    async process({ file, level, onProgress }) {
-        return API.parseTranscriptPDF(file, {
-            level,
-            onProgress: event => this.progressEvent(onProgress, event),
-        });
-    },
+        applyAttempts: (attempts, options) => State.applyTranscriptAttempts(attempts, options),
 
-    refreshViews() {
-        if (typeof Profile !== 'undefined') {
-            Profile.renderCompletedChips();
-            Profile.renderCreditSummary();
-        }
-        if (typeof DegreePlan !== 'undefined') {
-            DegreePlan.buildCompletedSemesters();
-            DegreePlan.updateSidebar();
-            DegreePlan.render();
-        }
-    },
+        restoreSnapshot: snapshot => State.restoreTranscriptSnapshot(snapshot),
 
-    persist() {
-        // Not savePlan(): that snapshots the whole application state over the
-        // student's saved plan, so importing a transcript destroyed the schedule
-        // stored under that name. An import only learns coursework.
-        State.saveCompletedCoursework();
-    },
+        // Coursework only. savePlan() would write the whole application over
+        // the student's stored plan, which is how importing a transcript used
+        // to destroy the schedule saved under that name.
+        persist: () => State.saveCompletedCoursework(),
 
-    async apply({ result, mode, level }) {
-        const attempts = Array.isArray(result?.attempts)
-            ? result.attempts
-            : Array.isArray(result?.records) ? result.records : [];
-        if (!attempts.length) throw new Error('No course attempts are available to import.');
+        /*
+         * Everything that has to repaint after coursework changes. These stay
+         * behind typeof guards because this file runs in a browser where load
+         * order is a fact of the markup, not a promise -- but the guards belong
+         * out here, where a missing global is genuinely possible, rather than
+         * inside the feature, where it never is.
+         */
+        onApplied: () => {
+            if (typeof Profile !== 'undefined') {
+                Profile.renderCompletedChips();
+                Profile.renderCreditSummary();
+            }
+            if (typeof DegreePlan !== 'undefined') {
+                DegreePlan.buildCompletedSemesters();
+                DegreePlan.updateSidebar();
+                DegreePlan.render();
+            }
+        },
+    });
 
-        const applied = State.applyTranscriptAttempts(attempts, { mode, level });
-        this.persist();
-        this.refreshViews();
+    /*
+     * Supply the dialog here so the feature never reaches for a global, while
+     * boot keeps calling init() with no arguments. Defaulting at the seam
+     * rather than inside the feature is the whole point: the feature works with
+     * any dialog, and this file is the one that knows which one exists.
+     */
+    const start = feature.init.bind(feature);
+    feature.init = dialog => start(
+        dialog ?? (typeof TranscriptUploadDialog !== 'undefined' ? TranscriptUploadDialog : null),
+    );
 
-        return {
-            message: applied.duplicates > 0
-                ? `${applied.added} new attempts added. ${applied.duplicates} duplicates were already in your profile.`
-                : `${applied.added} attempts added. ${applied.completedCourses} completed courses are ready for degree planning.`,
-            undo: async () => {
-                State.restoreTranscriptSnapshot(applied.snapshot);
-                this.persist();
-                this.refreshViews();
-            },
-        };
-    },
-};
+    return feature;
+})();
 
 if (typeof globalThis !== 'undefined') {
     globalThis.TranscriptImport = TranscriptImport;

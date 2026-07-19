@@ -632,9 +632,51 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > it: `_escape` reached for `document.createElement` to escape text, a DOM
 > dependency inside a function that reads as pure. It is now declared.
 >
-> **Still outstanding:** the other nine, in the plan's order. Each is the same
-> three-step shape, and the first one establishes the pattern and the test
-> vocabulary for the rest.
+> **`map` is fenced** (`static/js/features/map/`), 839 lines with fourteen
+> inbound methods. The coupling was narrower than the size implied: one API
+> method, three State properties, a route cache, and `fetch`. Extraction found
+> three undeclared dependencies, and one of them is a general lesson.
+>
+> Guards of the form `typeof API === 'undefined' || !API.getDetails` read as
+> defensive, but inside a fenced module the global is *always* undefined, so
+> every guarded path returned early and the feature silently did nothing. A seam
+> substitution that rewrites calls does not catch them, because they test
+> existence rather than call. Check for them explicitly in every remaining
+> extraction. `fetch` was the second: invisible until a test injected its own and
+> saw zero calls.
+>
+> DOM and Leaflet stay ambient there, deliberately. A campus map needs a document
+> and a mapping library; injecting them is ceremony that does not make the module
+> replaceable. The fence that earns its keep is around the application's own
+> state and data access.
+>
+> **`transcript` is fenced** (`static/js/features/transcript/`), and it was the
+> cheapest of the three because its boundary was already mostly drawn:
+> `transcript-pdf.js` and `transcript-upload-dialog.js` reach for nothing but
+> `pdfjsLib` and their own dialog. All the coupling lived in the 80-line seam
+> file, which is what moved.
+>
+> The `map` lesson paid off immediately. `refreshViews()` called Profile and
+> DegreePlan behind `typeof` guards — exactly the pattern that would have failed
+> silently inside a fence. It is now an `onApplied()` dependency, and the guards
+> live at the composition point where a missing global is genuinely possible.
+>
+> Extraction also caught a test that had stopped testing anything: a guard
+> asserting transcript import uses the narrow writer sliced source from a
+> `persist()` literal, and when that literal moved, `indexOf` returned −1, the
+> slice came back empty, and `doesNotMatch` passed against nothing. It now
+> asserts its own anchor first. Worth checking for elsewhere — source-text
+> assertions fail open by default.
+>
+> **Still outstanding:** the other seven, in the plan's order. Each is the same
+> three-step shape, and the pattern plus test vocabulary is now established
+> across an easy case, a hard one, and a pre-drawn one.
+>
+> **A caveat that belongs with the status, not buried in it:** two user-facing
+> bugs this session were caught only by clicking through a browser on a fully
+> green suite — a decode regression that broke schedule generation entirely, and
+> a calendar that rendered blank over restored state. Neither suite noticed.
+> Fencing work should keep ending in a browser, not in a test summary.
 
 ### Phase 7 — Optional: fenced features and accounts. Three to five months.
 

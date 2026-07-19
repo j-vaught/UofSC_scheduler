@@ -99,9 +99,20 @@ test('saving coursework for an unseen plan name creates it rather than throwing'
     sameValue(state.savedPlans['Never saved before'].completedCourses, ['ENGL 101']);
 });
 
+/*
+ * Anchored on `persist` rather than the old `persist()` literal, which stopped
+ * existing when the feature was fenced and persist became a dependency supplied
+ * at the composition point. indexOf returned -1, the slice came back empty, and
+ * doesNotMatch passed against nothing -- so this guard would have gone on
+ * reporting success while checking no code at all. The explicit anchor
+ * assertion below is there to make that failure mode loud next time.
+ */
 test('transcript import calls the narrow writer, not the whole-state one', () => {
     const source = fs.readFileSync(path.join(ROOT, 'static/js/transcript-import.js'), 'utf8');
-    const persist = source.slice(source.indexOf('persist()'), source.indexOf('persist()') + 400);
+    const at = source.indexOf('persist:');
+    assert.notEqual(at, -1, 'the persist seam moved; this test is no longer reading it');
+
+    const persist = source.slice(at, at + 400);
     assert.match(persist, /State\.saveCompletedCoursework\(\)/);
     assert.doesNotMatch(
         persist,
