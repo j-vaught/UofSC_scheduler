@@ -307,7 +307,141 @@
   "plan_format": "four_year",
   "program": "Bachelor of Arts (B.A.)",
   "program_family_id": "program_90c8200fa2cfb7aa",
-  "required_courses": [],
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "FREN 309",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_78b1434529cbddac",
+      "title": "Reading French Texts",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "FREN 310",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fb087f9133d4bb0e",
+      "title": "Advanced Oral Communication",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "FREN 311",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a40b409aef81b49d",
+      "title": "French Composition (offered spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "FORL 511",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_55f12af9b66ef4f8",
+      "title": "Teaching Foreign Languages in Secondary",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "FORL 472",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ec0a3b67149c6174",
+      "title": "Intro. to Technology in Language Education",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "program_requirements",
+      "code": "FORL 510",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2050cd1f7f040291",
+      "title": "Teaching Second Languages to Young",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "FORL 448",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5c6e065e7c7c5f61",
+      "title": "Teaching Internship in Foreign Languages9",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "FORL 474",
+      "corequisites": [],
+      "credits": 15,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_da0591f3a9c6a971",
+      "title": "Directed Teaching in Foreign Languages10",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -1077,7 +1211,7 @@
   "total_credits_required": 120,
   "validation": {
     "low_confidence_requirement_count": 25,
-    "requirement_count": 0,
+    "requirement_count": 36,
     "requires_review": true,
     "semester_count": 8
   },

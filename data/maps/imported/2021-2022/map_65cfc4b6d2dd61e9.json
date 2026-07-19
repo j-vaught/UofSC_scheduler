@@ -120,7 +120,7 @@
       "credits_each": 3,
       "credits_required": 3,
       "id": "req_b6be14a5b011f3a8",
-      "label": "SLIS 325 Children\u2019s Literature or ENGL 431A Children\u2019s Literature 531A & 431B) or ENGL 431B Picture Books",
+      "label": "SLIS 325 Children’s Literature or ENGL 431A Children’s Literature 531A & 431B) or ENGL 431B Picture Books",
       "options": [
         "SLIS 325",
         "ENGL 431A",
@@ -163,7 +163,7 @@
       "credits_each": 3,
       "credits_required": 3,
       "id": "req_ec500045d979126e",
-      "label": "EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. or EDEX 692 P\u2019ships in Early Childhood Special Ed.7",
+      "label": "EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. or EDEX 692 P’ships in Early Childhood Special Ed.7",
       "options": [
         "EDEC 510",
         "EDEX 692"
@@ -204,7 +204,285 @@
   "plan_format": "four_year",
   "program": "Bachelor of Arts (B.A.)",
   "program_family_id": "program_52daadc7556fa49d",
-  "required_courses": [],
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "EDTE 201",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0cd676579f1e6e05",
+      "title": "Issues & Trends in Teaching & Learning",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 221",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2637eef28735e0bb",
+      "title": "Basic Concepts of Elementary Mathematics",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 250",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a5c6f62f455d80b1",
+      "title": "Play and Early Learning",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "MATH 222",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_50068a80b7e7e17a",
+      "title": "Basic Concepts of Elementary Mathematics II",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "carolina_core": "GSS",
+      "category": "carolina_core",
+      "code": "GEOG 121",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_b439b92a89c26b9d",
+      "title": "Carolina Core GSS: GEOG 121 Globalization & World",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 340",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a875c35217c27a3f",
+      "title": "& 340P The Young Child: Development, Care,",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "EDPY 401",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_11211a15acb84307",
+      "title": "Learners and the Diversity of Learning",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "program_requirements",
+      "code": "PEDU 575",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_143c7272be3fe1f1",
+      "title": "Physical Education for the Classroom Teacher",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDFI 300",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f65edb4cb7888e51",
+      "title": "Schools in Communities",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 336",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_be7add570b613d96",
+      "title": "Culturally Relevant Pedagogy in Early",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDRD 345",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_fe4e4b53ab99757d",
+      "title": "Teaching Reading in Early Childhood Ed.8",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 342",
+      "corequisites": [],
+      "credits": 6,
+      "prerequisites": [],
+      "source_requirement_id": "req_beff62b1a7bb4c21",
+      "title": "& 342P The Young Child: Development,",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 344",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_cbf34acb5e6d06db",
+      "title": "Supporting Linguistic Pluralism Across the",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDRM 423",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_cb409db1ece486c1",
+      "title": "Introduction to Classroom Assessment8",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 441",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4cdf0e9e0eff16d9",
+      "title": "Teaching Mathematics in Early Childhood8",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 442",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_883e88781e8f9807",
+      "title": "Teaching Science in Early Childhood8",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 443",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_4caef9fd2a9628f9",
+      "title": "Internship in Integrated Curriculum in Early",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 444",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_34f5d185435f1a8a",
+      "title": "Teaching Soc. Studies in Early Childhood8",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDRD 445",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_61170cd641ad3898",
+      "title": "Teaching Writing in Early Childhood",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "EDEC 492",
+      "corequisites": [],
+      "credits": 9,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ea4a055c19da974b",
+      "title": "Internship in Curriculum, Assessment,",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    },
+    {
+      "carolina_core": "INT",
+      "category": "major_courses",
+      "code": "EDEC 591",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_dca63f7fa19fdb19",
+      "title": "Seminar on Teaching in Early Childhood8",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -496,8 +774,8 @@
             "PR"
           ],
           "sequence": 4,
-          "source_text": "SLIS 325 Children\u2019s Literature 3 C PR ENGL 101 & 102 (ENGL or ENGL 431A Children\u2019s Literature 531A & 431B) or ENGL 431B Picture Books",
-          "title": "SLIS 325 Children\u2019s Literature or ENGL 431A Children\u2019s Literature 531A & 431B) or ENGL 431B Picture Books",
+          "source_text": "SLIS 325 Children’s Literature 3 C PR ENGL 101 & 102 (ENGL or ENGL 431A Children’s Literature 531A & 431B) or ENGL 431B Picture Books",
+          "title": "SLIS 325 Children’s Literature or ENGL 431A Children’s Literature 531A & 431B) or ENGL 431B Picture Books",
           "warnings": []
         },
         {
@@ -714,8 +992,8 @@
             "MR"
           ],
           "sequence": 5,
-          "source_text": "! EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. 3 C * MR or EDEX 692 P\u2019ships in Early Childhood Special Ed.7",
-          "title": "EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. or EDEX 692 P\u2019ships in Early Childhood Special Ed.7",
+          "source_text": "! EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. 3 C * MR or EDEX 692 P’ships in Early Childhood Special Ed.7",
+          "title": "EDEC 510 Parent/Fam. Dyn. in Early Childhood Ed. or EDEX 692 P’ships in Early Childhood Special Ed.7",
           "warnings": []
         }
       ]
@@ -975,7 +1253,7 @@
   "total_credits_required": 122,
   "validation": {
     "low_confidence_requirement_count": 7,
-    "requirement_count": 0,
+    "requirement_count": 37,
     "requires_review": true,
     "semester_count": 8
   },

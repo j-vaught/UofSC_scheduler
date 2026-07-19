@@ -418,7 +418,79 @@
   "plan_format": "four_year",
   "program": "Bachelor of Science (B.S.)",
   "program_family_id": "program_4ed71daf991b8651",
-  "required_courses": [],
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_cf35eb9305eb888d",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 201",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_9999cd325605c29f",
+      "title": "Elementary Statistics",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_16a2234c878e5377",
+      "title": "General Applications Programming",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOG 495",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_2c955be651e220df",
+      "title": "Seminar in Geography",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -1259,7 +1331,7 @@
   "total_credits_required": 120,
   "validation": {
     "low_confidence_requirement_count": 31,
-    "requirement_count": 0,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

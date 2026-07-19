@@ -39,7 +39,7 @@
       "credits_each": 4,
       "credits_required": 4,
       "id": "req_e58df653378f2507",
-      "label": "PHYS 201 & 201L \u2013 General Physics I or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS",
+      "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
       "options": [
         "PHYS 201",
         "PHYS 211"
@@ -88,7 +88,7 @@
       "credits_each": 4,
       "credits_required": 4,
       "id": "req_f769b79b5bc79823",
-      "label": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II 211 and MATH 142 (PHYS 212)",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II 211 and MATH 142 (PHYS 212)",
       "options": [
         "PHYS 202",
         "PHYS 212",
@@ -274,7 +274,217 @@
   "plan_format": "four_year",
   "program": "Bachelor of Science (B.S.)",
   "program_family_id": "program_e2c8b92dcfa94bcb",
-  "required_courses": [],
+  "required_courses": [
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 101",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f61f8962aed8d84f",
+      "title": "The Ocean Environment",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 141",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e0fc7ad33af20342",
+      "title": "Calculus 13",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_deb7d4225757853c",
+      "title": "& 111L – General Chemistry I",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_84479d5b2eba349e",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "MSCI 102",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b6bbe1be8228e4dc",
+      "title": "The Living Ocean",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "ARP",
+      "category": "carolina_core",
+      "code": "MATH 142",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4cb2143e616041bb",
+      "title": "Calculus II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "CHEM 112",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_7d8da35c9f5c5a50",
+      "title": "& 112L – General Chemistry II",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_40096859dd730968",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 311",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_33377ceaa219dd3d",
+      "title": "Biology of Marine Organisms (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 313",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_693f28e541bcb4e9",
+      "title": "The Chemistry of the Sea (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 314",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c7135168257f1f14",
+      "title": "Physical Oceanography (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 2
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_e92e4eb89c03a54f",
+      "title": "General Applications Programming",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 302",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_f429284605da40a4",
+      "title": "Rocks and Minerals (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "STAT 515",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_4de99b967fb8efb3",
+      "title": "Statistical Methods I",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 325",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_0ab5e546197cbc0d",
+      "title": "Stratigraphy & Sedimentary Basins10 (fall",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    },
+    {
+      "category": "major_courses",
+      "code": "MSCI 505",
+      "corequisites": [],
+      "credits": 1,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b1b7d3583ec277d3",
+      "title": "Senior Seminar",
+      "typical_semester": "Spring",
+      "typical_year": 4
+    }
+  ],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -332,8 +542,8 @@
             "PR"
           ],
           "sequence": 3,
-          "source_text": "! CHEM 111 & 111L \u2013 General Chemistry I 4 C PR Math 115 or Math placement test",
-          "title": "CHEM 111 & 111L \u2013 General Chemistry I",
+          "source_text": "! CHEM 111 & 111L – General Chemistry I 4 C PR Math 115 or Math placement test",
+          "title": "CHEM 111 & 111L – General Chemistry I",
           "warnings": []
         },
         {
@@ -430,8 +640,8 @@
             "PR"
           ],
           "sequence": 4,
-          "source_text": "! CHEM 112 & 112L \u2013 General Chemistry II 4 C PR CHEM 111 or 141 and MATH 111, 115",
-          "title": "CHEM 112 & 112L \u2013 General Chemistry II",
+          "source_text": "! CHEM 112 & 112L – General Chemistry II 4 C PR CHEM 111 or 141 and MATH 111, 115",
+          "title": "CHEM 112 & 112L – General Chemistry II",
           "warnings": []
         },
         {
@@ -532,8 +742,8 @@
             "PR"
           ],
           "sequence": 3,
-          "source_text": "! PHYS 201 & 201L \u2013 General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS",
-          "title": "PHYS 201 & 201L \u2013 General Physics I or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS",
+          "source_text": "! PHYS 201 & 201L – General Physics I 4 C PR C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
+          "title": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS",
           "warnings": []
         },
         {
@@ -652,8 +862,8 @@
             "PR"
           ],
           "sequence": 4,
-          "source_text": "! PHYS 202 & 202L \u2013 General Physics II 4 C PR PHYS 201 (PHYS 202 only); PHYS or PHYS 212 & 212L \u2013 Essentials of Physics II 211 and MATH 142 (PHYS 212)",
-          "title": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II 211 and MATH 142 (PHYS 212)",
+          "source_text": "! PHYS 202 & 202L – General Physics II 4 C PR PHYS 201 (PHYS 202 only); PHYS or PHYS 212 & 212L – Essentials of Physics II 211 and MATH 142 (PHYS 212)",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II 211 and MATH 142 (PHYS 212)",
           "warnings": []
         },
         {
@@ -1066,7 +1276,7 @@
   "total_credits_required": 128,
   "validation": {
     "low_confidence_requirement_count": 17,
-    "requirement_count": 0,
+    "requirement_count": 38,
     "requires_review": true,
     "semester_count": 8
   },

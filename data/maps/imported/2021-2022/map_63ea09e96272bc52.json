@@ -68,7 +68,7 @@
       "credits_each": 4,
       "credits_required": 4,
       "id": "req_e58df653378f2507",
-      "label": "PHYS 201 & 201L \u2013 General Physics I or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+      "label": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
       "options": [
         "PHYS 201",
         "PHYS 211"
@@ -105,7 +105,7 @@
       "credits_each": 4,
       "credits_required": 4,
       "id": "req_0d50aa459691f483",
-      "label": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 101 & 101L \u2013 Biological Principles I",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
       "options": [
         "PHYS 202",
         "PHYS 212",
@@ -142,7 +142,7 @@
       "credits_each": 4,
       "credits_required": 4,
       "id": "req_cfddfdfd478f0adc",
-      "label": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 102 & 102L \u2013 Biological Principles I",
+      "label": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
       "options": [
         "PHYS 202",
         "PHYS 212",
@@ -345,7 +345,140 @@
   "plan_format": "four_year",
   "program": "Bachelor of Science (B.S.)",
   "program_family_id": "program_5e56134d36925599",
-  "required_courses": [],
+  "required_courses": [
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_29a20eab13005398",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "program_requirements",
+      "code": "UNIV 101",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_e6f9205b6c9a4cee",
+      "title": "The Student in the University",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 102",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_89e698d5c7b8e693",
+      "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "carolina_core": "SCI",
+      "category": "carolina_core",
+      "code": "CHEM 111",
+      "corequisites": [],
+      "credits": 4,
+      "prerequisites": [],
+      "source_requirement_id": "req_7c75ca07012d04e2",
+      "title": "& 111L – General Chemistry I",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 302",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_a605a8a0b038f659",
+      "title": "Rocks and Minerals (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 325",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_5f75185b5a360521",
+      "title": "Stratigraphy & Sed. Basins (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 345",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_83e10d3f77d79c72",
+      "title": "Igneous & Metamorphic Proc. (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 2
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 355",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_16497c341a12e5a9",
+      "title": "Structural Geol. & Tectonics (fall only)",
+      "typical_semester": "Fall",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 315",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_b80364fde50e795b",
+      "title": "Surface & Near Surface Proc. (spring only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "major_courses",
+      "code": "GEOL 500",
+      "corequisites": [],
+      "credits": 4,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_d6d45f7f2e6168c7",
+      "title": "Field Geology8 (summer only)",
+      "typical_semester": "Spring",
+      "typical_year": 3
+    },
+    {
+      "category": "college_requirements",
+      "code": "CSCE 102",
+      "corequisites": [],
+      "credits": 3,
+      "prerequisites": [],
+      "source_requirement_id": "req_d70b4a2ba3afe8d5",
+      "title": "General Applications Programming",
+      "typical_semester": "Fall",
+      "typical_year": 4
+    }
+  ],
   "schema_version": 1,
   "semester_plan": [
     {
@@ -499,8 +632,8 @@
             "CC-SCI"
           ],
           "sequence": 3,
-          "source_text": "CHEM 111 & 111L \u2013 General Chemistry I 4 CC-SCI MATH 115 or Math placement test score",
-          "title": "CHEM 111 & 111L \u2013 General Chemistry I",
+          "source_text": "CHEM 111 & 111L – General Chemistry I 4 CC-SCI MATH 115 or Math placement test score",
+          "title": "CHEM 111 & 111L – General Chemistry I",
           "warnings": []
         },
         {
@@ -597,8 +730,8 @@
             "CC-SCI"
           ],
           "sequence": 3,
-          "source_text": "PHYS 201 & 201L \u2013 General Physics I 4 CC-SCI C or better in MATH 111/111i/112/ or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
-          "title": "PHYS 201 & 201L \u2013 General Physics I or PHYS 211 & 211L \u2013 Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+          "source_text": "PHYS 201 & 201L – General Physics I 4 CC-SCI C or better in MATH 111/111i/112/ or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
+          "title": "PHYS 201 & 201L – General Physics I or PHYS 211 & 211L – Essentials of Physics I 115/116/122/141 or higher (PHYS 201);",
           "warnings": []
         },
         {
@@ -662,8 +795,8 @@
             "PR"
           ],
           "sequence": 2,
-          "source_text": "PHYS 202 & 202L \u2013 General Physics II 4 PR See Bulletin listing. or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 101 & 101L \u2013 Biological Principles I",
-          "title": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 101 & 101L \u2013 Biological Principles I",
+          "source_text": "PHYS 202 & 202L – General Physics II 4 PR See Bulletin listing. or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 101 & 101L – Biological Principles I",
           "warnings": []
         },
         {
@@ -745,8 +878,8 @@
             "PR"
           ],
           "sequence": 2,
-          "source_text": "PHYS 202 & 202L \u2013 General Physics II 4 PR See Bulletin listing. or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 102 & 102L \u2013 Biological Principles I",
-          "title": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 102 & 102L \u2013 Biological Principles I",
+          "source_text": "PHYS 202 & 202L – General Physics II 4 PR See Bulletin listing. or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
+          "title": "PHYS 202 & 202L – General Physics II or PHYS 212 & 212L – Essentials of Physics II or CHEM 112 & 112L – General Chemistry II or BIOL 102 & 102L – Biological Principles I",
           "warnings": []
         },
         {
@@ -1129,7 +1262,7 @@
   "total_credits_required": 120,
   "validation": {
     "low_confidence_requirement_count": 17,
-    "requirement_count": 0,
+    "requirement_count": 37,
     "requires_review": true,
     "semester_count": 8
   },
