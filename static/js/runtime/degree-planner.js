@@ -333,18 +333,19 @@
         const offeringHints = majorMap?.offering_hints || {};
         const remaining = computeRemaining(majorMap, completed, concentration);
         let remainingCourses = [...remaining.required_remaining];
-        for (const group of remaining.elective_groups_remaining) {
+        for (const [groupIndex, group] of remaining.elective_groups_remaining.entries()) {
             const slotCount = Math.max(1, Number(group.remaining_pick) || 1);
-            const totalCredits = Number(group.remaining_credits) || Number(group.credits_required) || 3;
+            const totalCredits = Number(group.remaining_credits) || Number(group.credits_required) || 0;
+            if (totalCredits <= 0) continue;
             const creditsEach = Number(group.credits_each) || (totalCredits / slotCount);
             for (let index = 0; index < slotCount; index += 1) {
                 remainingCourses.push({
-                    code: `[${group.label || 'Degree requirement'}${slotCount > 1 ? ` ${index + 1}` : ''}]`,
+                    code: `[REQ-${groupIndex + 1}-${index + 1}]`,
                     title: group.label || 'Degree requirement',
                     credits: creditsEach,
                     category: group.category || 'electives',
                     is_elective_slot: true,
-                    elective_group_id: group.id || '',
+                    elective_group_id: group.id || `requirement-${groupIndex + 1}`,
                     options: group.remaining_options || group.options || [],
                     prerequisites: [],
                     corequisites: [],

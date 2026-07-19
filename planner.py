@@ -309,20 +309,21 @@ def plan_degree(
     # Get remaining courses
     remaining = compute_remaining(major_map, completed, concentration)
     remaining_courses = list(remaining["required_remaining"])
-    for group in remaining["elective_groups_remaining"]:
+    for group_index, group in enumerate(remaining["elective_groups_remaining"]):
         slot_count = max(1, int(group.get("remaining_pick") or 1))
-        total_credits = group.get("remaining_credits") or group.get("credits_required") or 3
+        total_credits = group.get("remaining_credits") or group.get("credits_required") or 0
+        if total_credits <= 0:
+            continue
         credits_each = group.get("credits_each") or (total_credits / slot_count)
         for index in range(slot_count):
-            suffix = f" {index + 1}" if slot_count > 1 else ""
             remaining_courses.append(
                 {
-                    "code": f"[{group.get('label') or 'Degree requirement'}{suffix}]",
+                    "code": f"[REQ-{group_index + 1}-{index + 1}]",
                     "title": group.get("label") or "Degree requirement",
                     "credits": credits_each,
                     "category": group.get("category", "electives"),
                     "is_elective_slot": True,
-                    "elective_group_id": group.get("id", ""),
+                    "elective_group_id": group.get("id") or f"requirement-{group_index + 1}",
                     "options": group.get("remaining_options") or group.get("options") or [],
                     "prerequisites": [],
                     "corequisites": [],
