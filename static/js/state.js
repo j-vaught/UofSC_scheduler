@@ -502,9 +502,18 @@ const State = {
     PLANS_STORAGE_VERSION: 1,
     PLANS_STORAGE_KEY: 'uosc-scheduler-plans',
 
+    // Scoped through Keyspace so each device-local account keeps its own plans.
+    // Falls back to the bare key when Keyspace is absent, which is what the
+    // tests that load state.js on its own rely on.
+    _plansKey() {
+        return typeof Keyspace !== 'undefined'
+            ? Keyspace.key(this.PLANS_STORAGE_KEY)
+            : this.PLANS_STORAGE_KEY;
+    },
+
     _persist() {
         try {
-            localStorage.setItem(this.PLANS_STORAGE_KEY, JSON.stringify({
+            localStorage.setItem(this._plansKey(), JSON.stringify({
                 version: this.PLANS_STORAGE_VERSION,
                 plans: this.savedPlans,
             }));
@@ -538,7 +547,7 @@ const State = {
 
     _restore() {
         try {
-            const data = localStorage.getItem(this.PLANS_STORAGE_KEY);
+            const data = localStorage.getItem(this._plansKey());
             if (!data) return;
             const migrated = this._migratePlansDocument(JSON.parse(data));
             if (migrated) this.savedPlans = migrated;
