@@ -16,10 +16,10 @@ const Tabs = {
             this.switchTo(btn.dataset.tab);
         });
 
-        // Restore the URL tab first, then the last tab used on this device.
+        // Explicit links restore their requested tab. A plain site visit always
+        // opens Search so a previous session cannot hide the landing experience.
         const urlTab = this.tabFromUrl(new URL(window.location.href).searchParams.get('tab'));
-        const saved = localStorage.getItem('uosc-active-tab');
-        const initial = urlTab || this.tabFromUrl(saved) || 'semester';
+        const initial = urlTab || 'semester';
         this.switchTo(initial, { historyMode: 'none' });
         if (!urlTab) {
             history.replaceState({ ...(history.state || {}), tab: initial }, '', window.location.href);

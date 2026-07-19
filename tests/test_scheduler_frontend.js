@@ -3000,6 +3000,35 @@ test('Top-level tab history preserves Search when returning to an unparameterize
     assert.equal(tabs.current(), 'semester');
 });
 
+test('A plain site visit opens Search even when another tab was used previously', () => {
+    const switched = [];
+    const tabs = loadObject('static/js/tabs.js', 'Tabs', {
+        URL,
+        window: {
+            location: { href: 'https://scheduler.example/' },
+            addEventListener() {},
+        },
+        history: {
+            state: {},
+            replaceState() {},
+        },
+        localStorage: {
+            getItem() { return 'degree'; },
+            setItem() {},
+        },
+        document: {
+            getElementById() { return { addEventListener() {} }; },
+        },
+    });
+    tabs.switchTo = (tab, options) => switched.push({ tab, options });
+
+    tabs.init();
+
+    assert.equal(switched.length, 1);
+    assert.equal(switched[0].tab, 'semester');
+    assert.equal(switched[0].options.historyMode, 'none');
+});
+
 test('Changing terms does not run a hidden Search query from another tab', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
 
