@@ -668,7 +668,25 @@ The synthetic constructors matter disproportionately — grepping field *reads* 
 > asserts its own anchor first. Worth checking for elsewhere — source-text
 > assertions fail open by default.
 >
-> **Still outstanding:** the other seven, in the plan's order. Each is the same
+> **`profile` and `custom-major-map` are fenced**, and they are one item
+> because they were one cycle: the builder called six Profile methods and
+> Profile called two builder methods. Neither edge was broken by fencing the
+> cycle whole. Each edge became a dependency, so neither module knows the other
+> exists and the composition points decide the wiring.
+>
+> Between them they removed five existence-guarded ternaries, the pattern that
+> has now appeared in every single extraction. Their failure modes were all
+> quiet and all different: a saved map that never becomes active, a student's
+> own maps vanishing from the program list, and a saved custom map being
+> refetched from the network as though it were official.
+>
+> Fencing the builder's storage also exposed a real bug nobody was looking for.
+> Plans route their key through `Keyspace`; custom maps use a bare key, so every
+> device-local account on a shared machine sees and can delete the same ones.
+> Not fixed with the fence -- routing the key orphans maps already saved, so it
+> needs a migration. Recorded in TODO.md with a test pinning current behaviour.
+>
+> **Still outstanding:** the other five, in the plan's order. Each is the same
 > three-step shape, and the pattern plus test vocabulary is now established
 > across an easy case, a hard one, and a pre-drawn one.
 >
