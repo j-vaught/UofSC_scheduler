@@ -214,8 +214,6 @@ data/
     major_map_pdfs/     1,295 official PDFs + hash manifest
   curated/            Machine-extracted, then human-reviewed
     major_maps/         1,295 JSON records — source of truth for shipped maps
-  interim/            Machine output no release consumes yet
-    major_maps_llm/     1,295 staged LLM extractions
   generated/          Fully rebuildable from raw + scripts
     course_data.json, grade_analytics.json, major_maps_manifest.json
 
@@ -237,8 +235,9 @@ schemas/              major_map_llm_v1.schema.json — the LLM extraction
 
 <div class="note"><span class="lbl">Reading the data tree</span>
 <p><code>raw/</code> is what you cannot get back if you lose it. <code>generated/</code> is what a script
-rebuilds. The two in between are labelled honestly: <code>curated/</code> carries human review and
-<code>interim/</code> does not feed anything yet. A <code>.gitattributes</code> marks the generated trees
+rebuilds. The two in between are labelled honestly: <code>curated/</code> carries human review. A third tier,
+<code>interim/</code>, held a second extraction pass that no release consumed and has been
+removed; the toolchain that produced it remains. A <code>.gitattributes</code> marks the generated trees
 <code>-diff -merge linguist-generated=true</code>, so regenerated artifacts stay out of pull-request diffs
 and a conflict fails loudly instead of splicing two builds together.</p></div>
 </section>

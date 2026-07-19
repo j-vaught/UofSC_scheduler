@@ -130,7 +130,6 @@ scripts/              18 build scripts + README.md. See scripts/README.md.
 data/
   raw/         249M   Originals with no regeneration path — irreplaceable
   curated/      49M   Machine-extracted, then human-reviewed. Source of truth.
-  interim/      64M   Machine output no release consumes yet
   generated/    26M   Fully rebuildable from raw/ + scripts/
 
 static/         66M   THE DEPLOYED SITE. Name is load-bearing — every asset URL
@@ -144,8 +143,8 @@ schemas/              The LLM major-map extraction contract
 
 **`raw/` is what you cannot get back.** The 26 registrar workbooks have no regeneration path anywhere, and
 the 1,295 official major-map PDFs are hash-verified against a manifest. **`generated/` is what a script
-rebuilds** from those. The two in between are labelled honestly: `curated/` carries human review,
-`interim/` does not feed a release yet.
+rebuilds** from those. `curated/` sits between them: machine-extracted, then human-reviewed, and the only
+tier the release build reads.
 
 A `.gitattributes` marks the generated trees `-diff -merge linguist-generated=true`, so regenerated artifacts
 stay out of pull-request diffs and a conflict fails loudly rather than splicing two builds together.

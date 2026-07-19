@@ -40,6 +40,11 @@ output, and stage 15 packages it.
 | 14 | `build_static_release.py` | everything above | `static/data/releases/<id>/` + `manifest.json` |
 | 15 | `build_static_site.py` | `static/` | `dist/client/` + `dist/server/` |
 
+\* Stages 9-11 build a second extraction tier in `data/interim/`. That tier was never
+converted into `data/curated/` and its committed data has been removed, so these stages
+are currently dormant. The scripts are kept because they can regenerate it. See
+[TODO.md](../TODO.md).
+
 ## Libraries, not entry points
 
 `static_release.py` has no `__main__`. It holds the integrity primitives every release
