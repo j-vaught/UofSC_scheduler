@@ -149,7 +149,7 @@ forward from prose.</p>
   <div class="stat"><b>509</b><span>Release artifacts</span></div>
   <div class="stat"><b>39.5 MB</b><span>Verified payload</span></div>
   <div class="stat"><b>1,295</b><span>Major maps</span></div>
-  <div class="stat"><b>101 / 238</b><span>Python / JS tests</span></div>
+  <div class="stat"><b>83 / 238</b><span>Python / JS tests</span></div>
 </div>
 
 <!-- ───────────────────────── OVERVIEW ───────────────────────── -->
@@ -172,7 +172,7 @@ uploaded advising transcript. Plans and transcript-derived progress never leave 
 ranking, the schedule solver, prerequisite evaluation, transcript parsing, degree planning, and offering
 analysis. Hosting serves files and forwards exactly three validated read-only requests to fixed upstream
 University addresses, because those APIs do not authorize a cross-origin browser caller. Python is offline
-build tooling and a parity oracle. No visitor ever executes it, and
+build tooling only. No visitor ever executes it, and
 <code>scripts/build_static_site.py</code> refuses to copy <code>.py</code>, <code>.pyc</code>,
 <code>.db</code>, or <code>.sqlite</code> into the deployed tree at all.</p>
 
@@ -199,14 +199,11 @@ upstream calls are reserved for seat counts and faculty names.</p>
 <p>Four data directories carry meaning. The distinction they encode is <em>what can be rebuilt</em>, which
 was previously invisible.</p>
 
-<pre><code>src/                  Application modules and offline tooling
-  scheduler.py        Reference solver — parity oracle for solver-core.js
-  planner.py          Reference degree planner — parity oracle
-  transcript.py       Reference transcript parser — parity oracle
-  offering_analyzer.py Reference offering summaries — parity oracle
-  grade_pipeline.py   Registrar workbook ingestion and Banner matching
-  build_embeddings.py Semantic-search vector generation
+<pre><code>src/                  Offline data generation. Three entry points, no
+                      importers by design — each is run by hand per cycle.
   scrape_courses.py   Bulletin catalog scrape
+  build_embeddings.py Semantic-search vector generation
+  grade_pipeline.py   Registrar workbook ingestion and Banner matching
 
 scripts/              18 build scripts + README.md. Name is load-bearing:
                       `from scripts.X import Y` resolves through __init__.py.
@@ -234,7 +231,7 @@ docs/
   manual.html         This document — the single documentation source
   screenshots/        Feature-tour images used by README.md
 
-tests/                14 Python + 17 JavaScript suites
+tests/                12 Python + 17 JavaScript suites
 schemas/              major_map_llm_v1.schema.json — the LLM extraction
                       contract, loaded by three scripts and one test</code></pre>
 
@@ -262,7 +259,7 @@ and <code>ty</code>.</p>
 <pre><code>uv run ruff format .
 uv run ruff check . --fix
 uv run ty check .
-uv run pytest -q            # 101 passed
+uv run pytest -q            # 83 passed
 node --test tests/*.js      # 238 pass, 0 fail</code></pre>
 
 <p>The JavaScript suite runs on the Node built-in test runner. There is no external framework and no
@@ -346,13 +343,19 @@ message handler returning <code>{id, result}</code> or <code>{id, error}</code>.
 degree-planning, and offering-analysis use a parallel but separate mechanism keyed by kind, with the same
 fallback-to-core behavior.</p>
 
-<div class="good"><span class="lbl">Parity oracles</span>
-<p><code>src/scheduler.py</code>, <code>planner.py</code>, <code>transcript.py</code>, and
-<code>offering_analyzer.py</code> are executed by the JavaScript suites through
-<code>importlib</code>, and their outputs are asserted against the browser implementations. They are the
-correctness baseline for the client solver, not a second runtime. Note that nothing in the repository
-contains the literal text <code>scheduler.py</code> — the modules are referenced by bare string through
-dynamic import, so a filename grep will not find these call sites.</p></div>
+<div class="good"><span class="lbl">How the browser runtimes are pinned</span>
+<p>The schedule solver, degree planner, transcript parser, and offering analyzer once had Python reference
+implementations that the JavaScript suites executed through <code>importlib</code> and compared against.
+Those modules have been removed and their outputs frozen into
+<code>tests/fixtures/reference_outputs.json</code> and <code>solver_reference.json</code>. The suites still
+assert against every one of those recorded values, so a silent behavior change in
+<code>solver-core.js</code> or any <code>runtime/</code> module still fails the build — the tests simply no
+longer need Python to run.</p>
+<p>The tradeoff is worth stating plainly. A live oracle cross-checks two independent implementations, so an
+<em>intentional</em> algorithm change had to be made twice and the two had to agree. A frozen fixture cannot
+do that; re-recording is a rubber stamp. Both test files keep their recording path behind
+<code>PARITY_RECORD=1</code>, so restoring a reference module and regenerating remains possible if that
+cross-check is ever wanted back.</p></div>
 </section>
 
 <!-- ───────────────────────── RELAY ───────────────────────── -->
@@ -757,7 +760,6 @@ sixth rather than wrapping back to Atlantic and colliding with the first.</p></d
 <li><strong>CSP drift within one file.</strong> The worker header block omits <code>banner.onecarolina.sc.edu</code> from <code>connect-src</code>; the <code>_headers</code> block includes it. The worker runs first and its headers win, so the <code>_headers</code> entry is stale and grants a permission no browser code uses.</li>
 <li><strong><code>build_data_manifest.py</code> duplicates the integrity primitive</strong> with a raw <code>hashlib</code> call instead of importing <code>static_release.sha256_bytes</code>. Harmless today; a second implementation of the thing that guarantees correctness is worth collapsing.</li>
 <li><strong><code>build_embeddings.py</code> documents an output it never writes</strong> — the docstring advertises <code>word_embeddings.json</code>, which no constant produces.</li>
-<li><strong><code>planner.py</code>'s local map loader is stale.</strong> It does a flat <code>os.listdir</code> over its maps directory, but maps have lived in catalog-year subdirectories for some time, so it finds nothing. Left unchanged rather than modified inside a parity oracle.</li>
 <li><strong>Manual cache-busting query strings</strong> on several <code>&lt;script&gt;</code> tags are hand-maintained and will silently go stale, unlike the build-generated service worker <code>BUILD_ID</code>.</li>
 </ul>
 
@@ -803,7 +805,7 @@ release builds are what grow the pack.</p>
 
 <hr>
 <p style="color:var(--muted);font-size:13px">Generated from the verified working tree. Figures — 509
-artifacts, 39,466,931 bytes, 1,295 maps, 101 Python and 238 JavaScript tests — were measured, not carried
+artifacts, 39,466,931 bytes, 1,295 maps, 83 Python and 238 JavaScript tests — were measured, not carried
 forward from prose. Line-specific references should be re-checked after any restructuring.</p>
 </main>
 </div>
