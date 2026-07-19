@@ -1,0 +1,89 @@
+{
+  "contract": "fose-v1",
+  "description": "Request grammar for the three relay routes. Single source of truth for the relay's body validators, the browser's request encoders, and the Python pipeline. Upstream vocabulary appears here and nowhere else, so an upstream change is one edit followed by mechanical updates in the consumers rather than a search across the tree.",
+  "generated_from": "server/index.js, verified 2026-07-19",
+  "limits": {
+    "max_body_bytes": 16384,
+    "upstream_timeout_ms": 10000,
+    "max_faculty_crns": 12,
+    "max_faculty_concurrency": 4
+  },
+  "types": {
+    "term": {
+      "pattern": "^\\d{4}(?:01|05|08)$",
+      "description": "YYYYMM. 01 spring, 05 summer, 08 fall. No other suffix is a term anywhere in this system; 06 and 07 appear in older capture notes and are rejected.",
+      "valid": ["202601", "202605", "202608"],
+      "invalid": ["202606", "202612", "2026", "999999", ""]
+    },
+    "crn": {
+      "pattern": "^\\d{5}$",
+      "description": "Exactly five digits.",
+      "valid": ["10868", "00001"],
+      "invalid": ["1086", "108680", "abcde", ""]
+    },
+    "detail_group": {
+      "pattern": "^crn:\\d{5}$",
+      "valid": ["crn:10868"],
+      "invalid": ["crn:1086", "10868", "crn:abcde"]
+    }
+  },
+  "routes": {
+    "/api/search": {
+      "method": "POST",
+      "upstream": "https://classes.sc.edu/api/?page=fose&route=search",
+      "request": {
+        "exact_keys": ["other", "criteria"],
+        "other": { "exact_keys": ["srcdb"], "srcdb": "term" },
+        "criteria": {
+          "min_items": 1,
+          "max_items": 6,
+          "item_exact_keys": ["field", "value"],
+          "allowed_fields": ["alias", "crn", "keyword", "stat", "subject"],
+          "fields_may_repeat": false,
+          "value_min_length": 1,
+          "value_max_length": 120,
+          "requires_non_stat_criterion": true
+        }
+      },
+      "response": {
+        "must_contain_array": "results",
+        "max_bytes": 1048576
+      }
+    },
+    "/api/details": {
+      "method": "POST",
+      "upstream": "https://classes.sc.edu/api/?page=fose&route=details",
+      "request": {
+        "exact_keys": ["group", "srcdb"],
+        "group": "detail_group",
+        "srcdb": "term"
+      },
+      "response": { "max_bytes": 262144 }
+    },
+    "/api/faculty": {
+      "method": "POST",
+      "upstream": "banner:searchResults/getFacultyMeetingTimes",
+      "description": "Synthesized server-side per CRN rather than proxied. getFacultyMeetingTimes is the one Banner JSON endpoint that answers without a session cookie.",
+      "request": {
+        "exact_keys": ["term", "crns"],
+        "term": "term",
+        "crns": {
+          "min_items": 1,
+          "max_items": 12,
+          "unique": true,
+          "item_type": "crn"
+        }
+      },
+      "response": { "max_bytes": 262144 }
+    }
+  },
+  "rejections": {
+    "wrong_method": 405,
+    "wrong_content_type": 415,
+    "cross_origin": 403,
+    "body_too_large": 413,
+    "invalid_body": 400,
+    "upstream_timeout": 504,
+    "upstream_failure": 502
+  }
+}
