@@ -149,7 +149,7 @@ forward from prose.</p>
   <div class="stat"><b>509</b><span>Release artifacts</span></div>
   <div class="stat"><b>39.5 MB</b><span>Verified payload</span></div>
   <div class="stat"><b>1,295</b><span>Major maps</span></div>
-  <div class="stat"><b>101 / 234</b><span>Python / JS tests</span></div>
+  <div class="stat"><b>101 / 238</b><span>Python / JS tests</span></div>
 </div>
 
 <!-- ───────────────────────── OVERVIEW ───────────────────────── -->
@@ -265,7 +265,7 @@ and <code>ty</code>.</p>
 uv run ruff check . --fix
 uv run ty check .
 uv run pytest -q            # 101 passed
-node --test tests/*.js      # 234 pass, 0 fail</code></pre>
+node --test tests/*.js      # 238 pass, 0 fail</code></pre>
 
 <p>The JavaScript suite runs on the Node built-in test runner. There is no external framework and no
 <code>npm install</code> step. <code>tests/conftest.py</code> prepends both the repository root and
@@ -716,39 +716,43 @@ Known issues.</p>
 <section id="issues">
 <h2>Known issues</h2>
 
-<h3>Live defects</h3>
+<h3>Resolved defects</h3>
+<p>Four defects were found while verifying this manual and have since been fixed. They are recorded because
+each was invisible from normal use, and the shapes are worth recognising again.</p>
 
-<div class="warn"><span class="lbl">Bug — export.js is entirely unreachable</span>
-<p><code>static/js/export.js</code> is loaded and <code>Export.init()</code> runs, but <strong>all nine</strong>
-element IDs it binds are absent from <code>index.html</code>: <code>btn-export</code>,
-<code>btn-export-quick</code>, <code>btn-export-json</code>, <code>btn-save-plan</code>,
-<code>btn-load-plan</code>, <code>btn-delete-plan</code>, <code>json-import</code>,
-<code>plan-name-input</code>, <code>plans-container</code>. Every <code>getElementById</code> returns null
-and every binding is silently skipped. A complete ICS calendar export plus plan save, load, delete, and JSON
-import/export — 213 lines of working code — has no way to be invoked. Fixing it is a UI question: where the
-controls belong, not whether the code works.</p></div>
+<div class="good"><span class="lbl">Fixed — export.js was entirely unreachable</span>
+<p><code>static/js/export.js</code> was loaded and <code>Export.init()</code> ran, but <strong>all nine</strong>
+element ids it binds were absent from <code>index.html</code>. Every <code>getElementById</code> returned
+null and every binding was silently skipped, so a complete ICS calendar export plus plan save, load, delete,
+and JSON import/export — 213 lines of working code with its CSS already written — had no way to be invoked.
+The controls now live in the schedule tab: an <strong>Export Calendar</strong> button beside Registration
+Info, and a collapsible <strong>Saved Plans</strong> panel. The vestigial
+<code>btn-export-quick</code> lookup, a duplicate of <code>btn-export</code>, was removed rather than given
+invented UI. <code>tests/test_export_wiring.js</code> now asserts that every id
+<code>Export</code> looks up resolves in <code>index.html</code> and receives a handler, so this cannot
+silently rot again.</p></div>
 
-<div class="warn"><span class="lbl">Bug — carolina-core.js missing from the precache</span>
-<p><code>static/js/carolina-core.js</code> is loaded by <code>index.html</code> but is the only such script
-absent from <code>SHELL_ASSETS</code> in the service worker. It works online because the fetch handler
-matches any <code>/static/js/</code> path with stale-while-revalidate, but the Carolina Core requirement
-picker fails on a cold offline start. One-line fix.</p></div>
+<div class="good"><span class="lbl">Fixed — carolina-core.js missing from the precache</span>
+<p>It was the only <code>index.html</code> script absent from <code>SHELL_ASSETS</code>. It worked online,
+because the fetch handler matches any <code>/static/js/</code> path with stale-while-revalidate, but the
+Carolina Core requirement picker failed on a cold offline start. It is now precached, and a sweep confirmed
+no other script is missing.</p></div>
 
-<div class="warn"><span class="lbl">Suspected — credentials on cross-origin bulletin calls</span>
-<p><code>live-university-client.js</code> sets <code>credentials: 'include'</code> unconditionally on every
-fetch, including the direct cross-origin calls to <code>academicbulletins.sc.edu</code>. Combined with
-<code>mode: 'cors'</code>, the browser requires that host to return
-<code>Access-Control-Allow-Credentials: true</code> <em>and</em> a specific non-wildcard origin. If it
-returns a wildcard, bulletin search fails and silently falls back to the static catalog. Worth confirming
-against production before assuming bulletin search works.</p></div>
+<div class="good"><span class="lbl">Fixed — credentials sent on cross-origin bulletin calls</span>
+<p><code>live-university-client.js</code> set <code>credentials: 'include'</code> unconditionally, including
+on direct cross-origin calls to <code>academicbulletins.sc.edu</code>. With <code>mode: 'cors'</code> that
+obliges the upstream to answer with both <code>Access-Control-Allow-Credentials: true</code> and a specific
+non-wildcard origin; a wildcard makes the browser reject the response, silently degrading bulletin lookups to
+the static catalog. Credentials are now sent only when the endpoint is same-origin. Relative endpoints count
+as same-origin, absolute ones must match the configured origin, and an unknown origin is treated as
+cross-origin because that is the safer default.</p></div>
 
-<div class="warn"><span class="lbl">Style violation — calendar course colors</span>
-<p><code>calendar.js</code> assigns course block colors from
-<code>['#73000A', '#1a4a8a', '#2e7d32', '#e65100', …]</code> — garnet first, then off-brand Material
-palette entries. Both the design notes and the project's own brand rules reserve garnet for application
-chrome and specify Atlantic <code>#466A9F</code>, Congaree <code>#1F414D</code>, Horseshoe
-<code>#65780B</code>, Rose <code>#CC2E40</code>, Honeycomb <code>#A49137</code>, then Warm Grey
-<code>#676156</code> for sixth and beyond.</p></div>
+<div class="good"><span class="lbl">Fixed — calendar course colors</span>
+<p>Course blocks drew from <code>['#73000A', '#1a4a8a', '#2e7d32', …]</code> — garnet first, then off-brand
+Material entries. Assignment now follows the documented order: Atlantic, Congaree, Horseshoe, Rose,
+Honeycomb, then Warm Grey for the sixth course and beyond. Garnet is no longer reachable as a course color.
+Note the change from modulo cycling to a fixed overflow color: a seventh course now shares Warm Grey with the
+sixth rather than wrapping back to Atlantic and colliding with the first.</p></div>
 
 <h3>Inconsistencies worth resolving</h3>
 <ul>
@@ -801,7 +805,7 @@ release builds are what grow the pack.</p>
 
 <hr>
 <p style="color:var(--muted);font-size:13px">Generated from the verified working tree. Figures — 509
-artifacts, 39,466,931 bytes, 1,295 maps, 101 Python and 234 JavaScript tests — were measured, not carried
+artifacts, 39,466,931 bytes, 1,295 maps, 101 Python and 238 JavaScript tests — were measured, not carried
 forward from prose. Line-specific references should be re-checked after any restructuring.</p>
 </main>
 </div>

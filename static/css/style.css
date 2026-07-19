@@ -1981,6 +1981,73 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
     cursor: pointer;
 }
 
+/* === Saved plans panel === */
+.plans-panel {
+    border: 2px solid #C7C7C7;
+    background: #ffffff;
+    margin: 10px 0 0;
+}
+.plans-summary {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #363636;
+    cursor: pointer;
+    user-select: none;
+    background: #ECECEC;
+}
+.plans-summary:hover { color: #73000A; }
+.plans-panel[open] .plans-summary { border-bottom: 2px solid #C7C7C7; }
+.plans-body { padding: 12px; }
+.plans-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+.plans-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #5C5C5C;
+}
+.plans-input {
+    flex: 1;
+    min-width: 160px;
+    padding: 5px 8px;
+    font-size: 0.82rem;
+    border: 2px solid #C7C7C7;
+    background: #ffffff;
+    color: #000000;
+}
+.plans-input:focus { outline: none; border-color: #73000A; }
+.plans-actions .btn-small { border: 2px solid #C7C7C7; background: #ffffff; color: #363636; }
+.plans-actions .btn-small:hover { border-color: #73000A; color: #73000A; }
+.plans-actions .btn-garnet { border-color: #73000A; }
+.plans-container { margin-bottom: 10px; }
+.plans-import-label {
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+}
+.plans-import-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+.plans-import-input:focus-visible + .plans-import-label,
+.plans-import-label:focus-visible { outline: 2px solid #73000A; outline-offset: 2px; }
+
 /* === Calendar === */
 #calendar-container {
     flex: 1 1 auto;

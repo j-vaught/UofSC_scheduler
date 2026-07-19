@@ -4,10 +4,16 @@ const Calendar = {
     END_HOUR: 22,
     PX_PER_MIN: 1,
     DAY_LABELS: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+    // Brand accents, assigned in order. Garnet is reserved for application
+    // chrome and must never identify a course.
     COLORS: [
-        '#73000A', '#1a4a8a', '#2e7d32', '#e65100', '#4a148c',
-        '#00695c', '#bf360c', '#1565c0', '#6a1b9a', '#33691e',
+        '#466A9F', // Atlantic
+        '#1F414D', // Congaree
+        '#65780B', // Horseshoe
+        '#CC2E40', // Rose
+        '#A49137', // Honeycomb
     ],
+    OVERFLOW_COLOR: '#676156', // Warm Grey, for the sixth course and beyond
     _colorMap: {},
     _colorIdx: 0,
 
@@ -18,7 +24,10 @@ const Calendar = {
 
     getColor(code) {
         if (!this._colorMap[code]) {
-            this._colorMap[code] = this.COLORS[this._colorIdx % this.COLORS.length];
+            this._colorMap[code] =
+                this._colorIdx < this.COLORS.length
+                    ? this.COLORS[this._colorIdx]
+                    : this.OVERFLOW_COLOR;
             this._colorIdx++;
         }
         return this._colorMap[code];
