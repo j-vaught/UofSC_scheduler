@@ -529,6 +529,21 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 
 **Scope.** Create `contracts/wire/fose-v1.json` from the verified relay routes. Generate `validateSearchPayload` and the response guard from it; point `scripts/lib/wire_contract.py` at it. Create `platform/university/` with `domain/term.js`, `domain/query.js`, `domain/section.js`, the three codecs and golden fixtures.
 
+> **Correction, verified 2026-07-19.** The premise below is overstated. `getMode()`
+> does *not* always return `'static'`. It returns `'legacy'` whenever
+> `CourseDataStore` or `LiveUniversityClient` is absent, which is what happens when
+> those scripts fail to load — precisely the CSP scenario that took the site down
+> earlier that day. Confirmed by running `api.js` in two sandboxes: with both
+> globals present it returns `static`; with the data store missing it returns
+> `legacy`.
+>
+> So the `!isStaticMode()` branches are a fallback for a broken static path, not
+> unreachable code. They are still worth removing — the ten routes they target have
+> no relay route, so the fallback cannot succeed either — but the change is
+> *"replace a fallback that fails confusingly with one that fails legibly"*, not
+> *"delete unreachable code"*. It needs the error taxonomy from phase 3 to land
+> well, and it is not the free win this section claims.
+
 **Delete dead code first.** Verified: `CourseSchedulerConfig` is referenced at `api.js:37,69,276` and **declared nowhere in production** — only `tests/test_static_api.js` sets it, and always to `'static'`. So `getMode()` always returns `'static'` and roughly half of `api.js` is unreachable code that reads as load-bearing. Delete the `!isStaticMode()` branches and the **10** route strings with no relay route (`/api/history`, `/api/history-stream`, `/api/parse-transcript`, `/api/major-map`, `/api/major-maps`, `/api/degree-plan`, `/api/offering-analysis`, `/api/course-grades`, `/api/professor-grades`, `/api/subjects`). This is the cheapest large win in the plan and it shrinks everything after it.
 
 **Then replace leak sites file by file**, each file's tests green as it goes. This is possible because `State.selectedCourses` holds the same objects everywhere: introduce `createSection` first, have `state.js` normalize on ingest, and every reader migrates independently afterwards. That one sequencing decision converts the atomic ten-file commit the critics identified into ten commits.
