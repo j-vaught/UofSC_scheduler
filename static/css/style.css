@@ -5138,3 +5138,14 @@ select:disabled,
     .semester-columns { flex-wrap: wrap; }
     .semester-column { page-break-inside: avoid; }
 }
+
+/* Shown only when a feature fails to start. Deliberately plain and always
+   visible: it must survive whatever else on the page is broken. */
+#boot-failure-notice {
+    background: #FFF2E3;
+    color: #73000A;
+    border-bottom: 2px solid #73000A;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
