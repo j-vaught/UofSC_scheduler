@@ -29,6 +29,12 @@ GENERIC_LABEL_RE = re.compile(
     re.IGNORECASE,
 )
 FOOTNOTE_SUFFIX_RE = re.compile(r"(?P<label>.*?[A-Za-z)])\s*(?P<note>[3-9]|1[0-3])$")
+GENERIC_INLINE_FOOTNOTE_RE = re.compile(
+    r"\b(?P<label>Foreign Language|Carolina Core(?:\s+(?:Requirement|Req\.))?|"
+    r"(?:English\s+)?Major Course|Minor Course|Cognate|Elective|Requirement)"
+    r"(?P<note>[3-9]|1[0-3])(?=\b|\s|$)",
+    re.IGNORECASE,
+)
 LEADING_OR_RE = re.compile(r"^\s*(?:\(?\s*)?or\s+", re.IGNORECASE)
 COURSE_OR_COURSE_RE = re.compile(
     r"\b[A-Z]{2,8}\s+\d{3}[A-Z]?\b.*?\bor\b.*?\b[A-Z]{2,8}\s+\d{3}[A-Z]?\b",
@@ -100,6 +106,33 @@ def _normalize_program_name(metadata: dict[str, Any], findings: list[Finding]) -
 
 def _normalize_title(item: dict[str, Any], path: str, findings: list[Finding]) -> None:
     title = str(item.get("title") or "").strip()
+    markers: list[int] = []
+
+    def remove_inline_marker(match: re.Match[str]) -> str:
+        markers.append(int(match.group("note")))
+        return match.group("label")
+
+    cleaned_inline = GENERIC_INLINE_FOOTNOTE_RE.sub(remove_inline_marker, title)
+    if markers and not item.get("course_codes"):
+        item["title"] = cleaned_inline
+        provenance = item.setdefault("provenance", {})
+        provenance["original_title"] = title
+        if len(markers) == 1:
+            provenance["footnote_marker"] = markers[0]
+        else:
+            provenance["footnote_markers"] = markers
+        findings.append(
+            Finding(
+                "change",
+                "title.footnote_suffix_removed",
+                f"{path}.title",
+                "Removed high-confidence footnote markers from generic requirement labels.",
+                title,
+                cleaned_inline,
+            )
+        )
+        return
+
     match = FOOTNOTE_SUFFIX_RE.fullmatch(title)
     if not match:
         return

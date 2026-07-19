@@ -53,6 +53,32 @@ def test_normalizer_removes_safe_footnotes_and_duplicate_program_suffix() -> Non
     }
 
 
+def test_normalizer_removes_embedded_generic_footnotes_from_choices() -> None:
+    payload = _document(
+        [
+            _requirement("Foreign Language3 or other Carolina Core Req.4", [3, 4]),
+            _requirement("Carolina Core Requirement4 or Elective"),
+            _requirement("English Major Course6"),
+            _requirement("Minor Course6 or Elective"),
+            _requirement("Elective7 (only if needed to meet hours to graduate)", [1, 3]),
+        ],
+        major="English",
+    )
+
+    normalized, findings = normalize_document(payload)
+
+    rows = normalized["semester_plan"][0]["requirements"]
+    assert [row["title"] for row in rows] == [
+        "Foreign Language or other Carolina Core Req.",
+        "Carolina Core Requirement or Elective",
+        "English Major Course",
+        "Minor Course or Elective",
+        "Elective (only if needed to meet hours to graduate)",
+    ]
+    assert rows[0]["provenance"]["footnote_markers"] == [3, 4]
+    assert sum(finding.code == "title.footnote_suffix_removed" for finding in findings) == 5
+
+
 def test_normalizer_merges_only_explicit_leading_or_continuations() -> None:
     payload = _document(
         [
