@@ -7,7 +7,7 @@ import argparse
 import json
 import re
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
@@ -39,6 +39,13 @@ COURSE_LIST_KEYS = (
     "corequisites",
     "course_codes",
 )
+AUDIT_METADATA_KEYS = {"materialization", "normalization"}
+FOOTNOTE_ARTIFACT_RE = re.compile(
+    r"(?:\b(?:requirement|req\.?|elective|course|language|history|ensemble|core)\s*\d+\b|"
+    r"\b\d+\s+\d{3}\);)",
+    re.IGNORECASE,
+)
+ALTERNATIVE_LABEL_RE = re.compile(r"\b(?:choose|select)\b|\s+or\s+", re.IGNORECASE)
 
 
 @dataclass(slots=True)
@@ -73,6 +80,13 @@ class MapAudit:
         return sum(item.severity == severity for item in self.findings)
 
     def as_dict(self) -> dict[str, Any]:
+        decision = (
+            "quarantine"
+            if self.count("error")
+            else "review"
+            if self.count("warning")
+            else "publish"
+        )
         return {
             "file": self.file,
             "id": self.map_id,
@@ -81,6 +95,15 @@ class MapAudit:
             else "valid_with_warnings"
             if self.count("warning")
             else "valid",
+            "gate": {
+                "decision": decision,
+                "publishable": decision == "publish",
+                "review_required": decision == "review",
+                "quarantined": decision == "quarantine",
+                "blocking_codes": sorted(
+                    {item.code for item in self.findings if item.severity == "error"}
+                ),
+            },
             "counts": {
                 "errors": self.count("error"),
                 "warnings": self.count("warning"),
@@ -101,11 +124,38 @@ def _normal_code(value: Any) -> str:
     return " ".join(str(value).upper().split())
 
 
+def _credit_range(value: Any) -> tuple[float, float] | None:
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        amount = float(value)
+        return amount, amount
+    if (
+        isinstance(value, list)
+        and len(value) == 2
+        and all(isinstance(item, (int, float)) and not isinstance(item, bool) for item in value)
+    ):
+        low, high = sorted(float(item) for item in value)
+        return low, high
+    return None
+
+
+def _catalog_credit_range(value: Any) -> tuple[float, float] | None:
+    if not isinstance(value, str):
+        return None
+    match = re.search(r"(\d+(?:\.\d+)?)\s*(?:-|–|to)?\s*(\d+(?:\.\d+)?)?\s+Credits?", value)
+    if not match:
+        return None
+    low = float(match.group(1))
+    high = float(match.group(2) or match.group(1))
+    return min(low, high), max(low, high)
+
+
 def _iter_course_values(value: Any, path: str = "$") -> Iterable[tuple[str, str]]:
     """Yield course-code values from the supported map structures."""
     if isinstance(value, dict):
         for key, child in value.items():
             child_path = f"{path}.{key}"
+            if key in AUDIT_METADATA_KEYS:
+                continue
             if key == "code" and isinstance(child, str):
                 yield child_path, child
             elif key in COURSE_LIST_KEYS and isinstance(child, list):
@@ -286,6 +336,196 @@ def _validate_duplicate_rows(payload: dict[str, Any], audit: MapAudit) -> None:
             )
 
 
+def _validate_alternative_groups(payload: dict[str, Any], audit: MapAudit) -> None:
+    groups = payload.get("elective_groups", [])
+    if not isinstance(groups, list):
+        return
+    for index, group in enumerate(groups):
+        if not isinstance(group, dict):
+            continue
+        path = f"$.elective_groups[{index}]"
+        options = group.get("options", [])
+        pick = group.get("pick", 1)
+        informational = bool(group.get("informational") or group.get("requires_review"))
+        if not isinstance(options, list):
+            audit.add(
+                "error",
+                "alternative.invalid_options",
+                "Alternative-group options must be a list.",
+                f"{path}.options",
+            )
+            continue
+        normalized = [_normal_code(option) for option in options if isinstance(option, str)]
+        duplicates = sorted(code for code, count in Counter(normalized).items() if count > 1)
+        if duplicates:
+            audit.add(
+                "error",
+                "alternative.duplicate_options",
+                f"Alternative group repeats option(s): {', '.join(duplicates)}.",
+                f"{path}.options",
+            )
+        if not isinstance(pick, int) or isinstance(pick, bool) or pick <= 0:
+            audit.add(
+                "error",
+                "alternative.invalid_pick",
+                "Alternative-group pick must be a positive integer.",
+                f"{path}.pick",
+            )
+        elif options and pick > len(set(normalized)):
+            audit.add(
+                "error",
+                "alternative.pick_exceeds_options",
+                f"Alternative group requires {pick} selections from only "
+                f"{len(set(normalized))} unique options.",
+                f"{path}.pick",
+            )
+        label = str(group.get("label") or "")
+        if ALTERNATIVE_LABEL_RE.search(label) and not options:
+            audit.add(
+                "warning" if informational else "error",
+                "alternative.unresolved_label",
+                "Requirement wording describes a choice, but no structured options were extracted.",
+                path,
+            )
+        if len(options) == 1 and not informational:
+            audit.add(
+                "warning",
+                "alternative.single_option",
+                "Alternative group has only one option; confirm that PDF choices were not lost.",
+                f"{path}.options",
+            )
+
+
+def _validate_extraction_artifacts(payload: dict[str, Any], audit: MapAudit) -> None:
+    def visit(value: Any, path: str, key: str = "") -> None:
+        if isinstance(value, dict):
+            for child_key, child in value.items():
+                visit(child, f"{path}.{child_key}", child_key)
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                visit(child, f"{path}[{index}]", key)
+        elif key in {"label", "title", "name", "source_text"} and isinstance(value, str):
+            if FOOTNOTE_ARTIFACT_RE.search(value):
+                audit.add(
+                    "warning",
+                    "extraction.footnote_artifact",
+                    f"Possible PDF footnote marker remains in {value!r}.",
+                    path,
+                )
+
+    visit(payload, "$")
+
+
+def _validate_program_metadata(payload: dict[str, Any], audit: MapAudit) -> None:
+    concentrations = payload.get("concentrations")
+    if concentrations is not None and not isinstance(concentrations, (dict, list)):
+        audit.add(
+            "error",
+            "program.invalid_concentrations",
+            "Concentrations must be an object or list.",
+            "$.concentrations",
+        )
+    major = str(payload.get("major") or "").strip()
+    program = str(payload.get("program") or "").strip()
+    if re.search(r"\bconcentration\b", major, re.IGNORECASE) and not concentrations:
+        audit.add(
+            "warning",
+            "program.concentration_unstructured",
+            "The major name mentions a concentration, but no structured concentration is recorded.",
+            "$.concentrations",
+        )
+    parsed = payload.get("parsed_metadata")
+    if not isinstance(parsed, dict):
+        return
+    checks = (
+        ("name", major, "major"),
+        ("degree", program, "program"),
+        ("college", str(payload.get("college") or "").strip(), "college"),
+        ("bulletin_year", str(payload.get("catalog_year") or "").strip(), "catalog_year"),
+    )
+    for metadata_key, declared, declared_key in checks:
+        source_value = str(parsed.get(metadata_key) or "").strip()
+        if source_value and declared and source_value.casefold() != declared.casefold():
+            audit.add(
+                "error",
+                "program.metadata_mismatch",
+                f"Declared {declared_key} {declared!r} conflicts with source metadata "
+                f"{source_value!r}.",
+                f"$.{declared_key}",
+            )
+    minimum_hours = parsed.get("minimum_total_hours")
+    total = payload.get("total_credits_required")
+    if (
+        isinstance(minimum_hours, (int, float))
+        and not isinstance(minimum_hours, bool)
+        and isinstance(total, (int, float))
+        and not isinstance(total, bool)
+        and abs(float(minimum_hours) - float(total)) > 0.01
+    ):
+        audit.add(
+            "error",
+            "credits.official_total_mismatch",
+            f"Declared total {float(total):g} conflicts with the official minimum "
+            f"{float(minimum_hours):g} in source metadata.",
+            "$.total_credits_required",
+        )
+
+
+def _validate_course_credit_consistency(
+    payload: dict[str, Any],
+    audit: MapAudit,
+    catalog_courses: Mapping[str, Mapping[str, Any]] | None = None,
+) -> None:
+    occurrences: dict[str, list[tuple[str, tuple[float, float]]]] = defaultdict(list)
+
+    def visit(value: Any, path: str) -> None:
+        if isinstance(value, dict):
+            code = _normal_code(value.get("code", ""))
+            credits = _credit_range(
+                value.get("credits", value.get("credit_hours", value.get("credits_each")))
+            )
+            if COURSE_CODE_RE.fullmatch(code) and credits is not None:
+                occurrences[code].append((path, credits))
+            for key, child in value.items():
+                visit(child, f"{path}.{key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                visit(child, f"{path}[{index}]")
+
+    visit(payload, "$")
+    for code, entries in sorted(occurrences.items()):
+        low = max(interval[0] for _, interval in entries)
+        high = min(interval[1] for _, interval in entries)
+        if low > high:
+            rendered = ", ".join(
+                f"{interval[0]:g}"
+                if interval[0] == interval[1]
+                else f"{interval[0]:g}–{interval[1]:g}"
+                for _, interval in entries
+            )
+            audit.add(
+                "error",
+                "credits.course_conflict",
+                f"{code} has conflicting credit values across the map: {rendered}.",
+                entries[0][0],
+            )
+        if not catalog_courses or code not in catalog_courses:
+            continue
+        catalog_range = _catalog_credit_range(catalog_courses[code].get("hours"))
+        if catalog_range is None:
+            continue
+        for entry_path, interval in entries:
+            if interval[1] < catalog_range[0] or interval[0] > catalog_range[1]:
+                audit.add(
+                    "warning",
+                    "credits.catalog_mismatch",
+                    f"{code} is {interval[0]:g}–{interval[1]:g} credits in the map but "
+                    f"{catalog_range[0]:g}–{catalog_range[1]:g} in the catalog.",
+                    entry_path,
+                )
+                break
+
+
 def _iter_source_urls(payload: dict[str, Any]) -> Iterable[tuple[str, Any]]:
     source = payload.get("source")
     if isinstance(source, dict):
@@ -374,6 +614,34 @@ def _validate_sources(payload: dict[str, Any], audit: MapAudit) -> None:
             audit.add(
                 "warning", "source.duplicate_url", f"Source URL is listed {count} times: {url}"
             )
+    if isinstance(payload.get("import_metadata"), dict):
+        if not isinstance(source, dict):
+            audit.add(
+                "error",
+                "source.import_provenance_missing",
+                "Imported maps must record an official source URL and PDF checksum.",
+                "$.source",
+            )
+            return
+        blocking_missing = [key for key in ("url", "sha256") if _is_blank(source.get(key))]
+        if blocking_missing:
+            audit.add(
+                "error",
+                "source.import_provenance_missing",
+                f"Imported map source metadata is missing: {', '.join(blocking_missing)}.",
+                "$.source",
+            )
+        for key, description in (
+            ("page_count", "PDF page count"),
+            ("retrieved_at", "source retrieval time"),
+        ):
+            if _is_blank(source.get(key)):
+                audit.add(
+                    "warning",
+                    "source.import_metadata_incomplete",
+                    f"Imported map does not record its {description}.",
+                    f"$.source.{key}",
+                )
 
 
 def _validate_confidence_record(record: Mapping[str, Any], audit: MapAudit, path: str) -> None:
@@ -460,6 +728,8 @@ def _validate_confidence(payload: dict[str, Any], audit: MapAudit) -> None:
             if path != "$" and ("confidence" in value or "warnings" in value):
                 _validate_confidence_record(cast(Mapping[str, Any], value), audit, path)
             for key, child in value.items():
+                if key in AUDIT_METADATA_KEYS:
+                    continue
                 visit(child, f"{path}.{key}")
         elif isinstance(value, list):
             for index, child in enumerate(value):
@@ -657,8 +927,10 @@ def _validate_identity(payload: dict[str, Any], file_path: Path, audit: MapAudit
         )
 
 
-def load_current_catalog(static_data_dir: Path) -> tuple[set[str], str | None]:
-    """Load course codes from the catalog release selected by the static manifest."""
+def load_current_catalog_records(
+    static_data_dir: Path,
+) -> tuple[dict[str, Mapping[str, Any]], str | None]:
+    """Load course records from the catalog release selected by the static manifest."""
     manifest_path = static_data_dir / "manifest.json"
     paths: list[Path] = []
     release_id: str | None = None
@@ -675,7 +947,7 @@ def load_current_catalog(static_data_dir: Path) -> tuple[set[str], str | None]:
             paths = []
     if not paths:
         paths = sorted(static_data_dir.glob("releases/*/catalog/courses/courses-*.json"))
-    codes: set[str] = set()
+    records: dict[str, Mapping[str, Any]] = {}
     for path in paths:
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
@@ -683,17 +955,27 @@ def load_current_catalog(static_data_dir: Path) -> tuple[set[str], str | None]:
             continue
         courses = payload.get("courses", {}) if isinstance(payload, dict) else {}
         if isinstance(courses, dict):
-            codes.update(_normal_code(code) for code in courses)
+            for code, course in courses.items():
+                if isinstance(course, dict):
+                    records[_normal_code(code)] = cast(Mapping[str, Any], course)
         elif isinstance(courses, list):
-            codes.update(
-                _normal_code(course.get("code", ""))
-                for course in courses
-                if isinstance(course, dict) and course.get("code")
-            )
-    return codes, release_id
+            for course in courses:
+                if isinstance(course, dict) and course.get("code"):
+                    records[_normal_code(course["code"])] = cast(Mapping[str, Any], course)
+    return records, release_id
 
 
-def validate_map(path: Path, catalog_codes: set[str] | None = None) -> MapAudit:
+def load_current_catalog(static_data_dir: Path) -> tuple[set[str], str | None]:
+    """Load course codes from the catalog release selected by the static manifest."""
+    records, release_id = load_current_catalog_records(static_data_dir)
+    return set(records), release_id
+
+
+def validate_map(
+    path: Path,
+    catalog_codes: set[str] | None = None,
+    catalog_courses: Mapping[str, Mapping[str, Any]] | None = None,
+) -> MapAudit:
     audit = MapAudit(file=str(path))
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -712,6 +994,10 @@ def validate_map(path: Path, catalog_codes: set[str] | None = None) -> MapAudit:
     _validate_credit_totals(payload, audit)
     _validate_semesters(payload, audit)
     _validate_duplicate_rows(payload, audit)
+    _validate_alternative_groups(payload, audit)
+    _validate_extraction_artifacts(payload, audit)
+    _validate_program_metadata(payload, audit)
+    _validate_course_credit_consistency(payload, audit, catalog_courses)
     _validate_sources(payload, audit)
     _validate_confidence(payload, audit)
 
@@ -744,6 +1030,7 @@ def validate_map(path: Path, catalog_codes: set[str] | None = None) -> MapAudit:
         reviewable_extraction_codes = {
             "credits.invalid_course",
             "credits.invalid_total",
+            "credits.course_conflict",
             "credits.requirements_exceed_total",
             "field.missing",
             "id.duplicate_elective_group",
@@ -763,11 +1050,13 @@ def validate_directory(
     static_data_dir: Path | None = None,
 ) -> dict[str, Any]:
     catalog_codes: set[str] = set()
+    catalog_courses: dict[str, Mapping[str, Any]] = {}
     catalog_release: str | None = None
     if static_data_dir is not None:
-        catalog_codes, catalog_release = load_current_catalog(static_data_dir)
+        catalog_courses, catalog_release = load_current_catalog_records(static_data_dir)
+        catalog_codes = set(catalog_courses)
     paths = sorted(maps_dir.rglob("*.json"))
-    audits = [validate_map(path, catalog_codes or None) for path in paths]
+    audits = [validate_map(path, catalog_codes or None, catalog_courses or None) for path in paths]
     ids = Counter(audit.map_id for audit in audits if audit.map_id)
     for map_id, count in ids.items():
         if count > 1:
@@ -795,6 +1084,11 @@ def validate_directory(
         "course_codes_checked": sum(audit.course_codes_checked for audit in audits),
         "catalog_matches": sum(audit.catalog_matches for audit in audits),
         "catalog_missing": sum(audit.catalog_missing for audit in audits),
+        "publish": sum(not audit.count("error") and not audit.count("warning") for audit in audits),
+        "review": sum(
+            not audit.count("error") and bool(audit.count("warning")) for audit in audits
+        ),
+        "quarantine": sum(bool(audit.count("error")) for audit in audits),
     }
     return {
         "schema_version": 1,
@@ -807,6 +1101,19 @@ def validate_directory(
         },
         "findings": [finding.as_dict() for finding in global_findings],
         "summary": totals,
+        "gate": {
+            "publish_ids": [
+                audit.map_id
+                for audit in audits
+                if not audit.count("error") and not audit.count("warning")
+            ],
+            "review_ids": [
+                audit.map_id
+                for audit in audits
+                if not audit.count("error") and audit.count("warning")
+            ],
+            "quarantine_ids": [audit.map_id for audit in audits if audit.count("error")],
+        },
         "maps": [audit.as_dict() for audit in audits],
     }
 

@@ -5,10 +5,12 @@ import pytest
 
 from scripts.import_major_maps import (
     RepositoryEntry,
+    extract_pdf_bbox,
     extract_pdf_text,
     import_inventory,
     load_inventory,
     parse_major_map_text,
+    parse_major_map_bbox,
     parse_repository_html,
     validate_map,
     write_import,
@@ -129,6 +131,61 @@ def test_incomplete_sequence_is_retained_for_manual_review() -> None:
 def test_pdf_extractor_rejects_non_pdf() -> None:
     with pytest.raises(ValueError, match="not a PDF"):
         extract_pdf_text(b"not a pdf")
+    with pytest.raises(ValueError, match="not a PDF"):
+        extract_pdf_bbox(b"not a pdf")
+
+
+def test_geography_bbox_groups_choose_one_options_without_prerequisite_codes() -> None:
+    entry = _entry()
+    entry.major = "Geography"
+    entry.degree = "B.S."
+    document = parse_major_map_bbox(
+        (FIXTURES / "geography_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    choice = document["semester_plan"][0]["requirements"][0]
+    assert choice["title"].startswith("Choose 1 of the following: GEOG 103")
+    assert choice["course_codes"] == ["GEOG 103", "GEOG 121"]
+    assert choice["relation"] == "choose_one"
+    assert "MATH 141" not in choice["title"]
+    assert "MATH 141" not in choice["course_codes"]
+    assert "MATH 141" in choice["source_text"]
+    assert choice["source_page"] == 1
+    assert choice["source_bbox"] == [64.0, 132.0, 443.0, 161.0]
+    assert choice["provenance"] == {
+        "page": 1,
+        "bbox": [64.0, 132.0, 443.0, 161.0],
+        "source_text": choice["source_text"],
+        "ambiguity_flags": [],
+    }
+
+
+def test_art_studio_bbox_keeps_prerequisites_out_of_course_identity() -> None:
+    entry = _entry()
+    entry.major = "Art Studio"
+    entry.degree = "B.A."
+    document = parse_major_map_bbox(
+        (FIXTURES / "art_studio_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    painting = document["semester_plan"][0]["requirements"][0]
+    assert painting["title"] == "ARTS 345 Painting"
+    assert painting["course_codes"] == ["ARTS 345"]
+    assert painting["relation"] == "required"
+    assert painting["minimum_grade"] == "C"
+    assert painting["requirement_codes"] == ["MR"]
+    assert "ARTS 103 or ARTS 104" in painting["source_text"]
+    assert "See Bulletin" in painting["source_text"]
+    assert painting["provenance"]["page"] == 1
+    assert painting["provenance"]["ambiguity_flags"] == []
+
+    generic = document["semester_plan"][0]["requirements"][2]
+    assert generic["title"] == "ARTS Major Course"
+    assert generic["course_codes"] == []
+    assert generic["confidence"] == "low"
+    assert generic["provenance"]["ambiguity_flags"] == [
+        "non_specific_requirement_requires_validation"
+    ]
 
 
 @pytest.mark.parametrize("envelope", ["maps", "items", "records"])

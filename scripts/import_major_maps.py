@@ -15,6 +15,7 @@ import json
 import re
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from pathlib import Path
@@ -22,6 +23,8 @@ from typing import Any, Iterable, cast
 from urllib.parse import urljoin
 
 import requests
+
+from scripts.normalize_major_maps import normalize_components
 
 
 DEFAULT_REPOSITORY_URL = (
@@ -220,6 +223,117 @@ def extract_pdf_text(pdf: bytes, *, pdftotext: str = "pdftotext") -> str:
         return text_path.read_text(encoding="utf-8", errors="replace")
 
 
+def extract_pdf_bbox(pdf: bytes, *, pdftotext: str = "pdftotext") -> str:
+    """Extract Poppler's word-level page coordinates from a major-map PDF."""
+    if not pdf.startswith(b"%PDF"):
+        raise ValueError("Major-map document is not a PDF")
+    with tempfile.TemporaryDirectory(prefix="major-map-bbox-") as directory:
+        pdf_path = Path(directory) / "source.pdf"
+        bbox_path = Path(directory) / "source.html"
+        pdf_path.write_bytes(pdf)
+        try:
+            process = subprocess.run(
+                [pdftotext, "-bbox-layout", str(pdf_path), str(bbox_path)],
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+        except FileNotFoundError as error:
+            raise RuntimeError("pdftotext is required to import major-map PDFs") from error
+        if process.returncode != 0:
+            detail = _clean(process.stderr) or "unknown extraction error"
+            raise RuntimeError(f"Could not extract major-map PDF coordinates: {detail}")
+        return bbox_path.read_text(encoding="utf-8", errors="replace")
+
+
+@dataclass(frozen=True)
+class _PdfWord:
+    page: int
+    text: str
+    x_min: float
+    y_min: float
+    x_max: float
+    y_max: float
+
+    @property
+    def y_center(self) -> float:
+        return (self.y_min + self.y_max) / 2
+
+
+def _bbox_words(source: str) -> list[list[_PdfWord]]:
+    """Read pdftotext bbox XHTML without depending on presentation flow order."""
+    try:
+        root = ET.fromstring(source)
+    except ET.ParseError as error:
+        raise ValueError(f"Major-map coordinate extraction is invalid XHTML: {error}") from error
+    pages: list[list[_PdfWord]] = []
+    for page_number, page in enumerate(root.iterfind(".//{*}page"), start=1):
+        words: list[_PdfWord] = []
+        for node in page.iterfind(".//{*}word"):
+            text = _clean("".join(node.itertext()))
+            if not text:
+                continue
+            try:
+                words.append(
+                    _PdfWord(
+                        page=page_number,
+                        text=text,
+                        x_min=float(node.attrib["xMin"]),
+                        y_min=float(node.attrib["yMin"]),
+                        x_max=float(node.attrib["xMax"]),
+                        y_max=float(node.attrib["yMax"]),
+                    )
+                )
+            except (KeyError, ValueError) as error:
+                raise ValueError(
+                    "Major-map coordinate word is missing a numeric bounding box"
+                ) from error
+        pages.append(words)
+    if not pages or not any(pages):
+        raise ValueError("Major-map coordinate extraction contains no words")
+    return pages
+
+
+def _group_positioned_lines(
+    words: list[_PdfWord], *, tolerance: float = 2.1
+) -> list[list[_PdfWord]]:
+    """Group words by baseline while keeping superscripts with their printed line."""
+    lines: list[list[_PdfWord]] = []
+    centers: list[float] = []
+    for word in sorted(words, key=lambda item: (item.y_center, item.x_min)):
+        best_index: int | None = None
+        best_distance = tolerance
+        for index in range(max(0, len(lines) - 3), len(lines)):
+            distance = abs(word.y_center - centers[index])
+            if distance <= best_distance:
+                best_index = index
+                best_distance = distance
+        if best_index is None:
+            lines.append([word])
+            centers.append(word.y_center)
+        else:
+            lines[best_index].append(word)
+            centers[best_index] = sum(item.y_center for item in lines[best_index]) / len(
+                lines[best_index]
+            )
+    for line in lines:
+        line.sort(key=lambda item: item.x_min)
+    return lines
+
+
+def _positioned_text(pages: list[list[_PdfWord]]) -> str:
+    page_text: list[str] = []
+    for words in pages:
+        page_text.append(
+            "\n".join(
+                _clean(" ".join(word.text for word in line))
+                for line in _group_positioned_lines(words)
+            )
+        )
+    return "\n\f\n".join(page_text)
+
+
 def _metadata(text: str, entry: RepositoryEntry) -> tuple[dict[str, Any], list[str]]:
     warnings: list[str] = []
     major_match = re.search(r"Major Map:\s*([^\n\r]+)", text, re.IGNORECASE)
@@ -360,6 +474,184 @@ def _append_continuation(item: dict[str, Any], line: str) -> None:
     item["source_text"] = _clean(f"{item['source_text']} {continuation}")
 
 
+@dataclass(frozen=True)
+class _TableColumns:
+    title_left: float
+    credit_left: float
+    minimum_grade_left: float
+    major_gpa_left: float
+
+
+def _page_table_columns(words: list[_PdfWord]) -> _TableColumns | None:
+    """Locate table columns from the printed header nearest `Prerequisites`."""
+    prerequisite_headers = [word for word in words if word.text.casefold() == "prerequisites"]
+    for prerequisite in prerequisite_headers:
+        nearby = [word for word in words if abs(word.y_center - prerequisite.y_center) <= 13]
+
+        def header(label: str) -> _PdfWord | None:
+            matches = [word for word in nearby if word.text.casefold() == label.casefold()]
+            return min(
+                matches, key=lambda word: abs(word.y_center - prerequisite.y_center), default=None
+            )
+
+        credit = header("Credit")
+        minimum = header("Min.")
+        major = header("Major")
+        critical = header("Critical")
+        if credit and minimum and major and critical:
+            return _TableColumns(
+                title_left=critical.x_max + 1,
+                credit_left=credit.x_min - 3,
+                minimum_grade_left=minimum.x_min - 3,
+                major_gpa_left=major.x_min - 3,
+            )
+    return None
+
+
+def _text_for_words(words: list[_PdfWord]) -> str:
+    return _clean(
+        " ".join(
+            _clean(" ".join(word.text for word in line)) for line in _group_positioned_lines(words)
+        )
+    )
+
+
+def _coordinate_item(
+    words: list[_PdfWord],
+    *,
+    columns: _TableColumns,
+    semester: int,
+    sequence: int,
+    credit_word: _PdfWord,
+) -> dict[str, Any] | None:
+    title_words = [word for word in words if columns.title_left <= word.x_min < columns.credit_left]
+    title = _text_for_words(title_words)
+    if not title or title.casefold().startswith(("credit ", "minimum ")):
+        return None
+    source_text = _text_for_words(words)
+    course_codes = [f"{subject} {number}" for subject, number in COURSE_RE.findall(title.upper())]
+    course_codes = list(dict.fromkeys(course_codes))
+    explicit_choice = bool(re.search(r"\b(?:or|choose|select)\b", title, re.IGNORECASE))
+    illustrative_code = bool(
+        course_codes
+        and re.search(r"\b(?:elective|recommended|requirement)\b", title, re.IGNORECASE)
+    )
+    warnings: list[str] = []
+    if len(course_codes) > 1 and not explicit_choice:
+        warnings.append("multiple_course_codes_without_explicit_choice")
+    if not course_codes:
+        warnings.append("non_specific_requirement_requires_validation")
+    if explicit_choice and len(course_codes) < 2:
+        warnings.append("choose_one_options_require_validation")
+    if illustrative_code:
+        relation = "requirement"
+        warnings.append("course_mentioned_as_example_not_required")
+    elif explicit_choice:
+        relation = "choose_one"
+    elif len(course_codes) == 1:
+        relation = "required"
+    else:
+        relation = "requirement"
+    requirement_codes = list(dict.fromkeys(REQUIREMENT_CODE_RE.findall(source_text.upper())))
+    minimum_grade_words = [
+        word for word in words if columns.minimum_grade_left <= word.x_min < columns.major_gpa_left
+    ]
+    grade_match = re.search(r"\b([A-DF][+-]?)\b", _text_for_words(minimum_grade_words))
+    confidence = "high" if len(course_codes) == 1 and not warnings else "medium"
+    if warnings and (not course_codes or illustrative_code):
+        confidence = "low"
+    bbox = [
+        round(min(word.x_min for word in words), 3),
+        round(min(word.y_min for word in words), 3),
+        round(max(word.x_max for word in words), 3),
+        round(max(word.y_max for word in words), 3),
+    ]
+    provenance = {
+        "page": credit_word.page,
+        "bbox": bbox,
+        "source_text": source_text,
+        "ambiguity_flags": list(warnings),
+    }
+    return {
+        "id": _stable_id("req", semester, sequence, title, credit_word.text),
+        "sequence": sequence,
+        "title": title,
+        "course_codes": course_codes,
+        "relation": relation,
+        "credit_hours": _credit_value(credit_word.text),
+        "critical": any(word.text == "!" and word.x_max <= columns.title_left for word in words),
+        "minimum_grade": grade_match.group(1) if grade_match else None,
+        "requirement_codes": requirement_codes,
+        "source_text": source_text,
+        "source_page": credit_word.page,
+        "source_bbox": bbox,
+        "provenance": provenance,
+        "confidence": confidence,
+        "warnings": warnings,
+    }
+
+
+def parse_major_map_bbox(source: str, entry: RepositoryEntry) -> dict[str, Any]:
+    """Parse one coordinate-aware Poppler XHTML extraction into a program map."""
+    pages = _bbox_words(source)
+    metadata, warnings = _metadata(_positioned_text(pages), entry)
+    semesters: list[dict[str, Any]] = []
+    for page_words in pages:
+        columns = _page_table_columns(page_words)
+        if columns is None:
+            continue
+        lines = _group_positioned_lines(page_words)
+        semester_headers: list[tuple[int, re.Match[str], list[_PdfWord]]] = []
+        for line_index, line in enumerate(lines):
+            match = SEMESTER_RE.match(_clean(" ".join(word.text for word in line)))
+            if match:
+                semester_headers.append((line_index, match, line))
+        for header_index, (line_index, semester_match, header_line) in enumerate(semester_headers):
+            number = SEMESTER_NUMBERS[semester_match.group(1).lower()]
+            next_line_index = (
+                semester_headers[header_index + 1][0]
+                if header_index + 1 < len(semester_headers)
+                else len(lines)
+            )
+            region_lines = lines[line_index + 1 : next_line_index]
+            region_words = [word for line in region_lines for word in line]
+            credit_words = sorted(
+                (
+                    word
+                    for word in region_words
+                    if columns.credit_left <= word.x_min < columns.minimum_grade_left
+                    and re.fullmatch(r"\d+(?:\s*[-–]\s*\d+)?", word.text)
+                ),
+                key=lambda word: word.y_center,
+            )
+            semester = {
+                "number": number,
+                "label": f"Semester {semester_match.group(1).title()}",
+                "planned_credit_hours": _credit_value(semester_match.group(2)),
+                "requirements": [],
+            }
+            header_bottom = max(word.y_max for word in header_line)
+            for credit_index, credit_word in enumerate(credit_words):
+                start_y = max(header_bottom, credit_word.y_center - 3)
+                end_y = (
+                    credit_words[credit_index + 1].y_center - 3
+                    if credit_index + 1 < len(credit_words)
+                    else max((word.y_max for word in region_words), default=start_y) + 1
+                )
+                row_words = [word for word in region_words if start_y <= word.y_center < end_y]
+                item = _coordinate_item(
+                    row_words,
+                    columns=columns,
+                    semester=number,
+                    sequence=len(semester["requirements"]) + 1,
+                    credit_word=credit_word,
+                )
+                if item:
+                    semester["requirements"].append(item)
+            semesters.append(semester)
+    return _build_map_document(metadata, warnings, semesters, entry)
+
+
 def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
     """Parse one layout-preserving PDF text document into a reviewable program map."""
     metadata, warnings = _metadata(text, entry)
@@ -397,6 +689,19 @@ def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
         elif last_item and _is_title_continuation(last_item, line):
             _append_continuation(last_item, line)
 
+    return _build_map_document(metadata, warnings, semesters, entry)
+
+
+def _build_map_document(
+    metadata: dict[str, Any],
+    warnings: list[str],
+    semesters: list[dict[str, Any]],
+    entry: RepositoryEntry,
+) -> dict[str, Any]:
+    normalization_findings = normalize_components(metadata, semesters)
+    normalization_warnings = [
+        finding.code for finding in normalization_findings if finding.severity == "warning"
+    ]
     numbers = [semester["number"] for semester in semesters]
     if numbers != list(range(1, len(numbers) + 1)) or len(numbers) < 2:
         warnings.append("semester_sequence_is_not_contiguous")
@@ -439,12 +744,18 @@ def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
             "pdf_url": entry.pdf_url,
         },
         "confidence": document_confidence,
-        "warnings": list(dict.fromkeys([*entry.warnings, *warnings])),
+        "warnings": list(dict.fromkeys([*entry.warnings, *warnings, *normalization_warnings])),
+        "normalization": {
+            "schema_version": 1,
+            "changes": sum(finding.severity == "change" for finding in normalization_findings),
+            "warnings": len(normalization_warnings),
+            "findings": [finding.as_dict() for finding in normalization_findings],
+        },
         "validation": {
             "semester_count": len(semesters),
             "requirement_count": requirement_count,
             "low_confidence_requirement_count": low_confidence_count,
-            "requires_review": bool(warnings or low_confidence_count),
+            "requires_review": bool(warnings or normalization_warnings or low_confidence_count),
         },
     }
 
@@ -685,17 +996,19 @@ def import_inventory(
             source_path = root / source_path
         try:
             if source_path.suffix.casefold() == ".pdf":
-                text = extract_pdf_text(source_path.read_bytes())
+                document = parse_major_map_bbox(extract_pdf_bbox(source_path.read_bytes()), entry)
+                import_method = "coordinate_aware_pdf_text"
             else:
                 text = source_path.read_text(encoding="utf-8", errors="replace")
-            document = parse_major_map_text(text, entry)
+                document = parse_major_map_text(text, entry)
+                import_method = "layout_preserving_pdf_text"
             source = document["source"]
             source["sha256"] = _first(record, "sha256", "pdf_sha256")
             source["page_count"] = _first(record, "page_count", "pages")
             source["retrieved_at"] = _first(record, "retrieved_at", "downloaded_at", "generated_at")
             document["source_url"] = entry.pdf_url
             document["import_metadata"] = {
-                "method": "layout_preserving_pdf_text",
+                "method": import_method,
                 "requires_review": document["validation"]["requires_review"],
             }
             errors = validate_map(document)

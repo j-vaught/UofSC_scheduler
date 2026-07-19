@@ -266,3 +266,183 @@ def test_cli_writes_machine_readable_report_and_fails_on_errors(
     assert report["schema_version"] == 1
     assert report["summary"]["errors"] > 0
     assert "Major maps: 1 checked" in capsys.readouterr().out
+
+
+def test_gate_quarantines_official_total_and_program_metadata_conflicts(
+    tmp_path: Path,
+) -> None:
+    payload = valid_map(
+        parsed_metadata={
+            "name": "Different Major",
+            "degree": "B.S.",
+            "college": "Example College",
+            "bulletin_year": "2025-2026",
+            "minimum_total_hours": 126,
+        }
+    )
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+    result = audit.as_dict()
+
+    assert {
+        "program.metadata_mismatch",
+        "credits.official_total_mismatch",
+    } <= finding_codes(audit)
+    assert result["gate"]["decision"] == "quarantine"
+    assert result["gate"]["quarantined"] is True
+
+
+def test_alternative_groups_are_structurally_validated(tmp_path: Path) -> None:
+    payload = valid_map(
+        elective_groups=[
+            {
+                "id": "broken-choice",
+                "label": "Choose one course",
+                "credits_required": 3,
+                "options": ["TEST 301", "TEST 301"],
+                "pick": 2,
+            },
+            {
+                "id": "lost-choice",
+                "label": "TEST 401 or TEST 402",
+                "credits_required": 3,
+                "options": [],
+                "pick": 1,
+            },
+        ]
+    )
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+
+    assert {
+        "alternative.duplicate_options",
+        "alternative.pick_exceeds_options",
+        "alternative.unresolved_label",
+    } <= finding_codes(audit)
+
+
+def test_pdf_footnote_artifacts_require_review(tmp_path: Path) -> None:
+    payload = valid_map(
+        elective_groups=[
+            {
+                "id": "core",
+                "label": "Carolina Core Requirement5",
+                "credits_required": 3,
+                "options": [],
+                "pick": 1,
+                "informational": True,
+                "requires_review": True,
+            }
+        ]
+    )
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+
+    assert "extraction.footnote_artifact" in finding_codes(audit)
+    assert audit.as_dict()["gate"]["decision"] == "review"
+
+
+def test_course_credits_must_agree_across_map_and_catalog(tmp_path: Path) -> None:
+    payload = valid_map(
+        semester_sequence=[
+            {"year": 1, "term": "Fall", "courses": [{"code": "TEST 101", "credits": 4}]},
+            {"year": 1, "term": "Spring", "courses": [{"code": "TEST 102", "credits": 3}]},
+        ]
+    )
+    audit = validate_map(
+        write_map(tmp_path, "test_bs_2025", payload),
+        {"TEST 101", "TEST 102", "TEST 201", "TEST 301"},
+        {
+            "TEST 101": {"hours": "3 Credits"},
+            "TEST 102": {"hours": "3 Credits"},
+            "TEST 201": {"hours": "3 Credits"},
+            "TEST 301": {"hours": "3 Credits"},
+        },
+    )
+
+    assert "credits.course_conflict" in finding_codes(audit)
+    assert "credits.catalog_mismatch" in finding_codes(audit)
+
+
+def test_imported_maps_require_reproducible_source_provenance(tmp_path: Path) -> None:
+    payload = valid_map(
+        source={"url": "https://example.edu/map.pdf"},
+        import_metadata={"method": "layout_preserving_pdf_text"},
+    )
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+
+    assert "source.import_provenance_missing" in finding_codes(audit)
+    assert audit.as_dict()["gate"]["decision"] == "quarantine"
+
+
+def test_missing_retrieval_timestamp_requires_review_but_not_quarantine(
+    tmp_path: Path,
+) -> None:
+    payload = valid_map(
+        source={
+            "url": "https://example.edu/map.pdf",
+            "sha256": "a" * 64,
+            "page_count": 4,
+            "retrieved_at": None,
+        },
+        import_metadata={"method": "layout_preserving_pdf_text"},
+    )
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+
+    assert "source.import_metadata_incomplete" in finding_codes(audit)
+    assert "source.import_provenance_missing" not in finding_codes(audit)
+    assert audit.count("error") == 0
+    assert audit.as_dict()["gate"]["decision"] == "review"
+
+
+def test_directory_report_lists_publish_review_and_quarantine_ids(tmp_path: Path) -> None:
+    write_map(tmp_path, "publish", valid_map(id="publish", elective_groups=[]))
+    write_map(
+        tmp_path,
+        "review",
+        valid_map(
+            id="review",
+            elective_groups=[
+                {
+                    "id": "core",
+                    "label": "Carolina Core Requirement5",
+                    "credits_required": 3,
+                    "options": [],
+                    "pick": 1,
+                    "informational": True,
+                    "requires_review": True,
+                }
+            ],
+        ),
+    )
+    write_map(tmp_path, "quarantine", valid_map(id="quarantine", program=""))
+
+    report = validate_directory(tmp_path)
+
+    assert report["gate"] == {
+        "publish_ids": ["publish"],
+        "review_ids": ["review"],
+        "quarantine_ids": ["quarantine"],
+    }
+    assert report["summary"]["publish"] == 1
+    assert report["summary"]["review"] == 1
+    assert report["summary"]["quarantine"] == 1
+
+
+def test_normalization_audit_metadata_is_not_treated_as_course_data(
+    tmp_path: Path,
+) -> None:
+    payload = valid_map(
+        normalization={
+            "findings": [
+                {
+                    "code": "title.footnote_suffix_removed",
+                    "severity": "change",
+                }
+            ],
+            "warnings": 1,
+        },
+        materialization={"changes": 1, "warnings": 1, "errors": 0},
+    )
+
+    audit = validate_map(write_map(tmp_path, "test_bs_2025", payload))
+
+    assert "course.invalid_code" not in finding_codes(audit)
+    assert "warnings.invalid_type" not in finding_codes(audit)
