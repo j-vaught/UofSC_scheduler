@@ -212,6 +212,19 @@
   "program_family_id": "program_becfda809f313c24",
   "required_courses": [
     {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_54fa4a54dea4393c",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
       "carolina_core": "ARP",
       "category": "carolina_core",
       "code": "MATH 141",
@@ -510,6 +523,24 @@
         {
           "confidence": "high",
           "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_54fa4a54dea4393c",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
             "MATH 141"
           ],
           "credit_hours": 4,
@@ -520,7 +551,7 @@
           "requirement_codes": [
             "CC-ARP"
           ],
-          "sequence": 1,
+          "sequence": 2,
           "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or placement",
           "title": "MATH 141 Calculus 13",
           "warnings": []
@@ -538,7 +569,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 2,
+          "sequence": 3,
           "source_text": "! CSCE 145 Algorithmic Design I 4 C * PR Prereq or Coreq: MATH 111 or 115",
           "title": "CSCE 145 Algorithmic Design I",
           "warnings": []
@@ -556,7 +587,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "CSCE 190 Computing in the Modern World 1 C * PR Prereq or Coreq: D or better in CSCE 104, 106, 145,",
           "title": "CSCE 190 Computing in the Modern World",
           "warnings": []
@@ -572,7 +603,7 @@
           "requirement_codes": [
             "CC-AIU"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "Carolina Core AIU4 3 CC-AIU",
           "title": "Carolina Core AIU4",
           "warnings": [

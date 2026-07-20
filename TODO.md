@@ -77,8 +77,54 @@ no corequisite groups, so the compatibility path is not entered for a course tha
 has already been normalized.
 
 Still true and worth keeping: the planner should keep refusing to invent satisfied
-prerequisites, and the **raw** curated map plans to a clean 126 credits. The
-curated data is fine.
+prerequisites, and the **raw** curated map plans to a clean 126 credits.
+
+"The curated data is fine" used to end this paragraph. It was wrong; see the
+next section.
+
+## Major maps — four dropped course rows, fixed 2026-07-20
+
+The B.S.C.S. map planned 114 of 120 with one unplaceable course, and the note
+here claimed that was a genuine gap between bulletin prerequisites and curated
+map contents — ENGL 102 requiring an ENGL 101 the map did not contain — and so
+needed a product decision rather than a patch. **That was wrong.** Checking the
+registrar's own PDF settled it: ENGL 101 is the first row of Semester One. The
+extraction dropped it.
+
+Reconciling all 185 curated 2026-2027 maps against their archived source PDFs
+found four dropped rows in three maps:
+
+| map | row | semester |
+|---|---|---|
+| Computer Science (B.S.C.S.) | ENGL 101 | One |
+| Mechanical Engineering | ENGL 101 | One |
+| Music (B.A.) | MUED 155 | One |
+| Music (B.A.) | MUED 156 | Two |
+
+All four sit where the PDF layout collapses the title and credit-hours columns
+into a single space, so the line reads as prose rather than as part of the
+table. The contrast is visible in the text layer — the same course, kept in one
+map and lost in another:
+
+    Music (kept)     !     ENGL 101 Critical Reading and Composition    3    C
+    B.S.C.S. (lost)        ENGL 101 Critical Reading and Composition 3       C
+
+Each map carried the evidence of its own gap: every affected semester declared a
+credit total its listed courses fell short of by exactly the credits of the
+missing row, and each reconciles exactly once the row is restored. B.S.C.S. now
+plans **120 of 120 with zero unplaced**.
+
+`tests/test_major_map_source_rows.py` compares every curated map against its
+archived PDF and is what keeps this from recurring. Both inputs are in version
+control and the manifest pins each PDF's sha256, so the comparison is against
+the bytes the extraction actually read. It is scoped to the current catalog
+year; earlier years are archived rather than maintained.
+
+Worth knowing for the next data bug: the existing validators check schema
+conformance and provenance, which is everything *about* a file and nothing about
+whether its contents are complete. A dropped row leaves a map that is still
+schema-valid, still matches its manifest, and still describes a plausible
+degree. Only comparison against the source finds it.
 
 Also worth knowing: `groupIsMet` and the group evaluator are **duplicated**
 between `static/js/features/prereqs/index.js` and
