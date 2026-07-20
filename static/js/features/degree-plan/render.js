@@ -247,7 +247,7 @@
                 coursesHtml += `
                     <div class="course-card completed-card" data-code="${course.code}" data-semester="${sem.term}" data-section="completed" draggable="true">
                         <div class="course-card-header">
-                            <span class="course-card-code">${isElective ? course.title : course.code}</span>
+                            <span class="course-card-code">${course.code}</span>
                             <button type="button" class="card-remove-badge" data-code="${course.code}" aria-label="Remove ${course.code}">REMOVE</button>
                         </div>
                         <div class="course-card-title">${course.title} <span class="course-card-credits">${course.credits} cr</span></div>
@@ -294,7 +294,7 @@
                 coursesHtml += `
                     <div class="${cardClass}" data-code="${course.code}" data-semester="${sem.term}" data-section="planned" draggable="true">
                         <div class="course-card-header">
-                            <span class="course-card-code">${course.code}</span>
+                            <span class="course-card-code">${isElective ? course.title : course.code}</span>
                             <span class="course-card-actions">${isElective ? '' : `<button type="button" class="course-card-info" aria-label="View details and current offerings for ${course.code}" title="View course details, grades, history, and current offerings">i</button>`}<span class="course-card-credits">${course.credits} cr</span></span>
                         </div>
                         <div class="course-card-title">${course.title}</div>
