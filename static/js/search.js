@@ -33,6 +33,10 @@ const Search = (() => {
     return factory.createSearchFeature({
         get state() { return typeof State !== 'undefined' ? State : undefined; },
         get api() { return typeof API !== 'undefined' ? API : undefined; },
+        // The Carolina Core catalogue shard, shared with the degree planner's
+        // Core picker. The search filter used to scrape a bulletin field that
+        // does not exist, so it matched nothing for every outcome.
+        get carolinaCore() { return typeof CarolinaCore !== 'undefined' ? CarolinaCore : undefined; },
         get grades() { return typeof Grades !== 'undefined' ? Grades : undefined; },
         /*
          * `History` is also a DOM interface, so this name can resolve to the

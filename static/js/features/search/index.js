@@ -50,18 +50,6 @@
 
     function createSearchFeature(deps) {
         /*
-         * Every collaborator is optional and type-checked, which is faithful
-         * rather than lax. The original module referenced State and API lazily
-         * inside its methods, not at load, so a page or a test could construct
-         * it without them and only fail on the path that actually needed one.
-         * Requiring them here would be a behaviour change smuggled inside an
-         * extraction -- the thing this whole phase is trying not to do.
-         *
-         * The guarantee this fence makes is that nothing ambient is reachable,
-         * not that construction fails fast. An absent collaborator throws at
-         * the same call site it always did.
-         */
-        /*
          * No collaborator inspection at construction, deliberately.
          *
          * The composition point supplies these as getters, because classic
@@ -76,7 +64,8 @@
          * every script had run. Reproducing that is the point.
          */
 
-        const feature = {        _modelDataVersion: '2026-07-16',
+        const feature = {
+        _modelDataVersion: '2026-07-16',
         _prereqCache: {},
         _searchId: 0,
         _subjects: [],
@@ -2473,12 +2462,32 @@
             return results.filter(result => allowed.has(result.code));
         },
 
+        /*
+         * Carolina Core outcomes for a course.
+         *
+         * This used to scrape a `carolinacore` field off the bulletin detail
+         * payload. That field does not exist -- the payload carries code,
+         * title, hours, description and prerequisites and nothing else -- so
+         * the scrape always produced an empty list and the Carolina Core filter
+         * returned zero results for all ten of its options, always. Selecting
+         * "CMW" hid every course including ENGL 101.
+         *
+         * The data was already in the build the whole time, as the same
+         * carolina_core_courses.json shard the degree planner's Core picker
+         * reads. It is a collaborator now rather than a scrape.
+         */
         async fetchCarolinaCoreCodes(courseCode) {
             if (this._carolinaCoreCache[courseCode]) return this._carolinaCoreCache[courseCode];
-            const details = await this.fetchBulletinDetailsForCourse(courseCode);
-            const text = String(details.carolinacore || '').replace(/<[^>]+>/g, ' ');
-            const codes = text.match(/\b(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|SCI|VSR)\b/g) || [];
-            this._carolinaCoreCache[courseCode] = [...new Set(codes)];
+            if (!deps.carolinaCore) return [];
+            try {
+                const catalog = await deps.carolinaCore.loadCatalog();
+                const entry = (catalog.courses || []).find(course => course.code === courseCode);
+                this._carolinaCoreCache[courseCode] = [...new Set(entry?.outcomes || [])];
+            } catch (error) {
+                // An unreachable shard must not silently mean "no course
+                // carries this outcome", which is what the old scrape did.
+                return [];
+            }
             return this._carolinaCoreCache[courseCode];
         },
 

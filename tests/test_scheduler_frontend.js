@@ -674,14 +674,27 @@ test('clear filters resets browse controls and reapplies the search', () => {
     assert.equal(searches, 1);
 });
 
-test('instructional method and Carolina Core filters use section and bulletin data', async () => {
+/*
+ * This test used to stub bulletinDetails() as returning a `carolinacore`
+ * field, and passed for years. The real bulletin payload has no such field --
+ * it carries code, title, hours, description and prerequisites -- so the
+ * filter matched nothing in production for every one of its ten outcomes,
+ * while the suite stayed green against a field the test had invented.
+ *
+ * A mock is only evidence if it returns what the real source returns. This one
+ * now uses the Carolina Core catalogue shard, which is where the data has
+ * actually lived all along.
+ */
+test('instructional method and Carolina Core filters use section and catalogue data', async () => {
     const search = loadObject('static/js/search.js', 'Search', {
-        API: {
-            async bulletinSearch() {
-                return { results: [{ code: 'ENGL 101', key: '3001' }] };
-            },
-            async bulletinDetails() {
-                return { carolinacore: '<strong>Carolina Core:</strong> CMW, INF' };
+        CarolinaCore: {
+            async loadCatalog() {
+                return {
+                    courses: [
+                        { code: 'ENGL 101', outcomes: ['CMW', 'INF'] },
+                        { code: 'TEST 101', outcomes: ['SCI'] },
+                    ],
+                };
             },
         },
     });
@@ -692,8 +705,14 @@ test('instructional method and Carolina Core filters use section and bulletin da
 
     assert.equal(search.matchesInstructionalMethod(results[0], 'face-to-face'), true);
     assert.equal(search.matchesInstructionalMethod(results[1], 'online'), true);
+
     const coreResults = await search.filterByCarolinaCore(results, 'INF');
     assert.deepEqual(Array.from(coreResults, result => result.code), ['ENGL 101']);
+
+    // The other course's own outcome still selects it, so this is a filter
+    // rather than a hard-coded pass for one course.
+    const sciResults = await search.filterByCarolinaCore(results, 'SCI');
+    assert.deepEqual(Array.from(sciResults, result => result.code), ['TEST 101']);
 });
 
 test('meeting pattern stays separate from instructional method', () => {
