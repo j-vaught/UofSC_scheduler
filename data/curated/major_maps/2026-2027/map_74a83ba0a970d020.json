@@ -300,6 +300,17 @@
       "source_requirement_id": "req_1a70802c3de2bcbf"
     },
     {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_bd527d750d9c0867",
+      "informational": true,
+      "label": "Course in Second Major10 (only if needed to meet major requirements)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bd527d750d9c0867"
+    },
+    {
       "category": "program_requirements",
       "credits_required": 0,
       "id": "req_c8999e610f0767c4",
@@ -1347,6 +1358,24 @@
         {
           "confidence": "low",
           "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_bd527d750d9c0867",
+          "minimum_grade": "C",
+          "relation": "requirement",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "Course in Second Major10 (only if needed to meet major requirements) 3 C MR",
+          "title": "Course in Second Major10 (only if needed to meet major requirements)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
           "credit_hours": [
             0,
             3
@@ -1358,7 +1387,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "Foreign language5 or Elective8 (only if needed) 0-3 PR",
           "title": "Foreign language5 or Elective8 (only if needed)",
           "warnings": [
@@ -1377,7 +1406,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "Carolina Core Requirement6 or Elective8 3 CC/PR",
           "title": "Carolina Core Requirement6 or Elective8",
           "warnings": [
@@ -1396,7 +1425,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "Carolina Core Requirement6 or Elective8 3 CC/PR",
           "title": "Carolina Core Requirement6 or Elective8",
           "warnings": [
@@ -1420,8 +1449,8 @@
   },
   "total_credits_required": 122,
   "validation": {
-    "low_confidence_requirement_count": 23,
-    "requirement_count": 43,
+    "low_confidence_requirement_count": 24,
+    "requirement_count": 44,
     "requires_review": true,
     "semester_count": 8
   },

@@ -52,17 +52,6 @@
       "source_requirement_id": "req_170befa9f044a36d"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 242,
-      "id": "req_1fad21b466da1be5",
-      "informational": true,
-      "label": "only",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_1fad21b466da1be5"
-    },
-    {
       "category": "program_requirements",
       "credits_required": 3,
       "id": "req_8e12a7ea3476a356",
@@ -476,7 +465,7 @@
       "credits": 3,
       "prerequisites": [],
       "source_requirement_id": "req_d8f769140f4d2828",
-      "title": "Biomonitoring & Electrophysiology fall",
+      "title": "Biomonitoring & Electrophysiology fall only",
       "typical_semester": "Fall",
       "typical_year": 3
     },
@@ -1088,25 +1077,9 @@
             "MR"
           ],
           "sequence": 2,
-          "source_text": "! BMEN 321 Biomonitoring & Electrophysiology fall 3 * MR C or better in BMEN 212, BMEN 240, & MATH",
-          "title": "BMEN 321 Biomonitoring & Electrophysiology fall",
+          "source_text": "! BMEN 321 Biomonitoring & Electrophysiology fall only 3 * MR C or better in BMEN 212, BMEN 240, & MATH 242",
+          "title": "BMEN 321 Biomonitoring & Electrophysiology fall only",
           "warnings": []
-        },
-        {
-          "confidence": "low",
-          "course_codes": [],
-          "credit_hours": 242,
-          "critical": false,
-          "id": "req_1fad21b466da1be5",
-          "minimum_grade": null,
-          "relation": "requirement",
-          "requirement_codes": [],
-          "sequence": 3,
-          "source_text": "only 242",
-          "title": "only",
-          "warnings": [
-            "non_specific_requirement_requires_validation"
-          ]
         },
         {
           "confidence": "high",
@@ -1121,7 +1094,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "! BMEN 381 Biomedical Engineering Lab I fall only 2 * MR D or better in BMEN 263, STAT 509; Prereq or",
           "title": "BMEN 381 Biomedical Engineering Lab I fall only",
           "warnings": []
@@ -1137,7 +1110,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "Biomedical Engineering Elective5 3 * PR See Bulletin listing.",
           "title": "Biomedical Engineering Elective5",
           "warnings": [
@@ -1155,7 +1128,7 @@
           "requirement_codes": [
             "CC-GSS"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Carolina Core GSS4 3 CC-GSS",
           "title": "Carolina Core GSS4",
           "warnings": [
@@ -1176,7 +1149,7 @@
           "requirement_codes": [
             "CC-CMS"
           ],
-          "sequence": 7,
+          "sequence": 6,
           "source_text": "Carolina Core CMS4 0-3 CC-CMS",
           "title": "Carolina Core CMS4",
           "warnings": [
@@ -1557,8 +1530,8 @@
   },
   "total_credits_required": 122,
   "validation": {
-    "low_confidence_requirement_count": 14,
-    "requirement_count": 48,
+    "low_confidence_requirement_count": 13,
+    "requirement_count": 47,
     "requires_review": true,
     "semester_count": 8
   },

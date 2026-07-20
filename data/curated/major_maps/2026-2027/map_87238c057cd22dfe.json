@@ -475,7 +475,7 @@
       "min_grade": "C",
       "prerequisites": [],
       "source_requirement_id": "req_ca9e4c011269a728",
-      "title": "Group Piano",
+      "title": "Group Piano4 (or demonstration of piano prof. is required)",
       "typical_semester": "Fall",
       "typical_year": 1
     },
@@ -535,7 +535,7 @@
       "min_grade": "C",
       "prerequisites": [],
       "source_requirement_id": "req_ab0e5c60c2ac33ec",
-      "title": "Group Piano",
+      "title": "Group Piano4 (or demonstration of piano prof. is required)",
       "typical_semester": "Spring",
       "typical_year": 1
     },
@@ -1764,7 +1764,7 @@
   "total_credits_required": 121,
   "validation": {
     "low_confidence_requirement_count": 31,
-    "requirement_count": 53,
+    "requirement_count": 55,
     "requires_review": true,
     "semester_count": 8
   },

@@ -61,13 +61,15 @@
     },
     {
       "category": "major_courses",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_ccba31d6b2186106",
-      "informational": true,
-      "label": "CSCE 242 Web Applications fall only or",
-      "options": [],
+      "label": "CSCE 242 Web Applications fall only or CSCE 205 Business Applications Programming",
+      "options": [
+        "CSCE 242",
+        "CSCE 205"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_ccba31d6b2186106"
     },
     {
@@ -729,7 +731,8 @@
         {
           "confidence": "high",
           "course_codes": [
-            "CSCE 242"
+            "CSCE 242",
+            "CSCE 205"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -740,8 +743,8 @@
             "MR"
           ],
           "sequence": 1,
-          "source_text": "CSCE 242 Web Applications fall only or 3 C * MR C or better in CSCE 146 (CSCE 242 only);",
-          "title": "CSCE 242 Web Applications fall only or",
+          "source_text": "CSCE 242 Web Applications fall only or CSCE 205 Business Applications Programming 3 C * MR C or better in CSCE 146 (CSCE 242 only); MSGC 290 or CSCE 101 or above (CSCE 205 only)",
+          "title": "CSCE 242 Web Applications fall only or CSCE 205 Business Applications Programming",
           "warnings": []
         },
         {

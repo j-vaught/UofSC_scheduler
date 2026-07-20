@@ -26,6 +26,17 @@
     {
       "category": "carolina_core",
       "credits_required": 3,
+      "id": "req_53584577902ec299",
+      "informational": true,
+      "label": "Foreign Language3 or other Carolina Core Req.4",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_53584577902ec299"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
       "id": "req_a7fc99bed0f12d14",
       "informational": true,
       "label": "Carolina Core ARP Requirement",
@@ -558,6 +569,27 @@
           ]
         },
         {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_53584577902ec299",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 3,
+          "source_text": "Foreign Language3 or other Carolina Core Req.4 3-4 CC-GFL",
+          "title": "Foreign Language3 or other Carolina Core Req.4",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
           "confidence": "high",
           "course_codes": [
             "HTMT 110"
@@ -570,7 +602,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "HTMT 110 Introduction to Hospitality Industry 3 C MR",
           "title": "HTMT 110 Introduction to Hospitality Industry",
           "warnings": []
@@ -588,7 +620,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "HRSM 101 HRSM Prof. Dev. Career Exploration 1 PR",
           "title": "HRSM 101 HRSM Prof. Dev. Career Exploration",
           "warnings": []
@@ -607,7 +639,7 @@
             "PR",
             "CC"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "UNIV 101 The Student in the University 3 PR/CC",
           "title": "UNIV 101 The Student in the University",
           "warnings": []
@@ -1346,8 +1378,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 16,
-    "requirement_count": 41,
+    "low_confidence_requirement_count": 17,
+    "requirement_count": 42,
     "requires_review": true,
     "semester_count": 8
   },

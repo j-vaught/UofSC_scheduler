@@ -48,9 +48,97 @@ SEMESTER_NUMBERS = {
     "seven": 7,
     "eight": 8,
 }
+# Some plans carry a block of rows that is not one of the eight numbered
+# semesters: a summer session ("Summer (6 Credit Hours)"), an internship
+# window ("Summer After Junior Year (6 Credit Hours)"), or a flexible slot
+# ("Take during Semester Three or Four (0-2 Hours)", "Take during any
+# semester (0-6 Credit Hours)"). These headers use the same "(<hours>
+# [Credit] Hours)" convention as a real semester header but never say
+# "Semester <word>", so SEMESTER_RE never matches them. Anchoring on a
+# closed set of trigger words (rather than "any text before a parenthesised
+# hours count") is deliberate: that broader shape also matches footnote
+# sub-bullets like "a. Thematic Courses (3 hours): ...", and treating those
+# as new sections would fabricate dozens of bogus semesters.
+NON_SEMESTER_SECTION_RE = re.compile(
+    r"^\s*(?P<label>(?:Summer|Winter|Take\s+during)\b[^()\n]*?)"
+    r"\s*\(\s*(?P<hours>\d+(?:\s*[-–]\s*\d+)?)\s*(?:Credit\s+)?Hours?\s*\)",
+    re.IGNORECASE,
+)
 REQUIREMENT_CODE_RE = re.compile(
     r"\b(?:CC(?:-(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|INT|SCI|VSR))?|CR|MR|PR)\b"
 )
+# COURSE_RE has no way to distinguish a registrar subject code (MATH, ENGL,
+# CSCE, ...) from an ordinary English word that happens to sit directly in
+# front of a three-digit number in prerequisite prose that bled into the
+# title text -- e.g. "...C or better in MATH 106 or 146" yields a bare "OR
+# 146" match, "cross-listed STAT 511" yields "CROSS 511", "General Chemistry
+# II" followed by a wrapped "111" yields "II 111". An audit of every
+# course_codes value produced across the curated corpus (all catalog years)
+# found these words are the only collisions: every subject code the
+# registrar actually uses (all 4-5 letters in the corpus) survives untouched.
+_NON_SUBJECT_WORDS = frozenset(
+    {
+        # Conjunctions/prepositions that land directly before a course number
+        # once prerequisite prose wraps into the title ("...I or 146").
+        "OR",
+        "AND",
+        "NOR",
+        "BUT",
+        "FOR",
+        "YET",
+        "SO",
+        "IN",
+        "ON",
+        "AT",
+        "TO",
+        "OF",
+        "BY",
+        "AS",
+        "IF",
+        "BE",
+        # Determiners/quantifiers and number words ("any 200-level", "two
+        # 500-level", "cross-listed").
+        "THE",
+        "ANY",
+        "ALL",
+        "ONE",
+        "TWO",
+        "SIX",
+        "TEN",
+        "CROSS",
+        # Multi-letter Roman numerals used as a course-title suffix
+        # ("General Chemistry II"), confirmed to leak into "II 111" when the
+        # next column wraps. COURSE_RE requires 2-5 letters, so single-letter
+        # numerals (I, V, X) can never match and are omitted here.
+        "II",
+        "III",
+        "IV",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        # Scheduling/administrative prose confirmed in the audit ("offered
+        # fall odd", "a view of the River", "Physics I Lab", "CC-INT").
+        "FALL",
+        "SPRING",
+        "ODD",
+        "EVEN",
+        "ONLY",
+        "LAB",
+        "RIVER",
+        "INT",
+    }
+)
+
+
+def _extract_course_codes(text: str) -> list[str]:
+    """Find explicit "SUBJECT ###" course codes, dropping English-word collisions."""
+    codes = [
+        f"{subject} {number}"
+        for subject, number in COURSE_RE.findall(text.upper())
+        if subject not in _NON_SUBJECT_WORDS
+    ]
+    return list(dict.fromkeys(codes))
 
 
 def _clean(value: str) -> str:
@@ -387,22 +475,70 @@ def _credit_value(value: str) -> int | list[int]:
     return values[0] if len(values) == 1 else [min(values), max(values)]
 
 
+_ROW_RE = re.compile(
+    r"^\s*(?P<critical>!\s*)?(?P<title>\S.*?)\s{2,}(?P<credits>\d+(?:\s*[-–]\s*\d+)?)"
+    r"(?:\s{2,}(?P<remaining>.*))?$"
+)
+_ROW_TIGHT_GAP_RE = re.compile(
+    r"^\s*(?P<critical>!\s*)?(?P<title>\S.*?)\s(?P<credits>\d+(?:\s*[-–]\s*\d+)?)"
+    r"\s{2,}(?P<remaining>.*)$"
+)
+
+
+def _looks_like_trailing_columns(remaining: str) -> bool:
+    """True when `remaining` reads like a grade/requirement-code column, not prose."""
+    if REQUIREMENT_CODE_RE.search(remaining.upper()):
+        return True
+    return bool(re.match(r"^[A-DF][+-]?(?:\s{2,}|$)", remaining))
+
+
+# No single USC undergraduate course row is worth more than this many credit
+# hours. `-layout` sometimes wraps the far-right prerequisite column's own
+# course number (e.g. "...PHYS 201 or\n211") onto the same visual line as a
+# truncated title fragment, which otherwise reads exactly like a row:
+# "<fragment>  <huge gap>  <number>". Real credit-hours values across the
+# curated corpus top out at 15; every value at or above 130 traces to this
+# exact kind of column bleed (a wrapped course number, not a credit value).
+_MAX_PLAUSIBLE_CREDIT_HOURS = 18
+
+
+def _row_credit_hours_implausible(credits_text: str) -> bool:
+    """True when a matched "credits" group is too large to be a real value."""
+    value = _credit_value(credits_text)
+    peak = max(value) if isinstance(value, list) else value
+    return peak > _MAX_PLAUSIBLE_CREDIT_HOURS
+
+
 def _row_from_line(line: str, semester: int, sequence: int) -> dict[str, Any] | None:
     # Major maps are columnar. Two or more spaces separate title, credits, grade/GPA,
     # requirement code, and prerequisite columns in the layout-preserving text.
-    match = re.match(
-        r"^\s*(?P<critical>!\s*)?(?P<title>\S.*?)\s{2,}(?P<credits>\d+(?:\s*[-–]\s*\d+)?)"
-        r"(?:\s{2,}(?P<remaining>.*))?$",
-        line.rstrip(),
-    )
+    stripped_line = line.rstrip()
+    match = _ROW_RE.match(stripped_line)
     if not match:
+        # pdftotext -layout occasionally leaves only a single space between
+        # the title and the credit-hours column when the title text runs
+        # right up to the column boundary. The strict rule above then finds
+        # no match and the whole row would silently vanish. Recover it, but
+        # only when what follows the lone digit run still reads like the
+        # grade/requirement columns that always trail a real credit-hours
+        # value -- otherwise a course number embedded in the title itself
+        # (e.g. "ENGL 101 ...") could be mistaken for the credits field.
+        tight_match = _ROW_TIGHT_GAP_RE.match(stripped_line)
+        if tight_match and _looks_like_trailing_columns(tight_match.group("remaining")):
+            match = tight_match
+    if not match:
+        return None
+    if _row_credit_hours_implausible(match.group("credits")):
+        # Not a row at all -- see _MAX_PLAUSIBLE_CREDIT_HOURS above.
+        # _is_title_continuation re-checks this same shape so the fragment
+        # is folded back into the still-open item instead of being emitted
+        # as a phantom row (or vanishing without a trace).
         return None
     title = _clean(match.group("title"))
     if not title or title.lower().startswith(("credit ", "minimum ")):
         return None
     remaining = _clean(match.group("remaining") or "")
-    course_codes = [f"{subject} {number}" for subject, number in COURSE_RE.findall(title.upper())]
-    course_codes = list(dict.fromkeys(course_codes))
+    course_codes = _extract_course_codes(title)
     explicit_choice = bool(re.search(r"\b(?:or|choose|select)\b", title, re.IGNORECASE))
     warnings: list[str] = []
     illustrative_code = bool(
@@ -456,7 +592,32 @@ def _is_title_continuation(item: dict[str, Any], line: str) -> bool:
         return True
     if re.search(r"\(or\s+[A-Z]{2,5}\s+\d{3}", stripped, re.IGNORECASE):
         return True
-    return item["title"].endswith("-") and bool(COURSE_RE.search(stripped.upper()))
+    # The PDF sometimes wraps a "(or CODE ###)" alternative right after the
+    # open paren, so "(or" ends one line and the code starts the next, e.g.
+    # title "...Engr. (or" / continuation "ENCP 101) fall only". Neither
+    # pattern above matches because "(or" and the code never share a line,
+    # so the alternative -- and any trailing text like "fall only" -- was
+    # silently dropped.
+    if item["title"].casefold().endswith("(or") and re.match(
+        r"^[A-Z]{2,5}\s*[- ]?\s*\d{3}[A-Z]?\)", stripped, re.IGNORECASE
+    ):
+        return True
+    if item["title"].endswith("-") and bool(_extract_course_codes(stripped)):
+        return True
+    # A line can look exactly like a brand-new row (title + gap + digits)
+    # while actually being the tail of THIS row wrapping into the far-right
+    # prerequisite column, e.g. "Communities" / "441" continuing "...SOWK\n
+    # 441", or "School10 (Spring only)" / "370" continuing a title that
+    # itself wrapped mid-word. _row_from_line already refuses to emit these
+    # as rows (see _MAX_PLAUSIBLE_CREDIT_HOURS); recognise the same shape
+    # here so the fragment is folded back into the open item instead of
+    # disappearing without a trace. The indent check above still screens out
+    # deep column bleed (e.g. a lone requirement-code fragment like "INT")
+    # that has no business being appended to a title.
+    row_shaped = _ROW_RE.match(line.rstrip()) or _ROW_TIGHT_GAP_RE.match(line.rstrip())
+    if row_shaped and _row_credit_hours_implausible(row_shaped.group("credits")):
+        return True
+    return False
 
 
 def _append_continuation(item: dict[str, Any], line: str) -> None:
@@ -465,10 +626,20 @@ def _append_continuation(item: dict[str, Any], line: str) -> None:
         return
     # Only retain meaningful alternative/title continuations. Prerequisite prose is
     # preserved in source_text but never promoted into an inferred requirement.
-    item["title"] = _clean(f"{item['title']} {continuation}")
-    codes = [f"{subject} {number}" for subject, number in COURSE_RE.findall(continuation.upper())]
+    title_fragment = continuation
+    row_shaped = _ROW_RE.match(line.rstrip()) or _ROW_TIGHT_GAP_RE.match(line.rstrip())
+    if row_shaped and _row_credit_hours_implausible(row_shaped.group("credits")):
+        # The trailing digits are a wrapped fragment from the far-right
+        # prerequisite column (see _MAX_PLAUSIBLE_CREDIT_HOURS), not part of
+        # the title -- keep them out of the title text. The unedited line is
+        # still preserved below in source_text.
+        title_fragment = _clean(row_shaped.group("title"))
+    item["title"] = _clean(f"{item['title']} {title_fragment}")
+    codes = _extract_course_codes(title_fragment)
     item["course_codes"] = list(dict.fromkeys([*item["course_codes"], *codes]))
-    if re.search(r"(?:^|\()or\s+[A-Z]{2,5}\s+\d{3}", continuation, re.IGNORECASE):
+    if re.search(r"(?:^|\()or\s+[A-Z]{2,5}\s+\d{3}", title_fragment, re.IGNORECASE) or re.match(
+        r"^[A-Z]{2,5}\s*[- ]?\s*\d{3}[A-Z]?\)", title_fragment, re.IGNORECASE
+    ):
         item["relation"] = "choose_one"
     item["confidence"] = "medium"
     item["source_text"] = _clean(f"{item['source_text']} {continuation}")
@@ -529,8 +700,7 @@ def _coordinate_item(
     if not title or title.casefold().startswith(("credit ", "minimum ")):
         return None
     source_text = _text_for_words(words)
-    course_codes = [f"{subject} {number}" for subject, number in COURSE_RE.findall(title.upper())]
-    course_codes = list(dict.fromkeys(course_codes))
+    course_codes = _extract_course_codes(title)
     explicit_choice = bool(re.search(r"\b(?:or|choose|select)\b", title, re.IGNORECASE))
     illustrative_code = bool(
         course_codes
@@ -659,6 +829,7 @@ def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
     semesters: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
     last_item: dict[str, Any] | None = None
+    non_semester_section_count = 0
     for line in lines:
         semester_match = SEMESTER_RE.match(line)
         if semester_match:
@@ -671,6 +842,30 @@ def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
             }
             semesters.append(current)
             last_item = None
+            continue
+        section_match = NON_SEMESTER_SECTION_RE.match(line)
+        if section_match:
+            # A recognisable section header that isn't "Semester <N>" (a
+            # summer session, an internship window, a flexible elective
+            # slot). Without this branch the header matches nothing, `current`
+            # stays whatever it was, and every row here silently accumulates
+            # into the wrong -- and possibly already-closed -- semester
+            # bucket (e.g. a summer internship landing in "Semester Eight").
+            # Number it past the highest real semester number (1-8) so it
+            # can never collide with one, keep the original header wording
+            # as the label (rather than inventing "Semester Nine"), and flag
+            # the document for review since this plan doesn't fit the
+            # standard 8-semester shape the rest of the pipeline assumes.
+            non_semester_section_count += 1
+            current = {
+                "number": 8 + non_semester_section_count,
+                "label": _clean(line),
+                "planned_credit_hours": _credit_value(section_match.group("hours")),
+                "requirements": [],
+            }
+            semesters.append(current)
+            last_item = None
+            warnings.append("non_standard_semester_section")
             continue
         if current is None:
             continue

@@ -132,6 +132,17 @@
       "source_requirement_id": "req_b99ecf0e1d1e0814"
     },
     {
+      "category": "carolina_core",
+      "credits_required": 0,
+      "id": "req_bbc1ae17d12071ad",
+      "informational": true,
+      "label": "Carolina Core Requirement4 (only if needed to meet 0-3 Carolina Core requirements)",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bbc1ae17d12071ad"
+    },
+    {
       "category": "major_courses",
       "credits_required": 3,
       "id": "req_972c292c063c235b",
@@ -971,6 +982,27 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            0,
+            3
+          ],
+          "critical": false,
+          "id": "req_bbc1ae17d12071ad",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC"
+          ],
+          "sequence": 5,
+          "source_text": "Carolina Core Requirement4 (only if needed to meet 0-3 Carolina Core requirements) 0-3 CC",
+          "title": "Carolina Core Requirement4 (only if needed to meet 0-3 Carolina Core requirements)",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -1247,8 +1279,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 11,
-    "requirement_count": 37,
+    "low_confidence_requirement_count": 12,
+    "requirement_count": 38,
     "requires_review": true,
     "semester_count": 8
   },

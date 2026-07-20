@@ -17,8 +17,9 @@
       "credits_each": 3,
       "credits_required": 3,
       "id": "req_f518a64ddd780e75",
-      "label": "Any CC-ARP course3, but one of the following is or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+      "label": "Any CC-ARP course3, but one of the following is or STAT 110 Introduction to Statistical Reasoning or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
       "options": [
+        "STAT 110",
         "STAT 112",
         "STAT 201",
         "STAT 205",
@@ -534,6 +535,7 @@
         {
           "confidence": "medium",
           "course_codes": [
+            "STAT 110",
             "STAT 112",
             "STAT 201",
             "STAT 205",
@@ -548,8 +550,8 @@
             "CC-ARP"
           ],
           "sequence": 3,
-          "source_text": "Any CC-ARP course3, but one of the following is 3 CC-ARP See Bulletin listing. or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
-          "title": "Any CC-ARP course3, but one of the following is or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+          "source_text": "Any CC-ARP course3, but one of the following is 3 CC-ARP See Bulletin listing. or STAT 110 Introduction to Statistical Reasoning or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
+          "title": "Any CC-ARP course3, but one of the following is or STAT 110 Introduction to Statistical Reasoning or STAT 112 Statistics & the Media or STAT 201 Elementary Statistics or STAT 205 Elem. Statistics for the Biological & Life Sci. or STAT 206 Elementary Statistics for Business",
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]

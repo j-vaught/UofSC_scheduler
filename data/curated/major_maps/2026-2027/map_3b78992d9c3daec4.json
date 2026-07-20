@@ -431,17 +431,6 @@
       "source_requirement_id": "req_f3af2dea7d562647"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 360,
-      "id": "req_bd9cdd9d7e482858",
-      "informational": true,
-      "label": "CC-INT",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_bd9cdd9d7e482858"
-    },
-    {
       "category": "major_courses",
       "credits_required": 1,
       "id": "req_be4e06b7387a6763",
@@ -1608,22 +1597,6 @@
           "warnings": []
         },
         {
-          "confidence": "low",
-          "course_codes": [],
-          "credit_hours": 360,
-          "critical": false,
-          "id": "req_bd9cdd9d7e482858",
-          "minimum_grade": null,
-          "relation": "requirement",
-          "requirement_codes": [],
-          "sequence": 2,
-          "source_text": "CC-INT 360",
-          "title": "CC-INT",
-          "warnings": [
-            "non_specific_requirement_requires_validation"
-          ]
-        },
-        {
           "confidence": "high",
           "course_codes": [
             "DANC 500"
@@ -1636,7 +1609,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 2,
           "source_text": "DANC 500 Selected Topics in Dance 1 C MR",
           "title": "DANC 500 Selected Topics in Dance",
           "warnings": []
@@ -1653,7 +1626,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "Carolina Core Requirement6 or Elective7 3 CC/PR",
           "title": "Carolina Core Requirement6 or Elective7",
           "warnings": [
@@ -1671,7 +1644,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "Minor Course8 or Elective7 3 C (minor) PR",
           "title": "Minor Course8 or Elective7",
           "warnings": [
@@ -1689,7 +1662,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Elective7 3 PR",
           "title": "Elective7",
           "warnings": [
@@ -1707,7 +1680,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 7,
+          "sequence": 6,
           "source_text": "Elective7 3 PR",
           "title": "Elective7",
           "warnings": [
@@ -1731,8 +1704,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 43,
-    "requirement_count": 55,
+    "low_confidence_requirement_count": 42,
+    "requirement_count": 54,
     "requires_review": true,
     "semester_count": 8
   },

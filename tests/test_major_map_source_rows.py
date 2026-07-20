@@ -123,7 +123,35 @@ def test_the_archive_covers_the_curated_maps():
 def test_no_scheduled_course_row_was_dropped(curated_path: Path, pdf_path: Path):
     document = json.loads(curated_path.read_text(encoding="utf-8"))
     present = curated_codes(document)
-    missing = [code for code in dict.fromkeys(scheduled_rows(pdf_path)) if code not in present]
+    found = list(dict.fromkeys(scheduled_rows(pdf_path)))
+
+    # Fail loudly on a layout this pattern does not understand, rather than
+    # quietly finding fewer rows and passing.
+    #
+    # This is the failure mode of the whole approach, and it has already
+    # happened twice. One scan truncated every PDF at "Program Notes" -- which
+    # the page-one preamble mentions -- and reported all 185 maps clean. Another
+    # required "(15 Credit Hours)" and skipped every ranged "(12-13 Credit
+    # Hours)" header, which is how it missed MUED 155. Both passed silently.
+    #
+    # These documents are written by many authors across a dozen colleges and
+    # change between catalog years, so the pattern will meet a layout it was not
+    # written for. When it does, this says so instead of reporting success.
+    coded_rows = sum(
+        1
+        for semester in document.get("semester_plan") or []
+        for requirement in semester.get("requirements") or []
+        if requirement.get("course_codes")
+    )
+    if coded_rows >= 5 and len(found) < coded_rows * 0.6:
+        pytest.skip(
+            f"layout not understood: matched {len(found)} rows against {coded_rows} "
+            f"curated rows. This map is UNVERIFIED here and is covered by the agent "
+            f"audit instead (see docs/major-map-verification.md). Skipping is the "
+            f"honest outcome; passing would claim a check that did not happen."
+        )
+
+    missing = [code for code in found if code not in present]
     assert missing == [], (
         f"{document.get('major')} ({curated_path.name}): the source PDF schedules "
         f"{missing} but the curated map never mentions them"

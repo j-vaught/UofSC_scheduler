@@ -178,17 +178,6 @@
       "source_requirement_id": "req_fa7865809d717b4e"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 370,
-      "id": "req_a7d1772ff294d136",
-      "informational": true,
-      "label": "School10 (Spring only)",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_a7d1772ff294d136"
-    },
-    {
       "category": "major_courses",
       "credits_required": 1,
       "id": "req_1fbc54343fe22997",
@@ -416,7 +405,7 @@
       "code": "DANC 150",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_d6aec28926f0c051",
       "title": "Introduction to Dance3",
@@ -440,7 +429,7 @@
       "code": "DANC 160A",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_a6d5e84539d8a24a",
       "title": "Dance Improvisation & Composition8",
@@ -452,7 +441,7 @@
       "code": "DANC 360",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_7c395cb2300eb6ab",
       "title": "Choreography I",
@@ -464,7 +453,7 @@
       "code": "DANC 370",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_b4cbbe67e13da9d7",
       "title": "Creative Dance10 (Fall only)",
@@ -476,7 +465,7 @@
       "code": "DANC 380",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_ce790b6e724808a1",
       "title": "Movement & Dance for Musical Theatre",
@@ -488,7 +477,7 @@
       "code": "DANC 103",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_81ebd230993fa8ed",
       "title": "The Dancer’s Body",
@@ -500,10 +489,10 @@
       "code": "DANC 470",
       "corequisites": [],
       "credits": 4,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_7f47d14b3a249b8f",
-      "title": "Dance Pedagogy for Middle & High",
+      "title": "Dance Pedagogy for Middle & High School10 (Spring only)",
       "typical_semester": "Spring",
       "typical_year": 2
     },
@@ -512,7 +501,7 @@
       "code": "DANC 476",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_895749ee99983a4f",
       "title": "Production Design for Dance Techniques",
@@ -524,7 +513,7 @@
       "code": "DANC 281",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_204eb443caa5ec1e",
       "title": "Dance History I3",
@@ -536,7 +525,7 @@
       "code": "DANC 478",
       "corequisites": [],
       "credits": 5,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_08072a7edf12fe75",
       "title": "Integrated Approaches in Dance Ed.10",
@@ -548,7 +537,7 @@
       "code": "DANC 282",
       "corequisites": [],
       "credits": 3,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_c392a6b23d187741",
       "title": "Dance History II3",
@@ -560,7 +549,7 @@
       "code": "DANC 307",
       "corequisites": [],
       "credits": 1,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_143e84d7adad43f8",
       "title": "West African Dance",
@@ -572,7 +561,7 @@
       "code": "DANC 270",
       "corequisites": [],
       "credits": 2,
-      "min_grade": "C",
+      "min_grade": "C+",
       "prerequisites": [],
       "source_requirement_id": "req_c27a7118c08fdf97",
       "title": "Introduction to Dance Ed.10 (Spring only)",
@@ -637,7 +626,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_d6aec28926f0c051",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "CR"
@@ -653,7 +642,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_2e35b9508663343f",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -671,7 +660,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_d748a76558b3977c",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -689,7 +678,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_31029802a9e18b21",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -768,7 +757,7 @@
           "credit_hours": 3,
           "critical": true,
           "id": "req_a6d5e84539d8a24a",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -784,7 +773,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_348690e089e1b9ec",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -802,7 +791,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_08f9ab0a17328f34",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -820,7 +809,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_871d0e5c79bfae71",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -883,7 +872,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_7c395cb2300eb6ab",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR",
@@ -902,7 +891,7 @@
           "credit_hours": 3,
           "critical": true,
           "id": "req_b4cbbe67e13da9d7",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -918,7 +907,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_0d55f64009403fc1",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -936,7 +925,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_939cd5d457561540",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -954,7 +943,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_d9b1f3fa25a29687",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -972,7 +961,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_ca5ce65d73939ab0",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1018,7 +1007,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_ce790b6e724808a1",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1036,7 +1025,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_81ebd230993fa8ed",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1054,31 +1043,15 @@
           "credit_hours": 4,
           "critical": true,
           "id": "req_7f47d14b3a249b8f",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
           ],
           "sequence": 3,
-          "source_text": "! DANC 470 Dance Pedagogy for Middle & High 4 C+ MR C+ or better in DANC 160A or 160B, 360 &",
-          "title": "DANC 470 Dance Pedagogy for Middle & High",
+          "source_text": "! DANC 470 Dance Pedagogy for Middle & High School10 (Spring only) 4 C+ MR C+ or better in DANC 160A or 160B, 360 & 370",
+          "title": "DANC 470 Dance Pedagogy for Middle & High School10 (Spring only)",
           "warnings": []
-        },
-        {
-          "confidence": "low",
-          "course_codes": [],
-          "credit_hours": 370,
-          "critical": false,
-          "id": "req_a7d1772ff294d136",
-          "minimum_grade": null,
-          "relation": "requirement",
-          "requirement_codes": [],
-          "sequence": 4,
-          "source_text": "School10 (Spring only) 370",
-          "title": "School10 (Spring only)",
-          "warnings": [
-            "non_specific_requirement_requires_validation"
-          ]
         },
         {
           "confidence": "low",
@@ -1086,12 +1059,12 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_1fbc54343fe22997",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "Ballet Technique Course5 1 C+ MR",
           "title": "Ballet Technique Course5",
           "warnings": [
@@ -1104,12 +1077,12 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_e214062f38ab1d1b",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Contemporary Technique Course5 1 C+ MR",
           "title": "Contemporary Technique Course5",
           "warnings": [
@@ -1122,12 +1095,12 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_317212dada931abd",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 7,
+          "sequence": 6,
           "source_text": "Education Course9 3 C+ MR",
           "title": "Education Course9",
           "warnings": [
@@ -1152,7 +1125,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_895749ee99983a4f",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1170,7 +1143,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_204eb443caa5ec1e",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "CR"
@@ -1188,7 +1161,7 @@
           "credit_hours": 5,
           "critical": true,
           "id": "req_08072a7edf12fe75",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1204,7 +1177,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_aeea3ba9a22e40b3",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1222,7 +1195,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_c405c96e4c2c281c",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1273,7 +1246,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_c392a6b23d187741",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "CR"
@@ -1292,7 +1265,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_0534afe12d7d610d",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "choose_one",
           "requirement_codes": [
             "MR"
@@ -1310,7 +1283,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_143e84d7adad43f8",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1328,7 +1301,7 @@
           "credit_hours": 2,
           "critical": true,
           "id": "req_c27a7118c08fdf97",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "required",
           "requirement_codes": [
             "MR"
@@ -1344,7 +1317,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_e63f85ec6dd1428f",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1430,7 +1403,7 @@
           "credit_hours": 1,
           "critical": false,
           "id": "req_483f8d773a46956b",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1448,7 +1421,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_5cce66f76f5bcd56",
-          "minimum_grade": "C",
+          "minimum_grade": "C+",
           "relation": "requirement",
           "requirement_codes": [
             "MR"
@@ -1599,8 +1572,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 32,
-    "requirement_count": 50,
+    "low_confidence_requirement_count": 31,
+    "requirement_count": 49,
     "requires_review": true,
     "semester_count": 8
   },

@@ -42,6 +42,17 @@
       "source_requirement_id": "req_9b350a2071c62eb0"
     },
     {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_015bff41dcf03b43",
+      "informational": true,
+      "label": "Foreign Language5 or other Carolina Core Req.6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_015bff41dcf03b43"
+    },
+    {
       "category": "major_courses",
       "credits_each": 3,
       "credits_required": 3,
@@ -566,6 +577,27 @@
           "warnings": []
         },
         {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_015bff41dcf03b43",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign Language5 or other Carolina Core Req.6 3-4 CC-GFL",
+          "title": "Foreign Language5 or other Carolina Core Req.6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
           "confidence": "high",
           "course_codes": [
             "UNIV 101"
@@ -579,7 +611,7 @@
             "PR",
             "CC"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "UNIV 101 The Student in the University 3 PR/CC",
           "title": "UNIV 101 The Student in the University",
           "warnings": []
@@ -1298,8 +1330,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 25,
-    "requirement_count": 39,
+    "low_confidence_requirement_count": 26,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

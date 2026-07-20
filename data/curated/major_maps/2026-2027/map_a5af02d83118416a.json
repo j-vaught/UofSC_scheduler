@@ -133,6 +133,28 @@
     {
       "category": "carolina_core",
       "credits_required": 3,
+      "id": "req_17fd3cca519f7a57",
+      "informational": true,
+      "label": "Foreign Language7 or other Carolina Core Req.",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_17fd3cca519f7a57"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ced3fd2af88861e1",
+      "informational": true,
+      "label": "Foreign Language7 or other Carolina Core Req.",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ced3fd2af88861e1"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
       "id": "req_fdd6c51502b6cb75",
       "informational": true,
       "label": "Carolina Core Requirement3",
@@ -1035,6 +1057,27 @@
           "source_text": "FINA 363 Introduction to Finance 3 PR C or better in ECON 221 or 224 & in ACCT 225 or FINA 333 Finance and Markets or RETL 261 & in STAT 201, 205, 206, 509, 511,",
           "title": "FINA 363 Introduction to Finance or FINA 333 Finance and Markets or RETL 261 & in STAT 201, 205, 206, 509, 511,",
           "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_17fd3cca519f7a57",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 4,
+          "source_text": "Foreign Language7 or other Carolina Core Req.3 3-4                  CC-GFL",
+          "title": "Foreign Language7 or other Carolina Core Req.",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -1069,13 +1112,31 @@
           "course_codes": [],
           "credit_hours": 3,
           "critical": false,
+          "id": "req_ced3fd2af88861e1",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 2,
+          "source_text": "Foreign Language7 or other Carolina Core Req.3 3                    CC-GFL",
+          "title": "Foreign Language7 or other Carolina Core Req.",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
           "id": "req_fdd6c51502b6cb75",
           "minimum_grade": null,
           "relation": "requirement",
           "requirement_codes": [
             "CC"
           ],
-          "sequence": 2,
+          "sequence": 3,
           "source_text": "Carolina Core Requirement3 3 CC",
           "title": "Carolina Core Requirement3",
           "warnings": [
@@ -1094,7 +1155,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "Carolina Core Requirement3 or Elective8 3 CC/PR",
           "title": "Carolina Core Requirement3 or Elective8",
           "warnings": [
@@ -1112,7 +1173,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "Elective8 3 PR",
           "title": "Elective8",
           "warnings": [
@@ -1134,7 +1195,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "Carolina Core Req.3 or Elective8 (if needed to 0-3 CC/PR",
           "title": "Carolina Core Req.3 or Elective8 (if needed to",
           "warnings": [
@@ -1287,8 +1348,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 8,
-    "requirement_count": 38,
+    "low_confidence_requirement_count": 10,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

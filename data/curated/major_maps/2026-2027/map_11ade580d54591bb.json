@@ -70,6 +70,17 @@
     {
       "category": "carolina_core",
       "credits_required": 3,
+      "id": "req_199845bc07bb47c5",
+      "informational": true,
+      "label": "Foreign Language4 or other Carolina Core Req.3",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_199845bc07bb47c5"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
       "id": "req_5baafa3ef2f06058",
       "informational": true,
       "label": "Carolina Core Requirement3",
@@ -811,6 +822,27 @@
         {
           "confidence": "low",
           "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_199845bc07bb47c5",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language4 or other Carolina Core Req.3 3-4 CC-GFL",
+          "title": "Foreign Language4 or other Carolina Core Req.3",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
           "credit_hours": 3,
           "critical": false,
           "id": "req_5baafa3ef2f06058",
@@ -819,7 +851,7 @@
           "requirement_codes": [
             "CC"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "Carolina Core Requirement3 3 CC",
           "title": "Carolina Core Requirement3",
           "warnings": [
@@ -1278,8 +1310,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 13,
-    "requirement_count": 39,
+    "low_confidence_requirement_count": 14,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

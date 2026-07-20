@@ -114,15 +114,17 @@
       "source_requirement_id": "req_49f2e24058bbafb0"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 141,
-      "id": "req_c14f5055466d7022",
-      "informational": true,
-      "label": "or ECON 322 Intermediate Macroecon. Theory",
-      "options": [],
+      "category": "major_courses",
+      "credits_each": 3,
+      "credits_required": 3,
+      "id": "req_28a5eefbbba18624",
+      "label": "ECON 321 Intermediate Microeconomic Theory or ECON 322 Intermediate Macroecon. Theory",
+      "options": [
+        "ECON 321",
+        "ECON 322"
+      ],
       "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_c14f5055466d7022"
+      "source_requirement_id": "req_28a5eefbbba18624"
     },
     {
       "category": "carolina_core",
@@ -137,25 +139,16 @@
     },
     {
       "category": "major_courses",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_d58547c7cc3cd2fb",
-      "informational": true,
-      "label": "ECON 321 Intermediate Microeconomic Theory",
-      "options": [],
+      "label": "ECON 321 Intermediate Microeconomic Theory or ECON 322 Intermediate Macroecon. Theory",
+      "options": [
+        "ECON 321",
+        "ECON 322"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_d58547c7cc3cd2fb"
-    },
-    {
-      "category": "other_requirements",
-      "credits_required": 141,
-      "id": "req_8d945ee7f0999aa9",
-      "informational": true,
-      "label": "or ECON 322 Intermediate Macroecon.Theory",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_8d945ee7f0999aa9"
     },
     {
       "category": "program_requirements",
@@ -438,18 +431,6 @@
       "source_requirement_id": "req_34c785cb4ca647ef",
       "title": "Applied Statistics for Business",
       "typical_semester": "Fall",
-      "typical_year": 2
-    },
-    {
-      "category": "major_courses",
-      "code": "ECON 321",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_28a5eefbbba18624",
-      "title": "Intermediate Microeconomic Theory",
-      "typical_semester": "Spring",
       "typical_year": 2
     },
     {
@@ -877,35 +858,20 @@
         {
           "confidence": "high",
           "course_codes": [
-            "ECON 321"
+            "ECON 321",
+            "ECON 322"
           ],
           "credit_hours": 3,
           "critical": false,
           "id": "req_28a5eefbbba18624",
           "minimum_grade": "C",
-          "relation": "required",
+          "relation": "choose_one",
           "requirement_codes": [
             "MR"
           ],
           "sequence": 1,
           "source_text": "ECON 321 Intermediate Microeconomic Theory 3 C MR ECON 221 & 222 or 224, & MATH 122 or",
-          "title": "ECON 321 Intermediate Microeconomic Theory",
-          "warnings": []
-        },
-        {
-          "confidence": "high",
-          "course_codes": [
-            "ECON 322"
-          ],
-          "credit_hours": 141,
-          "critical": false,
-          "id": "req_c14f5055466d7022",
-          "minimum_grade": null,
-          "relation": "choose_one",
-          "requirement_codes": [],
-          "sequence": 2,
-          "source_text": "or ECON 322 Intermediate Macroecon. Theory 141",
-          "title": "or ECON 322 Intermediate Macroecon. Theory",
+          "title": "ECON 321 Intermediate Microeconomic Theory or ECON 322 Intermediate Macroecon. Theory",
           "warnings": []
         },
         {
@@ -921,7 +887,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 3,
+          "sequence": 2,
           "source_text": "FINA 363 Introduction to Finance 3 C CR C or better in ECON 221 or 224; C or better",
           "title": "FINA 363 Introduction to Finance",
           "warnings": []
@@ -939,7 +905,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "MGMT 371 Principles of Management 3 C CR",
           "title": "MGMT 371 Principles of Management",
           "warnings": []
@@ -957,7 +923,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "MKTG 350 Principles of Marketing 3 C CR",
           "title": "MKTG 350 Principles of Marketing",
           "warnings": []
@@ -973,7 +939,7 @@
           "requirement_codes": [
             "CC"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Carolina Core Requirement6 3 CC",
           "title": "Carolina Core Requirement6",
           "warnings": [
@@ -993,35 +959,20 @@
         {
           "confidence": "high",
           "course_codes": [
-            "ECON 321"
+            "ECON 321",
+            "ECON 322"
           ],
           "credit_hours": 3,
           "critical": false,
           "id": "req_d58547c7cc3cd2fb",
           "minimum_grade": "C",
-          "relation": "required",
+          "relation": "choose_one",
           "requirement_codes": [
             "MR"
           ],
           "sequence": 1,
           "source_text": "ECON 321 Intermediate Microeconomic Theory 3 C MR ECON 221 & 222 or 224, & MATH 122 or",
-          "title": "ECON 321 Intermediate Microeconomic Theory",
-          "warnings": []
-        },
-        {
-          "confidence": "high",
-          "course_codes": [
-            "ECON 322"
-          ],
-          "credit_hours": 141,
-          "critical": false,
-          "id": "req_8d945ee7f0999aa9",
-          "minimum_grade": null,
-          "relation": "choose_one",
-          "requirement_codes": [],
-          "sequence": 2,
-          "source_text": "or ECON 322 Intermediate Macroecon.Theory 141",
-          "title": "or ECON 322 Intermediate Macroecon.Theory",
+          "title": "ECON 321 Intermediate Microeconomic Theory or ECON 322 Intermediate Macroecon. Theory",
           "warnings": []
         },
         {
@@ -1037,7 +988,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 3,
+          "sequence": 2,
           "source_text": "MGSC 395 Operations Management 3 C CR C or better in STAT 206",
           "title": "MGSC 395 Operations Management",
           "warnings": []
@@ -1055,7 +1006,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "ACCT 324 Survey of Commercial Law 3 C CR",
           "title": "ACCT 324 Survey of Commercial Law",
           "warnings": []
@@ -1071,7 +1022,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "Minor or Cognate7 or Elective8 3 C (minor) PR",
           "title": "Minor or Cognate7 or Elective8",
           "warnings": [
@@ -1092,7 +1043,7 @@
           "requirement_codes": [
             "CC"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Carolina Core Requirement6 3-4 CC",
           "title": "Carolina Core Requirement6",
           "warnings": [
@@ -1417,7 +1368,7 @@
   "total_credits_required": 122,
   "validation": {
     "low_confidence_requirement_count": 19,
-    "requirement_count": 43,
+    "requirement_count": 41,
     "requires_review": true,
     "semester_count": 8
   },

@@ -37,6 +37,17 @@
     {
       "category": "carolina_core",
       "credits_required": 3,
+      "id": "req_81a245d8d95bfc4f",
+      "informational": true,
+      "label": "Foreign language or other Carolina Core Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_81a245d8d95bfc4f"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
       "id": "req_c8d921aefb7868a1",
       "informational": true,
       "label": "Carolina Core ARP Requirement3",
@@ -66,6 +77,17 @@
       "pick": 1,
       "requires_review": true,
       "source_requirement_id": "req_f56c849b02203425"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_ed996c4af096b7d6",
+      "informational": true,
+      "label": "Foreign language or other Carolina Core Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_ed996c4af096b7d6"
     },
     {
       "category": "program_requirements",
@@ -99,6 +121,17 @@
       "pick": 1,
       "requires_review": true,
       "source_requirement_id": "req_b48aa3235cbd9c8e"
+    },
+    {
+      "category": "college_requirements",
+      "credits_required": 3,
+      "id": "req_658eaed44e36c945",
+      "informational": true,
+      "label": "Foreign language or other Carolina Core Requirement",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_658eaed44e36c945"
     },
     {
       "category": "major_courses",
@@ -521,6 +554,24 @@
           "source_text": "UNIV 101 The Student in the University 3 PR/CC",
           "title": "UNIV 101 The Student in the University",
           "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_81a245d8d95bfc4f",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or other Carolina Core Requirement3 3 CC-GFL",
+          "title": "Foreign language or other Carolina Core Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -606,6 +657,24 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_ed996c4af096b7d6",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or other Carolina Core Requirement3 3 CC-GFL",
+          "title": "Foreign language or other Carolina Core Requirement",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -683,6 +752,25 @@
           "sequence": 4,
           "source_text": "History6 3 CR",
           "title": "History6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_658eaed44e36c945",
+          "minimum_grade": null,
+          "relation": "requirement",
+          "requirement_codes": [
+            "CR",
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign language5 or other Carolina Core Requirement3 3 CR/CC-GFL",
+          "title": "Foreign language or other Carolina Core Requirement",
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
@@ -1201,8 +1289,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 31,
-    "requirement_count": 36,
+    "low_confidence_requirement_count": 34,
+    "requirement_count": 39,
     "requires_review": true,
     "semester_count": 8
   },

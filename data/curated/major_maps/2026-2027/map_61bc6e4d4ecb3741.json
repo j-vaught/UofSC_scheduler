@@ -134,6 +134,17 @@
       "source_requirement_id": "req_80095469d95815a4"
     },
     {
+      "category": "major_courses",
+      "credits_required": 3,
+      "id": "req_e45d944288652302",
+      "informational": true,
+      "label": "Foreign Language7 or Carolina Core Requirement6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_e45d944288652302"
+    },
+    {
       "category": "carolina_core",
       "credits_required": 3,
       "id": "req_11324bdad50b1083",
@@ -1060,6 +1071,25 @@
         {
           "confidence": "low",
           "course_codes": [],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_e45d944288652302",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "MR"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language7 or Carolina Core Requirement6 3 MR/CC",
+          "title": "Foreign Language7 or Carolina Core Requirement6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
           "credit_hours": [
             3,
             4
@@ -1071,7 +1101,7 @@
           "requirement_codes": [
             "CC"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "Carolina Core Requirement6 3-4 CC",
           "title": "Carolina Core Requirement6",
           "warnings": [
@@ -1723,8 +1753,8 @@
   },
   "total_credits_required": 128,
   "validation": {
-    "low_confidence_requirement_count": 26,
-    "requirement_count": 54,
+    "low_confidence_requirement_count": 27,
+    "requirement_count": 55,
     "requires_review": true,
     "semester_count": 8
   },
