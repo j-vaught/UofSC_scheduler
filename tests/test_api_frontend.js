@@ -262,3 +262,42 @@ test('Offering history preserves errors returned by a valid progress stream', as
     );
     assert.deepEqual(requests, ['/api/history-stream']);
 });
+
+/*
+ * The worker URLs api.js hands to `new Worker` are stamped with a content
+ * digest at build time (scripts/build_static_site.py). A version written by
+ * hand here defeats that: the build replaces the query it finds, so a stale
+ * literal is not served, but it is a standing invitation to bump a date instead
+ * of trusting the digest -- which is exactly how the transcript worker came to
+ * carry `?v=20260718` while the runtime module it loaded carried nothing, and
+ * how a deploy could leave the worker an hour behind the main thread.
+ */
+test('worker URLs in the source carry no hand-written version query', () => {
+    const fs = require('node:fs');
+    const path = require('node:path');
+    const source = fs.readFileSync(
+        path.join(__dirname, '..', 'static', 'js', 'api.js'),
+        'utf8',
+    );
+
+    const urls = [...source.matchAll(/['"](\/static\/js\/[^'"]*worker[^'"/]*\.js[^'"]*)['"]/g)]
+        .map(match => match[1]);
+    assert.ok(urls.length >= 4, 'expected the solver worker and the runtime worker map');
+    assert.ok(
+        urls.includes('/static/js/solver-worker.js'),
+        'the solver worker should be named as a bare path',
+    );
+    for (const kind of ['transcript', 'degree-planner', 'offering-analysis']) {
+        assert.ok(
+            urls.includes(`/static/js/workers/${kind}-worker.js`),
+            `the ${kind} worker should be named as a bare path`,
+        );
+    }
+
+    const versioned = urls.filter(url => url.includes('?'));
+    assert.deepEqual(
+        versioned,
+        [],
+        `the build stamps these; do not hand-write a version: ${versioned.join(', ')}`,
+    );
+});

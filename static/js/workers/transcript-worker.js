@@ -1,6 +1,9 @@
 'use strict';
 
-self.importScripts('../runtime/transcript-parser.js?v=20260718');
+// The build stamps this target with a digest of the file it loads. A
+// hand-written marker used to live here and nobody remembered to bump it, so
+// the worker kept importing the previous build's parser for a cache hour.
+self.importScripts('../runtime/transcript-parser.js');
 
 self.addEventListener('message', event => {
     const { requestId = null, operation, payload = {} } = event.data || {};
