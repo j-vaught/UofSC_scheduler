@@ -241,7 +241,13 @@ test('the composition point supplies every declared dependency', () => {
     for (const name of DEP_NAMES) {
         assert.match(composition, new RegExp(`${name}\\s*:`), `${name} is not supplied at the composition point`);
     }
-    assert.match(composition, /enrichMajorMap:/, 'the optional enricher should still be wired when present');
+    // A getter, so the ternary runs when the feature asks rather than when this
+    // file is parsed -- see tests/test_no_eager_collaborators.js for why.
+    assert.match(
+        composition,
+        /get enrichMajorMap\(\)/,
+        'the optional enricher should still be wired, and resolved at call time',
+    );
 });
 
 /*

@@ -118,14 +118,38 @@
         };
     }
 
+    function parseCourseCode(code) {
+        const parsed = String(code || '').match(/^([A-Z]{2,8})\s+(\d{3})/i);
+        if (!parsed) return null;
+        return { subject: parsed[1].toUpperCase(), minNumber: Number(parsed[2]) };
+    }
+
     function normalizeRequirementGroup(group) {
         if (!group || typeof group !== 'object') return null;
         const courses = [...new Set((group.courses || []).filter(Boolean).map(String))];
         const conditions = Array.isArray(group.conditions) ? group.conditions : [];
         if (!courses.length && !conditions.length) return null;
+        /*
+         * An "or higher" group carries the floor that defines it. Without both
+         * halves it cannot be evaluated, and degrading it to 'or' is the safe
+         * reading -- the listed courses were always acceptable answers, so this
+         * only loses the widening, never invents an eligibility.
+         */
+        const subject = String(group.subject || '').toUpperCase();
+        const minNumber = Number(group.minNumber);
+        const isFloor = group.type === 'at-least' && subject && Number.isFinite(minNumber);
+        if (isFloor) {
+            return {
+                courses,
+                type: 'at-least',
+                subject,
+                minNumber,
+                ...(conditions.length ? { conditions } : {}),
+            };
+        }
         return {
             courses,
-            type: group.type === 'or' ? 'or' : 'and',
+            type: group.type === 'or' || group.type === 'at-least' ? 'or' : 'and',
             ...(conditions.length ? { conditions } : {}),
         };
     }
@@ -150,8 +174,25 @@
         return [...explicit, ...either];
     }
 
+    /*
+     * Must answer identically to groupIsMet in
+     * static/js/features/prereqs/index.js. The two evaluators are duplicated
+     * because neither module can import the other;
+     * tests/test_browser_runtime_parity.js is what stops them drifting.
+     */
     function groupIsMet(group, completed) {
-        return group.type === 'or'
+        if (group.type === 'at-least' && group.subject && Number.isFinite(group.minNumber)) {
+            // A listed alternative may sit outside the floor's subject
+            // ("ELCT 102 or AESP 265 or higher"), so check both.
+            if (group.courses.some(code => completed.has(code))) return true;
+            for (const code of completed) {
+                const parsed = parseCourseCode(code);
+                if (parsed && parsed.subject === group.subject
+                    && parsed.minNumber >= group.minNumber) return true;
+            }
+            return false;
+        }
+        return group.type === 'or' || group.type === 'at-least'
             ? group.courses.some(code => completed.has(code))
             : group.courses.every(code => completed.has(code));
     }
@@ -167,6 +208,25 @@
             uncertain: uncertain.length > 0,
             missing: [...new Set(definite.flatMap(group => group.courses))],
         };
+    }
+
+    /*
+     * The condition labels a course would be placed on but nothing has checked.
+     * A group carrying conditions counts as uncertain rather than definite, so
+     * the course stays eligible and gets planned -- correct, because refusing it
+     * would strand a student who did place past the prerequisite. The student
+     * still has to be told, which is what generateWarnings uses this for.
+     */
+    function unverifiedConditionLabels(groups, completed) {
+        const labels = [];
+        for (const group of groups || []) {
+            if (groupIsMet(group, completed)) continue;
+            for (const condition of group.conditions || []) {
+                const label = String(condition?.label || '').trim();
+                if (label && !labels.includes(label)) labels.push(label);
+            }
+        }
+        return labels;
     }
 
     function buildPrerequisiteDag(courses, majorMap) {
@@ -213,7 +273,9 @@
         for (const group of groups || []) {
             if (groupIsMet(group, satisfied)) continue;
             if ((group.conditions || []).length) continue;
-            if (group.type === 'or') {
+            // An "or higher" companion is still satisfied by any one listed
+            // course, so it picks like an or-group rather than demanding all.
+            if (group.type === 'or' || group.type === 'at-least') {
                 const choice = (group.courses || []).find(code => available.has(code));
                 if (!choice) return null;
                 required.push(choice);
@@ -298,13 +360,41 @@
         return result;
     }
 
-    function generateWarnings(semesters, mode, annualCredits, unplaced, creditLimits) {
+    function generateWarnings(
+        semesters,
+        mode,
+        annualCredits,
+        unplaced,
+        creditLimits,
+        conditionalPlacements = [],
+    ) {
         const warnings = [];
         if (unplaced.length) {
             const codes = unplaced.map(course => course.code);
             warnings.push({
                 type: 'error',
                 message: `Could not place ${unplaced.length} course(s): ${codes.join(', ')}. Check prerequisites and offering restrictions.`,
+            });
+        }
+        /*
+         * A warning, not an error: these courses are on the plan and the plan is
+         * usable. What the student cannot see otherwise is that one of them
+         * rests on a condition nobody has verified. Grouped by condition so the
+         * sentence names the thing they have to go and do.
+         */
+        const codesByCondition = new Map();
+        for (const placement of conditionalPlacements) {
+            for (const label of placement.conditions || []) {
+                if (!codesByCondition.has(label)) codesByCondition.set(label, []);
+                const codes = codesByCondition.get(label);
+                if (!codes.includes(placement.code)) codes.push(placement.code);
+            }
+        }
+        for (const [label, codes] of codesByCondition) {
+            const condition = label.toLowerCase();
+            warnings.push({
+                type: 'warning',
+                message: `Placed assuming a ${condition}: ${codes.join(', ')}. You must pass the ${condition} (or provide transfer credit) before registering for these.`,
             });
         }
         for (const semester of semesters) {
@@ -418,6 +508,7 @@
             : (MODE_CREDITS[mode] || MODE_CREDITS.full_time);
         const semesters = [];
         const placed = new Set();
+        const conditionalPlacements = [];
         const annualCredits = {};
         let currentTerm = startTerm;
         let planningIterations = 0;
@@ -497,6 +588,18 @@
             if (semesterCourses.length) {
                 const placedCodes = new Set(semesterCourses.map(course => course.code));
                 placedCodes.forEach(code => placed.add(code));
+                /*
+                 * Judged against completedOrPlaced, the same set the eligibility
+                 * filter used above, so the warning reports the condition the
+                 * placement actually rested on rather than a later state.
+                 */
+                for (const course of semesterCourses) {
+                    const conditions = unverifiedConditionLabels([
+                        ...(dag.requirement_groups[course.code] || []),
+                        ...(dag.corequisite_groups[course.code] || []),
+                    ], completedOrPlaced);
+                    if (conditions.length) conditionalPlacements.push({ code: course.code, conditions });
+                }
                 semesters.push({
                     term: currentTerm,
                     label: offering.termLabel(currentTerm),
@@ -528,6 +631,7 @@
                 annualCredits,
                 remainingCourses,
                 creditLimits,
+                conditionalPlacements,
             ),
             total_credits_remaining: remaining.total_credits_remaining,
             completed_credits: remaining.completed_credits,

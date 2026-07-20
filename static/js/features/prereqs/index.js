@@ -6,13 +6,13 @@
  * As a callback it costs nothing and it removes another inbound edge from the
  * pair that gets cut last.
  *
- * enrichMajorMap is the function with an open problem attached. It injects
- * bulletin prerequisites into a degree map, and those prerequisites name
- * courses outside the degree -- which makes some courses unplaceable and is
- * why the planner reports "could not place N courses" on several majors. See
- * TODO.md. Fencing does not change that behaviour, deliberately. What it does
- * is make the enricher an object a caller chooses, so the fix, when it comes,
- * can be tried against the real planner without editing this module.
+ * enrichMajorMap injects bulletin prerequisites into a degree map, and it used
+ * to carry the blame for the planner's "could not place N courses". That
+ * diagnosis was wrong: the prose was fine and the parser was misreading it.
+ * Repeated grade qualifiers ("...or D or better in ELCT 220") were turning
+ * alternatives into mandatory groups, and "or higher" was being dropped. Both
+ * are fixed below. One cause is left, and it is in the corequisite path rather
+ * than here -- see TODO.md.
  *
  * The body is the previous implementation verbatim apart from those seams.
  */
@@ -160,12 +160,13 @@
                 const matches = [...part.matchAll(/[A-Z]{3,4}\s+\d{3}[A-Z]?/g)];
                 if (!matches.length) return;
                 const trailingConditions = this.trailingRequirementAlternatives(part, matches.at(-1));
+                const numberFloor = this.trailingCourseNumberFloor(part, matches.at(-1));
                 if (matches.length === 1) {
-                    groups.push({
+                    groups.push(this.withCourseNumberFloor({
                         courses: [matches[0][0]],
                         type: trailingConditions.length ? 'or' : 'and',
                         ...(trailingConditions.length ? { conditions: trailingConditions } : {}),
-                    });
+                    }, numberFloor));
                     return;
                 }
 
@@ -175,8 +176,20 @@
                     const between = part.slice(previous.index + previous[0].length, match.index);
                     const repeatsGrade = gradePhrase.test(between);
                     const logic = between.replace(gradePhrase, ' ');
-                    if (/\band\b/i.test(logic) || repeatsGrade) return 'and';
+                    if (/\band\b/i.test(logic)) return 'and';
                     if (/\bor\b/i.test(logic)) return 'or';
+                    /*
+                     * A repeated grade phrase is only evidence of a second
+                     * requirement when nothing else connects the two codes.
+                     * ELCT 221 reads "...either ELCT 102 or AESP 265 or D or
+                     * better in ELCT 220", where the second grade rides on an
+                     * explicit "or" -- testing it before the connectors turned
+                     * that alternative into a mandatory group and blocked the
+                     * whole ELCT chain. Juxtaposition with no connector at all
+                     * ("D or better in ENCP 200 D or better in PHYS 211") still
+                     * lands here and still means "and".
+                     */
+                    if (repeatsGrade) return 'and';
                     if (logic.includes(',')) return 'comma';
                     return 'and';
                 });
@@ -202,7 +215,9 @@
                     type: current.length > 1 || usableTrailingConditions.length ? 'or' : 'and',
                 };
                 if (usableTrailingConditions.length) finalGroup.conditions = usableTrailingConditions;
-                groups.push(finalGroup);
+                // The floor trails the last code in the part, which is the last
+                // alternative of this final group and no earlier one.
+                groups.push(this.withCourseNumberFloor(finalGroup, numberFloor));
             });
 
             return groups;
@@ -365,6 +380,50 @@
             return [];
         },
 
+        /*
+         * Sibling of trailingRequirementAlternatives, reading the same tail
+         * position. It stays a separate function because the two answers are
+         * different in kind: a condition is an alternative the planner cannot
+         * check, while "or higher" is a widening of this group that it can.
+         *
+         * Anchored immediately after the course code on purpose. The tail runs
+         * to the end of the part, and an unanchored match would let an "or
+         * higher" belonging to some later clause raise the floor on a course it
+         * does not describe.
+         */
+        trailingCourseNumberFloor(part, lastCourseMatch) {
+            if (!lastCourseMatch) return null;
+            const tail = String(part).slice(lastCourseMatch.index + lastCourseMatch[0].length);
+            if (!/^[\s,]*or\s+(?:a\s+)?(?:higher|above)\b/i.test(tail)) return null;
+            return this.courseSubjectNumber(lastCourseMatch[0]);
+        },
+
+        courseSubjectNumber(code) {
+            const parsed = String(code || '').match(/^([A-Z]{2,8})\s+(\d{3})/i);
+            if (!parsed) return null;
+            return { subject: parsed[1].toUpperCase(), minNumber: Number(parsed[2]) };
+        },
+
+        withCourseNumberFloor(group, floor) {
+            if (!floor) return group;
+            /*
+             * An or-group is a union, so the lowest listed course in the floor's
+             * subject is the real floor. CHEM 111 reads "C or higher in MATH 111
+             * or higher (or by placement score into MATH 115 or higher)": the
+             * phrase trails MATH 115, but MATH 111 is still enough.
+             */
+            const numbers = group.courses
+                .map(code => this.courseSubjectNumber(code))
+                .filter(parsed => parsed && parsed.subject === floor.subject)
+                .map(parsed => parsed.minNumber);
+            return {
+                ...group,
+                type: 'at-least',
+                subject: floor.subject,
+                minNumber: Math.min(floor.minNumber, ...numbers),
+            };
+        },
+
         cleanRequirementText(html) {
             return String(html || '')
                 .replace(/<[^>]+>/g, ' ')
@@ -391,8 +450,25 @@
                 .replace(/'/g, '&#39;');
         },
 
+        /*
+         * Must answer identically to groupIsMet in
+         * static/js/runtime/degree-planner.js. The two evaluators are duplicated
+         * because neither module can import the other;
+         * tests/test_browser_runtime_parity.js is what stops them drifting.
+         */
         groupIsMet(group, completed) {
-            return group.type === 'or'
+            if (group.type === 'at-least' && group.subject && Number.isFinite(group.minNumber)) {
+                // A listed alternative may sit outside the floor's subject
+                // ("ELCT 102 or AESP 265 or higher"), so check both.
+                if (group.courses.some(code => completed.has(code))) return true;
+                for (const code of completed) {
+                    const parsed = this.courseSubjectNumber(code);
+                    if (parsed && parsed.subject === group.subject
+                        && parsed.minNumber >= group.minNumber) return true;
+                }
+                return false;
+            }
+            return group.type === 'or' || group.type === 'at-least'
                 ? group.courses.some(code => completed.has(code))
                 : group.courses.every(code => completed.has(code));
         },

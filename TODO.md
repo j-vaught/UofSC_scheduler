@@ -3,57 +3,89 @@
 Working notes. Long-form architecture and known issues live in
 [docs/manual.html](docs/manual.html); this file is for what to do next.
 
-## Major maps — needs rework
+## Major maps — mostly fixed, one cause left
 
-**The current implementation is not correct.** Root cause diagnosed 2026-07-19 by
-walking Electrical Engineering 2026-2027 through the wizard in a browser.
+Rediagnosed 2026-07-20 against the live bulletin (`srcdb 2026`). **The earlier
+entry here was wrong** and has been deleted. It blamed "bulletin prose names
+courses outside your degree" and cited `ELCT 220` as a genuine missing
+requirement that the planner was right to refuse. `ELCT 220` is not a
+requirement of anything. It is an *alternative*, and the parser was misreading
+the sentence. There was no product decision to make; there were parser bugs.
 
-**Symptom.** Generating that plan reports *"Could not place 10 course(s): CHEM 111,
-ELCT 221, ELCT 222, ELCT 363, ELCT 321, ELCT 331, ELCT 371, ELCT 302, ELCT 403,
-ELCT 404"* and yields 96 of 126 credits. Roughly a quarter of the degree silently
-vanishes, including most of the major core.
+**Measured on Electrical Engineering 2026-2027**, enriched from the live
+bulletin and planned with `strategy: major_map`:
 
-**Cause.** Two deliberate behaviours combine badly, and each is protected by its own
-test, so neither is a bug on its own.
+| | unplaced | planned credits |
+|---|---|---|
+| before | 16 | 80 of 126 |
+| after | 3 | 117 of 126 |
 
-1. `Prereqs.enrichMajorMap` (`static/js/prereqs.js`) replaces the curated map's
-   prerequisites with ones scraped from bulletin prose. Bulletin text describes a
-   course for *every* student who might take it, so it names courses this degree
-   never includes: `CHEM 111` gains `MATH 111 or MATH 115`, `ELCT 221` gains
-   `ELCT 220`. Asserted by `tests/test_degree_wizard.js:49`.
-2. The planner treats an unmet prerequisite as a hard block and refuses to place the
-   course, which is correct — inventing satisfied prerequisites would produce
-   schedules a student cannot register for. Asserted by
-   `tests/test_browser_runtime_parity.js:83`, *"planner does not silently discard
-   prerequisites outside the remaining degree map"*.
+(The older note recorded 10 unplaced / 96 credits for what is presumably a
+warmer or partially-enriched cache. Either way both causes below were real and
+both are now fixed.)
 
-Together: enrichment injects a prerequisite that cannot be satisfied inside the
-degree, the planner correctly refuses, and everything downstream of that course
-cascades. `ELCT 220` alone takes out most of the ELCT chain.
+**Cause 1 — a repeated grade qualifier broke every OR chain.** ELCT 221 reads,
+verbatim:
 
-Verified directly: the **raw** curated map plans to a clean 126 credits with zero
-unplaced courses under every strategy and every catalog year tested. Only the
-**enriched** map fails. The curated data is fine; the enrichment step is what breaks
-it.
+> Prerequisites: C or better in MATH 142; C or better in either ELCT 102 or
+> AESP 265 or D or better in ELCT 220.
 
-**Why it is not yet fixed.** Two fixes were attempted and both were reverted because
-each violated one of the invariants above. Making the planner ignore out-of-degree
-prerequisites broke the parity test and would let it emit unregistrable plans. Making
-enrichment drop out-of-degree groups broke the wizard test. The resolution is a
-product decision, not a patch:
+`parsePrereqGroups` tested for a repeated grade phrase *before* it tested for an
+explicit `or`, so the "D or better" riding on that last `or` won, and ELCT 220
+became a third mandatory group instead of a third alternative. ELCT 221 was then
+blocked despite ELCT 102 being in the degree, and 222/321/331/363/371/302/403/404
+cascaded behind it. Fixed by correcting the precedence: an explicit connector in
+the grade-stripped text decides, and a repeated grade only means "and" when
+nothing else connects the two codes ("D or better in ENCP 200 D or better in
+PHYS 211"), which is the case that test was written for and still passes.
 
-- Distinguish a *placement alternative* (MATH 112/115/116 before MATH 141 — the
-  student placed past it) from a *genuine missing requirement* (ELCT 220). These are
-  structurally identical today. `Prereqs.trailingRequirementAlternatives` already
-  detects "or placement exam" prose, which is a possible seam.
-- Or let a student mark a prerequisite as satisfied by placement or transfer, which
-  turns a dead end into a question.
-- Or treat the curated map as authoritative for planning and surface bulletin
-  prerequisites as advisory notes rather than blockers.
+**Cause 2 — "or higher" was silently dropped.** "C or better in MATH 111 or
+higher" parsed to a literal `MATH 111`, so a student holding MATH 141 was judged
+ineligible. Groups now carry a course-number floor,
+`{ courses, type: 'at-least', subject, minNumber }`, satisfied by any completed
+course in the same subject at or above the floor. No cross-subject equivalence is
+inferred, because the phrasing does not claim any. This also closes the separate
+"or higher" entry that used to live further down this file: CSCE 146 with CSCE 145
+and MATH 141 now evaluates eligible, and the "I can take" search filter reads the
+same evaluator, so it stops hiding courses too.
 
-Whichever is chosen, the planner should keep refusing to invent satisfied
-prerequisites. The failure mode to fix is that the student is given no way forward,
-not that the planner is too strict.
+**Also added:** a course placed on a condition nobody verified (the "or placement
+exam" prose) now produces a `warning` naming it. That placement was already
+correct behaviour — refusing would strand a student who really did place past the
+prerequisite — but nothing told the student they had a placement test to pass.
+
+**What remains — one cause, 3 courses.** The last unplaced courses on EE are
+`CSCE 106`, `CSCE 212`, `CSCE 313`, and it is a *different* bug, not a residue of
+the two above. `enrichMajorMap` flattens both corequisite groups and
+prerequisite-or-corequisite groups into one `corequisites` array, but only writes
+`corequisite_groups` when there was genuine corequisite text. When a course has
+only *prerequisite-or-corequisite* prose, `corequisite_groups` stays unset, so
+`corequisiteGroupsForCourse` falls through to its flat-array compatibility path
+and re-adds the same requirement as one mandatory AND group per course — on top of
+the correctly-parsed either-group. CSCE 106 reads "C or better in MATH 111 or
+higher (or by Math Placement Test score into MATH 115 or higher math)" and comes
+out demanding MATH 111 *and* MATH 115, neither of which is in an EE map. CSCE 212
+needs CSCE 145 or CSCE 106 and EE has neither once 106 is blocked; CSCE 313 needs
+CSCE 212.
+
+Confirmed by neutralising only that fallback in a probe: EE then plans a clean
+**126 of 126 with zero unplaced**. Left unfixed deliberately — it is a change to
+corequisite handling with its own blast radius and deserves its own commit and
+test, not a rider on a prerequisite fix. The fix is probably for enrichment to
+write `corequisite_groups: []` explicitly when it has parsed the prose and found
+no corequisite groups, so the compatibility path is not entered for a course that
+has already been normalized.
+
+Still true and worth keeping: the planner should keep refusing to invent satisfied
+prerequisites, and the **raw** curated map plans to a clean 126 credits. The
+curated data is fine.
+
+Also worth knowing: `groupIsMet` and the group evaluator are **duplicated**
+between `static/js/features/prereqs/index.js` and
+`static/js/runtime/degree-planner.js`, because neither can import the other.
+`tests/test_browser_runtime_parity.js` now feeds every group type the parser can
+emit to both and compares, so a type added to one side and not the other fails
+there. Unifying them is a separate change.
 
 Context that may be relevant when picking this up:
 
@@ -108,34 +140,15 @@ two behaviours filed here as one, and "indefinitely" is only established for the
 cold path. Whoever picks this up should time the cold case before assuming it
 never completes -- the fix for a ten-second wait is a different fix.
 
-## Prerequisite parsing cannot express "or higher"
+## Prerequisite "or higher" — fixed 2026-07-20
 
-Bulletin prerequisites are frequently written as "C or better in MATH 111 or
-higher". The parser turns that into a literal `or` group of the course codes it
-can see -- `MATH 111` or `MATH 115` -- so a student who has completed a *more*
-advanced course is judged not to have met the requirement.
-
-Reproduced against live data. CSCE 146 requires "C or better in CSCE 145 or
-CSCE 106; C or better in MATH 111 or higher". With CSCE 145 and MATH 111
-recorded, `Prereqs.evaluateGroups` returns eligible. With CSCE 145 and **MATH
-141**, or MATH 142, it returns not eligible and reports MATH 111 and MATH 115 as
-missing -- despite both being well beyond the requirement.
-
-This is the same root cause as the major-map enrichment problem recorded above,
-but it is worth its own entry because it is not confined to the degree planner.
-It also drives the "I can take (prereqs met)" filter on the search tab, so a
-student filters for courses they are eligible for and is shown a shorter list
-than the truth. Nothing indicates the omission.
-
-Fixing it needs a decision, not just code. "Or higher" requires knowing that
-MATH 141 supersedes MATH 111, which means either a curated ordering per subject,
-a rule based on course numbering (fragile across subjects), or treating the
-phrase as satisfied-if-any-course-in-subject-at-or-above-N. Each has different
-wrong answers, and picking one is a product call.
-
-Worth noting the safer interim: the evaluator already distinguishes `uncertain`
-from `satisfied`. Treating "or higher" as uncertain rather than unmet would stop
-the filter from hiding courses a student can actually take.
+Resolved by the `at-least` group type described under *Major maps* above. The
+option chosen was satisfied-if-any-course-in-subject-at-or-above-N; the two
+alternatives considered were a curated per-subject ordering and treating the
+phrase as merely `uncertain`. The wrong answer this choice can still give is a
+subject that renumbers its curriculum without renumbering upward, so if a
+subject is ever found where a higher number is not a later course, that is the
+case to revisit. Cross-subject equivalence is deliberately not inferred.
 
 ## Custom major maps are shared across device-local accounts
 
