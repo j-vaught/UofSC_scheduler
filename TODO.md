@@ -108,6 +108,35 @@ two behaviours filed here as one, and "indefinitely" is only established for the
 cold path. Whoever picks this up should time the cold case before assuming it
 never completes -- the fix for a ten-second wait is a different fix.
 
+## Prerequisite parsing cannot express "or higher"
+
+Bulletin prerequisites are frequently written as "C or better in MATH 111 or
+higher". The parser turns that into a literal `or` group of the course codes it
+can see -- `MATH 111` or `MATH 115` -- so a student who has completed a *more*
+advanced course is judged not to have met the requirement.
+
+Reproduced against live data. CSCE 146 requires "C or better in CSCE 145 or
+CSCE 106; C or better in MATH 111 or higher". With CSCE 145 and MATH 111
+recorded, `Prereqs.evaluateGroups` returns eligible. With CSCE 145 and **MATH
+141**, or MATH 142, it returns not eligible and reports MATH 111 and MATH 115 as
+missing -- despite both being well beyond the requirement.
+
+This is the same root cause as the major-map enrichment problem recorded above,
+but it is worth its own entry because it is not confined to the degree planner.
+It also drives the "I can take (prereqs met)" filter on the search tab, so a
+student filters for courses they are eligible for and is shown a shorter list
+than the truth. Nothing indicates the omission.
+
+Fixing it needs a decision, not just code. "Or higher" requires knowing that
+MATH 141 supersedes MATH 111, which means either a curated ordering per subject,
+a rule based on course numbering (fragile across subjects), or treating the
+phrase as satisfied-if-any-course-in-subject-at-or-above-N. Each has different
+wrong answers, and picking one is a product call.
+
+Worth noting the safer interim: the evaluator already distinguishes `uncertain`
+from `satisfied`. Treating "or higher" as uncertain rather than unmet would stop
+the filter from hiding courses a student can actually take.
+
 ## Custom major maps are shared across device-local accounts
 
 Plans route their storage key through `Keyspace`, so two students on one machine
