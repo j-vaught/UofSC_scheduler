@@ -134,6 +134,7 @@ hr{border:none;border-top:2px solid var(--rule);margin:34px 0}
   <a href="#open">Open design work</a>
 
   <h2>Maintenance</h2>
+  <a href="#extending">Extending it</a>
   <a href="#issues">Known issues</a>
   <a href="#conventions">Conventions</a>
 </nav>
@@ -290,7 +291,7 @@ data.</p></div>
 <h2>Runtime architecture</h2>
 
 <h3>Page load</h3>
-<p><code>static/index.html</code> links three stylesheets, then loads 27 classic (non-module) scripts. Order
+<p><code>static/index.html</code> links fifteen stylesheets, then loads 45 classic (non-module) scripts. Order
 is load-bearing: <code>data-store.js</code> first, then the three runtime cores
 (<code>runtime/offering-analyzer.js</code>, <code>runtime/transcript-parser.js</code>,
 <code>runtime/degree-planner.js</code>), then <code>solver-core.js</code>,
@@ -733,6 +734,77 @@ Known issues.</p>
 </section>
 
 <!-- ───────────────────────── ISSUES ───────────────────────── -->
+<section id="extending">
+<h2>Extending it</h2>
+
+<p>Three things used to be hand-maintained lists that could drift from each other without
+anything noticing. They are derived or generated now, so the instructions below are short
+and the failure modes they used to have are gone.</p>
+
+<h3>Adding a UI feature</h3>
+
+<p>Four edits, two of which are the feature itself.</p>
+
+<ol>
+<li><code>static/js/features/&lt;name&gt;/index.js</code> — the logic, fenced. It takes a
+<code>deps</code> object and reaches no global. Existing features are the pattern; the smallest
+is <code>features/export/</code>.</li>
+<li><code>static/js/&lt;name&gt;.js</code> — the composition point, which supplies the real
+collaborators and is deliberately the boring half. Expose the instance, not a wrapper: a facade
+that forwards methods silently drops anything a caller assigns onto it.</li>
+<li>A pair of <code>&lt;script&gt;</code> tags in <code>static/index.html</code>, feature before
+composition point.</li>
+<li>A row in <code>BOOT_SEQUENCE</code> in <code>static/js/boot.js</code>.</li>
+</ol>
+
+<p>Nothing else. The offline shell is derived from the script and link tags in
+<code>index.html</code> at build time, so being on the page <em>is</em> being precached. This was
+measured rather than assumed: a throwaway feature was added, confirmed present in the live service
+worker cache with no service-worker edit, and removed again.</p>
+
+<p>Two traps worth knowing. Existence guards of the form
+<code>typeof Thing !== 'undefined'</code> are always false inside a fenced module, so a guarded
+path silently does nothing — every one of the ten extractions contained at least one, and they are
+the single most common way a fence breaks a feature without failing. And boot resolves modules
+through a thunk rather than a name because <code>const Foo</code> at the top level of a classic
+script is a lexical binding that never becomes a property of <code>globalThis</code>; five modules
+would report as missing under a name lookup.</p>
+
+<h3>Adding a stylesheet</h3>
+
+<p>One link tag in <code>static/index.html</code>. Order matters: the thirteen files split out of
+the old <code>style.css</code> are linked in the order they were cut from it, and the cascade
+depends on that sequence.</p>
+
+<h3>Adding a backend search field</h3>
+
+<p>One edit and one command.</p>
+
+<pre><code>$EDITOR contracts/wire/fose-v1.json          # add to allowed_fields
+uv run python scripts/sync_wire_contract.py  # rewrite relay + encoder</code></pre>
+
+<p>The contract is the source of truth for the relay's validators and the browser's encoder;
+<code>--check</code> fails and names any consumer that has drifted, and the test suite runs it.</p>
+
+<p>Before relying on a new upstream criterion, check how it fails. <code>classes.sc.edu</code> does
+not reject a criteria field it does not recognise — it ignores the criterion and answers with the
+whole term. An unrecognised <em>value</em> for a recognised field answers with nothing. Neither is
+an error, so both mistakes are silent and they fail in opposite directions.
+<code>tests/test_course_attr_vocabulary.js</code> is the pattern for guarding that: it checks the
+pinned values still match upstream and that adding the field still narrows a known result set. It
+is opt-in via <code>CHECK_LIVE_UPSTREAM=1</code>, being the only test that uses the network.</p>
+
+<h3>Before believing a green suite</h3>
+
+<p>Open the page. Several defects during this work passed every test: a decode regression that
+broke schedule generation entirely, a calendar that rendered blank over restored state, three
+filters that returned wrong or empty results for months, and a criterion added to the wrong
+function so a filter did nothing at all. Source-text assertions are the recurring culprit — six
+were found matching an empty string after the code they targeted moved, and three mocks returned
+fields the real API never sends. Anchor a slice before asserting on it, and check a mock's shape
+against a live payload.</p>
+</section>
+
 <section id="issues">
 <h2>Known issues</h2>
 
