@@ -223,7 +223,7 @@
             let hadRequestFailure = false;
 
             for (let offset = 0; offset < planned.length; offset += budget.batchSize) {
-                if (searchId !== this._searchId) {
+                if (this.isStale(searchId)) {
                     return { results: [], subjects: usedSubjects, hadRequestFailure, stale: true };
                 }
                 const batch = planned.slice(offset, offset + budget.batchSize);
@@ -239,7 +239,7 @@
                         return { results: [], failed: true };
                     }
                 }));
-                if (searchId !== this._searchId) {
+                if (this.isStale(searchId)) {
                     return { results: [], subjects: usedSubjects, hadRequestFailure, stale: true };
                 }
                 responses.forEach((response, index) => {
@@ -267,22 +267,22 @@
         ) {
             // Load model + phrase data concurrently
             await Promise.all([this._loadExtractor(), this._loadPhraseData()]);
-            if (searchId !== this._searchId) return null;
+            if (this.isStale(searchId)) return null;
 
             // Step 1: Embed query
             const queryVec = await this._embedQuery(query);
-            if (searchId !== this._searchId) return null;
+            if (this.isStale(searchId)) return null;
 
             // Step 2: Find local catalog matches before making live requests. The
             // local shortlist helps decide when the live search has enough breadth.
             const topLocal = this._localSemanticMatches(queryVec, scope);
-            if (searchId !== this._searchId) return null;
+            if (this.isStale(searchId)) return null;
 
             // Step 3: Find nearest academic phrases and keep a bounded shortlist.
             const budget = this._semanticRequestBudget(scope);
             const nearestPhrases = this._findNearestPhrases(queryVec, 19, query);
             const expandedTerms = nearestPhrases.map(nearest => nearest.phrase);
-            if (searchId !== this._searchId) return null;
+            if (this.isStale(searchId)) return null;
 
             const seenTerms = new Set();
             const searches = [query, ...expandedTerms].filter(term => {
@@ -302,7 +302,7 @@
             const seenCodes = new Set();
             let hadRequestFailure = false;
             for (let offset = 0; offset < searches.length; offset += budget.batchSize) {
-                if (searchId !== this._searchId) return null;
+                if (this.isStale(searchId)) return null;
                 const batchTerms = searches.slice(offset, offset + budget.batchSize);
                 const responses = await Promise.all(batchTerms.map(async term => {
                     try {
@@ -322,7 +322,7 @@
                         return { results: [], failed: true };
                     }
                 }));
-                if (searchId !== this._searchId) return null;
+                if (this.isStale(searchId)) return null;
 
                 let newCodes = 0;
                 responses.forEach((response, index) => {
@@ -352,7 +352,7 @@
                     && !responses.some(response => response.failed);
                 if (enoughCandidates || exhaustedUsefulTerms) break;
             }
-            if (searchId !== this._searchId) return null;
+            if (this.isStale(searchId)) return null;
 
             // Step 5: Merge API results + the local catalog shortlist.
             const coursesData = this._courseEmbeddings.courses;
@@ -814,7 +814,7 @@
             if (!query) throw new Error('Enter a subject code, course number, CRN, range, or keyword.');
             const searchId = ++this._searchId;
             await this.loadSubjects();
-            if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
+            if (this.isStale(searchId)) return { results: [], semantic: false, stale: true };
 
             const compactQuery = this.parseCompactScopedQuery(query);
             const standaloneScope = compactQuery ? null : this.parseStandaloneCourseScope(query);
@@ -878,7 +878,7 @@
                     [...criteria, { field: 'subject', value: subject }],
                 )))
                 : [await deps.api.searchCourses(deps.state.term, criteria)];
-            if (searchId !== this._searchId) return { results: [], semantic: false, stale: true };
+            if (this.isStale(searchId)) return { results: [], semantic: false, stale: true };
             let results = batches.flatMap(data => data.results || []);
             if (resultFilter) {
                 results = results.filter(result => resultFilter(result.code || ''));

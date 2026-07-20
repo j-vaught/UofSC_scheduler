@@ -1403,12 +1403,12 @@ test('Direct search ignores stale prerequisite completions and errors', () => {
     const source = moduleSource('search');
     const prereqLoad = source.indexOf('? await this.loadPrereqsForResults(results)');
     const render = source.indexOf('this.renderAndCacheSearch(', prereqLoad);
-    const staleGuard = source.lastIndexOf('if (searchId !== this._searchId) return;', render);
+    const staleGuard = source.lastIndexOf('if (this.isStale(searchId)) return;', render);
     const catchStart = source.indexOf('} catch (err) {', render);
 
     assert.ok(prereqLoad > 0 && render > prereqLoad);
     assert.ok(staleGuard > prereqLoad && staleGuard < render);
-    assert.match(source.slice(catchStart, catchStart + 180), /if \(searchId !== this\._searchId\) return;/);
+    assert.match(source.slice(catchStart, catchStart + 180), /if \(this\.isStale\(searchId\)\) return;/);
 });
 
 test('Course detail fills its pane and uses visual section, grade, and history summaries', () => {
