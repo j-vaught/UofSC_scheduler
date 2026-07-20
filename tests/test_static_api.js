@@ -383,7 +383,11 @@ test('runtime worker replies are correlated when concurrent responses arrive out
     const first = api.parseTranscript('CSCE 145');
     const second = api.parseTranscript('MATH 141');
     assert.equal(workers.length, 1);
-    assert.match(workers[0].url, /^\/static\/js\/workers\/transcript-worker\.js\?v=\d+$/);
+    // Bare in the source: the build stamps this with a digest of the worker as
+    // built, so a version here would be hand-written and would drift. The
+    // digest itself is checked against the real dist in
+    // tests/test_worker_asset_stamping.py.
+    assert.equal(workers[0].url, '/static/js/workers/transcript-worker.js');
     const [firstMessage, secondMessage] = workers[0].messages;
     workers[0].reply(secondMessage, ['MATH 141']);
     workers[0].reply(firstMessage, ['CSCE 145']);

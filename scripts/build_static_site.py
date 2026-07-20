@@ -142,6 +142,170 @@ def stamp_asset_urls(html: str, source: Path) -> tuple[str, int]:
     return ASSET_URL_RE.sub(replace, html), stamped
 
 
+# Workers never pass through index.html, so the stamping above -- which keeps
+# the main thread fresh -- never reached them. A worker is loaded by URL from
+# JavaScript and pulls its dependencies in with importScripts(), and both were
+# plain unversioned paths. Cloudflare serves /static/* with max-age=3600, so for
+# an hour after a deploy the browser ran the new main thread against the
+# previous build's workers and the previous build's runtime modules. Nothing
+# errors: each half is internally consistent, they just compute different
+# answers. That shipped once as a degree planner reporting twelve unplaceable
+# courses through the UI and one through the identical main-thread path.
+IMPORT_SCRIPTS_CALL_RE = re.compile(r"importScripts\((?P<args>[^)]*)\)")
+# Any .js literal, used only inside an importScripts() argument list.
+JS_URL_LITERAL_RE = re.compile(r"""(?P<q>['"])(?P<url>[^'"\s]+\.js)(?:\?[^'"]*)?(?P=q)""")
+# A worker entry point named from ordinary code. "worker" in the final path
+# segment is the same rule tests/test_shell_assets.py uses to decide what needs
+# precaching, kept identical so the two lists cannot drift apart.
+WORKER_URL_LITERAL_RE = re.compile(
+    r"""(?P<q>['"])(?P<url>/static/js/(?:[^'"?]*/)?[^'"?/]*worker[^'"?/]*\.js)(?:\?[^'"]*)?(?P=q)"""
+)
+
+
+def content_digest(path: Path) -> str:
+    """The marker for a file's URL, derived from the bytes that will be served."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
+
+
+def resolve_reference(url: str, script: Path, static_root: Path) -> Path | None:
+    """Locate the file a URL inside ``script`` names, or None if it is not ours.
+
+    Worker imports are written relative to the worker ("../runtime/x.js") while
+    worker URLs are absolute ("/static/js/..."), so both forms resolve here
+    against the built tree rather than the source tree.
+    """
+    if url.startswith("/static/"):
+        target = static_root / url[len("/static/") :]
+    elif url.startswith(("/", "http://", "https://", "//")):
+        return None
+    else:
+        target = script.parent / url
+    try:
+        target = target.resolve()
+    except OSError:
+        return None
+    # A reference escaping the static root is not something the build serves,
+    # so stamping it would attach a digest to bytes nobody fetches.
+    if not target.is_relative_to(static_root.resolve()) or not target.is_file():
+        return None
+    return target
+
+
+def stamp_js_urls(
+    text: str,
+    pattern: re.Pattern[str],
+    script: Path,
+    static_root: Path,
+) -> tuple[str, int, list[Path]]:
+    """Rewrite each URL ``pattern`` matches to carry its target's digest.
+
+    Also reports the files those URLs point at, so the caller can confirm they
+    are leaves -- a target that itself needs stamping would be digested before
+    its own rewrite and ship a marker for content that no longer exists.
+    """
+    targets: list[Path] = []
+
+    def replace(match: re.Match[str]) -> str:
+        url = match.group("url")
+        target = resolve_reference(url, script, static_root)
+        if target is None:
+            # Left alone rather than guessed at, matching stamp_asset_urls: a
+            # wrong digest hides a missing file behind a plausible marker.
+            return match.group(0)
+        targets.append(target)
+        quote = match.group("q")
+        return f"{quote}{url}?v={content_digest(target)}{quote}"
+
+    return pattern.sub(replace, text), len(targets), targets
+
+
+def stamp_import_scripts(
+    text: str,
+    script: Path,
+    static_root: Path,
+) -> tuple[str, int, list[Path]]:
+    """Stamp importScripts() targets, and nothing else in the file.
+
+    Scoped to the argument list on purpose. solver-core.js has the word in a
+    comment ("importScripts()'d into a Web Worker"), which the call regex reaches
+    but which contains no argument to rewrite -- so it costs nothing -- while a
+    file-wide search for .js literals would rewrite unrelated strings.
+    """
+    stamped: list[Path] = []
+
+    def replace(match: re.Match[str]) -> str:
+        args, _, targets = stamp_js_urls(
+            match.group("args"), JS_URL_LITERAL_RE, script, static_root
+        )
+        stamped.extend(targets)
+        return f"importScripts({args})"
+
+    return IMPORT_SCRIPTS_CALL_RE.sub(replace, text), len(stamped), stamped
+
+
+def assert_leaf(target: Path, static_root: Path, referrer: Path) -> None:
+    """Fail the build if a stamped target has references of its own.
+
+    The digest chain is ordered: leaves are digested to stamp the workers, the
+    workers are re-digested to stamp api.js, api.js is re-digested to stamp
+    index.html. That only holds while the leaves really are leaves. If someone
+    adds an importScripts() to a runtime module the ordering silently produces a
+    digest of pre-rewrite bytes -- the exact class of bug this stamping exists to
+    prevent -- so it is checked rather than assumed.
+    """
+    text = target.read_text(encoding="utf-8")
+    _, imports, _ = stamp_import_scripts(text, target, static_root)
+    _, workers, _ = stamp_js_urls(text, WORKER_URL_LITERAL_RE, target, static_root)
+    if imports or workers:
+        raise ValueError(
+            f"{target.relative_to(static_root)} is stamped into "
+            f"{referrer.relative_to(static_root)} but has references of its own; "
+            "the build must stamp it before whatever points at it"
+        )
+
+
+def stamp_worker_chain(static_root: Path) -> tuple[int, int]:
+    """Stamp every worker's imports, then every worker URL, in that order.
+
+    Two passes rather than one because the second depends on the first: a
+    worker's digest is only meaningful once its own importScripts targets are
+    final. Both passes run over every built script, not just the files known to
+    contain references today, so a new worker is covered without an edit here.
+    """
+    scripts = sorted(path for path in static_root.rglob("*.js") if path.is_file())
+
+    stamped_imports = 0
+    for script in scripts:
+        text = script.read_text(encoding="utf-8")
+        rewritten, count, targets = stamp_import_scripts(text, script, static_root)
+        for target in targets:
+            assert_leaf(target, static_root, script)
+        if count:
+            script.write_text(rewritten, encoding="utf-8")
+            stamped_imports += count
+
+    stamped_workers = 0
+    for script in scripts:
+        text = script.read_text(encoding="utf-8")
+        rewritten, count, targets = stamp_js_urls(text, WORKER_URL_LITERAL_RE, script, static_root)
+        for target in targets:
+            # A worker naming another worker would need a third pass; the build
+            # says so instead of stamping a digest that is already stale.
+            _, nested, _ = stamp_js_urls(
+                target.read_text(encoding="utf-8"), WORKER_URL_LITERAL_RE, target, static_root
+            )
+            if nested:
+                raise ValueError(
+                    f"{target.relative_to(static_root)} names another worker; "
+                    "the stamping order does not handle worker chains"
+                )
+        if count:
+            script.write_text(rewritten, encoding="utf-8")
+            stamped_workers += count
+
+    return stamped_imports, stamped_workers
+
+
 def static_build_id(source: Path) -> str:
     digest = hashlib.sha256()
     for path in sorted(item for item in source.rglob("*") if item.is_file()):
@@ -191,6 +355,37 @@ def shell_assets(index_html: str) -> list[str]:
     return ordered
 
 
+def stamp_shell_assets(assets: list[str], static_root: Path) -> list[str]:
+    """Precache each script and stylesheet under the URL the page requests.
+
+    The fetch handler answers shell assets with staleWhileRevalidate, which is
+    ``cache.match(request)`` -- an exact match, query string included. So a
+    precache entry for a bare path is never hit once the page asks for the
+    stamped URL: online the revalidate quietly re-fetches and the miss is
+    invisible, offline the first load after a deploy has nothing to serve.
+
+    Stamping the list keeps the two halves in agreement without loosening the
+    match. ignoreSearch would also make it hit, but by making an entry from the
+    previous build satisfy a request for this one -- reintroducing the staleness
+    the digests exist to remove.
+
+    Only .js and .css are stamped, because only those are stamped in markup.
+    Entry points ("/", "/static/index.html") and JSON fetched by script are
+    requested bare and stay bare.
+    """
+    stamped: list[str] = []
+    for asset in assets:
+        target = (
+            static_root / asset[len("/static/") :]
+            if asset.startswith("/static/") and asset.endswith((".js", ".css"))
+            else None
+        )
+        stamped.append(
+            f"{asset}?v={content_digest(target)}" if target and target.is_file() else asset
+        )
+    return stamped
+
+
 def build_site(
     source: Path = DEFAULT_SOURCE,
     output: Path = DEFAULT_OUTPUT,
@@ -207,13 +402,9 @@ def build_site(
         server = staging / "server"
         client.mkdir(parents=True)
         server.mkdir(parents=True)
-        index_html, stamped_assets = stamp_asset_urls(
-            (source / "index.html").read_text(encoding="utf-8"),
-            source,
-        )
-        (client / "index.html").write_text(index_html, encoding="utf-8")
-        (client / "404.html").write_text(index_html, encoding="utf-8")
-        print(f"Stamped {stamped_assets} asset URLs with content digests", flush=True)
+        # The tree is copied first so every digest below is taken from the bytes
+        # that will actually be served. Stamping ran off the source tree before,
+        # which was harmless only while nothing rewrote the copies.
         shutil.copytree(
             source,
             client / "static",
@@ -222,6 +413,32 @@ def build_site(
                 name for name in names if not should_copy(Path(directory) / name)
             ],
         )
+        built_static = client / "static"
+
+        # Order is the whole point. Each stage digests the output of the one
+        # before it: runtime modules and solver-core are leaves, so their
+        # digests stamp the workers' importScripts; that changes the workers, so
+        # they are re-digested to stamp api.js's worker URLs; that changes
+        # api.js, so index.html is stamped last, from the built tree. Any other
+        # order embeds a digest of content that no longer exists -- a marker
+        # that looks fresh and identifies the wrong bytes.
+        stamped_imports, stamped_workers = stamp_worker_chain(built_static)
+        print(
+            f"Stamped {stamped_imports} worker imports and {stamped_workers} worker URLs",
+            flush=True,
+        )
+
+        index_html, stamped_assets = stamp_asset_urls(
+            (source / "index.html").read_text(encoding="utf-8"),
+            built_static,
+        )
+        (client / "index.html").write_text(index_html, encoding="utf-8")
+        (client / "404.html").write_text(index_html, encoding="utf-8")
+        # The copy under /static/ is the offline navigation fallback. Leaving it
+        # as the raw source page would serve unstamped script tags offline,
+        # which miss every stamped precache entry.
+        (built_static / "index.html").write_text(index_html, encoding="utf-8")
+        print(f"Stamped {stamped_assets} asset URLs with content digests", flush=True)
         service_worker = source / "service-worker.js"
         if not service_worker.is_file():
             raise FileNotFoundError(f"Missing service worker: {service_worker}")
@@ -231,10 +448,15 @@ def build_site(
             raise ValueError("Service worker has no static build identifier placeholder")
         rendered_worker = worker_source.replace(placeholder, static_build_id(source))
 
-        # Derived from the un-stamped markup: the worker matches on request
-        # paths, and the digest query is a cache-buster the fetch handler
-        # already ignores.
-        assets = shell_assets((source / "index.html").read_text(encoding="utf-8"))
+        # Derived from the un-stamped markup so the list is about which files
+        # the page needs, then stamped from the built tree so each entry is
+        # keyed by the URL the page will actually request. The fetch handler
+        # matches exactly, query string included, so a bare entry would never be
+        # hit.
+        assets = stamp_shell_assets(
+            shell_assets((source / "index.html").read_text(encoding="utf-8")),
+            built_static,
+        )
         assets_placeholder = "__SHELL_ASSETS__"
         if assets_placeholder not in rendered_worker:
             raise ValueError("Service worker has no shell asset placeholder")

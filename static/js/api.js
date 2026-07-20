@@ -526,8 +526,13 @@ const API = {
 
     async _runRuntimeWorker(kind, operation, payload) {
         if (typeof Worker === 'undefined') return this._runRuntimeFallback(kind, operation, payload);
+        // These paths are rewritten at build time to carry a digest of the
+        // worker they name. Left bare, a deploy leaves the browser running the
+        // previous build's worker for a cache hour while the main thread runs
+        // the new one, and the two silently disagree. Do not hand-write a
+        // version here; the build supplies a real one.
         const urls = {
-            transcript: '/static/js/workers/transcript-worker.js?v=20260718',
+            transcript: '/static/js/workers/transcript-worker.js',
             degree: '/static/js/workers/degree-planner-worker.js',
             offering: '/static/js/workers/offering-analysis-worker.js',
         };

@@ -108,14 +108,51 @@ def test_the_worker_defers_to_the_build(assets):
     assert "'/static/js/api.js'" not in source, "a literal asset list has crept back in"
 
 
+def built_shell_list(built: Path) -> list[str]:
+    worker = (built / "client" / "service-worker.js").read_text(encoding="utf-8")
+    assert "__SHELL_ASSETS__" not in worker, "the placeholder was not substituted"
+    start = worker.index("const SHELL_ASSETS = ") + len("const SHELL_ASSETS = ")
+    return json.loads(worker[start : worker.index("];", start) + 1])
+
+
 def test_the_built_worker_contains_the_derived_list(tmp_path, assets):
-    """End to end: the placeholder is really replaced by valid JSON."""
+    """End to end: the placeholder is really replaced by valid JSON.
+
+    The built list carries content digests while ``assets`` is the bare
+    derivation, so this compares the paths -- that the list is the page's own
+    list, in the page's own order. The digests are the next test's subject.
+    """
     from scripts.build_static_site import build_site
 
     built = build_site(output=tmp_path / "dist", allow_representative=True)
-    worker = (built / "client" / "service-worker.js").read_text(encoding="utf-8")
-    assert "__SHELL_ASSETS__" not in worker, "the placeholder was not substituted"
+    shipped = built_shell_list(built)
+    assert [entry.split("?", 1)[0] for entry in shipped] == assets
 
-    start = worker.index("const SHELL_ASSETS = ") + len("const SHELL_ASSETS = ")
-    end = worker.index("];", start) + 1
-    assert json.loads(worker[start:end]) == assets
+
+def test_precached_urls_are_the_urls_the_page_requests(tmp_path):
+    """Each precache entry must carry the digest of the file it names.
+
+    The fetch handler answers shell assets with ``cache.match(request)``, which
+    compares the query string too. So precaching a bare path while the page asks
+    for a stamped URL is a permanent miss: online the revalidate hides it, and
+    offline the first load after a deploy has nothing to serve. A digest that is
+    merely present is not enough -- it has to be this build's digest, or the
+    entry is keyed to a URL nobody will ask for.
+    """
+    from scripts.build_static_site import build_site, content_digest
+
+    built = build_site(output=tmp_path / "dist", allow_representative=True)
+    static_root = built / "client" / "static"
+
+    checked = 0
+    for entry in built_shell_list(built):
+        path, _, query = entry.partition("?")
+        if not path.startswith("/static/") or not path.endswith((".js", ".css")):
+            continue
+        target = static_root / path[len("/static/") :]
+        assert target.is_file(), f"{path} is precached but was not built"
+        assert query == f"v={content_digest(target)}", (
+            f"{path} is precached under a URL the page will never request"
+        )
+        checked += 1
+    assert checked > 20, "expected the page's scripts and stylesheets to be covered"
