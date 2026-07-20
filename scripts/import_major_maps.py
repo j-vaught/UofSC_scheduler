@@ -67,6 +67,16 @@ NON_SEMESTER_SECTION_RE = re.compile(
 REQUIREMENT_CODE_RE = re.compile(
     r"\b(?:CC(?:-(?:AIU|ARP|CMS|CMW|GFL|GHS|GSS|INF|INT|SCI|VSR))?|CR|MR|PR)\b"
 )
+# A trailing \b cannot match after "+" or "-": both are non-word characters,
+# and they are always followed by whitespace (also non-word) in the grade
+# column, so there is no word/non-word transition there for \b to find. The
+# engine backtracks, the optional modifier is discarded, and "C+"/"B-" are
+# silently stored as the weaker "C"/"B" -- confidently wrong advice for a
+# degree planner deciding whether a completed course satisfies a
+# requirement. Anchor on the grade column's real shape instead: a letter
+# grade is always followed by whitespace or the end of the (already-sliced)
+# grade zone, never by another word character.
+MINIMUM_GRADE_RE = re.compile(r"\b([A-DF][+-]?)(?=\s|$)")
 # COURSE_RE has no way to distinguish a registrar subject code (MATH, ENGL,
 # CSCE, ...) from an ordinary English word that happens to sit directly in
 # front of a three-digit number in prerequisite prose that bled into the
@@ -563,7 +573,7 @@ def _row_from_line(line: str, semester: int, sequence: int) -> dict[str, Any] | 
     grade_zone = (
         remaining[: first_requirement_code.start()] if first_requirement_code else remaining
     )
-    grade_match = re.search(r"\b([A-DF][+-]?)\b", grade_zone)
+    grade_match = MINIMUM_GRADE_RE.search(grade_zone)
     confidence = "high" if len(course_codes) == 1 and not warnings else "medium"
     if warnings and (not course_codes or illustrative_code):
         confidence = "low"
@@ -726,7 +736,7 @@ def _coordinate_item(
     minimum_grade_words = [
         word for word in words if columns.minimum_grade_left <= word.x_min < columns.major_gpa_left
     ]
-    grade_match = re.search(r"\b([A-DF][+-]?)\b", _text_for_words(minimum_grade_words))
+    grade_match = MINIMUM_GRADE_RE.search(_text_for_words(minimum_grade_words))
     confidence = "high" if len(course_codes) == 1 and not warnings else "medium"
     if warnings and (not course_codes or illustrative_code):
         confidence = "low"

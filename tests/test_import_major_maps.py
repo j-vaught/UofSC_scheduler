@@ -480,3 +480,53 @@ def test_deeply_indented_column_bleed_is_dropped_not_appended() -> None:
     assert item["credit_hours"] == 4
 
     assert _is_title_continuation(item, continuation) is False
+
+
+def test_bug5_minimum_grade_keeps_its_plus_or_minus_modifier() -> None:
+    # Dance 2026-2027 map: a trailing \b cannot match right after "+" or
+    # "-" (both are non-word characters, always followed by whitespace,
+    # also non-word -- there is no word/non-word transition for \b to find
+    # there). The engine backtracked, dropped the optional modifier, and
+    # every "C+" row in this map -- DANC 150, DANC 360, DANC 470, and
+    # others -- was stored as the weaker "C". Because the degree planner
+    # uses minimum_grade to decide whether a completed course satisfies a
+    # requirement, this silently told students a C was good enough for a
+    # course that actually required a C+.
+    line = "          DANC 150 Introduction to Dance3                                 3       C+             CR"
+    item = _row_from_line(line, semester=1, sequence=1)
+    assert item is not None
+    assert item["minimum_grade"] == "C+"
+
+    # A "-" modifier must survive the same way. No B-minus row was found in
+    # the 2026-2027 corpus to pin this to verbatim, so this line is
+    # constructed (same column shape as the real rows above) purely to
+    # cover the "-" half of the [+-]? group symmetrically with "+".
+    minus_item = _row_from_line(
+        "   PSYC 226 Cognitive Psychology     3   B-   MR", semester=1, sequence=1
+    )
+    assert minus_item is not None
+    assert minus_item["minimum_grade"] == "B-"
+
+    # A plain, unmodified grade must still work exactly as before.
+    plain_item = _row_from_line(
+        "   PSYC 226 Cognitive Psychology     3   C   MR", semester=1, sequence=1
+    )
+    assert plain_item is not None
+    assert plain_item["minimum_grade"] == "C"
+
+
+def test_bug5_grade_zone_prose_is_not_misread_as_a_grade() -> None:
+    # Real B.S.C.S. 2026-2027 line: the prerequisite prose "C or better in
+    # ENGL 101" sits in the same "remaining" text as the actual grade, after
+    # the requirement code. grade_zone only keeps the slice before the
+    # first requirement code, so this trailing "C or better..." text must
+    # never be reached -- the real grade "C" (right after the credit value)
+    # must still be the one captured.
+    line = (
+        "   ENGL 102 Rhetoric and Composition                       3       C  "
+        "              CC-CMW                 C or better in ENGL 101"
+    )
+    item = _row_from_line(line, semester=2, sequence=1)
+    assert item is not None
+    assert item["minimum_grade"] == "C"
+    assert item["requirement_codes"] == ["CC-CMW"]
