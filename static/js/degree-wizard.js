@@ -88,7 +88,10 @@ const DegreeWizard = {
         });
         document.getElementById('btn-add-substitution')?.addEventListener('click', () => {
             const input = document.getElementById('degree-substitution-input');
-            const code = State._normalizeCourseCode(input?.value);
+            // Uses the shared normaliser directly rather than reaching into
+            // State's private _normalizeCourseCode. parse() returns '' for input
+            // that is not a course code, which drives the validity message below.
+            const code = CourseCode.parse(input?.value);
             if (!code) {
                 input?.setCustomValidity('Enter a course code such as MATH 141.');
                 input?.reportValidity();

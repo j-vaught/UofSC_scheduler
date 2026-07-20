@@ -244,11 +244,22 @@
 
             let coursesHtml = '';
             sem.courses.forEach(course => {
+                /*
+                 * Plain course.code, deliberately. An `isElective ? title :
+                 * code` ternary used to sit here, referencing a local that
+                 * only exists in renderSemesterColumn -- so any completed
+                 * semester with courses threw a ReferenceError. The ternary
+                 * was an edit that landed on the wrong of two near-identical
+                 * lines: completed cards come from the transcript and are
+                 * never elective slots, while the PLANNED column below is
+                 * where elective slots show their human-readable title
+                 * instead of the synthetic [REQ-x-y] code.
+                 */
                 coursesHtml += `
-                    <div class="course-card completed-card" data-code="${course.code}" data-semester="${sem.term}" data-section="completed" draggable="true">
+                    <div class="${this.CARD_DOM.CARD_CLASS} ${this.CARD_DOM.COMPLETED_CARD_CLASS}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" data-${this.CARD_DOM.SEMESTER_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_COMPLETED}" draggable="true">
                         <div class="course-card-header">
                             <span class="course-card-code">${course.code}</span>
-                            <button type="button" class="card-remove-badge" data-code="${course.code}" aria-label="Remove ${course.code}">REMOVE</button>
+                            <button type="button" class="${this.CARD_DOM.REMOVE_BADGE_CLASS}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" aria-label="Remove ${course.code}">REMOVE</button>
                         </div>
                         <div class="course-card-title">${course.title} <span class="course-card-credits">${course.credits} cr</span></div>
                     </div>
@@ -256,16 +267,16 @@
             });
 
             const deleteBtn = sem.courses.length === 0
-                ? `<button type="button" class="sem-delete-btn" data-term="${sem.term}" title="Delete semester" aria-label="Delete ${sem.label}">&times;</button>`
+                ? `<button type="button" class="${this.CARD_DOM.DELETE_SEM_BUTTON_CLASS}" data-${this.CARD_DOM.TERM_ATTR}="${sem.term}" title="Delete semester" aria-label="Delete ${sem.label}">&times;</button>`
                 : '';
 
             return `
-                <div class="semester-column completed-column ${isCurrent ? 'current' : ''}" data-term="${sem.term}" data-index="${idx}" data-section="completed">
+                <div class="semester-column completed-column ${isCurrent ? 'current' : ''}" data-${this.CARD_DOM.TERM_ATTR}="${sem.term}" data-index="${idx}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_COMPLETED}">
                     <div class="${headerClass}">
                         <span class="semester-label">${sem.label}</span>
                         <span class="semester-credits">${sem.total_credits} cr ${deleteBtn}</span>
                     </div>
-                    <div class="semester-courses" data-term="${sem.term}" data-section="completed">
+                    <div class="${this.CARD_DOM.COURSES_CONTAINER_CLASS}" data-${this.CARD_DOM.TERM_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_COMPLETED}">
                         ${coursesHtml}
                     </div>
                 </div>
@@ -289,13 +300,15 @@
                 if (isPinned) badges += '<span class="badge-pinned">PINNED</span>';
                 if (isElective) badges += '<span class="badge-elective">ELECTIVE</span>';
 
-                const cardClass = isElective ? 'course-card elective-slot' : 'course-card';
+                const cardClass = isElective
+                    ? `${this.CARD_DOM.CARD_CLASS} ${this.CARD_DOM.ELECTIVE_SLOT_CLASS}`
+                    : this.CARD_DOM.CARD_CLASS;
 
                 coursesHtml += `
-                    <div class="${cardClass}" data-code="${course.code}" data-semester="${sem.term}" data-section="planned" draggable="true">
+                    <div class="${cardClass}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" data-${this.CARD_DOM.SEMESTER_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_PLANNED}" draggable="true">
                         <div class="course-card-header">
                             <span class="course-card-code">${isElective ? course.title : course.code}</span>
-                            <span class="course-card-actions">${isElective ? '' : `<button type="button" class="course-card-info" aria-label="View details and current offerings for ${course.code}" title="View course details, grades, history, and current offerings">i</button>`}<span class="course-card-credits">${course.credits} cr</span></span>
+                            <span class="course-card-actions">${isElective ? '' : `<button type="button" class="${this.CARD_DOM.INFO_BUTTON_CLASS}" aria-label="View details and current offerings for ${course.code}" title="View course details, grades, history, and current offerings">i</button>`}<span class="course-card-credits">${course.credits} cr</span></span>
                         </div>
                         <div class="course-card-title">${course.title}</div>
                         <div class="course-card-badges">${badges}</div>
@@ -304,12 +317,12 @@
             });
 
             return `
-                <div class="${semClass}${creditWarning}" data-term="${sem.term}" data-index="${idx}" data-section="planned">
+                <div class="${semClass}${creditWarning}" data-${this.CARD_DOM.TERM_ATTR}="${sem.term}" data-index="${idx}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_PLANNED}">
                     <div class="semester-header">
                         <span class="semester-label">${sem.label}</span>
                         <span class="semester-credits">${sem.total_credits} cr</span>
                     </div>
-                    <div class="semester-courses" data-term="${sem.term}" data-section="planned">
+                    <div class="${this.CARD_DOM.COURSES_CONTAINER_CLASS}" data-${this.CARD_DOM.TERM_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_PLANNED}">
                         ${coursesHtml}
                     </div>
                 </div>

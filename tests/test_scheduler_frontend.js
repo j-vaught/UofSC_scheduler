@@ -14,6 +14,11 @@ const {
     openingTag, tagAttributes,
 } = require('./support/scheduler-harness.js');
 
+// calendar.js parses meeting times through the shared static/js/meeting-times.js
+// util, a global a <script> tag supplies in the browser; the harness sandbox
+// needs it passed in when a calendar test parses.
+const MeetingTimes = require('../static/js/meeting-times.js');
+
 test('course credit hydration stores detail credits on every live section', async () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {
         API: { async getDetails() { return { hours_html: '4 Credit Hours' }; } },
@@ -1070,7 +1075,7 @@ test('calendar runs from 8 AM through 10 PM', () => {
 });
 
 test('calendar expands to seven days only when a weekend meeting is present', () => {
-    const calendar = loadObject('static/js/calendar.js', 'Calendar', {});
+    const calendar = loadObject('static/js/calendar.js', 'Calendar', { MeetingTimes });
     const weekdaySections = [
         { meetingTimes: '[{"meet_day": 4, "start_time": 900, "end_time": 950}]' },
     ];

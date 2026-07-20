@@ -398,6 +398,12 @@ test('A plain site visit opens Search even when another tab was used previously'
         },
         document: {
             getElementById() { return { addEventListener() {} }; },
+            // tabFromUrl now derives the valid-tab set from #main-tabs
+            // markup (see below), so it always calls this even off the
+            // legacy-alias branches; an empty nav here means every ?tab=
+            // value but the recognized aliases is unrecognized, which is
+            // what this test wants.
+            querySelectorAll() { return []; },
         },
     });
     tabs.switchTo = (tab, options) => switched.push({ tab, options });
@@ -407,6 +413,88 @@ test('A plain site visit opens Search even when another tab was used previously'
     assert.equal(switched.length, 1);
     assert.equal(switched[0].tab, 'semester');
     assert.equal(switched[0].options.historyMode, 'none');
+});
+
+// A fake #main-tabs nav button: switchTo() toggles .active on every button
+// this selector returns (not just the one being activated), so the stub needs
+// a working classList, not just the dataset validTabs() reads.
+function navButtonStub(tab) {
+    return { dataset: { tab }, classList: { add() {}, remove() {} } };
+}
+
+/*
+ * tabFromUrl() used to fall back to '' for anything outside a hardcoded
+ * ['degree', 'schedule'] plus the legacy aliases -- a value it did not
+ * recognize simply produced no match. Deriving valid tabs from the DOM
+ * changes the mechanism but must not change this outcome: a tab name that
+ * matches no button in #main-tabs and no legacy alias still resolves to no
+ * match, and callers (init/restoreFromLocation) still fall back to Search.
+ */
+test('An unrecognized tab in the URL still falls back to the semester default', () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/?tab=bogus-tab',
+        pathname: '/',
+        search: '?tab=bogus-tab',
+    };
+    const tabs = loadObject('static/js/tabs.js', 'Tabs', {
+        State: { term: '202608' },
+        URL,
+        window: { location },
+        history: { state: { tab: 'bogus-tab' }, pushState() {}, replaceState() {} },
+        localStorage: { setItem() {}, getItem() { return null; } },
+        document: {
+            querySelectorAll(selector) {
+                return selector === '#main-tabs [data-tab]'
+                    ? ['semester', 'degree', 'schedule'].map(navButtonStub)
+                    : [];
+            },
+            querySelector() { return null; },
+            getElementById() { return null; },
+            dispatchEvent() {},
+        },
+        CustomEvent: class {},
+    });
+
+    tabs.restoreFromLocation();
+    assert.equal(tabs.current(), 'semester');
+});
+
+/*
+ * The point of reading #main-tabs instead of a hardcoded list: a fourth tab
+ * button in the nav becomes a legal deep-link target with no matching edit to
+ * tabs.js. This proves it from the other direction of the test above -- a
+ * data-tab value present in markup resolves to itself, not to the fallback.
+ */
+test('A data-tab button present in the nav markup is automatically a valid deep-link target', () => {
+    const location = {
+        href: 'http://127.0.0.1:8765/?tab=transfer-credits',
+        pathname: '/',
+        search: '?tab=transfer-credits',
+    };
+    const tabs = loadObject('static/js/tabs.js', 'Tabs', {
+        State: { term: '202608' },
+        URL,
+        window: { location },
+        history: { state: {}, pushState() {}, replaceState() {} },
+        localStorage: { setItem() {}, getItem() { return null; } },
+        document: {
+            querySelectorAll(selector) {
+                // The hypothetical fourth tab, 'transfer-credits'. Nothing in
+                // tabs.js names it; it is valid purely because a button for
+                // it exists in the nav.
+                return selector === '#main-tabs [data-tab]'
+                    ? ['semester', 'degree', 'schedule', 'transfer-credits'].map(navButtonStub)
+                    : [];
+            },
+            querySelector() { return null; },
+            getElementById() { return null; },
+            dispatchEvent() {},
+        },
+        CustomEvent: class {},
+    });
+
+    tabs.restoreFromLocation();
+    assert.equal(tabs.current(), 'transfer-credits');
 });
 
 test('Changing terms does not run a hidden Search query from another tab', () => {

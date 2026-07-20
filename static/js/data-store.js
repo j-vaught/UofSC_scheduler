@@ -6,12 +6,16 @@
     const DEFAULT_MANIFEST_TTL = 5 * 60 * 1000;
     const DATABASE_VERSION = 1;
 
+    // The canonical normaliser, shared with State and the scheduler. In the
+    // browser it is a global; under Node's test runner (require present) it is
+    // pulled in directly. Its lenient normalize() is what this store wants: a
+    // non-code stays cleaned rather than becoming '', so a shard lookup gets
+    // back exactly what it was handed.
+    const CourseCode = global.CourseCode
+        || (typeof require === 'function' ? require('./course-code.js') : null);
+
     function normalizeCourseCode(value) {
-        return String(value || '')
-            .trim()
-            .toUpperCase()
-            .replace(/\s+/g, ' ')
-            .replace(/^([A-Z]{2,8})\s*(\d+[A-Z]?)$/, '$1 $2');
+        return CourseCode.normalize(value);
     }
 
     function professorPrefix(value) {

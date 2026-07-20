@@ -1,4 +1,14 @@
 /* Central state management with localStorage persistence */
+
+/*
+ * The shared course-code normaliser. A global in the browser, a require() under
+ * Node's test runner. It can be genuinely absent -- the autosave suite loads
+ * this file alone in a bare vm sandbox with neither a global nor require -- so
+ * _normalizeCourseCode() keeps an identical inline fallback for that case.
+ */
+const CourseCode = (typeof globalThis === 'object' && globalThis.CourseCode)
+    || (typeof require === 'function' ? require('./course-code.js') : null);
+
 const State = {
     term: '202608',
     selectedCourses: {},     // { courseCode: {code, title, sections} }
@@ -63,6 +73,25 @@ const State = {
 
     emit(event, data) {
         (this._listeners[event] || []).forEach(fn => fn(data));
+    },
+
+    /*
+     * Write a preference field and announce it in one call. Call sites used to
+     * set the field, then State.emit('preferences-changed') on the next line,
+     * repeating that event name as a string literal at each one -- and a typo
+     * there fails silently, because emit() just finds no listeners. Routing
+     * through here keeps the write and the notification together, and names the
+     * event exactly once.
+     *
+     * Pass { event: null } to write without announcing: a couple of inputs (the
+     * time-window fields) deliberately do not emit today, and preserving that
+     * behaviour is the point of routing them through here rather than changing
+     * it.
+     */
+    setPreference(name, value, { event = 'preferences-changed' } = {}) {
+        this[name] = value;
+        if (event) this.emit(event);
+        return value;
     },
 
     addSection(section) {
@@ -146,7 +175,12 @@ const State = {
     },
 
     _normalizeCourseCode(value) {
-        const match = String(value || '').trim().toUpperCase().match(/^([A-Z]{2,5})\s*([0-9]{3}[A-Z]?)$/);
+        // parse() is strict: a real code or '', and State depends on the '' --
+        // a record whose code will not parse is dropped, an unknown code will
+        // not remove one. The inline fallback mirrors CourseCode.parse for the
+        // bare-sandbox case where the shared module is unreachable.
+        if (CourseCode) return CourseCode.parse(value);
+        const match = String(value || '').trim().toUpperCase().match(/^([A-Z]{2,8})\s*(\d+[A-Z]?)$/);
         return match ? `${match[1]} ${match[2]}` : '';
     },
 

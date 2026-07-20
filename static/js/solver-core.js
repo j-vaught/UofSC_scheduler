@@ -2,6 +2,16 @@
 const SolverCore = (() => {
     const DEFAULT_TIMEOUT_MS = 5000;
 
+    /*
+     * Shared meeting-time parsing lives in meeting-times.js. The solver is also
+     * loaded standalone -- importScripts()'d into a Web Worker that pulls in
+     * only this file, and constructed in bare test sandboxes -- so that global
+     * is not always present. It is used when present, and the identical logic
+     * is kept inline as the fallback. Do not remove the fallback: the worker,
+     * which is the solver's real home, runs it.
+     */
+    const Meeting = (typeof globalThis === 'object' && globalThis.MeetingTimes) || null;
+
     function integerValue(value) {
         if (value === null || value === undefined || value === '') return null;
         const parsed = Number(value);
@@ -16,12 +26,14 @@ const SolverCore = (() => {
     }
 
     function hhmmToMinutes(value) {
+        if (Meeting) return Meeting.hhmmToMinutes(value);
         const parsed = integerValue(value);
         if (parsed === null) throw new TypeError(`Invalid HHMM value: ${value}`);
         return Math.trunc(parsed / 100) * 60 + (parsed % 100);
     }
 
     function parseMeetingTimes(meetingTimes) {
+        if (Meeting) return Meeting.parseHHMM(meetingTimes);
         if (!meetingTimes) return [];
         let raw;
         try {
@@ -35,6 +47,9 @@ const SolverCore = (() => {
             const day = integerValue(meeting?.meet_day);
             const start = integerValue(meeting?.start_time);
             const end = integerValue(meeting?.end_time);
+            // Discard the whole array on any bad entry -- deliberate, not a
+            // convenience. A schedule must never be built from a section whose
+            // meeting times were only half understood.
             if (day === null || start === null || end === null) return [];
             meetings.push({ day, start, end });
         }

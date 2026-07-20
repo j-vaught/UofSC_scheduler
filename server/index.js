@@ -7,26 +7,152 @@ const SECURITY_HEADERS = Object.freeze({
     'Referrer-Policy': 'strict-origin-when-cross-origin',
 });
 
-const RELAY_ROUTES = Object.freeze({
-    '/api/search': Object.freeze({
-        upstream: 'https://classes.sc.edu/api/?page=fose&route=search',
-        kind: 'search',
-    }),
-    '/api/details': Object.freeze({
-        upstream: 'https://classes.sc.edu/api/?page=fose&route=details',
-        kind: 'details',
-    }),
-    '/api/faculty': Object.freeze({
-        kind: 'faculty',
-    }),
+// >>> BEGIN generated from contracts/wire/fose-v1.json by scripts/sync_wire_contract.py
+// The whole wire contract is embedded so the relay validates against the
+// document itself rather than a hand-copied subset of it. The deployed
+// worker stays a single dependency-free file because the contract is here
+// at sync time, not fetched at runtime. Regenerate with
+// scripts/sync_wire_contract.py; never edit below by hand.
+const CONTRACT = Object.freeze(/* generated */ {
+    'contract': 'fose-v1',
+    'description': 'Request grammar for the three relay routes. Single source of truth for the relay\'s body validators, the browser\'s request encoders, and the Python pipeline. Upstream vocabulary appears here and nowhere else, so an upstream change is one edit followed by mechanical updates in the consumers rather than a search across the tree.',
+    'generated_from': 'server/index.js, verified 2026-07-19',
+    'field_notes': {
+        'course_attr': 'Section attribute, matched on the exact upstream display string such as "ARP: Analytical Reasoning (3ARP)". Upstream ignores unrecognised criteria fields and answers with the whole term rather than an error, and answers an unrecognised value with zero results, so both spelling mistakes fail silently in opposite directions. The vocabulary is pinned in static/js/carolina-core.js and guarded by tests/test_course_attr_vocabulary.js.',
+    },
+    'limits': {
+        'max_body_bytes': 16384,
+        'upstream_timeout_ms': 10000,
+        'max_faculty_crns': 12,
+        'max_faculty_concurrency': 4,
+    },
+    'types': {
+        'term': {
+            'pattern': '^\\d{4}(?:01|05|08)$',
+            'description': 'YYYYMM. 01 spring, 05 summer, 08 fall. No other suffix is a term anywhere in this system; 06 and 07 appear in older capture notes and are rejected.',
+            'valid': ['202601', '202605', '202608'],
+            'invalid': ['202606', '202612', '2026', '999999', ''],
+        },
+        'crn': {
+            'pattern': '^\\d{5}$',
+            'description': 'Exactly five digits.',
+            'valid': ['10868', '00001'],
+            'invalid': ['1086', '108680', 'abcde', ''],
+        },
+        'detail_group': {
+            'pattern': '^crn:\\d{5}$',
+            'valid': ['crn:10868'],
+            'invalid': ['crn:1086', '10868', 'crn:abcde'],
+        },
+    },
+    'routes': {
+        '/api/search': {
+            'method': 'POST',
+            'upstream': 'https://classes.sc.edu/api/?page=fose&route=search',
+            'request': {
+                'exact_keys': ['other', 'criteria'],
+                'other': {
+                    'exact_keys': ['srcdb'],
+                    'srcdb': 'term',
+                },
+                'criteria': {
+                    'min_items': 1,
+                    'max_items': 6,
+                    'item_exact_keys': ['field', 'value'],
+                    'allowed_fields': ['alias', 'course_attr', 'crn', 'keyword', 'stat', 'subject'],
+                    'fields_may_repeat': false,
+                    'value_min_length': 1,
+                    'value_max_length': 120,
+                    'requires_non_stat_criterion': true,
+                },
+            },
+            'response': {
+                'must_contain_array': 'results',
+                'max_bytes': 1048576,
+            },
+        },
+        '/api/details': {
+            'method': 'POST',
+            'upstream': 'https://classes.sc.edu/api/?page=fose&route=details',
+            'request': {
+                'exact_keys': ['group', 'srcdb'],
+                'group': 'detail_group',
+                'srcdb': 'term',
+            },
+            'response': {
+                'max_bytes': 262144,
+            },
+        },
+        '/api/faculty': {
+            'method': 'POST',
+            'upstream': 'banner:searchResults/getFacultyMeetingTimes',
+            'description': 'Synthesized server-side per CRN rather than proxied. getFacultyMeetingTimes is the one Banner JSON endpoint that answers without a session cookie.',
+            'request': {
+                'exact_keys': ['term', 'crns'],
+                'term': 'term',
+                'crns': {
+                    'min_items': 1,
+                    'max_items': 12,
+                    'unique': true,
+                    'item_type': 'crn',
+                },
+            },
+            'response': {
+                'max_bytes': 262144,
+            },
+        },
+    },
+    'rejections': {
+        'wrong_method': 405,
+        'wrong_content_type': 415,
+        'cross_origin': 403,
+        'body_too_large': 413,
+        'invalid_body': 400,
+        'upstream_timeout': 504,
+        'upstream_failure': 502,
+    },
 });
-
-const SEARCH_FIELDS = new Set(['alias', 'course_attr', 'crn', 'keyword', 'stat', 'subject']);
-const BANNER_BASE = 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb';
+// Named limits mirror CONTRACT.limits so a timeout or a byte cap reads
+// clearly at its call site while the contract stays their only source.
+const MAX_RELAY_BODY_BYTES = 16384;
+const UPSTREAM_TIMEOUT_MS = 10000;
 const MAX_FACULTY_CRNS = 12;
 const MAX_FACULTY_CONCURRENCY = 4;
-const MAX_RELAY_BODY_BYTES = 16384;
-const UPSTREAM_TIMEOUT_MS = 10_000;
+// <<< END generated
+
+// The scalar grammars (term, crn, detail_group) appear once in the contract, so
+// they are compiled a single time here. A validator then reads the contract
+// rather than restating a pattern, and an upstream change to a grammar needs no
+// edit outside contracts/wire/fose-v1.json.
+const COMPILED_TYPES = Object.freeze(Object.fromEntries(
+    Object.entries(CONTRACT.types).map(([name, spec]) => [name, new RegExp(spec.pattern)]),
+));
+
+const BANNER_BASE = 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb';
+
+// The relay dispatches on a short internal label rather than re-deriving the
+// path each request. search and details are proxied to a fixed upstream while
+// faculty is synthesized per CRN, so the label decides which branch runs. The
+// upstream, the request grammar and the response caps are all read from the
+// contract, so this table adds no facts the contract does not already state.
+function resolveRoute(pathname) {
+    const route = CONTRACT.routes[pathname];
+    return Object.freeze({
+        kind: pathname.slice(pathname.lastIndexOf('/') + 1),
+        upstream: route.upstream,
+        request: route.request,
+        response: route.response,
+    });
+}
+
+// The route keys are spelled out here, at four-space indentation, so the
+// contract's route list and the relay's are checked against each other verbatim
+// by tests/test_wire_contract.js rather than trusted to stay equal.
+const RELAY_ROUTES = Object.freeze({
+    '/api/search': resolveRoute('/api/search'),
+    '/api/details': resolveRoute('/api/details'),
+    '/api/faculty': resolveRoute('/api/faculty'),
+});
 
 function cachePolicy(pathname) {
     if (pathname === '/service-worker.js' || pathname === '/static/data/manifest.json') {
@@ -60,86 +186,94 @@ function jsonResponse(payload, status, pathname, extraHeaders = {}) {
     }), pathname);
 }
 
-function validTerm(value) {
-    return /^\d{4}(?:01|05|08)$/.test(String(value || ''));
+function isPlainObject(value) {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
 
-function validateSearchPayload(payload) {
-    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
-    if (Object.keys(payload).some(key => !['other', 'criteria'].includes(key))) return false;
-    if (!payload.other || typeof payload.other !== 'object' || Array.isArray(payload.other)) {
-        return false;
+// A value matches a named grammar exactly when the contract's pattern accepts
+// the whole string. The empty string stands in for missing so that an absent
+// field fails the same way an ill-formed one does.
+function matchesType(value, typeName) {
+    return COMPILED_TYPES[typeName].test(String(value || ''));
+}
+
+// Every relay body is an object with an exact set of keys, and the contract's
+// request grammar for the route says which keys and what each one must be. This
+// walks that grammar rather than hard-coding any one route's shape, so the three
+// routes share one validator and a contract change is the only change needed.
+function validateBody(payload, spec) {
+    if (!isPlainObject(payload)) return false;
+    if (Object.keys(payload).some(key => !spec.exact_keys.includes(key))) return false;
+    return spec.exact_keys.every(key => validateField(payload[key], spec[key]));
+}
+
+function validateField(value, fieldSpec) {
+    // A string names one of the scalar grammars. An object either nests another
+    // exact-keys grammar (as other does around srcdb) or describes a list.
+    if (typeof fieldSpec === 'string') return matchesType(value, fieldSpec);
+    if (Array.isArray(fieldSpec.exact_keys)) return validateBody(value, fieldSpec);
+    return validateList(value, fieldSpec);
+}
+
+function validateList(value, spec) {
+    if (!Array.isArray(value)) return false;
+    if (value.length < spec.min_items || value.length > spec.max_items) return false;
+
+    if (typeof spec.item_type === 'string') {
+        // A flat list of scalars, such as the faculty CRNs. unique forbids
+        // repeats so a caller cannot pad a batch with the same number.
+        const values = value.map(item => String(item || ''));
+        if (!values.every(item => matchesType(item, spec.item_type))) return false;
+        return !spec.unique || new Set(values).size === values.length;
     }
-    if (Object.keys(payload.other).some(key => key !== 'srcdb')) return false;
-    if (!validTerm(payload.other.srcdb)) return false;
-    if (!Array.isArray(payload.criteria)
-        || payload.criteria.length < 1
-        || payload.criteria.length > 6) return false;
-    const fields = new Set();
-    for (const criterion of payload.criteria) {
-        if (!criterion || typeof criterion !== 'object' || Array.isArray(criterion)) return false;
-        if (Object.keys(criterion).some(key => !['field', 'value'].includes(key))) return false;
-        const field = String(criterion.field || '');
-        if (!SEARCH_FIELDS.has(field) || fields.has(field)) return false;
-        if (typeof criterion.value !== 'string'
-            || criterion.value.length < 1
-            || criterion.value.length > 120) return false;
-        fields.add(field);
+
+    // Otherwise a list of {field, value} search criteria checked against the
+    // allowlist, with an optional no-repeats rule and per-value length bounds.
+    const allowed = new Set(spec.allowed_fields);
+    const seen = new Set();
+    for (const item of value) {
+        if (!isPlainObject(item)) return false;
+        if (Object.keys(item).some(key => !spec.item_exact_keys.includes(key))) return false;
+        const field = String(item.field || '');
+        if (!allowed.has(field)) return false;
+        if (!spec.fields_may_repeat && seen.has(field)) return false;
+        if (typeof item.value !== 'string'
+            || item.value.length < spec.value_min_length
+            || item.value.length > spec.value_max_length) return false;
+        seen.add(field);
     }
-    return payload.criteria.some(criterion => criterion.field !== 'stat');
-}
-
-function validateDetailsPayload(payload) {
-    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
-    if (Object.keys(payload).some(key => !['group', 'srcdb'].includes(key))) return false;
-    if (!validTerm(payload.srcdb)) return false;
-    const group = String(payload.group || '');
-    return /^crn:\d{5}$/.test(group);
-}
-
-function validateFacultyPayload(payload) {
-    if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return false;
-    if (Object.keys(payload).some(key => !['term', 'crns'].includes(key))) return false;
-    if (!validTerm(payload.term)) return false;
-    if (!Array.isArray(payload.crns)
-        || payload.crns.length < 1
-        || payload.crns.length > MAX_FACULTY_CRNS) return false;
-    const values = payload.crns.map(value => String(value || ''));
-    return values.every(value => /^\d{5}$/.test(value))
-        && new Set(values).size === values.length;
+    // The availability filter alone answers with the whole term, so at least one
+    // substantive criterion is required when the contract asks for it.
+    if (spec.requires_non_stat_criterion) return value.some(item => item.field !== 'stat');
+    return true;
 }
 
 async function parseRelayBody(request, route, pathname) {
     const contentType = String(request.headers.get('content-type') || '').toLowerCase();
     if (!contentType.startsWith('application/json')) {
-        return { error: jsonResponse({ error: 'Expected a JSON request body' }, 415, pathname) };
+        return { error: jsonResponse({ error: 'Expected a JSON request body' }, CONTRACT.rejections.wrong_content_type, pathname) };
     }
     const declaredLength = Number(request.headers.get('content-length') || 0);
     if (declaredLength > MAX_RELAY_BODY_BYTES) {
-        return { error: jsonResponse({ error: 'Request body is too large' }, 413, pathname) };
+        return { error: jsonResponse({ error: 'Request body is too large' }, CONTRACT.rejections.body_too_large, pathname) };
     }
     let text;
     try {
         text = await request.text();
     } catch (error) {
-        return { error: jsonResponse({ error: 'Could not read request body' }, 400, pathname) };
+        return { error: jsonResponse({ error: 'Could not read request body' }, CONTRACT.rejections.invalid_body, pathname) };
     }
     if (new TextEncoder().encode(text).byteLength > MAX_RELAY_BODY_BYTES) {
-        return { error: jsonResponse({ error: 'Request body is too large' }, 413, pathname) };
+        return { error: jsonResponse({ error: 'Request body is too large' }, CONTRACT.rejections.body_too_large, pathname) };
     }
     let payload;
     try {
         payload = JSON.parse(text);
     } catch (error) {
-        return { error: jsonResponse({ error: 'Request body is not valid JSON' }, 400, pathname) };
+        return { error: jsonResponse({ error: 'Request body is not valid JSON' }, CONTRACT.rejections.invalid_body, pathname) };
     }
-    const valid = route.kind === 'search'
-        ? validateSearchPayload(payload)
-        : route.kind === 'details'
-            ? validateDetailsPayload(payload)
-            : validateFacultyPayload(payload);
-    if (!valid) {
-        return { error: jsonResponse({ error: 'Request body is invalid for this operation' }, 400, pathname) };
+    if (!validateBody(payload, route.request)) {
+        return { error: jsonResponse({ error: 'Request body is invalid for this operation' }, CONTRACT.rejections.invalid_body, pathname) };
     }
     return { payload, text };
 }
@@ -194,7 +328,7 @@ function facultyEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : '';
 }
 
-async function relayFaculty(payload, pathname) {
+async function relayFaculty(payload, route, pathname) {
     const responses = [];
     for (let start = 0; start < payload.crns.length; start += MAX_FACULTY_CONCURRENCY) {
         const batch = payload.crns.slice(start, start + MAX_FACULTY_CONCURRENCY);
@@ -212,7 +346,7 @@ async function relayFaculty(payload, pathname) {
                 error.code = 'FACULTY_UPSTREAM_HTTP_ERROR';
                 throw error;
             }
-            const data = await readJsonResponse(response, 256 * 1024);
+            const data = await readJsonResponse(response, route.response.max_bytes);
             if (!data || typeof data !== 'object' || Array.isArray(data) || !Array.isArray(data.fmt)) {
                 const error = new Error('Faculty provider returned an unexpected response');
                 error.code = 'INVALID_FACULTY_RESPONSE';
@@ -252,22 +386,22 @@ async function relayFaculty(payload, pathname) {
 
 async function relayRequest(request, url, route) {
     if (request.method !== 'POST') {
-        return jsonResponse({ error: 'Method not allowed' }, 405, url.pathname, {
+        return jsonResponse({ error: 'Method not allowed' }, CONTRACT.rejections.wrong_method, url.pathname, {
             Allow: 'POST',
         });
     }
     const origin = request.headers.get('origin');
     if (origin && origin !== url.origin) {
-        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, 403, url.pathname);
+        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, CONTRACT.rejections.cross_origin, url.pathname);
     }
     if (request.headers.get('sec-fetch-site') === 'cross-site') {
-        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, 403, url.pathname);
+        return jsonResponse({ error: 'Cross-origin relay requests are not allowed' }, CONTRACT.rejections.cross_origin, url.pathname);
     }
     const parsed = await parseRelayBody(request, route, url.pathname);
     if (parsed.error) return parsed.error;
     try {
         if (route.kind === 'faculty') {
-            return await relayFaculty(parsed.payload, url.pathname);
+            return await relayFaculty(parsed.payload, route, url.pathname);
         }
         const response = await fetchWithTimeout(route.upstream, {
             method: 'POST',
@@ -281,16 +415,21 @@ async function relayRequest(request, url, route) {
             return jsonResponse({
                 error: 'Live data provider returned an error',
                 upstream_status: response.status,
-            }, response.status === 429 ? 429 : 502, url.pathname);
+            }, response.status === 429 ? 429 : CONTRACT.rejections.upstream_failure, url.pathname);
         }
-        const maxBytes = route.kind === 'search' ? 1024 * 1024 : 256 * 1024;
-        const data = await readJsonResponse(response, maxBytes);
+        const data = await readJsonResponse(response, route.response.max_bytes);
         if (data && typeof data === 'object' && data.error) {
-            return jsonResponse({ error: String(data.error) }, 502, url.pathname);
+            return jsonResponse({ error: String(data.error) }, CONTRACT.rejections.upstream_failure, url.pathname);
         }
-        if (!data || typeof data !== 'object' || Array.isArray(data)
-            || (route.kind === 'search' && !Array.isArray(data.results))) {
-            return jsonResponse({ error: 'Live data provider returned an unexpected response' }, 502, url.pathname);
+        // The contract names the array a good response must carry (results, for
+        // search) and the rest of the shape check is generic. A non-object, an
+        // array, or a missing named array all mean the upstream did not answer
+        // the way the contract promises, which is an upstream failure rather
+        // than a client error, so it maps to the contract's upstream_failure.
+        if (!isPlainObject(data)
+            || (route.response.must_contain_array
+                && !Array.isArray(data[route.response.must_contain_array]))) {
+            return jsonResponse({ error: 'Live data provider returned an unexpected response' }, CONTRACT.rejections.upstream_failure, url.pathname);
         }
         return jsonResponse(data, 200, url.pathname, {
             'Cache-Control': 'no-store, max-age=0',
@@ -306,7 +445,7 @@ async function relayRequest(request, url, route) {
         return jsonResponse({
             error: timedOut ? 'Live data request timed out' : 'Live data request failed',
             code: timedOut ? 'UPSTREAM_TIMEOUT' : String(error?.code || 'UPSTREAM_FAILED'),
-        }, timedOut ? 504 : 502, url.pathname);
+        }, timedOut ? CONTRACT.rejections.upstream_timeout : CONTRACT.rejections.upstream_failure, url.pathname);
     }
 }
 

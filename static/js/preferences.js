@@ -101,12 +101,12 @@ const Preferences = {
 
     updateBlockedTimes() {
         const cells = document.querySelectorAll('#block-calendar .block-cell.blocked');
-        State.blockedTimes = Array.from(cells).map(c => ({
+        // Field write plus 'preferences-changed', now in one call.
+        State.setPreference('blockedTimes', Array.from(cells).map(c => ({
             day: parseInt(c.dataset.day),
             start: parseInt(c.dataset.start),
             end: parseInt(c.dataset.end),
-        }));
-        State.emit('preferences-changed');
+        })));
     },
 
     bindProfPrefs() {
@@ -179,13 +179,16 @@ const Preferences = {
         if (startEl) {
             startEl.addEventListener('change', (e) => {
                 const [h, m] = e.target.value.split(':').map(Number);
-                State.preferredStart = h * 100 + m;
+                // { event: null } preserves the existing behaviour: these
+                // inputs write the field but do not announce it, unlike the
+                // blocked-times and instructor controls above.
+                State.setPreference('preferredStart', h * 100 + m, { event: null });
             });
         }
         if (endEl) {
             endEl.addEventListener('change', (e) => {
                 const [h, m] = e.target.value.split(':').map(Number);
-                State.preferredEnd = h * 100 + m;
+                State.setPreference('preferredEnd', h * 100 + m, { event: null });
             });
         }
     },

@@ -26,15 +26,11 @@
         faculty: 24 * 60 * 60 * 1000,
     });
 
-    function stableValue(value) {
-        if (Array.isArray(value)) return value.map(stableValue);
-        if (value && typeof value === 'object') {
-            return Object.fromEntries(
-                Object.keys(value).sort().map(key => [key, stableValue(value[key])]),
-            );
-        }
-        return value;
-    }
+    // The shared response cache: stable-stringify for keys and a TTL+LRU store,
+    // the same code api.js uses. A global in the browser (loaded first), a
+    // require() under Node's test runner, which requires this file directly.
+    const ResponseCache = global.ResponseCache
+        || (typeof require === 'function' ? require('./response-cache.js') : null);
 
     // A relative endpoint is same-origin by definition. An absolute one only
     // counts when its origin matches ours; if we cannot determine our own
@@ -143,9 +139,10 @@
             }));
             this.origin = options.origin || global.location?.origin || '';
             this.limiter = new RequestLimiter(options.maxConcurrency || 4);
-            this.cache = new Map();
             this.inflight = new Map();
             this.cacheMaxEntries = Math.max(10, Number(options.cacheMaxEntries) || 250);
+            // Shares the injectable clock so tests can drive expiry deterministically.
+            this.cache = ResponseCache.make(this.cacheMaxEntries, { now: this.now });
         }
 
         // Encoded by the codec for the same reason as in api.js: the request
@@ -208,7 +205,7 @@
             const cacheTtl = Number.isFinite(options.cacheTtl)
                 ? Math.max(0, options.cacheTtl)
                 : Math.max(0, Number(this.ttls[kind]) || 0);
-            const key = `${method}:${endpoint}:${JSON.stringify(stableValue(body))}`;
+            const key = ResponseCache.stableCacheKey(`${method}:${endpoint}`, body);
             if (!options.forceRefresh && cacheTtl > 0) {
                 const cached = this._cached(key);
                 if (cached !== null) return cached;
@@ -358,23 +355,11 @@
         }
 
         _cached(key) {
-            const entry = this.cache.get(key);
-            if (!entry) return null;
-            if (this.now() >= entry.expiresAt) {
-                this.cache.delete(key);
-                return null;
-            }
-            this.cache.delete(key);
-            this.cache.set(key, entry);
-            return entry.data;
+            return this.cache.get(key);
         }
 
         _store(key, data, ttl) {
-            this.cache.delete(key);
-            this.cache.set(key, { data, expiresAt: this.now() + ttl });
-            while (this.cache.size > this.cacheMaxEntries) {
-                this.cache.delete(this.cache.keys().next().value);
-            }
+            this.cache.set(key, data, ttl);
         }
 
         clearCache() {

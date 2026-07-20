@@ -1,14 +1,17 @@
-"""Rewrite the wire contract's constants into the code that enforces them.
+"""Rewrite the wire contract into the code that enforces it.
 
 The contract in contracts/wire/fose-v1.json calls itself the single source of
 truth for the relay's validators, the browser's request encoder, and the Python
-pipeline. It was not quite: the field allowlist and the request limits were
-typed out again in server/index.js and in the browser encoder, so adding a
-search field meant three edits that a reviewer had to notice were consistent.
+pipeline. It was not quite: the field allowlist, the request limits, the term
+and CRN grammars, the per-route upstreams and the response caps were all typed
+out again in server/index.js, so an upstream change was a search across the tree
+rather than one edit.
 
-A test caught divergence, which is worth having, but catching a mistake is not
-the same as making it hard to make. This script writes the constants from the
-contract into both consumers, so the edit is one file and the rest follows.
+This script now embeds the whole contract into server/index.js as a single
+frozen object between generated markers, so the relay validates against the
+document itself rather than a hand-copied subset of it. The browser encoder
+still takes only the three scalars it needs, because it is a small module that
+has no reason to carry the entire grammar.
 
 Run it after changing the contract:
 
@@ -32,7 +35,13 @@ CONTRACT = ROOT / "contracts" / "wire" / "fose-v1.json"
 RELAY = ROOT / "server" / "index.js"
 ENCODER = ROOT / "static" / "js" / "platform" / "university" / "wire" / "fose-v1.js"
 
-GENERATED = "// Generated from contracts/wire/fose-v1.json by scripts/sync_wire_contract.py"
+# The relay carries the contract inside these markers. Everything between them
+# is regenerated wholesale, so a hand edit there is overwritten on the next sync
+# and --check fails in the meantime, which is the point.
+RELAY_BEGIN = (
+    "// >>> BEGIN generated from contracts/wire/fose-v1.json by scripts/sync_wire_contract.py"
+)
+RELAY_END = "// <<< END generated"
 
 
 def _load() -> dict:
@@ -47,6 +56,100 @@ def _js_list(values: list[str]) -> str:
     return ", ".join(f"'{value}'" for value in values)
 
 
+def _js_string(value: str) -> str:
+    """A single-quoted JavaScript string literal for an arbitrary contract value.
+
+    Single quotes keep the embedded allowlist reading the way the rest of the
+    relay is written, and keep tests that look for a field as 'name' finding it.
+    """
+    escaped = (
+        value.replace("\\", "\\\\")
+        .replace("'", "\\'")
+        .replace("\n", "\\n")
+        .replace("\r", "\\r")
+        .replace("\t", "\\t")
+    )
+    return f"'{escaped}'"
+
+
+def _js_literal(value: object, indent: int) -> str:
+    """Serialize a parsed-JSON value as a single-quoted JavaScript literal.
+
+    Only the shapes the contract actually uses are handled, on purpose: an
+    unexpected type should fail the sync loudly rather than emit code that looks
+    plausible and is wrong.
+    """
+    pad = "    " * indent
+    child_pad = "    " * (indent + 1)
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, dict):
+        if not value:
+            return "{}"
+        lines = [
+            f"{child_pad}{_js_string(str(key))}: {_js_literal(item, indent + 1)}"
+            for key, item in value.items()
+        ]
+        return "{\n" + ",\n".join(lines) + f",\n{pad}}}"
+    if isinstance(value, list):
+        if not value:
+            return "[]"
+        # Short scalar lists (allowlists, term vocabularies) read better inline;
+        # anything holding an object or a nested list gets one entry per line.
+        if all(not isinstance(item, (dict, list)) for item in value):
+            return "[" + ", ".join(_js_literal(item, indent + 1) for item in value) + "]"
+        lines = [f"{child_pad}{_js_literal(item, indent + 1)}" for item in value]
+        return "[\n" + ",\n".join(lines) + f",\n{pad}]"
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, float):
+        return repr(value)
+    if isinstance(value, str):
+        return _js_string(value)
+    if value is None:
+        return "null"
+    raise SystemExit(f"Unsupported contract value while rendering the relay: {value!r}")
+
+
+def _relay_block(contract: dict) -> str:
+    """The generated region of server/index.js: the contract plus named limits."""
+    limits = contract["limits"]
+    return "\n".join(
+        [
+            RELAY_BEGIN,
+            "// The whole wire contract is embedded so the relay validates against the",
+            "// document itself rather than a hand-copied subset of it. The deployed",
+            "// worker stays a single dependency-free file because the contract is here",
+            "// at sync time, not fetched at runtime. Regenerate with",
+            "// scripts/sync_wire_contract.py; never edit below by hand.",
+            "const CONTRACT = Object.freeze(/* generated */ " + _js_literal(contract, 0) + ");",
+            "// Named limits mirror CONTRACT.limits so a timeout or a byte cap reads",
+            "// clearly at its call site while the contract stays their only source.",
+            f"const MAX_RELAY_BODY_BYTES = {limits['max_body_bytes']};",
+            f"const UPSTREAM_TIMEOUT_MS = {limits['upstream_timeout_ms']};",
+            f"const MAX_FACULTY_CRNS = {limits['max_faculty_crns']};",
+            f"const MAX_FACULTY_CONCURRENCY = {limits['max_faculty_concurrency']};",
+            RELAY_END,
+        ]
+    )
+
+
+def render_relay(contract: dict) -> str:
+    """Replace the generated block in server/index.js with the current contract."""
+    source = RELAY.read_text(encoding="utf-8")
+    block = _relay_block(contract)
+    pattern = re.compile(re.escape(RELAY_BEGIN) + r".*?" + re.escape(RELAY_END), re.DOTALL)
+    # A function replacement is used rather than a string one so backslashes in
+    # the embedded regex patterns are not read as replacement escapes.
+    updated, count = pattern.subn(lambda _match: block, source, count=1)
+    if count != 1:
+        raise SystemExit(
+            "Could not find the generated wire-contract block in server/index.js; "
+            "the BEGIN/END markers may have been removed or edited."
+        )
+    return updated
+
+
 def _replace(source: str, pattern: str, replacement: str, what: str) -> str:
     updated, count = re.subn(pattern, replacement.replace("\\", "\\\\"), source, count=1)
     if count != 1:
@@ -54,41 +157,8 @@ def _replace(source: str, pattern: str, replacement: str, what: str) -> str:
     return updated
 
 
-def render_relay(contract: dict) -> str:
-    """The relay's copy of the allowlist and the body limits."""
-    source = RELAY.read_text(encoding="utf-8")
-    criteria = _criteria(contract)
-    limits = contract["limits"]
-
-    source = _replace(
-        source,
-        r"const SEARCH_FIELDS = new Set\(\[[^\]]*\]\);",
-        f"const SEARCH_FIELDS = new Set([{_js_list(sorted(criteria['allowed_fields']))}]);",
-        "SEARCH_FIELDS in the relay",
-    )
-    source = _replace(
-        source,
-        r"const MAX_FACULTY_CRNS = \d+;",
-        f"const MAX_FACULTY_CRNS = {limits['max_faculty_crns']};",
-        "MAX_FACULTY_CRNS in the relay",
-    )
-    source = _replace(
-        source,
-        r"const MAX_FACULTY_CONCURRENCY = \d+;",
-        f"const MAX_FACULTY_CONCURRENCY = {limits['max_faculty_concurrency']};",
-        "MAX_FACULTY_CONCURRENCY in the relay",
-    )
-    source = _replace(
-        source,
-        r"const MAX_RELAY_BODY_BYTES = [^;]+;",
-        f"const MAX_RELAY_BODY_BYTES = {limits['max_body_bytes']};",
-        "MAX_RELAY_BODY_BYTES in the relay",
-    )
-    return source
-
-
 def render_encoder(contract: dict) -> str:
-    """The browser encoder's copy of the same rules."""
+    """The browser encoder's copy of the three rules it needs."""
     source = ENCODER.read_text(encoding="utf-8")
     criteria = _criteria(contract)
 

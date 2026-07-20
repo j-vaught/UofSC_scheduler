@@ -8,6 +8,13 @@ const { spawnSync } = require('node:child_process');
 const test = require('node:test');
 const { pathToFileURL } = require('node:url');
 
+// The upstream URLs are the contract's, not this test's: reading them here keeps
+// the assertion honest when contracts/wire/fose-v1.json moves a route.
+const ROOT = path.resolve(__dirname, '..');
+const contract = JSON.parse(
+    fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'),
+);
+
 let worker;
 let temporaryBuild;
 let originalFetch;
@@ -70,10 +77,7 @@ test('Sites worker relays a valid course search to the fixed upstream', async ()
     assert.equal(response.headers.has('set-cookie'), false);
     assert.equal(data.results[0].crn, '10868');
     assert.equal(upstreamCalls.length, 1);
-    assert.equal(
-        upstreamCalls[0].url,
-        'https://classes.sc.edu/api/?page=fose&route=search',
-    );
+    assert.equal(upstreamCalls[0].url, contract.routes['/api/search'].upstream);
     assert.equal(upstreamCalls[0].options.method, 'POST');
     assert.deepEqual(Object.keys(upstreamCalls[0].options.headers).sort(), [
         'Accept',
@@ -86,7 +90,7 @@ test('Sites worker relays a valid course search to the fixed upstream', async ()
 
 test('Sites worker relays valid section details', async () => {
     globalThis.fetch = async (url, options) => {
-        assert.equal(url, 'https://classes.sc.edu/api/?page=fose&route=details');
+        assert.equal(url, contract.routes['/api/details'].upstream);
         assert.deepEqual(JSON.parse(options.body), {
             group: 'crn:10868',
             srcdb: '202608',

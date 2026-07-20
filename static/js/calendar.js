@@ -101,24 +101,17 @@ const Calendar = {
         body.style.height = gridHeight + 'px';
     },
 
+    // Both delegate to the shared meeting-times util (loaded before this file).
+    // parseHHMM keeps start/end as HHMM integers, which is what the grid math
+    // below expects. It discards a whole malformed meeting list rather than
+    // rendering half of one -- the solver's contract, adopted here so a section
+    // reads the same way on the calendar as it schedules.
     parseMeetingTimes(mt) {
-        if (!mt) return [];
-        try {
-            const raw = typeof mt === 'string' ? JSON.parse(mt) : mt;
-            return raw.map(m => ({
-                day: parseInt(m.meet_day),
-                start: parseInt(m.start_time),
-                end: parseInt(m.end_time),
-            }));
-        } catch (e) {
-            return [];
-        }
+        return MeetingTimes.parseHHMM(mt);
     },
 
     timeToMinutes(t) {
-        const h = Math.floor(t / 100);
-        const m = t % 100;
-        return h * 60 + m;
+        return MeetingTimes.hhmmToMinutes(t);
     },
 
     visibleDayCount(sections) {

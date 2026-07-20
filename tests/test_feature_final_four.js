@@ -120,7 +120,7 @@ test('search keeps its detail state private to itself', () => {
 
 test('every composition point supplies collaborators for its feature', () => {
     const cases = {
-        scheduler: ['state', 'api', 'calendar', 'grades', 'prereqs', 'search', 'tabs', 'walkingMap'],
+        scheduler: ['state', 'api', 'calendar', 'courseCode', 'grades', 'prereqs', 'search', 'tabs', 'walkingMap'],
         search: ['state', 'api', 'carolinaCore', 'grades', 'history', 'prereqs', 'scheduler',
             'tabs', 'walkingMap'],
         export: ['selectedSections', 'currentTerm'],

@@ -95,9 +95,12 @@
 
                     this.buildCompletedSemesters();
                     this.render();
-                    if (typeof Profile !== 'undefined') {
-                        deps.onCourseworkChanged();
-                    }
+                    // Unconditional: inside this fence `Profile` is never in scope, so a
+                    // `typeof` guard here is always false and the callback would never run.
+                    // The composition point (static/js/degree-plan.js) is the one place
+                    // that knows Profile, and it is safe there because script order loads
+                    // profile.js before degree-plan.js -- see onCourseworkChanged there.
+                    deps.onCourseworkChanged();
                 };
                 addBtn.addEventListener('click', doAdd);
                 addInput.addEventListener('keydown', (e) => {
@@ -118,25 +121,37 @@
             }
 
             // Remove badges on completed cards
-            document.querySelectorAll('.completed-card .card-remove-badge').forEach(btn => {
+            document.querySelectorAll(`.${this.CARD_DOM.COMPLETED_CARD_CLASS} .${this.CARD_DOM.REMOVE_BADGE_CLASS}`).forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const code = btn.dataset.code;
-                    deps.completedCourses() = deps.completedCourses().filter(c => c !== code);
-                    deps.completedDetails() = deps.completedDetails().filter(c => c.code !== code);
+                    const code = btn.dataset[this.CARD_DOM.CODE_ATTR];
+                    /*
+                     * In place, because completedCourses() hands back State's
+                     * live array. The pre-fence code reassigned the State field
+                     * (`State.completedCourses = ...filter(...)`); the fence's
+                     * mechanical seam substitution turned that into an
+                     * assignment to a call expression, which throws "Invalid
+                     * left-hand side" the moment the badge is clicked -- so
+                     * REMOVE was dead while every test stayed green. Splicing
+                     * the live array is the same outcome without needing a
+                     * setter seam.
+                     */
+                    const courses = deps.completedCourses();
+                    courses.splice(0, courses.length, ...courses.filter(c => c !== code));
+                    const details = deps.completedDetails();
+                    details.splice(0, details.length, ...details.filter(c => c.code !== code));
                     this.buildCompletedSemesters();
                     this.render();
-                    if (typeof Profile !== 'undefined') {
-                        deps.onCourseworkChanged();
-                    }
+                    // See the doAdd() callback above for why this is unconditional.
+                    deps.onCourseworkChanged();
                 });
             });
 
             // Delete empty completed semesters
-            document.querySelectorAll('.sem-delete-btn').forEach(btn => {
+            document.querySelectorAll(`.${this.CARD_DOM.DELETE_SEM_BUTTON_CLASS}`).forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const term = btn.dataset.term;
+                    const term = btn.dataset[this.CARD_DOM.TERM_ATTR];
                     deps.plan().completedSemesters = (deps.plan().completedSemesters || []).filter(s => s.term !== term);
                     this.render();
                 });
@@ -202,12 +217,12 @@
 
         bindCourseCards() {
             // Click to view details / pin/unpin (planned courses only)
-            document.querySelectorAll('#semester-columns .course-card[data-section="planned"]').forEach(card => {
+            document.querySelectorAll(`#semester-columns .${this.CARD_DOM.CARD_CLASS}[data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_PLANNED}"]`).forEach(card => {
                 card.addEventListener('click', (e) => {
-                    const code = card.dataset.code;
-                    const term = card.dataset.semester;
+                    const code = card.dataset[this.CARD_DOM.CODE_ATTR];
+                    const term = card.dataset[this.CARD_DOM.SEMESTER_ATTR];
 
-                    if (card.classList.contains('elective-slot')) {
+                    if (card.classList.contains(this.CARD_DOM.ELECTIVE_SLOT_CLASS)) {
                         this.openElectivePicker(card);
                         return;
                     }
@@ -222,11 +237,11 @@
                     }
                 });
             });
-            document.querySelectorAll('#semester-columns .course-card-info').forEach(button => {
+            document.querySelectorAll(`#semester-columns .${this.CARD_DOM.INFO_BUTTON_CLASS}`).forEach(button => {
                 button.addEventListener('click', event => {
                     event.stopPropagation();
-                    const card = button.closest('.course-card');
-                    const code = card?.dataset.code;
+                    const card = button.closest(`.${this.CARD_DOM.CARD_CLASS}`);
+                    const code = card?.dataset[this.CARD_DOM.CODE_ATTR];
                     if (!code || code.startsWith('ELECTIVE-')) return;
                     const course = deps.profile().majorData?.required_courses?.find(item => item.code === code) || { code };
                     deps.showCourse({
@@ -240,8 +255,8 @@
         },
 
         async openElectivePicker(card) {
-            const groupId = card.dataset.code;
-            const term = card.dataset.semester;
+            const groupId = card.dataset[this.CARD_DOM.CODE_ATTR];
+            const term = card.dataset[this.CARD_DOM.SEMESTER_ATTR];
             const sem = deps.plan().semesters.find(s => s.term === term);
             if (!sem) return;
 
@@ -277,10 +292,10 @@
             let optionsHtml = `<h2>${coreCode ? 'Choose a Carolina Core course' : 'Choose a course'}</h2><p>${course.title}</p><div class="elective-options">`;
             for (const opt of course.options.slice(0, 20)) {
                 optionsHtml += `
-                    <div class="elective-option" data-code="${opt}">
+                    <div class="elective-option" data-${this.CARD_DOM.CODE_ATTR}="${opt}">
                         <span class="elective-option-code">${opt}</span>
-                        <button class="btn-small btn-garnet elective-select-btn" data-code="${opt}" data-term="${term}" data-group="${groupId}">SELECT</button>
-                        <button class="btn-small btn-black elective-history-btn" data-code="${opt}">HISTORY</button>
+                        <button class="btn-small btn-garnet elective-select-btn" data-${this.CARD_DOM.CODE_ATTR}="${opt}" data-${this.CARD_DOM.TERM_ATTR}="${term}" data-group="${groupId}">SELECT</button>
+                        <button class="btn-small btn-black elective-history-btn" data-${this.CARD_DOM.CODE_ATTR}="${opt}">HISTORY</button>
                     </div>
                 `;
             }
@@ -290,8 +305,8 @@
 
             content.querySelectorAll('.elective-select-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const code = btn.dataset.code;
-                    const targetTerm = btn.dataset.term;
+                    const code = btn.dataset[this.CARD_DOM.CODE_ATTR];
+                    const targetTerm = btn.dataset[this.CARD_DOM.TERM_ATTR];
                     const semData = deps.plan().semesters.find(s => s.term === targetTerm);
                     if (semData) {
                         const idx = semData.courses.findIndex(c => c.code === groupId);
@@ -312,7 +327,7 @@
 
             content.querySelectorAll('.elective-history-btn').forEach(btn => {
                 btn.addEventListener('click', async () => {
-                    const code = btn.dataset.code;
+                    const code = btn.dataset[this.CARD_DOM.CODE_ATTR];
                     btn.textContent = '...';
                     try {
                         const analysis = await deps.getOfferingAnalysis(code, deps.currentTerm());
@@ -425,11 +440,11 @@
                             <p>${this.escapeText(item.title)}</p>
                             <small>${item.overlay ? 'Overlay eligible · ' : ''}Effective ${this.escapeText(item.effective_term || 'current catalog')}</small>
                         </div>
-                        <button type="button" class="btn-small btn-garnet core-course-select" data-code="${this.escapeText(item.code)}">SELECT</button>
+                        <button type="button" class="btn-small btn-garnet core-course-select" data-${this.CARD_DOM.CODE_ATTR}="${this.escapeText(item.code)}">SELECT</button>
                     </article>`).join('') : '<p class="core-picker-no-results">No approved courses match these filters.</p>';
                 results.querySelectorAll('.core-course-select').forEach(button => {
                     button.addEventListener('click', () => {
-                        const selected = catalog.courses.find(item => item.code === button.dataset.code);
+                        const selected = catalog.courses.find(item => item.code === button.dataset[this.CARD_DOM.CODE_ATTR]);
                         if (!selected) return;
                         this.selectRequirementCourse({
                             groupId,

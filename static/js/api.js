@@ -6,7 +6,7 @@ const API = {
     _catalogByKey: new Map(),
     _forceRefreshLive: false,
     _inflight: new Map(),
-    _responseCache: new Map(),
+    _responseCache: null,
     _responseCacheMaxEntries: 200,
     _majorMapArtifacts: new Map(),
     _solverWorker: null,
@@ -71,35 +71,28 @@ const API = {
         return this._liveClient;
     },
 
+    _cacheStore() {
+        // The shared TTL+LRU cache, created on first use. Lazy so a context
+        // that never caches (the solver-only tests load api.js with no
+        // ResponseCache present) does not need the dependency. The limit is
+        // passed as a getter so lowering _responseCacheMaxEntries after
+        // construction takes effect on the next eviction.
+        if (!this._responseCache) {
+            this._responseCache = ResponseCache.make(() => this._responseCacheMaxEntries);
+        }
+        return this._responseCache;
+    },
+
     _cacheKey(path, body) {
-        const normalize = value => {
-            if (Array.isArray(value)) return value.map(normalize);
-            if (value && typeof value === 'object') {
-                return Object.fromEntries(Object.keys(value).sort().map(key => [key, normalize(value[key])]));
-            }
-            return value;
-        };
-        return `${path}:${JSON.stringify(normalize(body))}`;
+        return ResponseCache.stableCacheKey(path, body);
     },
 
     _cached(key) {
-        const entry = this._responseCache.get(key);
-        if (!entry) return null;
-        if (Date.now() >= entry.expiresAt) {
-            this._responseCache.delete(key);
-            return null;
-        }
-        this._responseCache.delete(key);
-        this._responseCache.set(key, entry);
-        return entry.data;
+        return this._cacheStore().get(key);
     },
 
     _storeCached(key, data, cacheTtl) {
-        this._responseCache.delete(key);
-        this._responseCache.set(key, { data, expiresAt: Date.now() + cacheTtl });
-        while (this._responseCache.size > this._responseCacheMaxEntries) {
-            this._responseCache.delete(this._responseCache.keys().next().value);
-        }
+        this._cacheStore().set(key, data, cacheTtl);
     },
 
     shouldRefreshAfterReload() {
