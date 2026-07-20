@@ -2437,29 +2437,44 @@
             return checked.filter(Boolean);
         },
 
+        /*
+         * Course attributes live on the section, in course_attr, alongside the
+         * honors marker the filter above already reads. They look like
+         * "GLD: Global Learning (3GDG)" or "CMW: Communication/Writing (3CMW)".
+         *
+         * This used to read details.experiential, details.founding_documents
+         * and details.graduation off the bulletin course payload. None of those
+         * fields exist there -- it carries code, title, hours, description and
+         * prerequisites -- so all six options matched nothing, every time.
+         *
+         * Attributes are also genuinely a section property, not a course one:
+         * one section of a course can carry Global Learning while another does
+         * not, so filtering per section is both the fix and the correct grain.
+         */
         matchesCourseAttribute(details, selectedAttribute) {
             if (!selectedAttribute) return true;
-            const experiential = String(details.experiential || '').replace(/<[^>]+>/g, ' ').toLowerCase();
-            const founding = String(details.founding_documents || '').replace(/<[^>]+>/g, ' ').toLowerCase();
-            const graduation = String(details.graduation || '').replace(/<[^>]+>/g, ' ').toLowerCase();
-            if (selectedAttribute === 'elo') return /experiential learning opportunity/.test(experiential);
-            if (selectedAttribute === 'founding') return /founding documents/.test(founding);
-            if (selectedAttribute === 'gld-community') return /community engagement|social advocacy/.test(graduation);
-            if (selectedAttribute === 'gld-global') return /global learning/.test(graduation);
-            if (selectedAttribute === 'gld-professional') return /professional engagement/.test(graduation);
-            if (selectedAttribute === 'gld-research') return /research/.test(graduation);
+            const attributes = String(details?.course_attr || '')
+                .replace(/<[^>]+>/g, ' ')
+                .toLowerCase();
+            if (!attributes.trim()) return false;
+            if (selectedAttribute === 'elo') return /experiential learning/.test(attributes);
+            if (selectedAttribute === 'founding') return /founding documents/.test(attributes);
+            if (selectedAttribute === 'gld-community') return /community engagement|social advocacy/.test(attributes);
+            if (selectedAttribute === 'gld-global') return /global learning/.test(attributes);
+            if (selectedAttribute === 'gld-professional') return /professional engagement/.test(attributes);
+            // Scoped to the GLD prefix: a bare /research/ would match any
+            // attribute whose prose happens to contain the word.
+            if (selectedAttribute === 'gld-research') return /gld:\s*research/.test(attributes);
             return true;
         },
 
         async filterByCourseAttribute(results, selectedAttribute) {
             if (!selectedAttribute) return results;
-            const courseCodes = [...new Set(results.map(result => result.code).filter(Boolean))];
-            const matches = await Promise.all(courseCodes.map(async code => {
-                const details = await this.fetchBulletinDetailsForCourse(code);
-                return this.matchesCourseAttribute(details, selectedAttribute) ? code : null;
+            const checked = await Promise.all(results.map(async section => {
+                const details = await this.fetchSectionFilterDetails(section);
+                return this.matchesCourseAttribute(details, selectedAttribute) ? section : null;
             }));
-            const allowed = new Set(matches.filter(Boolean));
-            return results.filter(result => allowed.has(result.code));
+            return checked.filter(Boolean);
         },
 
         /*
