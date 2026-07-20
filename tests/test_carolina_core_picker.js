@@ -135,8 +135,13 @@ test('selecting an approved course replaces the requirement in place', () => {
  * found the code before judging it.
  */
 test('planner uses the in-place Core chooser instead of navigating to Search', () => {
-    const source = fs.readFileSync(
-        path.join(ROOT_DIR, 'static/js/features/degree-plan/index.js'), 'utf8');
+    const source = (() => {
+    // The whole feature: it is split into parts its index merges, so reading
+    // index.js alone finds composition and none of the methods.
+    const dir = path.join(ROOT_DIR, 'static/js/features/degree-plan');
+    return fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort()
+        .map(f => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
+})();
     const from = source.indexOf('if (this.isCarolinaCoreRequirement(course))');
     const to = source.indexOf("if (!course.options || course.options.length === 0)");
     assert.notEqual(from, -1, 'the Carolina Core branch moved; this test is not reading it');

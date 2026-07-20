@@ -460,7 +460,7 @@ test('the search feature merges its parts into one complete object', () => {
  * twice loses one definition with no error anywhere.
  */
 test('no two parts of a split feature define the same method', () => {
-    for (const feature of ['search', 'scheduler']) {
+    for (const feature of ['search', 'scheduler', 'degree-plan']) {
         const dir = path.join(ROOT, `static/js/features/${feature}`);
         const seen = new Map();
         const collisions = [];

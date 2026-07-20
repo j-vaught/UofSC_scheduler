@@ -17,7 +17,13 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const ROOT = path.resolve(__dirname, '..');
-const featureSource = fs.readFileSync(path.join(ROOT, 'static/js/features/degree-plan/index.js'), 'utf8');
+const featureSource = (() => {
+    // The whole feature: it is split into parts its index merges, so reading
+    // index.js alone finds composition and none of the methods.
+    const dir = path.join(ROOT, 'static/js/features/degree-plan');
+    return fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort()
+        .map(f => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
+})();
 
 const codeOnly = featureSource
     .replace(/\/\*[\s\S]*?\*\//g, '')

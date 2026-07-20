@@ -78,7 +78,13 @@ test('degree plan includes selected map context and official source link behavio
     // Both halves: the catalog-year label is supplied at the composition point,
     // the link attributes are set in the fenced feature.
     const composition = fs.readFileSync('static/js/degree-plan.js', 'utf8');
-    const feature = fs.readFileSync('static/js/features/degree-plan/index.js', 'utf8');
+    const feature = (() => {
+    // The whole feature: it is split into parts its index merges, so reading
+    // index.js alone finds composition and none of the methods.
+    const dir = 'static/js/features/degree-plan';
+    return fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort()
+        .map(f => fs.readFileSync(`${dir}/${f}`, 'utf8')).join('\n');
+})();
     const html = fs.readFileSync('static/index.html', 'utf8');
 
     assert.match(html, /id="major-program-select"/);
