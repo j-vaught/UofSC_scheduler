@@ -5,64 +5,22 @@ const BUILD_ID = '__STATIC_BUILD_ID__';
 const SHELL_CACHE = `course-scheduler-shell-${BUILD_ID}`;
 const MANIFEST_CACHE = 'course-scheduler-data-manifests-v1';
 const ARTIFACT_CACHE_PREFIX = 'course-scheduler-data-artifacts-v1';
-const SHELL_ASSETS = [
-    '/',
-    '/static/index.html',
-    '/static/css/style.css',
-    '/static/css/grades.css',
-    '/static/css/map.css',
-    '/static/js/errors.js',
-    '/static/js/keyspace.js',
-    '/static/js/platform/university/domain/term.js',
-    '/static/js/platform/university/domain/section.js',
-    '/static/js/platform/university/wire/fose-v1.js',
-    '/static/js/platform/university/university.js',
-    '/static/js/data-store.js',
-    '/static/js/solver-core.js',
-    '/static/js/solver-worker.js',
-    '/static/js/live-university-client.js',
-    '/static/js/api.js',
-    '/static/js/state.js',
-    '/static/js/tabs.js',
-    '/static/js/calendar.js',
-    '/static/js/features/search/index.js',
-    '/static/js/search.js',
-    '/static/js/preferences.js',
-    '/static/js/features/prereqs/index.js',
-    '/static/js/prereqs.js',
-    '/static/js/features/history/index.js',
-    '/static/js/history.js',
-    '/static/js/features/grades/index.js',
-    '/static/js/grades.js',
-    '/static/js/features/scheduler/index.js',
-    '/static/js/scheduler.js',
-    '/static/js/features/map/index.js',
-    '/static/js/map.js',
-    '/static/js/features/export/index.js',
-    '/static/js/export.js',
-    '/static/js/features/profile/index.js',
-    '/static/js/profile.js',
-    '/static/js/features/degree-plan/index.js',
-    '/static/js/degree-plan.js',
-    '/static/js/features/custom-major-map/index.js',
-    '/static/js/custom-major-map.js',
-    '/static/js/degree-wizard.js',
-    '/static/js/notices.js',
-    '/static/js/carolina-core.js',
-    '/static/js/boot.js',
-    '/static/js/runtime/transcript-parser.js',
-    '/static/js/transcript-pdf.js',
-    '/static/js/transcript-upload-dialog.js',
-    '/static/js/features/transcript/index.js',
-    '/static/js/transcript-import.js',
-    '/static/js/runtime/degree-planner.js',
-    '/static/js/runtime/offering-analyzer.js',
-    '/static/js/workers/transcript-worker.js',
-    '/static/js/workers/degree-planner-worker.js',
-    '/static/js/workers/offering-analysis-worker.js',
-    '/static/data/campus_buildings.json',
-    '/static/data/site_notices.json',
-];
+/*
+ * Injected at build time from the script and stylesheet tags in index.html.
+ *
+ * This was a hand-maintained list, which meant adding a file to the page and
+ * adding it to the offline shell were two separate edits with nothing tying
+ * them together. Forgetting the second one produces a page that works online
+ * and is quietly broken offline -- the hardest kind of gap to notice, because
+ * every test and every normal load passes.
+ *
+ * index.html is the declaration now. Anything the page loads is precached
+ * because it is on the page, not because someone remembered.
+ *
+ * SHELL_EXTRA covers the genuine exceptions: workers are fetched by script
+ * rather than linked by a tag, so no markup mentions them.
+ */
+const SHELL_ASSETS = __SHELL_ASSETS__;
 
 function isManifest(url) {
     return url.origin === self.location.origin

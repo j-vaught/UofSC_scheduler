@@ -187,7 +187,15 @@ test('dialog and static shell expose attempt review, immediate undo, and integra
     assert.match(markup, /id="transcript-undo" hidden>UNDO IMPORT/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
     assert.match(html, /src="\/static\/js\/api\.js\?v=\d+"/);
-    assert.match(html + bootSource(), /TranscriptImport\.init\(\)/);
-    assert.match(worker, /\/static\/js\/transcript-upload-dialog\.js/);
-    assert.match(worker, /\/static\/js\/transcript-import\.js/);
+    // Boot registers modules as `['Label', () => Module]` rows now.
+    assert.match(html + bootSource(), /\(\)\s*=>\s*TranscriptImport\b/);
+    /*
+     * These used to be asserted against a hand-maintained list in
+     * service-worker.js. The shell list is derived from index.html at build
+     * time now, so being on the page *is* being precached -- asserting the
+     * script tag is the same guarantee with one fewer thing to keep in sync.
+     */
+    assert.match(worker, /const SHELL_ASSETS = __SHELL_ASSETS__;/);
+    assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js/);
+    assert.match(html, /src="\/static\/js\/transcript-import\.js/);
 });

@@ -44,7 +44,11 @@ def write_source(root: Path) -> Path:
     (source / "css" / "style.css").write_text("body {}", encoding="utf-8")
     (source / "js" / "app.js").write_text("'use strict';", encoding="utf-8")
     (source / "service-worker.js").write_text(
-        "const BUILD_ID = '__STATIC_BUILD_ID__'; self.addEventListener('fetch',()=>{});",
+        "const BUILD_ID = '__STATIC_BUILD_ID__';\n"
+        # The shell list is injected from index.html at build time, so a worker
+        # without this placeholder is a worker the build cannot complete.
+        "const SHELL_ASSETS = __SHELL_ASSETS__;\n"
+        "self.addEventListener('fetch',()=>{});",
         encoding="utf-8",
     )
     (source / "private.db").write_text("not public", encoding="utf-8")

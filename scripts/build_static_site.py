@@ -147,6 +147,43 @@ def static_build_id(source: Path) -> str:
     return digest.hexdigest()[:16]
 
 
+SHELL_EXTRA: tuple[str, ...] = (
+    # Fetched by script rather than linked by a tag, so no markup mentions them
+    # and deriving from index.html alone would silently drop them offline.
+    # Confirmed by diffing the derived list against the hand-maintained one it
+    # replaced: these are exactly the entries markup does not account for.
+    "/static/js/solver-worker.js",
+    "/static/js/workers/transcript-worker.js",
+    "/static/js/workers/degree-planner-worker.js",
+    "/static/js/workers/offering-analysis-worker.js",
+    "/static/data/campus_buildings.json",
+    "/static/data/site_notices.json",
+)
+
+
+def shell_assets(index_html: str) -> list[str]:
+    """Everything the shell must precache, derived from the page itself.
+
+    The offline shell used to be a hand-maintained list in service-worker.js.
+    Adding a file to the page and adding it to that list were separate edits
+    with nothing tying them together, so forgetting the second produced a page
+    that worked online and was quietly broken offline -- which no test and no
+    ordinary load would reveal.
+
+    Deriving it means the page is the declaration. A script tag is the only
+    thing anyone has to remember.
+    """
+    refs = re.findall(r'<(?:script[^>]+src|link[^>]+href)="(/static/[^"?]+)', index_html)
+    ordered: list[str] = ["/", "/static/index.html"]
+    for ref in refs:
+        if ref not in ordered:
+            ordered.append(ref)
+    for extra in SHELL_EXTRA:
+        if extra not in ordered:
+            ordered.append(extra)
+    return ordered
+
+
 def build_site(
     source: Path = DEFAULT_SOURCE,
     output: Path = DEFAULT_OUTPUT,
@@ -185,6 +222,19 @@ def build_site(
         if placeholder not in worker_source:
             raise ValueError("Service worker has no static build identifier placeholder")
         rendered_worker = worker_source.replace(placeholder, static_build_id(source))
+
+        # Derived from the un-stamped markup: the worker matches on request
+        # paths, and the digest query is a cache-buster the fetch handler
+        # already ignores.
+        assets = shell_assets((source / "index.html").read_text(encoding="utf-8"))
+        assets_placeholder = "__SHELL_ASSETS__"
+        if assets_placeholder not in rendered_worker:
+            raise ValueError("Service worker has no shell asset placeholder")
+        rendered_worker = rendered_worker.replace(
+            assets_placeholder,
+            json.dumps(assets, indent=4).replace("\n", "\n"),
+        )
+        print(f"Derived {len(assets)} shell assets from index.html", flush=True)
         (client / "service-worker.js").write_text(rendered_worker, encoding="utf-8")
         (client / "static" / "service-worker.js").write_text(
             rendered_worker,

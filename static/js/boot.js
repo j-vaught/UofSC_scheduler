@@ -45,20 +45,57 @@ function reportBootFailures() {
     document.body.prepend(banner);
 }
 
+/*
+ * What starts, and in what order.
+ *
+ * Adding a feature meant writing another startFeature line identical to the
+ * thirteen above it, which is the kind of repetition that invites a paste and
+ * a forgotten rename. A row here is now the whole registration: the label is
+ * what a student sees if it fails, and the global is the module the page
+ * loaded via its script tag.
+ *
+ * Order is load-bearing and deliberately explicit. Tabs must exist before the
+ * views it switches between, and Search before Scheduler, which reads its
+ * detail state. Sorting this list alphabetically would break the page.
+ *
+ * Each module is named by a thunk rather than a string, and that is not
+ * decoration. These are classic scripts, so `const Foo` at the top level of one
+ * is a *lexical* binding and never becomes a property of globalThis. Five of
+ * the thirteen below -- SiteNotices, Tabs, Calendar, WalkingMap, Preferences --
+ * do not assign themselves to the global object at all, so a globalThis lookup
+ * would find nothing and report five working features as broken.
+ *
+ * A thunk reads the binding the same way the rest of the page does, and defers
+ * that read until boot, once every script has run. If a module genuinely is
+ * missing the thunk throws a ReferenceError, which is caught and reported by
+ * the same supervision that catches a module whose init() throws.
+ */
+const BOOT_SEQUENCE = [
+    ['Notices', () => SiteNotices],
+    ['Tabs', () => Tabs],
+    ['Transcript import', () => TranscriptImport],
+    ['Profile', () => Profile],
+    ['Custom major map', () => CustomMajorMap],
+    ['Calendar', () => Calendar],
+    ['Campus map', () => WalkingMap],
+    ['Search', () => Search],
+    ['Preferences', () => Preferences],
+    ['Scheduler', () => Scheduler],
+    ['Export', () => Export],
+    ['Degree plan', () => DegreePlan],
+    ['Degree wizard', () => DegreeWizard],
+];
+
 function boot() {
-    startFeature('Notices', () => SiteNotices.init());
-    startFeature('Tabs', () => Tabs.init());
-    startFeature('Transcript import', () => TranscriptImport.init());
-    startFeature('Profile', () => Profile.init());
-    startFeature('Custom major map', () => CustomMajorMap.init());
-    startFeature('Calendar', () => Calendar.init());
-    startFeature('Campus map', () => WalkingMap.init());
-    startFeature('Search', () => Search.init());
-    startFeature('Preferences', () => Preferences.init());
-    startFeature('Scheduler', () => Scheduler.init());
-    startFeature('Export', () => Export.init());
-    startFeature('Degree plan', () => DegreePlan.init());
-    startFeature('Degree wizard', () => DegreeWizard.init());
+    for (const [label, resolve] of BOOT_SEQUENCE) {
+        startFeature(label, () => {
+            const module = resolve();
+            if (!module || typeof module.init !== 'function') {
+                throw new Error(`${label} loaded but exposes no init()`);
+            }
+            module.init();
+        });
+    }
 
     startFeature('Selected courses', () => {
         State.on('courses-changed', () => ScheduleSidebar.render());
