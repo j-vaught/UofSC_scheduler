@@ -220,7 +220,22 @@ test('the composition point supplies every declared dependency', () => {
     for (const name of DEP_NAMES) {
         assert.match(composition, new RegExp(`${name}[,:]`), `${name} is not supplied at the composition point`);
     }
-    assert.match(composition, /instructorSummaries:/);
+    /*
+     * A getter, not a property, and the distinction is the bug this pins.
+     *
+     * Written as `instructorSummaries: <ternary>` the collaborator resolved when
+     * grades.js was parsed -- and index.html loads grades.js before scheduler.js,
+     * so `typeof Scheduler` was 'undefined' and the binding froze that way for the
+     * life of the page. The feature then took its historical-only fallback on
+     * every render of every course, which looks exactly like a course whose
+     * instructor has no grade record. WGST 432 showed "No matched grade history"
+     * while the instructor profile showed the same person with a 3.69 GPA.
+     */
+    assert.match(
+        composition,
+        /get instructorSummaries\(\)/,
+        'instructorSummaries must resolve at call time; a property freezes it before scheduler.js loads',
+    );
     // Every field the contract promises must actually be assembled.
     for (const field of ['token', 'mode', 'group', 'term', 'section', 'faculty']) {
         assert.match(composition, new RegExp(`${field}:`), `viewContext() must supply ${field}`);

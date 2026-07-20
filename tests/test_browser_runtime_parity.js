@@ -5,6 +5,7 @@ const test = require('node:test');
 const vm = require('node:vm');
 
 const planner = require('../static/js/runtime/degree-planner.js');
+const { loadObject } = require('./support/scheduler-harness.js');
 
 const ROOT = path.resolve(__dirname, '..');
 
@@ -63,6 +64,45 @@ test('planner consumes browser-style AND/OR groups without adding a second text 
         uncertain: true,
         missing: [],
     });
+});
+
+test('the browser parser and the runtime evaluator agree on every group type', () => {
+    /*
+     * The two groupIsMet implementations are duplicated on purpose for now --
+     * the browser feature cannot import the runtime and vice versa. Duplication
+     * is only tolerable while something proves the copies still agree, so every
+     * group type the parser can emit is fed to both and compared. A new type
+     * added to one side and not the other fails here rather than in a plan.
+     */
+    const prereqs = loadObject('static/js/prereqs.js', 'Prereqs', {});
+    const parsed = [
+        'C or better in CSCE 145 or CSCE 106.',
+        'C or better in MATH 142; C or better in either ELCT 102 or AESP 265 or D or better in ELCT 220.',
+        'C or better in MATH 111 or higher.',
+        'Prerequisites: C or better in MATH 112, MATH 115, MATH 116, or through placement exam.',
+        'D or better in ENCP 200 D or better in PHYS 211',
+    ].flatMap(text => prereqs.parsePrereqGroups(text));
+    assert.ok(parsed.some(group => group.type === 'at-least'), 'the corpus must exercise every type');
+    assert.ok(parsed.some(group => (group.conditions || []).length));
+
+    const rosters = [
+        [], ['MATH 111'], ['MATH 141'], ['MATH 110'], ['ELCT 220'],
+        ['CSCE 106'], ['ENCP 200', 'PHYS 211'], ['MATH 116'], ['ENGL 200'],
+    ];
+    for (const group of parsed) {
+        for (const roster of rosters) {
+            assert.equal(
+                prereqs.groupIsMet(group, new Set(roster)),
+                // The runtime normalizes before evaluating, so compare through
+                // that path rather than against the raw parser output.
+                planner.evaluateRequirementGroups(
+                    planner.requirementGroupsForCourse({ prerequisite_groups: [group] }),
+                    roster,
+                ).satisfied,
+                `${JSON.stringify(group)} vs ${JSON.stringify(roster)}`,
+            );
+        }
+    }
 });
 
 test('planner terminates with a useful warning when prerequisite cycles make progress impossible', () => {

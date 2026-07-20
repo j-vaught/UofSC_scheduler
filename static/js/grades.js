@@ -56,9 +56,27 @@ const Grades = (() => {
          * instructors instead of marking who is teaching now. A real
          * degradation, but a coherent one, and better than an empty table.
          */
-        instructorSummaries: (typeof Scheduler !== 'undefined' && Scheduler.currentInstructorSummaries)
-            ? (group, data, faculty) => Scheduler.currentInstructorSummaries(group, data, faculty)
-            : undefined,
+        /*
+         * A getter, because the ternary below has to run when the feature asks
+         * for the collaborator rather than when this file is parsed.
+         *
+         * This was written as a plain property and was therefore always
+         * undefined: index.html loads grades.js before scheduler.js, so
+         * `typeof Scheduler` was 'undefined' at construction and the binding
+         * froze that way forever. The feature then took its historical-only
+         * fallback on every render -- for every course, permanently -- while
+         * looking exactly like a course whose instructor has no grade record.
+         *
+         * WGST 432 is the case that exposed it: the section lists "Paczynski",
+         * the grade data lists "Paczynski, James", and the scheduler's matcher
+         * resolves that surname pair correctly. The card still read "No matched
+         * grade history for this course" because the matcher was never reached.
+         */
+        get instructorSummaries() {
+            return (typeof Scheduler !== 'undefined' && Scheduler.currentInstructorSummaries)
+                ? (group, data, faculty) => Scheduler.currentInstructorSummaries(group, data, faculty)
+                : undefined;
+        },
 
         // Absence and failure used to render identically, so a relay 502 told
         // the student their course had no grade history and they stopped

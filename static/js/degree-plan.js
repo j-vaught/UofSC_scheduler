@@ -25,14 +25,19 @@ const DegreePlan = (() => {
          * the unenriched map when this is absent, which is the correct
          * degradation for a layer that arrives as a separate script tag.
          *
-         * Enrichment has an open problem of its own: it injects bulletin
-         * prerequisites naming courses outside the degree map, which makes some
-         * courses unplaceable. See TODO.md. This seam is where a fix or a
-         * different enricher would go.
+         * A getter, not a property. This happens to sit after prereqs.js in
+         * index.html, so resolving it at parse time worked -- but by luck of
+         * markup order, not by design, and moving either script tag would have
+         * silently disabled enrichment with no error anywhere. The identical
+         * shape in grades.js was not lucky: it loads before scheduler.js and
+         * froze that collaborator as undefined for the life of the page.
+         * tests/test_no_eager_collaborators.js enforces the rule now.
          */
-        enrichMajorMap: (typeof Prereqs !== 'undefined' && Prereqs.enrichMajorMap)
-            ? majorData => Prereqs.enrichMajorMap(majorData)
-            : undefined,
+        get enrichMajorMap() {
+            return (typeof Prereqs !== 'undefined' && Prereqs.enrichMajorMap)
+                ? majorData => Prereqs.enrichMajorMap(majorData)
+                : undefined;
+        },
 
         plan: () => State.degreePlan,
         profile: () => State.profile,
