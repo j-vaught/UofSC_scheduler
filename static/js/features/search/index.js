@@ -2121,6 +2121,26 @@
                     && !scopedRequestSubjects.length,
                 );
 
+                /*
+                 * Carolina Core is a search criterion, not a post-filter.
+                 *
+                 * Upstream matches course_attr against the exact display
+                 * string, so asking for one outcome returns only the sections
+                 * carrying it -- one request, instead of fetching everything
+                 * and narrowing it here against a catalogue snapshot.
+                 *
+                 * filterByCarolinaCore deliberately stands down when this
+                 * fires. Applying both would narrow twice, and the shard could
+                 * then drop a course upstream was right to return: a newly
+                 * designated one it has not been regenerated for.
+                 *
+                 * Added here rather than beside the other criteria because it
+                 * has to reach both branches below -- the scoped multi-subject
+                 * batch and the single request.
+                 */
+                const coreSearchValue = this.carolinaCoreSearchValue(carolinaCore);
+                if (coreSearchValue) criteria.push({ field: 'course_attr', value: coreSearchValue });
+
                 if (subjectScopeConflict) {
                     results = [];
                     totalCount = 0;
@@ -2506,8 +2526,31 @@
             return this._carolinaCoreCache[courseCode];
         },
 
+        /* The outcome currently chosen in the filter panel, or ''. */
+        selectedCarolinaCore() {
+            if (typeof document === 'undefined') return '';
+            return document.getElementById('filter-carolina-core')?.value || '';
+        },
+
+        /*
+         * The upstream search value for an outcome, or '' when there is none.
+         * '' is what routes an outcome to the shard fallback below, so a
+         * missing catalogue module means the filter still works rather than
+         * silently matching everything.
+         */
+        carolinaCoreSearchValue(outcome) {
+            if (!outcome || !deps.carolinaCore?.searchValue) return '';
+            return deps.carolinaCore.searchValue(outcome);
+        },
+
         async filterByCarolinaCore(results, selectedCore) {
             if (!selectedCore) return results;
+            /*
+             * Already applied upstream as a course_attr criterion. Narrowing
+             * again here would let a stale shard drop a course upstream was
+             * right to return.
+             */
+            if (this.carolinaCoreSearchValue(selectedCore)) return results;
             const courseCodes = [...new Set(results.map(result => result.code).filter(Boolean))];
             const matches = await Promise.all(courseCodes.map(async code => {
                 const coreCodes = await this.fetchCarolinaCoreCodes(code);
