@@ -460,8 +460,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_2440f376a0a17766",
       "title": "Hospitality & Tourism Internship7",
-      "typical_semester": "Spring",
-      "typical_year": 3
+      "typical_semester": "Summer",
+      "typical_year": 4
     },
     {
       "category": "major_courses",
@@ -1152,7 +1152,14 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (6 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": 6,
+      "requirements": [
         {
           "confidence": "high",
           "course_codes": [
@@ -1166,7 +1173,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "HTMT 495 Hospitality & Tourism Internship7 6 C MR C or better in HTMT 344 & in",
           "title": "HTMT 495 Hospitality & Tourism Internship7",
           "warnings": []
@@ -1353,7 +1360,9 @@
     "low_confidence_requirement_count": 13,
     "requirement_count": 41,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

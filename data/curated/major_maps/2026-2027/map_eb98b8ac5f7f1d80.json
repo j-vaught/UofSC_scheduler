@@ -479,8 +479,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_ab6f23dfe69f80f5",
       "title": "Field Geology7 (summer only)",
-      "typical_semester": "Spring",
-      "typical_year": 3
+      "typical_semester": "Summer",
+      "typical_year": 4
     },
     {
       "category": "major_courses",
@@ -491,8 +491,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_4c12d2153fab0e07",
       "title": "Introduction to Field Geology7 (summer",
-      "typical_semester": "Spring",
-      "typical_year": 3
+      "typical_semester": "Summer",
+      "typical_year": 4
     }
   ],
   "schema_version": 1,
@@ -1045,7 +1045,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (4-10 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": [
+        4,
+        10
+      ],
+      "requirements": [
         {
           "confidence": "high",
           "course_codes": [
@@ -1062,7 +1072,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "GEOL 500 Field Geology7 (summer only) 3-6 C MR C or better in GEOL 325 & 355",
           "title": "GEOL 500 Field Geology7 (summer only)",
           "warnings": []
@@ -1083,7 +1093,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 7,
+          "sequence": 2,
           "source_text": "GEOL 500L Introduction to Field Geology7 (summer 1-4 C MR C or better in GEOL 325 & 355, or graduate",
           "title": "GEOL 500L Introduction to Field Geology7 (summer",
           "warnings": []
@@ -1306,7 +1316,9 @@
     "low_confidence_requirement_count": 18,
     "requirement_count": 38,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

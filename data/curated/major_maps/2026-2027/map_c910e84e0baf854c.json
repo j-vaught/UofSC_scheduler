@@ -744,7 +744,14 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (6 Credit Hours) –Abroad6",
+      "number": 9,
+      "planned_credit_hours": 6,
+      "requirements": [
         {
           "confidence": "low",
           "course_codes": [],
@@ -756,7 +763,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "Chinese Language Institute 6 PR",
           "title": "Chinese Language Institute",
           "warnings": [
@@ -1397,7 +1404,9 @@
     "low_confidence_requirement_count": 22,
     "requirement_count": 42,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

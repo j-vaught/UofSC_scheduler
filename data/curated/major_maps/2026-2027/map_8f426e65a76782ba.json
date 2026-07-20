@@ -500,6 +500,7 @@
       "typical_year": 4
     },
     {
+      "carolina_core": "INT",
       "category": "major_courses",
       "code": "RETL 495",
       "corequisites": [],
@@ -508,7 +509,7 @@
       "prerequisites": [],
       "source_requirement_id": "req_07092a75a9f689ee",
       "title": "Retailing Internship8",
-      "typical_semester": "Spring",
+      "typical_semester": "Summer",
       "typical_year": 4
     }
   ],
@@ -1309,7 +1310,14 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (6 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": 6,
+      "requirements": [
         {
           "confidence": "high",
           "course_codes": [
@@ -1321,10 +1329,11 @@
           "minimum_grade": "C",
           "relation": "required",
           "requirement_codes": [
-            "MR"
+            "MR",
+            "CC-INT"
           ],
-          "sequence": 6,
-          "source_text": "RETL 495 Retailing Internship8 6 C MR RETL 295",
+          "sequence": 1,
+          "source_text": "RETL 495 Retailing Internship8 6 C MR CC-INT",
           "title": "RETL 495 Retailing Internship8",
           "warnings": []
         }
@@ -1348,7 +1357,9 @@
     "low_confidence_requirement_count": 14,
     "requirement_count": 41,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

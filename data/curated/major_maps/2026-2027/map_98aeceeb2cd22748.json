@@ -457,8 +457,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_ec8185da27c0634e",
       "title": "Field Geology6 (summer only)",
-      "typical_semester": "Spring",
-      "typical_year": 3
+      "typical_semester": "Summer",
+      "typical_year": 4
     },
     {
       "category": "major_courses",
@@ -469,8 +469,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_6755533eb3d40eda",
       "title": "Introduction to Field Geology6 (summer",
-      "typical_semester": "Spring",
-      "typical_year": 3
+      "typical_semester": "Summer",
+      "typical_year": 4
     },
     {
       "category": "major_courses",
@@ -945,7 +945,7 @@
     {
       "label": "Semester Six",
       "number": 6,
-      "planned_credit_hours": 13,
+      "planned_credit_hours": 17,
       "requirements": [
         {
           "confidence": "high",
@@ -1037,7 +1037,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (4-10 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": [
+        4,
+        10
+      ],
+      "requirements": [
         {
           "confidence": "high",
           "course_codes": [
@@ -1054,7 +1064,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "GEOL 500 Field Geology6 (summer only) 3-6 C MR C or better in GEOL 325 & 355",
           "title": "GEOL 500 Field Geology6 (summer only)",
           "warnings": []
@@ -1075,7 +1085,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 7,
+          "sequence": 2,
           "source_text": "GEOL 500L Introduction to Field Geology6 (summer 1-4 C MR C or better in GEOL 325 & 355 or graduate",
           "title": "GEOL 500L Introduction to Field Geology6 (summer",
           "warnings": []
@@ -1279,7 +1289,9 @@
     "low_confidence_requirement_count": 16,
     "requirement_count": 37,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

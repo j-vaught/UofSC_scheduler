@@ -325,6 +325,15 @@
         if (restriction === 'fall_only' && type !== 'fall') return false;
         if (restriction === 'spring_only' && type !== 'spring') return false;
         if (restriction === 'summer_only' && type !== 'summer') return false;
+        /*
+         * A course whose major-map section is itself a required summer block
+         * (e.g. a summer internship) may not drift into the next Fall or
+         * Spring -- that would be handing the student wrong advice about when
+         * to take it. This is independent of offering_restriction, which
+         * describes when the registrar runs the course; this describes when
+         * the program's own sequence puts it.
+         */
+        if (course.requires_summer_section && type !== 'summer') return false;
         return true;
     }
 
@@ -360,6 +369,34 @@
         return result;
     }
 
+    /*
+     * A major-map section beyond the standard eight ("Semester One" ..
+     * "Semester Eight") is either a required summer block (import label
+     * starts with "Summer", e.g. "Summer (6 Credit Hours)") or a
+     * flexible-timing block ("Take during Semester Three or Four", "Winter
+     * ..."). Only the first kind gets forced into an actual summer term; the
+     * second kind carries no evidence of *which* semester, so it is planned
+     * through the ordinary map_semester_index gate like any other course and
+     * merely flagged for the student to confirm. Keyed on array index because
+     * that -- not semester.number -- is what map_semester_index gates
+     * against.
+     */
+    function classifyNonStandardSections(semesterPlan) {
+        const summerIndexes = new Set();
+        const flexibleLabels = new Map();
+        (semesterPlan || []).forEach((semester, index) => {
+            const number = Number(semester?.number);
+            if (!Number.isFinite(number) || number <= 8) return;
+            const label = String(semester?.label || '').trim();
+            if (/^summer\b/i.test(label)) {
+                summerIndexes.add(index);
+            } else {
+                flexibleLabels.set(index, label || 'Non-standard section');
+            }
+        });
+        return { summerIndexes, flexibleLabels };
+    }
+
     function generateWarnings(
         semesters,
         mode,
@@ -367,6 +404,7 @@
         unplaced,
         creditLimits,
         conditionalPlacements = [],
+        nonStandardPlacements = [],
     ) {
         const warnings = [];
         if (unplaced.length) {
@@ -395,6 +433,26 @@
             warnings.push({
                 type: 'warning',
                 message: `Placed assuming a ${condition}: ${codes.join(', ')}. You must pass the ${condition} (or provide transfer credit) before registering for these.`,
+            });
+        }
+        /*
+         * A flexible-timing section ("Take during Semester Three or Four")
+         * carries no evidence of which semester, unlike a required summer
+         * block. The planner still has to put the course somewhere, so it
+         * uses the ordinary map_semester_index gate -- but the student needs
+         * to know the placement is the planner's best guess, not the major
+         * map's.
+         */
+        const codesByFlexibleLabel = new Map();
+        for (const placement of nonStandardPlacements) {
+            if (!codesByFlexibleLabel.has(placement.label)) codesByFlexibleLabel.set(placement.label, []);
+            const codes = codesByFlexibleLabel.get(placement.label);
+            if (!codes.includes(placement.code)) codes.push(placement.code);
+        }
+        for (const [label, codes] of codesByFlexibleLabel) {
+            warnings.push({
+                type: 'info',
+                message: `The major map lists flexible timing ("${label}") rather than a specific semester for ${codes.join(', ')}. Confirm the exact term with your advisor.`,
             });
         }
         for (const semester of semesters) {
@@ -437,6 +495,11 @@
                     warnings.push({
                         type: 'error',
                         message: `${course.code} is Spring only but planned for ${semester.label}.`,
+                    });
+                } else if (course.offering_restriction === 'summer_only' && type !== 'summer') {
+                    warnings.push({
+                        type: 'error',
+                        message: `${course.code} is Summer only but planned for ${semester.label}.`,
                     });
                 }
             }
@@ -502,6 +565,22 @@
                 });
             }
         }
+        /*
+         * Tag remaining courses (both required courses and the synthetic
+         * elective-slot entries pushed above) that belong to a non-standard
+         * major-map section, so the placement loop below can force a real
+         * summer term for the summer kind and flag the flexible kind for the
+         * student rather than silently guessing precision the source doesn't
+         * have.
+         */
+        const { summerIndexes, flexibleLabels } = classifyNonStandardSections(majorMap?.semester_plan);
+        for (const course of remainingCourses) {
+            if (summerIndexes.has(course.map_semester_index)) {
+                course.requires_summer_section = true;
+            } else if (flexibleLabels.has(course.map_semester_index)) {
+                course.flexible_section_label = flexibleLabels.get(course.map_semester_index);
+            }
+        }
         const dag = buildPrerequisiteDag(remainingCourses, majorMap);
         const creditLimits = mode === 'custom' && customCredits
             ? customCredits
@@ -509,6 +588,7 @@
         const semesters = [];
         const placed = new Set();
         const conditionalPlacements = [];
+        const nonStandardPlacements = [];
         const annualCredits = {};
         let currentTerm = startTerm;
         let planningIterations = 0;
@@ -517,7 +597,17 @@
             planningIterations += 1;
             const [year, semesterCode] = offering.termToParts(currentTerm);
             const type = semesterType(currentTerm);
-            if (type.toLowerCase() === 'summer' && !includeSummer) {
+            const summerType = type.toLowerCase() === 'summer';
+            /*
+             * A required summer section (a RETL-495-style internship) has to
+             * pull a summer term into the schedule even when the student
+             * never opted into includeSummer -- that flag governs optional
+             * acceleration, not a program that structurally requires a
+             * summer term. So the skip below only fires when nothing left
+             * actually needs summer.
+             */
+            const summerRequiredNow = remainingCourses.some(course => course.requires_summer_section);
+            if (summerType && !includeSummer && !summerRequiredNow) {
                 currentTerm = offering.nextTerm(currentTerm, false);
                 continue;
             }
@@ -532,6 +622,14 @@
                 if (!evaluateRequirementGroups(groups, completedOrPlaced).eligible) return false;
                 return canOfferInTerm(course, currentTerm, offeringHints);
             });
+            /*
+             * This summer term is only open because a required section
+             * forced it; the student did not ask for summer acceleration in
+             * general, so nothing else should opportunistically fill it.
+             */
+            if (summerType && !includeSummer) {
+                available = available.filter(course => course.requires_summer_section);
+            }
 
             const semesterCourses = [];
             let semesterCredits = 0;
@@ -599,6 +697,9 @@
                         ...(dag.corequisite_groups[course.code] || []),
                     ], completedOrPlaced);
                     if (conditions.length) conditionalPlacements.push({ code: course.code, conditions });
+                    if (course.flexible_section_label) {
+                        nonStandardPlacements.push({ code: course.code, label: course.flexible_section_label });
+                    }
                 }
                 semesters.push({
                     term: currentTerm,
@@ -620,7 +721,13 @@
                 annualCredits[academicYear] = (annualCredits[academicYear] || 0) + semesterCredits;
                 remainingCourses = remainingCourses.filter(course => !placedCodes.has(course.code));
             }
-            currentTerm = offering.nextTerm(currentTerm, includeSummer);
+            /*
+             * Recomputed against the post-placement remainder: once the
+             * required summer course is placed it stops pulling summer terms
+             * into the schedule, and normal (non-summer) advancement resumes.
+             */
+            const summerStillRequired = remainingCourses.some(course => course.requires_summer_section);
+            currentTerm = offering.nextTerm(currentTerm, includeSummer || summerStillRequired);
         }
 
         return {
@@ -632,6 +739,7 @@
                 remainingCourses,
                 creditLimits,
                 conditionalPlacements,
+                nonStandardPlacements,
             ),
             total_credits_remaining: remaining.total_credits_remaining,
             completed_credits: remaining.completed_credits,
@@ -650,6 +758,8 @@
         requiredCorequisiteCodes,
         buildPrerequisiteDag,
         topologicalSort,
+        classifyNonStandardSections,
+        generateWarnings,
         planDegree,
     });
 }));

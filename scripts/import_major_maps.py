@@ -48,6 +48,11 @@ SEMESTER_NUMBERS = {
     "seven": 7,
     "eight": 8,
 }
+# Sections past the eighth are the non-standard ones below, numbered above this
+# range so they can never collide with a real semester. Named because two places
+# depend on the same boundary: the parser that assigns those numbers, and
+# _runtime_fields, which reads them back to work out a term.
+_STANDARD_SEMESTER_COUNT = 8
 # Some plans carry a block of rows that is not one of the eight numbered
 # semesters: a summer session ("Summer (6 Credit Hours)"), an internship
 # window ("Summer After Junior Year (6 Credit Hours)"), or a flexible slot
@@ -663,22 +668,51 @@ class _TableColumns:
     major_gpa_left: float
 
 
+# A third registrar template wraps "Min." onto its own line above the rest
+# of the "Grade Min." header (the other labels -- Course, Credit, Grade,
+# Major/Program, GPA, Code, Prerequisites, Notes -- always stay on
+# Prerequisites' own line in every template observed). Measured on every
+# affected 2020-2021..2026-2027 PDF, that offset is a consistent 18.36pt,
+# comfortably inside the standard 13pt header band's overflow but still
+# short of the nearest real course row, which never sits closer than
+# ~19.3pt in a broad sample of unaffected documents. _MIN_LABEL_TOLERANCE
+# sits at the midpoint of that ~1pt gap: wide enough to catch the wrapped
+# label, narrow enough that a genuine data row is never mistaken for it.
+_MIN_LABEL_TOLERANCE = 18.8
+
+
 def _page_table_columns(words: list[_PdfWord]) -> _TableColumns | None:
     """Locate table columns from the printed header nearest `Prerequisites`."""
     prerequisite_headers = [word for word in words if word.text.casefold() == "prerequisites"]
     for prerequisite in prerequisite_headers:
-        nearby = [word for word in words if abs(word.y_center - prerequisite.y_center) <= 13]
 
-        def header(label: str) -> _PdfWord | None:
-            matches = [word for word in nearby if word.text.casefold() == label.casefold()]
+        def header(*labels: str, tolerance: float = 13) -> _PdfWord | None:
+            wanted = {label.casefold() for label in labels}
+            matches = [
+                word
+                for word in words
+                if word.text.casefold() in wanted
+                and abs(word.y_center - prerequisite.y_center) <= tolerance
+            ]
             return min(
                 matches, key=lambda word: abs(word.y_center - prerequisite.y_center), default=None
             )
 
         credit = header("Credit")
-        minimum = header("Min.")
-        major = header("Major")
-        critical = header("Critical")
+        minimum = header("Min.", tolerance=_MIN_LABEL_TOLERANCE)
+        # A second registrar template (confirmed on real PDFs in every
+        # catalog year 2020-2021 through 2026-2027, not something that
+        # newly appeared) prints "Program GPA" in this header instead of
+        # "Major GPA". It is the same column at the same position, just
+        # relabeled, so accept either spelling rather than failing outright.
+        major = header("Major", "Program")
+        # That same template marks the critical-course column with a literal
+        # "!" glyph in the header instead of the word "Critical".
+        # _coordinate_item's row-level critical detection already treats "!"
+        # as the marker regardless of template (`word.text == "!"`), so
+        # anchoring the column boundary on the same glyph here matches
+        # behaviour the parser already assumes elsewhere, not a new guess.
+        critical = header("Critical", "!")
         if credit and minimum and major and critical:
             return _TableColumns(
                 title_left=critical.x_max + 1,
@@ -776,9 +810,32 @@ def parse_major_map_bbox(source: str, entry: RepositoryEntry) -> dict[str, Any]:
     pages = _bbox_words(source)
     metadata, warnings = _metadata(_positioned_text(pages), entry)
     semesters: list[dict[str, Any]] = []
+    # The header row (Course / Credit Hours / Min. Grade / Major GPA / Code /
+    # Prerequisites / Notes) is printed once, on the first page of the
+    # semester table. Continuation pages that carry Semester Seven/Eight onto
+    # a second page do NOT repeat it: confirmed across the archive that
+    # whenever a document's first page resolves columns, its later pages
+    # never do. Column x-positions are otherwise stable within one PDF (same
+    # margins, same template, verified against the paired -layout text), so
+    # once columns are known for this document they are reused on later
+    # pages instead of being re-derived per page. Re-deriving per page is
+    # what silently dropped every semester printed after the first page.
+    columns: _TableColumns | None = None
+    columns_missing = False
     for page_words in pages:
-        columns = _page_table_columns(page_words)
+        page_columns = _page_table_columns(page_words)
+        if page_columns is not None:
+            columns = page_columns
         if columns is None:
+            # No page up to and including this one has produced column
+            # geometry to fall back to, so this page's rows -- if any --
+            # cannot be located at all. Flag it distinctly rather than
+            # silently moving on: a caller must be able to tell "the parser
+            # did not understand this page's table" apart from "this page
+            # genuinely has no semesters on it", which look identical if we
+            # just emit nothing (e.g. an "Accelerated Study Plan" PDF, whose
+            # table has no "Prerequisites" column at all).
+            columns_missing = True
             continue
         lines = _group_positioned_lines(page_words)
         semester_headers: list[tuple[int, re.Match[str], list[_PdfWord]]] = []
@@ -829,6 +886,8 @@ def parse_major_map_bbox(source: str, entry: RepositoryEntry) -> dict[str, Any]:
                 if item:
                     semester["requirements"].append(item)
             semesters.append(semester)
+    if columns_missing:
+        warnings.append("bbox_table_columns_not_found")
     return _build_map_document(metadata, warnings, semesters, entry)
 
 
@@ -868,7 +927,7 @@ def parse_major_map_text(text: str, entry: RepositoryEntry) -> dict[str, Any]:
             # standard 8-semester shape the rest of the pipeline assumes.
             non_semester_section_count += 1
             current = {
-                "number": 8 + non_semester_section_count,
+                "number": _STANDARD_SEMESTER_COUNT + non_semester_section_count,
                 "label": _clean(line),
                 "planned_credit_hours": _credit_value(section_match.group("hours")),
                 "requirements": [],
@@ -985,8 +1044,32 @@ def _runtime_fields(metadata: dict[str, Any], semesters: list[dict[str, Any]]) -
     seen_required: set[str] = set()
     for semester in semesters:
         semester_number = int(semester["number"])
-        typical_year = (semester_number + 1) // 2
-        typical_semester = "Fall" if semester_number % 2 else "Spring"
+        # Sections past the eighth are the non-standard ones the parser keeps
+        # separate -- "Summer (6 Credit Hours)", "Take during Semester Three or
+        # Four". Numbering them 9, 10, ... keeps them clear of the eight real
+        # semesters, but it also breaks the odd/even trick below: 9 is odd, so a
+        # summer section would come out "Fall". A summer internship labelled Fall
+        # is the same wrong answer that folding it into Semester Eight gave.
+        #
+        # The year is a clamp, not a derivation, and only honest if read that
+        # way. The formula would put section 9 in year 5 of a four-year plan, so
+        # summer sections are pinned to the final standard year instead. That is
+        # right for the common case, the internship after the junior year, and
+        # approximate for a summer earlier in the plan. The header text is the
+        # only real evidence of when the section falls, and it is preserved
+        # verbatim in the section label rather than guessed at here.
+        #
+        # Flexible-timing sections ("Take during Semester Three or Four") fall
+        # through to the standard formula deliberately. It yields the same
+        # year the planner already uses for "position unknown", which is the
+        # truth: the registrar named a range, not a semester.
+        label = str(semester.get("label") or "")
+        if semester_number > _STANDARD_SEMESTER_COUNT and label.lower().startswith("summer"):
+            typical_semester = "Summer"
+            typical_year = (_STANDARD_SEMESTER_COUNT + 1) // 2
+        else:
+            typical_year = (semester_number + 1) // 2
+            typical_semester = "Fall" if semester_number % 2 else "Spring"
         for item in semester["requirements"]:
             codes = item["course_codes"]
             category = _category(item)

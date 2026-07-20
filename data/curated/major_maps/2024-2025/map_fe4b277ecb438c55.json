@@ -57,9 +57,9 @@
     "pdf_major_name_not_found",
     "pdf_bulletin_year_not_found",
     "semester_sequence_is_not_contiguous",
-    "expected_exactly_eight_ordered_semesters",
     "no_course_rows_extracted",
     "minimum_total_degree_hours_not_found",
-    "semester_plan_requires_manual_review"
+    "semester_plan_requires_manual_review",
+    "expected_exactly_eight_ordered_semesters"
   ]
 }

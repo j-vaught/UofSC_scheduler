@@ -966,7 +966,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (6-10 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": [
+        6,
+        10
+      ],
+      "requirements": [
         {
           "confidence": "low",
           "course_codes": [],
@@ -981,7 +991,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 7,
+          "sequence": 1,
           "source_text": "Arabic Language4 6-10 PR",
           "title": "Arabic Language4",
           "warnings": [
@@ -1415,7 +1425,9 @@
     "low_confidence_requirement_count": 23,
     "requirement_count": 43,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

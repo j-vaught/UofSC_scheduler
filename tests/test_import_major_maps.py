@@ -530,3 +530,127 @@ def test_bug5_grade_zone_prose_is_not_misread_as_a_grade() -> None:
     assert item is not None
     assert item["minimum_grade"] == "C"
     assert item["requirement_codes"] == ["CC-CMW"]
+
+
+# --- Regression tests for the bbox dead path (fix/derived-invariant-bbox-summer) ---
+#
+# An independent audit of every 2026-2027 PDF found `parse_major_map_bbox`
+# was NOT dead on 100% of the corpus as previously reported: before this fix
+# it already produced semesters on 171/185 (92%) of them. The real defects
+# were narrower and were confirmed by dumping the actual `pdftotext
+# -bbox-layout` header words on the real PDFs listed in each test below:
+#
+#   1. `_page_table_columns` required the literal words "Critical" and
+#      "Major" near "Prerequisites". A second registrar template -- present
+#      in every catalog year 2020-2021 through 2026-2027, not something that
+#      newly broke -- labels those same columns "!" and "Program GPA".
+#   2. `_page_table_columns` required "Min." within 13pt of "Prerequisites".
+#      A third template wraps "Min." onto its own line 18.36pt above the
+#      rest of the header row, consistently, across every catalog year.
+#   3. The header row is only ever printed once, on the first page of the
+#      semester table. `parse_major_map_bbox` re-derived columns per page
+#      and skipped any page where derivation failed, so every semester
+#      printed after a page break (typically Semester Seven/Eight) was
+#      silently dropped even on documents that otherwise parsed fine.
+#
+# Every fixture below is a trimmed excerpt of real `pdftotext -bbox-layout`
+# output on an actual 2026-2027 major-map PDF -- coordinates and text copied
+# verbatim, not reconstructed -- so each test is pinned to the exact input
+# that exposed the defect.
+
+
+def test_bbox_bang_and_program_gpa_header_variant_resolves_columns() -> None:
+    # Computer Information Systems 2026-2027 map (map_0107c14e21034fa3.pdf):
+    # the header marks the critical-course column with "!" instead of the
+    # word "Critical", and labels the GPA column "Program" instead of
+    # "Major". Before the fix, `_page_table_columns` found no match for
+    # either required word and the whole page -- and thus the whole
+    # document -- silently produced zero semesters.
+    entry = _entry()
+    entry.major = "Computer Information Systems"
+    document = parse_major_map_bbox(
+        (FIXTURES / "cis_bang_program_gpa_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    assert len(document["semester_plan"]) == 1
+    semester_one = document["semester_plan"][0]
+    assert semester_one["requirements"], "columns failed to resolve, so no row was ever located"
+    course = semester_one["requirements"][0]
+    assert course["title"] == "ENGL 101 Critical Reading and Composition"
+    assert course["course_codes"] == ["ENGL 101"]
+    assert course["credit_hours"] == 3
+    assert course["minimum_grade"] == "C"
+    assert course["requirement_codes"] == ["CC-CMW"]
+    assert "bbox_table_columns_not_found" not in document["warnings"]
+
+
+def test_bbox_min_label_wrapped_above_header_resolves_columns() -> None:
+    # Marine Science 2026-2027 map (map_7141f3e310625d4d.pdf): "Min." prints
+    # on its own line 18.36pt above the rest of the header row instead of
+    # sharing "Prerequisites"' baseline like every other label. Before the
+    # fix this was outside the 13pt header band, `_page_table_columns`
+    # never found "Min.", and the whole page was skipped.
+    entry = _entry()
+    entry.major = "Marine Science"
+    document = parse_major_map_bbox(
+        (FIXTURES / "marine_science_min_offset_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    assert len(document["semester_plan"]) == 1
+    course = document["semester_plan"][0]["requirements"][0]
+    assert course["title"] == "MSCI 101 The Ocean Environment"
+    assert course["course_codes"] == ["MSCI 101"]
+    assert course["credit_hours"] == 4
+    assert course["minimum_grade"] == "C"
+    assert course["requirement_codes"] == ["CC-SCI"]
+    # The row-level "!" marker must still register as critical even though
+    # this template's HEADER spells the same column "Critical" in full --
+    # the two are independent signals read from different places.
+    assert course["critical"] is True
+    assert "bbox_table_columns_not_found" not in document["warnings"]
+
+
+def test_bbox_column_geometry_carries_across_unheaded_continuation_page() -> None:
+    # Business 2026-2027 map (map_10a7b8acb0549a32.pdf), trimmed to its two
+    # pages: page 1 carries the full header and Semester One; page 2 carries
+    # Semester Eight with NO header words anywhere (the registrar template
+    # never repeats the header on a continuation page). Before the fix,
+    # `_page_table_columns` returned None for page 2 and Semester Eight --
+    # MGMT 478 included -- vanished with no trace in the output.
+    entry = _entry()
+    entry.major = "Business"
+    document = parse_major_map_bbox(
+        (FIXTURES / "business_page_break_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    numbers = [semester["number"] for semester in document["semester_plan"]]
+    assert numbers == [1, 8]
+    semester_eight = document["semester_plan"][1]
+    assert semester_eight["requirements"], "page 2 columns were not carried forward from page 1"
+    course = semester_eight["requirements"][0]
+    assert course["title"] == "MGMT 478 Strategic Management"
+    assert course["course_codes"] == ["MGMT 478"]
+    assert course["credit_hours"] == 3
+    assert course["minimum_grade"] == "C"
+    assert course["requirement_codes"] == ["CR"]
+    assert "bbox_table_columns_not_found" not in document["warnings"]
+
+
+def test_bbox_unresolvable_page_reports_columns_not_found_instead_of_silence() -> None:
+    # Neuroscience 2024-2025 "Accelerated Study Plan" map
+    # (map_fba9338cf897b609.pdf): a genuinely different table layout that
+    # never prints "Prerequisites" (or any other header word) anywhere.
+    # `parse_major_map_bbox` legitimately cannot locate a table here, but
+    # the standing rule for this codebase is to fail loudly rather than
+    # silently: the output must be distinguishable from a page that was
+    # merely empty, not just an empty semester_plan indistinguishable from
+    # "no data".
+    entry = _entry()
+    entry.major = "Neuroscience"
+    document = parse_major_map_bbox(
+        (FIXTURES / "accelerated_plan_no_headers_bbox.html").read_text(encoding="utf-8"), entry
+    )
+
+    assert document["semester_plan"] == []
+    assert "bbox_table_columns_not_found" in document["warnings"]
+    assert document["validation"]["requires_review"] is True
