@@ -49,6 +49,9 @@ const Search = (() => {
         get scheduler() { return typeof Scheduler !== 'undefined' ? Scheduler : undefined; },
         get tabs() { return typeof Tabs !== 'undefined' ? Tabs : undefined; },
         get walkingMap() { return typeof WalkingMap !== 'undefined' ? WalkingMap : undefined; },
+        // The shared course-code normaliser. normalizeCourseCode delegates to its
+        // parse() so a 2-letter subject canonicalises instead of being rejected.
+        get courseCode() { return typeof CourseCode !== 'undefined' ? CourseCode : undefined; },
     });
 })();
 

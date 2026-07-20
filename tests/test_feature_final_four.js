@@ -121,8 +121,8 @@ test('search keeps its detail state private to itself', () => {
 test('every composition point supplies collaborators for its feature', () => {
     const cases = {
         scheduler: ['state', 'api', 'calendar', 'courseCode', 'grades', 'prereqs', 'search', 'tabs', 'walkingMap'],
-        search: ['state', 'api', 'carolinaCore', 'grades', 'history', 'prereqs', 'scheduler',
-            'tabs', 'walkingMap'],
+        search: ['state', 'api', 'carolinaCore', 'courseCode', 'grades', 'history', 'prereqs',
+            'scheduler', 'tabs', 'walkingMap'],
         export: ['selectedSections', 'currentTerm'],
         prereqs: ['bulletinSearch', 'bulletinDetails', 'searchCourses', 'completedCourses',
             'currentTerm', 'showCourseDetail'],
@@ -442,6 +442,7 @@ test('the search feature merges its parts into one complete object', () => {
     for (const method of [
         'loadSubjects', 'buildCourseScope',        // query
         'init', 'doSearch', 'openFilters',         // shell
+        'classifyQuery', '_runCriteriaSearch', 'buildFilterCriteria', // shell (extracted)
         'applySectionFilters', 'filterByClassSize', // filters
         'showCourseDetail', 'renderSectionCalendar', // detail
         'renderResults', 'showSearchError',        // results

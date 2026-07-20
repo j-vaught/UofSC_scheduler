@@ -165,6 +165,14 @@
             workspace.classList.add(`browse-${state}`);
         },
 
+        // The read half of the browse-state seam. detail.js lives in another part
+        // and used to compare the raw _browseState field; going through here keeps
+        // that field owned by the two methods on either side of it, so a rename is
+        // a local change rather than a hunt across parts.
+        browseState() {
+            return this._browseState;
+        },
+
         submitSearch() {
             this.cancelLocationRestore();
             if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
@@ -340,17 +348,40 @@
         },
 
         normalizeCourseCode(value) {
+            // Prefer the shared CourseCode util, injected as a collaborator so this
+            // fenced module never reaches an app global. Its parse() is the strict
+            // reading these call sites need -- a real code or '' -- and it accepts
+            // 2-letter subjects, which the historical local regex below wrongly
+            // rejects. The delegation is what fixes that bug when the util is present.
+            if (deps.courseCode) return deps.courseCode.parse(value);
+            // Fallback for the bare-sandbox tests ({} deps), where courseCode is
+            // undefined. This is the original, stricter behaviour: 3-4 letters and
+            // exactly three digits only. It is kept solely here, and only because
+            // those tests construct without the collaborator.
             const match = String(value || '').trim().toUpperCase()
                 .match(/^([A-Z]{3,4})\s*(\d{3}[A-Z]?)$/);
             return match ? `${match[1]} ${match[2]}` : '';
         },
 
-        writeCourseDetailHistory({
-            mode = 'replace',
-            course = this._detailGroup?.code || '',
-            crn = this._detailSectionCrn,
-            panel = this._detailTab,
-        } = {}) {
+        // The read half of the detail-route seam: what the URL/history bookkeeping
+        // needs to know about the open course. detail.js owns these three fields;
+        // shell.js and results.js reach them through here so a rename stays local.
+        detailRouteState() {
+            return {
+                code: this._detailGroup?.code ?? null,
+                crn: this._detailSectionCrn || '',
+                tab: this._detailTab,
+            };
+        },
+
+        writeCourseDetailHistory(options = {}) {
+            const route = this.detailRouteState();
+            const {
+                mode = 'replace',
+                course = route.code || '',
+                crn = route.crn,
+                panel = route.tab,
+            } = options;
             if (this._restoringHistory || mode === 'none') return;
             const url = new URL(window.location.href);
             const normalizedCourse = this.normalizeCourseCode(course);
@@ -759,11 +790,159 @@
             else this.resetToCleanSearch({ historyMode: 'push' });
         },
 
+        // A search id is stale once a newer search (or restore, or reset) has bumped
+        // _searchId past it. Every in-flight completion checks this before it renders,
+        // so a slow response cannot overwrite a newer one. The comparison was spread
+        // raw across shell and query; this is the one place that knows the rule.
+        isStale(searchId) {
+            return searchId !== this._searchId;
+        },
+
+        // The section-filter panel, read into the one shape applySectionFilters
+        // consumes. Both search paths -- the semantic branch and the direct criteria
+        // fetch -- call this, so a filter added here reaches both. It used to be an
+        // object literal built twice, and a filter added to one copy silently skipped
+        // the other.
+        buildFilterCriteria() {
+            const availRaw = document.getElementById('filter-avail-value').value.trim();
+            return {
+                openOnly: document.getElementById('filter-open').checked,
+                instructionalMethod: document.getElementById('filter-method').value,
+                carolinaCore: document.getElementById('filter-carolina-core').value,
+                partOfTerm: document.getElementById('filter-part-of-term').value,
+                courseAttribute: document.getElementById('filter-course-attribute').value,
+                honors: document.getElementById('filter-honors').value,
+                meetingPattern: document.getElementById('filter-meeting-pattern').value,
+                sizeMode: document.getElementById('filter-size-mode').value,
+                sizeValue: parseInt(document.getElementById('filter-size-value').value) || 0,
+                availMode: document.getElementById('filter-avail-mode').value,
+                availValue: availRaw === '' ? null : Number(availRaw),
+            };
+        },
+
+        /*
+         * The regex dispatch that turns a direct query into search criteria.
+         *
+         * Pulled out of doSearch so the classification can be unit-tested and so the
+         * semantic-vs-direct decision reads a return value rather than a fall-through
+         * off the end of a 140-line chain. It reaches _resolveSubject,
+         * courseNumberRangeFilter and liveCourseRangeFilter through `this`, exactly
+         * as the inline chain did.
+         *
+         * Returns { criteria, resultFilter, subject } for every query it can place,
+         * a plain keyword included. Returns null when _resolveSubject could not
+         * resolve the subject -- it has already shown a fuzzy-suggestion hint, so the
+         * caller must stop rather than hint twice. Throws a user-facing Error for a
+         * hard-invalid query (a 4-digit number, a sub-5-character keyword, a bad
+         * range pattern); the caller turns that into a hint.
+         */
+        classifyQuery(directQuery, { treatAsTopic = false, courseScope } = {}) {
+            const kw = String(directQuery || '').trim();
+            const criteria = [];
+            let subject = '';
+            let resultFilter = null;   // function(code) → boolean for +, wildcards, partial
+
+            // Wildcard characters that stand for "any digit"
+            const WILDCARD = /[xX*#_?%]/;
+            const hasWildcard = (s) => WILDCARD.test(s);
+
+            // Normalising the box's text is a courtesy the inline chain did too;
+            // guard it so the classifier still runs where there is no input element.
+            const searchInput = this.activeSearchInput();
+
+            // A scope without a topic lists all courses inside the selected bounds.
+            if (!kw && courseScope?.active) {
+                // Scope is applied to API results by the caller.
+
+            // 3-4 letter subject code only (e.g. "CSCE", "MATH")
+            } else if (!treatAsTopic && /^[A-Za-z]{3,4}$/i.test(kw)) {
+                subject = this._resolveSubject(kw);
+                if (!subject) return null;
+                if (searchInput) searchInput.value = subject;
+                criteria.push({ field: 'subject', value: subject });
+
+            // Inclusive numeric range: "CSCE 140-150" or "CSCE 140 - 150"
+            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
+                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
+                subject = this._resolveSubject(m[1]);
+                if (!subject) return null;
+                // courseNumberRangeFilter throws on an inverted range; the caller
+                // turns that into a hint, exactly as the inline try/catch did.
+                resultFilter = this.courseNumberRangeFilter(subject, m[2], m[3]);
+                criteria.push({ field: 'subject', value: subject });
+
+            // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
+            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
+                       (kw.includes('+') || hasWildcard(kw))) {
+                const m = kw.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/i);
+                subject = this._resolveSubject(m[1]);
+                if (!subject) return null;
+                const numPart = m[2].toUpperCase();
+                // The shared live range filter. Identical to the old local builder for
+                // this already-upper-cased input, and the one place the pattern lives.
+                resultFilter = this.liveCourseRangeFilter(numPart);
+                if (!resultFilter) throw new Error('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
+                criteria.push({ field: 'subject', value: subject });
+
+            // Partial course number: "CSCE 5" or "CSCE 55" → prefix match (implicit wildcards)
+            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
+                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/i);
+                subject = this._resolveSubject(m[1]);
+                if (!subject) return null;
+                const partial = m[2];
+                const padded = (partial + 'xx').slice(0, 3);
+                const reStr = padded.replace(/x/g, '\\d');
+                const numRe = new RegExp('^' + reStr + '$');
+                resultFilter = (code) => {
+                    const cm = code.match(/^[A-Z]+\s*(\d{3})/i);
+                    return cm && numRe.test(cm[1]);
+                };
+                criteria.push({ field: 'subject', value: subject });
+
+            // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
+            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
+                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i);
+                subject = this._resolveSubject(m[1]);
+                if (!subject) return null;
+                const num = m[2].toUpperCase();
+                const normalized = subject + ' ' + num;
+                if (searchInput) searchInput.value = normalized;
+                criteria.push({ field: 'alias', value: normalized });
+
+            // 5-digit CRN
+            } else if (!treatAsTopic && /^\d{5}$/.test(kw)) {
+                criteria.push({ field: 'crn', value: kw });
+
+            // 4 digits — invalid
+            } else if (!treatAsTopic && /^\d{4}$/.test(kw)) {
+                throw new Error('4-digit numbers are not valid. Enter a 3-digit course number (e.g. CSCE 101) or a 5-digit CRN.');
+
+            // 3 digits + optional letter — need subject prefix
+            } else if (!treatAsTopic && /^\d{3}\s?[A-Za-z]?$/.test(kw)) {
+                throw new Error('Include the subject code (e.g. CSCE 101, not just 101).');
+
+            // 1-2 digits
+            } else if (!treatAsTopic && /^\d{1,2}$/.test(kw)) {
+                throw new Error('Enter a subject code (e.g. CSCE) or full course number (e.g. CSCE 101).');
+
+            // Text keyword — require 5+ characters
+            } else if (kw.length < 5 && !courseScope?.active) {
+                throw new Error('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
+
+            // Plain keyword. Whether it fetches directly or via meaning-based matching
+            // is the caller's decision; classification only names it a keyword.
+            } else {
+                criteria.push({ field: 'keyword', value: kw });
+            }
+
+            return { criteria, resultFilter, subject };
+        },
+
         async doSearch({ historyMode = 'push', bypassCache = false } = {}) {
             if (historyMode !== 'none') this.cancelLocationRestore();
             const initialSearchId = ++this._searchId;
             await this.loadSubjects();
-            if (initialSearchId !== this._searchId) return;
+            if (this.isStale(initialSearchId)) return;
             if (this._browseState === 'detail') this.leaveCourseDetail({ focus: false });
             this.clearSearchErrors();
             const searchInput = this.activeSearchInput();
@@ -771,26 +950,12 @@
             const openOnly = document.getElementById('filter-open').checked;
             const eligibleOnly = document.getElementById('filter-eligible').checked;
             const currentTermOnly = !document.getElementById('filter-show-all').checked;
-            const instructionalMethod = document.getElementById('filter-method').value;
-            const carolinaCore = document.getElementById('filter-carolina-core').value;
-            const partOfTerm = document.getElementById('filter-part-of-term').value;
-            const courseAttribute = document.getElementById('filter-course-attribute').value;
-            const honors = document.getElementById('filter-honors').value;
-            const meetingPattern = document.getElementById('filter-meeting-pattern').value;
             let aiAssisted = document.getElementById('filter-ai-search')?.checked !== false;
-
-            // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+) replaces it
-            const levelMode = '';
-            const levelValue = 0;
-
-            // Size filter
-            const sizeMode = document.getElementById('filter-size-mode').value;
-            const sizeValue = parseInt(document.getElementById('filter-size-value').value) || 0;
-
-            // Availability filter
-            const availMode = document.getElementById('filter-avail-mode').value;
-            const availRaw = document.getElementById('filter-avail-value').value.trim();
-            const availValue = availRaw === '' ? null : Number(availRaw);
+            // The section filters (method, Carolina Core, part of term, attribute,
+            // honors, meeting pattern, size, availability) are read once by
+            // buildFilterCriteria, which both search paths pass to applySectionFilters.
+            // openOnly is read here as well because the semantic call and the direct
+            // stat criterion need it before that object is built.
 
             let compactQuery = null;
             let searchQuery = rawInput;
@@ -873,146 +1038,34 @@
                 && !this._subjects.includes(normalizedShortTopic)
                 && !courseScope.subjects.includes(normalizedShortTopic);
             const treatAsTopic = this._topicSearchMode || scopedShortTopic;
-            const criteria = [];
-            let subject = '';
-            let courseNumberFilter = null;   // exact match (e.g. "145" or "145L")
-            let courseRangeFilter = null;     // function(code) → boolean for +, wildcards, partial
-
-            // Wildcard characters that stand for "any digit"
-            const WILDCARD = /[xX*#_?%]/;
-            const hasWildcard = (s) => WILDCARD.test(s);
-
-            // Build a filter function from a number pattern with wildcards/+/partial
-            const buildRangeFilter = (numPart) => {
-                // Plus suffix: CSCE 500+ → >= 500, optional letter suffix on courses
-                if (/^\d{1,3}\+$/.test(numPart)) {
-                    const floor = parseInt(numPart.slice(0, -1));
-                    return (code) => {
-                        const m = code.match(/^[A-Z]+\s*(\d{3})/i);
-                        return m && parseInt(m[1]) >= floor;
-                    };
-                }
-                // Wildcard pattern: digits + wildcards + optional trailing letter
-                // e.g. "5xx", "55x", "x77", "5x7", "3xxL"
-                const wcMatch = numPart.match(/^([\dxX*#_?%]{1,3})([A-Za-z]?)$/);
-                if (wcMatch && hasWildcard(wcMatch[1])) {
-                    const digits = wcMatch[1];
-                    const suffix = wcMatch[2].toUpperCase();
-                    // Pad to 3 chars by appending wildcards (so "5" + wildcard = "5xx")
-                    const padded = (digits + 'xx').slice(0, 3);
-                    const reStr = padded.replace(/[xX*#_?%]/g, '\\d');
-                    const numRe = new RegExp('^' + reStr + '$');
-                    return (code) => {
-                        const m = code.match(/^[A-Z]+\s*(\d{3})([A-Za-z]?)$/i);
-                        if (!m) return false;
-                        if (!numRe.test(m[1])) return false;
-                        if (suffix && m[2].toUpperCase() !== suffix) return false;
-                        return true;
-                    };
-                }
-                return null;
-            };
-
-            // Parse the input to determine what the user wants
-
-            // A scope without a topic lists all courses inside the selected bounds.
-            if (!kw && courseScope.active) {
-                // Scope is applied to API results below.
-
-            // 3-4 letter subject code only (e.g. "CSCE", "MATH")
-            } else if (!treatAsTopic && /^[A-Za-z]{3,4}$/i.test(kw)) {
-                subject = this._resolveSubject(kw);
-                if (!subject) return;
-                searchInput.value = subject;
-                criteria.push({ field: 'subject', value: subject });
-
-            // Inclusive numeric range: "CSCE 140-150" or "CSCE 140 - 150"
-            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}\s*(?:-|–|—|to)\s*\d{3}$/i.test(kw)) {
-                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3})\s*(?:-|–|—|to)\s*(\d{3})$/i);
-                subject = this._resolveSubject(m[1]);
-                if (!subject) return;
-                try {
-                    courseRangeFilter = this.courseNumberRangeFilter(subject, m[2], m[3]);
-                } catch (error) {
-                    this.showHint(error.message);
-                    return;
-                }
-                criteria.push({ field: 'subject', value: subject });
-
-            // Range/wildcard course code: "CSCE 500+", "CSCE 5xx", "CSCE 5xxL", "CSCE x77"
-            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*[\dxX*#_?%]{1,3}\+?[A-Za-z]?$/i.test(kw) &&
-                       (kw.includes('+') || hasWildcard(kw))) {
-                const m = kw.match(/^([A-Za-z]{3,4})\s*([\dxX*#_?%]{1,3}\+?[A-Za-z]?)$/i);
-                subject = this._resolveSubject(m[1]);
-                if (!subject) return;
-                const numPart = m[2].toUpperCase();
-                courseRangeFilter = buildRangeFilter(numPart);
-                if (!courseRangeFilter) {
-                    this.showHint('Invalid range pattern. Try CSCE 500+, CSCE 5xx, or CSCE 5xxL.');
-                    return;
-                }
-                criteria.push({ field: 'subject', value: subject });
-
-            // Partial course number: "CSCE 5" or "CSCE 55" → prefix match (implicit wildcards)
-            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{1,2}$/i.test(kw)) {
-                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{1,2})$/i);
-                subject = this._resolveSubject(m[1]);
-                if (!subject) return;
-                const partial = m[2];
-                const padded = (partial + 'xx').slice(0, 3);
-                const reStr = padded.replace(/x/g, '\\d');
-                const numRe = new RegExp('^' + reStr + '$');
-                courseRangeFilter = (code) => {
-                    const cm = code.match(/^[A-Z]+\s*(\d{3})/i);
-                    return cm && numRe.test(cm[1]);
-                };
-                criteria.push({ field: 'subject', value: subject });
-
-            // Full course code: "CSCE 145" or "CSCE145" or "csce 145"
-            } else if (!treatAsTopic && /^[A-Za-z]{3,4}\s*\d{3}[A-Za-z]?$/i.test(kw)) {
-                const m = kw.match(/^([A-Za-z]{3,4})\s*(\d{3}[A-Za-z]?)$/i);
-                subject = this._resolveSubject(m[1]);
-                if (!subject) return;
-                const num = m[2].toUpperCase();
-                const normalized = subject + ' ' + num;
-                searchInput.value = normalized;
-                criteria.push({ field: 'alias', value: normalized });
-
-            // 5-digit CRN
-            } else if (!treatAsTopic && /^\d{5}$/.test(kw)) {
-                criteria.push({ field: 'crn', value: kw });
-
-            // 4 digits — invalid
-            } else if (!treatAsTopic && /^\d{4}$/.test(kw)) {
-                this.showHint('4-digit numbers are not valid. Enter a 3-digit course number (e.g. CSCE 101) or a 5-digit CRN.');
+            let classification;
+            try {
+                classification = this.classifyQuery(searchQuery, { treatAsTopic, courseScope });
+            } catch (error) {
+                // classifyQuery throws for a hard-invalid query (a 4-digit number, a
+                // short keyword, a bad range). Those used to call showHint inline;
+                // the caller does it now so the classifier stays free of the DOM.
+                this.showHint(error.message);
                 return;
+            }
+            // A null classification means _resolveSubject already showed a fuzzy
+            // suggestion hint for an unknown subject; stop here rather than hint twice.
+            if (!classification) return;
+            const { criteria, resultFilter, subject } = classification;
 
-            // 3 digits + optional letter — need subject prefix
-            } else if (!treatAsTopic && /^\d{3}\s?[A-Za-z]?$/.test(kw)) {
-                this.showHint('Include the subject code (e.g. CSCE 101, not just 101).');
-                return;
-
-            // 1-2 digits
-            } else if (!treatAsTopic && /^\d{1,2}$/.test(kw)) {
-                this.showHint('Enter a subject code (e.g. CSCE) or full course number (e.g. CSCE 101).');
-                return;
-
-            // Text keyword — require 5+ characters
-            } else if (kw.length < 5 && !courseScope.active) {
-                this.showHint('Keywords must be at least 5 characters. For courses, enter a subject code (e.g. CSCE) or course number (e.g. CSCE 145).');
-                return;
-
-            // Direct keyword search when meaning-based matching is disabled or bypassed once
-            } else if (useDirectSearch) {
-                criteria.push({ field: 'keyword', value: kw });
+            // Only an unstructured keyword can go to meaning-based matching, and
+            // only with AI assistance on. A structured code (subject, alias, CRN or
+            // range) always fetches directly, even when the toggle is on, which is
+            // why the decision reads the classification rather than re-parsing.
+            const isKeywordQuery = criteria.some(item => item.field === 'keyword');
 
             // Meaning-based search via Transformers.js
-            } else {
+            if (isKeywordQuery && !useDirectSearch) {
                 this.showLoading('Preparing search plan');
                 const searchId = ++this._searchId;
                 try {
                     await this.prepareSmartSearch();
-                    if (searchId !== this._searchId) return;
+                    if (this.isStale(searchId)) return;
                     const semantic = await this._doSemanticSearch(
                         kw,
                         currentTermOnly,
@@ -1021,7 +1074,7 @@
                         courseScope,
                         progress => this.showSearchProgress(progress),
                     );
-                    if (!semantic || searchId !== this._searchId) return;
+                    if (!semantic || this.isStale(searchId)) return;
 
                     this.showSearchProgress({
                         phase: 'filtering',
@@ -1063,7 +1116,7 @@
                         searchId,
                         semantic.requestBudget,
                     );
-                    if (liveHydration.stale || searchId !== this._searchId) return;
+                    if (liveHydration.stale || this.isStale(searchId)) return;
                     const liveAll = [...keywordLiveResults, ...liveHydration.results];
                     const incompleteSearch = semantic.hadRequestFailure
                         || liveHydration.hadRequestFailure;
@@ -1078,23 +1131,11 @@
                         this.mergeCatalogWithLiveSections(results, liveByCode),
                         courseScope,
                     );
-                    const semanticFilters = {
-                        openOnly,
-                        instructionalMethod,
-                        carolinaCore,
-                        partOfTerm,
-                        courseAttribute,
-                        honors,
-                        meetingPattern,
-                        sizeMode,
-                        sizeValue,
-                        availMode,
-                        availValue,
-                    };
+                    const semanticFilters = this.buildFilterCriteria();
                     results = await this.applySectionFilters(results, semanticFilters);
                     results = this.filterByCourseScope(results, courseScope);
 
-                    if (searchId !== this._searchId) return;
+                    if (this.isStale(searchId)) return;
                     const eligibleOnly2 = eligibleOnly;
                     const relatedBatches = await Promise.all((semantic.searchResults || []).map(batch => {
                         const candidates = currentTermOnly
@@ -1105,11 +1146,11 @@
                             semanticFilters,
                         );
                     }));
-                    if (searchId !== this._searchId) return;
+                    if (this.isStale(searchId)) return;
                     const prereqData = eligibleOnly2
                         ? await this.loadPrereqsForResults([...results, ...relatedBatches.flat()])
                         : {};
-                    if (searchId !== this._searchId) return;
+                    if (this.isStale(searchId)) return;
                     const searchInfo = this.buildSemanticSearchInfo(
                         semantic,
                         relatedBatches,
@@ -1128,7 +1169,7 @@
                         searchInfo,
                     );
                 } catch (err) {
-                    if (searchId !== this._searchId) return;
+                    if (this.isStale(searchId)) return;
                     if (this.activeSearchInput()?.value.trim() !== kw) return;
                     console.error('[Semantic] Error:', err);
                     this._extractorLoading = null;
@@ -1141,6 +1182,44 @@
                 }
                 return;
             }
+
+            return this._runCriteriaSearch({
+                criteria,
+                subject,
+                courseScope,
+                courseRangeFilter: resultFilter,
+                courseNumberFilter: null,
+                currentTermOnly,
+                eligibleOnly,
+                searchCacheKey,
+            });
+        },
+
+        /*
+         * The direct/criteria fetch: everything after the semantic branch returns.
+         *
+         * Extracted from doSearch's tail so the classifier, the semantic branch and
+         * this share nothing but the context passed in. It reads the section filters
+         * once through buildFilterCriteria and bumps its own search id, exactly where
+         * the inline code did, so a newer search still discards these results.
+         */
+        async _runCriteriaSearch({
+            criteria,
+            subject,
+            courseScope,
+            courseRangeFilter,
+            courseNumberFilter,
+            currentTermOnly,
+            eligibleOnly,
+            searchCacheKey,
+        }) {
+            const filterCriteria = this.buildFilterCriteria();
+            const { openOnly, carolinaCore } = filterCriteria;
+
+            // Level filter — removed from UI; range/wildcard search (e.g. CSCE 500+)
+            // replaces it. Kept as a dead branch so the behaviour stays identical.
+            const levelMode = '';
+            const levelValue = 0;
 
             if (openOnly) criteria.push({ field: 'stat', value: 'A' });
 
@@ -1291,30 +1370,18 @@
                     });
                 }
 
-                results = await this.applySectionFilters(results, {
-                    openOnly,
-                    instructionalMethod,
-                    carolinaCore,
-                    partOfTerm,
-                    courseAttribute,
-                    honors,
-                    meetingPattern,
-                    sizeMode,
-                    sizeValue,
-                    availMode,
-                    availValue,
-                });
+                results = await this.applySectionFilters(results, filterCriteria);
                 results = this.filterByCourseScope(results, courseScope);
                 if (courseScope.active) totalCount = results.length;
 
                 // If a newer search was started, discard these results
-                if (searchId !== this._searchId) return;
+                if (this.isStale(searchId)) return;
 
                 const prereqData = eligibleOnly
                     ? await this.loadPrereqsForResults(results)
                     : (this._prereqCache[subject] || {});
 
-                if (searchId !== this._searchId) return;
+                if (this.isStale(searchId)) return;
                 this.renderAndCacheSearch(
                     this._semanticFallbackOnce ? null : searchCacheKey,
                     results,
@@ -1323,7 +1390,7 @@
                     eligibleOnly,
                 );
             } catch (err) {
-                if (searchId !== this._searchId) return;
+                if (this.isStale(searchId)) return;
                 this.showHint('Search failed. Try again.');
             }
         },

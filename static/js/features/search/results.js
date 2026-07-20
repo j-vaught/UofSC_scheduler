@@ -255,7 +255,7 @@
                 title: sec.title,
                 sections: [sec],
             };
-            if (this._detailGroup?.code !== sec.code) this.showCourseDetail(group);
+            if (this.detailRouteState().code !== sec.code) this.showCourseDetail(group);
             this.selectDetailSection(sec.crn);
             document.getElementById('course-section-picker-wrap')?.scrollIntoView({ block: 'start' });
         },

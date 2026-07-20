@@ -122,8 +122,21 @@
             this.setCourseDetailTab(tabs[nextIndex].dataset.courseTab, true);
         },
 
+        // The one registry of course-detail sub-tabs. Both the allowed-set check
+        // in setCourseDetailTab and the loader dispatch in loadCourseDetailTab
+        // derive from this, so adding a tab is a single entry here instead of two
+        // edits that can silently disagree. Order matches the [data-course-tab]
+        // buttons in the markup. A `load` runs with the feature as `this` and
+        // receives the course code; overview has no loader, as before.
+        COURSE_DETAIL_TABS: [
+            { id: 'overview' },
+            { id: 'grades', load(code) { if (deps.grades) deps.grades.loadForCourse(code); } },
+            { id: 'history', load(code) { if (deps.history) deps.history.loadForCourse(code); } },
+            { id: 'resources', load() { this.renderCourseResources(); } },
+        ],
+
         setCourseDetailTab(tab, focus = false, historyMode = 'replace') {
-            const allowed = new Set(['overview', 'grades', 'history', 'resources']);
+            const allowed = new Set(this.COURSE_DETAIL_TABS.map(entry => entry.id));
             const active = allowed.has(tab) ? tab : 'overview';
             const scrollContainer = document.getElementById('semester-content');
             const savedScrollTop = Number(scrollContainer?.scrollTop) || 0;
@@ -152,7 +165,7 @@
                 panel.hidden = panel.dataset.coursePanel !== active;
             });
             this.loadCourseDetailTab(active);
-            if (this._browseState === 'detail') {
+            if (this.browseState() === 'detail') {
                 this.writeCourseDetailHistory({ mode: historyMode });
             }
             const restoreScroll = () => {
@@ -171,9 +184,10 @@
             const loadKey = `${this._detailToken}:${tab}`;
             if (this._detailLoads[loadKey]) return;
             this._detailLoads[loadKey] = true;
-            if (tab === 'grades' && deps.grades) deps.grades.loadForCourse(code);
-            if (tab === 'history' && deps.history) deps.history.loadForCourse(code);
-            if (tab === 'resources') this.renderCourseResources();
+            // The loader for this tab, from the same registry the allowed set uses.
+            // Overview has no loader, so its entry has no `load` and this is a no-op.
+            const entry = this.COURSE_DETAIL_TABS.find(tabDef => tabDef.id === tab);
+            if (entry?.load) entry.load.call(this, code);
         },
 
         async hydrateFullDetailGroup(group, token, term) {
@@ -407,7 +421,7 @@
             this._detailSectionCrn = String(section?.crn || '');
             this._detailFaculty = [];
             this.destroyDetailMap();
-            if (this._browseState === 'detail') this.renderCourseDetailHeader(this._detailDetails);
+            if (this.browseState() === 'detail') this.renderCourseDetailHeader(this._detailDetails);
             let selectedButton = null;
             document.querySelectorAll('[data-detail-crn]').forEach(button => {
                 const selected = String(button.dataset.detailCrn) === this._detailSectionCrn;
@@ -419,7 +433,7 @@
             this.renderSectionSummary(section);
             this.renderCourseResources();
             this.refreshDetailGrades();
-            if (this._browseState === 'detail') {
+            if (this.browseState() === 'detail') {
                 this.writeCourseDetailHistory({ mode: historyMode });
             }
             requestAnimationFrame(() => {
