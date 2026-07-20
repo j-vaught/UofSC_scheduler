@@ -25,7 +25,7 @@ const SEARCH_FIELDS = new Set(['alias', 'course_attr', 'crn', 'keyword', 'stat',
 const BANNER_BASE = 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb';
 const MAX_FACULTY_CRNS = 12;
 const MAX_FACULTY_CONCURRENCY = 4;
-const MAX_RELAY_BODY_BYTES = 16 * 1024;
+const MAX_RELAY_BODY_BYTES = 16384;
 const UPSTREAM_TIMEOUT_MS = 10_000;
 
 function cachePolicy(pathname) {
