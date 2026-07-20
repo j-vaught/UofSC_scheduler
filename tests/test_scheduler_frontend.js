@@ -3140,7 +3140,9 @@ test('Top-level tab history preserves Search when returning to an unparameterize
 
 test('A plain site visit opens Search even when another tab was used previously', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    assert.match(html, /\/static\/js\/tabs\.js\?v=\d+/);
+    // Cache markers are stamped from file contents at build time, so the source
+    // tag carries none. test_static_site_build.py covers the stamping itself.
+    assert.match(html, /\/static\/js\/tabs\.js/);
     const switched = [];
     const tabs = loadObject('static/js/tabs.js', 'Tabs', {
         URL,

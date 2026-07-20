@@ -185,8 +185,10 @@ test('dialog and static shell expose attempt review, immediate undo, and integra
         total: 3,
     });
     assert.match(markup, /id="transcript-undo" hidden>UNDO IMPORT/);
-    assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
-    assert.match(html, /src="\/static\/js\/api\.js\?v=\d+"/);
+    // Cache markers are stamped from file contents at build time, so the source
+    // tag carries none. test_static_site_build.py covers the stamping itself.
+    assert.match(html, /src="\/static\/js\/transcript-import\.js"/);
+    assert.match(html, /src="\/static\/js\/api\.js"/);
     // Boot registers modules as `['Label', () => Module]` rows now.
     assert.match(html + bootSource(), /\(\)\s*=>\s*TranscriptImport\b/);
     /*
