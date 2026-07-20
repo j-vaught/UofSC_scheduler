@@ -1,0 +1,355 @@
+/*
+ * Advising transcript import.
+ *
+ * Split out of a single 5,066-line style.css. The order these are linked
+ * in index.html is the order they appeared in that file, because the
+ * cascade depends on it -- reordering the link tags changes the page.
+ */
+/* === Advising transcript import === */
+body.transcript-dialog-open { overflow: hidden; }
+.transcript-upload-overlay {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.68);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    padding: 24px;
+    position: fixed;
+    z-index: 8000;
+}
+.transcript-upload-overlay[hidden] { display: none; }
+.transcript-upload-dialog {
+    background: #FFFFFF;
+    border: 3px solid #000000;
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 48px);
+    max-width: 1040px;
+    overflow: hidden;
+    width: 100%;
+}
+.transcript-upload-header {
+    align-items: flex-start;
+    background: #000000;
+    color: #FFFFFF;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    padding: 20px 22px;
+}
+.transcript-upload-kicker,
+.transcript-review-kicker {
+    color: #CED318;
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+.transcript-upload-header h2 {
+    color: #FFFFFF;
+    font-size: 1.35rem;
+    margin: 0;
+}
+.transcript-upload-close {
+    align-items: center;
+    background: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    color: #000000;
+    display: flex;
+    flex: 0 0 38px;
+    font-size: 1.45rem;
+    font-weight: 800;
+    height: 38px;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    width: 38px;
+}
+.transcript-upload-close:hover {
+    background: #73000A;
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+}
+.transcript-upload-body { overflow-y: auto; padding: 20px 22px 22px; }
+.transcript-upload-intro {
+    color: #363636;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0 0 16px;
+}
+.transcript-upload-workspace {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.transcript-upload-guide,
+.transcript-upload-picker {
+    border: 2px solid #C7C7C7;
+    padding: 16px;
+}
+.transcript-upload-guide { background: #ECECEC; }
+.transcript-upload-guide h3,
+.transcript-upload-picker h3,
+.transcript-review-state h3 {
+    color: #73000A;
+    font-size: 0.96rem;
+    margin: 0 0 11px;
+}
+.transcript-upload-guide ol {
+    color: #363636;
+    font-size: 0.82rem;
+    line-height: 1.48;
+    margin: 0;
+    padding-left: 22px;
+}
+.transcript-upload-guide li + li { margin-top: 8px; }
+.transcript-upload-guide a,
+.transcript-upload-fallback a {
+    color: #73000A;
+    font-weight: 700;
+    text-decoration: underline;
+}
+.transcript-upload-fallback {
+    border-top: 1px solid #A2A2A2;
+    color: #5C5C5C;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    margin: 13px 0 0;
+    padding-top: 11px;
+}
+.transcript-level-options {
+    border: 0;
+    display: flex;
+    gap: 14px;
+    margin: 0 0 10px;
+    padding: 0;
+}
+.transcript-level-options legend,
+.transcript-import-mode legend {
+    color: #363636;
+    font-size: 0.74rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.transcript-level-options label {
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    gap: 5px;
+}
+.transcript-level-options input,
+.transcript-import-mode input { accent-color: #73000A; }
+.transcript-drop-zone {
+    align-items: center;
+    background: #FFFFFF;
+    border: 3px dashed #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 158px;
+    padding: 20px;
+    text-align: center;
+    transition: background 0.12s, border-color 0.12s;
+}
+.transcript-drop-zone:hover,
+.transcript-drop-zone.drag-active {
+    background: #ECECEC;
+    border-color: #73000A;
+}
+.transcript-drop-zone.has-file {
+    background: #F3F7E6;
+    border-color: #65780B;
+    border-style: solid;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-title {
+    color: #405000;
+    font-size: 1rem;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-title::before {
+    background: #65780B;
+    color: #FFFFFF;
+    content: '\2713';
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 22px;
+    margin-right: 8px;
+    text-align: center;
+    width: 22px;
+}
+.transcript-drop-zone.has-file .transcript-drop-zone-copy {
+    color: #000000;
+    font-weight: 700;
+}
+.transcript-drop-zone input {
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+}
+.transcript-drop-zone-title { color: #000000; font-size: 0.9rem; font-weight: 800; }
+.transcript-drop-zone-copy { color: #5C5C5C; font-size: 0.75rem; margin: 4px 0 12px; }
+.transcript-drop-zone-action {
+    background: #000000;
+    border: 2px solid #000000;
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 6px 12px;
+}
+.transcript-file-name {
+    color: #363636;
+    font-size: 0.76rem;
+    font-weight: 700;
+    margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.transcript-drop-zone.has-file + .transcript-file-name { color: #405000; }
+.transcript-privacy {
+    border-left: 4px solid #73000A;
+    color: #5C5C5C;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin: 0;
+    padding-left: 9px;
+}
+.transcript-import-status { margin-top: 14px; }
+.transcript-state { border: 2px solid #000000; padding: 14px; }
+.transcript-progress-heading {
+    align-items: center;
+    display: flex;
+    font-size: 0.8rem;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+.transcript-progress-track {
+    background: #ECECEC;
+    border: 1px solid #000000;
+    height: 16px;
+    overflow: hidden;
+}
+#transcript-progress-fill {
+    background: #73000A;
+    height: 100%;
+    transition: width 0.15s linear;
+    width: 0;
+}
+.transcript-error-state { background: #fffbd6; border-color: #e2b900; }
+.transcript-error-state strong { color: #73000A; }
+.transcript-error-state p {
+    color: #363636;
+    font-size: 0.8rem;
+    margin: 4px 0 0;
+}
+.transcript-review-state { border-top: 8px solid #73000A; }
+.transcript-review-heading {
+    align-items: flex-start;
+    display: flex;
+    gap: 14px;
+    justify-content: space-between;
+}
+.transcript-review-heading h3 { margin-bottom: 0; }
+.transcript-review-heading > strong {
+    color: #363636;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+.transcript-review-summary {
+    display: grid;
+    gap: 7px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 12px;
+}
+.transcript-review-count {
+    background: #ECECEC;
+    border: 1px solid #C7C7C7;
+    padding: 9px;
+}
+.transcript-review-count strong,
+.transcript-review-count span { display: block; }
+.transcript-review-count strong { color: #73000A; font-size: 1.25rem; }
+.transcript-review-count span {
+    color: #363636;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+.transcript-review-count.review { border-color: #e2b900; }
+.transcript-review-preview {
+    border: 1px solid #C7C7C7;
+    margin-top: 10px;
+    padding: 10px;
+}
+.transcript-review-preview > strong { color: #363636; font-size: 0.76rem; }
+.transcript-review-preview ul {
+    columns: 2;
+    font-size: 0.73rem;
+    line-height: 1.45;
+    margin: 7px 0 0;
+    padding-left: 20px;
+}
+.transcript-review-preview p {
+    color: #5C5C5C;
+    font-size: 0.72rem;
+    margin: 7px 0 0;
+}
+.transcript-import-mode {
+    border: 0;
+    display: grid;
+    gap: 7px;
+    grid-template-columns: 1fr 1fr;
+    margin: 12px 0 0;
+    padding: 0;
+}
+.transcript-import-mode legend { grid-column: 1 / -1; }
+.transcript-import-mode label {
+    align-items: flex-start;
+    border: 2px solid #C7C7C7;
+    display: flex;
+    gap: 8px;
+    padding: 9px;
+}
+.transcript-import-mode label:hover,
+.transcript-import-mode label:has(input:checked) { border-color: #73000A; }
+.transcript-import-mode strong,
+.transcript-import-mode small { display: block; }
+.transcript-import-mode strong { color: #363636; font-size: 0.76rem; }
+.transcript-import-mode small {
+    color: #5C5C5C;
+    font-size: 0.67rem;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+.transcript-complete-state { background: #f2f6e1; border-color: #65780B; }
+.transcript-complete-state strong { color: #435006; }
+.transcript-complete-state p {
+    color: #363636;
+    font-size: 0.78rem;
+    margin: 3px 0 0;
+}
+.transcript-upload-footer {
+    align-items: center;
+    background: #ECECEC;
+    border-top: 2px solid #000000;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 12px 22px;
+}
+
+@media screen and (max-width: 900px) {
+    .transcript-upload-overlay { padding: 12px; }
+    .transcript-upload-dialog { max-height: calc(100vh - 24px); }
+    .transcript-upload-workspace { grid-template-columns: 1fr; }
+    .transcript-drop-zone { min-height: 120px; }
+    .transcript-review-summary { grid-template-columns: 1fr 1fr; }
+    .transcript-review-preview ul { columns: 1; }
+    .home-transcript-import,
+    .transcript-import-entry { align-items: stretch; flex-direction: column; }
+    .home-transcript-import .transcript-upload-launch,
+    .transcript-import-entry .transcript-upload-launch { width: 100%; }
+}

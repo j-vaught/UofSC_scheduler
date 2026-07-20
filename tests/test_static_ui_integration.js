@@ -1,3 +1,24 @@
+const path = require('node:path');
+const ROOT_DIR_CSS = path.resolve(__dirname, '..');
+
+/*
+ * The stylesheet, however it happens to be split.
+ *
+ * style.css was one 5,066-line file and is now thirteen, linked in the order
+ * they were cut from it because the cascade depends on that order. Tests care
+ * about the rules, not which file holds them, so they read the whole sheet --
+ * otherwise splitting a section again breaks assertions that are still true.
+ */
+function stylesheet() {
+    const dir = path.join(ROOT_DIR_CSS, 'static/css');
+    const html = fs.readFileSync(path.join(ROOT_DIR_CSS, 'static/index.html'), 'utf8');
+    const linked = [...html.matchAll(/<link[^>]+href="\/static\/css\/([^"?]+)/g)].map(m => m[1]);
+    return linked
+        .filter(name => fs.existsSync(path.join(dir, name)))
+        .map(name => fs.readFileSync(path.join(dir, name), 'utf8'))
+        .join('\n');
+}
+
 'use strict';
 
 const assert = require('node:assert/strict');
@@ -68,7 +89,7 @@ test('static data and browser runtimes load before the API adapter', () => {
 
 test('static worker registration and desktop-only guidance are nonblocking', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(html + bootSource(), /window\.addEventListener\('load',[\s\S]*navigator\.serviceWorker\.register/);
     assert.match(html + bootSource(), /source\.includes\('__STATIC_BUILD_ID__'\)/);

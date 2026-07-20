@@ -69,6 +69,24 @@ function moduleSource(name) {
     ].join('\n');
 }
 
+/*
+ * The stylesheet, however it happens to be split.
+ *
+ * style.css was one 5,066-line file and is now thirteen, linked in the order
+ * they were cut from it because the cascade depends on that order. Tests care
+ * about the rules, not which file holds them, so they read the whole sheet --
+ * otherwise splitting a section again breaks assertions that are still true.
+ */
+function stylesheet() {
+    const dir = path.join(ROOT_DIR, 'static/css');
+    const html = fs.readFileSync(path.join(ROOT_DIR, 'static/index.html'), 'utf8');
+    const linked = [...html.matchAll(/<link[^>]+href="\/static\/css\/([^"?]+)/g)].map(m => m[1]);
+    return linked
+        .filter(name => fs.existsSync(path.join(dir, name)))
+        .map(name => fs.readFileSync(path.join(dir, name), 'utf8'))
+        .join('\n');
+}
+
 function gradesSource() {
     return [
         fs.readFileSync('static/js/features/grades/index.js', 'utf8'),
@@ -266,7 +284,7 @@ test('browse course availability uses concise color-coded states', () => {
 
 test('browse results reserve course add actions for the details pane', () => {
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.doesNotMatch(source, /class="btn-course-add/);
     assert.match(source, /class="course-header-main"/);
@@ -281,7 +299,7 @@ test('browse results reserve course add actions for the details pane', () => {
 
 test('Search results do not display a selected-course counter', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.doesNotMatch(html, /id="pick-count"|\(\$\{count\} selected\)/);
     assert.doesNotMatch(styles, /\.pick-count|\.results-header:has\(\.pick-count/);
@@ -475,7 +493,7 @@ test('course time and location correlates numbered colors across calendar and ma
     assert.match(key, /Close-Hipp 750/);
 
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     assert.match(source, /markerElement\?\.addEventListener\('mouseenter'/);
     assert.match(source, /section-calendar-event\[data-location-index/);
     assert.match(source, /setSectionLocationInteractionState\(block, locationIndex, 'hover', true\)/);
@@ -492,7 +510,7 @@ test('prerequisite details use a compact status-first requirement tree', () => {
     const prereqs = loadObject('static/js/prereqs.js', 'Prereqs', {});
     // The rendering logic lives in the fenced feature now.
     const source = fs.readFileSync('static/js/features/prereqs/index.js', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const groups = [{ courses: ['CSCE 580'], type: 'and' }];
     const companions = [
         { mode: 'corequisite', text: 'CSCE 884.', groups: [{ courses: ['CSCE 884'], type: 'and' }] },
@@ -622,7 +640,7 @@ test('prerequisite details use a compact status-first requirement tree', () => {
 
 test('browse filters separate primary and additional course choices', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(source, /id="filter-show-all"/);
     assert.doesNotMatch(source, /id="filter-current-term"/);
@@ -848,7 +866,7 @@ test('schedule preferences expose one walking-aware transition choice', () => {
     assert.equal(preferences.preferred_maximum_walk_minutes, undefined);
 
     const source = moduleSource('scheduler');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     assert.match(source, /class="schedule-preference-times"/);
     assert.match(source, /id="schedule-preferred-start"/);
     assert.match(source, /id="schedule-preferred-end"/);
@@ -918,7 +936,7 @@ test('saving schedule preferences preserves each prefer-require mode', () => {
 
 test('schedule actions live in the options panel and quick ICS export is removed', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const optionsStart = source.indexOf('<section id="solver-section">');
     const optionsEnd = source.indexOf('<div id="solver-container">', optionsStart);
     const optionsHeading = source.slice(optionsStart, optionsEnd);
@@ -950,7 +968,7 @@ test('schedule actions live in the options panel and quick ICS export is removed
 
 test('navigation is centered inside the single garnet header', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const header = html.slice(html.indexOf('<header>'), html.indexOf('</header>') + 9);
 
     assert.match(html, /<title>Course Scheduler<\/title>/);
@@ -967,7 +985,7 @@ test('navigation is centered inside the single garnet header', () => {
 test('registration info unlocks for selected sections and links to the CRN cart', () => {
     const source = moduleSource('scheduler');
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(html, /id="btn-registration-info"[^>]*aria-label="Registration info"[^>]*disabled>[\s\S]*schedule-action-label-wide[^>]*>REGISTRATION INFO/);
     assert.match(source, /button\.disabled = this\.registrationSections\(\)\.length === 0;/);
@@ -1154,7 +1172,7 @@ test('schedule search results use compact availability summaries', () => {
 
 test('schedule result cards use fixed add-remove buttons and truncating text', () => {
     const source = moduleSource('scheduler');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(source, /selected \? 'btn-danger added' : 'btn-green'/);
     assert.match(source, /selected \? 'REMOVE' : 'ADD'/);
@@ -1169,7 +1187,7 @@ test('schedule result cards use fixed add-remove buttons and truncating text', (
 test('schedule course cards open a visual quick view without hijacking add-remove', () => {
     const source = moduleSource('scheduler');
     const api = fs.readFileSync('static/js/api.js', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(source, /courseCopy\.addEventListener\('click', \(\) => this\.openCourseQuickView\(group\)\)/);
     assert.match(source, /id="btn-quick-course-toggle"/);
@@ -1362,7 +1380,7 @@ test('quick view grade diagram groups outcomes into readable bands', () => {
 test('course results divider is adjustable while preserving selected-course space', () => {
     const scheduler = loadObject('static/js/scheduler.js', 'Scheduler', {});
     const source = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     const balanced = scheduler.fitCoursePanelSizes(300, 600);
     const clamped = scheduler.fitCoursePanelSizes(500, 600);
@@ -1431,7 +1449,7 @@ test('schedule splitter keeps both panels in bounds and snaps either panel fully
 });
 
 test('schedule workspace remains split and contained on narrower desktop screens', () => {
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(styles, /\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(180px, 0\.56fr\) minmax\(0, 1\.5fr\);/s);
     assert.match(styles, /@media \(max-width:\s*1100px\)[\s\S]*\.schedule-workspace\s*{[^}]*grid-template-columns:\s*minmax\(170px, 0\.56fr\) minmax\(0, 1\.35fr\);/);
@@ -1457,7 +1475,7 @@ test('schedule workspace remains split and contained on narrower desktop screens
 });
 
 test('schedule map divider is centered between the calendar and map', () => {
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const rule = styles.match(/\.schedule-vertical-resizer\s*\{([^}]*)\}/)?.[1] || '';
 
     assert.match(rule, /align-self:\s*center;/);
@@ -1468,7 +1486,7 @@ test('schedule map divider is centered between the calendar and map', () => {
 
 test('schedule course tools have an accessible persistent collapse rail', () => {
     const source = fs.readFileSync('static/index.html', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const asideStart = source.indexOf('<aside id="schedule-sidebar">');
     const aside = source.slice(asideStart, source.indexOf('</aside>', asideStart));
 
@@ -2181,7 +2199,7 @@ test('semantic search uses its larger scoped budget when early batches have no m
 test('Browse uses progressive states with AI-assisted search on by default', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(html, /id="browse-workspace" class="semester-layout browse-empty"/);
     assert.match(html, /id="filter-ai-search" type="checkbox" checked/);
@@ -2212,7 +2230,7 @@ test('Browse uses progressive states with AI-assisted search on by default', () 
 test('Browse filters open as a centered modal and applying closes them', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(styles, /\.filter-backdrop\s*\{[^}]*position:\s*fixed;[^}]*z-index:\s*2040;/s);
     assert.match(styles, /#filter-panel\s*\{[^}]*left:\s*50%;[^}]*position:\s*fixed;[^}]*top:\s*50%;[^}]*transform:\s*translate\(-50%, -50%\);[^}]*width:\s*min\(720px,/s);
@@ -2230,7 +2248,7 @@ test('Browse filters open as a centered modal and applying closes them', () => {
 test('Browse teaches structured searches and presents generated searches compactly', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(html, /data-search-example="Machine Learning"/);
     assert.match(html, /data-search-example="CSCE 500\+"/);
@@ -2650,7 +2668,7 @@ test('AI-assisted search can be disabled and related searches remain direct', ()
 test('Browse uses one search field for direct and AI-assisted queries', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.equal((html.match(/id="keyword-input"/g) || []).length, 1);
     assert.doesNotMatch(html, /id="smart-keyword-input"/);
@@ -2665,7 +2683,7 @@ test('Browse uses one search field for direct and AI-assisted queries', () => {
 test('Search navigation resets cleanly and URL history restores prior searches', () => {
     const search = moduleSource('search');
     const tabs = fs.readFileSync('static/js/tabs.js', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(tabs, /btn\.dataset\.tab === 'semester'[\s\S]*search-tab-reset-requested/);
     assert.match(tabs, /writeTabHistory\(tabName, historyMode\)/);
@@ -3171,7 +3189,7 @@ test('Direct search ignores stale prerequisite completions and errors', () => {
 
 test('Course and professor close controls remain available while scrolling', () => {
     const source = gradesSource();
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(styles, /\.course-detail-header-sticky\s*{[^}]*position:\s*sticky;/s);
     assert.match(styles, /\.course-detail-header-sticky \.browse-close-details\s*{[^}]*position:\s*absolute;/s);
@@ -3185,7 +3203,7 @@ test('Course detail fills its pane and uses visual section, grade, and history s
     const search = moduleSource('search');
     const grades = gradesSource();
     const history = fs.readFileSync('static/js/history.js', 'utf8');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const gradeStyles = fs.readFileSync('static/css/grades.css', 'utf8');
 
     assert.match(styles, /\.course-detail-shell\s*{[^}]*max-width:\s*none;[^}]*width:\s*100%;/s);
@@ -3209,7 +3227,7 @@ test('Course detail fills its pane and uses visual section, grade, and history s
 
 test('Offering history uses one aggregate request and ignores stale loads', async () => {
     const container = { innerHTML: '' };
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const pending = new Map();
     const progressCallbacks = new Map();
     const calls = [];
@@ -3575,7 +3593,7 @@ test('Professor profiles use alphabetical GPA rows and a full-year connected tim
 
 test('Static catalog fallbacks never claim that an unverified course is not offered', () => {
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     assert.match(source, /availability_unknown[\s\S]*Live availability unavailable/);
     assert.match(source, /Live section totals unavailable/);
     assert.match(source, /LIVE SECTIONS UNAVAILABLE/);
@@ -3621,7 +3639,7 @@ test('Professor GPA timeline plots values below one instead of pinning them to o
 
 test('Resources derive official section, bookstore, syllabus, and bulletin destinations safely', () => {
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
     const search = loadObject('static/js/search.js', 'Search', { URL });
 
     assert.match(source, /action\.protocol !== 'https:'/);
@@ -3754,7 +3772,7 @@ test('Professor profile review links use the UofSC Rate My Professors school sea
 test('Course identity and actions stay together in a sticky black header', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(html, /class="course-detail-header-sticky"[\s\S]*id="browse-close-details"[\s\S]*id="tab-details"/);
     assert.match(html, /id="course-detail-description-wrap"/);
@@ -3771,7 +3789,7 @@ test('Course identity and actions stay together in a sticky black header', () =>
 
 test('Browse result cards lazily add descriptions and historical grades', () => {
     const source = moduleSource('search');
-    const styles = fs.readFileSync('static/css/style.css', 'utf8');
+    const styles = stylesheet();
 
     assert.match(source, /new IntersectionObserver/);
     assert.match(source, /(?:deps\.api|API)\.getCourseGrades\(group\.code\)/);

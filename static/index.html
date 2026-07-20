@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Scheduler</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <!--
+      Order matters: these were one stylesheet and the cascade depends on the
+      sequence they appeared in. Adding a file is a link tag here, which is
+      also what puts it in the offline shell.
+    -->
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/degree.css">
+    <link rel="stylesheet" href="/static/css/schedule.css">
+    <link rel="stylesheet" href="/static/css/search.css">
+    <link rel="stylesheet" href="/static/css/solver.css">
+    <link rel="stylesheet" href="/static/css/course-info.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
+    <link rel="stylesheet" href="/static/css/transcript.css">
+    <link rel="stylesheet" href="/static/css/registration.css">
+    <link rel="stylesheet" href="/static/css/quick-view.css">
+    <link rel="stylesheet" href="/static/css/forms.css">
+    <link rel="stylesheet" href="/static/css/course-detail.css">
+    <link rel="stylesheet" href="/static/css/print.css">
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
 </head>
