@@ -212,7 +212,10 @@ test('compat decode carries both shapes so readers migrate one at a time', () =>
  * numbers now, which is the only way they can mean different things.
  */
 test('class size reads maximum enrolment, and availability reads seats left', () => {
-    const source = fs.readFileSync(path.join(ROOT, 'static/js/features/search/index.js'), 'utf8');
+    // The filters live in a part file; read the whole feature.
+    const dir = path.join(ROOT, 'static/js/features/search');
+    const source = fs.readdirSync(dir).filter(f => f.endsWith('.js')).sort()
+        .map(f => fs.readFileSync(path.join(dir, f), 'utf8')).join('\n');
 
     const sizeAt = source.indexOf('async filterByClassSize(');
     assert.notEqual(sizeAt, -1, 'the class-size filter moved; this test is not reading it');

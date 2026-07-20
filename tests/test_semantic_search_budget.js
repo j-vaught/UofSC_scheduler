@@ -5,7 +5,14 @@ const vm = require('node:vm');
 
 function loadSearch(contextValues = {}) {
     const context = vm.createContext({ ...contextValues });
-    const source = `${[fs.readFileSync('static/js/features/search/index.js', 'utf8'), fs.readFileSync('static/js/search.js', 'utf8')].join('\n')}\nglobalThis.__result = Search;`;
+    // Parts first, then the index that merges them, then the composition point.
+    const dir = 'static/js/features/search';
+    const partFiles = fs.readdirSync(dir).filter(f => f.endsWith('.js') && f !== 'index.js').sort();
+    const source = `${[
+        ...partFiles.map(f => fs.readFileSync(`${dir}/${f}`, 'utf8')),
+        fs.readFileSync(`${dir}/index.js`, 'utf8'),
+        fs.readFileSync('static/js/search.js', 'utf8'),
+    ].join('\n')}\nglobalThis.__result = Search;`;
     vm.runInContext(source, context);
     return context.__result;
 }

@@ -64,10 +64,11 @@ test('UI modules use the API adapter instead of process-backed fetches', () => {
      * collaborator, and the composition point is what supplies the real one.
      * Checking only one half would pass while the other was wired to nothing.
      */
-    assert.match(
-        fs.readFileSync('static/js/features/search/index.js', 'utf8'),
-        /deps\.api\.getSubjects\(\)/,
-    );
+    const searchFeature = fs.readdirSync('static/js/features/search')
+        .filter(file => file.endsWith('.js')).sort()
+        .map(file => fs.readFileSync(`static/js/features/search/${file}`, 'utf8'))
+        .join('\n');
+    assert.match(searchFeature, /deps\.api\.getSubjects\(\)/);
     assert.match(fs.readFileSync('static/js/search.js', 'utf8'), /get api\(\)[^}]*\bAPI\b/);
 });
 

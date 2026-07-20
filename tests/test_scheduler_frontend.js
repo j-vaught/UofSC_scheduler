@@ -34,11 +34,24 @@ const path = require('node:path');
 function featureSources() {
     const dir = path.join(ROOT_DIR, 'static/js/features');
     if (!fs.existsSync(dir)) return '';
-    return fs.readdirSync(dir)
-        .map(name => path.join(dir, name, 'index.js'))
-        .filter(file => fs.existsSync(file))
-        .map(file => fs.readFileSync(file, 'utf8'))
-        .join('\n');
+    /*
+     * Parts before index.js. A feature may be split into sibling files that
+     * register themselves for its index to merge -- search is, being 4,248
+     * lines otherwise -- and index.js throws if they are not already loaded.
+     * Loading everything in a feature directory keeps this independent of how
+     * any one of them is arranged.
+     */
+    const sources = [];
+    for (const feature of fs.readdirSync(dir)) {
+        const featureDir = path.join(dir, feature);
+        if (!fs.statSync(featureDir).isDirectory()) continue;
+        const files = fs.readdirSync(featureDir).filter(file => file.endsWith('.js'));
+        const parts = files.filter(file => file !== 'index.js').sort();
+        for (const file of [...parts, ...files.filter(file => file === 'index.js')]) {
+            sources.push(fs.readFileSync(path.join(featureDir, file), 'utf8'));
+        }
+    }
+    return sources.join('\n');
 }
 
 
@@ -63,10 +76,13 @@ function featureSources() {
  * open unless it is anchored.
  */
 function moduleSource(name) {
-    return [
-        fs.readFileSync(`static/js/features/${name}/index.js`, 'utf8'),
-        fs.readFileSync(`static/js/${name}.js`, 'utf8'),
-    ].join('\n');
+    // Every file in the feature directory, not just index.js: a feature may be
+    // split into parts its index merges, and search is. Reading one file would
+    // find a fraction of the module and let assertions pass against the rest.
+    const dir = `static/js/features/${name}`;
+    const parts = fs.readdirSync(dir).filter(file => file.endsWith('.js')).sort()
+        .map(file => fs.readFileSync(`${dir}/${file}`, 'utf8'));
+    return [...parts, fs.readFileSync(`static/js/${name}.js`, 'utf8')].join('\n');
 }
 
 /*
