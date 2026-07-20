@@ -198,20 +198,42 @@ test('compat decode carries both shapes so readers migrate one at a time', () =>
 });
 
 /*
- * Reads the fenced feature, and anchors before slicing. Written as a bare
- * indexOf, this returned -1 the moment the filter moved into features/search,
- * the slice came back as the file's tail, and the assertion failed for a reason
- * that had nothing to do with seat sizes. The same shape passes silently when
- * the assertion is doesNotMatch -- which is how five other guards in this suite
- * were found checking nothing at all.
+ * This test used to assert that the class-size filter read section.seatsOpen,
+ * and called that "the converted number". It was pinning a bug.
+ *
+ * seatsOpen is seats *remaining*. Reading it made "Class Size: less than 30"
+ * match almost every section, since few have thirty seats still open, and
+ * "more than 100" match nothing -- a mislabelled duplicate of the Seats
+ * Available filter. Found by running the filters against live data and noticing
+ * that "less than 30" returned the entire 192-section baseline unchanged.
+ *
+ * Class size is maximum enrolment, which arrives as seats_max in the same
+ * detail payload seats_avail comes from. The two filters read different
+ * numbers now, which is the only way they can mean different things.
  */
-test('the seat-size filter reads the domain field', () => {
+test('class size reads maximum enrolment, and availability reads seats left', () => {
     const source = fs.readFileSync(path.join(ROOT, 'static/js/features/search/index.js'), 'utf8');
-    const index = source.indexOf("filters.sizeMode && filters.sizeValue");
-    assert.notEqual(index, -1, 'the seat-size filter moved; this test is not reading it');
 
-    const block = source.slice(index, index + 600);
-    assert.match(block, /section\.seatsOpen/, 'the filter should use the converted number');
+    const sizeAt = source.indexOf('async filterByClassSize(');
+    assert.notEqual(sizeAt, -1, 'the class-size filter moved; this test is not reading it');
+    const sizeBlock = source.slice(sizeAt, sizeAt + 700);
+    assert.match(sizeBlock, /seats_max/, 'class size must read maximum enrolment');
+    assert.doesNotMatch(sizeBlock, /seats_avail/, 'class size must not read seats remaining');
+
+    const availAt = source.indexOf('async filterByAvailableSeats(');
+    assert.notEqual(availAt, -1, 'the availability filter moved; this test is not reading it');
+    const availBlock = source.slice(availAt, availAt + 700);
+    assert.match(availBlock, /seats_avail/, 'availability must read seats remaining');
+    assert.doesNotMatch(availBlock, /seats_max/, 'availability must not read capacity');
+
+    // The old reading is gone from the filter path entirely.
+    const applyAt = source.indexOf('filters.sizeMode && filters.sizeValue');
+    assert.notEqual(applyAt, -1, 'the size filter is no longer applied');
+    assert.doesNotMatch(
+        source.slice(applyAt, applyAt + 300),
+        /section\.seatsOpen/,
+        'seats remaining must not stand in for class size',
+    );
 });
 
 test('api.js normalises search responses on ingest', () => {
