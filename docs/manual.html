@@ -764,6 +764,31 @@ composition point.</li>
 measured rather than assumed: a throwaway feature was added, confirmed present in the live service
 worker cache with no service-worker edit, and removed again.</p>
 
+<h3>When a feature outgrows one file</h3>
+
+<p>Three have. A feature may be split into part files that its <code>index.js</code> merges with
+<code>Object.assign</code>, which keeps <code>this</code> working so every method still reaches
+every other one and the shared state. No call site changes.</p>
+
+<table>
+<tr><th>Feature</th><th>Files</th><th>Lines</th></tr>
+<tr><td><code>search</code></td><td>6</td><td>4,422</td></tr>
+<tr><td><code>scheduler</code></td><td>6</td><td>2,442</td></tr>
+<tr><td><code>degree-plan</code></td><td>5</td><td>1,374</td></tr>
+</table>
+
+<p>Use <code>scripts/split_feature.py</code> rather than moving code by hand. It cuts only at
+member boundaries and refuses to write anything unless the parts concatenate back into the original
+object body byte for byte. That guard is not ceremony: it caught a bad boundary on the scheduler,
+whose object closes as <code>},};</code> jammed onto its last member rather than on its own line,
+and a hand split would have dropped a method silently.</p>
+
+<p>Two things to know when splitting. <code>Object.assign</code> lets a later part overwrite an
+earlier one with no error, so a method defined twice loses a definition — there is a test that
+scans for that across every split feature. And any test reading the module as source text has to
+read the whole directory, because an assertion pointed at one file of six passes against the wrong
+content without failing.</p>
+
 <p>Two traps worth knowing. Existence guards of the form
 <code>typeof Thing !== 'undefined'</code> are always false inside a fenced module, so a guarded
 path silently does nothing — every one of the ten extractions contained at least one, and they are
@@ -776,7 +801,8 @@ would report as missing under a name lookup.</p>
 
 <p>One link tag in <code>static/index.html</code>. Order matters: the thirteen files split out of
 the old <code>style.css</code> are linked in the order they were cut from it, and the cascade
-depends on that sequence.</p>
+depends on that sequence. Cache markers are stamped from file contents at build time, so no tag
+needs a hand-written <code>?v=</code>.</p>
 
 <h3>Adding a backend search field</h3>
 
