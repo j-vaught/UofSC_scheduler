@@ -322,6 +322,19 @@
   "program_family_id": "program_b53735a9134c5685",
   "required_courses": [
     {
+      "carolina_core": "CMW",
+      "category": "carolina_core",
+      "code": "ENGL 101",
+      "corequisites": [],
+      "credits": 3,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_c208de23f80d7784",
+      "title": "Critical Reading and Composition",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
       "carolina_core": "ARP",
       "category": "carolina_core",
       "code": "MATH 141",
@@ -565,6 +578,24 @@
         {
           "confidence": "high",
           "course_codes": [
+            "ENGL 101"
+          ],
+          "credit_hours": 3,
+          "critical": false,
+          "id": "req_c208de23f80d7784",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "CC-CMW"
+          ],
+          "sequence": 1,
+          "source_text": "ENGL 101 Critical Reading and Composition 3 C CC-CMW",
+          "title": "ENGL 101 Critical Reading and Composition",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
             "MATH 141"
           ],
           "credit_hours": 4,
@@ -575,7 +606,7 @@
           "requirement_codes": [
             "CC-ARP"
           ],
-          "sequence": 1,
+          "sequence": 2,
           "source_text": "! MATH 141 Calculus 13 4 C CC-ARP C or better in MATH 112/115/116 or placement through",
           "title": "MATH 141 Calculus 13",
           "warnings": []
@@ -593,7 +624,7 @@
           "requirement_codes": [
             "CC-SCI"
           ],
-          "sequence": 2,
+          "sequence": 3,
           "source_text": "CHEM 111 General Chemistry I 3 C CC-SCI C or higher in MATH 111 or higher (or by placement into",
           "title": "CHEM 111 General Chemistry I",
           "warnings": []
@@ -611,7 +642,7 @@
           "requirement_codes": [
             "CC-SCI"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "CHEM 111L General Chemistry I Lab 1 C CC-SCI Prereq or Coreq: C or higher in CHEM 111",
           "title": "CHEM 111L General Chemistry I Lab",
           "warnings": []
@@ -630,7 +661,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "EMCH 101 Intro. to Mechanical Engineering 3 * PR (or ENCP 101)",
           "title": "EMCH 101 Intro. to Mechanical Engineering (or ENCP 101)",
           "warnings": []
@@ -648,7 +679,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "Elective7 (UNIV 101 recommended) 3 PR See Bulletin listing.",
           "title": "Elective7 (UNIV 101 recommended)",
           "warnings": [

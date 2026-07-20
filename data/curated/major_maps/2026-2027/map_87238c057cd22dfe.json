@@ -469,6 +469,18 @@
     },
     {
       "category": "major_courses",
+      "code": "MUED 155",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ca9e4c011269a728",
+      "title": "Group Piano",
+      "typical_semester": "Fall",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
       "code": "MUSC 117",
       "corequisites": [],
       "credits": 1,
@@ -512,6 +524,18 @@
       "prerequisites": [],
       "source_requirement_id": "req_89e698d5c7b8e693",
       "title": "Rhetoric and Composition",
+      "typical_semester": "Spring",
+      "typical_year": 1
+    },
+    {
+      "category": "major_courses",
+      "code": "MUED 156",
+      "corequisites": [],
+      "credits": 2,
+      "min_grade": "C",
+      "prerequisites": [],
+      "source_requirement_id": "req_ab0e5c60c2ac33ec",
+      "title": "Group Piano",
       "typical_semester": "Spring",
       "typical_year": 1
     },
@@ -686,6 +710,24 @@
         {
           "confidence": "high",
           "course_codes": [
+            "MUED 155"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_ca9e4c011269a728",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MUED 155 Group Piano4 (or demonstration of piano prof. is required) 2 C * MR",
+          "title": "MUED 155 Group Piano4 (or demonstration of piano prof. is required)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
             "MUSC 117"
           ],
           "credit_hours": 1,
@@ -696,7 +738,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "! MUSC 117 Aural Skills I 1 C * MR",
           "title": "MUSC 117 Aural Skills I",
           "warnings": []
@@ -714,7 +756,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "MUSC 111 Lower Div. Applied Music5 2 C * MR",
           "title": "MUSC 111 Lower Div. Applied Music5",
           "warnings": []
@@ -732,7 +774,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "MUSC 100 Music Convocation 0 S MR",
           "title": "MUSC 100 Music Convocation",
           "warnings": []
@@ -751,7 +793,7 @@
           "requirement_codes": [
             "CC-GFL"
           ],
-          "sequence": 6,
+          "sequence": 7,
           "source_text": "Foreign Language6 or other Carolina Core Req.7 3-4 CC-GFL",
           "title": "Foreign Language6 or other Carolina Core Req.7",
           "warnings": [
@@ -804,6 +846,24 @@
         {
           "confidence": "high",
           "course_codes": [
+            "MUED 156"
+          ],
+          "credit_hours": 2,
+          "critical": false,
+          "id": "req_ab0e5c60c2ac33ec",
+          "minimum_grade": "C",
+          "relation": "required",
+          "requirement_codes": [
+            "MR"
+          ],
+          "sequence": 3,
+          "source_text": "MUED 156 Group Piano4 (or demonstration of piano prof. is required) 2 C * MR C or better in MUED 155 or advanced placement via exam",
+          "title": "MUED 156 Group Piano4 (or demonstration of piano prof. is required)",
+          "warnings": []
+        },
+        {
+          "confidence": "high",
+          "course_codes": [
             "MUSC 118"
           ],
           "credit_hours": 1,
@@ -814,7 +874,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 4,
           "source_text": "! MUSC 118 Aural Skills II 1 C * MR MUSC 117",
           "title": "MUSC 118 Aural Skills II",
           "warnings": []
@@ -832,7 +892,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 4,
+          "sequence": 5,
           "source_text": "MUSC 111 Lower Div. Applied Music5 2 C * MR",
           "title": "MUSC 111 Lower Div. Applied Music5",
           "warnings": []
@@ -850,7 +910,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 5,
+          "sequence": 6,
           "source_text": "MUSC 100 Music Convocation 0 S MR",
           "title": "MUSC 100 Music Convocation",
           "warnings": []
@@ -868,7 +928,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 7,
           "source_text": "MUSC 100L Recital Class Laboratory 1 C * MR",
           "title": "MUSC 100L Recital Class Laboratory",
           "warnings": []
@@ -886,7 +946,7 @@
           "requirement_codes": [
             "CC-AIU"
           ],
-          "sequence": 7,
+          "sequence": 8,
           "source_text": "! MUSC 115 Music Theory I 3 C CC-AIU C or better in MUSC 114 (or passing",
           "title": "MUSC 115 Music Theory I",
           "warnings": []
@@ -902,7 +962,7 @@
           "requirement_codes": [
             "CC-GFL"
           ],
-          "sequence": 8,
+          "sequence": 9,
           "source_text": "Foreign Language6 or other Carolina Core Req.7 3 CC-GFL",
           "title": "Foreign Language6 or other Carolina Core Req.7",
           "warnings": [
