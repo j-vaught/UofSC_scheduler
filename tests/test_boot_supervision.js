@@ -58,6 +58,11 @@ test('every feature starts through the supervisor, not a bare call', () => {
  */
 test('the boot sequence resolves modules by binding, not by globalThis name', () => {
     const sequenceAt = boot.indexOf('const BOOT_SEQUENCE = [');
+    // Anchor: without this a renamed BOOT_SEQUENCE makes sequenceAt -1, the slice
+    // collapses to nothing, and the globalThis[ check below passes against an
+    // empty string -- the "resolve by binding" guarantee would silently hold
+    // over no source at all (fails open).
+    assert.notEqual(sequenceAt, -1, 'the boot sequence moved; this test is not reading it');
     const sequence = boot.slice(sequenceAt, boot.indexOf('];', sequenceAt));
 
     assert.doesNotMatch(sequence, /globalThis\[/, 'a globalThis lookup misses lexically-declared modules');
@@ -113,5 +118,31 @@ test('the term selector is supervised, since it ran before AppModal existed', ()
     assert.ok(
         lastSupervisor > lastClose,
         'the term selector must be inside a startFeature block, or a missing element takes the modal down with it',
+    );
+});
+
+test('the schedule sidebar subscribes to state changes and paints once at startup', () => {
+    // The sidebar mirrors selected courses, sections, and locks. It must
+    // re-render on each of those state events AND paint once at startup, so a
+    // schedule that State restored before boot is visible immediately rather than
+    // only after the next change. Booting for real needs the whole global graph,
+    // so these are anchored source assertions scoped to the startup block.
+    const at = boot.indexOf("startFeature('Selected courses'");
+    assert.notEqual(at, -1, 'the sidebar startup block moved; this test is not reading it');
+    const block = boot.slice(at, boot.indexOf('});', at) + 3);
+
+    for (const event of ['courses-changed', 'sections-changed', 'section-locks-changed']) {
+        assert.match(
+            block,
+            new RegExp(`State\\.on\\('${event}',\\s*\\(\\)\\s*=>\\s*ScheduleSidebar\\.render\\(\\)\\)`),
+            `the sidebar must re-render on ${event}`,
+        );
+    }
+    // A standalone ScheduleSidebar.render(); -- not the arrow-wrapped
+    // subscriptions above -- paints the restored schedule once, unconditionally.
+    assert.match(
+        block,
+        /^\s*ScheduleSidebar\.render\(\);\s*$/m,
+        'the sidebar must paint once at startup, not only on later change events',
     );
 });

@@ -35,7 +35,12 @@ function deps(overrides = {}) {
 test('the feature reaches no ambient global', () => {
     // The coupling the extraction removed. A reference here means the fence
     // leaks and the module cannot be reused or replaced independently.
-    const body = source.slice(source.indexOf('function createHistoryFeature'));
+    const factoryAt = source.indexOf('function createHistoryFeature');
+    // Anchor: without this a renamed factory makes indexOf -1 and slice(-1)
+    // returns a single character, so every ambient-global check below passes
+    // against nothing -- the "no ambient global" guarantee fails open.
+    assert.notEqual(factoryAt, -1, 'createHistoryFeature moved; this test is not reading it');
+    const body = source.slice(factoryAt);
     for (const global of ['API.', 'State.', 'Search.', 'Tabs.', 'document.', 'window.', 'localStorage']) {
         assert.equal(
             body.includes(global), false,
