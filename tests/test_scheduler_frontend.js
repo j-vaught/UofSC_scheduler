@@ -742,15 +742,42 @@ test('part-of-term, honors, and course-attribute filters recognize live values',
     assert.equal(search.matchesPartOfTerm('3B (3B - Columbia Second Half Term)', 'second'), true);
     assert.equal(search.isHonorsSection({ code: 'SCHC 158', section: 'H01', title: 'HNRS: Rhetoric' }), true);
     assert.equal(search.isHonorsSection({ code: 'CSCE 145', section: '001', title: 'Algorithmic Design I' }), false);
-    assert.equal(search.matchesCourseAttribute({
-        experiential: '<strong>Experiential Learning:</strong> Experiential Learning Opportunity',
-    }, 'elo'), true);
-    assert.equal(search.matchesCourseAttribute({
-        founding_documents: '<strong>Founding Documents:</strong> FND Founding Documents',
-    }, 'founding'), true);
-    assert.equal(search.matchesCourseAttribute({
-        graduation: '<strong>Graduation with Leadership Distinction:</strong> GLD: Global Learning',
-    }, 'gld-global'), true);
+    /*
+     * These previously passed `experiential`, `founding_documents` and
+     * `graduation` fields. The bulletin payload has none of them, so the filter
+     * matched nothing in production while this test stayed green against
+     * fields it had invented -- the same failure as the Carolina Core mock.
+     *
+     * The strings below are the real shape, copied from live section details:
+     * attributes arrive together in course_attr, space separated.
+     */
+    const GLD_SECTION = {
+        course_attr: 'GLD: Global Learning (3GDG) GLD: Professional Engagement (3GDP) GSS: Global/Social Science (3GSS)',
+    };
+    assert.equal(search.matchesCourseAttribute(GLD_SECTION, 'gld-global'), true);
+    assert.equal(search.matchesCourseAttribute(GLD_SECTION, 'gld-professional'), true);
+    // Same payload, an attribute it does not carry: this is a filter, not a
+    // pass-through for anything with a course_attr string.
+    assert.equal(search.matchesCourseAttribute(GLD_SECTION, 'gld-community'), false);
+    assert.equal(search.matchesCourseAttribute(GLD_SECTION, 'gld-research'), false);
+
+    assert.equal(search.matchesCourseAttribute({ course_attr: 'CMW: Communication/Writing (3CMW)' }, 'gld-global'), false);
+    assert.equal(search.matchesCourseAttribute({}, 'gld-global'), false, 'no attributes means no match');
+
+    /*
+     * ELO and Founding Documents keep their patterns, but no live section
+     * carrying either was observed while fixing this, so these assert the
+     * intended reading rather than confirmed upstream wording. If the filter
+     * ever reports zero for them against real data, this is the thing to
+     * re-check first.
+     */
+    assert.equal(search.matchesCourseAttribute({ course_attr: 'Experiential Learning Opportunity (3ELO)' }, 'elo'), true);
+    assert.equal(search.matchesCourseAttribute({ course_attr: 'Founding Documents (3FND)' }, 'founding'), true);
+
+    // A bare /research/ would match any prose containing the word, so the
+    // research option is scoped to the GLD prefix.
+    assert.equal(search.matchesCourseAttribute({ course_attr: 'Undergraduate Research Methods' }, 'gld-research'), false);
+    assert.equal(search.matchesCourseAttribute({ course_attr: 'GLD: Research (3GDR)' }, 'gld-research'), true);
 });
 
 test('solver uses course-level choices instead of applied sections', async () => {
