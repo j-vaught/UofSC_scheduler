@@ -211,3 +211,39 @@ test('degree-plan drag validation protects downstream prerequisite order', () =>
     assert.deepEqual(state.degreePlan.semesters[3].courses.map(course => course.code), ['TEST 301']);
     assert.equal(state.degreePlan.pins['TEST 301'], '202801');
 });
+
+test('a saved degree plan reopens the wizard on its final step', () => {
+    // A student who already generated a plan should return to it, not to the
+    // empty first step. init() takes the showStep(4, false) restore branch only
+    // when State.degreePlan.semesters is non-empty.
+    function bootWizard(state) {
+        const wizard = loadObject('static/js/degree-wizard.js', 'DegreeWizard', {
+            State: state,
+            document: { querySelectorAll: () => [], querySelector: () => null },
+        });
+        // The DOM binding and rendering are exercised elsewhere; stub them so
+        // init reaches its restore branch without a real document.
+        Object.assign(wizard, {
+            bindNavigation() {}, bindCourseworkActions() {}, bindStrategy() {},
+            refreshProgram() {}, renderCourseworkReview() {},
+        });
+        return wizard;
+    }
+
+    const majorData = { major: 'Test' };
+    const restored = bootWizard({
+        profile: { majorData },
+        degreePlan: { semesters: [{ term: '202608', label: 'Fall 2026', courses: [], total_credits: 0 }] },
+        on() {},
+    });
+    restored.init();
+    assert.equal(restored.currentStep, 4, 'a non-empty saved plan must reopen on step 4');
+
+    const empty = bootWizard({
+        profile: { majorData },
+        degreePlan: { semesters: [] },
+        on() {},
+    });
+    empty.init();
+    assert.equal(empty.currentStep, 1, 'an empty plan stays on the first step');
+});

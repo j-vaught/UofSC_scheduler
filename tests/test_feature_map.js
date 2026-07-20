@@ -29,7 +29,12 @@ function makeDeps(overrides = {}) {
 }
 
 test('the feature reaches no application global', () => {
-    const body = source.slice(source.indexOf('function createMapFeature'));
+    const factoryAt = source.indexOf('function createMapFeature');
+    // Anchor: without this a renamed factory makes indexOf -1 and slice(-1)
+    // returns a single character, so every ambient-global check below passes
+    // against nothing -- the "no application global" guarantee fails open.
+    assert.notEqual(factoryAt, -1, 'createMapFeature moved; this test is not reading it');
+    const body = source.slice(factoryAt);
     for (const global of ['API.', 'State.', 'localStorage']) {
         assert.equal(body.includes(global), false, `the fenced feature still reaches ${global}`);
     }
@@ -95,4 +100,47 @@ test('the composition point supplies every declared dependency', () => {
     for (const name of ['getDetails', 'currentTerm', 'selectedSections', 'onStateChange', 'fetch', 'storage']) {
         assert.match(composition, new RegExp(name), `map.js should supply ${name}`);
     }
+});
+
+test('the map hydrates an already-selected schedule at init', async () => {
+    // Mirrors the calendar's 'paints an already-restored schedule at init'. State
+    // can restore a schedule before the map initialises, so init() has to refresh
+    // against the sections that are already selected rather than only subscribing
+    // for a future change event -- otherwise a restored map stays blank over a
+    // schedule the student can see listed elsewhere.
+    const asked = [];
+    const section = {
+        code: 'TEST 101',
+        crn: '10001',
+        meetingTimes: '[{"meet_day":1,"start_time":900,"end_time":950}]',
+    };
+    const map = feature.createMapFeature(makeDeps({
+        selectedSections: () => ({ 'TEST 101': section }),
+        getDetails: async crn => { asked.push(crn); return { meeting_html: '' }; },
+    }));
+
+    // The DOM and Leaflet are ambient for this feature by design, so stub the
+    // paint methods (as the calendar test stubs buildGrid/render) to let init
+    // reach its hydration path without a real browser.
+    map.renderShell = () => { map.listElement = { innerHTML: '' }; };
+    map.updateDayVisibility = () => {};
+    map.updateDaySelection = () => {};
+    map.buildEvents = () => [];
+    map.buildTransitions = async () => [];
+    map.renderTransitions = () => {};
+    map.renderMap = async () => {};
+
+    const previousDocument = global.document;
+    global.document = { getElementById: () => ({ innerHTML: '' }) };
+    try {
+        await map.init();
+    } finally {
+        if (previousDocument === undefined) delete global.document;
+        else global.document = previousDocument;
+    }
+
+    assert.ok(
+        asked.includes('10001'),
+        'init must hydrate the already-selected section, not wait for a change event',
+    );
 });

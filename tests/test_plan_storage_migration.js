@@ -95,6 +95,61 @@ test('unreadable storage leaves existing plans alone rather than clearing them',
     }
 });
 
+test('restoring twice is idempotent', () => {
+    // _restore() reassigns savedPlans from the same stored document each time, so
+    // running it again -- as a second tab sync or a re-init would -- must land on
+    // exactly the same plans, never doubling or dropping any.
+    const seed = JSON.stringify({
+        version: 1,
+        plans: {
+            'Plan A': { completedCourses: ['ENGL 101'], courses: { 'CSCE 145': { code: 'CSCE 145' } } },
+            'Plan B': { completedCourses: [] },
+        },
+    });
+    const { state } = loadState(seed);
+    state._restore();
+    const once = asValue(state.savedPlans);
+    state._restore();
+    const twice = asValue(state.savedPlans);
+    assert.deepEqual(twice, once, 'a second restore must yield the same saved plans as the first');
+});
+
+test('a saved plan keeps unknown fields from a newer schema across a storage round trip', () => {
+    // A newer build in another tab may add fields this version does not model.
+    // Persistence is opaque -- _persist writes savedPlans whole and
+    // _migratePlansDocument hands the plan objects back without enumerating their
+    // fields -- so an unknown field must survive a load-then-resave cycle rather
+    // than being silently discarded. (This is a storage round trip: a full
+    // loadPlan()/savePlan() rebuild is a different path that reshapes the plan to
+    // this version's known fields.)
+    const seed = JSON.stringify({
+        version: 1,
+        plans: {
+            'Plan A': {
+                completedCourses: ['CSCE 145'],
+                courses: { 'CSCE 145': { code: 'CSCE 145' } },
+                futureField: 'from a newer build',
+                futureNested: { keep: [1, 2, 3] },
+            },
+        },
+    });
+    const { state, store } = loadState(seed);
+    state._restore();
+    assert.equal(
+        state.savedPlans['Plan A'].futureField, 'from a newer build',
+        'restore must not strip fields it does not recognise',
+    );
+    state._persist();
+
+    const { state: reloaded } = loadState(store.get('uosc-scheduler-plans'));
+    reloaded._restore();
+    assert.equal(
+        reloaded.savedPlans['Plan A'].futureField, 'from a newer build',
+        're-saving must not drop unknown fields',
+    );
+    assert.deepEqual(asValue(reloaded.savedPlans['Plan A'].futureNested), { keep: [1, 2, 3] });
+});
+
 test('storage failures do not throw out of restore or persist', () => {
     const source = fs.readFileSync(path.join(ROOT, 'static/js/state.js'), 'utf8');
     const sandbox = vm.createContext({
