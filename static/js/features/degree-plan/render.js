@@ -245,19 +245,20 @@
             let coursesHtml = '';
             sem.courses.forEach(course => {
                 /*
-                 * Declared here as in renderSemesterColumn. This method used
-                 * the name without declaring it -- it was a local of the
-                 * sibling method, out of scope here -- so rendering any
-                 * completed semester that had courses threw a ReferenceError.
-                 * Completed courses come from the transcript and are never
-                 * elective slots, so this is false in practice; keeping the
-                 * conditional keeps both columns' card markup parallel.
+                 * Plain course.code, deliberately. An `isElective ? title :
+                 * code` ternary used to sit here, referencing a local that
+                 * only exists in renderSemesterColumn -- so any completed
+                 * semester with courses threw a ReferenceError. The ternary
+                 * was an edit that landed on the wrong of two near-identical
+                 * lines: completed cards come from the transcript and are
+                 * never elective slots, while the PLANNED column below is
+                 * where elective slots show their human-readable title
+                 * instead of the synthetic [REQ-x-y] code.
                  */
-                const isElective = course.is_elective_slot;
                 coursesHtml += `
                     <div class="${this.CARD_DOM.CARD_CLASS} ${this.CARD_DOM.COMPLETED_CARD_CLASS}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" data-${this.CARD_DOM.SEMESTER_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_COMPLETED}" draggable="true">
                         <div class="course-card-header">
-                            <span class="course-card-code">${isElective ? course.title : course.code}</span>
+                            <span class="course-card-code">${course.code}</span>
                             <button type="button" class="${this.CARD_DOM.REMOVE_BADGE_CLASS}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" aria-label="Remove ${course.code}">REMOVE</button>
                         </div>
                         <div class="course-card-title">${course.title} <span class="course-card-credits">${course.credits} cr</span></div>
@@ -306,7 +307,7 @@
                 coursesHtml += `
                     <div class="${cardClass}" data-${this.CARD_DOM.CODE_ATTR}="${course.code}" data-${this.CARD_DOM.SEMESTER_ATTR}="${sem.term}" data-${this.CARD_DOM.SECTION_ATTR}="${this.CARD_DOM.SECTION_PLANNED}" draggable="true">
                         <div class="course-card-header">
-                            <span class="course-card-code">${course.code}</span>
+                            <span class="course-card-code">${isElective ? course.title : course.code}</span>
                             <span class="course-card-actions">${isElective ? '' : `<button type="button" class="${this.CARD_DOM.INFO_BUTTON_CLASS}" aria-label="View details and current offerings for ${course.code}" title="View course details, grades, history, and current offerings">i</button>`}<span class="course-card-credits">${course.credits} cr</span></span>
                         </div>
                         <div class="course-card-title">${course.title}</div>
