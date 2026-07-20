@@ -1,3 +1,24 @@
+const path = require('node:path');
+const ROOT_DIR_CSS = path.resolve(__dirname, '..');
+
+/*
+ * The stylesheet, however it happens to be split.
+ *
+ * style.css was one 5,066-line file and is now thirteen, linked in the order
+ * they were cut from it because the cascade depends on that order. Tests care
+ * about the rules, not which file holds them, so they read the whole sheet --
+ * otherwise splitting a section again breaks assertions that are still true.
+ */
+function stylesheet() {
+    const dir = path.join(ROOT_DIR_CSS, 'static/css');
+    const html = fs.readFileSync(path.join(ROOT_DIR_CSS, 'static/index.html'), 'utf8');
+    const linked = [...html.matchAll(/<link[^>]+href="\/static\/css\/([^"?]+)/g)].map(m => m[1]);
+    return linked
+        .filter(name => fs.existsSync(path.join(dir, name)))
+        .map(name => fs.readFileSync(path.join(dir, name), 'utf8'))
+        .join('\n');
+}
+
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const test = require('node:test');
@@ -85,7 +106,7 @@ test('credit-total mismatches warn without becoming validation errors', () => {
 
 test('degree wizard exposes the device-local custom major map builder', () => {
     const html = fs.readFileSync('static/index.html', 'utf8');
-    const css = fs.readFileSync('static/css/style.css', 'utf8');
+    const css = stylesheet();
     assert.match(html, /id="btn-add-custom-major-map"/);
     assert.match(html, /static\/js\/custom-major-map\.js/);
     // Boot registers modules as `['Label', () => Module]` rows now, not as

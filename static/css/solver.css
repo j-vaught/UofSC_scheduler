@@ -1,0 +1,196 @@
+/*
+ * Generated schedule options.
+ *
+ * Split out of a single 5,066-line style.css. The order these are linked
+ * in index.html is the order they appeared in that file, because the
+ * cascade depends on it -- reordering the link tags changes the page.
+ */
+/* === Solver Results === */
+.schedule-card {
+    background: #ffffff;
+    border: 2px solid #000000;
+    min-width: 0;
+    overflow: hidden;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.schedule-card:hover { border-color: #73000A; background: #fef5f5; }
+.schedule-card.selected { border-color: #73000A; border-width: 3px; background: #fce4ec; }
+.schedule-card.applied,
+.schedule-card.applied:hover {
+    background: #ECECEC;
+    border-color: #A2A2A2;
+    color: #5C5C5C;
+    cursor: default;
+    opacity: 0.72;
+}
+.schedule-card.applied .score,
+.schedule-card.applied .sched-courses,
+.schedule-card.applied .sched-course span { color: #5C5C5C; }
+.schedule-card.applied .sched-course { background: transparent; }
+.schedule-card .score { font-size: 0.85rem; color: #73000A; font-weight: 700; }
+.schedule-card .sched-courses { font-size: 0.8rem; color: #333333; margin-top: 4px; }
+.solver-summary { color: #363636; font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
+.btn-show-more {
+    background: #ffffff;
+    border: 2px solid #73000A;
+    color: #73000A;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 8px 12px;
+    width: 100%;
+}
+.btn-show-more:hover { background: #73000A; color: #ffffff; }
+.schedule-card-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.btn-apply {
+    background: #73000A;
+    border: 2px solid #73000A;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+.btn-apply:hover { background: #000000; border-color: #000000; }
+.btn-apply:disabled {
+    background: #A2A2A2;
+    border-color: #5C5C5C;
+    color: #363636;
+    cursor: default;
+}
+.solver-error {
+    background: #FFF2E3;
+    border: 2px solid #73000A;
+    color: #73000A;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.4;
+    padding: 10px;
+}
+.schedule-vertical-resizer {
+    align-items: center;
+    align-self: center;
+    background: #ECECEC;
+    border: 2px solid #000000;
+    color: #363636;
+    cursor: row-resize;
+    display: flex;
+    flex: 0 0 20px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: 0.4px;
+    line-height: 1;
+    margin: -7px auto;
+    position: relative;
+    text-transform: uppercase;
+    touch-action: none;
+    user-select: none;
+    width: calc(100% - 20px);
+    z-index: 12;
+}
+.schedule-vertical-resizer::before,
+.schedule-vertical-resizer::after {
+    background: #73000A;
+    content: '';
+    height: 2px;
+    margin: 0 10px;
+    width: 70px;
+}
+.schedule-vertical-resizer:hover,
+.schedule-vertical-resizer:focus-visible,
+.schedule-vertical-resizer.active {
+    background: #FFF2E3;
+    border-color: #73000A;
+    outline: 2px solid #73000A;
+    outline-offset: 1px;
+}
+body.resizing-schedule { cursor: row-resize; user-select: none; }
+.sched-course {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #C7C7C7;
+    color: #000000;
+    display: grid;
+    font: inherit;
+    gap: 2px;
+    padding: 7px 0;
+    text-align: left;
+    width: 100%;
+}
+.sched-course:first-child { border-top: none; }
+.sched-course:hover { background: rgba(236, 236, 236, 0.8); }
+.sched-course strong { color: #73000A; text-decoration: underline; text-underline-offset: 2px; }
+.sched-course span { color: #5C5C5C; }
+.schedule-card .sched-courses,
+.schedule-card .sched-course,
+.schedule-card .sched-course strong,
+.schedule-card .sched-course span {
+    min-width: 0;
+    overflow: hidden;
+}
+.schedule-card .sched-course strong,
+.schedule-card .sched-course span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sched-course .sched-course-full { color: #73000A; font-weight: 700; }
+
+@media (max-width: 1100px) {
+    #schedule-content { gap: 10px; overflow: hidden; padding: 10px; }
+    .schedule-workspace {
+        flex: 0 0 var(--schedule-workspace-height, min(68vh, 720px));
+        grid-template-columns: minmax(170px, 0.56fr) minmax(0, 1.35fr);
+        height: auto;
+    }
+    .schedule-preview-panel,
+    #solver-section { height: 100%; }
+    #solver-section { max-height: none; order: initial; }
+    #calendar-container { flex: 1 1 auto; height: auto; }
+    .schedule-vertical-resizer { display: flex; }
+}
+
+@media (max-width: 760px) {
+    .schedule-layout { display: block; overflow-y: auto; }
+    #schedule-sidebar { width: 100%; min-width: 0; max-width: none; border-right: none; border-bottom: 3px solid #000000; overflow: visible; }
+    .schedule-layout.schedule-sidebar-collapsed #schedule-sidebar { display: none; }
+    .schedule-sidebar-toggle-rail {
+        border-left: none;
+        border-bottom: 3px solid #000000;
+        height: 28px;
+        min-width: 0;
+        width: 100%;
+    }
+    .schedule-sidebar-resize-handle { display: none; }
+    .schedule-sidebar-toggle {
+        height: 24px;
+        padding: 0;
+        right: calc(50% - 12px);
+        width: 24px;
+    }
+    .schedule-sidebar-toggle::before { top: 1px; }
+    .schedule-sidebar-toggle-icon { left: 50%; transform: translate(-50%, -50%) rotate(-135deg); }
+    .schedule-sidebar-collapsed .schedule-sidebar-toggle-icon { left: 50%; transform: translate(-50%, -50%) rotate(45deg); }
+    #schedule-content {
+        height: max(680px, calc(100dvh - 84px));
+        min-height: 680px;
+        overflow: hidden;
+    }
+    .schedule-workspace {
+        display: grid;
+        grid-template-columns: minmax(170px, 0.56fr) minmax(0, 1.35fr);
+    }
+    #solver-section { order: initial; }
+    .schedule-search-results { flex: none; max-height: 250px; }
+    .schedule-course-divider { display: none; }
+    .schedule-selected-section { flex: none; margin-top: 20px; max-height: 440px; }
+    .schedule-preference-grid { grid-template-columns: 1fr; }
+    .schedule-preference-days,
+    .schedule-preference-times,
+    .schedule-preference-walking { grid-column: 1; }
+
+    .schedule-time-options { grid-template-columns: 1fr; }
+    .schedule-day-options { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow-x: auto; }
+}

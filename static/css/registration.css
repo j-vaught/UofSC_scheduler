@@ -1,0 +1,242 @@
+/*
+ * Registration restrictions and notices.
+ *
+ * Split out of a single 5,066-line style.css. The order these are linked
+ * in index.html is the order they appeared in that file, because the
+ * cascade depends on it -- reordering the link tags changes the page.
+ */
+/* === Registration info === */
+.registration-info-modal { max-width: 760px; padding: 20px; }
+.registration-info-modal #modal-close {
+    align-items: center;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    display: flex;
+    height: 32px;
+    justify-content: center;
+    line-height: 1;
+    right: 14px;
+    top: 14px;
+    width: 32px;
+}
+.registration-dialog { margin: -20px; }
+.registration-dialog-header {
+    background: #000000;
+    color: #FFFFFF;
+    padding: 18px 54px 17px 20px;
+}
+#modal-content .registration-dialog-header h2 {
+    color: #FFFFFF;
+    font-size: 1.35rem;
+    margin: 0;
+}
+.registration-instructions {
+    background: #FFF2E3;
+    border-bottom: 1px solid #A49137;
+    color: #363636;
+    line-height: 1.4;
+    margin: 0 !important;
+    padding: 11px 20px;
+}
+.registration-course-list {
+    display: grid;
+    gap: 10px;
+    margin: 0 !important;
+    padding: 14px 20px 8px;
+}
+.registration-course-card {
+    border: 1px solid #A2A2A2;
+    padding: 0;
+}
+.registration-course-header {
+    align-items: center;
+    background: #ECECEC;
+    display: grid;
+    gap: 9px;
+    grid-template-columns: minmax(0, 1fr) 84px 54px;
+    padding: 9px 11px;
+}
+.registration-course-copy { min-width: 0; }
+.registration-course-copy strong,
+.registration-course-copy span { display: block; }
+.registration-course-copy strong { color: #73000A; font-size: 0.85rem; }
+.registration-course-copy span {
+    color: #5C5C5C;
+    font-size: 0.72rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.registration-seats.open { color: #2e7d32; }
+.registration-seats.full { color: #c62828; }
+.registration-copy-crn {
+    border: 2px solid #000000;
+    font-size: 0.66rem;
+    font-weight: 800;
+    height: 30px;
+    padding: 5px 7px;
+    width: 84px;
+}
+.registration-expand {
+    align-items: center;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    display: flex;
+    gap: 5px;
+    height: 30px;
+    justify-content: center;
+    padding: 3px 6px;
+    width: 54px;
+}
+.registration-expand:hover,
+.registration-expand:focus-visible { background: #C7C7C7; outline: 2px solid #73000A; outline-offset: 1px; }
+.registration-status-icon {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    display: inline-flex;
+    font-weight: 900;
+    height: 18px;
+    justify-content: center;
+    position: relative;
+    flex: 0 0 20px;
+    width: 20px;
+    z-index: 0;
+}
+.registration-status-icon[hidden] { display: none; }
+.registration-success-icon {
+    color: #2e7d32;
+    font-size: 1rem;
+    line-height: 1;
+}
+.registration-warning-icon {
+    color: #000000;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    padding-top: 4px;
+}
+.registration-warning-icon::before,
+.registration-warning-icon::after {
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    content: '';
+    position: absolute;
+    z-index: -1;
+}
+.registration-warning-icon::before {
+    background: #000000;
+    inset: 0;
+}
+.registration-warning-icon::after {
+    background: #FFEB66;
+    inset: 2px 2px 1px;
+}
+.registration-chevron {
+    display: inline-block;
+    font-size: 0.65rem;
+    transition: transform 120ms ease;
+}
+.registration-expand[aria-expanded="true"] .registration-chevron { transform: rotate(180deg); }
+.registration-course-details[hidden] { display: none; }
+.registration-identifiers {
+    border-bottom: 1px solid #C7C7C7;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px 15px;
+    margin: 0 !important;
+    padding: 7px 11px;
+}
+.registration-identifiers span { color: #5C5C5C; font-size: 0.68rem; }
+.registration-identifiers strong { color: #000000; }
+.registration-detail-grid {
+    display: grid;
+    gap: 10px 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0 !important;
+    padding: 10px 11px;
+}
+.registration-detail-grid > div { min-width: 0; }
+.registration-detail-grid > div.attention {
+    background: #FFF2E3;
+    border-left: 4px solid #CC2E40;
+    padding: 6px 8px;
+}
+.registration-detail-wide { grid-column: 1 / -1; }
+.registration-label {
+    color: #5C5C5C;
+    display: block;
+    font-size: 0.56rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 2px;
+}
+.registration-value {
+    color: #000000;
+    display: block;
+    font-size: 0.72rem;
+    line-height: 1.35;
+}
+.registration-requirements {
+    background: #FFF2E3;
+    border-top: 1px solid #A49137;
+    margin: 0 !important;
+    padding: 8px 11px;
+}
+.registration-requirements[hidden] { display: none; }
+.registration-requirements h3 {
+    color: #73000A;
+    font-size: 0.7rem;
+    margin: 0 0 7px;
+    text-transform: uppercase;
+}
+.registration-requirements p {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 130px minmax(0, 1fr);
+    margin: 0 0 5px !important;
+}
+.registration-requirements p:last-child { margin-bottom: 0 !important; }
+.registration-requirements strong { color: #73000A; font-size: 0.65rem; }
+.registration-requirements span { color: #363636; font-size: 0.68rem; line-height: 1.35; }
+.registration-requirements p.attention {
+    background: #FFFFFF;
+    border-left: 4px solid #CC2E40;
+    padding: 6px 8px;
+}
+.registration-copy-status {
+    color: #1F414D;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    min-height: 1em;
+    padding: 0 20px;
+}
+.registration-dialog-actions {
+    background: #ECECEC;
+    border-top: 2px solid #000000;
+    display: flex;
+    gap: 8px;
+    margin: 4px 0 0 !important;
+    padding: 11px 20px;
+}
+.registration-onecarolina-link {
+    align-items: center;
+    border: 2px solid #000000;
+    display: inline-flex;
+    font-size: 0.72rem;
+    font-weight: 800;
+    justify-content: center;
+    min-height: 34px;
+    padding: 7px 12px;
+    text-decoration: none;
+}
+.registration-onecarolina-link { background: #FFFFFF; color: #000000; }
+.registration-onecarolina-link:hover,
+.registration-onecarolina-link:focus-visible { background: #363636; color: #FFFFFF; }
+
+@media (max-width: 620px) {
+    .registration-course-header { grid-template-columns: minmax(0, 1fr) 84px 48px; }
+    .registration-expand { width: 48px; }
+    .registration-detail-grid { grid-template-columns: 1fr; }
+    .registration-detail-wide { grid-column: auto; }
+    .registration-requirements p { grid-template-columns: 1fr; }
+    .registration-dialog-actions { flex-direction: column; }
+}
