@@ -25,8 +25,49 @@ test('every feature starts through the supervisor, not a bare call', () => {
     const bare = [...boot.matchAll(/^\s{4}([A-Z]\w+)\.init\(\);/gm)].map(m => m[1]);
     assert.deepEqual(bare, [], `these init calls are unguarded: ${bare.join(', ')}`);
 
+    /*
+     * The thirteen repetitive startFeature lines became one loop over
+     * BOOT_SEQUENCE, so counting call sites no longer counts features. What
+     * matters is unchanged: every entry starts under supervision, and the loop
+     * that walks them is itself a startFeature call.
+     */
+    const sequenceAt = boot.indexOf('const BOOT_SEQUENCE = [');
+    assert.notEqual(sequenceAt, -1, 'the boot sequence moved; this test is not reading it');
+    const sequence = boot.slice(sequenceAt, boot.indexOf('];', sequenceAt));
+    const entries = [...sequence.matchAll(/\['([^']+)',\s*\(\)\s*=>\s*(\w+)\]/g)];
+    assert.ok(entries.length >= 13, `expected the full boot sequence, found ${entries.length}`);
+
+    assert.match(
+        boot,
+        /for \(const \[label, resolve\] of BOOT_SEQUENCE\) \{\s*startFeature\(/,
+        'the sequence must be walked through startFeature, not called directly',
+    );
+
+    // Bespoke startups that are not simple init() calls stay explicit.
     const supervised = [...boot.matchAll(/startFeature\(/g)].length;
-    assert.ok(supervised >= 13, `expected every feature supervised, found ${supervised}`);
+    assert.ok(supervised >= 4, `expected the bespoke startups supervised too, found ${supervised}`);
+});
+
+/*
+ * Each entry resolves its module through a thunk rather than a globalThis
+ * lookup. That is not style: these are classic scripts, so `const Foo` at the
+ * top level is a lexical binding that never becomes a property of globalThis.
+ * Five of the thirteen modules -- SiteNotices, Tabs, Calendar, WalkingMap,
+ * Preferences -- never assign themselves to the global object, so a name-based
+ * lookup would report five working features as broken.
+ */
+test('the boot sequence resolves modules by binding, not by globalThis name', () => {
+    const sequenceAt = boot.indexOf('const BOOT_SEQUENCE = [');
+    const sequence = boot.slice(sequenceAt, boot.indexOf('];', sequenceAt));
+
+    assert.doesNotMatch(sequence, /globalThis\[/, 'a globalThis lookup misses lexically-declared modules');
+    for (const global of ['SiteNotices', 'Tabs', 'Calendar', 'WalkingMap', 'Preferences']) {
+        assert.match(
+            sequence,
+            new RegExp(`\\(\\)\\s*=>\\s*${global}\\b`),
+            `${global} must be resolved by binding; it is never set on globalThis`,
+        );
+    }
 });
 
 test('a failing feature does not stop the ones after it', () => {

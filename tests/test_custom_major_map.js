@@ -88,6 +88,8 @@ test('degree wizard exposes the device-local custom major map builder', () => {
     const css = fs.readFileSync('static/css/style.css', 'utf8');
     assert.match(html, /id="btn-add-custom-major-map"/);
     assert.match(html, /static\/js\/custom-major-map\.js/);
-    assert.match(html + bootSource(), /CustomMajorMap\.init\(\)/);
+    // Boot registers modules as `['Label', () => Module]` rows now, not as
+    // repeated Module.init() calls.
+    assert.match(html + bootSource(), /\(\)\s*=>\s*CustomMajorMap\b/);
     assert.match(css, /custom-major-map-modal/);
 });

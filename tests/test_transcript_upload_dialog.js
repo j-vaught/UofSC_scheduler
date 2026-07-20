@@ -21,7 +21,8 @@ test('one reusable transcript dialog serves the consolidated degree planner', ()
     assert.equal((html.match(/id="transcript-upload-dialog"/g) || []).length, 0);
     assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js\?v=\d+"/);
     assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
-    assert.match(html + bootSource(), /TranscriptImport\.init\(\)/);
+    // Boot registers modules as `['Label', () => Module]` rows now.
+    assert.match(html + bootSource(), /\(\)\s*=>\s*TranscriptImport\b/);
 });
 
 test('dialog provides direct and fallback UofSC transcript guidance', () => {

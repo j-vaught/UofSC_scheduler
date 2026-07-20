@@ -52,9 +52,23 @@ test('every script index.html loads is same-origin and precached', () => {
     const external = sources.filter(src => /^[a-z]+:\/\//i.test(src) || src.startsWith('//'));
     assert.deepEqual(external, [], `script-src 'self' forbids cross-origin scripts: ${external.join(', ')}`);
 
-    const precached = new Set([...serviceWorker.matchAll(/'(\/static\/js\/[^']+)'/g)].map(match => match[1]));
-    const missing = sources.map(src => src.split('?')[0]).filter(src => !precached.has(src));
-    assert.deepEqual(missing, [], `scripts absent from SHELL_ASSETS fail a cold offline start: ${missing.join(', ')}`);
+    /*
+     * The shell list is derived from this markup at build time now, so the
+     * property worth checking flipped: it is no longer "did someone remember to
+     * add it", it is "does the worker still defer to the build". A literal
+     * array pasted back into service-worker.js would silently reintroduce the
+     * drift, because the build would substitute nothing and ship the stale list.
+     */
+    assert.match(
+        serviceWorker,
+        /const SHELL_ASSETS = __SHELL_ASSETS__;/,
+        'service-worker.js must take its shell list from the build, not carry one',
+    );
+    assert.doesNotMatch(
+        serviceWorker,
+        /'\/static\/js\/[^']+'/,
+        'a hand-maintained asset list has crept back into the service worker',
+    );
 });
 
 test('boot.js owns the startup sequence and tolerates either document state', () => {
