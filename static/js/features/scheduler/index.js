@@ -47,18 +47,6 @@
 
     function createSchedulerFeature(deps) {
         /*
-         * Every collaborator is optional and type-checked, which is faithful
-         * rather than lax. The original module referenced State and API lazily
-         * inside its methods, not at load, so a page or a test could construct
-         * it without them and only fail on the path that actually needed one.
-         * Requiring them here would be a behaviour change smuggled inside an
-         * extraction -- the thing this whole phase is trying not to do.
-         *
-         * The guarantee this fence makes is that nothing ambient is reachable,
-         * not that construction fails fast. An absent collaborator throws at
-         * the same call site it always did.
-         */
-        /*
          * No collaborator inspection at construction, deliberately.
          *
          * The composition point supplies these as getters, because classic
@@ -73,7 +61,8 @@
          * every script had run. Reproducing that is the point.
          */
 
-        const feature = {        _lastSearchGroups: [],
+        const feature = {
+        _lastSearchGroups: [],
         _searchPageSize: 30,
         _searchVisibleCount: 30,
         _courseSearchRequestId: 0,

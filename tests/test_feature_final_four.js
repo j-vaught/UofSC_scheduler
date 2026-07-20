@@ -113,7 +113,8 @@ test('search keeps its detail state private to itself', () => {
 test('every composition point supplies collaborators for its feature', () => {
     const cases = {
         scheduler: ['state', 'api', 'calendar', 'grades', 'prereqs', 'search', 'tabs', 'walkingMap'],
-        search: ['state', 'api', 'grades', 'history', 'prereqs', 'scheduler', 'tabs', 'walkingMap'],
+        search: ['state', 'api', 'carolinaCore', 'grades', 'history', 'prereqs', 'scheduler',
+            'tabs', 'walkingMap'],
         export: ['selectedSections', 'currentTerm'],
         prereqs: ['bulletinSearch', 'bulletinDetails', 'searchCourses', 'completedCourses',
             'currentTerm', 'showCourseDetail'],
@@ -222,4 +223,56 @@ test('the ICS exporter builds from the injected schedule and term', () => {
     assert.deepEqual(JSON.parse(JSON.stringify(feature.parseMeetingTimes(null))), []);
     // A malformed payload must not throw out of an export.
     assert.deepEqual(JSON.parse(JSON.stringify(feature.parseMeetingTimes('{oops'))), []);
+});
+
+/*
+ * The Carolina Core filter scraped a `carolinacore` field off the bulletin
+ * detail payload. That field does not exist -- the payload carries code,
+ * title, hours, description and prerequisites -- so the scrape always produced
+ * an empty list and all ten outcome options returned zero results. Selecting
+ * "CMW" hid every course, ENGL 101 included.
+ *
+ * The data was in the build the whole time, as the shard the degree planner's
+ * Core picker already reads.
+ */
+test('Carolina Core outcomes come from the catalogue, not a scraped field', async () => {
+    const source = featureSource('search');
+    assert.doesNotMatch(
+        source,
+        /details\.carolinacore/,
+        'the bulletin payload has no carolinacore field; scraping it matches nothing',
+    );
+    assert.match(source, /deps\.carolinaCore\.loadCatalog\(\)/);
+
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${source}\nglobalThis.__f = Features.search;`, sandbox);
+    const feature = sandbox.__f.createSearchFeature({
+        carolinaCore: {
+            loadCatalog: async () => ({
+                courses: [
+                    { code: 'ENGL 101', outcomes: ['CMW'] },
+                    { code: 'MATH 141', outcomes: ['ARP'] },
+                ],
+            }),
+        },
+    });
+
+    assert.deepEqual(JSON.parse(JSON.stringify(await feature.fetchCarolinaCoreCodes('ENGL 101'))), ['CMW']);
+    assert.deepEqual(JSON.parse(JSON.stringify(await feature.fetchCarolinaCoreCodes('MATH 141'))), ['ARP']);
+    assert.deepEqual(JSON.parse(JSON.stringify(await feature.fetchCarolinaCoreCodes('CSCE 145'))), []);
+});
+
+test('an unreachable Core catalogue yields no outcomes rather than throwing', async () => {
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${featureSource('search')}\nglobalThis.__f = Features.search;`, sandbox);
+    const feature = sandbox.__f.createSearchFeature({
+        carolinaCore: { loadCatalog: async () => { throw new Error('offline'); } },
+    });
+    assert.deepEqual(JSON.parse(JSON.stringify(await feature.fetchCarolinaCoreCodes('ENGL 101'))), []);
 });
