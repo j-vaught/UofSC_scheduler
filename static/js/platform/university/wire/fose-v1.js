@@ -21,7 +21,7 @@
 }(typeof globalThis === 'object' ? globalThis : self, (Section, Term) => {
     'use strict';
 
-    const ALLOWED_FIELDS = Object.freeze(['alias', 'crn', 'keyword', 'stat', 'subject']);
+    const ALLOWED_FIELDS = Object.freeze(['alias', 'course_attr', 'crn', 'keyword', 'stat', 'subject']);
     const MAX_CRITERIA = 6;
     const MAX_VALUE_LENGTH = 120;
 

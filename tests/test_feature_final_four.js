@@ -276,3 +276,127 @@ test('an unreachable Core catalogue yields no outcomes rather than throwing', as
     });
     assert.deepEqual(JSON.parse(JSON.stringify(await feature.fetchCarolinaCoreCodes('ENGL 101'))), []);
 });
+
+/*
+ * Carolina Core is a search criterion now, not a post-filter: upstream matches
+ * course_attr against the exact display string, so one request returns only the
+ * sections carrying the outcome.
+ *
+ * The pair of tests below are really one property. Exactly one mechanism may
+ * narrow, never both -- applying the shard on top of an upstream-filtered set
+ * lets a stale catalogue drop a course upstream was right to return, which is
+ * the failure a newly-designated course would hit and nobody would see.
+ */
+/*
+ * The decision itself, tested directly.
+ *
+ * Driving the whole of doSearch here was tried and dropped: it reads a dozen
+ * filter elements before it builds criteria, so a sandbox stub large enough to
+ * reach the criterion would be asserting mostly on the stub. The seam below is
+ * what decides, and the wiring is pinned separately and verified in a browser.
+ */
+test('every outcome resolves to its exact upstream search value', () => {
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${featureSource('search')}\nglobalThis.__f = Features.search;`, sandbox);
+    const carolinaCore = require('../static/js/carolina-core.js');
+    const feature = sandbox.__f.createSearchFeature({ carolinaCore });
+
+    assert.equal(feature.carolinaCoreSearchValue('ARP'), 'ARP: Analytical Reasoning (3ARP)');
+    assert.equal(feature.carolinaCoreSearchValue('GFL'), 'GFL: Global/Language (3GFL)');
+    for (const outcome of Object.keys(carolinaCore.labels)) {
+        assert.notEqual(feature.carolinaCoreSearchValue(outcome), '', `${outcome} has no search value`);
+    }
+    // '' is what routes to the shard fallback, so these must not invent a value.
+    assert.equal(feature.carolinaCoreSearchValue(''), '');
+    assert.equal(feature.carolinaCoreSearchValue('NOPE'), '');
+});
+
+test('without a Core catalogue the search value is empty, not wrong', () => {
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${featureSource('search')}\nglobalThis.__f = Features.search;`, sandbox);
+    const feature = sandbox.__f.createSearchFeature({});
+    assert.equal(feature.carolinaCoreSearchValue('ARP'), '',
+        'a missing catalogue must fall back to the shard path, not match everything');
+});
+
+/*
+ * The wiring. Anchored before slicing, because an unanchored source assertion
+ * silently checks an empty string once the code moves -- six of those were
+ * found in this suite already.
+ */
+test('doSearch pushes the criterion before it issues any search', () => {
+    const source = featureSource('search');
+    const at = source.indexOf('async doSearch(');
+    assert.notEqual(at, -1, 'doSearch moved; this test is not reading it');
+
+    const body = source.slice(at);
+    const pushAt = body.indexOf("criteria.push({ field: 'course_attr'");
+    assert.notEqual(pushAt, -1, 'doSearch no longer sends Carolina Core as a criterion');
+
+    const firstSearchAt = body.indexOf('deps.api.searchCourses(');
+    assert.notEqual(firstSearchAt, -1);
+    assert.ok(
+        pushAt < firstSearchAt,
+        'the criterion must be added before the request that should carry it',
+    );
+});
+
+test('the shard filter stands down once upstream has already narrowed', async () => {
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${featureSource('search')}\nglobalThis.__f = Features.search;`, sandbox);
+
+    let catalogReads = 0;
+    const feature = sandbox.__f.createSearchFeature({
+        carolinaCore: {
+            searchValue: outcome => (outcome === 'ARP' ? 'ARP: Analytical Reasoning (3ARP)' : ''),
+            loadCatalog: async () => { catalogReads += 1; return { courses: [] }; },
+        },
+    });
+
+    // Upstream handled ARP, so these pass through untouched even though the
+    // stub catalogue knows no courses at all.
+    const upstreamFiltered = [{ code: 'CSCE 145' }, { code: 'CSCE 101' }];
+    const kept = await feature.filterByCarolinaCore(upstreamFiltered, 'ARP');
+    assert.deepEqual(JSON.parse(JSON.stringify(kept)), JSON.parse(JSON.stringify(upstreamFiltered)));
+    assert.equal(catalogReads, 0, 'the shard must not be consulted for an outcome upstream can express');
+});
+
+test('an outcome upstream cannot express still falls back to the shard', async () => {
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    vm.runInContext(`${featureSource('search')}\nglobalThis.__f = Features.search;`, sandbox);
+
+    const feature = sandbox.__f.createSearchFeature({
+        carolinaCore: {
+            searchValue: () => '',
+            loadCatalog: async () => ({ courses: [{ code: 'CSCE 145', outcomes: ['ARP'] }] }),
+        },
+    });
+    const kept = await feature.filterByCarolinaCore([{ code: 'CSCE 145' }, { code: 'CSCE 999' }], 'ARP');
+    assert.deepEqual(JSON.parse(JSON.stringify(kept)), [{ code: 'CSCE 145' }],
+        'with no upstream value the shard must still narrow');
+});
+
+test('the relay, the contract and the browser encoder allow the same fields', () => {
+    const contract = JSON.parse(fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'));
+    const allowed = contract.routes['/api/search'].request.criteria.allowed_fields;
+    assert.ok(allowed.includes('course_attr'), 'the contract must allow course_attr');
+
+    const relay = fs.readFileSync(path.join(ROOT, 'server/index.js'), 'utf8');
+    const encoder = fs.readFileSync(path.join(ROOT, 'static/js/platform/university/wire/fose-v1.js'), 'utf8');
+    for (const field of allowed) {
+        assert.match(relay, new RegExp(`'${field}'`), `the relay does not allow ${field}`);
+        assert.match(encoder, new RegExp(`'${field}'`), `the browser encoder does not allow ${field}`);
+    }
+});

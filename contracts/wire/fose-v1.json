@@ -2,6 +2,9 @@
   "contract": "fose-v1",
   "description": "Request grammar for the three relay routes. Single source of truth for the relay's body validators, the browser's request encoders, and the Python pipeline. Upstream vocabulary appears here and nowhere else, so an upstream change is one edit followed by mechanical updates in the consumers rather than a search across the tree.",
   "generated_from": "server/index.js, verified 2026-07-19",
+  "field_notes": {
+    "course_attr": "Section attribute, matched on the exact upstream display string such as \"ARP: Analytical Reasoning (3ARP)\". Upstream ignores unrecognised criteria fields and answers with the whole term rather than an error, and answers an unrecognised value with zero results, so both spelling mistakes fail silently in opposite directions. The vocabulary is pinned in static/js/carolina-core.js and guarded by tests/test_course_attr_vocabulary.js."
+  },
   "limits": {
     "max_body_bytes": 16384,
     "upstream_timeout_ms": 10000,
@@ -38,7 +41,7 @@
           "min_items": 1,
           "max_items": 6,
           "item_exact_keys": ["field", "value"],
-          "allowed_fields": ["alias", "crn", "keyword", "stat", "subject"],
+          "allowed_fields": ["alias", "course_attr", "crn", "keyword", "stat", "subject"],
           "fields_may_repeat": false,
           "value_min_length": 1,
           "value_max_length": 120,

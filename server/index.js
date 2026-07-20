@@ -21,7 +21,7 @@ const RELAY_ROUTES = Object.freeze({
     }),
 });
 
-const SEARCH_FIELDS = new Set(['alias', 'crn', 'keyword', 'stat', 'subject']);
+const SEARCH_FIELDS = new Set(['alias', 'course_attr', 'crn', 'keyword', 'stat', 'subject']);
 const BANNER_BASE = 'https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb';
 const MAX_FACULTY_CRNS = 12;
 const MAX_FACULTY_CONCURRENCY = 4;
