@@ -41,6 +41,44 @@
 }(typeof globalThis === 'object' ? globalThis : self, () => {
     'use strict';
 
+    /*
+     * The DOM contract for a rendered course card and its semester drop zone,
+     * shared by every part that touches one: render.js writes the markup,
+     * coursework.js binds click handlers onto it, moves.js binds drag-and-drop
+     * onto it. These class names and dataset keys used to be separate string
+     * literals in each of those three files, so a typo in one did not error --
+     * a selector or a dataset read that names a class the markup no longer has
+     * just silently matches nothing, which is exactly the "one typo, one dead
+     * binding" failure mode a fence is supposed to make loud.
+     *
+     * It lives here rather than in one of the part files because the parts are
+     * separate factory functions (see split_feature.py's cut-at-member-
+     * boundaries rule): a module-scope const declared inside one part's
+     * factory is not visible inside another's. The object every part gets
+     * merged onto by Object.assign below is visible to all of them, so the
+     * constant rides on that instead and each part reaches it as
+     * `this.CARD_DOM`.
+     */
+    const CARD_DOM = Object.freeze({
+        CARD_CLASS: 'course-card',
+        COMPLETED_CARD_CLASS: 'completed-card',
+        ELECTIVE_SLOT_CLASS: 'elective-slot',
+        REMOVE_BADGE_CLASS: 'card-remove-badge',
+        INFO_BUTTON_CLASS: 'course-card-info',
+        COURSES_CONTAINER_CLASS: 'semester-courses',
+        DELETE_SEM_BUTTON_CLASS: 'sem-delete-btn',
+        // Dataset keys: the HTML attribute is `data-${KEY}`, and the JS side
+        // reads it as `el.dataset[KEY]` (bracket form, since the key is a
+        // variable) rather than the usual `el.dataset.code` dot form.
+        CODE_ATTR: 'code',
+        SEMESTER_ATTR: 'semester',
+        SECTION_ATTR: 'section',
+        TERM_ATTR: 'term',
+        // data-section values
+        SECTION_PLANNED: 'planned',
+        SECTION_COMPLETED: 'completed',
+    });
+
     function createDegreePlanFeature(deps) {
         for (const name of ['getDegreePlan', 'bulletinSearch', 'getOfferingAnalysis',
             'plan', 'profile', 'completedCourses', 'completedDetails',
@@ -59,7 +97,9 @@
             throw new TypeError('degree plan feature needs enrichMajorMap() to be a function when supplied');
         }
 
-        const feature = {        init() {
+        const feature = {        CARD_DOM,
+
+        init() {
             this.bindGenerateButton();
             this.bindDragDrop();
 

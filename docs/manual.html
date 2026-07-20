@@ -764,6 +764,68 @@ composition point.</li>
 measured rather than assumed: a throwaway feature was added, confirmed present in the live service
 worker cache with no service-worker edit, and removed again.</p>
 
+<h3>Extending an existing feature</h3>
+
+<p>The steps above are for a feature that does not exist yet. Two things people reach for
+constantly are additions to a feature that already does — a new search filter, a new tab on the
+course detail pane — and both currently mean touching several files by hand instead of registering
+one. A registry for each is planned; until it lands, this describes what editing looks like today,
+not what it is meant to become.</p>
+
+<p>Adding a search filter touches five places, four of which are edits. The control itself goes in
+<code>#filter-panel</code> in <code>static/index.html</code>, next to the existing checkboxes,
+selects and text inputs. <code>doSearch()</code> in
+<code>static/js/features/search/shell.js</code> reads the control's value off the DOM by id — the
+existing filters are each read this way individually, there is no loop over the panel's controls —
+and adds it to the plain object literal the function passes to <code>applySectionFilters()</code>.
+<code>applySectionFilters()</code>, in <code>static/js/features/search/filters.js</code>, is where
+the value actually narrows the result set; most of the existing filters delegate to a small
+per-filter helper in the same file (<code>filterByPartOfTerm</code>,
+<code>filterByCarolinaCore</code>, and so on), while the simplest ones filter inline.
+<code>activeFilterEntries()</code>, back in shell.js, needs a case too, or the filter can be active
+with no chip showing it is. The one free place is <code>clearFilters()</code>, also in shell.js: it
+clears every checkbox, select, text and number input under <code>#filter-panel</code> generically
+by type, so a standard control needs no edit there — only a filter shaped some other way would.</p>
+
+<p>Adding a course-detail sub-tab means editing three places for the tab mechanics, and a fourth if
+the tab needs data the feature does not already have. The tab and panel elements go in
+<code>static/index.html</code> as a <code>[data-course-tab]</code> button paired with a
+<code>[data-course-panel]</code> section carrying the same value, matching an existing pair such as
+the grades tab. <code>setCourseDetailTab()</code> in
+<code>static/js/features/search/detail.js</code> checks the requested tab name against a hardcoded
+<code>Set</code>; a name not in it silently falls back to the overview tab, so the new name has to
+be added there. <code>loadCourseDetailTab()</code>, just below it, decides what to load the first
+time a tab is opened, as an if-chain of <code>tab === 'x'</code> checks — a fourth branch goes
+there. If the tab needs a collaborator the feature does not already carry,
+<code>static/js/search.js</code>, the composition point, is where it gets supplied, as a getter
+(<code>get grades()</code> and <code>get history()</code> are the existing pattern) rather than a
+captured value: a classic script's top-level <code>const</code> is a lexical binding, not a
+property of <code>globalThis</code>, so it does not exist yet at the moment the object literal
+below it runs, and a captured reference would freeze whatever the name happened to mean at that
+instant. That is not a hypothetical risk in this file specifically — <code>History</code> also
+names a built-in DOM interface, and an earlier version that read it eagerly resolved to the
+browser's constructor instead of the application module, which a plain existence check would have
+called present.</p>
+
+<p>The degree-plan card DOM contract — the class names and dataset keys that <code>render.js</code>
+writes into markup, <code>coursework.js</code> binds click handlers to, and <code>moves.js</code>
+binds drag-and-drop to — is no longer three separate sets of string literals. It lives in
+<code>CARD_DOM</code>, defined once in <code>features/degree-plan/index.js</code> and reached by
+every part as <code>this.CARD_DOM</code>, because <code>Object.assign</code> merges all four parts
+onto the same object. Extending the card markup — a new badge, a new drop zone — means adding a key
+there and referencing it from whichever part needs it, not inventing a new literal that the other
+two parts have no way to know about.</p>
+
+<p>One more trap belongs here, restated because it applies to every edit above: a
+<code>typeof Thing !== 'undefined'</code> guard inside anything under
+<code>static/js/features/</code> is always false, because the fence keeps application globals out
+of scope on purpose. <code>tests/test_no_ambient_guards.js</code> scans every feature file for
+exactly this pattern now, so a new one introduced by one of the edits above fails the suite instead
+of waiting to be found by hand. It also keeps a small allowlist of already-known offenders not yet
+fixed, each pinned to its file and identifier, and the same test fails if an allowlisted entry stops
+matching real source — the suite's way of insisting a stale entry be deleted once the guarded code
+is actually fixed.</p>
+
 <h3>When a feature outgrows one file</h3>
 
 <p>Three have. A feature may be split into part files that its <code>index.js</code> merges with

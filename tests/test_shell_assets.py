@@ -37,9 +37,7 @@ def assets(index_html: str) -> list[str]:
 
 
 def test_every_script_and_stylesheet_on_the_page_is_precached(index_html, assets):
-    referenced = re.findall(
-        r'<(?:script[^>]+src|link[^>]+href)="(/static/[^"?]+)', index_html
-    )
+    referenced = re.findall(r'<(?:script[^>]+src|link[^>]+href)="(/static/[^"?]+)', index_html)
     assert referenced, "index.html should reference static assets"
     missing = [ref for ref in referenced if ref not in assets]
     assert missing == [], f"page loads these but the shell would not cache them: {missing}"
@@ -69,11 +67,33 @@ def test_no_duplicates(assets):
 
 def test_every_precached_file_exists(assets):
     absent = [
-        asset
-        for asset in assets
-        if asset not in {"/"} and not (ROOT / asset.lstrip("/")).is_file()
+        asset for asset in assets if asset not in {"/"} and not (ROOT / asset.lstrip("/")).is_file()
     ]
     assert absent == [], f"the shell would try to cache files that do not exist: {absent}"
+
+
+def test_workers_built_in_code_are_named_in_the_shell_list():
+    """Every worker script the code constructs must be in SHELL_EXTRA.
+
+    The other tests check the list forward: its entries exist and the page's
+    script tags are covered. They do not check this direction. A worker is loaded
+    with ``new Worker(...)``, so no markup mentions it and the derivation from
+    index.html cannot see it; if its path is not in SHELL_EXTRA it works online
+    and is silently missing offline, exactly the drift the explicit list exists
+    to prevent. Both forms in the code are covered here -- a literal passed
+    straight to the constructor (api.js:505) and the entries of a URL map the
+    constructor indexes into (api.js:537-539).
+    """
+    referenced: set[str] = set()
+    for source in (ROOT / "static" / "js").rglob("*.js"):
+        for path in re.findall(
+            r"""['"](/static/js/[^'"?]+\.js)""", source.read_text(encoding="utf-8")
+        ):
+            if "worker" in path:
+                referenced.add(path)
+    assert referenced, "expected at least one worker script under static/js"
+    missing = sorted(path for path in referenced if path not in SHELL_EXTRA)
+    assert missing == [], f"workers built in code but not precached offline: {missing}"
 
 
 def test_the_worker_defers_to_the_build(assets):

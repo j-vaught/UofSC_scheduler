@@ -28,11 +28,21 @@ const Tabs = {
     },
 
     tabFromUrl(value) {
-        if (value === 'search' || value === 'semester') return 'semester';
-        if (value === 'home') return 'semester';
+        if (value === 'search' || value === 'home') return 'semester';
         if (value === 'profile') return 'degree';
         if (value === 'export') return 'schedule';
-        return ['degree', 'schedule'].includes(value) ? value : '';
+        return this.validTabs().includes(value) ? value : '';
+    },
+
+    // The set of real tab names, read from the nav markup rather than
+    // hardcoded, so a fourth tab wired into #main-tabs is a valid deep-link
+    // target the moment its button exists -- no second list to keep in sync.
+    // Read at call time, not captured at module load: tabs.js can run before
+    // or after the nav is in the DOM (init() itself calls this after
+    // confirming the nav exists, and popstate can only fire after that), so
+    // the query has to happen when a tab name is actually being resolved.
+    validTabs() {
+        return [...document.querySelectorAll('#main-tabs [data-tab]')].map(btn => btn.dataset.tab);
     },
 
     writeTabHistory(tabName, mode = 'push') {

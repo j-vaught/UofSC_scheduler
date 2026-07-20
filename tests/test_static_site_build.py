@@ -10,6 +10,12 @@ import pytest
 
 from scripts.build_static_site import build_site
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def load_contract() -> dict:
+    return json.loads((ROOT / "contracts" / "wire" / "fose-v1.json").read_text(encoding="utf-8"))
+
 
 def write_source(root: Path) -> Path:
     source = root / "static"
@@ -81,8 +87,11 @@ def test_build_emits_process_free_static_root(tmp_path: Path) -> None:
     assert "'/api/search'" in worker
     assert "'/api/details'" in worker
     assert "'/api/faculty'" in worker
-    assert "https://classes.sc.edu/api/?page=fose&route=search" in worker
-    assert "https://classes.sc.edu/api/?page=fose&route=details" in worker
+    # The upstreams come from the contract the worker embeds, so the check reads
+    # them rather than restating a URL that a contract edit would leave stale.
+    contract = load_contract()
+    assert contract["routes"]["/api/search"]["upstream"] in worker
+    assert contract["routes"]["/api/details"]["upstream"] in worker
     assert "getFacultyMeetingTimes" in worker
     assert "endpoint.searchParams.set('mepCode', 'COL')" in worker
     assert "MAX_FACULTY_CONCURRENCY = 4" in worker
@@ -189,3 +198,27 @@ def test_stamping_leaves_unknown_assets_alone(tmp_path: Path) -> None:
     stamped, count = stamp_asset_urls(html, source)
     assert count == 0
     assert stamped == html
+
+
+def test_single_quoted_tags_are_stamped_and_precached(tmp_path: Path) -> None:
+    """A single-quoted src is stamped and precached, not silently skipped.
+
+    INDEX_ASSET_RE already read both quote styles, but ASSET_URL_RE and the
+    shell_assets regex read only double quotes, so a single-quoted tag slipped
+    past stamping (serving stale for the cache hour) and past precaching (broken
+    offline) with nothing to reveal it.
+    """
+    from scripts.build_static_site import shell_assets, stamp_asset_urls
+
+    source = tmp_path / "static"
+    (source / "js").mkdir(parents=True)
+    (source / "js" / "app.js").write_text("console.log(1);", encoding="utf-8")
+
+    html = "<script src='/static/js/app.js'></script>"
+    stamped, count = stamp_asset_urls(html, source)
+    assert count == 1, "a single-quoted tag must be stamped"
+    digest = hashlib.sha256(b"console.log(1);").hexdigest()[:12]
+    # Stamped, and with its original quote style preserved rather than rewritten.
+    assert f"src='/static/js/app.js?v={digest}'" in stamped
+
+    assert "/static/js/app.js" in shell_assets(html), "a single-quoted tag must be precached"

@@ -36,6 +36,7 @@ const Scheduler = (() => {
         get search() { return typeof Search !== 'undefined' ? Search : undefined; },
         get tabs() { return typeof Tabs !== 'undefined' ? Tabs : undefined; },
         get walkingMap() { return typeof WalkingMap !== 'undefined' ? WalkingMap : undefined; },
+        get courseCode() { return typeof CourseCode !== 'undefined' ? CourseCode : undefined; },
     });
 })();
 

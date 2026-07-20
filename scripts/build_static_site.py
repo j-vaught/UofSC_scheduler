@@ -106,7 +106,13 @@ def write_headers(output: Path) -> None:
     )
 
 
-ASSET_URL_RE = re.compile(r'(?P<attr>src|href)="(?P<url>/static/[^"?]+\.(?:js|css))(?:\?[^"]*)?"')
+# Either quote style is accepted and the opening quote is captured so it can be
+# restored on the way out. A single-quoted tag that only matched double quotes
+# would silently skip both stamping here and precaching in shell_assets, so the
+# three asset regexes in this file all read both styles on purpose.
+ASSET_URL_RE = re.compile(
+    r'(?P<attr>src|href)=(?P<q>["\'])(?P<url>/static/[^"\'?]+\.(?:js|css))(?:\?[^"\']*)?(?P=q)'
+)
 
 
 def stamp_asset_urls(html: str, source: Path) -> tuple[str, int]:
@@ -123,14 +129,15 @@ def stamp_asset_urls(html: str, source: Path) -> tuple[str, int]:
     def replace(match: re.Match[str]) -> str:
         nonlocal stamped
         url = match.group("url")
-        asset = source / url[len("/static/"):]
+        asset = source / url[len("/static/") :]
         if not asset.is_file():
             # Left alone rather than guessed at; validate_source reports a genuinely
             # missing asset, and a wrong digest here would be worse than none.
             return match.group(0)
         digest = hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
         stamped += 1
-        return f'{match.group("attr")}="{url}?v={digest}"'
+        quote = match.group("q")
+        return f"{match.group('attr')}={quote}{url}?v={digest}{quote}"
 
     return ASSET_URL_RE.sub(replace, html), stamped
 
@@ -173,7 +180,7 @@ def shell_assets(index_html: str) -> list[str]:
     Deriving it means the page is the declaration. A script tag is the only
     thing anyone has to remember.
     """
-    refs = re.findall(r'<(?:script[^>]+src|link[^>]+href)="(/static/[^"?]+)', index_html)
+    refs = re.findall(r'<(?:script[^>]+src|link[^>]+href)=["\'](/static/[^"\'?]+)', index_html)
     ordered: list[str] = ["/", "/static/index.html"]
     for ref in refs:
         if ref not in ordered:
@@ -201,7 +208,8 @@ def build_site(
         client.mkdir(parents=True)
         server.mkdir(parents=True)
         index_html, stamped_assets = stamp_asset_urls(
-            (source / "index.html").read_text(encoding="utf-8"), source,
+            (source / "index.html").read_text(encoding="utf-8"),
+            source,
         )
         (client / "index.html").write_text(index_html, encoding="utf-8")
         (client / "404.html").write_text(index_html, encoding="utf-8")

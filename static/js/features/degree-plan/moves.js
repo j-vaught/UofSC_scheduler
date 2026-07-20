@@ -24,23 +24,23 @@
             if (!container) return;
 
             container.addEventListener('dragstart', (e) => {
-                const card = e.target.closest('.course-card');
+                const card = e.target.closest(`.${this.CARD_DOM.CARD_CLASS}`);
                 if (!card) { e.preventDefault(); return; }
                 e.dataTransfer.setData('text/plain', JSON.stringify({
-                    code: card.dataset.code,
-                    fromTerm: card.dataset.semester,
-                    fromSection: card.dataset.section || 'planned',
+                    code: card.dataset[this.CARD_DOM.CODE_ATTR],
+                    fromTerm: card.dataset[this.CARD_DOM.SEMESTER_ATTR],
+                    fromSection: card.dataset[this.CARD_DOM.SECTION_ATTR] || this.CARD_DOM.SECTION_PLANNED,
                 }));
                 card.classList.add('dragging');
             });
 
             container.addEventListener('dragend', (e) => {
-                const card = e.target.closest('.course-card');
+                const card = e.target.closest(`.${this.CARD_DOM.CARD_CLASS}`);
                 if (card) card.classList.remove('dragging');
             });
 
             container.addEventListener('dragover', (e) => {
-                const zone = e.target.closest('.semester-courses');
+                const zone = e.target.closest(`.${this.CARD_DOM.COURSES_CONTAINER_CLASS}`);
                 if (zone) {
                     e.preventDefault();
                     zone.classList.add('drag-over');
@@ -48,20 +48,20 @@
             });
 
             container.addEventListener('dragleave', (e) => {
-                const zone = e.target.closest('.semester-courses');
+                const zone = e.target.closest(`.${this.CARD_DOM.COURSES_CONTAINER_CLASS}`);
                 if (zone) zone.classList.remove('drag-over');
             });
 
             container.addEventListener('drop', (e) => {
                 e.preventDefault();
-                const zone = e.target.closest('.semester-courses');
+                const zone = e.target.closest(`.${this.CARD_DOM.COURSES_CONTAINER_CLASS}`);
                 if (!zone) return;
                 zone.classList.remove('drag-over');
 
                 try {
                     const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    const toTerm = zone.dataset.term;
-                    const toSection = zone.dataset.section || 'planned';
+                    const toTerm = zone.dataset[this.CARD_DOM.TERM_ATTR];
+                    const toSection = zone.dataset[this.CARD_DOM.SECTION_ATTR] || this.CARD_DOM.SECTION_PLANNED;
 
                     if (data.fromTerm === toTerm) return;
 
@@ -70,8 +70,8 @@
                     // completed/current -> planned: NOT allowed (use delete instead)
                     // planned -> planned: OK
                     // planned -> completed/current: NOT allowed
-                    if (data.fromSection === 'completed' && toSection === 'planned') return;
-                    if (data.fromSection === 'planned' && toSection === 'completed') return;
+                    if (data.fromSection === this.CARD_DOM.SECTION_COMPLETED && toSection === this.CARD_DOM.SECTION_PLANNED) return;
+                    if (data.fromSection === this.CARD_DOM.SECTION_PLANNED && toSection === this.CARD_DOM.SECTION_COMPLETED) return;
 
                     this.moveCourse(data.code, data.fromTerm, toTerm, data.fromSection, toSection);
                 } catch (err) {
@@ -166,8 +166,8 @@
         },
 
         moveCourse(code, fromTerm, toTerm, fromSection, toSection) {
-            const fromList = fromSection === 'completed' ? deps.plan().completedSemesters : deps.plan().semesters;
-            const toList = toSection === 'completed' ? deps.plan().completedSemesters : deps.plan().semesters;
+            const fromList = fromSection === this.CARD_DOM.SECTION_COMPLETED ? deps.plan().completedSemesters : deps.plan().semesters;
+            const toList = toSection === this.CARD_DOM.SECTION_COMPLETED ? deps.plan().completedSemesters : deps.plan().semesters;
 
             const fromSem = fromList.find(s => s.term === fromTerm);
             const toSem = toList.find(s => s.term === toTerm);
@@ -179,7 +179,7 @@
 
             const course = fromSem.courses[courseIdx];
 
-            if (fromSection === 'planned' && toSection === 'planned') {
+            if (fromSection === this.CARD_DOM.SECTION_PLANNED && toSection === this.CARD_DOM.SECTION_PLANNED) {
                 const validation = this.validatePlannedMove(code, fromTerm, toTerm);
                 if (!validation.valid && validation.reason === 'dependent') {
                     alert(`${code} cannot be moved to ${toSem.label} because ${validation.course} requires it first.`);
@@ -201,7 +201,7 @@
             toSem.courses.push(course);
             toSem.total_credits += course.credits;
 
-            if (fromSection === 'planned' && toSection === 'planned') {
+            if (fromSection === this.CARD_DOM.SECTION_PLANNED && toSection === this.CARD_DOM.SECTION_PLANNED) {
                 const linked = this.linkedCourseCodesForMove(code, fromSem);
                 linked.delete(code);
                 linked.forEach(linkedCode => {
@@ -215,7 +215,7 @@
                 });
             }
 
-            if (toSection === 'planned') {
+            if (toSection === this.CARD_DOM.SECTION_PLANNED) {
                 deps.plan().pins[code] = toTerm;
             }
 

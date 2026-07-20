@@ -63,12 +63,16 @@ function stubElement() {
     };
 }
 
-function loadFeature({ withDocument = false } = {}) {
+function loadFeature({ withDocument = false, document: documentOverride } = {}) {
     const globals = {
         console, JSON, Math, Object, Array, Promise, Number, String, Boolean, Set, Map, Date, RegExp,
     };
     if (withDocument) {
-        globals.document = {
+        // Most tests only need the generic stub. A couple bind real listeners
+        // (the completed-coursework controls) and need specific elements back
+        // from specific ids, so an override is accepted rather than forking
+        // this helper.
+        globals.document = documentOverride || {
             getElementById: () => stubElement(),
             createElement: () => stubElement(),
             createTextNode: text => ({ textContent: String(text) }),
@@ -250,4 +254,220 @@ test('ScheduleSidebar survives the extraction as a global', () => {
     const composition = fs.readFileSync(path.join(ROOT, 'static/js/degree-plan.js'), 'utf8');
     assert.match(composition, /const ScheduleSidebar = \{/, 'ScheduleSidebar must remain defined');
     assert.doesNotMatch(codeOnly, /ScheduleSidebar/, 'it must not have been swallowed into the feature');
+});
+
+/*
+ * The regression tests/test_no_ambient_guards.js catches by source pattern:
+ * coursework.js used to gate deps.onCourseworkChanged() behind
+ * `typeof Profile !== 'undefined'`. Profile is never in scope inside this
+ * fence, so the guard was always false and the callback silently never ran --
+ * profile chips and the credit summary stopped repainting on every edit to
+ * completed coursework. This is the behavioural half: the callback must
+ * actually fire when a completed course is added, with no document global
+ * named Profile anywhere in the sandbox.
+ */
+test('adding a completed course calls onCourseworkChanged, with no ambient Profile guard swallowing it', async () => {
+    let clickHandler = null;
+    const addBtn = {
+        textContent: '',
+        disabled: false,
+        addEventListener(event, handler) { if (event === 'click') clickHandler = handler; },
+    };
+    const addInput = { value: 'CSCE 145', addEventListener() {} };
+    const document = {
+        getElementById(id) {
+            if (id === 'btn-add-completed') return addBtn;
+            if (id === 'completed-add-input') return addInput;
+            if (id === 'completed-add-errors') return { innerHTML: '' };
+            return stubElement();
+        },
+        createElement: () => stubElement(),
+        createTextNode: text => ({ textContent: String(text) }),
+        querySelector: () => null,
+        querySelectorAll: () => [],
+    };
+    const { createDegreePlanFeature } = loadFeature({ withDocument: true, document });
+
+    const completedCourses = [];
+    const completedDetails = [];
+    const changed = [];
+    const profile = { majorData: { required_courses: [{ code: 'CSCE 145', credits: 3 }] } };
+    const feature = createDegreePlanFeature(stubDeps({
+        completedCourses: () => completedCourses,
+        completedDetails: () => completedDetails,
+        profile: () => profile,
+        // Shape mirrors the real API.bulletinSearch payload (an object with a
+        // `results` array of {code, key, ...}), not the unused `{courses}` in
+        // the default stub above.
+        bulletinSearch: async subject => {
+            assert.equal(subject, 'CSCE');
+            return { results: [{ code: 'CSCE 145', key: 'csce-145' }] };
+        },
+        onCourseworkChanged: () => changed.push(true),
+    }));
+    feature.render = () => {};
+    feature.buildCompletedSemesters = () => {};
+
+    feature.bindCompletedControls();
+    assert.equal(typeof clickHandler, 'function', 'the add button should have a click handler bound');
+    await clickHandler();
+
+    assert.deepEqual(completedCourses, ['CSCE 145'], 'the parsed, validated course should be added');
+    assert.equal(
+        changed.length, 1,
+        'onCourseworkChanged must fire even though Profile is never in scope inside the fence',
+    );
+});
+
+/*
+ * The course-card DOM contract -- the class names and dataset keys render.js
+ * writes into markup, coursework.js binds click handlers to, and moves.js
+ * binds drag-and-drop to -- used to be a separate string literal in each of
+ * those three files. A typo in any one broke a binding silently: a selector
+ * or a dataset read naming a class the markup no longer had just matched
+ * nothing, no error, no failing test. CARD_DOM centralizes them on the
+ * merged feature object (defined once in index.js, since the part files are
+ * separate factories and a module-scope const in one is not visible to the
+ * others) so a typo becomes a ReferenceError against a missing CARD_DOM key
+ * instead.
+ */
+test('the course-card DOM contract lives in one place: CARD_DOM', () => {
+    const { createDegreePlanFeature } = loadFeature();
+    const feature = createDegreePlanFeature(stubDeps());
+
+    assert.deepEqual(asHost(feature.CARD_DOM), {
+        CARD_CLASS: 'course-card',
+        COMPLETED_CARD_CLASS: 'completed-card',
+        ELECTIVE_SLOT_CLASS: 'elective-slot',
+        REMOVE_BADGE_CLASS: 'card-remove-badge',
+        INFO_BUTTON_CLASS: 'course-card-info',
+        COURSES_CONTAINER_CLASS: 'semester-courses',
+        DELETE_SEM_BUTTON_CLASS: 'sem-delete-btn',
+        CODE_ATTR: 'code',
+        SEMESTER_ATTR: 'semester',
+        SECTION_ATTR: 'section',
+        TERM_ATTR: 'term',
+        SECTION_PLANNED: 'planned',
+        SECTION_COMPLETED: 'completed',
+    });
+    assert.throws(
+        () => { 'use strict'; feature.CARD_DOM.CARD_CLASS = 'nope'; },
+        'CARD_DOM must be frozen -- a part accidentally writing to it should fail loudly, not drift silently',
+    );
+
+    /*
+     * And the literals themselves must not still be duplicated as raw text in
+     * the three part files that consume them -- only in index.js, where
+     * CARD_DOM is defined. Plain substring checks are enough for the
+     * hyphenated, multi-word ones (none of them prefix an unrelated literal
+     * elsewhere in these files); the bare "course-card" class needs a
+     * negative lookahead so it does not also flag the unrelated styling
+     * classes that legitimately keep it as a raw prefix, like
+     * course-card-header or course-card-title.
+     */
+    const rawLiteralsMustNotAppear = [
+        'completed-card', 'elective-slot', 'card-remove-badge',
+        'course-card-info', 'semester-courses', 'sem-delete-btn',
+        'data-code', 'data-semester', 'data-section', 'data-term',
+    ];
+    const bareCardClass = /course-card(?!-)/;
+    for (const file of ['render.js', 'coursework.js', 'moves.js']) {
+        const source = fs.readFileSync(path.join(ROOT, 'static/js/features/degree-plan', file), 'utf8');
+        for (const literal of rawLiteralsMustNotAppear) {
+            assert.ok(
+                !source.includes(literal),
+                `${file} repeats "${literal}" as a raw literal instead of referencing this.CARD_DOM`,
+            );
+        }
+        assert.doesNotMatch(
+            source, bareCardClass,
+            `${file} repeats the bare "course-card" class as a raw literal instead of this.CARD_DOM.CARD_CLASS`,
+        );
+    }
+});
+
+/*
+ * The REMOVE badge on a completed card. This handler was dead in production:
+ * the fence's mechanical seam substitution rewrote the pre-fence field
+ * reassignment into `deps.completedCourses() = ...`, an assignment to a call
+ * expression, which throws the moment the badge is clicked. Every suite stayed
+ * green because nothing drove the click. This test drives the click.
+ */
+test('the REMOVE badge deletes the course from the live arrays and notifies', () => {
+    let badgeHandler = null;
+    const badge = {
+        dataset: { code: 'MATH 141' },
+        addEventListener(event, handler) { if (event === 'click') badgeHandler = handler; },
+    };
+    const document = {
+        getElementById: () => stubElement(),
+        createElement: () => stubElement(),
+        createTextNode: text => ({ textContent: String(text) }),
+        querySelector: () => null,
+        querySelectorAll: selector => (
+            /completed-card/.test(selector) && /card-remove-badge/.test(selector) ? [badge] : []
+        ),
+    };
+    const { createDegreePlanFeature } = loadFeature({ withDocument: true, document });
+
+    // Live arrays, as State supplies them: the handler must mutate these in
+    // place, because reassignment through a getter is impossible.
+    const completedCourses = ['MATH 141', 'CSCE 145'];
+    const completedDetails = [
+        { code: 'MATH 141', grade: 'A', credits: 4 },
+        { code: 'CSCE 145', grade: 'B', credits: 4 },
+    ];
+    const changed = [];
+    const feature = createDegreePlanFeature(stubDeps({
+        completedCourses: () => completedCourses,
+        completedDetails: () => completedDetails,
+        onCourseworkChanged: () => changed.push(true),
+    }));
+    let rebuilt = 0;
+    let rendered = 0;
+    feature.buildCompletedSemesters = () => { rebuilt += 1; };
+    feature.render = () => { rendered += 1; };
+
+    feature.bindCompletedControls();
+    assert.equal(typeof badgeHandler, 'function', 'the badge should have a click handler bound');
+
+    badgeHandler({ stopPropagation() {} });
+
+    assert.deepEqual(JSON.parse(JSON.stringify(completedCourses)), ['CSCE 145'],
+        'the clicked course must leave the live array');
+    assert.deepEqual(JSON.parse(JSON.stringify(completedDetails.map(d => d.code))), ['CSCE 145']);
+    assert.equal(rebuilt, 1);
+    assert.equal(rendered, 1);
+    assert.deepEqual(JSON.parse(JSON.stringify(changed)), [true],
+        'the coursework change must be announced so profile chips repaint');
+});
+
+/*
+ * renderCompletedColumn used `isElective` without declaring it -- a local of
+ * the sibling renderSemesterColumn, out of scope here -- so any completed
+ * semester that actually had courses threw a ReferenceError instead of
+ * rendering. The empty-semester case never hit the loop, which is why it
+ * survived: plans without imported coursework never exercised the line.
+ */
+test('a completed semester with courses renders instead of throwing', () => {
+    const { createDegreePlanFeature } = loadFeature({ withDocument: true });
+    const feature = createDegreePlanFeature(stubDeps());
+
+    const html = feature.renderCompletedColumn({
+        type: 'completed',
+        term: '202408',
+        label: 'Fall 2024',
+        total_credits: 8,
+        courses: [
+            { code: 'MATH 141', title: 'Calculus I', credits: 4 },
+            { code: 'CSCE 145', title: 'Algorithmic Design I', credits: 4 },
+        ],
+    }, 0);
+
+    assert.match(html, /MATH 141/);
+    assert.match(html, /CSCE 145/);
+    assert.match(html, /Fall 2024/);
+    // The REMOVE badge must be present, or the (now-fixed) removal handler
+    // has nothing to bind to.
+    assert.match(html, new RegExp(feature.CARD_DOM.REMOVE_BADGE_CLASS));
 });

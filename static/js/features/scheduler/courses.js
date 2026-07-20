@@ -20,6 +20,12 @@
     function createCoursesPart(deps) {
         return {
         normalizeCourseCode(value) {
+            // Prefer the shared CourseCode util, injected as a collaborator so
+            // this fenced module never reaches an app global. The local logic
+            // stays as an explicit fallback: the feature is constructed bare
+            // ({} deps) in the final_four sandbox tests, where deps.courseCode
+            // is undefined, and it must still normalise there.
+            if (deps.courseCode) return deps.courseCode.normalize(value);
             return String(value || '')
                 .trim()
                 .toUpperCase()
@@ -216,21 +222,6 @@
                 });
                 container.appendChild(showMore);
             }
-        },
-
-        escapeHtml(value) {
-            return String(value ?? '')
-                .replaceAll('&', '&amp;')
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;')
-                .replaceAll('"', '&quot;')
-                .replaceAll("'", '&#039;');
-        },
-
-        stripHtml(value) {
-            const element = document.createElement('div');
-            element.innerHTML = String(value || '');
-            return (element.textContent || '').replace(/\s+/g, ' ').trim();
         },
 
         normalizeInstructorName(value) {

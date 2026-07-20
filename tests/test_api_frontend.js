@@ -10,8 +10,17 @@ const {
     loadObject,
 } = require('./support/scheduler-harness.js');
 
+// api.js now shares the TTL+LRU cache in static/js/response-cache.js, reaching
+// it as a global that a <script> tag supplies in the browser. The harness
+// sandbox only has what we pass it, so every api.js load injects it here.
+const ResponseCache = require('../static/js/response-cache.js');
+
+function loadApi(context = {}) {
+    return loadObject('static/js/api.js', 'API', { ResponseCache, ...context });
+}
+
 test('API error payloads reject so failed searches are never cached as empty results', async () => {
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async () => ({
             ok: true,
             status: 200,
@@ -29,7 +38,7 @@ test('API coalesces duplicate live requests and reuses its short browser cache',
     let release;
     let calls = 0;
     const gate = new Promise(resolve => { release = resolve; });
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async () => {
             calls += 1;
             await gate;
@@ -52,7 +61,7 @@ test('API coalesces duplicate live requests and reuses its short browser cache',
 });
 
 test('API browser cache keeps recently reused entries during eviction', () => {
-    const api = loadObject('static/js/api.js', 'API', {});
+    const api = loadApi({});
     api._responseCacheMaxEntries = 2;
     api._storeCached('older-hot', { value: 1 }, 60_000);
     api._storeCached('newer-cold', { value: 2 }, 60_000);
@@ -68,7 +77,7 @@ test('API browser cache keeps recently reused entries during eviction', () => {
 test('detail prefetch is sequential and stops after cancellation', async () => {
     const controller = new AbortController();
     const calls = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         requestIdleCallback: callback => callback(),
         setTimeout: callback => callback(),
         fetch: async (_path, options) => {
@@ -90,7 +99,7 @@ test('detail prefetch is sequential and stops after cancellation', async () => {
 
 test('A browser reload requests fresh live data without changing historical cache behavior', async () => {
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         performance: { getEntriesByType: () => [{ type: 'reload' }] },
         fetch: async (path, options) => {
             requests.push({ path, options });
@@ -117,7 +126,7 @@ test('Offering history stream reports real progress before returning its aggrega
     const encoded = new TextEncoder().encode(events);
     const chunks = [encoded.slice(0, 47), encoded.slice(47, 121), encoded.slice(121)];
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         TextDecoder,
         fetch: async (path, options) => {
             requests.push({ path, options });
@@ -151,7 +160,7 @@ test('Offering history stream reports real progress before returning its aggrega
 
 test('Offering history falls back when its progress stream is unavailable', async () => {
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async (path, options) => {
             requests.push({ path, options });
             if (path === '/api/history-stream') {
@@ -184,7 +193,7 @@ test('Offering history falls back when its progress stream is unavailable', asyn
 
 test('Offering history does not retry genuine progress-stream failures', async () => {
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async path => {
             requests.push(path);
             return { ok: false, status: 500 };
@@ -200,7 +209,7 @@ test('Offering history does not retry genuine progress-stream failures', async (
 
 test('Offering history falls back from a malformed progress response', async () => {
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async (path, options) => {
             requests.push({ path, options });
             if (path === '/api/history-stream') {
@@ -230,7 +239,7 @@ test('Offering history falls back from a malformed progress response', async () 
 
 test('Offering history preserves errors returned by a valid progress stream', async () => {
     const requests = [];
-    const api = loadObject('static/js/api.js', 'API', {
+    const api = loadApi({
         fetch: async path => {
             requests.push(path);
             return {

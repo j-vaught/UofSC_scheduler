@@ -66,16 +66,14 @@ const ALLOWED = new Set([
  * for this test suite, so each real offender is parked here, scoped to its file
  * and identifier, until the owning code is corrected.
  *
- * FIXME(next agent): static/js/features/degree-plan/coursework.js gates
+ * None outstanding. static/js/features/degree-plan/coursework.js used to gate
  * `deps.onCourseworkChanged()` behind `typeof Profile !== 'undefined'` in two
- * places (currently lines 98 and 129). In a fenced feature Profile is not in
- * scope, so the callback silently never fires and edits to completed
- * coursework stop propagating. The fix is to drop the guard (or gate on a
- * declared dependency) and then delete this entry.
+ * places; the guard was always false inside the fence, so the callback
+ * silently never fired. Fixed by calling deps.onCourseworkChanged()
+ * unconditionally -- see tests/test_feature_degree_plan.js for the
+ * behavioural regression test.
  */
-const FIXME = [
-    { file: 'features/degree-plan/coursework.js', identifier: 'Profile' },
-];
+const FIXME = [];
 
 // Strip block and line comments while preserving line numbers, so a hit reports
 // where it actually is and a comment about the pattern is not counted as a use.

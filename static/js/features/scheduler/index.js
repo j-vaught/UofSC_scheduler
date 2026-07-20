@@ -72,6 +72,31 @@
         _locationPrefetchTimer: null,
         _locationPrefetchController: null,
 
+        /*
+         * escapeHtml and stripHtml live on the base object, before the parts
+         * are merged, because they are a contract every part relies on. The
+         * registration and solve parts call this.escapeHtml with no copy of
+         * their own; that used to work only because courses.js happened to be
+         * merged first and its copy landed on the object ahead of them -- an
+         * implicit dependency on Object.assign ordering that no test enforced.
+         * Defining them here makes it explicit: the shared object owns them, and
+         * a part reordering can no longer silently break the two that borrow them.
+         */
+        escapeHtml(value) {
+            return String(value ?? '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        },
+
+        stripHtml(value) {
+            const element = document.createElement('div');
+            element.innerHTML = String(value || '');
+            return (element.textContent || '').replace(/\s+/g, ' ').trim();
+        },
+
         };
 
         /*

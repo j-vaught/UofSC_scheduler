@@ -37,9 +37,19 @@ function relayRequest(pathname, body, headers = {}) {
     });
 }
 
-// Upstream is never contacted: every case here is rejected before the relay
-// would fetch, or is checked for its status alone.
+// Upstream is never contacted for the request-side cases: each is rejected
+// before the relay would fetch, or is checked for its status alone. The
+// response-side cases at the end stub globalThis.fetch so the relay's handling
+// of a malformed upstream answer can be observed without a network.
 const env = { ASSETS: { fetch: async () => new Response('', { status: 404 }) } };
+
+// A body each route accepts, so a response-side test reaches the upstream call
+// rather than tripping a request validator on the way in.
+const VALID_BODY = {
+    '/api/search': { other: { srcdb: '202608' }, criteria: [{ field: 'subject', value: 'CSCE' }] },
+    '/api/details': { group: 'crn:10868', srcdb: '202608' },
+    '/api/faculty': { term: '202608', crns: ['10868'] },
+};
 
 test.before(async () => {
     const build = fs.mkdtempSync(path.join(os.tmpdir(), 'wire-contract-'));
@@ -73,14 +83,23 @@ test('the contract limits match the relay constants', () => {
     assert.equal(contract.limits.max_faculty_concurrency, constant('MAX_FACULTY_CONCURRENCY'));
 });
 
-test('the allowed search fields match the relay allowlist', () => {
+test('the relay embeds the contract verbatim', () => {
+    // The relay no longer restates the allowlist, the limits, the grammars or
+    // the upstreams: it carries the whole contract, generated from the same file
+    // this test loads. Pulling that embedded object back out and comparing it to
+    // the document proves the relay validates against exactly what the contract
+    // says -- the allowlist among everything else -- and that a contract edited
+    // without a sync is caught here as well as by the Python --check.
     const relaySource = fs.readFileSync(path.join(ROOT, 'server/index.js'), 'utf8');
-    const match = relaySource.match(/const SEARCH_FIELDS = new Set\(\[([^\]]+)\]\)/);
-    assert.ok(match, 'SEARCH_FIELDS should exist');
-    const relayFields = match[1].split(',').map(s => s.trim().replace(/'/g, '')).filter(Boolean).sort();
+    const match = relaySource.match(/const CONTRACT = Object\.freeze\(\/\* generated \*\/ ([\s\S]*?)\);\n/);
+    assert.ok(match, 'the generated CONTRACT object should exist in the relay');
+    // eslint-disable-next-line no-eval
+    const embedded = eval(`(${match[1]})`);
+    assert.deepEqual(embedded, contract,
+        'the relay embeds a stale contract; run: uv run python scripts/sync_wire_contract.py');
     assert.deepEqual(
+        [...embedded.routes['/api/search'].request.criteria.allowed_fields].sort(),
         [...contract.routes['/api/search'].request.criteria.allowed_fields].sort(),
-        relayFields,
     );
 });
 
@@ -176,4 +195,51 @@ test('the documented rejection statuses are the ones the relay returns', async (
 
     const invalid = await worker.fetch(relayRequest('/api/search', {}), env, {});
     assert.equal(invalid.status, contract.rejections.invalid_body);
+});
+
+// The request grammar is only half of the contract; the response section says
+// an answer must carry a named array and must not exceed a byte cap. A relay
+// that forwarded whatever the upstream returned would let a truncated or
+// wrong-shaped answer reach the client dressed as success. These pin the other
+// half: a bad answer is an upstream_failure, the same bucket the contract names.
+
+test('a response missing the array the contract requires is an upstream failure', async () => {
+    const original = globalThis.fetch;
+    try {
+        for (const [pathname, route] of Object.entries(contract.routes)) {
+            if (!route.response.must_contain_array) continue;
+            globalThis.fetch = async () => new Response(JSON.stringify({ count: 0 }), {
+                status: 200, headers: { 'Content-Type': 'application/json' },
+            });
+            const response = await worker.fetch(relayRequest(pathname, VALID_BODY[pathname]), env, {});
+            assert.equal(response.status, contract.rejections.upstream_failure,
+                `${pathname} forwarded a response with no ${route.response.must_contain_array} array`);
+        }
+    } finally {
+        globalThis.fetch = original;
+    }
+});
+
+test('a response over the contract byte cap is an upstream failure for every route', async () => {
+    const original = globalThis.fetch;
+    try {
+        for (const [pathname, route] of Object.entries(contract.routes)) {
+            const maxBytes = route.response.max_bytes;
+            // Shaped so the only thing wrong with the answer is its size: search
+            // still carries results, faculty still carries fmt, and the padding
+            // pushes it past the cap the contract sets for this route.
+            const shape = pathname === '/api/search' ? { results: [] }
+                : pathname === '/api/faculty' ? { fmt: [] } : {};
+            const body = JSON.stringify({ ...shape, pad: 'x'.repeat(maxBytes + 1024) });
+            assert.ok(body.length > maxBytes, 'the stubbed body must actually exceed the cap');
+            globalThis.fetch = async () => new Response(body, {
+                status: 200, headers: { 'Content-Type': 'application/json' },
+            });
+            const response = await worker.fetch(relayRequest(pathname, VALID_BODY[pathname]), env, {});
+            assert.equal(response.status, contract.rejections.upstream_failure,
+                `${pathname} forwarded an upstream answer over its ${maxBytes}-byte cap`);
+        }
+    } finally {
+        globalThis.fetch = original;
+    }
 });
