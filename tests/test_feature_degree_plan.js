@@ -251,3 +251,61 @@ test('ScheduleSidebar survives the extraction as a global', () => {
     assert.match(composition, /const ScheduleSidebar = \{/, 'ScheduleSidebar must remain defined');
     assert.doesNotMatch(codeOnly, /ScheduleSidebar/, 'it must not have been swallowed into the feature');
 });
+
+/*
+ * The column renderers are pure string builders, so they can be exercised
+ * directly. The completed-column test is a regression guard: an edit meant for
+ * the planned column once landed on the identical line in the completed
+ * column, referencing a variable that only exists in the other method, and no
+ * test rendered a completed semester with courses in it to catch the throw.
+ */
+test('completed semester columns render every course by its code', () => {
+    const { createDegreePlanFeature } = loadFeature();
+    const feature = createDegreePlanFeature(stubDeps());
+    const sem = {
+        term: '202501',
+        label: 'Spring 2025',
+        type: 'completed',
+        total_credits: 7,
+        courses: [
+            { code: 'CSCE 145', title: 'Algorithmic Design I', credits: 4 },
+            { code: 'MATH 141', title: 'Calculus I', credits: 3 },
+        ],
+    };
+
+    const html = feature.renderCompletedColumn(sem, 0);
+
+    assert.match(html, /completed-card/);
+    assert.match(html, /<span class="course-card-code">CSCE 145<\/span>/);
+    assert.match(html, /<span class="course-card-code">MATH 141<\/span>/);
+    assert.doesNotMatch(html, /undefined/);
+
+    const current = feature.renderCompletedColumn({ ...sem, type: 'current' }, 1);
+    assert.match(current, /current-header/);
+});
+
+test('planned elective slots render their title instead of the synthetic code', () => {
+    const { createDegreePlanFeature } = loadFeature();
+    const feature = createDegreePlanFeature(stubDeps());
+    const sem = {
+        term: '202608',
+        label: 'Fall 2026',
+        total_credits: 6,
+        courses: [
+            {
+                code: '[REQ-1-1]',
+                title: 'Technical Elective',
+                credits: 3,
+                is_elective_slot: true,
+                elective_group_id: 'requirement-1',
+            },
+            { code: 'CSCE 240', title: 'Advanced Programming Techniques', credits: 3 },
+        ],
+    };
+
+    const html = feature.renderSemesterColumn(sem, 0);
+
+    assert.match(html, /<span class="course-card-code">Technical Elective<\/span>/);
+    assert.doesNotMatch(html, /<span class="course-card-code">\[REQ-1-1\]<\/span>/);
+    assert.match(html, /<span class="course-card-code">CSCE 240<\/span>/);
+});
