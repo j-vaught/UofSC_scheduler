@@ -2509,19 +2509,11 @@
                 ));
             }
             if (filters.sizeMode && filters.sizeValue) {
-                filtered = filtered.filter(section => {
-                    // seatsOpen comes from the firewall already converted; `total`
-                    // was the upstream name arriving as a decimal string. The
-                    // fallback keeps catalog-only sections working while the
-                    // remaining readers migrate.
-                    const total = Number.isFinite(section.seatsOpen)
-                        ? section.seatsOpen
-                        : parseInt(section.total, 10);
-                    if (!Number.isFinite(total)) return false;
-                    return filters.sizeMode === 'above'
-                        ? total >= filters.sizeValue
-                        : total < filters.sizeValue;
-                });
+                filtered = await this.filterByClassSize(
+                    filtered,
+                    filters.sizeMode,
+                    filters.sizeValue,
+                );
             }
             if (filters.availMode && filters.availValue !== null) {
                 filtered = await this.filterByAvailableSeats(
@@ -2594,6 +2586,35 @@
                 return [code, info];
             }));
             return Object.fromEntries(entries);
+        },
+
+        /*
+         * Class size, meaning maximum enrolment: how big the room is, not how
+         * much of it is left.
+         *
+         * This used to read section.seatsOpen, which is seats *remaining*. That
+         * made "Class Size: less than 30" match almost every section, because
+         * few sections have thirty seats still open, and "more than 100" match
+         * nothing at all. It was a second, mislabelled copy of the Seats
+         * Available filter below, and a student looking for small classes got
+         * the whole catalogue back and no reason to doubt it.
+         *
+         * seats_max is in the same detail payload seats_avail comes from, so
+         * this costs the same per-section fetch that filter already pays.
+         */
+        async filterByClassSize(results, mode, value) {
+            if (!mode || value === null || value === undefined) return results;
+            const checked = await Promise.all(results.map(async result => {
+                if (!result.crn) return null;
+                const details = await this.fetchSectionFilterDetails(result);
+                if (!details) return null;
+                const match = (details.seats || '').match(/seats_max[^>]*>(\d+)/);
+                if (!match) return null;
+                return { result, size: Number(match[1]) };
+            }));
+            return checked
+                .filter(item => item && (mode === 'above' ? item.size >= value : item.size < value))
+                .map(item => item.result);
         },
 
         async filterByAvailableSeats(results, mode, value) {
