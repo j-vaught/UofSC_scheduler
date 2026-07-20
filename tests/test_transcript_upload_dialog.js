@@ -40,8 +40,10 @@ test('one reusable transcript dialog serves the consolidated degree planner', ()
 
     assert.deepEqual(launchers, ['degree']);
     assert.equal((html.match(/id="transcript-upload-dialog"/g) || []).length, 0);
-    assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js\?v=\d+"/);
-    assert.match(html, /src="\/static\/js\/transcript-import\.js\?v=\d+"/);
+    // Cache markers are stamped from file contents at build time, so the source
+    // tag carries none. test_static_site_build.py covers the stamping itself.
+    assert.match(html, /src="\/static\/js\/transcript-upload-dialog\.js"/);
+    assert.match(html, /src="\/static\/js\/transcript-import\.js"/);
     // Boot registers modules as `['Label', () => Module]` rows now.
     assert.match(html + bootSource(), /\(\)\s*=>\s*TranscriptImport\b/);
 });

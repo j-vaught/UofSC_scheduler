@@ -295,9 +295,11 @@ data.</p></div>
 is load-bearing: <code>data-store.js</code> first, then the three runtime cores
 (<code>runtime/offering-analyzer.js</code>, <code>runtime/transcript-parser.js</code>,
 <code>runtime/degree-planner.js</code>), then <code>solver-core.js</code>,
-<code>live-university-client.js</code>, and <code>api.js</code> before any UI layer. Several tags carry
-hand-maintained cache-busting query strings such as <code>api.js?v=20260718</code> — these are not
-build-generated, so they must be bumped by hand when the file changes.</p>
+<code>live-university-client.js</code>, and <code>api.js</code> before any UI layer. Cache-busting markers are
+stamped from file contents at build time, so no tag carries a hand-written one and none needs
+bumping. Eight stale <code>?v=20260718</code> strings survived in the source after stamping was
+introduced; they were overwritten by the build and did nothing but invite someone to maintain
+them, and have been removed.</p>
 
 <p><code>data-store.js</code> instantiates a singleton <code>global.CourseDataStore</code> at load time, so
 the store exists before any UI module runs. Service worker registration is gated on
