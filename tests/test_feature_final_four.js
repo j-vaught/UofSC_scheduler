@@ -454,7 +454,58 @@ test('the search feature merges its parts into one complete object', () => {
     assert.ok(feature._searchViewCache instanceof Map);
 });
 
-test('no two search parts define the same method', () => {
+/*
+ * The same property for every split feature, not just search. Object.assign
+ * silently lets a later part overwrite an earlier one, so a method defined
+ * twice loses one definition with no error anywhere.
+ */
+test('no two parts of a split feature define the same method', () => {
+    for (const feature of ['search', 'scheduler']) {
+        const dir = path.join(ROOT, `static/js/features/${feature}`);
+        const seen = new Map();
+        const collisions = [];
+        for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.js') && f !== 'index.js').sort()) {
+            const source = fs.readFileSync(path.join(dir, file), 'utf8');
+            for (const match of source.matchAll(/^        (?:async )?([a-zA-Z_][\w]*)\(/gm)) {
+                const name = match[1];
+                if (seen.has(name)) collisions.push(`${name}: ${seen.get(name)} and ${file}`);
+                else seen.set(name, file);
+            }
+        }
+        assert.deepEqual(collisions, [],
+            `${feature} parts overwrite each other in Object.assign: ${collisions.join('; ')}`);
+    }
+});
+
+test('the scheduler merges its parts into one complete object', () => {
+    const dir = path.join(ROOT, 'static/js/features/scheduler');
+    const partFiles = fs.readdirSync(dir)
+        .filter(file => file.endsWith('.js') && file !== 'index.js').sort();
+    assert.ok(partFiles.length >= 5, `expected the feature to be split, found ${partFiles.length}`);
+
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    const source = [
+        ...partFiles.map(file => fs.readFileSync(path.join(dir, file), 'utf8')),
+        fs.readFileSync(path.join(dir, 'index.js'), 'utf8'),
+    ].join('\n');
+    vm.runInContext(`${source}\nglobalThis.__f = Features.scheduler;`, sandbox);
+
+    const feature = sandbox.__f.createSchedulerFeature({});
+    for (const method of [
+        'init', 'updateRegistrationButton',        // registration
+        'openSchedulePreferences',                 // preferences
+        'renderCourseSearchResults', 'parseCreditHours', // courses
+        'initCourseDivider', 'initVerticalResizer',      // layout
+        'renderResults', 'applySchedule',          // solve
+    ]) {
+        assert.equal(typeof feature[method], 'function', `${method} did not survive the split`);
+    }
+});
+
+test('the retired per-feature collision check still covers search', () => {
     const dir = path.join(ROOT, 'static/js/features/search');
     const seen = new Map();
     const collisions = [];
