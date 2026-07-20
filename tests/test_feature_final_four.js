@@ -31,7 +31,15 @@ const APP_GLOBALS = ['State', 'API', 'Search', 'Scheduler', 'WalkingMap', 'Calen
     'Tabs', 'Prereqs', 'Grades', 'History', 'Profile', 'DegreePlan', 'CustomMajorMap'];
 
 function featureSource(name) {
-    return fs.readFileSync(path.join(ROOT, `static/js/features/${name}/index.js`), 'utf8');
+    /*
+     * The whole feature, however many files it is in. Search is five parts plus
+     * an index that merges them, so reading index.js alone would find state and
+     * composition and none of the methods -- and a doesNotMatch assertion would
+     * quietly pass against the wrong file.
+     */
+    const dir = path.join(ROOT, `static/js/features/${name}`);
+    const files = fs.readdirSync(dir).filter(file => file.endsWith('.js')).sort();
+    return files.map(file => fs.readFileSync(path.join(dir, file), 'utf8')).join('\n');
 }
 
 /*
@@ -399,4 +407,65 @@ test('the relay, the contract and the browser encoder allow the same fields', ()
         assert.match(relay, new RegExp(`'${field}'`), `the relay does not allow ${field}`);
         assert.match(encoder, new RegExp(`'${field}'`), `the browser encoder does not allow ${field}`);
     }
+});
+
+/*
+ * The search feature is five part files merged onto one object by its index.
+ *
+ * What can go wrong in a split like this is not a syntax error -- it is a
+ * method quietly not making it across, which no other test would notice
+ * because each one exercises a handful of methods. So this pins the surface
+ * itself: every part contributes, nothing collides, and the whole is what the
+ * composition point gets.
+ */
+test('the search feature merges its parts into one complete object', () => {
+    const dir = path.join(ROOT, 'static/js/features/search');
+    const partFiles = fs.readdirSync(dir)
+        .filter(file => file.endsWith('.js') && file !== 'index.js').sort();
+    assert.ok(partFiles.length >= 5, `expected the feature to be split, found ${partFiles.length}`);
+
+    const sandbox = vm.createContext({
+        console, JSON, Math, Object, Array, Promise, Number, String, Boolean,
+        Set, Map, Date, RegExp, isNaN, parseInt, parseFloat,
+    });
+    const source = [
+        ...partFiles.map(file => fs.readFileSync(path.join(dir, file), 'utf8')),
+        fs.readFileSync(path.join(dir, 'index.js'), 'utf8'),
+    ].join('\n');
+    vm.runInContext(`${source}\nglobalThis.__f = Features.search;`, sandbox);
+
+    const feature = sandbox.__f.createSearchFeature({});
+    const methods = Object.keys(feature).filter(key => typeof feature[key] === 'function');
+    assert.ok(methods.length >= 140, `expected the full method set, found ${methods.length}`);
+
+    // A handful from each part, so losing any one file fails loudly here.
+    for (const method of [
+        'loadSubjects', 'buildCourseScope',        // query
+        'init', 'doSearch', 'openFilters',         // shell
+        'applySectionFilters', 'filterByClassSize', // filters
+        'showCourseDetail', 'renderSectionCalendar', // detail
+        'renderResults', 'showSearchError',        // results
+    ]) {
+        assert.equal(typeof feature[method], 'function', `${method} did not survive the split`);
+    }
+
+    // State stays on the index, and the parts must not have shadowed it.
+    assert.equal(feature._browseState, 'empty');
+    assert.ok(feature._searchViewCache instanceof Map);
+});
+
+test('no two search parts define the same method', () => {
+    const dir = path.join(ROOT, 'static/js/features/search');
+    const seen = new Map();
+    const collisions = [];
+    for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.js') && f !== 'index.js').sort()) {
+        const source = fs.readFileSync(path.join(dir, file), 'utf8');
+        for (const match of source.matchAll(/^        (?:async )?([a-zA-Z_][\w]*)\(/gm)) {
+            const name = match[1];
+            if (seen.has(name)) collisions.push(`${name}: ${seen.get(name)} and ${file}`);
+            else seen.set(name, file);
+        }
+    }
+    assert.deepEqual(collisions, [],
+        `later parts silently overwrite earlier ones in Object.assign: ${collisions.join('; ')}`);
 });
