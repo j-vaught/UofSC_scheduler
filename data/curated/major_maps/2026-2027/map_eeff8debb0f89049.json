@@ -143,6 +143,17 @@
     {
       "category": "carolina_core",
       "credits_required": 3,
+      "id": "req_bf8bf431179316a3",
+      "informational": true,
+      "label": "Carolina Core GHS Requirement3 (HIST 111, 112,",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_bf8bf431179316a3"
+    },
+    {
+      "category": "carolina_core",
+      "credits_required": 3,
       "id": "req_ee449ae84feb8a2a",
       "informational": true,
       "label": "Carolina Core Requirement3",
@@ -412,18 +423,6 @@
       "title": "Writing for Mass Communications",
       "typical_semester": "Spring",
       "typical_year": 1
-    },
-    {
-      "carolina_core": "GHS",
-      "category": "carolina_core",
-      "code": "HIST 111",
-      "corequisites": [],
-      "credits": 3,
-      "prerequisites": [],
-      "source_requirement_id": "req_bf8bf431179316a3",
-      "title": "Carolina Core GHS Requirement3 (HIST 111, 112,",
-      "typical_semester": "Spring",
-      "typical_year": 2
     },
     {
       "category": "major_courses",
@@ -814,9 +813,7 @@
         },
         {
           "confidence": "high",
-          "course_codes": [
-            "HIST 111"
-          ],
+          "course_codes": [],
           "credit_hours": 3,
           "critical": false,
           "id": "req_bf8bf431179316a3",

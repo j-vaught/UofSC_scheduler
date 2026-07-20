@@ -1018,7 +1018,7 @@
           "credit_hours": 3,
           "critical": false,
           "id": "req_d3957660f48010ef",
-          "minimum_grade": "C",
+          "minimum_grade": "C (minor)",
           "relation": "choose_one",
           "requirement_codes": [
             "PR"

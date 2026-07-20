@@ -1042,9 +1042,7 @@
         },
         {
           "confidence": "high",
-          "course_codes": [
-            "RELG 120"
-          ],
+          "course_codes": [],
           "credit_hours": 3,
           "critical": false,
           "id": "req_67bc36894d4331a7",

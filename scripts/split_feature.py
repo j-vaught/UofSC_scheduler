@@ -8,10 +8,11 @@ member boundaries only, so concatenating the parts reproduces the original
 object body exactly. That is asserted before anything is written.
 """
 
+
 def split(feature, factory_name, parts_spec):
-    path = f'static/js/features/{feature}/index.js'
+    path = f"static/js/features/{feature}/index.js"
     src = open(path).read()
-    lines = src.split('\n')
+    lines = src.split("\n")
 
     first_method = parts_spec[0][2] - 1
     head = lines[:first_method]
@@ -20,20 +21,21 @@ def split(feature, factory_name, parts_spec):
     close_i = None
     for i in range(len(lines) - 1, first_method, -1):
         stripped = lines[i].strip()
-        if stripped == '};' or stripped.endswith('},};'):
+        if stripped == "};" or stripped.endswith("},};"):
             close_i = i
             break
     if close_i is None:
-        raise SystemExit('Could not find the end of the feature object')
+        raise SystemExit("Could not find the end of the feature object")
 
-    if lines[close_i].strip().endswith('},};'):
-        methods = lines[first_method:close_i] + [lines[close_i].replace('},};', '},')]
-        after = lines[close_i + 1:]
+    if lines[close_i].strip().endswith("},};"):
+        methods = lines[first_method:close_i] + [lines[close_i].replace("},};", "},")]
+        after = lines[close_i + 1 :]
     else:
         methods = lines[first_method:close_i]
-        after = lines[close_i + 1:]
+        after = lines[close_i + 1 :]
 
-    def rel(n): return n - 1 - first_method
+    def rel(n):
+        return n - 1 - first_method
 
     chunks = []
     for idx, (name, fn, start, why) in enumerate(parts_spec):
@@ -41,10 +43,10 @@ def split(feature, factory_name, parts_spec):
         lo, hi = rel(start), (rel(end) if end else len(methods))
         chunks.append((name, fn, methods[lo:hi], why))
 
-    rebuilt = '\n'.join('\n'.join(c[2]) for c in chunks)
-    if rebuilt != '\n'.join(methods):
-        raise SystemExit('SPLIT WOULD LOSE CODE — aborting')
-    print('method region reassembles exactly: True')
+    rebuilt = "\n".join("\n".join(c[2]) for c in chunks)
+    if rebuilt != "\n".join(methods):
+        raise SystemExit("SPLIT WOULD LOSE CODE — aborting")
+    print("method region reassembles exactly: True")
 
     for name, fn, body, why in chunks:
         header = f"""/*
@@ -70,13 +72,16 @@ def split(feature, factory_name, parts_spec):
         return {{
 """
         footer = "        };\n    }\n\n    return { %s };\n}));\n" % fn
-        open(f'static/js/features/{feature}/{name}', 'w').write(header + '\n'.join(body) + '\n' + footer)
-        print(f'  {name:16} {len(body):5} lines  {fn}')
+        open(f"static/js/features/{feature}/{name}", "w").write(
+            header + "\n".join(body) + "\n" + footer
+        )
+        print(f"  {name:16} {len(body):5} lines  {fn}")
 
     resolve = "\n".join(
         f"""        const {fn} = (typeof {factory_name}Parts !== 'undefined' && {factory_name}Parts.{fn})
             || (typeof require === 'function' ? require('./{name}').{fn} : null);"""
-        for name, fn, *_ in chunks)
+        for name, fn, *_ in chunks
+    )
     missing = " || ".join(f"!{fn}" for _, fn, *_ in chunks)
     assigns = ",\n".join(f"            {fn}(deps)" for _, fn, *_ in chunks)
 
@@ -101,5 +106,5 @@ def split(feature, factory_name, parts_spec):
 {assigns},
         );
 """
-    open(path, 'w').write('\n'.join(head) + '\n' + composition + '\n' + '\n'.join(after) + '\n')
-    print('index.js rewritten')
+    open(path, "w").write("\n".join(head) + "\n" + composition + "\n" + "\n".join(after) + "\n")
+    print("index.js rewritten")

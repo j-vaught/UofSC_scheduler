@@ -1486,7 +1486,7 @@
   "total_credits_required": 125,
   "validation": {
     "low_confidence_requirement_count": 14,
-    "requirement_count": 44,
+    "requirement_count": 45,
     "requires_review": true,
     "semester_count": 8
   },

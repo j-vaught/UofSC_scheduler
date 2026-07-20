@@ -135,13 +135,16 @@
     },
     {
       "category": "major_courses",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_1b08028f7d22b375",
-      "informational": true,
-      "label": "JOUR 442 Advanced Graphics for Visual Comm. or",
-      "options": [],
+      "label": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
+      "options": [
+        "JOUR 442",
+        "JOUR 447",
+        "JOUR 449"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_1b08028f7d22b375"
     },
     {
@@ -168,13 +171,16 @@
     },
     {
       "category": "major_courses",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_871758caa244891e",
-      "informational": true,
-      "label": "JOUR 442 Advanced Graphics for Visual Comm. or",
-      "options": [],
+      "label": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
+      "options": [
+        "JOUR 442",
+        "JOUR 447",
+        "JOUR 449"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_871758caa244891e"
     },
     {
@@ -226,13 +232,16 @@
     },
     {
       "category": "major_courses",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_6d2539f09d6a888d",
-      "informational": true,
-      "label": "JOUR 442 Advanced Graphics for Visual Comm. or",
-      "options": [],
+      "label": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
+      "options": [
+        "JOUR 442",
+        "JOUR 447",
+        "JOUR 449"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_6d2539f09d6a888d"
     },
     {
@@ -834,7 +843,9 @@
         {
           "confidence": "high",
           "course_codes": [
-            "JOUR 442"
+            "JOUR 442",
+            "JOUR 447",
+            "JOUR 449"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -846,8 +857,8 @@
             "CC"
           ],
           "sequence": 2,
-          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or 3 C MR/CC- See Bulletin listing.",
-          "title": "JOUR 442 Advanced Graphics for Visual Comm. or",
+          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content 3 C MR/CC-INT See Bulletin listing.",
+          "title": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
           "warnings": []
         },
         {
@@ -920,7 +931,9 @@
         {
           "confidence": "high",
           "course_codes": [
-            "JOUR 442"
+            "JOUR 442",
+            "JOUR 447",
+            "JOUR 449"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -932,8 +945,8 @@
             "CC"
           ],
           "sequence": 1,
-          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or 3 C MR/CC- See Bulletin listing.",
-          "title": "JOUR 442 Advanced Graphics for Visual Comm. or",
+          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content 3 C MR/CC-INT See Bulletin listing.",
+          "title": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
           "warnings": []
         },
         {
@@ -1022,7 +1035,9 @@
         {
           "confidence": "high",
           "course_codes": [
-            "JOUR 442"
+            "JOUR 442",
+            "JOUR 447",
+            "JOUR 449"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -1034,8 +1049,8 @@
             "CC"
           ],
           "sequence": 1,
-          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or 3 C MR/CC- See Bulletin listing.",
-          "title": "JOUR 442 Advanced Graphics for Visual Comm. or",
+          "source_text": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content 3 C MR/CC-INT See Bulletin listing.",
+          "title": "JOUR 442 Advanced Graphics for Visual Comm. or JOUR 447 Video for Visual Communications or JOUR 449 Design for Online Content",
           "warnings": []
         },
         {

@@ -5,6 +5,10 @@ import pytest
 
 from scripts.import_major_maps import (
     RepositoryEntry,
+    _append_continuation,
+    _extract_course_codes,
+    _is_title_continuation,
+    _row_from_line,
     extract_pdf_bbox,
     extract_pdf_text,
     import_inventory,
@@ -226,3 +230,303 @@ def test_offline_inventory_aliases_and_per_map_output(tmp_path: Path, envelope: 
     assert written["program"].startswith("Bachelor of Science")
     report = json.loads((tmp_path / "output-review-report.json").read_text(encoding="utf-8"))
     assert report["imported"] == 1
+
+
+# --- Regression tests for the audit-confirmed parser defects (fix/audit-confirmed-map-defects) ---
+#
+# Every fixture line below is copied verbatim (whitespace included) from the
+# real 2026-2027 registrar PDFs, extracted with `pdftotext -layout`, so each
+# test is pinned to the exact input that exposed the bug rather than a
+# reconstruction of it.
+
+
+def test_bug1_single_space_before_credits_no_longer_drops_the_row() -> None:
+    # B.S.C.S. 2026-2027 map: "Composition" runs right up to the credit-hours
+    # column, leaving only one space. _row_from_line required two-or-more
+    # spaces between title and credits, so this line matched nothing and the
+    # entire ENGL 101 row vanished with no warning anywhere in the output.
+    dropped = "    ENGL 101 Critical Reading and Composition 3      C           CC-CMW"
+    item = _row_from_line(dropped, semester=1, sequence=1)
+    assert item is not None
+    assert item["title"] == "ENGL 101 Critical Reading and Composition"
+    assert item["course_codes"] == ["ENGL 101"]
+    assert item["credit_hours"] == 3
+    assert item["minimum_grade"] == "C"
+    assert item["requirement_codes"] == ["CC-CMW"]
+
+    # The two-or-more-space form of the same row (a "!" critical course,
+    # copied from a different 2026-2027 map) already worked before this fix
+    # and must keep working identically -- the fallback path must never
+    # change behaviour for a line the strict rule already matched.
+    kept = "!     ENGL 101 Critical Reading and Composition         3     C         CC-CMW"
+    kept_item = _row_from_line(kept, semester=1, sequence=1)
+    assert kept_item is not None
+    assert kept_item["title"] == "ENGL 101 Critical Reading and Composition"
+    assert kept_item["course_codes"] == ["ENGL 101"]
+    assert kept_item["critical"] is True
+
+
+def test_bug1_single_space_fallback_ignores_a_course_number_inside_the_title() -> None:
+    # Guards against the naive version of the fix (just relaxing "two
+    # spaces" to "one space" everywhere): a title that itself starts with a
+    # course code, like "ENGL 101 ...", must not have that embedded number
+    # mistaken for the credits field just because a single space precedes
+    # it. The recovery path only fires when what follows the lone digit run
+    # reads like a real grade/requirement-code column; plain trailing prose
+    # must still be rejected.
+    line = "    ENGL 101 Critical Reading and Composition and more prose 3 not a real row"
+    assert _row_from_line(line, semester=1, sequence=1) is None
+
+
+def test_bug2_alternative_wrapped_right_after_the_open_paren_is_recovered() -> None:
+    # Electrical Engineering 2026-2027 map: the title wraps immediately
+    # after "(or", leaving "ENCP 101) fall only" alone on the next line.
+    # _is_title_continuation only recognised "or CODE ###" when the whole
+    # phrase shared one line, so this line matched nothing and the ENCP 101
+    # alternative -- along with "fall only" -- was silently dropped, even
+    # though ENCP 101 is genuinely interchangeable with every engineering
+    # intro course.
+    opening = (
+        "    ELCT 101 Electrical & Electronics Engr. (or             1                  *       PR"
+    )
+    continuation = "    ENCP 101) fall only"
+
+    item = _row_from_line(opening, semester=1, sequence=1)
+    assert item is not None
+    assert item["course_codes"] == ["ELCT 101"]
+    assert item["relation"] == "choose_one"  # the "(or" alone already implies a choice
+
+    assert _is_title_continuation(item, continuation) is True
+    _append_continuation(item, continuation)
+    assert item["title"] == "ELCT 101 Electrical & Electronics Engr. (or ENCP 101) fall only"
+    assert item["course_codes"] == ["ELCT 101", "ENCP 101"]
+    assert item["relation"] == "choose_one"
+
+
+def test_bug2_existing_same_line_alternative_pattern_still_works() -> None:
+    # Mechanical Engineering fixture: "(or ENCP 101)" already fits on one
+    # continuation line. This is the pattern that worked before the fix and
+    # must keep working unchanged.
+    item = _row_from_line(
+        "   EMCH 101 Intro. to Mechanical Engineering      3                              PR",
+        semester=1,
+        sequence=1,
+    )
+    assert item is not None
+    continuation = "   (or ENCP 101)"
+    assert _is_title_continuation(item, continuation) is True
+    _append_continuation(item, continuation)
+    assert item["course_codes"] == ["EMCH 101", "ENCP 101"]
+
+
+def test_bug3_course_code_extraction_ignores_english_word_collisions() -> None:
+    # Every one of these strings is copied from a real title in the curated
+    # 2026-2027 corpus. COURSE_RE matches any 2-5 capital letters directly
+    # in front of a three-digit number, so prose that bled into the title
+    # column produced fabricated "subject codes" like OR 106, CROSS 511, and
+    # TWO 500 that the planner would then try (and fail) to resolve as real
+    # courses.
+    cases = [
+        # "...C or better in CSCE 145 or 106" -> bare "OR 106" fabricated.
+        ("C or better in CSCE 145 or 106", ["CSCE 145"]),
+        # "cross-listed STAT 511" -> "CROSS 511" fabricated.
+        ("MATH 587 Introduction to Cryptography (cross-listed STAT 511)", ["MATH 587", "STAT 511"]),
+        # Real curated title text (Marine Science map) where a wrapped "II
+        # 111" used to be fabricated between "General Chemistry II" and the
+        # next course's "PHYS 202 & 202L General Physics II 111/115/122/141".
+        (
+            "CHEM 112 & 112L General Chemistry II or PHYS 202 & 202L General "
+            "Physics II 111/115/122/141 or higher math (CHEM",
+            ["CHEM 112", "PHYS 202"],
+        ),
+        # "a view of the River 371" -> "RIVER 371" fabricated.
+        ("GEOL 371 A view of the River 371", ["GEOL 371"]),
+        # "& two 500-level MATH" -> "TWO 500" fabricated.
+        ("C or better in MATH 241 & two 500-level MATH", ["MATH 241"]),
+    ]
+    for text, expected in cases:
+        assert _extract_course_codes(text) == expected, text
+
+
+def test_bug3_legitimate_short_codes_still_survive_the_filter() -> None:
+    # The stoplist must only reject the confirmed English-word collisions,
+    # never a real (if short-looking) registrar subject code.
+    assert _extract_course_codes("NSCI 300 Introduction to Neuroscience") == ["NSCI 300"]
+    assert _extract_course_codes("SPAN 401 Latin American Culture (cross-listed: LASP 361)") == [
+        "SPAN 401",
+        "LASP 361",
+    ]
+
+
+def test_bug4_summer_section_is_not_folded_into_the_prior_semester() -> None:
+    # Retailing 2026-2027 map: "Summer (6 Credit Hours)" doesn't match
+    # "Semester <word>", so SEMESTER_RE ignored it, `current` stayed pointed
+    # at Semester Eight, and RETL 495 -- a summer internship -- silently
+    # accumulated into Semester Eight's requirement list.
+    text = "\n".join(
+        [
+            "Major Map: Retailing",
+            "Bachelor of Science (B.S.)",
+            "Bulletin Year: 2026-2027",
+            "Semester Eight (12 Credit Hours)",
+            "          RETL 421 Retail Finance                          3     C           MR            C or better in RETL 262",
+            " Summer (6 Credit Hours)",
+            "          RETL 495 Retailing Internship8                   6     C         MR/CC-                  RETL 295",
+            "                                                                             INT",
+        ]
+    )
+    document = parse_major_map_text(text, _entry())
+
+    semester_eight = next(s for s in document["semester_plan"] if s["label"] == "Semester Eight")
+    assert semester_eight["number"] == 8
+    assert all("RETL 495" not in item["course_codes"] for item in semester_eight["requirements"])
+
+    summer = next(s for s in document["semester_plan"] if s["label"].startswith("Summer"))
+    assert summer["number"] != 8  # never collides with a real semester number
+    assert summer["planned_credit_hours"] == 6
+    retl_495 = next(item for item in summer["requirements"] if "RETL 495" in item["course_codes"])
+    assert retl_495["credit_hours"] == 6
+    # The wrapped "MR/CC-\nINT" requirement-code fragment is discarded, not
+    # appended to the title as if it were more course-title text.
+    assert "INT" not in retl_495["title"]
+
+    assert "non_standard_semester_section" in document["warnings"]
+
+
+def test_wrapped_prerequisite_number_does_not_become_a_phantom_credit_value() -> None:
+    # Chemical Engineering 2026-2027 map: "MATH" wraps off the far right of
+    # the prerequisite column on the ECHE 310 row, and its continuation
+    # "241" lands on the next line under a fragment of the wrapped title
+    # ("Thermodynamics (or ENCP 290)"). Read as plain text this looks
+    # exactly like a new row -- "title  <big gap>  241" -- and was emitted
+    # as a standalone item with credit_hours=241 and course_codes=[], a
+    # value no real course can have.
+    opening = (
+        "  ! ECHE 310 Intro. to Chem. Engr.                            3       C         *"
+        "         PR       C or better in ECHE 300; Prereq or Coreq: MATH"
+    )
+    continuation = (
+        "    Thermodynamics (or ENCP 290)                                    "
+        "                                                        241"
+    )
+
+    item = _row_from_line(opening, semester=3, sequence=1)
+    assert item is not None
+    assert item["credit_hours"] == 3
+
+    # The implausible-looking line must not be accepted as a row in its own
+    # right ...
+    assert _row_from_line(continuation, semester=3, sequence=2) is None
+    # ... but it must still be recognised as a continuation of ECHE 310 ...
+    assert _is_title_continuation(item, continuation) is True
+    _append_continuation(item, continuation)
+    # ... folded into the title without the wrapped "241" ...
+    assert item["title"] == "ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290)"
+    assert "241" not in item["title"]
+    # ... recovering the ENCP 290 alternative ...
+    assert item["course_codes"] == ["ECHE 310", "ENCP 290"]
+    assert item["relation"] == "choose_one"
+    # ... and leaving the real credit value untouched.
+    assert item["credit_hours"] == 3
+
+
+def test_wrapped_fragment_with_no_course_code_still_completes_the_title() -> None:
+    # Social Work 2026-2027 map: the title itself wraps ("Organizations &"
+    # / "Communities"), and this time the wrapped prerequisite fragment
+    # ("SOWK\n441") lands right after "Communities" on the continuation
+    # line. No course code appears anywhere in the continuation, so neither
+    # the "(or CODE)" pattern nor the hyphenation check applies -- only the
+    # implausible-credits shape ("Communities  <big gap>  441") identifies
+    # this as a continuation rather than a real "441-credit-hour" row.
+    opening = (
+        "        SOWK 412 Social Work Practice with Organizations &"
+        "                     3       C       *       MR       SOWK 411; Prereq or Coreq: SOWK"
+    )
+    continuation = (
+        "        Communities                                              "
+        "                                                               441"
+    )
+
+    item = _row_from_line(opening, semester=8, sequence=1)
+    assert item is not None
+    assert item["credit_hours"] == 3
+
+    assert _is_title_continuation(item, continuation) is True
+    _append_continuation(item, continuation)
+    assert item["title"] == "SOWK 412 Social Work Practice with Organizations & Communities"
+    assert item["credit_hours"] == 3
+
+
+def test_deeply_indented_column_bleed_is_dropped_not_appended() -> None:
+    # Marine Science 2026-2027 map: "MR/CC-" wraps to a lone "INT" on the
+    # next line, positioned ~100 characters in (the far-right requirement-
+    # code column), not near the title column. It happens to be followed by
+    # a wrapped prerequisite number too ("...PHYS 201 or\n211"), so as text
+    # it also looks row-shaped with an implausible credit value. Unlike the
+    # SOWK case above, appending "INT" to the title would corrupt it with a
+    # meaningless fragment, so the existing continuation-indent guard (>40
+    # leading characters) must keep rejecting it.
+    opening = (
+        "        MSCI 314 Physical Oceanography (fall only)                          "
+        "4       C              MR/CC- MSCI 101, MATH 141, & PHYS 201 or"
+    )
+    continuation = (
+        "                                                                                "
+        "                    INT                 211"
+    )
+
+    item = _row_from_line(opening, semester=5, sequence=1)
+    assert item is not None
+    assert item["credit_hours"] == 4
+
+    assert _is_title_continuation(item, continuation) is False
+
+
+def test_bug5_minimum_grade_keeps_its_plus_or_minus_modifier() -> None:
+    # Dance 2026-2027 map: a trailing \b cannot match right after "+" or
+    # "-" (both are non-word characters, always followed by whitespace,
+    # also non-word -- there is no word/non-word transition for \b to find
+    # there). The engine backtracked, dropped the optional modifier, and
+    # every "C+" row in this map -- DANC 150, DANC 360, DANC 470, and
+    # others -- was stored as the weaker "C". Because the degree planner
+    # uses minimum_grade to decide whether a completed course satisfies a
+    # requirement, this silently told students a C was good enough for a
+    # course that actually required a C+.
+    line = "          DANC 150 Introduction to Dance3                                 3       C+             CR"
+    item = _row_from_line(line, semester=1, sequence=1)
+    assert item is not None
+    assert item["minimum_grade"] == "C+"
+
+    # A "-" modifier must survive the same way. No B-minus row was found in
+    # the 2026-2027 corpus to pin this to verbatim, so this line is
+    # constructed (same column shape as the real rows above) purely to
+    # cover the "-" half of the [+-]? group symmetrically with "+".
+    minus_item = _row_from_line(
+        "   PSYC 226 Cognitive Psychology     3   B-   MR", semester=1, sequence=1
+    )
+    assert minus_item is not None
+    assert minus_item["minimum_grade"] == "B-"
+
+    # A plain, unmodified grade must still work exactly as before.
+    plain_item = _row_from_line(
+        "   PSYC 226 Cognitive Psychology     3   C   MR", semester=1, sequence=1
+    )
+    assert plain_item is not None
+    assert plain_item["minimum_grade"] == "C"
+
+
+def test_bug5_grade_zone_prose_is_not_misread_as_a_grade() -> None:
+    # Real B.S.C.S. 2026-2027 line: the prerequisite prose "C or better in
+    # ENGL 101" sits in the same "remaining" text as the actual grade, after
+    # the requirement code. grade_zone only keeps the slice before the
+    # first requirement code, so this trailing "C or better..." text must
+    # never be reached -- the real grade "C" (right after the credit value)
+    # must still be the one captured.
+    line = (
+        "   ENGL 102 Rhetoric and Composition                       3       C  "
+        "              CC-CMW                 C or better in ENGL 101"
+    )
+    item = _row_from_line(line, semester=2, sequence=1)
+    assert item is not None
+    assert item["minimum_grade"] == "C"
+    assert item["requirement_codes"] == ["CC-CMW"]

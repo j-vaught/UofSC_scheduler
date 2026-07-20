@@ -1729,7 +1729,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Semester Eight",
+      "number": 8,
+      "planned_credit_hours": [
+        13,
+        17
+      ],
+      "requirements": [
         {
           "confidence": "medium",
           "course_codes": [
@@ -1744,7 +1754,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 7,
+          "sequence": 1,
           "source_text": "MUSC 313 20th-Century Tech. and Materials 3 C * MR C or better in MUSC 215 or MUSC 525 Post-Tonal Music Theory",
           "title": "MUSC 313 20th-Century Tech. and Materials or MUSC 525 Post-Tonal Music Theory",
           "warnings": []
@@ -1760,7 +1770,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 8,
+          "sequence": 2,
           "source_text": "Music History & Literature Elective10 3 C * MR",
           "title": "Music History & Literature Elective10",
           "warnings": [
@@ -1778,7 +1788,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 9,
+          "sequence": 3,
           "source_text": "Technology Elective12 3 C * MR",
           "title": "Technology Elective12",
           "warnings": [
@@ -1796,7 +1806,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 10,
+          "sequence": 4,
           "source_text": "Ensemble (major or chamber)3 & 13 1 C * MR",
           "title": "Ensemble (major or chamber)3 & 13",
           "warnings": [
@@ -1818,7 +1828,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 11,
+          "sequence": 5,
           "source_text": "Carolina Core Requirement7 or Elective14 3-4 CC/PR",
           "title": "Carolina Core Requirement7 or Elective14",
           "warnings": [
@@ -1840,7 +1850,7 @@
             "CC",
             "PR"
           ],
-          "sequence": 12,
+          "sequence": 6,
           "source_text": "Carolina Core Requirement7 or Elective14 (depends 0-3 CC/PR",
           "title": "Carolina Core Requirement7 or Elective14 (depends",
           "warnings": [
@@ -1867,9 +1877,7 @@
     "low_confidence_requirement_count": 29,
     "requirement_count": 58,
     "requires_review": true,
-    "semester_count": 7
+    "semester_count": 8
   },
-  "warnings": [
-    "expected_exactly_eight_ordered_semesters"
-  ]
+  "warnings": []
 }

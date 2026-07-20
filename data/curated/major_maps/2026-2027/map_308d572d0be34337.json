@@ -449,7 +449,7 @@
       "min_grade": "C",
       "prerequisites": [],
       "source_requirement_id": "req_7527988bd495ade9",
-      "title": "Web Design & Development using AI",
+      "title": "Web Design & Development using AI Tools",
       "typical_semester": "Fall",
       "typical_year": 2
     },
@@ -720,8 +720,8 @@
             "CR"
           ],
           "sequence": 2,
-          "source_text": "CSCE 102 Web Design & Development using AI 3 C CR",
-          "title": "CSCE 102 Web Design & Development using AI",
+          "source_text": "CSCE 102 Web Design & Development using AI Tools 3 C CR",
+          "title": "CSCE 102 Web Design & Development using AI Tools",
           "warnings": []
         },
         {

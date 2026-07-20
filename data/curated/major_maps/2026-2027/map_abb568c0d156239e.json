@@ -202,17 +202,6 @@
       "source_requirement_id": "req_fb474eb32f1a30f0"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 441,
-      "id": "req_4dd384a007e1e546",
-      "informational": true,
-      "label": "Communities",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_4dd384a007e1e546"
-    },
-    {
       "category": "major_courses",
       "credits_required": 3,
       "id": "req_9839759118cfe2f8",
@@ -469,7 +458,7 @@
       "min_grade": "C",
       "prerequisites": [],
       "source_requirement_id": "req_277f997f3508e805",
-      "title": "Social Work Practice with Organizations &",
+      "title": "Social Work Practice with Organizations & Communities",
       "typical_semester": "Spring",
       "typical_year": 4
     },
@@ -1226,25 +1215,9 @@
             "MR"
           ],
           "sequence": 1,
-          "source_text": "SOWK 412 Social Work Practice with Organizations & 3 C * MR SOWK 411; Prereq or Coreq: SOWK",
-          "title": "SOWK 412 Social Work Practice with Organizations &",
+          "source_text": "SOWK 412 Social Work Practice with Organizations & Communities 3 C * MR SOWK 411; Prereq or Coreq: SOWK 441",
+          "title": "SOWK 412 Social Work Practice with Organizations & Communities",
           "warnings": []
-        },
-        {
-          "confidence": "low",
-          "course_codes": [],
-          "credit_hours": 441,
-          "critical": false,
-          "id": "req_4dd384a007e1e546",
-          "minimum_grade": null,
-          "relation": "requirement",
-          "requirement_codes": [],
-          "sequence": 2,
-          "source_text": "Communities 441",
-          "title": "Communities",
-          "warnings": [
-            "non_specific_requirement_requires_validation"
-          ]
         },
         {
           "confidence": "high",
@@ -1259,7 +1232,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 2,
           "source_text": "SOWK 422 Advocacy for Social & Economic Justice 3 C * MR SOWK 322",
           "title": "SOWK 422 Advocacy for Social & Economic Justice",
           "warnings": []
@@ -1277,7 +1250,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "SOWK 482 Practicum II: Field Education 3 C * MR Prereq or Coreq: SOWK 412, 422, 484",
           "title": "SOWK 482 Practicum II: Field Education",
           "warnings": []
@@ -1295,7 +1268,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "SOWK 484 Capstone 3 C * MR Coreq: SOWK 482",
           "title": "SOWK 484 Capstone",
           "warnings": []
@@ -1311,7 +1284,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "SOWK Elective (300-level or above) 3 C * MR",
           "title": "SOWK Elective (300-level or above)",
           "warnings": [
@@ -1335,8 +1308,8 @@
   },
   "total_credits_required": 120,
   "validation": {
-    "low_confidence_requirement_count": 18,
-    "requirement_count": 41,
+    "low_confidence_requirement_count": 17,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

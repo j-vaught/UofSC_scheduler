@@ -603,7 +603,8 @@
           "minimum_grade": "C",
           "relation": "required",
           "requirement_codes": [
-            "CC-CMW"
+            "CC-CMW",
+            "CC-INF"
           ],
           "sequence": 1,
           "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",

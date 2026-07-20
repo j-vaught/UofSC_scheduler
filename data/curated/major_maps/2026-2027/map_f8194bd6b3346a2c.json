@@ -127,8 +127,9 @@
       "credits_each": 3,
       "credits_required": 3,
       "id": "req_f2080a342b5d7cb9",
-      "label": "Modern Art History Course: or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+      "label": "Modern Art History Course: ARTH 335 History of 20th Century Art or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
       "options": [
+        "ARTH 335",
         "ARTH 341",
         "ARTH 342",
         "ARTH 535",
@@ -783,6 +784,7 @@
         {
           "confidence": "medium",
           "course_codes": [
+            "ARTH 335",
             "ARTH 341",
             "ARTH 342",
             "ARTH 535",
@@ -800,8 +802,8 @@
             "CR"
           ],
           "sequence": 4,
-          "source_text": "Modern Art History Course: 3 C CR See Bulletin listing or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
-          "title": "Modern Art History Course: or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+          "source_text": "Modern Art History Course: ARTH 335 History of 20th Century Art 3 C CR See Bulletin listing or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
+          "title": "Modern Art History Course: ARTH 335 History of 20th Century Art or ARTH 341 History of American Art II or ARTH 342 Contemporary American Art or ARTH 535 History of Modern Painting or ARTH 536 History of Modern Sculpture or ARTH 537 Topics in Modern Architecture or ARTH 539 Topics in Modern Art or ARTH 545 Special Topics in Modern Chinese Art",
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]

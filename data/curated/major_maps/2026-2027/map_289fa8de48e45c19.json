@@ -46,15 +46,15 @@
       "source_requirement_id": "req_5a267de815486295"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 241,
-      "id": "req_07075cf9fffc865a",
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_77c92a2a3408d8e9",
       "informational": true,
-      "label": "Thermodynamics (or ENCP 290)",
+      "label": "ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290)",
       "options": [],
       "pick": 1,
       "requires_review": true,
-      "source_requirement_id": "req_07075cf9fffc865a"
+      "source_requirement_id": "req_77c92a2a3408d8e9"
     },
     {
       "category": "program_requirements",
@@ -380,18 +380,6 @@
       "title": "Chemical Process Principles",
       "typical_semester": "Spring",
       "typical_year": 1
-    },
-    {
-      "category": "program_requirements",
-      "code": "ECHE 310",
-      "corequisites": [],
-      "credits": 3,
-      "min_grade": "C",
-      "prerequisites": [],
-      "source_requirement_id": "req_77c92a2a3408d8e9",
-      "title": "Intro. to Chem. Engr.",
-      "typical_semester": "Fall",
-      "typical_year": 2
     },
     {
       "category": "program_requirements",
@@ -889,7 +877,8 @@
         {
           "confidence": "high",
           "course_codes": [
-            "ECHE 310"
+            "ECHE 310",
+            "ENCP 290"
           ],
           "credit_hours": 3,
           "critical": true,
@@ -900,24 +889,8 @@
             "PR"
           ],
           "sequence": 2,
-          "source_text": "! ECHE 310 Intro. to Chem. Engr. 3 C * PR C or better in ECHE 300; Prereq or Coreq: MATH",
-          "title": "ECHE 310 Intro. to Chem. Engr.",
-          "warnings": []
-        },
-        {
-          "confidence": "high",
-          "course_codes": [
-            "ENCP 290"
-          ],
-          "credit_hours": 241,
-          "critical": false,
-          "id": "req_07075cf9fffc865a",
-          "minimum_grade": null,
-          "relation": "choose_one",
-          "requirement_codes": [],
-          "sequence": 3,
-          "source_text": "Thermodynamics (or ENCP 290) 241",
-          "title": "Thermodynamics (or ENCP 290)",
+          "source_text": "! ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290) 3 C * PR C or better in ECHE 300; Prereq or Coreq: MATH",
+          "title": "ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290)",
           "warnings": []
         },
         {
@@ -933,7 +906,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "! MATH 241 Vector Calculus 3 PR C or better in MATH 142",
           "title": "MATH 241 Vector Calculus",
           "warnings": []
@@ -951,7 +924,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "! CHEM 333 Organic Chemistry I 3 C PR C or better in CHEM 112 or CHEM 142",
           "title": "CHEM 333 Organic Chemistry I",
           "warnings": []
@@ -967,7 +940,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Chemistry Lab Electives6 2 PR See Bulletin listing.",
           "title": "Chemistry Lab Electives6",
           "warnings": [
@@ -987,7 +960,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 7,
+          "sequence": 6,
           "source_text": "PHYS 212 Essentials of Physics II 3 PR C or better in PHYS 211 & MATH 142; Coreq:",
           "title": "PHYS 212 Essentials of Physics II",
           "warnings": []
@@ -1005,7 +978,7 @@
           "requirement_codes": [
             "PR"
           ],
-          "sequence": 8,
+          "sequence": 7,
           "source_text": "! PHYS 212L Essentials of Physics II Lab. 1 PR Prereq/Coreq: C or better in PHYS 212",
           "title": "PHYS 212L Essentials of Physics II Lab.",
           "warnings": []
@@ -1597,7 +1570,7 @@
   "total_credits_required": 131,
   "validation": {
     "low_confidence_requirement_count": 16,
-    "requirement_count": 50,
+    "requirement_count": 49,
     "requires_review": true,
     "semester_count": 8
   },

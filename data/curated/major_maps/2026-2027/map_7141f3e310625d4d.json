@@ -106,17 +106,6 @@
       "source_requirement_id": "req_b36b0079528eee62"
     },
     {
-      "category": "other_requirements",
-      "credits_required": 211,
-      "id": "req_6f4574cb9d2c9892",
-      "informational": true,
-      "label": "INT",
-      "options": [],
-      "pick": 1,
-      "requires_review": true,
-      "source_requirement_id": "req_6f4574cb9d2c9892"
-    },
-    {
       "category": "major_courses",
       "credits_required": 3,
       "id": "req_74f6b0d121315609",
@@ -475,6 +464,7 @@
       "typical_year": 2
     },
     {
+      "carolina_core": "INT",
       "category": "major_courses",
       "code": "MSCI 314",
       "corequisites": [],
@@ -918,28 +908,12 @@
           "relation": "required",
           "requirement_codes": [
             "MR",
-            "CC"
+            "CC-INT"
           ],
           "sequence": 1,
           "source_text": "MSCI 314 Physical Oceanography (fall only) 4 C MR/CC- MSCI 101, MATH 141, & PHYS 201 or",
           "title": "MSCI 314 Physical Oceanography (fall only)",
           "warnings": []
-        },
-        {
-          "confidence": "low",
-          "course_codes": [],
-          "credit_hours": 211,
-          "critical": false,
-          "id": "req_6f4574cb9d2c9892",
-          "minimum_grade": null,
-          "relation": "requirement",
-          "requirement_codes": [],
-          "sequence": 2,
-          "source_text": "INT 211",
-          "title": "INT",
-          "warnings": [
-            "non_specific_requirement_requires_validation"
-          ]
         },
         {
           "confidence": "low",
@@ -955,7 +929,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 3,
+          "sequence": 2,
           "source_text": "MSCI Elective (300-level and above)8 3-4 C MR See Bulletin listing",
           "title": "MSCI Elective (300-level and above)8",
           "warnings": [
@@ -977,7 +951,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 4,
+          "sequence": 3,
           "source_text": "CSCE 102 Web Design & Development using AI 3 C CR See Bulletin listing or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis for",
           "title": "CSCE 102 Web Design & Development using AI or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis for",
           "warnings": []
@@ -994,7 +968,7 @@
             "CR",
             "CC"
           ],
-          "sequence": 5,
+          "sequence": 4,
           "source_text": "Foreign language6 or Carolina Core Requirement4 3 CR/CC",
           "title": "Foreign language6 or Carolina Core Requirement4",
           "warnings": [
@@ -1012,7 +986,7 @@
           "requirement_codes": [
             "CR"
           ],
-          "sequence": 6,
+          "sequence": 5,
           "source_text": "Humanities or Fine Arts 3 CR",
           "title": "Humanities or Fine Arts",
           "warnings": [
@@ -1371,8 +1345,8 @@
   },
   "total_credits_required": 128,
   "validation": {
-    "low_confidence_requirement_count": 24,
-    "requirement_count": 41,
+    "low_confidence_requirement_count": 23,
+    "requirement_count": 40,
     "requires_review": true,
     "semester_count": 8
   },

@@ -78,6 +78,17 @@
       "source_requirement_id": "req_8264a7c4b680545f"
     },
     {
+      "category": "carolina_core",
+      "credits_required": 3,
+      "id": "req_eb3b1880bb5bb6b2",
+      "informational": true,
+      "label": "Foreign Language5 or other Carolina Core Req.6",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_eb3b1880bb5bb6b2"
+    },
+    {
       "category": "college_requirements",
       "credits_each": 3,
       "credits_required": 3,
@@ -709,6 +720,27 @@
           "source_text": "! MGSC 290 Computer Info. Systems in Business4 3 C CR or ECON 221 Principles of Microeconomics or ECON 222 Principles of Macroeconomics",
           "title": "MGSC 290 Computer Info. Systems in Business4 or ECON 221 Principles of Microeconomics or ECON 222 Principles of Macroeconomics",
           "warnings": []
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_eb3b1880bb5bb6b2",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC-GFL"
+          ],
+          "sequence": 5,
+          "source_text": "Foreign Language5 or other Carolina Core Req.6 3-4 CC-GFL",
+          "title": "Foreign Language5 or other Carolina Core Req.6",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -1361,8 +1393,8 @@
   },
   "total_credits_required": 125,
   "validation": {
-    "low_confidence_requirement_count": 16,
-    "requirement_count": 41,
+    "low_confidence_requirement_count": 17,
+    "requirement_count": 42,
     "requires_review": true,
     "semester_count": 8
   },

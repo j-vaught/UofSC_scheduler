@@ -87,7 +87,8 @@
       "options": [
         "CHEM 550",
         "BIOL 541",
-        "CHEM 555"
+        "CHEM 555",
+        "BIOL 545"
       ],
       "pick": 1,
       "source_requirement_id": "req_1886a9be4fbd7b23"
@@ -1127,7 +1128,8 @@
           "course_codes": [
             "CHEM 550",
             "BIOL 541",
-            "CHEM 555"
+            "CHEM 555",
+            "BIOL 545"
           ],
           "credit_hours": 3,
           "critical": false,

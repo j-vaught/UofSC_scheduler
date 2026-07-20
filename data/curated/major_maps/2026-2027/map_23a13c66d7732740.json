@@ -14,13 +14,15 @@
   "elective_groups": [
     {
       "category": "program_requirements",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_07926ae340c1cbe0",
-      "informational": true,
-      "label": "AESP 101 Intro. to Aerospace Engineering (or",
-      "options": [],
+      "label": "AESP 101 Intro. to Aerospace Engineering (or ENCP 101)",
+      "options": [
+        "AESP 101",
+        "ENCP 101"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_07926ae340c1cbe0"
     },
     {
@@ -36,13 +38,15 @@
     },
     {
       "category": "program_requirements",
+      "credits_each": 3,
       "credits_required": 3,
       "id": "req_78ccf56af3019953",
-      "informational": true,
-      "label": "EMCH 111 Intro. to Computer-Aided Design (or",
-      "options": [],
+      "label": "EMCH 111 Intro. to Computer-Aided Design (or ENCP 102)",
+      "options": [
+        "EMCH 111",
+        "ENCP 102"
+      ],
       "pick": 1,
-      "requires_review": true,
       "source_requirement_id": "req_78ccf56af3019953"
     },
     {
@@ -654,7 +658,8 @@
         {
           "confidence": "high",
           "course_codes": [
-            "AESP 101"
+            "AESP 101",
+            "ENCP 101"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -665,8 +670,8 @@
             "PR"
           ],
           "sequence": 5,
-          "source_text": "AESP 101 Intro. to Aerospace Engineering (or 3 * PR",
-          "title": "AESP 101 Intro. to Aerospace Engineering (or",
+          "source_text": "AESP 101 Intro. to Aerospace Engineering (or ENCP 101) fall only 3 * PR",
+          "title": "AESP 101 Intro. to Aerospace Engineering (or ENCP 101)",
           "warnings": []
         },
         {
@@ -805,7 +810,8 @@
         {
           "confidence": "high",
           "course_codes": [
-            "EMCH 111"
+            "EMCH 111",
+            "ENCP 102"
           ],
           "credit_hours": 3,
           "critical": false,
@@ -816,8 +822,8 @@
             "PR"
           ],
           "sequence": 7,
-          "source_text": "EMCH 111 Intro. to Computer-Aided Design (or 3 * PR",
-          "title": "EMCH 111 Intro. to Computer-Aided Design (or",
+          "source_text": "EMCH 111 Intro. to Computer-Aided Design (or ENCP 102) 3 * PR",
+          "title": "EMCH 111 Intro. to Computer-Aided Design (or ENCP 102)",
           "warnings": []
         }
       ]

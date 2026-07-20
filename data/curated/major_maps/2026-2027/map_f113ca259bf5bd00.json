@@ -686,7 +686,8 @@
           "minimum_grade": "C",
           "relation": "required",
           "requirement_codes": [
-            "CC-CMW"
+            "CC-CMW",
+            "CC-INF"
           ],
           "sequence": 1,
           "source_text": "! ENGL 102 Rhetoric and Composition 3 C CC-CMW C or better in ENGL 101",
@@ -1089,7 +1090,7 @@
           "relation": "choose_one",
           "requirement_codes": [
             "MR",
-            "CC"
+            "CC-INT"
           ],
           "sequence": 3,
           "source_text": "CHEM 541L or CHEM 542L Physical Chemistry 2 C MR/CC- See Bulletin listing",
@@ -1194,7 +1195,7 @@
           "relation": "choose_one",
           "requirement_codes": [
             "MR",
-            "CC"
+            "CC-INT"
           ],
           "sequence": 2,
           "source_text": "CHEM 541L or CHEM 542L Physical Chemistry 2 C MR/CC- See Bulletin listing",

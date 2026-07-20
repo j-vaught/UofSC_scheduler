@@ -156,6 +156,17 @@
       "source_requirement_id": "req_e9788d2f448503c4"
     },
     {
+      "category": "program_requirements",
+      "credits_required": 3,
+      "id": "req_12841f48b2296368",
+      "informational": true,
+      "label": "Carolina Core Requirement5 or Elective",
+      "options": [],
+      "pick": 1,
+      "requires_review": true,
+      "source_requirement_id": "req_12841f48b2296368"
+    },
+    {
       "category": "major_courses",
       "credits_required": 1,
       "id": "req_3a149128343fa410",
@@ -1260,6 +1271,28 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
+        },
+        {
+          "confidence": "low",
+          "course_codes": [],
+          "credit_hours": [
+            3,
+            4
+          ],
+          "critical": false,
+          "id": "req_12841f48b2296368",
+          "minimum_grade": null,
+          "relation": "choose_one",
+          "requirement_codes": [
+            "CC",
+            "PR"
+          ],
+          "sequence": 8,
+          "source_text": "Carolina Core Requirement5 or Elective (depends on 3-4 hrs. needed to meet CC or to graduate)",
+          "title": "Carolina Core Requirement5 or Elective",
+          "warnings": [
+            "non_specific_requirement_requires_validation"
+          ]
         }
       ]
     },
@@ -1937,8 +1970,8 @@
   },
   "total_credits_required": 132,
   "validation": {
-    "low_confidence_requirement_count": 10,
-    "requirement_count": 61,
+    "low_confidence_requirement_count": 11,
+    "requirement_count": 62,
     "requires_review": true,
     "semester_count": 8
   },
