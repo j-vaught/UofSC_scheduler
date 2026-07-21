@@ -1,11 +1,11 @@
 """The wire contract's constants must match the code that enforces them.
 
-contracts/wire/fose-v1.json calls itself the single source of truth for the
+tools/contracts/wire/fose-v1.json calls itself the single source of truth for the
 relay's validators, the browser's encoder, and the Python pipeline. It was not
 quite: the field allowlist and the request limits were typed out again in two
 consumers, so adding a search field was three edits kept consistent by care.
 
-scripts/sync_wire_contract.py writes them from the contract. This fails when a
+tools/sync_wire_contract.py writes them from the contract. This fails when a
 consumer drifts, which is what turns "remember to update the other two" into a
 red test naming the file that is stale.
 
@@ -19,15 +19,15 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.sync_wire_contract import CONTRACT, ENCODER, RELAY, sync
+from tools.sync_wire_contract import CONTRACT, ENCODER, RELAY, sync
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_consumers_are_in_sync_with_the_contract():
     assert sync(check=True) == 0, (
-        "a consumer has drifted from contracts/wire/fose-v1.json; "
-        "run: uv run python scripts/sync_wire_contract.py"
+        "a consumer has drifted from tools/contracts/wire/fose-v1.json; "
+        "run: uv run python tools/sync_wire_contract.py"
     )
 
 

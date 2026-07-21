@@ -20,7 +20,7 @@ const { pathToFileURL } = require('node:url');
 
 const ROOT = path.resolve(__dirname, '..');
 const contract = JSON.parse(
-    fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'),
+    fs.readFileSync(path.join(ROOT, 'tools/contracts/wire/fose-v1.json'), 'utf8'),
 );
 
 let worker;
@@ -55,7 +55,7 @@ test.before(async () => {
     const build = fs.mkdtempSync(path.join(os.tmpdir(), 'wire-contract-'));
     const result = spawnSync(
         process.env.PYTHON || 'uv',
-        ['run', 'python', 'scripts/build_static_site.py', '--allow-representative', '--output', build],
+        ['run', 'python', 'tools/build_static_site.py', '--allow-representative', '--output', build],
         { cwd: ROOT, encoding: 'utf8' },
     );
     assert.equal(result.status, 0, result.stderr);
@@ -96,7 +96,7 @@ test('the relay embeds the contract verbatim', () => {
     // eslint-disable-next-line no-eval
     const embedded = eval(`(${match[1]})`);
     assert.deepEqual(embedded, contract,
-        'the relay embeds a stale contract; run: uv run python scripts/sync_wire_contract.py');
+        'the relay embeds a stale contract; run: uv run python tools/sync_wire_contract.py');
     assert.deepEqual(
         [...embedded.routes['/api/search'].request.criteria.allowed_fields].sort(),
         [...contract.routes['/api/search'].request.criteria.allowed_fields].sort(),

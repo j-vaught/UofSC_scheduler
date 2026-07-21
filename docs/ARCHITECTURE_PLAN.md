@@ -36,7 +36,7 @@
 
 Three ideas, down from the draft's three-plus-a-framework.
 
-**One: upstream vocabulary stops at `platform/university/`.** Domain types (`Section`, `Course`, `Term`, `CatalogQuery`) in, versioned wire codecs out. `contracts/wire/fose-v1.json` is read by the browser codec, by the relay's body validator, and by the Python pipeline. One edit, three consumers, one test asserting agreement. This is constraint 6 and it is the highest-value item in the plan.
+**One: upstream vocabulary stops at `platform/university/`.** Domain types (`Section`, `Course`, `Term`, `CatalogQuery`) in, versioned wire codecs out. `tools/contracts/wire/fose-v1.json` is read by the browser codec, by the relay's body validator, and by the Python pipeline. One edit, three consumers, one test asserting agreement. This is constraint 6 and it is the highest-value item in the plan.
 
 **Two: features are factories in one array, not a framework.** A feature is `createX(ctx) -> {start, stop}`. `boot.js` holds one array of them and starts each in its own try/catch. Features talk through a bus with exactly two primitives — `publish/subscribe` and `handle/send`. Declarations are a plain object literal exported from the module. No manifest files, no per-feature contract JSON, no slots, no schema validator, no topological sort. One runtime wiring test walks the started registry and asserts every `send` target has a handler.
 
@@ -109,10 +109,10 @@ static/js/
 
 server/index.js            OWNS: the 3 read-only relay routes (/api/search, /api/details,
                            /api/faculty), body validation GENERATED from
-                           contracts/wire/fose-v1.json, same-origin only.
+                           tools/contracts/wire/fose-v1.json, same-origin only.
                            NEVER: sessions, users, credentials, auth headers.
 contracts/wire/*.json      OWNS: the machine-readable upstream contract. Three consumers.
-scripts/build_static_site.py  OWNS: release stamping, retention, digest verification,
+tools/build_static_site.py  OWNS: release stamping, retention, digest verification,
                            CSP emission + self-test.
 ```
 
@@ -267,7 +267,7 @@ export function createSection(fields);   // sole constructor; provenance is REQU
 ### The shared wire contract
 
 ```jsonc
-// contracts/wire/fose-v1.json — one source of truth, three consumers
+// tools/contracts/wire/fose-v1.json — one source of truth, three consumers
 {
   "version": "fose-1",
   "routes": {
@@ -282,7 +282,7 @@ export function createSection(fields);   // sole constructor; provenance is REQU
 }
 ```
 
-Paths and the 120-character limit are transcribed from the real relay (`server/index.js:11-19,67-112`), not invented. Consumed by `wire/fose-v1.js`, by `server/index.js` (`validateSearchPayload` generated from `requestCriteria` + `maxValueLength`), and by `scripts/lib/wire_contract.py`.
+Paths and the 120-character limit are transcribed from the real relay (`server/index.js:11-19,67-112`), not invented. Consumed by `wire/fose-v1.js`, by `server/index.js` (`validateSearchPayload` generated from `requestCriteria` + `maxValueLength`), and by `tools/lib/wire_contract.py`.
 
 **No contract-version negotiation.** The draft's `X-Wire-Contract` header with 409 responses and a "reload to continue" banner is cut: the banner is new user-facing functionality (constraint 3), and the skew it defends against is cheaply handled instead by having the relay's generated validator accept the **union** of every contract JSON present in `contracts/wire/`. Old cached clients keep working until their contract file is deleted, which is a deliberate act with a retention policy attached. Zero protocol, zero UI, same outcome.
 
@@ -438,8 +438,8 @@ dist/server/                   ← relay, unchanged in role
 `build_static_site.py` keeps its current responsibilities (refuses `.py`/`.db`/`.sqlite`, verifies every artifact digest) and gains three:
 
 1. **Release id** = first 12 hex of SHA-256 over the sorted per-file digest list. The script already computes those digests.
-2. **Retention, K = 3.** This is the answer to the critics' strongest deployment objection: an immutable release directory 404s every module for anyone holding a cached `index.html` if the previous release is deleted. Deploy is `rsync` **without** `--delete` under `app/`, with `--delete` everywhere else. `scripts/prune_releases.py` enforces K. Retention is a stated policy with a number.
-3. **CSP emitted from one source and self-tested.** `scripts/check_csp.py` parses the emitted policy and asserts every host the built tree actually contacts is in `connect-src`, and that no inline script exists. Both of this session's CSP outages were structurally undetectable in local development, where no CSP header exists at all. This makes them build failures. `tests/test_csp_inline_scripts.js:78-90` already encodes the required host list (`'self'`, `academicbulletins.sc.edu`, `cdn.jsdelivr.net`, `huggingface.co`, `*.hf.co`) — `check_csp.py` reads it rather than duplicating it.
+2. **Retention, K = 3.** This is the answer to the critics' strongest deployment objection: an immutable release directory 404s every module for anyone holding a cached `index.html` if the previous release is deleted. Deploy is `rsync` **without** `--delete` under `app/`, with `--delete` everywhere else. `tools/prune_releases.py` enforces K. Retention is a stated policy with a number.
+3. **CSP emitted from one source and self-tested.** `tools/check_csp.py` parses the emitted policy and asserts every host the built tree actually contacts is in `connect-src`, and that no inline script exists. Both of this session's CSP outages were structurally undetectable in local development, where no CSP header exists at all. This makes them build failures. `tests/test_csp_inline_scripts.js:78-90` already encodes the required host list (`'self'`, `academicbulletins.sc.edu`, `cdn.jsdelivr.net`, `huggingface.co`, `*.hf.co`) — `check_csp.py` reads it rather than duplicating it.
 
 **Cut from the draft:** `modulepreload` emission (premature; measure first) and `smoke_release.py` in headless Chrome (a new binary dependency for a repo that has zero frontend dependencies). The boot check runs in the jsdom harness that phase 2 builds anyway: boot `dist/client`, assert zero failed features, assert every declared root selector exists in `index.html`.
 
@@ -514,7 +514,7 @@ Its two claimed wins were load-order safety and automated cache-busting.
 feature's startup so a throw stops one feature rather than the nine after it.
 That leaves cache-busting, which does not need a module system.
 
-**What replaces it.** `scripts/build_static_site.py` stamps `?v=<digest>` onto
+**What replaces it.** `tools/build_static_site.py` stamps `?v=<digest>` onto
 every script and stylesheet URL in `index.html` at build time, computed from the
 file hashes the build already calculates for the service-worker build id. The
 hand-maintained query strings on some tags — and their absence on `runtime/*.js`
@@ -541,7 +541,7 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 
 ---
 
-> **Status 2026-07-19: the contract spine has landed.** `contracts/wire/fose-v1.json`
+> **Status 2026-07-19: the contract spine has landed.** `tools/contracts/wire/fose-v1.json`
 > exists and is enforced by `tests/test_wire_contract.js`, which builds the relay and
 > runs it against the contract's own examples, and by `tests/test_wire_contract.py`,
 > which pins the Python side. Verified to catch drift by altering the contract and
@@ -581,7 +581,7 @@ Either 5a or 5b left undone makes account switching **destructive** rather than 
 
 ### Phase 6 — The wire contract and the firewall. Six to eight weeks. Constraint 6 lands here.
 
-**Scope.** Create `contracts/wire/fose-v1.json` from the verified relay routes. Generate `validateSearchPayload` and the response guard from it; point `scripts/lib/wire_contract.py` at it. Create `platform/university/` with `domain/term.js`, `domain/query.js`, `domain/section.js`, the three codecs and golden fixtures.
+**Scope.** Create `tools/contracts/wire/fose-v1.json` from the verified relay routes. Generate `validateSearchPayload` and the response guard from it; point `tools/lib/wire_contract.py` at it. Create `platform/university/` with `domain/term.js`, `domain/query.js`, `domain/section.js`, the three codecs and golden fixtures.
 
 > **Correction, verified 2026-07-19.** The premise below is overstated. `getMode()`
 > does *not* always return `'static'`. It returns `'legacy'` whenever

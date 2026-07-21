@@ -13,7 +13,7 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.static_release import (
+from tools.static_release import (
     SCHEMA_VERSION,
     build_manifest,
     validate_manifest,

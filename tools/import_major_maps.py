@@ -24,7 +24,7 @@ from urllib.parse import urljoin
 
 import requests
 
-from scripts.normalize_major_maps import normalize_components
+from tools.normalize_major_maps import normalize_components
 
 
 DEFAULT_REPOSITORY_URL = (

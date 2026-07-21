@@ -17,8 +17,8 @@ from urllib.parse import unquote, urlsplit
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.build_catalog_shards import load_major_maps, major_map_runtime_projection
-from scripts.static_release import (
+from tools.build_catalog_shards import load_major_maps, major_map_runtime_projection
+from tools.static_release import (
     build_manifest,
     publish_release_directory,
     utc_now,

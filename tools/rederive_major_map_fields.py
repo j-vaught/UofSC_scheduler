@@ -26,7 +26,7 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.import_major_maps import _runtime_fields
+from tools.import_major_maps import _runtime_fields
 
 
 def load_map(path: Path) -> dict[str, Any]:

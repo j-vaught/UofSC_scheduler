@@ -14,7 +14,7 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_values, utc_now
+from tools.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_values, utc_now
 
 
 COURSE_CODE_RE = re.compile(r"^([A-Z]{2,8})\s+([A-Z0-9]{3,5})$")

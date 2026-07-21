@@ -20,8 +20,8 @@ import requests
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.build_offering_history import TERM_RE, normalize_code
-from scripts.static_release import comma_values
+from tools.build_offering_history import TERM_RE, normalize_code
+from tools.static_release import comma_values
 
 
 BANNER_BASE = "https://banner.onecarolina.sc.edu/StudentRegistrationSsb/ssb"

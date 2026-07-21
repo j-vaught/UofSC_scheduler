@@ -5,7 +5,7 @@
  * grammar is upstream vocabulary too, and building request bodies in the UI is
  * how `srcdb` and `criteria` leaked across the application in the first place.
  *
- * The grammar this implements is stated once in contracts/wire/fose-v1.json and
+ * The grammar this implements is stated once in tools/contracts/wire/fose-v1.json and
  * enforced by tests/test_wire_contract.js against the running relay.
  */
 (function initFoseCodec(root, factory) {

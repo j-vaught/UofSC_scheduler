@@ -11,7 +11,7 @@ import json
 import re
 from pathlib import Path
 
-from scripts.wire_contract import (
+from tools.wire_contract import (
     CONTRACT_PATH,
     allowed_search_fields,
     is_valid_crn,
@@ -38,7 +38,7 @@ def test_contract_examples_agree_with_python() -> None:
 
 def test_offering_history_term_rule_matches_the_contract() -> None:
     """The standalone regex must accept exactly what the contract does."""
-    source = (ROOT / "scripts" / "build_offering_history.py").read_text(encoding="utf-8")
+    source = (ROOT / "tools" / "build_offering_history.py").read_text(encoding="utf-8")
     match = re.search(r'TERM_RE = re\.compile\(r"([^"]+)"\)', source)
     assert match, "build_offering_history.py should still declare TERM_RE"
     standalone = re.compile(match.group(1))

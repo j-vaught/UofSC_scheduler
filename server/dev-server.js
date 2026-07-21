@@ -91,7 +91,7 @@ const options = parseArgs(process.argv.slice(2));
 
 if (!fs.existsSync(options.assets)) {
     console.error(`Assets directory not found: ${options.assets}`);
-    console.error('Build it first: uv run python scripts/build_static_site.py --allow-representative');
+    console.error('Build it first: uv run python tools/build_static_site.py --allow-representative');
     process.exit(1);
 }
 

@@ -109,7 +109,7 @@ test('connect-src lists every host the application fetches from', () => {
 });
 
 test('the worker policy and the _headers policy agree', () => {
-    const builder = fs.readFileSync(path.join(ROOT, 'scripts/build_static_site.py'), 'utf8');
+    const builder = fs.readFileSync(path.join(ROOT, 'tools/build_static_site.py'), 'utf8');
     assert.equal(
         connectSrc(worker).trim(),
         connectSrc(builder).trim(),

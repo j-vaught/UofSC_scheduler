@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.import_major_maps import (
+from tools.import_major_maps import (
     RepositoryEntry,
     _append_continuation,
     _extract_course_codes,

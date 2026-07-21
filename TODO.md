@@ -144,7 +144,7 @@ Context that may be relevant when picking this up:
 - The active release is still named `major-maps-20260718-footnotes`, which describes
   that unlanded work rather than what actually shipped. Rename it on the next release.
 - The toolchain that produced the interim tier is intact and can regenerate it:
-  `scripts/materialize_llm_major_maps.py`, `normalize_llm_major_maps.py`,
+  `tools/materialize_llm_major_maps.py`, `normalize_llm_major_maps.py`,
   `validate_llm_major_maps.py`, validating against
   `schemas/major_map_llm_v1.schema.json`. Regenerating costs a full model pass over
   1,295 PDFs.

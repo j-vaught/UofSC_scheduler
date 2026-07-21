@@ -15,7 +15,7 @@ from typing import Any, cast
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_values, utc_now
+from tools.static_release import SCHEMA_VERSION, assert_privacy_safe, comma_values, utc_now
 
 
 PROFESSOR_ID_RE = re.compile(r"^prof_[0-9a-f]{16}$")
