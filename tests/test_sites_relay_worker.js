@@ -9,10 +9,10 @@ const test = require('node:test');
 const { pathToFileURL } = require('node:url');
 
 // The upstream URLs are the contract's, not this test's: reading them here keeps
-// the assertion honest when contracts/wire/fose-v1.json moves a route.
+// the assertion honest when tools/contracts/wire/fose-v1.json moves a route.
 const ROOT = path.resolve(__dirname, '..');
 const contract = JSON.parse(
-    fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'),
+    fs.readFileSync(path.join(ROOT, 'tools/contracts/wire/fose-v1.json'), 'utf8'),
 );
 
 let worker;
@@ -35,7 +35,7 @@ test.before(async () => {
     temporaryBuild = fs.mkdtempSync(path.join(os.tmpdir(), 'scheduler-relay-test-'));
     const result = spawnSync(
         process.env.PYTHON || 'python3',
-        ['scripts/build_static_site.py', '--output', temporaryBuild],
+        ['tools/build_static_site.py', '--output', temporaryBuild],
         { cwd: process.cwd(), encoding: 'utf8' },
     );
     assert.equal(result.status, 0, result.stderr || result.stdout);

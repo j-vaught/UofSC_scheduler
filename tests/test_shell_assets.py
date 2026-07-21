@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.build_static_site import SHELL_EXTRA, shell_assets
+from tools.build_static_site import SHELL_EXTRA, shell_assets
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "static" / "index.html"
@@ -122,7 +122,7 @@ def test_the_built_worker_contains_the_derived_list(tmp_path, assets):
     derivation, so this compares the paths -- that the list is the page's own
     list, in the page's own order. The digests are the next test's subject.
     """
-    from scripts.build_static_site import build_site
+    from tools.build_static_site import build_site
 
     built = build_site(output=tmp_path / "dist", allow_representative=True)
     shipped = built_shell_list(built)
@@ -139,7 +139,7 @@ def test_precached_urls_are_the_urls_the_page_requests(tmp_path):
     merely present is not enough -- it has to be this build's digest, or the
     entry is keyed to a URL nobody will ask for.
     """
-    from scripts.build_static_site import build_site, content_digest
+    from tools.build_static_site import build_site, content_digest
 
     built = build_site(output=tmp_path / "dist", allow_representative=True)
     static_root = built / "client" / "static"

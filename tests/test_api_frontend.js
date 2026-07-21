@@ -265,7 +265,7 @@ test('Offering history preserves errors returned by a valid progress stream', as
 
 /*
  * The worker URLs api.js hands to `new Worker` are stamped with a content
- * digest at build time (scripts/build_static_site.py). A version written by
+ * digest at build time (tools/build_static_site.py). A version written by
  * hand here defeats that: the build replaces the query it finds, so a stale
  * literal is not served, but it is a standing invitation to bump a date instead
  * of trusting the digest -- which is exactly how the transcript worker came to

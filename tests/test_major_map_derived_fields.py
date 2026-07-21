@@ -26,7 +26,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.import_major_maps import _runtime_fields
+from tools.import_major_maps import _runtime_fields
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_YEAR = "2026-2027"

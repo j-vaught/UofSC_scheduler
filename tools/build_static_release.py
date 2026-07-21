@@ -14,19 +14,19 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.build_catalog_shards import (
+from tools.build_catalog_shards import (
     build_catalog_shards,
     load_major_maps,
     major_map_runtime_projection,
 )
-from scripts.build_grade_shards import build_grade_shards
-from scripts.build_offering_history import (
+from tools.build_grade_shards import build_grade_shards
+from tools.build_offering_history import (
     build_history_shards,
     load_sqlite_terms,
     load_term_directory,
     normalize_code,
 )
-from scripts.static_release import (
+from tools.static_release import (
     build_manifest,
     comma_values,
     publish_release_directory,

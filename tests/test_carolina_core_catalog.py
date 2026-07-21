@@ -1,4 +1,4 @@
-from scripts.build_carolina_core_catalog import parse_catalog
+from tools.build_carolina_core_catalog import parse_catalog
 
 
 def test_catalog_parser_merges_overlay_outcomes() -> None:

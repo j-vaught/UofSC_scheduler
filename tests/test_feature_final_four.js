@@ -397,7 +397,7 @@ test('an outcome upstream cannot express still falls back to the shard', async (
 });
 
 test('the relay, the contract and the browser encoder allow the same fields', () => {
-    const contract = JSON.parse(fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'));
+    const contract = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/contracts/wire/fose-v1.json'), 'utf8'));
     const allowed = contract.routes['/api/search'].request.criteria.allowed_fields;
     assert.ok(allowed.includes('course_attr'), 'the contract must allow course_attr');
 

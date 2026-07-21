@@ -7,12 +7,12 @@ const SECURITY_HEADERS = Object.freeze({
     'Referrer-Policy': 'strict-origin-when-cross-origin',
 });
 
-// >>> BEGIN generated from contracts/wire/fose-v1.json by scripts/sync_wire_contract.py
+// >>> BEGIN generated from tools/contracts/wire/fose-v1.json by tools/sync_wire_contract.py
 // The whole wire contract is embedded so the relay validates against the
 // document itself rather than a hand-copied subset of it. The deployed
 // worker stays a single dependency-free file because the contract is here
 // at sync time, not fetched at runtime. Regenerate with
-// scripts/sync_wire_contract.py; never edit below by hand.
+// tools/sync_wire_contract.py; never edit below by hand.
 const CONTRACT = Object.freeze(/* generated */ {
     'contract': 'fose-v1',
     'description': 'Request grammar for the three relay routes. Single source of truth for the relay\'s body validators, the browser\'s request encoders, and the Python pipeline. Upstream vocabulary appears here and nowhere else, so an upstream change is one edit followed by mechanical updates in the consumers rather than a search across the tree.',
@@ -123,7 +123,7 @@ const MAX_FACULTY_CONCURRENCY = 4;
 // The scalar grammars (term, crn, detail_group) appear once in the contract, so
 // they are compiled a single time here. A validator then reads the contract
 // rather than restating a pattern, and an upstream change to a grammar needs no
-// edit outside contracts/wire/fose-v1.json.
+// edit outside tools/contracts/wire/fose-v1.json.
 const COMPILED_TYPES = Object.freeze(Object.fromEntries(
     Object.entries(CONTRACT.types).map(([name, spec]) => [name, new RegExp(spec.pattern)]),
 ));

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.validate_major_maps import (
+from tools.validate_major_maps import (
     MapAudit,
     load_current_catalog,
     main,

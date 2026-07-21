@@ -10,7 +10,7 @@ from typing import Any
 import pytest
 import requests
 
-from scripts.pull_banner_term_sections import (
+from tools.pull_banner_term_sections import (
     BannerPullError,
     PAGE_SIZE,
     SECTION_FIELDS,

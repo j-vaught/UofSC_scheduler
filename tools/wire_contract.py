@@ -6,7 +6,7 @@ them together, so the notes had already drifted -- they claimed ``06`` and ``07`
 were summer terms, which both implementations reject.
 
 Loading the shared document instead means an upstream change is one edit to
-``contracts/wire/fose-v1.json`` and mechanical updates in the consumers, and
+``tools/contracts/wire/fose-v1.json`` and mechanical updates in the consumers, and
 ``tests/test_wire_contract.js`` fails if any consumer stops agreeing.
 """
 
@@ -18,7 +18,7 @@ from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT_PATH = ROOT / "contracts" / "wire" / "fose-v1.json"
+CONTRACT_PATH = ROOT / "tools" / "contracts" / "wire" / "fose-v1.json"
 
 
 @lru_cache(maxsize=1)

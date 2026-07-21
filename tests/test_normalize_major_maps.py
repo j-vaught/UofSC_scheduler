@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from scripts.normalize_major_maps import (
+from tools.normalize_major_maps import (
     audit_directory,
     materialize_directory,
     normalize_document,

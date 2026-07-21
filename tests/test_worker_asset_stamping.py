@@ -27,7 +27,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.build_static_site import (
+from tools.build_static_site import (
     IMPORT_SCRIPTS_CALL_RE,
     JS_URL_LITERAL_RE,
     WORKER_URL_LITERAL_RE,

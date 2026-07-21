@@ -16,7 +16,7 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from scripts.static_release import SCHEMA_VERSION, comma_values, utc_now
+from tools.static_release import SCHEMA_VERSION, comma_values, utc_now
 
 
 TERM_RE = re.compile(r"^\d{4}(01|05|08)$")

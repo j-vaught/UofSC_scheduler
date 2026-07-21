@@ -8,11 +8,11 @@ from pathlib import Path
 
 import pytest
 
-from scripts.build_catalog_shards import build_catalog_shards, load_major_maps
-from scripts.build_grade_shards import MIN_PUBLIC_GRADED_STUDENTS, build_grade_shards
-from scripts.build_offering_history import TermRecord, build_history_shards
-from scripts.build_static_release import build_release, validate_full_history_metrics
-from scripts.static_release import assert_privacy_safe, write_manifest_atomic
+from tools.build_catalog_shards import build_catalog_shards, load_major_maps
+from tools.build_grade_shards import MIN_PUBLIC_GRADED_STUDENTS, build_grade_shards
+from tools.build_offering_history import TermRecord, build_history_shards
+from tools.build_static_release import build_release, validate_full_history_metrics
+from tools.static_release import assert_privacy_safe, write_manifest_atomic
 
 
 PROFESSOR_ID = "prof_0123456789abcdef"

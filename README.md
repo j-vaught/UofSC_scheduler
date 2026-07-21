@@ -119,18 +119,17 @@ interface narrowed.
 Four data directories encode one distinction: **what can be rebuilt**.
 
 ```
-src/                  Offline data generation — three entry points, run by hand
-  scrape_courses.py     Bulletin catalog scrape
-  build_embeddings.py   Semantic-search vectors
-  grade_pipeline.py     Registrar workbooks + Banner matching
-
-scripts/              18 build scripts + README.md. See scripts/README.md.
-                      Name is load-bearing: `from scripts.X import Y`.
+tools/                Build + pipeline scripts, and tools/README.md.
+                      Name is load-bearing: `from tools.X import Y`.
+  src/                Offline data generation — three entry points, run by hand:
+                      scrape_courses.py, build_embeddings.py, grade_pipeline.py
+  contracts/wire/     The FOSE wire contract — single source of truth for the
+                      relay, shared by the build, the JS runtime codec, and tests.
 
 data/
   raw/         249M   Originals with no regeneration path — irreplaceable
   curated/      49M   Machine-extracted, then human-reviewed. Source of truth.
-  generated/    26M   Fully rebuildable from raw/ + scripts/
+  generated/    26M   Fully rebuildable from raw/ + tools/
 
 static/         66M   THE DEPLOYED SITE. Name is load-bearing — every asset URL
                       is absolute `/static/...` and the release manifest bakes
@@ -138,7 +137,6 @@ static/         66M   THE DEPLOYED SITE. Name is load-bearing — every asset UR
 
 docs/           3.1M  manual.html + screenshots/
 tests/                12 Python + 17 JavaScript suites
-schemas/              The LLM major-map extraction contract
 ```
 
 **`raw/` is what you cannot get back.** The 26 registrar workbooks have no regeneration path anywhere, and
@@ -164,7 +162,7 @@ forwards no credentials in either direction.
 Run it locally against a build:
 
 ```bash
-uv run python scripts/build_static_site.py --allow-representative
+uv run python tools/build_static_site.py --allow-representative
 node server/dev-server.js
 ```
 
@@ -176,7 +174,7 @@ node server/dev-server.js
 git clone https://github.com/j-vaught/UofSC_scheduler.git
 cd UofSC_scheduler
 uv sync
-uv run python scripts/build_static_site.py
+uv run python tools/build_static_site.py
 uv run python -m http.server 8766 --directory dist/client
 ```
 
@@ -200,7 +198,7 @@ The JavaScript suite runs on the Node built-in test runner. There is no external
 
 [**docs/manual.html**](docs/manual.html) is the single technical source — runtime architecture, the relay
 contract, Banner field notes, the fifteen-stage build pipeline, the major-map schema and extraction prompt,
-the feature roadmap, and known issues. [**scripts/README.md**](scripts/README.md) covers the build pipeline
+the feature roadmap, and known issues. [**tools/README.md**](tools/README.md) covers the build pipeline
 specifically.
 
 ## Site notices

@@ -1,6 +1,6 @@
 """Rewrite the wire contract into the code that enforces it.
 
-The contract in contracts/wire/fose-v1.json calls itself the single source of
+The contract in tools/contracts/wire/fose-v1.json calls itself the single source of
 truth for the relay's validators, the browser's request encoder, and the Python
 pipeline. It was not quite: the field allowlist, the request limits, the term
 and CRN grammars, the per-route upstreams and the response caps were all typed
@@ -15,8 +15,8 @@ has no reason to carry the entire grammar.
 
 Run it after changing the contract:
 
-    uv run python scripts/sync_wire_contract.py          # rewrite
-    uv run python scripts/sync_wire_contract.py --check  # fail if stale
+    uv run python tools/sync_wire_contract.py          # rewrite
+    uv run python tools/sync_wire_contract.py --check  # fail if stale
 
 --check is what tests use, so a contract edited without syncing fails rather
 than shipping a relay that rejects what the encoder sends.
@@ -31,7 +31,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / "contracts" / "wire" / "fose-v1.json"
+CONTRACT = ROOT / "tools" / "contracts" / "wire" / "fose-v1.json"
 RELAY = ROOT / "server" / "index.js"
 ENCODER = ROOT / "static" / "js" / "platform" / "university" / "wire" / "fose-v1.js"
 
@@ -39,7 +39,7 @@ ENCODER = ROOT / "static" / "js" / "platform" / "university" / "wire" / "fose-v1
 # is regenerated wholesale, so a hand edit there is overwritten on the next sync
 # and --check fails in the meantime, which is the point.
 RELAY_BEGIN = (
-    "// >>> BEGIN generated from contracts/wire/fose-v1.json by scripts/sync_wire_contract.py"
+    "// >>> BEGIN generated from tools/contracts/wire/fose-v1.json by tools/sync_wire_contract.py"
 )
 RELAY_END = "// <<< END generated"
 
@@ -121,7 +121,7 @@ def _relay_block(contract: dict) -> str:
             "// document itself rather than a hand-copied subset of it. The deployed",
             "// worker stays a single dependency-free file because the contract is here",
             "// at sync time, not fetched at runtime. Regenerate with",
-            "// scripts/sync_wire_contract.py; never edit below by hand.",
+            "// tools/sync_wire_contract.py; never edit below by hand.",
             "const CONTRACT = Object.freeze(/* generated */ " + _js_literal(contract, 0) + ");",
             "// Named limits mirror CONTRACT.limits so a timeout or a byte cap reads",
             "// clearly at its call site while the contract stays their only source.",
@@ -199,7 +199,7 @@ def sync(check: bool = False) -> int:
             names = ", ".join(str(p.relative_to(ROOT)) for p in stale)
             print(
                 f"Out of sync with the wire contract: {names}\n"
-                "Run: uv run python scripts/sync_wire_contract.py",
+                "Run: uv run python tools/sync_wire_contract.py",
                 file=sys.stderr,
             )
             return 1

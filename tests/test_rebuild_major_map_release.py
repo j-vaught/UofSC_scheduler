@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts.rebuild_major_map_release import rebuild_major_map_release
-from scripts.static_release import build_manifest, write_immutable_json
+from tools.rebuild_major_map_release import rebuild_major_map_release
+from tools.static_release import build_manifest, write_immutable_json
 
 
 def _active_release(root: Path) -> tuple[Path, dict[str, bytes]]:

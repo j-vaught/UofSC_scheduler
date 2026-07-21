@@ -24,7 +24,7 @@ const payload = JSON.parse(
     fs.readFileSync(path.join(ROOT, 'tests/fixtures/fose_search_csce.json'), 'utf8'),
 );
 const contract = JSON.parse(
-    fs.readFileSync(path.join(ROOT, 'contracts/wire/fose-v1.json'), 'utf8'),
+    fs.readFileSync(path.join(ROOT, 'tools/contracts/wire/fose-v1.json'), 'utf8'),
 );
 
 test('Term is the only thing that knows the term grammar', () => {

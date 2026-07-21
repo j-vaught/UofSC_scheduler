@@ -449,7 +449,7 @@ def _default_runtime_builder(
     metadata: dict[str, Any], semesters: list[dict[str, Any]]
 ) -> dict[str, Any]:
     # Imported lazily because the importer itself uses this normalization module.
-    from scripts.import_major_maps import _runtime_fields
+    from tools.import_major_maps import _runtime_fields
 
     return _runtime_fields(metadata, semesters)
 

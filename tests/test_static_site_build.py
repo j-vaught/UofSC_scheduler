@@ -8,13 +8,15 @@ from pathlib import Path
 
 import pytest
 
-from scripts.build_static_site import build_site
+from tools.build_static_site import build_site
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def load_contract() -> dict:
-    return json.loads((ROOT / "contracts" / "wire" / "fose-v1.json").read_text(encoding="utf-8"))
+    return json.loads(
+        (ROOT / "tools" / "contracts" / "wire" / "fose-v1.json").read_text(encoding="utf-8")
+    )
 
 
 def write_source(root: Path) -> Path:
@@ -158,7 +160,7 @@ def test_asset_urls_are_stamped_with_content_digests(tmp_path: Path) -> None:
     runtime modules carried nothing -- and the worker caches everything under
     /static/ for an hour, so a rebuilt file kept serving stale.
     """
-    from scripts.build_static_site import stamp_asset_urls
+    from tools.build_static_site import stamp_asset_urls
 
     source = tmp_path / "static"
     (source / "js").mkdir(parents=True)
@@ -190,7 +192,7 @@ def test_stamping_leaves_unknown_assets_alone(tmp_path: Path) -> None:
     validate_source reports a genuinely missing file; inventing a marker here
     would hide that and cache a 404 under a plausible-looking version.
     """
-    from scripts.build_static_site import stamp_asset_urls
+    from tools.build_static_site import stamp_asset_urls
 
     source = tmp_path / "static"
     source.mkdir()
@@ -208,7 +210,7 @@ def test_single_quoted_tags_are_stamped_and_precached(tmp_path: Path) -> None:
     past stamping (serving stale for the cache hour) and past precaching (broken
     offline) with nothing to reveal it.
     """
-    from scripts.build_static_site import shell_assets, stamp_asset_urls
+    from tools.build_static_site import shell_assets, stamp_asset_urls
 
     source = tmp_path / "static"
     (source / "js").mkdir(parents=True)
