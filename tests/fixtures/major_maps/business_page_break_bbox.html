@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <body><doc>
+  <page width="612" height="792"><flow><block>
+    <!-- Page 1: full header row, printed once. -->
+    <line><word xMin="240.770000" yMin="105.663800" xMax="263.957360" yMax="114.628400">Credit</word><word xMin="271.370000" yMin="105.663800" xMax="287.393720" yMax="114.628400">Min.</word><word xMin="293.330000" yMin="105.663800" xMax="314.804840" yMax="114.628400">Major</word></line>
+    <line><word xMin="34.320000" yMin="114.783800" xMax="61.495200" yMax="123.748400">Critical</word><word xMin="104.300000" yMin="114.783800" xMax="131.949560" yMax="123.748400">Course</word><word xMin="134.168600" yMin="114.783800" xMax="163.112600" yMax="123.748400">Subject</word><word xMin="165.347720" yMin="114.783800" xMax="179.490080" yMax="123.748400">and</word><word xMin="181.668920" yMin="114.783800" xMax="198.247400" yMax="123.748400">Title</word></line>
+    <line><word xMin="240.770000" yMin="114.783800" xMax="263.949320" yMax="123.748400">Hours</word><word xMin="266.330000" yMin="114.783800" xMax="289.509320" yMax="123.748400">Grade</word><word xMin="293.930000" yMin="114.783800" xMax="311.352680" yMax="123.748400">GPA</word></line>
+    <line><word xMin="327.910000" yMin="114.783800" xMax="347.961760" yMax="123.748400">Code</word></line>
+    <line><word xMin="413.830000" yMin="114.783800" xMax="464.594560" yMax="123.748400">Prerequisites</word></line>
+    <line><word xMin="538.540000" yMin="114.783800" xMax="560.762560" yMax="123.748400">Notes</word></line>
+    <!-- Semester One header + one row, so page 1 alone resolves columns and
+         produces a semester ; proving the page-1 baseline still works. -->
+    <line><word xMin="32.400000" yMin="124.503800" xMax="68.507640" yMax="133.468400">Semester</word><word xMin="70.774920" yMin="124.503800" xMax="86.276040" yMax="133.468400">One</word><word xMin="88.511160" yMin="124.503800" xMax="111.648320" yMax="133.468400">(15-16</word><word xMin="113.891480" yMin="124.503800" xMax="137.078840" yMax="133.468400">Credit</word><word xMin="139.193360" yMin="124.503800" xMax="164.905280" yMax="133.468400">Hours)</word></line>
+    <line><word xMin="63.864000" yMin="134.223800" xMax="85.740840" yMax="143.188400">ENGL</word><word xMin="87.967920" yMin="134.223800" xMax="101.314320" yMax="143.188400">101</word><word xMin="103.557480" yMin="134.223800" xMax="128.007120" yMax="143.188400">Critical</word><word xMin="130.177920" yMin="134.223800" xMax="159.974160" yMax="143.188400">Reading</word><word xMin="162.201240" yMin="134.223800" xMax="175.547640" yMax="143.188400">and</word><word xMin="177.790800" yMin="134.223800" xMax="222.211800" yMax="143.188400">Composition</word></line>
+    <line><word xMin="250.130000" yMin="134.223800" xMax="254.600240" yMax="143.188400">3</word></line>
+    <line><word xMin="276.410000" yMin="134.223800" xMax="282.214880" yMax="143.188400">C</word></line>
+    <line><word xMin="320.810000" yMin="134.223800" xMax="355.033720" yMax="143.188400">CC-CMW</word></line>
+  </block></flow></page>
+  <!-- Page 2: continuation of the SAME table, carrying Semester Eight. The
+       registrar template never repeats the header row on a continuation
+       page ; there is deliberately no "Prerequisites"/"Credit"/"Min."/etc.
+       word anywhere below. Without carrying page 1's column geometry
+       forward, _page_table_columns returns None here and this entire
+       semester is silently dropped. -->
+  <page width="612" height="792"><flow><block>
+    <line><word xMin="32.400000" yMin="37.483800" xMax="68.507640" yMax="46.448400">Semester</word><word xMin="70.704000" yMin="37.483800" xMax="90.763800" yMax="46.448400">Eight</word><word xMin="93.024000" yMin="37.483800" xMax="116.090280" yMax="46.448400">(15-16</word><word xMin="118.340000" yMin="37.483800" xMax="141.527360" yMax="46.448400">Credit</word><word xMin="143.641880" yMin="37.483800" xMax="169.353800" yMax="46.448400">Hours)</word></line>
+    <line><word xMin="63.864000" yMin="56.923800" xMax="88.450320" yMax="65.888400">MGMT</word><word xMin="90.613080" yMin="56.923800" xMax="103.959480" yMax="65.888400">478</word><word xMin="106.090080" yMin="56.923800" xMax="137.687280" yMax="65.888400">Strategic</word><word xMin="139.898280" yMin="56.923800" xMax="186.642840" yMax="65.888400">Management</word></line>
+    <line><word xMin="263.690000" yMin="56.923800" xMax="268.160240" yMax="65.888400">3</word></line>
+    <line><word xMin="289.970000" yMin="56.923800" xMax="295.774880" yMax="65.888400">C</word></line>
+    <line><word xMin="345.670000" yMin="56.923800" xMax="357.234860" yMax="65.888400">CR</word></line>
+    <line><word xMin="376.150000" yMin="56.923800" xMax="399.425800" yMax="65.888400">MKTG</word><word xMin="401.572480" yMin="56.923800" xMax="417.121840" yMax="65.888400">350,</word><word xMin="419.324800" yMin="56.923800" xMax="437.519320" yMax="65.888400">FINA</word><word xMin="439.826800" yMin="56.923800" xMax="455.376160" yMax="65.888400">363,</word><word xMin="457.579120" yMin="56.923800" xMax="482.044840" yMax="65.888400">MGMT</word><word xMin="484.215640" yMin="56.923800" xMax="497.562040" yMax="65.888400">371</word></line>
+  </block></flow></page>
+  </doc></body>
+</html>

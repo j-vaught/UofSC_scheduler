@@ -678,7 +678,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Take during Semester Three or Four (0-2 Hours)",
+      "number": 9,
+      "planned_credit_hours": [
+        0,
+        2
+      ],
+      "requirements": [
         {
           "confidence": "low",
           "course_codes": [],
@@ -693,7 +703,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "Preapproved Field Experience or MSCI 4606 0-2 C MR C or better in MSCI 101 & 102 or",
           "title": "Preapproved Field Experience or MSCI 4606",
           "warnings": [
@@ -1337,7 +1347,9 @@
     "low_confidence_requirement_count": 21,
     "requirement_count": 40,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

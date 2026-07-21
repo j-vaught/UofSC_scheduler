@@ -1441,7 +1441,17 @@
           "warnings": [
             "non_specific_requirement_requires_validation"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "label": "Take during any semester (0-6 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": [
+        0,
+        6
+      ],
+      "requirements": [
         {
           "confidence": "low",
           "course_codes": [],
@@ -1456,7 +1466,7 @@
           "requirement_codes": [
             "CC-GFL"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "Carolina Core GFL12 0-6 CC-GFL",
           "title": "Carolina Core GFL12",
           "warnings": [
@@ -1483,7 +1493,9 @@
     "low_confidence_requirement_count": 21,
     "requirement_count": 45,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
-  "warnings": []
+  "warnings": [
+    "expected_exactly_eight_ordered_semesters"
+  ]
 }

@@ -416,8 +416,8 @@
       "prerequisites": [],
       "source_requirement_id": "req_c34d0dc30d02cfd9",
       "title": "Internship I in SPTE5",
-      "typical_semester": "Spring",
-      "typical_year": 2
+      "typical_semester": "Summer",
+      "typical_year": 4
     },
     {
       "category": "major_courses",
@@ -977,7 +977,14 @@
           "source_text": "RETL 242 HRSM Professional Communications 3 C CR C or better in ENGL 101 & 102",
           "title": "RETL 242 HRSM Professional Communications",
           "warnings": []
-        },
+        }
+      ]
+    },
+    {
+      "label": "Summer (6 Credit Hours)",
+      "number": 9,
+      "planned_credit_hours": 6,
+      "requirements": [
         {
           "confidence": "high",
           "course_codes": [
@@ -991,7 +998,7 @@
           "requirement_codes": [
             "MR"
           ],
-          "sequence": 6,
+          "sequence": 1,
           "source_text": "! SPTE 295 Internship I in SPTE5 6 C MR SPTE 195, 201, 202, 203, 274 & MKTG 350",
           "title": "SPTE 295 Internship I in SPTE5",
           "warnings": []
@@ -1355,9 +1362,10 @@
     "low_confidence_requirement_count": 10,
     "requirement_count": 40,
     "requires_review": true,
-    "semester_count": 8
+    "semester_count": 9
   },
   "warnings": [
-    "repository_pdf_major_mismatch"
+    "repository_pdf_major_mismatch",
+    "expected_exactly_eight_ordered_semesters"
   ]
 }
