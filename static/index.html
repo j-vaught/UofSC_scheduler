@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/static/css/map.css">
     <link rel="stylesheet" href="/static/css/focus-workspace.css">
 </head>
-<body>
+<body class="guided-studio">
     <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title">
         <div class="desktop-only-gate-card">
             <h2 id="desktop-only-title">Desktop browser required</h2>
@@ -34,14 +34,22 @@
         </div>
     </section>
     <header>
-        <h1>Course Scheduler</h1>
+        <div class="studio-brand">
+            <span class="studio-brand-mark" aria-hidden="true">SC</span>
+            <div><h1>Course Scheduler</h1><span>GUIDED STUDIO</span></div>
+        </div>
         <nav id="main-tabs" aria-label="Main navigation">
-            <button data-tab="semester" class="main-tab-btn active">SEARCH</button>
-            <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
-            <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
+            <button data-tab="semester" class="main-tab-btn active"><span aria-hidden="true">01</span> SEARCH <small>Find a course</small></button>
+            <button data-tab="degree" class="main-tab-btn"><span aria-hidden="true">02</span> DEGREE PLAN <small>Build a roadmap</small></button>
+            <button data-tab="schedule" class="main-tab-btn"><span aria-hidden="true">03</span> SCHEDULE <small>Shape your week</small></button>
         </nav>
+        <section class="studio-context" aria-labelledby="studio-context-heading">
+            <span id="studio-context-heading">CURRENT FOCUS</span>
+            <strong id="studio-context-title">Course search</strong>
+            <p id="studio-context-detail">Start with a course, subject, CRN, or topic.</p>
+        </section>
         <div class="header-controls">
-            <label for="term-select">TERM:</label>
+            <label for="term-select">ACADEMIC TERM</label>
             <select id="term-select">
                 <option value="202908">Fall 2029</option>
                 <option value="202901">Spring 2029</option>
@@ -54,8 +62,10 @@
                 <option value="202601">Spring 2026</option>
             </select>
         </div>
+        <p class="studio-local-note">Local experiment</p>
     </header>
 
+    <div class="studio-stage">
     <div id="site-notices" class="site-notices" hidden aria-live="polite"></div>
 
     <main>
@@ -571,6 +581,11 @@
 
                 <!-- Right: Preview + Solver Results -->
                 <section id="schedule-content">
+                    <div class="studio-schedule-switcher" role="toolbar" aria-label="Schedule workspace panels">
+                        <button type="button" data-studio-drawer="courses" aria-pressed="false">COURSE TOOLS</button>
+                        <button type="button" data-studio-drawer="options" aria-pressed="false">SCHEDULE OPTIONS</button>
+                        <button type="button" data-studio-drawer="none" class="studio-drawer-close" hidden>CLOSE PANEL</button>
+                    </div>
                     <div class="schedule-workspace">
                         <section id="solver-section">
                             <div class="schedule-panel-heading">
@@ -625,6 +640,30 @@
         </div>
 
     </main>
+
+    <footer id="studio-action-dock" class="studio-action-dock" aria-label="Contextual actions">
+        <div class="studio-action-summary">
+            <span id="studio-action-kicker">SEARCH</span>
+            <strong id="studio-action-title">Find the right course</strong>
+        </div>
+        <div class="studio-action-group" data-studio-actions="search">
+            <button type="button" data-studio-proxy="filter-toggle">FILTERS</button>
+            <button type="button" data-studio-proxy="browse-close-details" data-studio-detail-action hidden>BACK TO RESULTS</button>
+            <button type="button" class="studio-action-primary" data-studio-proxy="btn-search">SEARCH COURSES</button>
+        </div>
+        <div class="studio-action-group" data-studio-actions="degree" hidden>
+            <button type="button" data-studio-degree-action="back">BACK</button>
+            <button type="button" class="studio-action-primary" data-studio-degree-action="next">CONTINUE</button>
+        </div>
+        <div class="studio-action-group" data-studio-actions="schedule" hidden>
+            <button type="button" data-studio-drawer="courses">COURSES</button>
+            <button type="button" data-studio-drawer="options">OPTIONS</button>
+            <button type="button" data-studio-proxy="btn-registration-info">REGISTER</button>
+            <button type="button" data-studio-proxy="btn-export">EXPORT</button>
+            <button type="button" class="studio-action-primary" data-studio-proxy="btn-solve">GENERATE</button>
+        </div>
+    </footer>
+    </div>
 
     <!-- Modal -->
     <div id="modal-overlay" class="hidden">
@@ -695,6 +734,7 @@
     <script src="/static/js/custom-major-map.js"></script>
     <script src="/static/js/degree-wizard.js"></script>
     <script src="/static/js/notices.js"></script>
+    <script src="/static/js/guided-studio.js"></script>
     <script src="/static/js/boot.js"></script>
 </body>
 </html>
