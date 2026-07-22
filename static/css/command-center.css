@@ -565,6 +565,16 @@ body.command-center > header h1::before {
 }
 
 @media (max-width: 760px) {
+    body.command-center {
+        grid-template-columns: var(--cc-nav-width) minmax(0, 1fr);
+        min-width: 0;
+    }
+    .command-workspace,
+    .command-workspace > main,
+    .main-tab.active {
+        min-width: 0;
+        width: 100%;
+    }
     .command-topbar {
         gap: 7px;
         grid-template-columns: minmax(160px, 1fr) auto;
@@ -589,9 +599,61 @@ body.command-center > header h1::before {
     .major-map-preview { max-height: none; }
     .degree-layout { flex-direction: column; }
     #degree-sidebar { border-bottom: 2px solid var(--cc-black); border-left: 0; border-right: 0; max-height: 170px; width: 100%; }
-    .schedule-layout { display: flex; overflow: hidden; }
-    #schedule-sidebar { max-width: 42vw; min-width: 170px; }
-    #schedule-content { overflow-y: auto; }
+    .schedule-layout {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+    #schedule-sidebar {
+        bottom: 0;
+        box-shadow: 8px 0 24px rgba(0, 0, 0, 0.22);
+        display: flex;
+        left: 0;
+        max-width: min(72vw, 270px);
+        min-width: 170px;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: min(72vw, 270px) !important;
+        z-index: 45;
+    }
+    .schedule-layout.schedule-sidebar-collapsed #schedule-sidebar { display: none; }
+    .schedule-sidebar-toggle-rail {
+        border-bottom: 0;
+        border-left: 2px solid var(--cc-black);
+        bottom: 0;
+        display: flex;
+        height: auto;
+        left: min(72vw, 270px);
+        min-width: 8px;
+        position: absolute;
+        top: 0;
+        width: 8px;
+        z-index: 46;
+    }
+    .schedule-layout.schedule-sidebar-collapsed .schedule-sidebar-toggle-rail { left: 0; }
+    #schedule-sidebar-resize-handle { display: none; }
+    .schedule-sidebar-toggle {
+        height: 32px;
+        right: -9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+    }
+    .schedule-sidebar-toggle::before { top: 5px; }
+    .schedule-sidebar-toggle-icon { left: 50%; transform: translate(-50%, -50%) rotate(135deg); }
+    .schedule-sidebar-collapsed .schedule-sidebar-toggle-icon { left: calc(50% - 1px); transform: translate(-50%, -50%) rotate(-45deg); }
+    #schedule-content {
+        height: 100%;
+        min-height: 0;
+        min-width: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-left: 14px;
+        width: 100%;
+    }
     .schedule-workspace {
         flex-basis: auto;
         grid-template-columns: 1fr;
@@ -616,7 +678,9 @@ body.command-center > header h1::before {
     .command-search-copy strong { font-size: 0.68rem; }
     .browse-search-form,
     .browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 38px 67px; }
-    #schedule-sidebar { max-width: none; width: min(78vw, 270px); }
+    #schedule-sidebar { max-width: min(78vw, 250px); width: min(78vw, 250px) !important; }
+    .schedule-sidebar-toggle-rail { left: min(78vw, 250px); }
+    .schedule-layout.schedule-sidebar-collapsed .schedule-sidebar-toggle-rail { left: 0; }
     .course-detail-tabs button { font-size: 0.59rem; }
     .schedule-preference-grid { grid-template-columns: 1fr; }
     .schedule-preference-days,
