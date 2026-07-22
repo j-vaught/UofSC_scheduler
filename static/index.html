@@ -24,9 +24,9 @@
     <link rel="stylesheet" href="/static/css/print.css">
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
-    <link rel="stylesheet" href="/static/css/compact-command.css">
+    <link rel="stylesheet" href="/static/css/command-center.css">
 </head>
-<body>
+<body class="command-center">
     <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title">
         <div class="desktop-only-gate-card">
             <h2 id="desktop-only-title">Desktop browser required</h2>
@@ -40,9 +40,23 @@
             <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
             <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
         </nav>
-        <div class="header-controls">
-            <label for="term-select">TERM:</label>
-            <select id="term-select">
+        <p class="command-nav-hint"><kbd>/</kbd><span>Quick search</span></p>
+    </header>
+
+    <div class="command-workspace">
+        <div class="command-topbar" role="region" aria-label="Workspace commands">
+            <button id="command-search-launch" class="command-search-launch" type="button" aria-label="Open course search">
+                <span class="command-search-symbol" aria-hidden="true">&gt;_</span>
+                <span class="command-search-copy"><strong>Find a course</strong><small>Code, CRN, subject, or topic</small></span>
+                <kbd>/</kbd>
+            </button>
+            <div id="command-context" class="command-context" aria-live="polite">
+                <span>WORKSPACE</span>
+                <strong>Course Search</strong>
+            </div>
+            <div class="header-controls">
+                <label for="term-select">Academic term</label>
+                <select id="term-select">
                 <option value="202908">Fall 2029</option>
                 <option value="202901">Spring 2029</option>
                 <option value="202808">Fall 2028</option>
@@ -52,9 +66,9 @@
                 <option value="202608" selected>Fall 2026</option>
                 <option value="202605">Summer 2026</option>
                 <option value="202601">Spring 2026</option>
-            </select>
+                </select>
+            </div>
         </div>
-    </header>
 
     <div id="site-notices" class="site-notices" hidden aria-live="polite"></div>
 
@@ -569,9 +583,27 @@
                     </button>
                 </div>
 
-                <!-- Right: Preview + Solver Results -->
+                <!-- Center canvas + right context inspector -->
                 <section id="schedule-content">
                     <div class="schedule-workspace">
+                        <section class="schedule-preview-panel">
+                            <div class="schedule-panel-heading">
+                                <h3>Weekly Preview</h3>
+                            </div>
+                            <div id="calendar-container">
+                                <div id="calendar-grid">
+                                    <div class="cal-header">
+                                        <div class="cal-time-label"></div>
+                                        <div class="cal-day-label">MON</div>
+                                        <div class="cal-day-label">TUE</div>
+                                        <div class="cal-day-label">WED</div>
+                                        <div class="cal-day-label">THU</div>
+                                        <div class="cal-day-label">FRI</div>
+                                    </div>
+                                    <div id="cal-body"></div>
+                                </div>
+                            </div>
+                        </section>
                         <section id="solver-section">
                             <div class="schedule-panel-heading">
                                 <h3>Schedule Options</h3>
@@ -597,24 +629,6 @@
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
                             </div>
                         </section>
-                        <section class="schedule-preview-panel">
-                            <div class="schedule-panel-heading">
-                                <h3>Weekly Preview</h3>
-                            </div>
-                            <div id="calendar-container">
-                                <div id="calendar-grid">
-                                    <div class="cal-header">
-                                        <div class="cal-time-label"></div>
-                                        <div class="cal-day-label">MON</div>
-                                        <div class="cal-day-label">TUE</div>
-                                        <div class="cal-day-label">WED</div>
-                                        <div class="cal-day-label">THU</div>
-                                        <div class="cal-day-label">FRI</div>
-                                    </div>
-                                    <div id="cal-body"></div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
                     <div id="schedule-vertical-resizer" class="schedule-vertical-resizer" role="separator" aria-label="Resize calendar and route map" aria-orientation="horizontal" tabindex="0">
                         <span>DRAG TO RESIZE</span>
@@ -625,6 +639,7 @@
         </div>
 
     </main>
+    </div>
 
     <!-- Modal -->
     <div id="modal-overlay" class="hidden">
@@ -695,6 +710,7 @@
     <script src="/static/js/custom-major-map.js"></script>
     <script src="/static/js/degree-wizard.js"></script>
     <script src="/static/js/notices.js"></script>
+    <script src="/static/js/command-center.js"></script>
     <script src="/static/js/boot.js"></script>
 </body>
 </html>

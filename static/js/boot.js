@@ -73,6 +73,7 @@ function reportBootFailures() {
 const BOOT_SEQUENCE = [
     ['Notices', () => SiteNotices],
     ['Tabs', () => Tabs],
+    ['Command center', () => CommandCenter],
     ['Transcript import', () => TranscriptImport],
     ['Profile', () => Profile],
     ['Custom major map', () => CustomMajorMap],

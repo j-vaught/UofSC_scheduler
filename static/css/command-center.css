@@ -1,0 +1,645 @@
+/*
+ * Command Center UI experiment.
+ *
+ * The application shell is structurally different from the production shell.
+ * Primary navigation is a left rail, commands live in a top bar, and detail
+ * work appears in a right inspector. Existing feature IDs and contracts remain
+ * intact below this shell.
+ */
+
+:root {
+    --cc-garnet: #73000A;
+    --cc-black: #000000;
+    --cc-white: #FFFFFF;
+    --cc-ink: #363636;
+    --cc-muted: #5C5C5C;
+    --cc-mid: #A2A2A2;
+    --cc-line: #C7C7C7;
+    --cc-surface: #ECECEC;
+    --cc-warm: #FFF2E3;
+    --cc-atlantic: #466A9F;
+    --cc-congaree: #1F414D;
+    --cc-rose: #CC2E40;
+    --cc-nav-width: 82px;
+    --cc-bar-height: 54px;
+    color-scheme: light;
+}
+
+html { font-size: 14px; }
+
+body.command-center {
+    background: var(--cc-surface);
+    display: grid;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    grid-template-columns: var(--cc-nav-width) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    height: 100dvh;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea { font: inherit; }
+
+button,
+select,
+summary { touch-action: manipulation; }
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--cc-atlantic) !important;
+    outline-offset: 2px !important;
+}
+
+/* Left application rail. */
+body.command-center > header {
+    align-items: stretch;
+    background: var(--cc-black);
+    border: 0;
+    border-right: 4px solid var(--cc-garnet);
+    color: var(--cc-white);
+    display: flex;
+    flex-basis: auto;
+    flex-direction: column;
+    gap: 0;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+    position: relative;
+    z-index: 100;
+}
+
+body.command-center > header h1 {
+    align-items: center;
+    border-bottom: 1px solid var(--cc-ink);
+    color: var(--cc-white);
+    display: flex;
+    flex: 0 0 var(--cc-bar-height);
+    font-size: 0;
+    justify-content: center;
+    letter-spacing: 0;
+}
+body.command-center > header h1::before {
+    background: var(--cc-garnet);
+    content: "CC";
+    display: grid;
+    font-size: 0.74rem;
+    font-weight: 900;
+    height: 32px;
+    letter-spacing: 0.06em;
+    place-items: center;
+    width: 38px;
+}
+
+#main-tabs {
+    align-self: stretch;
+    background: transparent;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    padding: 9px 0;
+}
+
+.main-tab-btn {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-left: 4px solid transparent;
+    color: var(--cc-line);
+    display: flex;
+    flex-direction: column;
+    font-size: 0.58rem;
+    font-weight: 800;
+    gap: 4px;
+    justify-content: center;
+    letter-spacing: 0.04em;
+    min-height: 68px;
+    padding: 7px 2px;
+    position: relative;
+    width: 100%;
+}
+.main-tab-btn::before {
+    align-items: center;
+    border: 1px solid var(--cc-muted);
+    color: var(--cc-white);
+    display: flex;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78rem;
+    height: 27px;
+    justify-content: center;
+    width: 31px;
+}
+.main-tab-btn[data-tab="semester"]::before { content: "01"; }
+.main-tab-btn[data-tab="degree"]::before { content: "02"; }
+.main-tab-btn[data-tab="schedule"]::before { content: "03"; }
+.main-tab-btn:hover { background: var(--cc-ink); color: var(--cc-white); }
+.main-tab-btn.active {
+    background: var(--cc-ink);
+    border-bottom-color: transparent;
+    border-left-color: var(--cc-white);
+    color: var(--cc-white);
+}
+.main-tab-btn.active::before { background: var(--cc-garnet); border-color: var(--cc-garnet); }
+
+.command-nav-hint {
+    align-items: center;
+    color: var(--cc-mid);
+    display: flex;
+    flex-direction: column;
+    font-size: 0.57rem;
+    gap: 4px;
+    margin: auto 0 12px;
+    text-align: center;
+}
+.command-nav-hint kbd,
+.command-search-launch kbd {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    color: var(--cc-black);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.7rem;
+    min-width: 22px;
+    padding: 2px 5px;
+    text-align: center;
+}
+
+/* Top command bar and task canvas. */
+.command-workspace {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+.command-topbar {
+    align-items: center;
+    background: var(--cc-white);
+    border-bottom: 1px solid var(--cc-line);
+    display: grid;
+    flex: 0 0 var(--cc-bar-height);
+    gap: 12px;
+    grid-template-columns: minmax(250px, 430px) minmax(120px, 1fr) auto;
+    min-width: 0;
+    padding: 7px 12px;
+}
+.command-search-launch {
+    align-items: center;
+    background: var(--cc-white);
+    border: 1px solid var(--cc-black);
+    color: var(--cc-black);
+    cursor: pointer;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: auto 1fr auto;
+    min-height: 38px;
+    min-width: 0;
+    padding: 3px 7px;
+    text-align: left;
+}
+.command-search-launch:hover { box-shadow: inset 4px 0 0 var(--cc-garnet); }
+.command-search-symbol {
+    color: var(--cc-garnet);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 900;
+}
+.command-search-copy { display: grid; min-width: 0; }
+.command-search-copy strong { font-size: 0.76rem; }
+.command-search-copy small {
+    color: var(--cc-muted);
+    font-size: 0.62rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.command-context { display: grid; gap: 1px; min-width: 0; }
+.command-context span {
+    color: var(--cc-garnet);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+}
+.command-context strong {
+    font-size: 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.header-controls {
+    align-items: center;
+    display: flex;
+    gap: 7px;
+    justify-self: end;
+}
+.header-controls label {
+    color: var(--cc-muted);
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.header-controls select {
+    background: var(--cc-black);
+    border: 1px solid var(--cc-black);
+    color: var(--cc-white);
+    min-height: 34px;
+    padding: 4px 25px 4px 8px;
+}
+.command-workspace > .site-notices { flex: 0 0 auto; }
+.command-workspace > main {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.btn-garnet { background: var(--cc-garnet); border-color: var(--cc-garnet); }
+.btn-garnet:hover,
+.btn-garnet:focus-visible { background: var(--cc-black); border-color: var(--cc-black); }
+.hidden { display: none !important; }
+
+/* Search command console with contextual right inspector. */
+.semester-layout { background: var(--cc-surface); }
+.browse-search-shell {
+    background: var(--cc-white);
+    border-bottom: 1px solid var(--cc-line);
+    flex: 0 0 auto;
+    padding: 8px 12px;
+}
+.browse-empty .browse-search-shell {
+    margin: 0;
+    max-width: none;
+    padding: clamp(22px, 6vh, 50px) clamp(20px, 6vw, 76px) 18px;
+    transform: none;
+}
+.browse-search-intro { text-align: left; }
+.browse-search-intro h2 {
+    color: var(--cc-black);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(1.35rem, 2.1vw, 2rem);
+    letter-spacing: -0.05em;
+    margin-bottom: 4px;
+}
+.browse-search-intro h2::before { color: var(--cc-garnet); content: "> "; }
+.browse-search-intro p { font-size: 0.8rem; margin-bottom: 14px; }
+.browse-search-form,
+.browse-empty .browse-search-form {
+    gap: 6px;
+    grid-template-columns: minmax(0, 1fr) 40px 94px;
+    margin: 0;
+}
+.browse-search-form input {
+    border: 2px solid var(--cc-black);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.84rem;
+    min-height: 40px;
+}
+.browse-filter-button { height: 40px; width: 40px; }
+.browse-search-form #btn-search { min-height: 40px; }
+.browse-search-examples { gap: 6px; margin-top: 7px; }
+.regular-search-examples { gap: 4px; }
+.regular-search-examples button {
+    background: var(--cc-white);
+    border: 1px solid var(--cc-line);
+    font-size: 0.64rem;
+    padding: 3px 6px;
+}
+.regular-search-examples button:hover { border-color: var(--cc-garnet); color: var(--cc-garnet); }
+.search-planning-paths { gap: 8px; margin: 16px 0 0; max-width: 900px; }
+.search-planning-card { border-width: 1px; min-height: 90px; padding: 12px 44px 12px 14px; }
+.search-planning-card strong { font-size: 0.92rem; }
+.search-planning-card > span:not(.search-planning-kicker) { font-size: 0.72rem; }
+
+.browse-body {
+    background: var(--cc-surface);
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+.browse-results .browse-body { justify-content: stretch; }
+.browse-results #semester-search {
+    background: var(--cc-surface);
+    border: 0;
+    justify-self: center;
+    max-width: 1040px;
+    min-width: 0;
+    width: 100% !important;
+}
+.browse-results #semester-content { display: none; }
+.browse-detail .browse-body { grid-template-columns: minmax(300px, 1fr) minmax(330px, 390px); }
+.browse-detail #semester-search {
+    background: var(--cc-surface);
+    border: 0;
+    max-width: none;
+    min-width: 0;
+    width: auto !important;
+}
+.browse-detail #semester-content {
+    background: var(--cc-white);
+    border-left: 3px solid var(--cc-black);
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+.browse-detail .resize-handle { display: none; }
+#semester-search .search-section { padding: 6px 8px 10px; }
+.results-list { padding: 4px; scrollbar-gutter: stable; }
+.course-group { border-width: 1px; margin-bottom: 4px; }
+.course-group.active { border-color: var(--cc-garnet); border-width: 2px; }
+.course-header { padding: 6px 8px; }
+.course-result-summary { padding: 6px 8px; }
+.course-result-description { -webkit-line-clamp: 1; font-size: 0.72rem; }
+.course-result-grade { margin-top: 4px; }
+
+.course-detail-shell { border: 0; height: 100%; }
+.course-detail-header-sticky { border-bottom: 2px solid var(--cc-black); }
+.course-detail-header { min-height: 62px; padding: 9px 44px 7px 10px; }
+.browse-close-details { height: 28px; right: 7px; top: 7px; width: 28px; }
+.course-detail-description-wrap,
+.course-section-picker-wrap { padding: 8px 10px; }
+.course-section-picker { gap: 4px; }
+.course-detail-tabs {
+    background: var(--cc-white);
+    border-block: 1px solid var(--cc-line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 8;
+}
+.course-detail-tabs button {
+    border-right: 1px solid var(--cc-line);
+    min-height: 36px;
+    padding: 0 4px;
+}
+.course-detail-panels { padding: 8px 9px 18px; }
+.course-detail-card { margin-bottom: 7px; }
+.course-detail-card-heading { padding: 6px 8px; }
+
+#filter-panel {
+    border-width: 2px;
+    max-height: calc(100dvh - 24px);
+    max-width: 740px;
+    padding: 12px;
+}
+.filter-panel-heading { margin-bottom: 7px; }
+.filter-ai-control,
+.course-scope-filter { padding: 8px; }
+.filter-group { margin-bottom: 5px; }
+#filter-panel .filter-actions { bottom: -12px; margin: 8px -12px -12px; padding: 8px 12px 12px; }
+
+/* Degree Plan becomes a task board inside the central canvas. */
+.degree-wizard { background: var(--cc-surface); }
+.degree-wizard-progress {
+    background: var(--cc-white);
+    border-bottom: 1px solid var(--cc-line);
+    gap: 0;
+    padding: 0 14px;
+    position: sticky;
+    top: 0;
+    z-index: 15;
+}
+.degree-wizard-progress button {
+    border-left: 1px solid var(--cc-line);
+    min-height: 40px;
+    padding: 6px 16px;
+}
+.degree-wizard-progress button:last-child { border-right: 1px solid var(--cc-line); }
+.degree-wizard-progress button.active { background: var(--cc-black); color: var(--cc-white); }
+.degree-wizard-step { padding: 13px 16px 20px; }
+.degree-step-heading { margin-bottom: 10px; }
+.degree-step-heading h2 { font-size: 1.22rem; margin: 2px 0; }
+.degree-step-heading p { font-size: 0.75rem; }
+.degree-program-grid { gap: 10px; grid-template-columns: minmax(270px, 0.55fr) minmax(430px, 1.45fr); }
+.degree-coursework-grid,
+.degree-strategy-grid { gap: 10px; }
+.degree-program-form,
+.degree-import-panel,
+.degree-transcript-review,
+.degree-strategy-section,
+.major-map-preview { border-width: 1px; }
+.degree-program-form,
+.degree-import-panel,
+.degree-strategy-section { padding: 11px; }
+.major-map-preview { max-height: calc(100dvh - 210px); overflow: auto; }
+.degree-empty-state { min-height: 110px; padding: 14px; }
+.degree-step-actions {
+    background: var(--cc-surface);
+    bottom: -20px;
+    margin-top: 9px;
+    padding-top: 7px;
+    position: sticky;
+    z-index: 12;
+}
+.degree-strategy-options { gap: 5px; }
+.degree-strategy-options label,
+.degree-summer-option { padding: 8px; }
+.degree-strategy-options label:has(input:checked),
+.degree-summer-option:has(input:checked) { padding: 7px; }
+.degree-plan-step { padding-inline: 12px; }
+.degree-roadmap-heading { margin-bottom: 7px; }
+.degree-roadmap-heading h2 { font-size: 1.14rem; }
+.degree-layout { border-width: 1px; flex-direction: row-reverse; min-height: 400px; }
+#degree-sidebar {
+    border-left: 3px solid var(--cc-black);
+    border-right: 0;
+    min-width: 210px;
+    padding: 9px;
+    width: 230px;
+}
+#degree-content { padding: 8px; }
+.semester-columns { gap: 7px; }
+.semester-column { min-width: 205px; }
+
+/* Schedule Studio: tools left, calendar canvas center, options inspector right. */
+.schedule-layout { background: var(--cc-surface); }
+#schedule-sidebar {
+    background: var(--cc-white);
+    border-right: 0;
+    max-width: 40vw;
+    min-width: 190px;
+    width: var(--schedule-sidebar-width, 250px);
+}
+#schedule-sidebar h2 { font-size: 0.7rem; margin-bottom: 5px; }
+.schedule-search-section { padding: 7px; }
+.schedule-search-section input { min-height: 33px; padding: 5px 7px; }
+.schedule-search-section button { margin-top: 4px; }
+.schedule-search-results { padding: 4px; }
+.schedule-selected-section { padding: 6px; }
+.schedule-sidebar-toggle-rail { flex-basis: 8px; min-width: 8px; }
+#schedule-content { gap: 6px; padding: 6px; }
+.schedule-workspace {
+    flex-basis: var(--schedule-workspace-height, min(68vh, 590px));
+    gap: 6px;
+    grid-template-columns: minmax(420px, 1fr) minmax(230px, 285px);
+}
+.schedule-preview-panel {
+    grid-column: 1;
+    grid-row: 1;
+}
+#solver-section {
+    border-left: 3px solid var(--cc-black);
+    grid-column: 2;
+    grid-row: 1;
+}
+.schedule-preview-panel,
+#solver-section,
+.walking-map-panel { border-width: 1px; }
+.schedule-panel-heading { padding: 5px 7px; }
+.schedule-panel-heading p { display: none; }
+.schedule-panel-actions { gap: 3px; padding: 5px; }
+.btn-panel-primary,
+.btn-panel-secondary,
+.btn-panel-registration { font-size: 0.61rem; min-height: 29px; padding: 5px 6px; }
+.schedule-action-label-wide { display: none; }
+.schedule-action-label-compact { display: inline; }
+#solver-container { padding: 5px; }
+.schedule-card { margin-bottom: 5px; padding: 6px; }
+#calendar-grid { min-width: 430px; }
+.schedule-vertical-resizer { margin-block: -5px; }
+.walking-map-header { padding: 5px 7px; }
+.walking-map-day { padding-block: 5px; }
+.walking-map-list { padding: 6px; }
+.walking-transition { margin-bottom: 5px; padding: 7px; }
+
+/* Dialogs are command sheets and remain usable at short heights. */
+#modal-overlay { padding: 9px; }
+#modal { max-height: calc(100dvh - 18px); padding: 13px; width: min(94vw, 780px); }
+#modal-close { right: 8px; top: 4px; }
+.quick-view-dialog,
+.registration-dialog,
+.transcript-upload-dialog { max-height: calc(100dvh - 28px); }
+.schedule-preference-grid { gap: 7px; margin-top: 9px; }
+.schedule-preference-field,
+.schedule-preference-days,
+.schedule-preference-times,
+.schedule-preference-walking { padding: 7px; }
+
+/* Small-window mode keeps the rail but turns inspectors into drawers. */
+@media screen and (max-width: 720px) {
+    body > header,
+    body > main,
+    body > #site-notices,
+    body > #modal-overlay { visibility: visible; }
+    .desktop-only-gate { display: none; }
+}
+
+@media (max-width: 1050px) {
+    :root { --cc-nav-width: 58px; }
+    html { font-size: 13px; }
+    body.command-center > header h1::before { height: 28px; width: 32px; }
+    .main-tab-btn { font-size: 0; min-height: 58px; }
+    .main-tab-btn::before { font-size: 0.72rem; }
+    .command-nav-hint span { display: none; }
+    .command-topbar { grid-template-columns: minmax(220px, 360px) 1fr auto; }
+    .browse-detail .browse-body { display: block; }
+    .browse-detail #semester-search { height: 100%; }
+    .browse-detail #semester-content {
+        bottom: 0;
+        box-shadow: -10px 0 28px rgba(0, 0, 0, 0.22);
+        max-width: 430px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: min(46vw, 430px);
+        z-index: 25;
+    }
+    .degree-program-grid { grid-template-columns: minmax(240px, 0.65fr) 1fr; }
+    .schedule-workspace { grid-template-columns: minmax(360px, 1fr) minmax(210px, 250px); }
+}
+
+@media (max-width: 760px) {
+    .command-topbar {
+        gap: 7px;
+        grid-template-columns: minmax(160px, 1fr) auto;
+        padding-inline: 7px;
+    }
+    .command-context { display: none; }
+    .command-search-copy small { display: none; }
+    .header-controls label { display: none; }
+    .header-controls select { max-width: 112px; }
+    .browse-empty .browse-search-shell { padding: 18px 10px 12px; }
+    .browse-search-examples { display: none; }
+    .search-planning-paths { grid-template-columns: 1fr; }
+    .search-planning-card { min-height: 70px; }
+    .browse-detail #semester-content { width: min(88vw, 430px); }
+    .degree-wizard-progress { padding-inline: 4px; }
+    .degree-wizard-progress button { flex: 1; font-size: 0.59rem; padding-inline: 4px; }
+    .degree-wizard-progress button span { display: none; }
+    .degree-wizard-step { padding: 9px; }
+    .degree-program-grid,
+    .degree-coursework-grid,
+    .degree-strategy-grid { grid-template-columns: 1fr; }
+    .major-map-preview { max-height: none; }
+    .degree-layout { flex-direction: column; }
+    #degree-sidebar { border-bottom: 2px solid var(--cc-black); border-left: 0; border-right: 0; max-height: 170px; width: 100%; }
+    .schedule-layout { display: flex; overflow: hidden; }
+    #schedule-sidebar { max-width: 42vw; min-width: 170px; }
+    #schedule-content { overflow-y: auto; }
+    .schedule-workspace {
+        flex-basis: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: minmax(370px, 1fr) minmax(210px, auto);
+        min-height: 600px;
+        overflow: visible;
+    }
+    .schedule-preview-panel { grid-column: 1; grid-row: 1; }
+    #solver-section { border-left: 1px solid var(--cc-black); grid-column: 1; grid-row: 2; }
+    .schedule-vertical-resizer { display: none; }
+    #walking-map-container { flex: 0 0 420px; }
+    .walking-map-layout { grid-template-columns: 1fr; grid-template-rows: minmax(210px, 1.2fr) minmax(120px, 1fr); }
+}
+
+@media (max-width: 520px) {
+    :root { --cc-nav-width: 50px; --cc-bar-height: 48px; }
+    body.command-center > header h1::before { font-size: 0.62rem; height: 26px; width: 29px; }
+    .main-tab-btn::before { height: 25px; width: 28px; }
+    .command-nav-hint { display: none; }
+    .command-topbar { grid-template-columns: minmax(120px, 1fr) auto; }
+    .command-search-launch kbd { display: none; }
+    .command-search-copy strong { font-size: 0.68rem; }
+    .browse-search-form,
+    .browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 38px 67px; }
+    #schedule-sidebar { max-width: none; width: min(78vw, 270px); }
+    .course-detail-tabs button { font-size: 0.59rem; }
+    .schedule-preference-grid { grid-template-columns: 1fr; }
+    .schedule-preference-days,
+    .schedule-preference-times,
+    .schedule-preference-walking { grid-column: 1; }
+    .custom-map-basics,
+    .custom-map-entry-grid { grid-template-columns: 1fr; }
+    .custom-map-notes,
+    .custom-map-entry-options,
+    .custom-map-entry-notes { grid-column: 1; }
+}
+
+@media (max-height: 680px) and (min-width: 761px) {
+    .browse-empty .browse-search-shell { padding-top: 17px; }
+    .search-planning-card { min-height: 72px; }
+    .degree-wizard-step { padding-top: 8px; }
+    .degree-step-heading p { display: none; }
+    .schedule-workspace { flex-basis: min(64vh, 440px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
