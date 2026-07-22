@@ -1,6 +1,11 @@
 /* Variant shell behavior for the Command Center experiment. */
 const CommandCenter = {
     init() {
+        const taskCanvas = document.querySelector('.command-workspace > main');
+        if (taskCanvas) {
+            document.querySelectorAll('body > .main-tab').forEach(tab => taskCanvas.appendChild(tab));
+        }
+
         const launch = document.getElementById('command-search-launch');
         const context = document.getElementById('command-context');
         if (!launch || !context) return;
@@ -27,6 +32,7 @@ const CommandCenter = {
 
         launch.addEventListener('click', openSearch);
         document.addEventListener('tab-changed', event => updateContext(event.detail?.tab));
+        updateContext(Tabs.current());
         document.addEventListener('keydown', event => {
             if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
             const target = event.target;
@@ -36,4 +42,3 @@ const CommandCenter = {
         });
     },
 };
-
