@@ -12,8 +12,23 @@ test('Guided Studio provides a workflow rail, document stage, and action dock', 
     assert.match(html, /class="studio-context"/);
     assert.match(html, /class="studio-stage"/);
     assert.match(html, /id="studio-action-dock"/);
-    assert.match(css, /grid-template-columns:\s*var\(--studio-rail\) minmax\(0, 1fr\)/);
+    assert.match(css, /\.studio-stage\s*{[^}]*inset:\s*0 0 0 var\(--studio-rail\);[^}]*position:\s*fixed;[^}]*width:\s*calc\(100vw - var\(--studio-rail\)\);/s);
+    assert.match(css, /\.studio-stage > main\s*{[^}]*flex:\s*1 1 0;[^}]*position:\s*relative;[^}]*width:\s*100%;/s);
+    assert.match(css, /\.studio-stage > main > \.main-tab\.active\s*{[^}]*display:\s*flex !important;[^}]*visibility:\s*visible;/s);
     assert.match(css, /\.browse-detail #semester-search[\s\S]*display:\s*none/);
+});
+
+test('every workspace remains a direct child of the visible center canvas', () => {
+    const mainStart = html.indexOf('<main>');
+    const mainEnd = html.indexOf('</main>', mainStart);
+    const main = html.slice(mainStart, mainEnd);
+    assert.notEqual(mainStart, -1);
+    assert.notEqual(mainEnd, -1);
+    for (const id of ['tab-semester', 'tab-degree', 'tab-schedule']) {
+        assert.match(main, new RegExp(`id="${id}"`));
+    }
+    assert.match(html, /<div class="studio-stage">\s*<div id="site-notices"[\s\S]*<main>/);
+    assert.match(html, /<div id="tab-semester" class="main-tab active">/);
 });
 
 test('new contextual actions delegate to existing feature controls', () => {
