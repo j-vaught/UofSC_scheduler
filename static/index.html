@@ -24,9 +24,9 @@
     <link rel="stylesheet" href="/static/css/print.css">
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
-    <link rel="stylesheet" href="/static/css/adaptive-panels.css">
+    <link rel="stylesheet" href="/static/css/tiled-workbench.css">
 </head>
-<body data-ui-variant="adaptive-panels">
+<body data-ui-variant="tiled-workbench">
     <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title">
         <div class="desktop-only-gate-card">
             <h2 id="desktop-only-title">Desktop browser required</h2>
@@ -36,6 +36,7 @@
     <header>
         <h1>Course Scheduler</h1>
         <nav id="main-tabs" aria-label="Main navigation">
+            <span class="workspace-switcher-label" aria-hidden="true">WORKSPACES</span>
             <button data-tab="semester" class="main-tab-btn active">SEARCH</button>
             <button data-tab="degree" class="main-tab-btn">DEGREE PLAN</button>
             <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
@@ -62,7 +63,15 @@
         <!-- ===== DEGREE PLAN TAB ===== -->
         <div id="tab-degree" class="main-tab">
             <section class="degree-wizard" aria-labelledby="degree-setup-title">
+                <nav class="tile-switcher" aria-label="Degree Plan tiles">
+                    <span>VIEW</span>
+                    <button type="button" data-tile-target=".degree-wizard-progress">Steps</button>
+                    <button type="button" data-tile-target="active-degree-step">Active step</button>
+                    <button type="button" data-tile-target="#degree-sidebar">Overview</button>
+                </nav>
+                <div class="tiled-degree-board">
                 <div class="degree-wizard-progress" aria-label="Degree planning progress">
+                    <div class="tiled-window-bar" aria-hidden="true"><span>PLAN NAVIGATOR</span><i></i></div>
                     <button type="button" class="active" data-degree-step-target="1"><span>1</span> PROGRAM</button>
                     <button type="button" data-degree-step-target="2" disabled><span>2</span> COURSEWORK</button>
                     <button type="button" data-degree-step-target="3" disabled><span>3</span> STRATEGY</button>
@@ -256,15 +265,23 @@
                             <div id="semester-columns" class="semester-columns"><p class="hint" style="padding:20px">Generate a plan to build your roadmap.</p></div>
                         </section>
                     </div>
+                </section>
                 </div>
-            </section>
             </section>
         </div>
 
         <!-- ===== SEMESTER TAB ===== -->
         <div id="tab-semester" class="main-tab active">
             <div id="browse-workspace" class="semester-layout browse-empty">
+                <nav class="tile-switcher" aria-label="Search tiles">
+                    <span>VIEW</span>
+                    <button type="button" data-tile-target=".browse-search-shell">Query</button>
+                    <button type="button" data-tile-target="#semester-search">Results</button>
+                    <button type="button" data-tile-target="#semester-content">Course</button>
+                </nav>
+                <div class="tiled-search-board">
                 <section class="browse-search-shell" aria-label="Course search">
+                    <div class="tiled-window-bar" aria-hidden="true"><span>QUERY + FILTERS</span><i></i></div>
                     <div class="browse-search-intro">
                         <h2 id="browse-search-title">Find your next course</h2>
                         <p id="browse-search-description">Search by course, subject, CRN, range, or description.</p>
@@ -482,6 +499,7 @@
 
                 <div class="browse-body">
                 <aside id="semester-search">
+                    <div class="tiled-window-bar" aria-hidden="true"><span>RESULTS</span><i></i></div>
                     <div class="resize-handle" id="search-resize-handle" role="separator" aria-label="Resize search results" aria-controls="semester-search" aria-orientation="vertical" aria-valuemin="200" aria-valuenow="350" tabindex="0"></div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
                         <div id="search-results" class="results-list">
@@ -492,6 +510,7 @@
 
                 <!-- Right: Course Details + Mini Calendar -->
                 <section id="semester-content">
+                    <div class="tiled-window-bar" aria-hidden="true"><span>COURSE INTELLIGENCE</span><i></i></div>
                     <div id="course-detail-shell" class="course-detail-shell">
                         <div class="course-detail-header-sticky">
                             <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
@@ -535,14 +554,23 @@
                     </div>
                 </section>
                 </div>
+                </div>
             </div>
         </div>
 
         <!-- ===== SCHEDULE TAB ===== -->
         <div id="tab-schedule" class="main-tab">
             <div class="schedule-layout">
+                <nav class="tile-switcher" aria-label="Schedule tiles">
+                    <span>VIEW</span>
+                    <button type="button" data-tile-target="#schedule-sidebar">Courses</button>
+                    <button type="button" data-tile-target="#solver-section">Options</button>
+                    <button type="button" data-tile-target=".schedule-preview-panel">Calendar</button>
+                    <button type="button" data-tile-target=".tiled-map-window">Routes</button>
+                </nav>
                 <!-- Left: Courses to schedule -->
                 <aside id="schedule-sidebar">
+                    <div class="tiled-window-bar" aria-hidden="true"><span>COURSE TRAY</span><i></i></div>
                     <div class="schedule-search-section">
                         <h2>Find Courses</h2>
                         <input id="schedule-course-input" type="text" placeholder="Course, CRN, or range (CSCE 140-199)" autocomplete="off" aria-label="Schedule course search">
@@ -619,7 +647,10 @@
                     <div id="schedule-vertical-resizer" class="schedule-vertical-resizer" role="separator" aria-label="Resize calendar and route map" aria-orientation="horizontal" tabindex="0">
                         <span>DRAG TO RESIZE</span>
                     </div>
-                    <div id="walking-map-container"></div>
+                    <section class="tiled-map-window">
+                        <div class="tiled-window-bar" aria-hidden="true"><span>ROUTES + CAMPUS MAP</span><i></i></div>
+                        <div id="walking-map-container"></div>
+                    </section>
                 </section>
             </div>
         </div>
@@ -695,6 +726,7 @@
     <script src="/static/js/custom-major-map.js"></script>
     <script src="/static/js/degree-wizard.js"></script>
     <script src="/static/js/notices.js"></script>
+    <script src="/static/js/tiled-workbench.js"></script>
     <script src="/static/js/boot.js"></script>
 </body>
 </html>

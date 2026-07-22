@@ -1,0 +1,522 @@
+/*
+ * Tiled Workbench UI experiment.
+ * Existing feature modules keep ownership of data and behavior. This layer
+ * turns their stable DOM hooks into independently scrollable workbench tiles.
+ */
+
+:root {
+    --tw-garnet: #73000A;
+    --tw-black: #000000;
+    --tw-white: #FFFFFF;
+    --tw-ink: #363636;
+    --tw-muted: #5C5C5C;
+    --tw-line: #C7C7C7;
+    --tw-surface: #ECECEC;
+    --tw-focus: #466A9F;
+    --tw-header: 46px;
+    --tw-gap: 8px;
+}
+
+html { min-width: 0; overflow: hidden; }
+body[data-ui-variant="tiled-workbench"] {
+    background: var(--tw-surface);
+    min-width: 0;
+}
+body[data-ui-variant="tiled-workbench"] > header {
+    flex: 0 0 var(--tw-header);
+    grid-template-columns: minmax(170px, 0.72fr) auto minmax(170px, 0.72fr);
+    height: var(--tw-header);
+    padding-inline: 12px;
+}
+body[data-ui-variant="tiled-workbench"] > header h1 {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+body[data-ui-variant="tiled-workbench"] > header h1::after {
+    color: #CED318;
+    content: "TILED WORKBENCH";
+    display: block;
+    font-size: 0.48rem;
+    letter-spacing: 0.15em;
+    margin-top: 1px;
+}
+.desktop-only-gate { display: none !important; }
+
+#main-tabs {
+    align-items: center;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    border-right: 1px solid rgba(255, 255, 255, 0.35);
+    min-width: 0;
+}
+.workspace-switcher-label {
+    color: #C7C7C7;
+    font-size: 0.54rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    padding: 0 11px;
+}
+.main-tab-btn {
+    align-self: stretch;
+    min-height: 44px;
+    padding-inline: 15px;
+}
+.main-tab-btn.active { background: #FFFFFF; border-bottom-color: #000000; color: #73000A; }
+.main-tab-btn.active:hover { background: #FFFFFF; color: #73000A; }
+.header-controls select { min-height: 34px; min-width: 140px; }
+
+body[data-ui-variant="tiled-workbench"] :where(button, select, input, textarea, [role="button"], [role="tab"]) {
+    touch-action: manipulation;
+}
+body[data-ui-variant="tiled-workbench"] :where(button, select, input, textarea, [role="button"], [role="tab"]):focus-visible {
+    outline: 3px solid var(--tw-focus);
+    outline-offset: 2px;
+}
+
+.main-tab,
+.semester-layout,
+.tiled-search-board,
+.browse-body,
+.schedule-layout,
+#schedule-content,
+.schedule-workspace,
+.degree-wizard,
+.tiled-degree-board { min-height: 0; min-width: 0; }
+
+/* Shared window chrome. */
+.tiled-window-bar {
+    align-items: center;
+    background: var(--tw-black);
+    color: var(--tw-white);
+    display: flex;
+    flex: 0 0 27px;
+    font-size: 0.59rem;
+    font-weight: 800;
+    justify-content: space-between;
+    letter-spacing: 0.12em;
+    min-height: 27px;
+    padding: 0 8px 0 9px;
+}
+.tiled-window-bar i {
+    background: var(--tw-garnet);
+    border: 2px solid var(--tw-white);
+    display: block;
+    height: 11px;
+    width: 11px;
+}
+.tile-switcher { display: none; }
+
+/* Search. Three simultaneously visible windows. */
+#tab-semester { overflow: hidden; }
+#browse-workspace { display: block; padding: 0; }
+.tiled-search-board {
+    display: grid;
+    gap: var(--tw-gap);
+    grid-template-columns: minmax(250px, 0.72fr) minmax(300px, 0.9fr) minmax(430px, 1.6fr);
+    height: 100%;
+    padding: var(--tw-gap);
+}
+.browse-body { display: contents; }
+.browse-search-shell,
+#semester-search,
+#semester-content {
+    background: var(--tw-white);
+    border: 2px solid var(--tw-black);
+    height: 100%;
+    margin: 0;
+    max-width: none;
+    min-width: 0;
+    position: relative;
+    transform: none;
+    width: auto !important;
+}
+.browse-search-shell {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1;
+    overflow-y: auto;
+    padding: 0;
+    z-index: 1;
+}
+.browse-search-shell > :not(.tiled-window-bar) { margin-left: 12px; margin-right: 12px; }
+.browse-search-intro { display: block; padding-top: 14px; text-align: left; }
+.browse-search-intro h2 { font-size: 1.35rem; margin-bottom: 3px; }
+.browse-search-intro p { font-size: 0.75rem; margin-bottom: 12px; }
+.browse-search-form,
+.browse-empty .browse-search-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 40px;
+    gap: 6px;
+}
+.browse-search-form #btn-search { grid-column: 1 / -1; min-height: 38px; }
+.browse-filter-button { min-height: 38px; }
+.browse-search-examples { align-items: flex-start; flex-direction: column; margin-top: 12px; }
+.regular-search-examples { align-items: flex-start; }
+.search-planning-paths,
+.browse-empty .search-planning-paths {
+    display: grid;
+    gap: 7px;
+    grid-template-columns: 1fr;
+    margin-block: 14px;
+}
+.search-planning-card { min-height: 96px; padding: 11px 38px 11px 11px; }
+.browse-empty .browse-search-shell { grid-column: 1 / -1; margin: 0; max-width: none; padding: 0; transform: none; }
+.browse-empty .browse-search-shell > :not(.tiled-window-bar) { margin-inline: auto; max-width: 760px; width: calc(100% - 28px); }
+.browse-empty .browse-search-intro { padding-top: clamp(30px, 9vh, 74px); text-align: center; }
+.browse-empty .browse-search-intro h2 { font-size: 2rem; }
+.browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 44px 112px; }
+.browse-empty .browse-search-form #btn-search { grid-column: auto; }
+.browse-empty .search-planning-paths { grid-template-columns: 1fr 1fr; }
+.browse-empty .browse-body { display: none; }
+
+#semester-search {
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    overflow: hidden;
+}
+#semester-search .resize-handle { display: none; }
+#semester-search .search-section { border: 0; min-height: 0; padding: 5px; }
+#search-results { padding: 3px; }
+.course-group { margin-bottom: 5px; }
+.course-header { min-height: 39px; padding: 7px 8px; }
+.course-result-summary { padding: 6px 8px 7px; }
+
+#semester-content {
+    display: block;
+    grid-column: 3;
+    overflow-y: auto;
+    padding: 0;
+}
+.browse-results #semester-search { grid-column: 2 / -1; max-width: none; width: auto !important; }
+.browse-results #semester-content { display: none; }
+.browse-detail #semester-search { display: flex; max-width: none; min-width: 0; width: auto !important; }
+.browse-detail #semester-content { display: block; padding: 0; }
+.course-detail-shell { margin: 0; max-width: none; }
+.course-detail-header-sticky { top: 0; z-index: 19; }
+.course-detail-header { padding: 11px 48px 10px 13px; }
+.course-detail-description-wrap { padding-inline: 13px; }
+.course-section-picker-wrap { padding: 10px 12px; }
+.course-detail-tabs { background: #FFFFFF; position: sticky; top: 0; z-index: 18; }
+.course-detail-tabs button { min-height: 40px; }
+.course-detail-panels { padding: 10px 11px 18px; }
+.browse-close-details { height: 34px; right: 7px; top: 7px; width: 34px; }
+
+/* Degree Plan. Navigator tile plus one active work tile. */
+#tab-degree { overflow: hidden; }
+.degree-wizard { min-height: 0; width: 100%; }
+.tiled-degree-board {
+    display: grid;
+    gap: var(--tw-gap);
+    grid-template-columns: 190px minmax(0, 1fr);
+    height: 100%;
+    padding: var(--tw-gap);
+}
+.degree-wizard-progress {
+    align-content: start;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    display: grid;
+    grid-auto-rows: min-content;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0;
+    position: static;
+}
+.degree-wizard-progress .tiled-window-bar { margin-bottom: 8px; }
+.degree-wizard-progress button {
+    border: 0;
+    border-bottom: 1px solid #C7C7C7;
+    border-left: 6px solid transparent;
+    justify-content: flex-start;
+    min-height: 54px;
+    padding: 8px 10px;
+    text-align: left;
+}
+.degree-wizard-progress button.active { background: #73000A; border-bottom-color: #000000; border-left-color: #000000; color: #FFFFFF; }
+.degree-wizard-step {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    grid-column: 2;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 18px 20px 28px;
+}
+.degree-wizard-step[hidden] { display: none; }
+.degree-step-heading { margin: 0 0 13px; }
+.degree-step-heading h2 { font-size: clamp(1.35rem, 2.1vw, 1.9rem); }
+.degree-program-grid { grid-template-columns: minmax(245px, 0.68fr) minmax(360px, 1.32fr); }
+.degree-coursework-grid { grid-template-columns: minmax(275px, 0.78fr) minmax(360px, 1.22fr); }
+.degree-strategy-grid { grid-template-columns: 1fr 1fr; }
+.degree-program-grid,
+.degree-coursework-grid,
+.degree-strategy-grid { gap: 12px; }
+.degree-program-form,
+.degree-import-panel,
+.degree-transcript-review,
+.degree-strategy-section { padding: 12px; }
+.degree-step-actions {
+    background: #FFFFFF;
+    border-top: 2px solid #000000;
+    bottom: -28px;
+    margin-top: 14px;
+    padding: 9px 0;
+    position: sticky;
+    z-index: 20;
+}
+.degree-plan-step { padding: 12px; }
+.degree-roadmap-heading { margin-bottom: 8px; }
+.degree-layout {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1.58fr);
+    height: calc(100% - 54px);
+}
+#degree-sidebar,
+#degree-content { border: 2px solid #000000; min-width: 0; overflow-y: auto; padding: 10px; }
+#degree-sidebar { background: #ECECEC; }
+#degree-content { background: #FFFFFF; }
+
+/* Schedule. Four independent work windows in a real 2x2 board. */
+#tab-schedule { overflow: hidden; }
+.schedule-layout {
+    display: grid;
+    gap: var(--tw-gap);
+    grid-template-columns: minmax(330px, 0.72fr) minmax(570px, 1.28fr);
+    grid-template-rows: minmax(250px, 0.9fr) minmax(270px, 1.1fr);
+    height: 100%;
+    padding: var(--tw-gap);
+    position: relative;
+}
+#schedule-sidebar {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    max-width: none;
+    min-width: 0;
+    overflow: hidden;
+    width: auto !important;
+}
+.schedule-search-section { padding: 7px 9px 6px; }
+.schedule-search-section h2 { margin-bottom: 5px; }
+.schedule-search-results { flex-basis: var(--schedule-results-height, 108px); padding: 5px; }
+.schedule-selected-section { padding: 6px 9px 8px; }
+.schedule-sidebar-toggle-rail {
+    border: 0;
+    height: 26px;
+    left: calc(36.7% - 14px);
+    min-width: 26px;
+    position: absolute;
+    top: 9px;
+    width: 26px;
+    z-index: 50;
+}
+.schedule-sidebar-resize-handle { display: none; }
+.schedule-sidebar-toggle { right: 0; }
+#schedule-content,
+.schedule-workspace { display: contents; }
+#solver-section,
+.schedule-preview-panel,
+.tiled-map-window {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+}
+#solver-section { grid-column: 2; grid-row: 1; }
+.schedule-preview-panel { grid-column: 1; grid-row: 2; }
+.tiled-map-window { display: flex; flex-direction: column; grid-column: 2; grid-row: 2; }
+.schedule-panel-heading { min-height: 27px; padding: 5px 8px; }
+.schedule-panel-actions { padding: 6px 8px; position: sticky; top: 27px; z-index: 8; }
+#solver-container { padding: 7px; }
+#calendar-container { height: auto; min-height: 0; overscroll-behavior: contain; }
+#walking-map-container { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+#walking-map-container .walking-map-panel { border: 0; height: 100%; }
+.walking-map-header { display: none; }
+.walking-map-layout { min-height: 0; }
+.schedule-vertical-resizer { display: none; }
+.schedule-layout.schedule-sidebar-collapsed { grid-template-columns: 1fr 1fr; }
+.schedule-layout.schedule-sidebar-collapsed #solver-section { grid-column: 1; }
+.schedule-layout.schedule-sidebar-collapsed .schedule-preview-panel { grid-column: 2; grid-row: 1; }
+.schedule-layout.schedule-sidebar-collapsed .tiled-map-window { grid-column: 1 / -1; grid-row: 2; }
+.schedule-layout.schedule-sidebar-collapsed .schedule-sidebar-toggle-rail { left: 7px; }
+
+/* Dialogs read as temporary windows above the board. */
+#modal-overlay { padding: 10px; }
+#modal {
+    border-top: 28px solid #000000;
+    max-height: calc(100dvh - 20px);
+    max-width: min(900px, calc(100vw - 20px));
+    width: min(92%, 900px);
+}
+#modal::before {
+    color: #FFFFFF;
+    content: "WORKBENCH DIALOG";
+    font-size: 0.58rem;
+    font-weight: 800;
+    left: 10px;
+    letter-spacing: 0.12em;
+    position: absolute;
+    top: -20px;
+}
+#modal-close { color: #FFFFFF; height: 32px; right: 0; top: -31px; width: 36px; }
+
+@media (max-width: 1100px) {
+    .workspace-switcher-label { display: none; }
+    .main-tab-btn { padding-inline: 10px; }
+    .header-controls label { clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; width: 1px; }
+    .tiled-search-board { grid-template-columns: minmax(230px, 0.7fr) minmax(270px, 0.85fr) minmax(380px, 1.45fr); }
+    .schedule-layout { grid-template-columns: minmax(290px, 0.72fr) minmax(500px, 1.28fr); }
+    .degree-program-grid,
+    .degree-coursework-grid { grid-template-columns: minmax(235px, 0.75fr) minmax(330px, 1.25fr); }
+}
+
+/* Partial windows and small screens become a vertical card workbench. */
+@media screen and (max-width: 900px) {
+    body > header,
+    body > main,
+    body > #site-notices,
+    body > #modal-overlay { visibility: visible !important; }
+    :root { --tw-header: 82px; }
+    html { overflow: auto; }
+    body[data-ui-variant="tiled-workbench"] > header {
+        grid-template-columns: minmax(0, 1fr) minmax(130px, 0.7fr);
+        grid-template-rows: 38px 44px;
+        height: var(--tw-header);
+        padding-inline: 8px;
+    }
+    #main-tabs { grid-column: 1 / -1; grid-row: 2; overflow-x: auto; }
+    .main-tab-btn { flex: 1 0 100px; }
+    .tile-switcher {
+        align-items: center;
+        background: #000000;
+        color: #FFFFFF;
+        display: flex;
+        gap: 5px;
+        min-height: 42px;
+        overflow-x: auto;
+        padding: 5px 7px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .tile-switcher > span { color: #C7C7C7; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.1em; }
+    .tile-switcher button {
+        background: #FFFFFF;
+        border: 2px solid #FFFFFF;
+        color: #000000;
+        flex: 0 0 auto;
+        min-height: 30px;
+        padding: 4px 10px;
+    }
+    .tile-switcher button.active { background: #73000A; color: #FFFFFF; }
+    .main-tab { overflow-y: auto; }
+
+    #browse-workspace { overflow: visible; }
+    .tiled-search-board { display: block; height: auto; padding: 7px; }
+    .browse-body { display: block; }
+    .browse-search-shell,
+    #semester-search,
+    #semester-content {
+        display: flex;
+        height: min(64dvh, 560px);
+        margin-bottom: 8px;
+        max-width: none;
+        min-height: 360px;
+        width: 100% !important;
+    }
+    .browse-search-shell { overflow-y: auto; }
+    #semester-content { display: block; overflow-y: auto; }
+    .browse-empty .browse-search-shell { height: auto; min-height: calc(100dvh - 145px); }
+    .browse-empty .browse-body { display: none; }
+    .browse-results #semester-search { display: flex; }
+    .browse-results #semester-content { display: none; }
+    .browse-detail #semester-search { display: flex; }
+    .browse-detail #semester-content { display: block; }
+    .browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 42px 90px; }
+    .browse-empty .search-planning-paths { grid-template-columns: 1fr; }
+
+    #tab-degree { overflow-y: auto; }
+    .tiled-degree-board { display: block; height: auto; padding: 7px; }
+    .degree-wizard-progress {
+        display: flex;
+        height: auto;
+        margin-bottom: 8px;
+        overflow-x: auto;
+        padding: 0;
+    }
+    .degree-wizard-progress .tiled-window-bar { flex: 0 0 140px; margin: 0; }
+    .degree-wizard-progress button { flex: 1 0 120px; min-height: 48px; }
+    .degree-wizard-step { height: auto; min-height: calc(100dvh - 160px); padding: 14px 10px 24px; }
+    .degree-program-grid,
+    .degree-coursework-grid,
+    .degree-strategy-grid,
+    .degree-layout { grid-template-columns: 1fr; }
+    .degree-program-form,
+    .degree-import-panel,
+    .degree-transcript-review,
+    .degree-strategy-section { padding: 10px; }
+    .degree-layout { height: auto; }
+    #degree-sidebar { max-height: 46dvh; }
+    #degree-content { min-height: 500px; }
+
+    #tab-schedule { overflow-y: auto; }
+    .schedule-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        height: auto;
+        padding: 7px;
+    }
+    .schedule-layout > .tile-switcher { margin: -7px -7px 0; }
+    #schedule-sidebar,
+    #solver-section,
+    .schedule-preview-panel,
+    .tiled-map-window {
+        display: flex;
+        flex: 0 0 auto;
+        height: min(64dvh, 540px);
+        min-height: 360px;
+        width: 100% !important;
+    }
+    #solver-section,
+    .schedule-preview-panel,
+    .tiled-map-window { flex-direction: column; }
+    .schedule-sidebar-toggle-rail { display: none; }
+    .schedule-layout.schedule-sidebar-collapsed #schedule-sidebar { display: none; }
+    #schedule-content,
+    .schedule-workspace { display: contents; }
+    .schedule-preview-panel { min-height: 480px; }
+    .tiled-map-window { min-height: 450px; }
+
+    #modal-overlay { align-items: stretch; padding: 7px; }
+    #modal { max-height: calc(100dvh - 14px); max-width: none; width: 100%; }
+}
+
+@media (max-width: 520px) {
+    body[data-ui-variant="tiled-workbench"] > header h1 { font-size: 0.82rem; }
+    .header-controls select { min-width: 0; width: 100%; }
+    .browse-empty .browse-search-form { grid-template-columns: minmax(0, 1fr) 42px 76px; }
+    .browse-search-shell > :not(.tiled-window-bar) { margin-inline: 8px; }
+    .course-detail-tabs { overflow-x: auto; }
+    .course-detail-tabs button { flex: 1 0 92px; }
+    .degree-wizard-progress .tiled-window-bar { display: none; }
+    .degree-step-actions { gap: 6px; }
+    .degree-step-actions button { min-width: 0; padding-inline: 7px; }
+    .schedule-panel-actions { flex-wrap: wrap; }
+    .btn-panel-registration { margin-left: 0; }
+    #calendar-grid { min-width: 430px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-ui-variant="tiled-workbench"] *,
+    body[data-ui-variant="tiled-workbench"] *::before,
+    body[data-ui-variant="tiled-workbench"] *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
