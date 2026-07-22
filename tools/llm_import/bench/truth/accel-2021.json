@@ -1,0 +1,421 @@
+{
+ "notes": "Document has 3 pages total. Page 3 is a signature/agreement page (\"Please review the following and sign in agreement...\") with no semester tables, so it was excluded per instructions.\n\nThis is an \"Accelerated Study Plan\" layout, not the standard 5-column major-map table. There is NO Min. Grade column, NO Code column, and NO Prerequisites column anywhere in the document \u2014 every row's min_grade, codes, and prerequisites is null. There is also no \"!\" critical-course marker system at all (no leftmost marker column exists in this bulleted layout), so critical=false for every row.\n\nThe document groups semesters under \"YEAR ONE\", \"YEAR TWO\", \"YEAR THREE\" headers (printed in red, larger type) that sit above the actual \"Fall Semester, X hours\" / \"Spring Semester, X hours\" / \"Summer Semester, X hours\" headers. The YEAR headers carry no rows or declared-credit total of their own \u2014 they are purely grouping labels \u2014 so I did not create separate section entries for them; only the Fall/Spring/Summer headers (which each have their own declared credit-hour total and a list of rows) were treated as sections, consistent with \"Only the semester tables.\"\n\nOne row is genuinely ambiguous: in Fall Semester (Year One), between the \"CHEM 111/111L (SCI), 4 hours\" row and the \"Foreign Language or Carolina Core, 3 hours\" row, the document prints an italicized parenthetical caveat on its own line: \"(Must have placed into MATH 111, 115, or higher MATH)\". It has no attached credit-hour value and appears to be a footnote-like qualifier on the MATH 122/141 row above it, but it is positioned lower in the print flow (likely a layout artifact). I transcribed it as its own row with credits=\"\" (empty string, since no value is printed and the schema requires a string) rather than merging it into the MATH row's title, since it is visually a separate paragraph/line. A parser could reasonably treat this differently (attach it to the MATH row, or drop it as a footnote) \u2014 flagging for review.\n\nIn Year Two Summer Semester, one row reads exactly \"Biological Sciences), 3 hours\" \u2014 a stray, unmatched closing parenthesis with no matching open parenthesis, transcribed verbatim per the no-fix-typos instruction. Also note: that section's 5 rows sum to 15 credit-hours, but its header declares \"12 hours\" \u2014 a real inconsistency in the source document (not a transcription artifact worth \"fixing\").\n\nNo total_credits_required is printed anywhere in the document (only per-semester hour totals appear), so that field is null. No department is named separately from the college, so department is null.",
+ "program": {
+  "major": "Biological Sciences",
+  "degree": "Bachelor of Science (B.S)",
+  "catalog_year": "2021-2022",
+  "college": "College of Arts and Sciences",
+  "department": null,
+  "total_credits_required": null
+ },
+ "sections": [
+  {
+   "label": "Fall Semester, 17-18 hours",
+   "declared_credits": "17-18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 101 (CMW)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MATH 122 OR 141 (ARP)",
+     "credits": "3 or 4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "BIOL 101/101L (SCI)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 111/111L (SCI)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "(Must have placed into MATH 111, 115, or higher MATH)",
+     "credits": "",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language or Carolina Core",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 17-18 hours",
+   "declared_credits": "17-18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 102 (CMW, INF)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MATH 170, 172, or 142 (ARP)",
+     "credits": "3 or 4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "BIOL 102/102L (SCI)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 112/112L (SCI)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language or Carolina Core (GFL)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer Semester, 14 hours",
+   "declared_credits": "14",
+   "rows": [
+    {
+     "critical": false,
+     "title": "BIOL 301 (Required Major Course)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "BIOL 301L (Major-level lab course option)",
+     "credits": "1",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 333 (Cognate)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 331L (Cognate)",
+     "credits": "1",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (AIU, Fine Arts or Humanities)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "HIST 111 or 112 (GHS)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Fall Semester, 17 hours",
+   "declared_credits": "17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "BIOL 302 (Required Major course)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "BIOL 302L (Major-level lab course option)",
+     "credits": "1",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 334 (Cognate)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CHEM 332L (Cognate)",
+     "credits": "1",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "HIST 101-109 (GHS)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 18 hours",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Physiology or Plant Biology",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "BIOL 303 (Required Major Course)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (CMS)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "STAT 205 (ARP)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor (if applicable) or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer Semester, 12 hours",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Physiology or Plant Biology",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Biological Sciences)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (GSS)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor, Cognate, or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor, Cognate, or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Fall Semester, 15 hours",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Biological Sciences Elective (500 level or above)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Biological Sciences Elective (300 level or above)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (GSS)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (VSR)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor, Cognate, or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 16 hours",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Biological Sciences Elective and lab (500 level or above)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CSCE 102 (ARP)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (AIU, Fine Arts or Humanities)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor, Cognate, or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor, Cognate, or Elective course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  }
+ ]
+}

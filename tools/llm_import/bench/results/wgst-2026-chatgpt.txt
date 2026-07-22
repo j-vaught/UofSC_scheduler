@@ -1,0 +1,296 @@
+Semester: One
+Credits: 15-16
+
+Req: 1 !
+Course: ENGL 101
+Grade: C
+Code: CC-CMW
+
+Req: 2
+Slot: Carolina Core ARP Requirement
+Credits: 3-4
+Code: CC-ARP
+
+Req: 3
+Slot: Foreign language ^3
+Slot: other Carolina Core Requirement ^4
+Credits: 3
+Code: CC-GFL
+
+Req: 4
+Slot: Carolina Core Requirement ^4
+Credits: 3
+Code: CC
+
+Req: 5
+Course: UNIV 101
+Slot: Carolina Core Requirement ^4
+Credits: 3
+Code: PR/CC
+
+Semester: Two
+Credits: 15-17
+
+Req: 1 !
+Course: ENGL 102
+Grade: C
+Code: CC-CMW CC-INF
+
+Req: 2
+Slot: Carolina Core ARP Requirement
+Credits: 3-4
+Code: CC-ARP
+
+Req: 3
+Slot: Foreign language ^3
+Slot: other Carolina Core Requirement ^4
+Credits: 3
+Code: CC-GFL
+
+Req: 4
+Slot: Social Science
+Credits: 3
+Code: CR
+
+Req: 5
+Slot: Carolina Core Requirement ^4
+Credits: 3-4
+Code: CC
+
+Semester: Three
+Credits: 15-16
+
+Req: 1 !
+Course: WGST 112
+Code: CC-GSS CC-VSR
+
+Req: 2
+Slot: History ^6
+Credits: 3
+Code: CR
+
+Req: 3
+Slot: Humanities or Fine Arts
+Credits: 3
+Code: CR
+
+Req: 4
+Slot: Foreign language ^3
+Slot: Carolina Core Requirement ^4
+Credits: 3
+Code: CR/CC
+
+Req: 5
+Slot: Carolina Core Requirement ^4
+Credits: 3-4
+Code: CC
+
+Semester: Four
+Credits: 15
+
+Req: 1
+Course: WGST 113
+Grade: C
+Code: MR
+
+Req: 2
+Course: WGST 307
+Course: WGST 308
+Grade: C
+Code: MR
+
+Req: 3
+Slot: Cognate ^7
+Slot: Minor Course ^7
+Credits: 3
+Grade: C
+Code: PR
+
+Req: 4
+Slot: Humanities or Fine Arts
+Credits: 3
+Code: CR
+
+Req: 5
+Slot: Carolina Core Requirement ^4
+Slot: Elective ^8
+Credits: 3
+Code: CC/PR
+
+Semester: Five
+Credits: 15
+
+Req: 1
+Course: WGST 304
+Grade: C
+Code: MR
+
+Req: 2
+Slot: Cross-Cultural Issues Course: Non-U.S. or Comparative ^9
+Credits: 3
+Grade: C
+Code: MR
+
+Req: 3
+Slot: Cognate ^7
+Slot: Minor Course ^7
+Credits: 3
+Grade: C
+Code: PR
+
+Req: 4
+Slot: Humanities or Fine Arts
+Credits: 3
+Code: CR
+
+Req: 5
+Slot: Carolina Core Requirement ^4
+Slot: Elective ^8
+Credits: 3
+Code: CC/PR
+
+Semester: Six
+Credits: 15
+
+Req: 1
+Slot: WGST or approved discipline-based course
+Credits: 3
+Grade: C
+Code: MR
+
+Req: 2
+Slot: WGST or approved discipline-based course
+Credits: 3
+Grade: C
+Code: MR
+
+Req: 3
+Slot: Cognate ^7
+Slot: Minor Course ^7
+Credits: 3
+Grade: C
+Code: PR
+
+Req: 4
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Req: 5
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Semester: Seven
+Credits: 15
+
+Req: 1
+Slot: WGST or approved discipline-based course
+Credits: 3
+Grade: C
+Code: MR
+
+Req: 2
+Slot: Cognate ^7
+Slot: Minor Course ^7
+Credits: 3
+Grade: C
+Code: PR
+
+Req: 3
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Req: 4
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Req: 5
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Semester: Eight
+Credits: 13
+
+Req: 1
+Course: WGST 499
+Slot: a research project ^10
+Credits: 3
+Grade: C
+Code: MR/CC-INT
+Offered: spring
+Qual: coordinated by WGST advisor
+
+Req: 2
+Slot: Minor Course ^7
+Slot: Elective ^8
+Credits: 3
+Grade: C (minor)
+Code: PR
+
+Req: 3
+Slot: Minor Course ^7
+Slot: Elective ^8
+Credits: 3
+Grade: C (minor)
+Code: PR
+
+Req: 4
+Slot: Elective ^8
+Credits: 3
+Code: PR
+
+Req: 5
+Slot: Elective ^8
+Credits: 1
+Code: PR
+
+Summary:
+Total: 120
+Major: 24
+College: 52-64
+Core: 32-44
+GPA: 2.000
+
+Note: 1
+Text: Regardless of individual course grades, students must maintain a minimum 2.000 cumulative GPA.
+
+Note: 2
+Text: Some colleges require a minimum GPA for major courses. Courses indicated in this column are included in the major GPA for this program of study.
+
+Note: 3
+Text: Students in the McCausland College of Arts and Sciences are required to demonstrate proficiency in one foreign language equivalent to the 122 course through course credit or the corresponding foreign language placement score.
+
+Note: 4
+Text: The Carolina Core provides the common core of knowledge, skill and academic experience for all Carolina undergraduate students.
+
+Note: 5
+Text: WGST 112 must be completed within the first 45 hours of declaring the Women's and Gender Studies major.
+
+Note: 6
+Text: The McCausland College of Arts and Sciences requires one U.S. History and one non-U.S. History course, both of which must be chosen from the approved Carolina Core GHS courses. Whichever is not fulfilled through the Carolina Core GHS requirement must be fulfilled through this college requirement.
+
+Note: 7
+Text: The cognate is intended to support the course work in the major. The cognate must consist of twelve hours of courses at the advanced level, outside of, but related to the major. In place of a cognate, a student may choose a minor consisting of at least 18 credit hours of courses concentrated in one area
+
+Note: 8
+Text: No courses of a remedial, developmental, skill-acquiring, or vocational nature may apply as credit toward degrees in the McCausland College of Arts and Sciences. The McCausland College of Arts and Sciences allows the use of the Pass-Fail option on elective courses. Further clarification on inapplicable courses can be obtained from the McCausland College of Arts and Sciences.
+
+Note: 9
+Slot: Cross-Cultural Issues Course
+Course: WGST 320
+Course: WGST 321
+Course: WGST 335
+Course: WGST 351
+Course: WGST 352
+Course: WGST 381
+Course: WGST 388
+Course: WGST 392
+Course: WGST 555
+Text: Cross-cultural issues: non-U.S. or comparative courses include: WGST 320, 321, 335, 351, 352, 381, 388, 392, and 555.
+
+Note: 10
+Text: Should be taken within the final 45 hours before graduation.

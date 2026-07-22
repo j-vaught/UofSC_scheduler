@@ -1,0 +1,355 @@
+{
+ "program": {
+  "major": "Geological Sciences",
+  "degree": "Bachelor of Science (B.S.)",
+  "catalog_year": "2022-2023",
+  "total_credits_required": "120",
+  "college": "College of Arts and Sciences",
+  "department": "School of Earth, Ocean and Environment"
+ },
+ "sections": [
+  {
+   "label": "Semester One (13-14 Credit Hours)",
+   "declared_credits": "13-14",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MATH 122 Calculus for Bus. Admin. & Soc. Sciences or MATH 141 Calculus I3",
+     "credits": "3-4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 111/111I/115 (MATH 122); C or better in MATH 115 (MATH 141); or Math placement test score"
+    },
+    {
+     "critical": false,
+     "title": "GEOL 101 Introduction to the Earth or GEOL 103 Environment of the Earth or GEOL 201 Observing the Earth (fall only)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "UNIV 101 The Student in the University or Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR/CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (17-18 Credit Hours)",
+   "declared_credits": "17-18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW/CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": false,
+     "title": "MATH 170 Finite Mathematics or MATH 142 Calculus II",
+     "credits": "3-4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 111/111I or 112 or Math placement test score (MATH 170); C or better in MATH 141 (MATH 142)"
+    },
+    {
+     "critical": false,
+     "title": "CHEM 111 & 111L \u2013 General Chemistry I",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "CC-SCI",
+     "prerequisites": "C or better in MATH 115 or Math placement test score"
+    },
+    {
+     "critical": false,
+     "title": "GEOL 302 Rocks and Minerals (spring only)",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "GEOL 101, 103, or 201 (CHEM 111 recommended)"
+    },
+    {
+     "critical": false,
+     "title": "Foreign language5 or other Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "GEOL 325 Stratigraphy & Sed. Basins (fall only)",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "D or better in GEOL 302"
+    },
+    {
+     "critical": false,
+     "title": "GEOL 345 Igneous & Metamorphic Proc. (fall only)",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "GEOL 302 & MATH 122 or 141"
+    },
+    {
+     "critical": false,
+     "title": "PHYS 201 & 201L \u2013 General Physics I or PHYS 211 & 211L \u2013 Essentials of Physics I",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "CC-SCI",
+     "prerequisites": "C or better in MATH 111/111i/112/115/116/122/141 or higher (PHYS 201); MATH 141 (PHYS 211)"
+    },
+    {
+     "critical": false,
+     "title": "Foreign language5 or other Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (14 Credit Hours)",
+   "declared_credits": "14",
+   "rows": [
+    {
+     "critical": false,
+     "title": "GEOL 305 Earth Systems through Time (spring only) or GEOL 315 Surface & Near Surface Proc. (spring only) or GEOL 335 Processes of Global Environmental Change (cross-listed: MSCI 335) (spring only)",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "PHYS 201 or 211 (GEOL 315)"
+    },
+    {
+     "critical": false,
+     "title": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 101 & 101L \u2013 Biological Principles I",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing"
+    },
+    {
+     "critical": false,
+     "title": "Cognate Course6",
+     "credits": "3",
+     "min_grade": "D",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language5 or Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR/CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (14 Credit Hours)",
+   "declared_credits": "14",
+   "rows": [
+    {
+     "critical": false,
+     "title": "GEOL 355 Struct. Geol. & Tectonics (fall only)",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "GEOL 302 & PHYS 201 or 211"
+    },
+    {
+     "critical": false,
+     "title": "PHYS 202 & 202L \u2013 General Physics II or PHYS 212 & 212L \u2013 Essentials of Physics II or CHEM 112 & 112L \u2013 General Chemistry II or BIOL 102 & 102L \u2013 Biological Principles I",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing"
+    },
+    {
+     "critical": false,
+     "title": "History7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "GEOL 305 Earth Systems through Time (spring only) or GEOL 315 Surface & Near Surface Proc. (spring only) or GEOL 335 Processes of Global Environmental Change (cross-listed: MSCI 335) (spring only)",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "PHYS 201 or 211 (GEOL 315)"
+    },
+    {
+     "critical": false,
+     "title": "STAT 201 Elementary Statistics or STAT 509 Statistics for Engineers or STAT 515 Statistical Methods I",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": "MATH 111, 115 or STAT 110 (STAT 201); MATH 142 (STAT 509); MATH 141 or 115 & a statistics class (STAT 515)"
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement4 or Approved Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer (4-6 Credit Hours)",
+   "declared_credits": "4-6",
+   "rows": [
+    {
+     "critical": false,
+     "title": "GEOL 500 Field Geology9(summer only)",
+     "credits": "4-6",
+     "min_grade": "C",
+     "codes": "MR/CC-INT",
+     "prerequisites": "GEOL 325 & 355"
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Cognate Course6",
+     "credits": "3",
+     "min_grade": "D",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate Course6",
+     "credits": "3",
+     "min_grade": "D",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CSCE 102 General Applications Programming or a higher-level CSCE course or MSCI 305 Ocean Data Analysis or MSCI 509 MATLAB-Based Data Analysis in Ocean Sciences",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement4 or Approved Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (12 Credit Hours)",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Cognate Course6",
+     "credits": "3",
+     "min_grade": "D",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "Document: 2022 Geological Sciences Major Map, B.S., 3 PDF pages (page 3 is only the tail of the Codes legend + signature, no table content).\n\nPAGE BREAK / HEADER ISSUE (the reason this doc was chosen): the semester table starts on page 1 with the column header (Critical | Course Subject and Title | Credit Hours | Min. Grade | Major GPA | Code | Prerequisites | Notes) printed once. Page 1 runs through \"Semester One\" .. \"Semester Six\" .. \"Summer (4-6 Credit Hours)\" (with its single GEOL 500 row). Page 2 then opens directly with \"Semester Seven (15 Credit Hours)\" and \"Semester Eight (12 Credit Hours)\" \u2014 the header row is NOT reprinted before these two sections. Below Semester Eight on page 2 (same page) comes the Graduation Requirements Summary table, footnotes 1-9, Program Notes, University Requirements paragraph, and the start of the Codes glossary table (continuing onto page 3) \u2014 all of which I excluded per instructions (only semester tables included). Note also that the Read-tool output for page 2 gave the plain-text extraction of the trailing summary/footnote/codes content BEFORE the embedded page image in the payload, even though visually (per the image) that material sits BELOW the Semester Seven/Eight tables on the actual page. I trusted the image's visual top-to-bottom order (Seven, Eight, then summary material) since that's how the physical page is laid out.\n\nSTACKED CODE CELLS: two rows have two Code values stacked on separate lines within one cell rather than an inline value: ENGL 102 (Semester Two) shows \"CC-CMW\" then \"CC-INF\" on the next line, and GEOL 500 (Summer) shows \"MR\" then \"CC-INT\" on the next line. I joined these with \"/\" (top-to-bottom order) as \"CC-CMW/CC-INF\" and \"MR/CC-INT\" respectively, matching the convention implied by the task's own example value \"MR/CC-INT\" (which is in fact this exact GEOL 500 row). Other rows with slash-joined codes (e.g. \"PR/CC\", \"CR/CC\", \"CC/PR\") already print the slash inline on one line, so those needed no interpretation.\n\nVERBATIM TYPO PRESERVED: the MATH 122/141 prerequisite text (Semester One) reads \"MATH 111/111I/115\" with an uppercase I, while the PHYS 201/211 prerequisite text (Semester Three) reads \"MATH 111/111i/112/115/116/122/141\" with a lowercase i. This inconsistency appears to be in the source document itself; I transcribed both exactly as printed without normalizing the case.\n\nFootnote digits fused directly to titles with no space, preserved verbatim: \"Calculus I3\", \"Field Geology9(summer only)\" (note: no space at all before the parenthesis here, unlike other \"(fall only)\"/\"(spring only)\" instances elsewhere which do have a preceding space), \"Cognate Course6\", \"Foreign language5\", \"Carolina Core Requirement4\", \"History7\", \"Approved Elective8\".\n\nNo row in this document carried a Notes-column entry (rightmost column was blank throughout), so no row-level \"notes\" content exists to report \u2014 this is separate from the top-level total_credits_required field, which comes from the excluded Graduation Requirements Summary table's \"Minimum Total Hours\" value (120) and is reported only in the program metadata, not as a section/row.\n\nOnly two rows carry the \"!\" critical marker in this entire document: ENGL 101 (Semester One) and ENGL 102 (Semester Two). All other rows are critical=false."
+}

@@ -1,0 +1,453 @@
+{
+ "program": {
+  "major": "Dance (Dance Education (K-12) Concentration)",
+  "degree": "Bachelor of Arts (B.A.)",
+  "catalog_year": "2026-2027",
+  "total_credits_required": "120",
+  "college": "McCausland College of Arts and Sciences",
+  "department": "Department of Theatre and Dance"
+ },
+ "sections": [
+  {
+   "label": "Semester One (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "DANC 150 Introduction to Dance3",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Dance Company4",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Ballet Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Modern Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language7 or other Carolina Core Req.6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (17 Credit Hours)",
+   "declared_credits": "17",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": true,
+     "title": "DANC 160A Dance Improvisation & Composition8",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Ballet Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Modern Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Education Course9",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language7 or other Carolina Core Req.6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "DANC 360 Choreography I",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR/CC-INT",
+     "prerequisites": "C or better in DANC 160A or 160B; 3 sem. of technique recommended"
+    },
+    {
+     "critical": true,
+     "title": "DANC 370 Creative Dance10 (Fall only)",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": "C+ or better in DANC 160A or 160B & 360"
+    },
+    {
+     "critical": false,
+     "title": "Dance Company4",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Ballet Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Contemporary Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Education Course9",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language7 or Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR/CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "DANC 380 Movement & Dance for Musical Theatre",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "DANC 103 The Dancer\u2019s Body",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "DANC 470 Dance Pedagogy for Middle & High School10 (Spring only)",
+     "credits": "4",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": "C+ or better in DANC 160A or 160B, 360 & 370"
+    },
+    {
+     "critical": false,
+     "title": "Ballet Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Contemporary Technique Course5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Education Course9",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "DANC 476 Production Design for Dance Techniques",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "DANC 281 Dance History I3",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "DANC 478 Integrated Approaches in Dance Ed.10 (Fall only)",
+     "credits": "5",
+     "min_grade": "C+",
+     "codes": "MR CC-INT",
+     "prerequisites": "C+ or better in DANC 370 & 470"
+    },
+    {
+     "critical": false,
+     "title": "Dance Company4",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Dance Technique5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (14-17 Credit Hours)",
+   "declared_credits": "14-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "DANC 282 Dance History II3",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "DANC 278 Jazz Dance Technique II or DANC 378 Hip Hop",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": "C or better in DANC 178 (DANC 278)"
+    },
+    {
+     "critical": false,
+     "title": "DANC 307 West African Dance",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "DANC 270 Introduction to Dance Ed.10 (Spring only)",
+     "credits": "2",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": "C+ or better in DANC 150 & 160A"
+    },
+    {
+     "critical": false,
+     "title": "Dance Technique5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "History12",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6(only if needed to meet Carolina Core)",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (13-17 Credit Hours)",
+   "declared_credits": "13-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Dance Technique5",
+     "credits": "1",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Education Course9",
+     "credits": "3",
+     "min_grade": "C+",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6 or Elective11 (only if needed to meet Carolina Core or hours to graduate)",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (13 Credit Hours)",
+   "declared_credits": "13",
+   "rows": [
+    {
+     "critical": true,
+     "title": "DANC 479 Teaching Internship in Dance Ed.",
+     "credits": "12",
+     "min_grade": "C",
+     "codes": "MR CC-INT",
+     "prerequisites": "Adm. to Professional Program & approved for student teaching, & have all program requirements fulfilled except DANC 471"
+    },
+    {
+     "critical": true,
+     "title": "DANC 471 Internship Seminar in Dance Education",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "DANC 479"
+    }
+   ]
+  }
+ ],
+ "notes": "Document is 2 pages. Page 1 contains Semester One through Six; page 2 contains Semester Seven and Eight at the top, followed by the Graduation Requirements Summary table, numbered footnotes, Program Notes, University Requirements, and Codes legend (all excluded per instructions, per \"Only the semester tables\"). Note: this PDF's underlying text layer, if extracted linearly, interleaves the Semester Seven/Eight tables in a confusing order relative to the trailing legend/footnote content; the visual rendering (used for this transcription) confirms Semester Seven and Eight tables sit at the top of page 2, before all excluded prose.\n\nExcluded \"Progression:\" banner lines: these are full-width annotations between semester blocks with no Credit/Grade/Code columns filled in (unlike placeholder rows such as \"Carolina Core Requirement6\" which do carry real column data). I treated them as out-of-scope narrative, analogous to Program Notes, rather than as course-placeholder rows, since the row schema requires a credits value and these lines have none. For completeness, the omitted banners were: \"Prepare for and take Praxis Core exams if SAT or ACT minimum score not met\" (after Sem 2), \"Take and pass the EEDA Assessment on Blackboard\" (after Sem 3), \"Apply for Professional Program (all requirements for Professional Program must be met by July 15 prior to fifth semester)1\" (after Sem 4), \"Apply for Internship and SC Teacher Licensure\" (after Sem 6), \"Take required PLT Certification exams during senior year\" (after Sem 7), \"Apply for Initial Certification\" (after Sem 8). A parser that surfaces these as pseudo-rows would disagree with this gold standard by design.\n\nCodes column: several rows print two stacked Carolina Core codes in one cell (e.g., ENGL 102 shows \"CC-CMW\" then \"CC-INF\" on the next line; DANC 478 and DANC 479 show \"MR\" then \"CC-INT\"). Per the row-wrapping rule these were joined into one space-separated string: \"CC-CMW CC-INF\" and \"MR CC-INT\" respectively.\n\nThe document's \"Major GPA\" column (footnote 2) is present in the header but is blank for every single row on both pages \u2014 no course in this particular major map is flagged as counting toward major GPA. There is no schema field for it, so nothing was recorded, but a parser should not expect any non-null values there for this document.\n\nHeader block reads \"Major Map: Dance / Bachelor of Arts (B.A.) / Dance Education (K-12) Concentration / McCausland College of Arts and Sciences / Department of Theatre and Dance / Bulletin Year: 2026-2027.\" There is no dedicated schema field for \"concentration,\" so it was folded into the major field as \"Dance (Dance Education (K-12) Concentration)\" \u2014 a parser emitting bare \"Dance\" for major is arguably still correct and should be treated as an acceptable partial match.\n\ntotal_credits_required (\"120\") was taken from the Graduation Requirements Summary's \"Minimum Total Hours\" cell, which is metadata rather than a semester-table row; the summary table itself was correctly excluded from the sections array.\n\nVerbatim fidelity notes: \"DANC 103 The Dancer's Body\" uses a typographic right single quotation mark (\u2019) as printed. Footnote digits were kept fused to titles exactly as printed (e.g., \"Introduction to Dance3\", \"Dance Company4\", \"Dance History I3\", \"Carolina Core Requirement6(only if needed to meet Carolina Core)\" \u2014 note the latter has no space between \"6\" and \"(\", exactly as printed, whereas the similar Semester Seven row \"Carolina Core Requirement6 or Elective11 (only if...\" does have a space before its parenthetical \u2014 both reproduced verbatim). Ranged-credit rows present in this document, matching the stated selection rationale: Semester Five/Seven Carolina Core Requirement6 rows at \"3-4\", and Semester Six/Seven rows at \"0-3\". C+ minimum-grade rows are pervasive throughout (most major-requirement rows require C+; ENGL 101/102 and DANC 479/471 require plain \"C\")."
+}

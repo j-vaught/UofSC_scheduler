@@ -1,0 +1,557 @@
+{
+ "program": {
+  "major": "Music Education-Choral Concentration",
+  "degree": "Bachelor of Music (B.M.)",
+  "catalog_year": "2020-2021",
+  "total_credits_required": "132",
+  "college": null,
+  "department": "School of Music"
+ },
+ "sections": [
+  {
+   "label": "Semester One (17-19 Credit Hours)",
+   "declared_credits": "17-19",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 111 or MUSC 211)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Secondary Applied Lessons4 (MUED 155 or MUED 165)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 117 Aural Skills I",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 115 Music Theory I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-AIU",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Recital Class",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100A Music Advocacy I",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 278 Diction",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language5 or other Carolina Core Requirement6",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW/INF",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 111 or MUSC 211)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Secondary Applied Lessons4 (MUED 156 or MUED 166)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 118 Aural Skills II",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 117"
+    },
+    {
+     "critical": true,
+     "title": "MUSC 116 Music Theory II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 115"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Recital Class",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100L Recital Class Laboratory",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign language5 or other Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 353 History of Western Music I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 100L, 115, & 116"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 111 or MUSC 211)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Secondary Applied Lessons4 (MUED 355 or MUED 265)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 215 Music Theory III",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 116"
+    },
+    {
+     "critical": true,
+     "title": "MUSC 217 Aural Skills III",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 118"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Recital Class",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 200 Music Education Practicum",
+     "credits": "1",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (18-19 Credit Hours)",
+   "declared_credits": "18-19",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 354 History of Western Music II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 353"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 111 or MUSC 211)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Secondary Applied Lessons4(MUED 356 or MUED 266)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 216 Music Theory IV",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 215"
+    },
+    {
+     "critical": true,
+     "title": "MUSC 218 Aural Skills IV",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 217"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Recital Class",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "EDTE 201 Issues & Trends in Teaching & Learning",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (15-17 Credit Hours)",
+   "declared_credits": "15-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 455 History of Western Music III",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR/CC-INT",
+     "prerequisites": "MUSC 354"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Chamber Ensemble (MUSC 130)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 311 or MUSC 411)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 577 Vocal Pedagogy",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 333 Basic Choral & Instrumental Conducting",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 217"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Recital Class",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 107 Classroom Instruments",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUED 200 & 356 or instructor permission"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (18-19 Credit Hours)",
+   "declared_credits": "18-19",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 311 or MUSC 411)",
+     "credits": "2-3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 335 Choral Conducting",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 333, 218 & MUED 355"
+    },
+    {
+     "critical": false,
+     "title": "MUED 335L Choral Literature Lab II",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 465 General Music in Elementary Schools",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUED 200"
+    },
+    {
+     "critical": false,
+     "title": "MUED 465P Practicum in Elementary Music",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "Coreq: MUED 465"
+    },
+    {
+     "critical": false,
+     "title": "EDPY 401 Learners & the Diversity of Learning",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6",
+     "credits": "6",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (13-19 Credit Hours)",
+   "declared_credits": "13-19",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Major Ensemble (MUSC 125 Choir or MUSC 129 Chorus)",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Primary Applied Lessons3(MUSC 311 or MUSC 411)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 467 Choral Methods & Materials",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 216, MUED 200 & MUED 356"
+    },
+    {
+     "critical": false,
+     "title": "MUED 467P Practicum in Choral Music",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "Coreq: MUED 467"
+    },
+    {
+     "critical": false,
+     "title": "MUED 359 Instrumental Techniques for Choral Majors",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "EDRD 500 Content Area Literacy PK-12 or EDEX 581 Teaching Rdg, to Adol. with Disabilities",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement6 and/or Approved Elective(s) (depends on requirements needed for CC or hours to graduate)",
+     "credits": "1-7",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (12 Credit Hours)",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUED 477 Directed Teaching (Music)7",
+     "credits": "12",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "Senior Standing"
+    }
+   ]
+  }
+ ],
+ "notes": "Document has 2 pages. Page 1 = Semesters One-Six; page 2 = Semesters Seven-Eight, followed by the Graduation Requirements Summary table, numbered footnotes, Program Notes, University Requirements paragraph, the Codes legend, and the Disclaimer (all excluded from `sections` per instructions, but note page 2's underlying content stream is NOT in visual top-to-bottom order -- the disclaimer/summary/notes/codes text is interleaved oddly relative to the two semester tables in raw extraction; a naive text-order parser could easily misplace Semester Seven/Eight rows relative to that trailing material).\n\nHeader/major-name ambiguity: the page header reads, on separate lines, \"Major Map: Music\" / \"Bachelor of Music (B.M.)\" / \"Music Education-Choral Concentration\" / \"School of Music\" / \"Bulletin Year: 2020-2021\". There is no single schema field for \"concentration,\" so I used the most specific line, \"Music Education-Choral Concentration,\" as `major`. A parser keying off the literal \"Major Map:\" line would instead extract \"Music\" -- flagging so a disagreement here isn't scored as a parser bug.\n\nEvery data row also carries a \"Major GPA\" column (a bare \"*\" for MR-coded courses, blank otherwise) between Min. Grade and Code. The provided schema has no field for it, so it was dropped entirely; this is a real printed column, not something I overlooked.\n\nVerbatim footnote-fusion quirk: \"Secondary Applied Lessons4 (MUED \u2026)\" has a space before the parenthesis in Semesters One, Two, and Three, but Semester Four prints it with no space -- \"Secondary Applied Lessons4(MUED 356 or MUED 266)\". Transcribed exactly as printed in each case rather than normalizing; a parser that normalizes whitespace will disagree with this row and would be right to.\n\n\"Primary Applied Lessons3(MUSC \u2026)\" consistently has no space after the footnote digit in every semester it appears (One through Seven) -- transcribed verbatim throughout.\n\nTwo rows are two-line wraps joined with a single space per instructions: \"MUED 107 Classroom Instruments\" prerequisite (\"C or better in MUED 200 & 356\" + \"or instructor permission\") and the Semester Seven course-choice row \"EDRD 500 Content Area Literacy PK-12\" + \"or EDEX 581 Teaching Rdg, to Adol. with Disabilities\" (title only, no separate prerequisite text).\n\n`total_credits_required` (\"132\") was taken from the \"Minimum Total Hours\" cell of the Graduation Requirements Summary table -- that table itself is excluded from `sections`, but the total is a top-level program field per the schema.\n\nNo `college` value is printed anywhere on the map (only \"School of Music\"), so I left `college` null and put \"School of Music\" in `department`; a different convention may be intended elsewhere in this corpus.\n\nMUSC 100 Recital Class (0 credits, min grade S) appears in Semesters One through Five but is absent from Semester Six onward -- confirmed present in the source, not an omission on my part."
+}

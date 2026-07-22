@@ -1,0 +1,405 @@
+{
+ "program": {
+  "major": "Criminology and Criminal Justice",
+  "degree": "Bachelor of Arts (B.A.)",
+  "catalog_year": "2019-2020",
+  "total_credits_required": "120",
+  "college": "College of Arts and Sciences",
+  "department": null
+ },
+ "sections": [
+  {
+   "label": "Fall Semester, 15-17 hours",
+   "declared_credits": "15-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 101 (CMW)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core ARP (Math)",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language or other CC-GFL",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU 101 (American Criminal Justice System)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "University 101 or Carolina Core",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 15-17 hours",
+   "declared_credits": "15-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 102 (CMW, INF)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core (ARP) (Math)",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language or other CC-GFL",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core, Lab Science",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU 311/312/313/314/351 (Major)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer Semester, 15-16 hours",
+   "declared_credits": "15-16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU 202 (Research Methods)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core, Lab Science",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language or Carolina Core",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "History (U.S. or non-U.S.)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU 311/312/313/314/351 (Major)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Fall Semester, 15 hours",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU 341",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU 311/312/313/314/351 (Major)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 15 hours",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU 203 (Criminal Procedure)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU Elective (300 level or above)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Overlay Requirement",
+     "credits": "0-9",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer Semester, 15 hours",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU Elective (300 level or above)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "CRJU Elective (300 level or above)",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core or Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Fall Semester, 15 hours",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU 426/430/554/563/575/588/591",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core or Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Overlay Requirement",
+     "credits": "0-9",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Spring Semester, 13-15 hours",
+   "declared_credits": "13-15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CRJU 426/430/554/563/575/588/591",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor Course or Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor Course or Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective",
+     "credits": "3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Approved Elective",
+     "credits": "1-3",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Overlay Requirement",
+     "credits": "0-9",
+     "min_grade": null,
+     "codes": null,
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "PDF has 2 pages. Page 1 contains all content (header block + semester tables). Page 2 is a signature page (\"Please review the following and sign in agreement...\" with Student/Advisor/On Your Time signature, printed-name, and date blank-lines) \u2014 no semester table content, correctly excluded per instructions.\n\nThis \"Accelerated Study Plan\" template is structurally different from the standard major-map layout the schema/example labels describe. There are NO \"Min. Grade\", \"Code\", or \"Prerequisites\" columns anywhere in the document, and NO \"!\" critical-course marker at all. Accordingly min_grade/codes/prerequisites are null and critical is false for every single row \u2014 this is a true reflection of the document's layout, not missing/omitted data.\n\nThe document is organized under three unlabeled-credit super-headers printed in red: \"YEAR ONE\", \"YEAR TWO\", \"YEAR THREE\". These carry no credit-hour figure and no rows directly beneath them; each merely introduces 2-3 semester subsections (Fall/Spring/Summer). Since they have no declared_credits and no rows of their own, I did NOT create separate section entries for \"YEAR ONE/TWO/THREE\" \u2014 I used only the semester-level headers (\"Fall Semester, 15-17 hours\", \"Spring Semester, 15-16 hours\", etc.) as section labels, in this printed order: Year One (Fall, Spring, Summer), Year Two (Fall, Spring, Summer), Year Three (Fall, Spring). A parser that expects \"YEAR ONE/TWO/THREE\" to be its own section will diverge from this transcription by design; flagging this per instructions since it's a plausible trip point.\n\nPage 1 is laid out in two visual columns: the left column holds Year One (Fall, Spring, Summer) + Year Two (Fall, Spring); the right column holds Year Two Summer + all of Year Three (Fall, Spring). A raw top-to-bottom single-stream text extraction of this PDF interleaves the two columns out of chronological order (e.g. Year Two's Summer semester appears to follow immediately after Year One's Spring semester in stream order). I resolved the correct printed order by reading the left column fully top-to-bottom, then the right column top-to-bottom, verified against the visually rendered page image \u2014 this produces the correct chronological Fall\u2192Spring\u2192Summer sequence across three years. Section headers \"Fall Semester, 15 hours\" and \"Summer Semester, 15 hours\" each occur twice in the document (once for Year Two, using plain \"15 hours\" without a range, and Fall also once more for Year Three); these are kept as separate, distinct section entries in printed order rather than merged.\n\nCredits are transcribed as bare numbers only (e.g. \"3\"), even where the printed row uses \"hrs\" instead of \"hours\" as the unit word \u2014 this occurs once, on \"CRJU 101 (American Criminal Justice System), 3 hrs\". declared_credits similarly excludes the word \"hours\"/\"hrs\", keeping only the numeric portion of the header (e.g. \"15-17\" from \"Fall Semester, 15-17 hours\").\n\nThe catalog year printed on the page itself is \"Catalog Year: 2019-2020\" (used verbatim in program.catalog_year), even though the source file resides in the \"2020-2021\" subdirectory of raw major-map PDFs \u2014 the transcription reflects what is printed on the page, not the containing folder name. \"Required Hours: 120\" is printed directly beneath the catalog year line and is used for total_credits_required. No separate \"Department:\" line is printed (only \"College of Arts and Sciences\"), so department is null. No footnote digits fused to any course/row titles were observed anywhere in the document, and no course-code or prerequisite cells were present at all."
+}

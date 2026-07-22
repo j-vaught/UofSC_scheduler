@@ -1,0 +1,453 @@
+{
+ "program": {
+  "major": "Chemical Engineering",
+  "degree": "Bachelor of Science in Engineering (B.S.E.)",
+  "catalog_year": "2026-2027",
+  "college": "Molinaroli College of Engineering and Computing",
+  "department": "Department of Chemical Engineering",
+  "total_credits_required": "131"
+ },
+ "sections": [
+  {
+   "label": "Semester One (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MATH 141 Calculus 13",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 112/115/116 or placement through the MAP"
+    },
+    {
+     "critical": true,
+     "title": "CHEM 111 General Chemistry I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "C or higher in MATH 111 or higher (or placement into MATH 115 or higher); Prereq or Coreq: C or higher in CHEM 111L"
+    },
+    {
+     "critical": true,
+     "title": "CHEM 111L General Chemistry I Lab",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "Prereq or Coreq: C or higher in CHEM 111"
+    },
+    {
+     "critical": false,
+     "title": "ECHE 101 Intro. to Chemical Engineering (or ENCP 101) fall only",
+     "credits": "2",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Computer Programming Elective4",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (18 Credit Hours)",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-CMW/CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": true,
+     "title": "MATH 142 Calculus II",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 141"
+    },
+    {
+     "critical": true,
+     "title": "CHEM 112 General Chemistry II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or higher in MATH 111 or higher MATH (or by placement score into MATH 115 or higher); Prereq or Coreq: C or higher in CHEM 112L"
+    },
+    {
+     "critical": true,
+     "title": "CHEM 112L General Chemistry II Lab",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or higher in CHEM 111L or CHEM 141L; Prereq or Coreq: C or higher in CHEM 112"
+    },
+    {
+     "critical": true,
+     "title": "PHYS 211 Essentials of Physics I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "C or better in MATH 141; Coreq: PHYS 211L"
+    },
+    {
+     "critical": true,
+     "title": "PHYS 211L Essentials of Physics I Lab",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "Prereq/Coreq: C or better in PHYS 211"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 300 Chemical Process Principles",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "MATH 141; Prereq or Coreq: CHEM 112 or 142"
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Professional Development Elective5",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290)",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in ECHE 300; Prereq or Coreq: MATH 241"
+    },
+    {
+     "critical": true,
+     "title": "MATH 241 Vector Calculus",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    },
+    {
+     "critical": true,
+     "title": "CHEM 333 Organic Chemistry I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in CHEM 112 or CHEM 142"
+    },
+    {
+     "critical": false,
+     "title": "Chemistry Lab Electives6",
+     "credits": "2",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "PHYS 212 Essentials of Physics II",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in PHYS 211 & MATH 142; Coreq: PHYS 212L"
+    },
+    {
+     "critical": true,
+     "title": "PHYS 212L Essentials of Physics II Lab.",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "Prereq/Coreq: C or better in PHYS 212"
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (18 Credit Hours)",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ECHE 311 Chem. Engr. Thermodynamics",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in ECHE 310, ENCP 290, CHEM 541, BMEN 290, EMCH 290 or PHYS 306"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 320 Chem. Engr. Fluid Mechanics (or ENCP 360)",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "D or better in PHYS 211; Prereq or Coreq: D or better in MATH 241"
+    },
+    {
+     "critical": false,
+     "title": "ECHE 456 Comp. Methods for Engr. Apps.",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "Prereq or Coreq: D or better in MATH 242"
+    },
+    {
+     "critical": true,
+     "title": "MATH 242 Elem. Differential Equations",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    },
+    {
+     "critical": false,
+     "title": "CHEM 334 Organic Chemistry II",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in CHEM 333"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GHS7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GHS",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (15-18 Credit Hours)",
+   "declared_credits": "15-18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ECHE 321 Heat-Flow Analysis",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ECHE 320 or ENCP 360 & MATH 242; Prereq or Coreq: D or better in ECHE 456"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 440 Separation Process Design fall only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ECHE 300; Prereq or Coreq: ECHE 311"
+    },
+    {
+     "critical": false,
+     "title": "ECHE 550 Chem.-Proc. Dynamics & Control fall only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ECHE 300 & MATH 242, or graduate standing"
+    },
+    {
+     "critical": false,
+     "title": "Chemistry Elective9",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GSS7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GSS",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL12",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (15-18 Credit Hours)",
+   "declared_credits": "15-18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ECHE 322 Mass Transfer spring only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "D or better in ECHE 321"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 460 Chemical Engr. Lab 1 spring only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "Prereq or Coreq: ECHE 311 & ECHE 321"
+    },
+    {
+     "critical": false,
+     "title": "Engineering Elective10",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Technical Elective11",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core AIU7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-AIU",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL12",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ECHE 430 Chemical Engineering Kinetics",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ECHE 311; Prereq or Coreq: D or better in ECHE 321 or BMEN 354"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 461 Chemical Engineering Lab II fall only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "D or better in ECHE 460; Prereq or Coreq: D or better in ECHE 430 & 440"
+    },
+    {
+     "critical": true,
+     "title": "ECHE 465 Chem. Proc. Anal. & Design I fall only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "Prereq or Coreq: D or better in ECHE 430 & 440"
+    },
+    {
+     "critical": false,
+     "title": "Technical Elective11",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "PHIL 325 Engineering Ethics7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-CMS/CC-VSR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (18 Credit Hours)",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ECHE 466 Chemical Process Analysis & Design II spring only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR/CC-INT",
+     "prerequisites": "D or better in ECHE 430, 440, 465; Prereq or Coreq: ECHE 322, 567"
+    },
+    {
+     "critical": false,
+     "title": "ECHE 567 Process Safety, Health & Loss Prev. spring only",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "Prereq or Coreq: D or better in ECHE 466"
+    },
+    {
+     "critical": false,
+     "title": "Engineering Elective10",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Technical Elective11",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Technical Elective11",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Career Elective8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "PDF has exactly 2 physical pages (confirmed via pdfinfo page-count metadata only; no content/text extraction tool was used). Page 1 = Semesters One-Six. Page 2 = Semesters Seven-Eight followed by the Graduation Requirements Summary numeric table, numbered footnotes 1-12, Program Notes, University Requirements, and the Codes legend (all correctly excluded from `sections` per instructions). No column-header row is repeated at the top of page 2 before \"Semester Seven.\"\n\nKEY TRAP (the reason this doc was selected): the Prerequisites column in this table is center-justified, not left-aligned. When a prerequisite sentence wraps, the overflow text is horizontally centered under the (wide) Prerequisites column, which sits roughly in the right half of the page. In at least two rows the *entire* second line consists of nothing but a bare, wrapped course number, sitting alone and visually far to the right of the row's course title:\n  - Semester Three, \"ECHE 310 Intro. to Chem. Engr. Thermodynamics (or ENCP 290)\": prerequisite text is \"C or better in ECHE 300; Prereq or Coreq: MATH 241\" \u2014 \"241\" alone occupies the second line, centered.\n  - Semester Five, \"ECHE 440 Separation Process Design fall only\": prerequisite text is \"C or better in ECHE 300; Prereq or Coreq: ECHE 311\" \u2014 \"311\" alone occupies the second line, centered.\nI rendered the PDF myself at 300 DPI with pdftoppm (a pure rasterizer, not a text/content extractor) and visually zoomed into these exact rows to confirm the layout before transcribing; both prerequisite cells above are the single, unbroken strings shown, and neither \"241\" nor \"311\" is a credit-hours value \u2014 the true Credit Hours cell for both rows is \"3\", printed on the row's first line, far to the left. A parser doing column assignment by raw x/y text position (rather than proper row/cell reconstruction) could easily grab that isolated wrapped number and misfile it as a Credit Hours entry (a bare 1-3 digit token is exactly what a real credit-hours cell looks like). A third, superficially similar row \u2014 Semester Eight, \"ECHE 466\" \u2014 wraps as \"...Prereq or Coreq: ECHE 322,\" / \"567\", but there the trailing \"567\" is NOT alone on its line (it shares the line with \"ECHE 322,\"), so it's a weaker/less clean instance of the same failure mode; I flag it for completeness only.\n\nMISSING COLUMN (schema gap, not an omission on my part): the printed table has a \"Program GPA\" column (footnote 2) between \"Min. Grade\" and \"Code,\" populated with a bare \"*\" for courses that count toward the major/program GPA (e.g., ECHE 101, ECHE 300, ECHE 310, ECHE 311, ECHE 320, ECHE 321, ECHE 322, ECHE 430, ECHE 440, ECHE 456, ECHE 460, ECHE 461, ECHE 465, ECHE 466, ECHE 550, ECHE 567, the \"Engineering Elective\" rows in Semesters Six and Eight, and \"Professional Development Elective\" in Semester Three) and blank otherwise. The given row schema has no field for this column, so its value is not represented anywhere in `rows` \u2014 this is intentional on my part, not a data-entry gap, and a parser/grader should not expect this column's asterisks to surface elsewhere.\n\nStacked/two-line Code-column values are joined with \"/\" (matching the instructions' own example \"MR/CC-INT,\" which is in fact this exact document's ECHE 466 row): ENGL 102 -> \"CC-CMW/CC-INF\"; ECHE 466 -> \"MR/CC-INT\"; PHIL 325 -> \"CC-CMS/CC-VSR\". All other multi-line wraps (titles, prerequisites) were joined with a single space per the general instruction.\n\nCourse-title footnote digits are fused verbatim exactly as printed (e.g., \"Calculus 13\" = \"Calculus 1\" + footnote superscript 3; \"Chemistry Lab Electives6,\" \"Carolina Core GHS7,\" \"Carolina Core GFL12,\" etc.) with no reinterpretation.\n\nTwo title-text inconsistencies are preserved verbatim as printed rather than \"fixed\": \"PHYS 211L Essentials of Physics I Lab\" (no trailing period) vs. \"PHYS 212L Essentials of Physics II Lab.\" (trailing period present) \u2014 this asymmetry is in the source PDF, not a transcription error.\n\n\"!\" (critical) markers, Min. Grade letters, and blank cells were all individually re-verified against 300-DPI zoomed crops of every row, not just the initial full-page read, specifically to catch any row where a \"!\" or letter grade might have been misattributed to an adjacent row during line-wrapping."
+}

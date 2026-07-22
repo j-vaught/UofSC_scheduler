@@ -1,0 +1,389 @@
+{
+ "program": {
+  "major": "Computer Science",
+  "degree": "Bachelor of Science in Computer Science (B.S.C.S.)",
+  "catalog_year": "2026-2027",
+  "college": "Molinaroli College of Engineering and Computing",
+  "department": "Department of Computer Science & Engineering",
+  "total_credits_required": "120"
+ },
+ "sections": [
+  {
+   "label": "Semester One (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MATH 141 Calculus 13",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 112/115/116 or placement through the MAP"
+    },
+    {
+     "critical": true,
+     "title": "CSCE 145 Algorithmic Design I",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "Prereq or Coreq: MATH 111 or 115"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 190 Computing in the Modern World",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "Prereq or Coreq: D or better in CSCE 104, 106, 145, or 205"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core AIU4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-AIU",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW/CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": true,
+     "title": "MATH 142 Calculus II",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 141"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core SCI4",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "CSCE 146 Algorithmic Design II",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in CSCE 145 or 106; C or better in MATH 111 or higher or by MAP score into MATH 115 or higher"
+    },
+    {
+     "critical": true,
+     "title": "CSCE 215 UNIX/Linux Fundamentals",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in CSCE 145 or 106"
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": true,
+     "title": "CSCE 211 Digital Logic Design",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "MATH 141"
+    },
+    {
+     "critical": true,
+     "title": "CSCE 240 Adv. Programming Techniques",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "CSCE 215 & C or better in CSCE 146"
+    },
+    {
+     "critical": true,
+     "title": "MATH 374 Discrete Structures",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142 & in CSCE 106 or 146"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core SCI4",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core CMS4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-CMS",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": true,
+     "title": "CSCE 212 Intro. to Computer Architecture",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "D or better in CSCE 211 & either CSCE 106 or 145"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 247 Software Engineering",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in CSCE 146"
+    },
+    {
+     "critical": false,
+     "title": "Laboratory Science Requirement5",
+     "credits": "4",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "MATH 241 Vector Calculus",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GSS4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GSS",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CSCE 311 Operating Systems",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "CSCE 240 & CSCE 210 or 212"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 330 Prog. Lang. Structures fall only",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "CSCE 240; MATH 174 or 374 or 574"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 350 Data Structures & Algorithms",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "D or better in CSCE 240 & in MATH 174 or 374 or 574 & in MATH 141 or 122"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 390 Prof. Issues in Comp. Sci. Engr.",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CC-VSR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "ENGL 462 Technical Writing or ENGL 463 Business Writing",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "ENGL 101 & 102"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL4 or Elective7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CSCE 416 Intro. to Computer Networks",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "CSCE 146"
+    },
+    {
+     "critical": false,
+     "title": "CSCE Major Elective6",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "STAT 509 Statistics for Engineers",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "MATH 142"
+    },
+    {
+     "critical": false,
+     "title": "Elective7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL8 or Elective7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (13 Credit Hours)",
+   "declared_credits": "13",
+   "rows": [
+    {
+     "critical": true,
+     "title": "CSCE 490 Capstone Computing Project I fall only",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR/CC-INT",
+     "prerequisites": "D or better in CSCE 240; Prereq or Coreq: D or better in CSCE 350"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 355 Foundations of Computation",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "CSCE 211, 212, & 350"
+    },
+    {
+     "critical": false,
+     "title": "CSCE Major Elective6",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "MATH 344 Applied Linear Algebra",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    },
+    {
+     "critical": false,
+     "title": "MATH 344L Applied Linear Algebra Lab",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "Prereq or Coreq: C or better or concurrent enrollment in MATH 344 or MATH 544"
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (13 Credit Hours)",
+   "declared_credits": "13",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CSCE 492 Capstone Computing Project II spring only",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "D or better in CSCE 240, 350, & 490"
+    },
+    {
+     "critical": false,
+     "title": "CSCE Major Elective6",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "See Bulletin listing."
+    },
+    {
+     "critical": false,
+     "title": "Elective7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR/MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Elective7",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GHS8",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GHS",
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "PDF is 2 pages. Page 1 contains the full major-map table (Semesters One through Eight); page 2 is Graduation Requirements Summary, Program Notes, and the Codes legend, which per instructions is excluded from sections.\n\nRow-count note: this document has exactly the ENGL 101 case the task description warns about -- \"ENGL 101 Critical Reading and Composition 3 C CC-CMW\" -- title and the credit value \"3\" are separated by only one space with no other delimiter, which is why a naive regex parser can swallow or drop this row. Confirmed by eye it is present, not critical, 3 credits, min grade C, code CC-CMW, no prerequisite.\n\nStacked/multi-line Code cells: two rows have two code values printed on separate lines within one cell rather than joined by a slash in print (ENGL 102: \"CC-CMW\" then \"CC-INF\" on the next line; CSCE 490: \"MR\" then \"CC-INT\" on the next line). I recorded these as slash-joined strings (\"CC-CMW/CC-INF\" and \"MR/CC-INT\") to match the convention illustrated in the task instructions (\"MR/CC-INT\" example). By contrast, two other rows print the slash literally in-line in the source (\"CC/PR\" for the two \"Carolina Core GFL... or Elective7\" rows, and \"PR/MR\" for one Semester Eight elective) -- those are transcribed exactly as printed, no interpretation needed.\n\nThe table has a \"Program GPA\" column (marked with \"*\" for many CSCE/MATH courses that count toward the major GPA) between Min. Grade and Code. There is no field for this in the requested row schema, so that marker is intentionally not captured anywhere -- flagging in case a parser is expected to account for it elsewhere.\n\nThe rightmost \"Notes\" column is blank for every single row on page 1; nothing was lost by the schema not having a per-row notes field.\n\nSeveral rows wrap across 2-3 printed lines and were joined with single spaces per instructions, most notably: CSCE 190 and CSCE 146 prerequisite cells (2-3 lines each), CSCE 330/CSCE 492/CSCE 490 titles (course name + italic \"fall only\"/\"spring only\" on the next line), and the ENGL 462/463 alternative-course row (two course lines merged into one row because they share a single credits/code/prerequisite set).\n\nFootnote digits were kept fused to titles exactly as printed and not treated as course/credit data: \"Calculus 13\", \"AIU4\", \"SCI4\", \"CMS4\", \"GSS4\", \"GFL4\", \"Elective7\", \"GFL8\", \"Major Elective6\", \"GHS8\", \"Requirement5\".\n\ntotal_credits_required (\"120\") was taken from the page-2 Graduation Requirements Summary table (\"Minimum Total Hours\") since it is a program-level field, not a section row; the summary table itself was otherwise excluded per instructions."
+}

@@ -1,0 +1,225 @@
+Convert the attached university major-map PDF into plain text following
+the format specification and worked examples below, exactly. Output only
+the converted text - no commentary, no markdown, no code fences.
+
+=== WHAT THE PDF LOOKS LIKE ===
+
+Page 1 (sometimes pages 1-2) is a table of eight semesters. Each
+semester starts with a dark header row like "Semester One (15 Credit
+Hours)". Each row below it is one requirement, with columns:
+
+  [!] | Course Subject and Title | Credit Hours | Min. Grade | Program GPA | Code | Prerequisites | Notes
+
+The last page has a "Graduation Requirements Summary" table (Minimum
+Total Hours, Minimum Major Requirements Hours, College & Program
+Requirements Hours, Carolina Core Hours, Minimum Institutional GPA) and
+a numbered list of program notes.
+
+=== EXAMPLE 1: a typical semester ===
+
+  Semester One (15 Credit Hours)
+  ! | ENGL 101 Critical Reading and Composition | 3   | C | | CC-CMW | C or better in ENGL 100 |
+    | MATH 122 Calculus or MATH 141 Calculus I  | 3-4 | C | | CC-ARP | placement or MATH 111   |
+    | BIOL 460 Genetics (fall only)             | 3   | C | | MR     | BIOL 302                |
+    | MUSC 354 Music Theory or Music Elective^3 | 3   | C | | MR     |                         |
+    | Carolina Core GFL^4 or Elective^7         | 3   |   | | CC/PR  |                         |
+    | History Elective^7 (300-level or above)   | 3   |   | | PR     |                         |
+
+converts to:
+
+Semester: One
+Credits: 15
+
+Req: 1 !
+Course: ENGL 101
+Grade: C
+Code: CC-CMW
+
+Req: 2
+Course: MATH 122
+Course: MATH 141
+Grade: C
+Code: CC-ARP
+
+Req: 3
+Course: BIOL 460
+Grade: C
+Code: MR
+Offered: fall
+
+Req: 4
+Course: MUSC 354
+Slot: Music Elective ^3
+Credits: 3
+Grade: C
+Code: MR
+
+Req: 5
+Slot: Carolina Core GFL ^4
+Slot: Elective ^7
+Credits: 3
+Code: CC/PR
+
+Req: 6
+Slot: History Elective ^7
+Credits: 3
+Code: PR
+Level: 300+
+
+Notice, from each row above:
+- Row 1: the "!" first column becomes "!" after the Req number. The
+  course title and the Prerequisites column are NOT copied.
+- A footnote on a course row goes on the Req line: a row "WGST 112
+  Introduction to Women's Studies^5" becomes "Req: 1 ! ^5". Footnotes on
+  placeholder rows stay on their Slot line.
+- Row 2: "or" between two courses = two Course lines in ONE block. No
+  Credits line - course credits are looked up automatically.
+- Row 3: "(fall only)" becomes "Offered: fall". Also "(spring only)" ->
+  "Offered: spring", "(offered fall & summer only)" -> "Offered: fall
+  summer".
+- Row 4: one "or" option is a course, the other is not. The non-course
+  option becomes a Slot line, and the block keeps the printed credits.
+- Row 5: neither option is a course code, so both are Slot lines.
+  Footnote superscripts stay as ^4 and ^7 on their own option.
+- Row 6: "(300-level or above)" becomes "Level: 300+". A range like
+  "(300-500 level)" becomes "Level: 300-500". Other parenthetical
+  conditions you cannot classify go on a "Qual:" line, copied verbatim.
+
+=== EXAMPLE 2: harder rows ===
+
+  Semester Five (15-16 Credit Hours)
+    | GEOG 341 Cartography or GEOG 345 Interpretation of Aerial
+      Photographs or GEOG 531 Quant. Methods in Geog. Research | 3 | C |   | MR     | |
+    | Cognate or Minor Course^8                                | 3 | C (minor) | | PR | |
+    | GEOG 495 Seminar in Geography (offered fall only)        | 3 | C |   | MR CC-INT | |
+    | Humanities or Fine Arts                                  | 3 |   |   | CR     | |
+
+converts to:
+
+Semester: Five
+Credits: 15-16
+
+Req: 1
+Course: GEOG 341
+Course: GEOG 345
+Course: GEOG 531
+Grade: C
+Code: MR
+
+Req: 2
+Slot: Cognate ^8
+Slot: Minor Course ^8
+Credits: 3
+Grade: C (minor)
+Code: PR
+
+Req: 3
+Course: GEOG 495
+Grade: C
+Code: MR CC-INT
+Offered: fall
+
+Req: 4
+Slot: Humanities or Fine Arts
+Credits: 3
+Code: CR
+
+Notice:
+- Row 1: a three-way "or" is three Course lines. Titles span two printed
+  lines - that is still ONE row, ONE block. Never split a wrapped title
+  into two blocks, and never emit the same course twice.
+- Row 2: "C (minor)" is copied exactly, parentheses included.
+- Row 3: two codes stacked in one cell stay on one Code line, separated
+  by a space.
+- Row 4: "Humanities or Fine Arts" is ONE slot, not two - the "or" is
+  inside the name of a single requirement. Split on "or" only when each
+  side could stand alone as its own requirement (a course code, or a
+  footnoted/named placeholder like "Elective^7").
+
+=== EXAMPLE 3: last page ===
+
+  Graduation Requirements Summary
+  | Minimum Total Hours | Minimum Major Requirements Hours | College & Program | Carolina Core Hours | Minimum Institutional GPA |
+  | 120                 | 24                               | 52-64             | 32-44               | 2.000                     |
+
+  4. The Carolina Core provides the common core of knowledge.
+  6. Computer Science Major Electives (9 hours): any CSCE course 500 or
+     higher.
+  7. Geography Major Courses (9 credit hours): At least 2 courses from
+     the major must be from the 500-level. GEOG 595 can be used to
+     fulfill up to 3 hours of elective credit, but not the 500-level
+     requirement. Choose from the following: GEOG 285, 349, 535, 541.
+  8. The cognate must consist of twelve hours outside the major.
+
+converts to:
+
+Summary:
+Total: 120
+Major: 24
+College: 52-64
+Core: 32-44
+GPA: 2.000
+
+Note: 4
+Text: The Carolina Core provides the common core of knowledge.
+
+Note: 6
+Slot: Major Elective
+Hours: 9
+From: CSCE 500+
+Text: Computer Science Major Electives (9 hours): any CSCE course 500 or higher.
+
+Note: 7
+Slot: GEOG Major Course
+Hours: 9
+Course: GEOG 285
+Course: GEOG 349
+Course: GEOG 535
+Course: GEOG 541
+Course: GEOG 595 (max 3 hrs, not 500-level)
+Rule: at least 2 courses must be 500-level
+Text: Geography Major Courses (9 credit hours): At least 2 courses from the major must be from the 500-level. GEOG 595 can be used to fulfill up to 3 hours of elective credit, but not the 500-level requirement. Choose from the following: GEOG 285, 349, 535, 541.
+
+Note: 8
+Text: The cognate must consist of twelve hours outside the major.
+
+Notice:
+- EVERY numbered note becomes a Note block. Text: is always last and
+  holds the note's complete wording, exactly as printed, on one line.
+- A note that specifies acceptable courses ALSO gets structured lines
+  before Text. Note 6 grants a whole range, so it gets "From: CSCE
+  500+" - NEVER expand a range into a list of course numbers.
+- Note 7: "GEOG 285, 349, 535, 541" expands to one Course line each,
+  repeating the subject. A restricted course (GEOG 595) stays listed
+  with its restriction in parentheses. A constraint on the whole group
+  becomes a Rule line.
+
+=== RULES ===
+
+1. Every table row on every page becomes exactly one Req block. Include
+   repeated rows (five "Elective^7" rows = five blocks). Req numbering
+   restarts at 1 in each semester. Blank line between all blocks.
+2. Semester headers: use the name as printed ("One" ... "Eight", or
+   "Fall" / "Spring" / "Summer" on accelerated plans - summer terms are
+   semesters too). Credits: the number or range printed in the header.
+3. Course lines hold ONLY a subject-and-number code like "ENGL 101" or
+   "MATH 344L". No titles, no credits, no footnotes on Course lines - a
+   course row's footnote digits go on its Req line as ^n.
+4. Slot lines hold the row's wording for anything that is not a course
+   code, with footnote digits as ^n. Every block that contains a Slot
+   line must keep the row's printed credits as a Credits line.
+5. Allowed keys, and no others: Semester, Credits, Req, Course, Slot,
+   Grade, Code, Level, Offered, Qual, Summary, Total, Major, College,
+   Core, GPA, Note, Hours, From, Rule, Text.
+6. Code holds only requirement codes as printed (CC-CMW, CC-ARP, CC-SCI,
+   CC-GFL, CC-GHS, CC-GSS, CC-AIU, CC-CMS, CC-INF, CC-VSR, CC-INT, PR,
+   MR, CR, and slash or space combinations like CC/PR) - never ordinary
+   words.
+7. Ignore completely: the Prerequisites column, the Program GPA column
+   (the "*" marks), the code legend, progression standards, disclaimers,
+   advising paragraphs, and residency requirements.
+8. Copy only what the PDF states. Never invent a course code for a row
+   that does not print one - "Social Science" is a Slot, not a course
+   you choose for it. Never add rules, credits, or grades that are not
+   printed. If you cannot read part of the PDF, write the block as a
+   Slot with "Qual: unreadable" rather than guessing.

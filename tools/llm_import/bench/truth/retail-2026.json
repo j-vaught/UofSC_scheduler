@@ -1,0 +1,387 @@
+{
+ "program": {
+  "major": "Retailing",
+  "degree": "Bachelor of Science (B.S.)",
+  "catalog_year": "2026-2027",
+  "total_credits_required": "120",
+  "college": "College of Hospitality, Retail, and Sport Management",
+  "department": "Retailing Department"
+ },
+ "sections": [
+  {
+   "label": "Semester One (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core ARP Requirement",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-ARP",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "RETL 265 Principles of Retailing",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "HRSM 101 HRSM Prof. Dev. Career Exploration Seminar",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "UNIV 101 The Student in the University or Carolina Core Requirement3",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR/CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core ARP Requirement",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-ARP",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "RETL 261 Principles of Accounting I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "HRSM 201 Professional Dev. Seminar",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": "C or better in HRSM 101, passing grade in SPTE 195, or enrollment in the BAIS-Services Mgmt. Major"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "RETL 262 Principles of Accounting II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": "C or better in RETL 261"
+    },
+    {
+     "critical": false,
+     "title": "SPTE 240 Business Law",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "RETL 242 HRSM Professional Communications",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": "C or better in ENGL 101 & 102"
+    },
+    {
+     "critical": false,
+     "title": "HRSM 301 HRSM Adv. Prof. Dev. Seminar",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": "C or better in HRSM 201"
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language4 or other Carolina Core Req.3",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": true,
+     "title": "RETL 295 Retailing Practicum5",
+     "credits": "6",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 265"
+    },
+    {
+     "critical": false,
+     "title": "RETL 340 Sustainability in Fashion and Retail",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language4 or other Carolina Core Req.3",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3 or Elective6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (12 Credit Hours)",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": true,
+     "title": "RETL 366 Retail Buying",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 261"
+    },
+    {
+     "critical": false,
+     "title": "RETL 310 Digital Retailing",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 265"
+    },
+    {
+     "critical": false,
+     "title": "HTMT 344 Human Resource Mgmt. in HRSM",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "SPTE 274 Computer Applications in HRSM",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (12 Credit Hours)",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": false,
+     "title": "RETL 350 Sales Strategies",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "RETL 362 Principles of Customer Service",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "RETL Elective7",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3 or Elective6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (14 Credit Hours)",
+   "declared_credits": "14",
+   "rows": [
+    {
+     "critical": false,
+     "title": "RETL 465 Global Sourcing in Retail & Fashion",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 261 & 265"
+    },
+    {
+     "critical": false,
+     "title": "RETL 369 Retail Promotion",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "RETL 351 Retail Entrepreneurship",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement3 or Elective6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Elective6",
+     "credits": "2",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (12 Credit Hours)",
+   "declared_credits": "12",
+   "rows": [
+    {
+     "critical": false,
+     "title": "RETL 421 Retail Finance",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 262"
+    },
+    {
+     "critical": false,
+     "title": "RETL 425 Customer Experience Management",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 265"
+    },
+    {
+     "critical": false,
+     "title": "RETL 330 Asset Protection for Retailers",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in RETL 265"
+    },
+    {
+     "critical": false,
+     "title": "RETL Elective7",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Summer (6 Credit Hours)",
+   "declared_credits": "6",
+   "rows": [
+    {
+     "critical": false,
+     "title": "RETL 495 Retailing Internship8",
+     "credits": "6",
+     "min_grade": "C",
+     "codes": "MR/CC-INT",
+     "prerequisites": "RETL 295"
+    }
+   ]
+  }
+ ],
+ "notes": "PDF has 2 pages total. Page 1 contains the full major-map table (Semesters One through Eight plus Summer); page 2 contains only the Graduation Requirements Summary table, Program Notes prose, and the Codes legend, all excluded from `sections` per instructions. The `program.total_credits_required` value (\"120\") was sourced from the Minimum Total Hours cell of that page-2 summary table, since it is a program-level fact rather than a semester-table row.\n\nHeader block also lists \"Retail Management Concentration\" beneath the degree line (Major Map: Retailing / Bachelor of Science (B.S.) / Retail Management Concentration / College of Hospitality, Retail, and Sport Management / Retailing Department). There is no schema field for a concentration, so it is only recorded here \u2014 `program.major` was set to \"Retailing\" verbatim from the map title.\n\nThe task rationale said this map was chosen for having a Summer section \"in the middle of the plan.\" In this document the single Summer section (6 Credit Hours, RETL 495 Retailing Internship) actually appears last, after Semester Eight, not in the middle of the sequence \u2014 flagging this in case it matters downstream.\n\nThe Major GPA\u00b2 column (present in the header) is completely blank for every single row in the entire document \u2014 no row has any content there, despite footnote 2 stating some major courses are included in the major GPA. This is either intentional (this particular program's map never flags GPA-inclusion visually) or a rendering limitation; treated as null-equivalent throughout since nothing is printed in any cell of that column.\n\nThe ENGL 102 row (Semester Two) has two code values stacked in the Code cell with no visible separator (\"CC-CMW\" then \"CC-INF\" on the next line), unlike other multi-value code cells elsewhere in the document that use an explicit slash (e.g. \"MR/CC-INT\", \"PR/CC\", \"CC/PR\"). I transcribed it as \"CC-CMW CC-INF\" (space-joined) since no slash or comma was printed between them \u2014 a parser using \"/\" as its multi-code delimiter will need special handling for this one row.\n\nThe HRSM 201 prerequisite text in Semester Two reads \"...enrollment in the BAIS-Services Mgmt. Major,\" where the hyphen falls exactly at the cell's internal line-wrap point. It's ambiguous whether \"BAIS-Services\" is an intentional compound program name or the hyphen is a PDF line-wrap artifact; transcribed verbatim as printed.\n\nFootnote digits were kept fused to titles per instructions verbatim (e.g. \"Carolina Core Requirement3\", \"Foreign Language4 or other Carolina Core Req.3\", \"RETL 295 Retailing Practicum5\", \"Carolina Core Requirement3 or Elective6\", \"RETL Elective7\", \"Elective6\", \"RETL 495 Retailing Internship8\"). The identical placeholder row \"Carolina Core Requirement3\" recurs verbatim multiple times across different semesters \u2014 this is a legitimate repeated generic requirement row, not a duplication error.\n\nAll semester credit-hour totals were cross-checked by summing each section's row credits (treating ranges like \"3-4\" by their range) against the declared header total, and all nine sections balance exactly, giving good confidence in the transcription (e.g. Semester Two: 3+3+3+1+3+(3-4)=16-17 matches \"Semester Two (16-17 Credit Hours)\")."
+}

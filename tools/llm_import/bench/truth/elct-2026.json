@@ -1,0 +1,437 @@
+{
+ "program": {
+  "major": "Electrical Engineering",
+  "degree": "Bachelor of Science in Engineering (B.S.E.)",
+  "catalog_year": "2026-2027",
+  "college": "Molinaroli College of Engineering and Computing",
+  "department": "Department of Electrical Engineering",
+  "total_credits_required": "126"
+ },
+ "sections": [
+  {
+   "label": "Semester One (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MATH 141 Calculus 13",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 112/115/116 or placement through the MAP"
+    },
+    {
+     "critical": false,
+     "title": "CHEM 111 General Chemistry I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "C or higher in MATH 111 or higher (or by placement into MATH 115 or higher); Prereq or Coreq: C or higher in CHEM 111L"
+    },
+    {
+     "critical": false,
+     "title": "CHEM 111L General Chemistry I Lab",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "Prereq or Coreq: C or higher in CHEM 111"
+    },
+    {
+     "critical": false,
+     "title": "ELCT 101 Electrical & Electronics Engr. (or ENCP 101) fall only",
+     "credits": "1",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "UNIV 101 The Student in the University",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (17 Credit Hours)",
+   "declared_credits": "17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW CC-INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": true,
+     "title": "MATH 142 Calculus II",
+     "credits": "4",
+     "min_grade": "C",
+     "codes": "CC-ARP",
+     "prerequisites": "C or better in MATH 141"
+    },
+    {
+     "critical": true,
+     "title": "PHYS 211 Essentials of Physics I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "C or better in MATH 141; Coreq: PHYS 211L"
+    },
+    {
+     "critical": true,
+     "title": "PHYS 211L Essentials of Physics I Lab",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "CC-SCI",
+     "prerequisites": "Prereq/Coreq: C or better in PHYS 211"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 102 Electrical Science",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "Prereq/Coreq: MATH 141"
+    },
+    {
+     "critical": true,
+     "title": "CSCE 106 Sci. Applications Programming",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 111 or higher (or by MAP score into MATH 115 or higher)"
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": true,
+     "title": "CSCE 211 Digital Logic Design",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "MATH 141"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 221 Circuits",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142; C or better in either ELCT 102 or AESP 265; or D or better in ELCT 220"
+    },
+    {
+     "critical": false,
+     "title": "PHYS 212 Essentials of Physics II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in PHYS 211 & MATH 142; Coreq: PHYS 212L"
+    },
+    {
+     "critical": false,
+     "title": "PHYS 212L Essentials of Physics II Lab.",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "Prereq/Coreq: C or better in PHYS 212"
+    },
+    {
+     "critical": true,
+     "title": "MATH 242 Elem. Differential Equations",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    },
+    {
+     "critical": false,
+     "title": "STAT 509 Statistics for Engineers",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "MATH 142 or equivalent"
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (18 Credit Hours)",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": false,
+     "title": "CSCE 212 Intro. to Computer Architecture",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "D or better in CSCE 211 & either CSCE 145 or 106"
+    },
+    {
+     "critical": false,
+     "title": "EMCH 220 Mech. Engr. Fund. for Non-Majors",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "MATH 142 & PHYS 211"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 201 Introductory Elect. Engr. Lab.",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "C or better in ENGL 102 & CSCE 211; Prereq or Coreq: ELCT 222"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 222 Signals & Systems",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in ELCT 221 & MATH 242"
+    },
+    {
+     "critical": false,
+     "title": "ELCT 363 Intro. to Microelectronics",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in CHEM 111 & PHYS 212"
+    },
+    {
+     "critical": true,
+     "title": "MATH 241 Vector Calculus",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": "C or better in MATH 142"
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (18 Credit Hours)",
+   "declared_credits": "18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ELCT 301 Electronics Laboratory",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "D or better in ELCT 201; Prereq or Coreq: D or better in ELCT 371"
+    },
+    {
+     "critical": false,
+     "title": "ELCT 321 Digital Signal Processing",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ELCT 222"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 331 Control Systems",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ELCT 222"
+    },
+    {
+     "critical": true,
+     "title": "ELCT 371 Electronics",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "C or better in ELCT 222"
+    },
+    {
+     "critical": false,
+     "title": "CSCE 313 Embedded Systems",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": "CSCE 211 & 212"
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GSS4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GSS",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (15-18 Credit Hours)",
+   "declared_credits": "15-18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ELCT 302 Real-Time Systems Laboratory",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "D or better in ELCT 301 & 371; Prereq or Coreq: D or better in ELCT 331"
+    },
+    {
+     "critical": false,
+     "title": "ELCT 361 Electromagnetics",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "PHYS 212 & MATH 241"
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Elective6",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core VSR4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-VSR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core CMS4",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC-CMS",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (15-18 Credit Hours)",
+   "declared_credits": "15-18",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ELCT 403 Capstone Design Project I",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR/CC-INT",
+     "prerequisites": "D or better in ELCT 302"
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GHS4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GHS",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core AIU4",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-AIU",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL7",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (12-15 Credit Hours)",
+   "declared_credits": "12-15",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ELCT 404 Capstone Design Project II",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "MR",
+     "prerequisites": "D or better in ELCT 403"
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Career Plan Elective5",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core GFL7",
+     "credits": "0-3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "PDF has 2 pages. Page 1 holds the header block and Semester One through Semester Seven tables. Page 2 continues with Semester Eight, then Graduation Requirements Summary, Program Notes, University Requirements, and the Codes legend (all excluded per instructions -- only the semester tables were transcribed).\n\nAmbiguities / things a parser could trip on:\n\n1. ENGL 102 (Semester Two) has TWO values stacked in the Code column with no visible separator character: \"CC-CMW\" on one line and \"CC-INF\" directly below it in the same cell. Unlike ELCT 403's \"MR/CC-INT\" (a single slash-joined code that happens to wrap mid-token), there is no slash printed between CC-CMW and CC-INF here. I transcribed this as \"CC-CMW CC-INF\" (space-joined, following the same-row-wrap-join rule) rather than inventing a slash. A parser could reasonably instead expect \"CC-CMW/CC-INF\" or two separate code tokens -- flagging this as genuinely ambiguous.\n\n2. EMCH 220's title wraps across two lines as \"Mech. Engr. Fund. for Non-\" / \"Majors\". I read this as the hyphenated compound word \"Non-Majors\" and joined it as \"EMCH 220 Mech. Engr. Fund. for Non-Majors\", preserving the hyphen. It is possible the underlying word has no hyphen at all (i.e. \"NonMajors\") and the hyphen is purely an artifact of line-wrap hyphenation, analogous to how \"(or ENCP 101)\" wraps right after the open paren in the ELCT 101 row. I could not fully disambiguate this from the rendered page alone.\n\n3. Trailing-period inconsistency in Lab course titles was preserved verbatim rather than normalized: \"CHEM 111L General Chemistry I Lab\" (no period), \"PHYS 211L Essentials of Physics I Lab\" (no period), but \"PHYS 212L Essentials of Physics II Lab.\" (period) and \"ELCT 201 Introductory Elect. Engr. Lab.\" (period). This looks like a print inconsistency in the source document itself, not a transcription choice.\n\n4. The table has a \"Program GPA\" column (marked with \"*\" for courses that count toward the major/program GPA per footnote 2) between Min. Grade and Code. The provided schema has no field for this marker, so it was not captured anywhere in the structured output -- e.g. ELCT 101, CSCE 106, CSCE 212, ELCT 201, ELCT 363, and most Semester 5-8 major/program rows carry a \"*\" in this column that is simply dropped from this transcription. Flagging in case the parser being tested is expected to reconcile against this column.\n\n2026-2027 disclaimer text, footnote list, \"Program Notes\" bullets, and the Codes legend table on page 2 were read but intentionally excluded, per the task instructions to include only semester tables.\n\nFootnote digits were kept fused to titles exactly as printed, e.g. \"Calculus 13\" (MATH 141), \"Carolina Core GSS4\", \"Career Plan Elective5\", \"Elective6\", \"Carolina Core VSR4\", \"Carolina Core CMS4\", \"Carolina Core GHS4\", \"Carolina Core AIU4\", \"Carolina Core GFL7\" (this last one appears identically in both Semester Seven and Semester Eight).\n\ntotal_credits_required (\"126\") was taken from the \"Minimum Total Hours\" cell of the Graduation Requirements Summary table on page 2, even though that table itself was excluded from the sections list -- this seemed to be the intended source for that top-level program field."
+}

@@ -1,0 +1,501 @@
+{
+ "program": {
+  "major": "Music",
+  "degree": "Bachelor of Arts (B.A.)",
+  "catalog_year": "2026-2027",
+  "college": null,
+  "department": "School of Music",
+  "total_credits_required": "121"
+ },
+ "sections": [
+  {
+   "label": "Semester One (12-13 Credit Hours)",
+   "declared_credits": "12-13",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 101 Critical Reading and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble3",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 155 Group Piano4(or demonstration of piano prof. is required)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 117 Aural Skills I",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Music Convocation",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language6 or other Carolina Core Req.7",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Two (16 Credit Hours)",
+   "declared_credits": "16",
+   "rows": [
+    {
+     "critical": true,
+     "title": "ENGL 102 Rhetoric and Composition",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-CMW/INF",
+     "prerequisites": "C or better in ENGL 101"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble3",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUED 156 Group Piano4 (or demonstration of piano prof. is required)",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUED 155 or advanced placement via exam"
+    },
+    {
+     "critical": true,
+     "title": "MUSC 118 Aural Skills II",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "MUSC 117"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100 Music Convocation",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100L Recital Class Laboratory",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 115 Music Theory I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "CC-AIU",
+     "prerequisites": "C or better in MUSC 114 (or passing score on the Ugrad Theory Diag. Exam)"
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language6 or other Carolina Core Req.7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC-GFL",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Three (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": true,
+     "title": "MUSC 217 Aural Skills III",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 118"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble3",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": true,
+     "title": "MUSC 215 Music Theory II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 115"
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course8",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Foreign Language6 or Carolina Core Requirement7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR/CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Four (16-17 Credit Hours)",
+   "declared_credits": "16-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 353 History of Western Music I",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 100L & 115"
+    },
+    {
+     "critical": true,
+     "title": "MUSC 218 Aural Skills IV",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 217"
+    },
+    {
+     "critical": false,
+     "title": "Major Ensemble3",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Theory Elective9",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course8",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 100A Music Advocacy I",
+     "credits": "0",
+     "min_grade": "S",
+     "codes": "MR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Five (14-16 Credit Hours)",
+   "declared_credits": "14-16",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 354 History of Western Music II",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR/CC-INT",
+     "prerequisites": "C or better in MUSC 353 or 340"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 130A-Z Ensemble (Chamber)10",
+     "credits": "0-2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course8",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "History11",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Six (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "MUSC 445 Special Topics in Musicology & Ethnomusicology or MUSC 544 Topics in Music History or MUSC 546 Black Sacred Music: Local & Global Perspectives",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": "C or better in MUSC 354 (MUSC 445 & 546)"
+    },
+    {
+     "critical": false,
+     "title": "MUSC 111 Lower Div. Applied Music5",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Ensemble (major or chamber)3 & 10",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Cognate or Minor Course8",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Seven (15 Credit Hours)",
+   "declared_credits": "15",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Music Major Elective12",
+     "credits": "2",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Ensemble (major or chamber)3 & 10",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Theory Elective9",
+     "credits": "3",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor Course8 or Elective13",
+     "credits": "3",
+     "min_grade": "C (minor)",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Social Science",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    }
+   ]
+  },
+  {
+   "label": "Semester Eight (14-17 Credit Hours)",
+   "declared_credits": "14-17",
+   "rows": [
+    {
+     "critical": false,
+     "title": "Ensemble (major or chamber)3 & 10",
+     "credits": "1",
+     "min_grade": "C",
+     "codes": "MR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Minor Course8 or Elective13",
+     "credits": "3",
+     "min_grade": "C (minor)",
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Humanities or Fine Arts",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7",
+     "credits": "3",
+     "min_grade": null,
+     "codes": "CC",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7 or Elective13",
+     "credits": "3-4",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    },
+    {
+     "critical": false,
+     "title": "Carolina Core Requirement7 or Elective13(depends on req. needed to meet Carolina Core or hrs. to graduate)",
+     "credits": "1-3",
+     "min_grade": null,
+     "codes": "CC/PR",
+     "prerequisites": null
+    }
+   ]
+  }
+ ],
+ "notes": "PDF is 2 pages. Page 1 holds Semesters One through Seven; page 2 opens with the Semester Eight table (no repeated column-header row before it, per the doc's own convention), then the Graduation Requirements Summary table, numbered footnotes 1-13, Program Notes, University Requirements paragraph, and the Codes legend \u2014 none of which were transcribed into `sections` per instructions. `total_credits_required` (\"121\") comes from the \"Minimum Total Hours\" cell of that summary table, not from a semester table.\n\nTwo columns exist in the printed table that this schema does not capture: (1) \"Major GPA\" (a \"*\" marker on most MUSC/MUED rows, indicating the course counts toward major GPA) and (2) a rightmost \"Notes\" column, which is blank on every single row across both pages. Neither is reflected in the row objects above.\n\nLikely \"historically dropped\" rows: three rows wrap across multiple printed lines and were joined into one row with single spaces, exactly per instructions \u2014 a naive parser could plausibly split or drop these:\n- Semester One: \"MUED 155 Group Piano4(or demonstration of piano / prof. is required)\" (2 lines, no space between \"Piano4\" and \"(or\").\n- Semester Two: \"MUED 156 Group Piano4 (or demonstration of piano / prof. is required)\" (2 lines, but here there IS a space between \"Piano4\" and \"(or\" \u2014 printed inconsistently vs. the Semester One version; transcribed verbatim as seen).\n- Semester Six: \"MUSC 445 Special Topics in Musicology & Ethnomusicology / or MUSC 544 Topics in Music History / or MUSC 546 Black Sacred Music: Local & Global Perspectives\" (3 lines, single row, single credit/grade/code/prereq set).\n- Semester Eight (last row): \"Carolina Core Requirement7 or Elective13(depends / on req. needed to meet Carolina Core or hrs. to / graduate)\" (3 lines, one row).\n\nMin. Grade column is not always a bare letter: \"Minor Course8 or Elective13\" rows in Semesters Seven and Eight print \"C (minor)\" verbatim in that column \u2014 transcribed as-is rather than simplified to \"C\".\n\nCross-check: for every section, summing the row credit values (taking min/max of any ranges) reproduces the header's declared credit range exactly (e.g. Semester One 3+1+2+1+2+0+(3-4)=12-13; Semester Five sums to 14-16; Semester Eight sums to 14-17), which gives confidence no rows were missed or invented anywhere in the 8 sections / 51 total rows.\n\nNo explicit \"College\" name is printed anywhere on the map (only \"School of Music\"), so `college` is null and `department` is \"School of Music\"."
+}
