@@ -1,6 +1,12 @@
-# UofSC Course Scheduler
+# UofSC Course Scheduler. Adaptive Panels experiment.
 
-A desktop-first semester planning tool for University of South Carolina students. Add courses without
+A responsive semester planning tool for University of South Carolina students. This branch is an isolated
+interface experiment by J.C. Vaught. It retains the existing browser modules, data, and relay contracts while
+adapting the Search, Degree Plan, and Schedule workspaces for 11-inch laptops and smaller screens. At compact
+widths, paired panels become focused stacks, tool areas can collapse, actions remain sticky, and calendar and
+map surfaces keep their own contained scrolling.
+
+Add courses without
 committing to sections, optionally lock exact sections, and generate ranked conflict-free schedules. Applying
 an option updates the weekly calendar, campus pins, walking-route estimates, and a registration handoff.
 
