@@ -358,6 +358,20 @@ a.major-map-source:focus-visible { color: #73000A; }
     flex-direction: column;
     overflow-y: auto;
 }
+#tab-degree > :not(.degree-maintenance) { display: none !important; }
+.degree-maintenance {
+    align-items: center;
+    background: #FFFFFF;
+    display: flex;
+    flex: 1 0 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 32px;
+    text-align: center;
+}
+.degree-maintenance h2 { color: #73000A; font-size: 2rem; }
+.degree-maintenance p { font-size: 1rem; }
 .degree-wizard { min-height: calc(100vh - 64px); }
 .degree-wizard-progress {
     background: #000000;
