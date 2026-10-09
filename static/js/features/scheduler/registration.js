@@ -23,10 +23,8 @@
             document.getElementById('btn-solve').addEventListener('click', () => this.solve());
             document.getElementById('btn-schedule-preferences').addEventListener('click', () => this.openSchedulePreferences());
             document.getElementById('btn-registration-info').addEventListener('click', () => this.openRegistrationInfo());
-            document.getElementById('btn-search-schedule-courses').addEventListener('click', () => this.searchFromInput());
-            document.getElementById('schedule-course-input').addEventListener('keydown', event => {
-                if (event.key === 'Enter') this.searchFromInput();
-            });
+            document.getElementById('schedule-find-courses')?.addEventListener('click', () => deps.tabs.switchTo('semester'));
+            this.initScheduleDetail();
             deps.state.on('courses-changed', () => {
                 this.clearResults();
                 this.renderCourseSearchResults();
@@ -36,13 +34,12 @@
             deps.state.on('sections-changed', () => {
                 this.refreshAppliedResultState();
                 this.updateRegistrationButton();
+                this.updateScheduleDetail();
             });
             deps.state.on('preferences-changed', () => this.clearResults());
             this.renderCourseSearchResults();
-            this.initCourseDivider();
             this.initScheduleSidebarResize();
             this.initScheduleSidebarCollapse();
-            this.initVerticalResizer();
             this.initScheduleScrollPreview();
             this.updateRegistrationButton();
             this.scheduleLocationPrefetch();

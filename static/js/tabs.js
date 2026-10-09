@@ -29,7 +29,7 @@ const Tabs = {
 
     tabFromUrl(value) {
         if (value === 'search' || value === 'home') return 'semester';
-        if (value === 'profile') return 'degree';
+        if (value === 'profile' || value === 'degree') return 'semester';
         if (value === 'export') return 'schedule';
         return this.validTabs().includes(value) ? value : '';
     },

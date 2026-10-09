@@ -958,3 +958,24 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-panel-actions { flex-wrap: wrap; gap: 6px; }
 .schedule-panel-actions > button { align-items: center; display: inline-flex; justify-content: center; flex: 0 0 36px; width: 36px; min-width: 36px; height: 36px; min-height: 36px; padding: 4px; margin-left: 0; }
 .schedule-panel-actions > button .ui-icon { width: 24px; height: 24px; }
+
+/* Selected schedule inspector. Courses and options remain the primary workspace. */
+.icon-event_repeat { --icon-url: url("../icons/event_repeat.svg"); }
+#schedule-sidebar .schedule-selected-section { min-height: 0; height: 100%; }
+.schedule-find-courses { margin: 8px 12px; padding: 10px; }
+#schedule-content { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+.schedule-workspace { display: flex; height: 100%; min-height: 0; overflow: hidden; }
+#solver-section { flex: 1; width: 100%; }
+#btn-show-schedule-detail, #btn-minimize-schedule-detail { background: white; color: black; border: 1px solid white; cursor: pointer; font-weight: 700; font-size: 0.7rem; padding: 6px 8px; }
+#btn-show-schedule-detail:disabled { opacity: 0.5; cursor: not-allowed; }
+.schedule-detail-panel[hidden] { display: none; }
+.schedule-detail-panel { border: 3px solid black; background: white; display: flex; flex-direction: column; gap: 12px; padding: 12px; min-height: 0; overflow-y: auto; }
+.schedule-detail-heading { position: sticky; top: -12px; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: black; color: white; margin: -12px -12px 0; padding: 8px 10px; }
+.schedule-detail-heading h2 { font-size: 0.85rem; text-transform: uppercase; }
+.schedule-detail-panel .schedule-preview-panel { flex: 0 0 350px; height: 350px; }
+.schedule-detail-panel #walking-map-container { flex: 0 0 300px; height: 300px; }
+#schedule-content.schedule-detail-open { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); }
+@media (max-width: 1200px) {
+    #schedule-content.schedule-detail-open { grid-template-columns: minmax(0, 1fr); }
+    .schedule-detail-panel { position: absolute; inset: 14px; z-index: 30; box-shadow: 0 0 0 14px rgba(0,0,0,0.18); }
+}

@@ -19,6 +19,52 @@
 
     function createLayoutPart(deps) {
         return {
+        initScheduleDetail() {
+            document.getElementById('btn-show-schedule-detail')?.addEventListener('click', () => this.showScheduleDetail());
+            document.getElementById('btn-minimize-schedule-detail')?.addEventListener('click', () => this.hideScheduleDetail());
+            document.getElementById('schedule-detail-panel')?.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    this.hideScheduleDetail();
+                }
+            });
+            this.updateScheduleDetail();
+        },
+
+        updateScheduleDetail() {
+            const available = Object.keys(deps.state.selectedSections || {}).length > 0;
+            const button = document.getElementById('btn-show-schedule-detail');
+            if (button) button.disabled = !available;
+            if (!available) this.hideScheduleDetail(false);
+        },
+
+        showScheduleDetail() {
+            if (!Object.keys(deps.state.selectedSections || {}).length) return;
+            const panel = document.getElementById('schedule-detail-panel');
+            if (!panel) return;
+            panel.hidden = false;
+            document.getElementById('schedule-content')?.classList.add('schedule-detail-open');
+            document.getElementById('btn-show-schedule-detail')?.setAttribute('aria-expanded', 'true');
+            deps.calendar?.render();
+            requestAnimationFrame(() => {
+                const calendar = document.getElementById('calendar-container');
+                const starts = [...document.querySelectorAll('#cal-body .cal-block')].map(block => parseFloat(block.style.top)).filter(Number.isFinite);
+                if (calendar && starts.length) calendar.scrollTop = Math.max(0, Math.min(...starts) - 45);
+                deps.walkingMap?._map?.invalidateSize();
+                document.getElementById('btn-minimize-schedule-detail')?.focus();
+            });
+        },
+
+        hideScheduleDetail(restoreFocus = true) {
+            const panel = document.getElementById('schedule-detail-panel');
+            const wasOpen = panel && !panel.hidden;
+            if (panel) panel.hidden = true;
+            document.getElementById('schedule-content')?.classList.remove('schedule-detail-open');
+            const button = document.getElementById('btn-show-schedule-detail');
+            button?.setAttribute('aria-expanded', 'false');
+            if (wasOpen && restoreFocus) button?.focus();
+        },
+
         clearResults() {
             deps.state.solverResults = [];
             const container = document.getElementById('solver-container');

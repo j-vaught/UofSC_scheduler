@@ -796,3 +796,5 @@ body.filter-modal-open { overflow: hidden; }
 .section-row .sec-time { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 .section-row.viewing { background: #e3f2fd; border-left: 4px solid #466A9F; }
 .section-actions { display: flex; gap: 8px; }
+
+#search-planning-paths { grid-template-columns: minmax(0, 1fr); }

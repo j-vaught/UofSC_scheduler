@@ -191,7 +191,10 @@
                 card.classList.remove('selected');
             };
             const apply = () => {
-                if (this.isAppliedSchedule(deps.state.solverResults[Number(card.dataset.idx)])) return;
+                if (this.isAppliedSchedule(deps.state.solverResults[Number(card.dataset.idx)])) {
+                    this.showScheduleDetail();
+                    return;
+                }
                 card.classList.remove('selected');
                 this.applySchedule(Number(card.dataset.idx));
             };
@@ -259,6 +262,7 @@
             if (!schedule) return;
             deps.state.applySolverSchedule(schedule);
             this.refreshAppliedResultState();
+            this.showScheduleDetail();
         },
 
         isAppliedSchedule(schedule) {

@@ -73,17 +73,12 @@ function reportBootFailures() {
 const BOOT_SEQUENCE = [
     ['Notices', () => SiteNotices],
     ['Tabs', () => Tabs],
-    ['Transcript import', () => TranscriptImport],
-    ['Profile', () => Profile],
-    ['Custom major map', () => CustomMajorMap],
     ['Calendar', () => Calendar],
     ['Campus map', () => WalkingMap],
     ['Search', () => Search],
     ['Preferences', () => Preferences],
     ['Scheduler', () => Scheduler],
     ['Export', () => Export],
-    ['Degree plan', () => DegreePlan],
-    ['Degree wizard', () => DegreeWizard],
 ];
 
 function boot() {
@@ -121,9 +116,6 @@ function boot() {
 
     // Search landing: planning paths
     startFeature('Landing shortcuts', () => {
-    document.getElementById('search-degree-btn').addEventListener('click', () => {
-        Tabs.switchTo('degree');
-    });
     document.getElementById('search-schedule-btn').addEventListener('click', () => {
         Tabs.switchTo('schedule');
     });

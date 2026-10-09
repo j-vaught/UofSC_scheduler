@@ -5,7 +5,7 @@ committing to sections, optionally lock exact sections, and generate ranked conf
 an option updates the weekly calendar, campus pins, walking-route estimates, and a registration handoff.
 
 Everything interactive runs in the browser. Search ranking, schedule generation, prerequisite evaluation,
-transcript parsing, offering analysis, and degree planning are client-side. Hosting serves files and forwards
+offering analysis, and schedule generation are client-side. Hosting serves files and forwards
 exactly three validated read-only requests to the University. Plans and transcript-derived progress never
 leave the device.
 
@@ -16,7 +16,7 @@ leave the device.
 
 ## Interface layout
 
-Three tabs: **SEARCH**, **DEGREE PLAN**, and **SCHEDULE**. The term selector sits at the top right and
+Two tabs, **SEARCH** and **SCHEDULE**. The term selector sits at the top right and
 scopes everything below it.
 
 ### SEARCH — a two-panel workspace
@@ -57,22 +57,20 @@ professor review searches.
 
 ![Course resources with class, bookstore, bulletin, syllabus, and faculty links](docs/screenshots/16-course-resources.png)
 
-### DEGREE PLAN — a four-step wizard
-
-**Program → Coursework → Strategy → Plan.** Imported official major maps preserve catalog year, the
-recommended semester sequence, credit ranges, Carolina Core requirements, and a link back to the source PDF.
-You can also upload an advising transcript or build a custom map that stays on your device.
-
-![Electrical Engineering major-map selection with its official eight-semester sequence and source PDF](docs/screenshots/07-static-degree-plan.png)
-
 ### SCHEDULE — sidebar, options, calendar, routes
 
-A course-search sidebar on the left; generated schedule options and a weekly calendar on the right; a
-walking-route map below a draggable resizer. Course blocks are colored in brand-accent order — Atlantic,
-Congaree, Horseshoe, Rose, Honeycomb, then Warm Grey — with garnet reserved for application chrome. The grid
-expands to seven days automatically when a section meets on a weekend.
+Find and add courses in Search, then use the selected-course sidebar and schedule options in Schedule.
+The Generate button uses the calendar-with-repeat icon. Applying a schedule opens its weekly preview and
+campus routes in a closable inspector. Minimize it to return to the full schedule option list, or use
+**View Schedule** to reopen it. On smaller laptop screens, the inspector overlays the option list.
 
-![A generated schedule with ranked options, a weekly calendar, and mapped campus routes](docs/screenshots/05-schedule-and-routes.png)
+![Selected schedule with weekly preview and campus routes](docs/screenshots/17-schedule-inspector.jpg)
+
+![Full schedule option list after minimizing the inspector](docs/screenshots/18-schedule-options.jpg)
+
+All toolbar icons have hover descriptions. The Search icon includes a sparkle when assisted matching is
+enabled and a plain magnifying glass when it is disabled. Degree Planner is no longer part of the website;
+its earlier implementation remains in the source history and legacy modules.
 
 Registration is a handoff, never an action taken on your behalf. The checklist surfaces per-section warnings,
 prerequisites, seat status, and individual CRN copy buttons for pasting into OneCarolina.
