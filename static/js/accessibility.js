@@ -32,82 +32,19 @@ const Accessibility = {
         };
         Object.entries(descriptions).forEach(([id, text]) => {
             const button = document.getElementById(id);
-            if (button) button.dataset.help = text;
+            if (!button) return;
+            button.title = text;
+            button.setAttribute('aria-description', text);
         });
-        const tooltip = document.createElement('div');
-        tooltip.id = 'control-help-tooltip';
-        tooltip.className = 'control-help-tooltip';
-        tooltip.setAttribute('role', 'tooltip');
-        tooltip.hidden = true;
-        document.body.appendChild(tooltip);
-        let owner = null;
-        let timer;
-        let pointerType;
-        const hide = () => {
-            clearTimeout(timer);
-            if (owner) {
-                const ids = (owner.getAttribute('aria-describedby') || '').split(/\s+/).filter(id => id && id !== tooltip.id);
-                if (ids.length) owner.setAttribute('aria-describedby', ids.join(' '));
-                else owner.removeAttribute('aria-describedby');
-            }
-            owner = null;
-            tooltip.hidden = true;
-        };
-        const scheduleHide = () => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                if (!tooltip.matches(':hover') && !owner?.matches(':hover, :focus')) hide();
-            }, 180);
-        };
-        const show = element => {
-            if (!element || element.disabled || element.closest('[inert]')) return;
-            if (owner !== element) hide();
-            clearTimeout(timer);
-            owner = element;
-            if (element.hasAttribute('title')) {
-                element.dataset.nativeTitle = element.getAttribute('title');
-                if (!element.getAttribute('aria-label') && !element.getAttribute('aria-labelledby')
-                    && !element.textContent.trim()) element.setAttribute('aria-label', element.dataset.nativeTitle);
-                element.removeAttribute('title');
-            }
-            tooltip.textContent = element.dataset.help || element.dataset.nativeTitle;
-            tooltip.hidden = false;
-            const ids = new Set((element.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
-            ids.add(tooltip.id);
-            element.setAttribute('aria-describedby', [...ids].join(' '));
-            const box = element.getBoundingClientRect();
-            const width = tooltip.offsetWidth;
-            tooltip.style.left = `${Math.max(8, Math.min(box.left, innerWidth - width - 8))}px`;
-            tooltip.style.top = `${box.bottom + tooltip.offsetHeight + 12 <= innerHeight ? box.bottom + 6 : Math.max(8, box.top - tooltip.offsetHeight - 6)}px`;
-        };
-        const trigger = target => target.closest?.('[data-help], button[title], a[title], input[title], [tabindex][title], [data-native-title]');
-        document.addEventListener('pointerover', event => { const element = trigger(event.target); if (element && !element.contains(event.relatedTarget)) show(element); });
-        document.addEventListener('pointerout', event => { if (owner && !owner.contains(event.relatedTarget)) scheduleHide(); });
-        document.addEventListener('focusin', event => show(trigger(event.target)));
-        document.addEventListener('focusout', scheduleHide);
-        tooltip.addEventListener('pointerenter', () => clearTimeout(timer));
-        tooltip.addEventListener('pointerleave', scheduleHide);
+        // Calendar previews contain actual schedule content, rather than text hover help.
         document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && document.querySelector('#modal-overlay:not(.hidden), #filter-panel:not(.hidden)')) {
-                hide();
-                return;
-            }
-            if (event.key === 'Escape' && (this.dismissGpa?.(true) || this.dismissPreview?.() || !tooltip.hidden)) {
-                hide();
+            if (event.key !== 'Escape'
+                || document.querySelector('#modal-overlay:not(.hidden), #filter-panel:not(.hidden)')) return;
+            if (this.dismissPreview?.()) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
             }
         }, true);
-        document.addEventListener('pointerdown', event => {
-            pointerType = event.pointerType;
-            if (!event.target.closest('.schedule-gpa-help')) this.dismissGpa?.(false);
-            if (event.pointerType === 'touch') show(trigger(event.target));
-            else if (!owner?.contains(event.target) && !tooltip.contains(event.target)) hide();
-        });
-        document.addEventListener('click', () => { if (pointerType !== 'touch') hide(); }, true);
-        window.addEventListener('resize', hide);
-        document.addEventListener('scroll', hide, true);
-        document.addEventListener('tab-changed', hide);
         document.querySelectorAll('[data-skip]').forEach(link => link.addEventListener('click', event => {
             event.preventDefault();
             const schedule = document.getElementById('tab-schedule').classList.contains('active');

@@ -146,7 +146,7 @@
             },
 
             summaryMetricMarkup(label, value, help, warning = false) {
-                return `<button type="button" class="schedule-summary-metric" data-help="${this.escapeHtml(help)}" aria-label="${this.escapeHtml(`${label}. ${value}${warning ? '. Data issues. ' + help : ''}`)}"><span>${this.escapeHtml(label)}</span><strong>${this.escapeHtml(value)}${warning ? '<span class="summary-caution" aria-hidden="true"> ⚠</span>' : ''}</strong></button>`;
+                return `<button type="button" class="schedule-summary-metric" title="${this.escapeHtml(help)}" aria-description="${this.escapeHtml(help)}" aria-label="${this.escapeHtml(`${label}. ${value}${warning ? '. Data issues. ' + help : ''}`)}"><span>${this.escapeHtml(label)}</span><strong>${this.escapeHtml(value)}${warning ? '<span class="summary-caution" aria-hidden="true"> ⚠</span>' : ''}</strong></button>`;
             },
 
             scheduleSummaryMarkup(sections, grade = null, travel = null) {
@@ -170,7 +170,8 @@
                 summary.querySelectorAll('.schedule-summary-metric').forEach((button, index) => {
                     const replacement = replacements[index];
                     if (!replacement) return;
-                    button.dataset.help = replacement.dataset.help;
+                    button.title = replacement.title;
+                    button.setAttribute('aria-description', replacement.getAttribute('aria-description'));
                     button.setAttribute('aria-label', replacement.getAttribute('aria-label'));
                     button.querySelector('strong').innerHTML = replacement.querySelector('strong').innerHTML;
                 });

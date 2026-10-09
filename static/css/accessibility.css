@@ -3,12 +3,6 @@
 .skip-links a { position: absolute; transform: translateY(-200%); background: white; color: black; border: 3px solid black; padding: 10px; white-space: nowrap; }
 .skip-links a:focus { position: static; display: inline-block; transform: none; }
 :where(button, a, input, select, textarea, summary, [tabindex]):focus-visible { outline: 3px solid black !important; outline-offset: 3px !important; box-shadow: 0 0 0 3px white !important; }
-.control-help-tooltip { position: fixed; z-index: 12000; max-width: min(330px, calc(100vw - 16px)); padding: 9px 12px; background: black; color: white; border: 2px solid white; box-shadow: 0 0 0 1px black; font-size: .8rem; line-height: 1.4; overflow-wrap: anywhere; }
-.control-help-tooltip[hidden] { display: none; }
-.schedule-gpa-popup[hidden] { display: none !important; }
-.schedule-gpa-popup:not([hidden]) { display: block; }
-.schedule-view-header:has(.schedule-gpa-popup:not([hidden])) { z-index: 10; }
-.schedule-gpa-help .schedule-gpa-caution { min-width: 28px; min-height: 28px; cursor: pointer; }
 .calendar-view-toggle, .walking-locations-button { padding: 5px 8px; background: white; color: black; border: 2px solid black; font-size: .75rem; cursor: pointer; }
 .calendar-agenda { padding: 12px; }
 .calendar-agenda h4 { margin: 10px 0 6px; }
@@ -33,3 +27,5 @@
     html:not(.mobile-unsupported) .browse-search-form { grid-template-columns: minmax(0, 1fr) 44px 44px; }
     html:not(.mobile-unsupported) #semester-search { min-width: 0; }
 }
+
+.schedule-gpa-caution { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; min-height: 28px; cursor: help; }

@@ -227,7 +227,7 @@
             const accessibleDetails = [termLabel, offeringText, enrollmentText].filter(Boolean).join('. ');
 
             return `
-                <div class="history-season-cell ${state}" tabindex="0" role="cell" aria-label="${this._escape(accessibleDetails)}" data-help="${this._escape(accessibleDetails)}">
+                <div class="history-season-cell ${state}" tabindex="0" role="cell" aria-label="${this._escape(accessibleDetails)}" title="${this._escape(accessibleDetails)}">
                     ${state === 'offered'
                         ? `<strong>${sections}</strong><span>section${sections === 1 ? '' : 's'}</span>`
                         : '<span>Unavailable</span>'}
