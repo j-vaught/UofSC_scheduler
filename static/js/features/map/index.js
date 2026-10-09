@@ -714,7 +714,7 @@
             });
             const classList = location.events
                 .sort((left, right) => left.day - right.day || left.start - right.start)
-                .map(event => `${this.DAYS[event.day]?.slice(0, 3).toUpperCase() || ''} ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}`)
+                .map(event => `${this.DAYS[event.day]?.slice(0, 3).toUpperCase() || ''} ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}–${this.formatTime(event.end)}`)
                 .join('<br>');
             marker.bindPopup(`<strong>${this.escapeHtml(location.building.name)}</strong><br>${classList}`);
             marker.addTo(this._layer);
@@ -744,7 +744,7 @@
 
     showLocationList() {
         const locations = this._currentLocations || [];
-        window.AppModal.open(`<h2>Class locations</h2>${locations.length ? `<ul class="walking-location-list">${locations.map((location, index) => `<li><button type="button" data-location-index="${index}"><strong>${this.escapeHtml(location.building.name)}</strong><small>${location.events.map(event => `${this.DAYS[event.day]} · ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}`).join('<br>')}</small></button></li>`).join('')}</ul>` : '<p>No known campus locations are available for these classes.</p>'}`, { label: 'Class locations' });
+        window.AppModal.open(`<h2>Class locations</h2>${locations.length ? `<ul class="walking-location-list">${locations.map((location, index) => `<li><button type="button" data-location-index="${index}"><strong>${this.escapeHtml(location.building.name)}</strong><small>${location.events.map(event => `${this.DAYS[event.day]} · ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}–${this.formatTime(event.end)}`).join('<br>')}</small></button></li>`).join('')}</ul>` : '<p>No known campus locations are available for these classes.</p>'}`, { label: 'Class locations' });
         document.querySelectorAll('[data-location-index]').forEach(button => button.addEventListener('click', () => {
             const location = locations[Number(button.dataset.locationIndex)];
             window.AppModal.close();

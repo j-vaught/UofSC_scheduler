@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UofSC Course Scheduler — Technical Manual</title>
+<title>Gus’ Course Scheduler (for USC) — Technical Manual</title>
 <style>
 :root{
   --garnet:#73000A; --black:#000; --white:#fff;
@@ -111,7 +111,7 @@ hr{border:none;border-top:2px solid var(--rule);margin:34px 0}
 <body>
 <div class="wrap">
 <nav>
-  <div class="brand">UofSC Course Scheduler<small>Technical Manual</small></div>
+  <div class="brand">Gus’ Course Scheduler (for USC)<small>Technical Manual</small></div>
   <input id="q" type="search" placeholder="Filter sections…" autocomplete="off">
   <button id="themeBtn">Toggle theme</button>
 
@@ -140,7 +140,7 @@ hr{border:none;border-top:2px solid var(--rule);margin:34px 0}
 </nav>
 
 <main>
-<h1>UofSC Course Scheduler</h1>
+<h1>Gus’ Course Scheduler (for USC)</h1>
 <section><h2>Accessibility updates</h2><p>Search and Schedule have keyboard skip links, consistent focus rings, and status announcements for completed searches, generated options, failures, and applied schedules. Map day filters support Left, Right, Home, and End. Map pins include building and course names, and Location list provides text access to class buildings. Calendar meetings announce their own day and time, with an optional chronological List view. Course offering history exposes table, row, and column relationships.</p><p>Control explanations appear on hover or keyboard focus and can be dismissed with Escape. Calendar previews remain visible while the pointer moves into the enlarged preview. The GPA issues disclosure opens by focus, hover, or click and closes independently with Escape. Main navigation identifies the current page programmatically. Reduced-motion preferences disable animation. Mobile devices remain unsupported; desktop windows and browser magnification are no longer blocked solely because of viewport width.</p><p>The Git tag <code>rollback-before-accessibility-v45</code> preserves the previous published source at commit <code>5abb2a0b4551c80c10f7cd0922b39a3e0456cfd9</code>.</p></section>
 <section><h2>Current website interface</h2><p>The website has Search and Schedule tabs. Degree Planner has been removed. Search is the place to find and add courses. Schedule keeps selected courses beside the generated options. Applying a schedule opens its weekly preview and campus routes. Opening schedule details collapses Your Courses and makes Schedule Options the left sidebar, with a draggable divider beside the main details pane. Minimize details to restore Your Courses and the full option list; Selecting an option card reopens it. Export and Registration are inside the viewer. The viewer includes credits, estimated GPA weighted by credit hours using instructor history then course-wide history, an issues-only caution popup for missing history, a course picker with full instructor names and email links, and Course Schedule and Course Locations tabs. Scrolling or selecting a tab lets its content fill the viewer. Schedule cards show compact course/section links and calendar thumbnails with enlarged hover previews; only Option headings and calendars appear in the narrowed sidebar. Counts use at least when the search stops before completion. Option cards place the calendar on the left and an equal-height scrollable course list on the right. The term checker uses the registrar’s first and last class days in Eastern time and offers the next main semester once the current semester is one-third complete. Its Keep and Use choices are remembered for that semester. The Generate button uses the calendar-with-repeat icon. Toolbar buttons have hover descriptions, and the Search icon reflects whether assisted matching is enabled.</p><p>Course Locations uses a compact route sidebar with 24-hour times, green departure and red destination names, miles and walking minutes. Day filters use single letters, and the calendar icon shows all days. The map fills the area under a content-sized transition panel; longer lists scroll within the map height. Hover and click still highlight routes; success summaries are omitted. Current faculty IDs from Banner change between sessions. GPA and instructor profiles resolve a unique full-name match within the course, with email conflict checks; ambiguous matches remain unavailable.</p><p>Degree-planning sections below document legacy source modules and are not features of the current website.</p></section>
 <p class="sub">Single-source technical manual. This page replaces the former README, <code>ARCHITECTURE.md</code>,

@@ -33,6 +33,9 @@ header {
 }
 body > header { flex: 0 0 58px; }
 header h1 { font-size: 1.3rem; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; white-space: nowrap; }
+@font-face { font-family: 'Caveat'; src: url('/static/fonts/Caveat.ttf') format('truetype'); font-weight: 400 700; font-display: swap; }
+body > header .site-brand { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; line-height: 1.05; white-space: normal; letter-spacing: 0; }
+.site-brand-addon { display: block; margin-left: 18px; margin-top: 1px; font-family: 'Caveat', 'Bradley Hand', cursive; font-size: 1.15rem; font-weight: 600; line-height: 1; transform: rotate(-4deg); }
 .header-controls { align-items: center; display: flex; gap: 12px; justify-self: end; }
 .header-controls label { color: #ffffff; font-size: 0.85rem; font-weight: 600; }
 .header-controls select {

@@ -1,4 +1,4 @@
-# UofSC Course Scheduler
+# Gus’ Course Scheduler (for USC)
 
 A desktop-first semester planning tool for University of South Carolina students. Add courses without
 committing to sections, optionally lock exact sections, and generate ranked conflict-free schedules. Applying
