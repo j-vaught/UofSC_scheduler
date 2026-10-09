@@ -191,7 +191,7 @@
         const termCell = (year, season) => {
             const term = termByCode.get(`${year}${season.code}`);
             if (!term) {
-                return `<div class="history-season-cell not-checked" aria-label="${season.label} ${year}, outside the available history"><span aria-hidden="true">—</span></div>`;
+                return `<div class="history-season-cell not-checked" role="cell" aria-label="${season.label} ${year}, outside the available history"><span aria-hidden="true">—</span></div>`;
             }
 
             const enrollment = this._number(term.enrollment);
@@ -210,7 +210,7 @@
             const termLabel = term.label || `${season.label} ${year}`;
 
             if (state === 'not-offered') {
-                return `<div class="history-season-cell not-offered" aria-label="${this._escape(`${termLabel}, not offered`)}"><span>Not offered</span></div>`;
+                return `<div class="history-season-cell not-offered" role="cell" aria-label="${this._escape(`${termLabel}, not offered`)}"><span>Not offered</span></div>`;
             }
 
             const offeringText = state === 'unknown'
@@ -224,26 +224,20 @@
                     enrollmentText = `${Math.round(enrollment)} enrolled across ${Math.round(enrollmentSections)} of ${sections} sections`;
                 }
             }
-            const tooltipId = `history-term-${String(term.term).replace(/[^0-9a-z_-]/gi, '')}`;
             const accessibleDetails = [termLabel, offeringText, enrollmentText].filter(Boolean).join('. ');
 
             return `
-                <div class="history-season-cell ${state}" tabindex="0" role="img" aria-label="${this._escape(accessibleDetails)}" aria-describedby="${tooltipId}">
+                <div class="history-season-cell ${state}" tabindex="0" role="cell" aria-label="${this._escape(accessibleDetails)}" data-help="${this._escape(accessibleDetails)}">
                     ${state === 'offered'
                         ? `<strong>${sections}</strong><span>section${sections === 1 ? '' : 's'}</span>`
                         : '<span>Unavailable</span>'}
-                    <span class="history-term-tooltip" id="${tooltipId}" role="tooltip">
-                        <strong>${this._escape(termLabel)}</strong>
-                        <span>${this._escape(offeringText)}</span>
-                        ${enrollmentText ? `<span>${this._escape(enrollmentText)}</span>` : ''}
-                    </span>
                 </div>
             `;
         };
 
         const yearRows = years.map(year => `
-            <div class="history-year-row">
-                <div class="history-year-label">${year}</div>
+            <div class="history-year-row" role="row">
+                <div class="history-year-label" role="rowheader">${year}</div>
                 ${seasons.map(season => termCell(year, season)).join('')}
             </div>
         `).join('');
@@ -272,8 +266,8 @@
                             <span><i class="unknown"></i>Unavailable</span>
                         </div>
                     </div>
-                    <div class="history-year-matrix">
-                        <div class="history-year-columns" aria-hidden="true"><span>Year</span>${seasons.map(season => `<span>${season.label}</span>`).join('')}</div>
+                    <div class="history-year-matrix" role="table" aria-label="Course offerings by year and semester">
+                        <div class="history-year-columns" role="row"><span role="columnheader">Year</span>${seasons.map(season => `<span role="columnheader">${season.label}</span>`).join('')}</div>
                         ${yearRows}
                     </div>
                 </section>

@@ -70,6 +70,7 @@
                     container.innerHTML = '<p class="hint">Add at least one course from the '
                         + 'sidebar, then generate schedules.</p>';
                 }
+                Accessibility.announce('Add at least one course before generating schedules.', 'schedule');
                 return;
             }
 
@@ -77,6 +78,8 @@
 
             const container = document.getElementById('solver-container');
             container.innerHTML = '<p class="loading">Generating schedule options</p>';
+            container.setAttribute('aria-busy', 'true');
+            Accessibility.announce('Generating schedule options.', 'schedule');
 
             const courses = courseGroups.map(group => {
                 const lockedCrn = deps.state.sectionLocks?.[group.code];
@@ -97,6 +100,8 @@
                 container.innerHTML = locked.length > 0
                     ? `<p class="solver-error">The locked section for ${locked.join(', ')} is not available for scheduling. Choose another section or allow all open sections.</p>`
                     : `<p class="hint">No open scheduled or asynchronous sections were found for ${codes} in this term.</p>`;
+                container.setAttribute('aria-busy', 'false');
+                Accessibility.announce(container.textContent, 'schedule');
                 return;
             }
 
@@ -113,10 +118,14 @@
                 this.renderResults(result, container);
             } catch (error) {
                 container.innerHTML = `<p class="hint">Solver error: ${error.message}</p>`;
+                Accessibility.announce(`Schedule generation failed. ${error.message}`, 'schedule');
+            } finally {
+                container.setAttribute('aria-busy', 'false');
             }
         },
 
         renderResults(result, container) {
+            container.setAttribute('aria-busy', 'false');
             const { total_found, returned, schedules, search_complete } = result;
             if (!schedules || schedules.length === 0) {
                 const hasLocks = Object.keys(deps.state.sectionLocks || {}).length > 0;
@@ -130,6 +139,7 @@
                 } else {
                     container.innerHTML = '<p class="hint">No conflict-free schedules found. Remove a course or adjust your preferences.</p>';
                 }
+                Accessibility.announce(container.textContent, 'schedule');
                 return;
             }
 
@@ -146,7 +156,7 @@
                             <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
                         </div>
                         <div class="sched-courses">${courseList}</div>
-                        <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${index + 1} and open details" aria-describedby="schedule-calendar-popup">${this.scheduleCalendarMarkup(schedule)}</button>
+                        <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${index + 1} and open details">${this.scheduleCalendarMarkup(schedule)}</button>
                     </article>
                 `;
             });
@@ -155,6 +165,7 @@
             }
             this.hideScheduleCalendarPopup();
             container.innerHTML = html;
+            Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
 
             container.querySelectorAll('.btn-apply').forEach(button => {
                 button.addEventListener('click', event => {
@@ -173,9 +184,9 @@
             container.querySelectorAll('.schedule-mini-calendar').forEach(button => {
                 button.addEventListener('click', event => { event.stopPropagation(); this.hideScheduleCalendarPopup(); this.applySchedule(Number(button.dataset.scheduleIndex)); });
                 button.addEventListener('mouseenter', () => this.showScheduleCalendarPopup(button));
-                button.addEventListener('mouseleave', event => { if (!event.relatedTarget?.closest?.('#schedule-calendar-popup')) this.hideScheduleCalendarPopup(); });
+                button.addEventListener('mouseleave', () => this.deferScheduleCalendarPopupHide());
                 button.addEventListener('focus', () => this.showScheduleCalendarPopup(button));
-                button.addEventListener('blur', () => this.hideScheduleCalendarPopup());
+                button.addEventListener('blur', () => this.deferScheduleCalendarPopupHide());
                 button.addEventListener('keydown', event => { if (event.key === 'Escape') this.hideScheduleCalendarPopup(); });
             });
             container.querySelectorAll('.schedule-card').forEach(card => {
@@ -203,6 +214,7 @@
         },
 
         showScheduleCalendarPopup(button) {
+            clearTimeout(this._calendarPopupTimer);
             const schedule = deps.state.solverResults[Number(button.dataset.scheduleIndex)];
             if (!schedule) return;
             let popup = document.getElementById('schedule-calendar-popup');
@@ -211,9 +223,19 @@
                 popup.id = 'schedule-calendar-popup';
                 popup.className = 'schedule-calendar-popup';
                 popup.setAttribute('role', 'tooltip');
-                popup.addEventListener('mouseleave', () => this.hideScheduleCalendarPopup());
+                popup.addEventListener('mouseenter', () => clearTimeout(this._calendarPopupTimer));
+                popup.addEventListener('mouseleave', () => this.deferScheduleCalendarPopupHide());
                 document.body.appendChild(popup);
             }
+            this._calendarPopupOwner?.removeAttribute('aria-describedby');
+            this._calendarPopupOwner = button;
+            button.setAttribute('aria-describedby', popup.id);
+            Accessibility.dismissPreview = () => {
+                if (popup.hidden) return false;
+                this._calendarPopupOwner?.focus();
+                this.hideScheduleCalendarPopup();
+                return true;
+            };
             popup.innerHTML = `<strong>Schedule preview</strong>${this.scheduleCalendarMarkup(schedule, true)}`;
             popup.hidden = false;
             const box = button.getBoundingClientRect();
@@ -224,8 +246,18 @@
         },
 
         hideScheduleCalendarPopup() {
+            clearTimeout(this._calendarPopupTimer);
+            this._calendarPopupOwner?.removeAttribute('aria-describedby');
             const popup = document.getElementById('schedule-calendar-popup');
             if (popup) popup.hidden = true;
+        },
+
+        deferScheduleCalendarPopupHide() {
+            clearTimeout(this._calendarPopupTimer);
+            this._calendarPopupTimer = setTimeout(() => {
+                const popup = document.getElementById('schedule-calendar-popup');
+                if (!popup?.matches(':hover') && !this._calendarPopupOwner?.matches(':hover, :focus')) this.hideScheduleCalendarPopup();
+            }, 180);
         },
 
         bindScheduleCardPreview(card, container) {
@@ -312,6 +344,7 @@
             deps.state.applySolverSchedule(schedule);
             this.refreshAppliedResultState();
             this.showScheduleDetail();
+            Accessibility.announce(`Schedule option ${index + 1} applied. Details are open.`, 'schedule');
         },
 
         isAppliedSchedule(schedule) {

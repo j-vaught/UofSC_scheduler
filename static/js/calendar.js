@@ -19,6 +19,17 @@ const Calendar = {
 
     init() {
         this.buildGrid(5);
+        document.getElementById('calendar-view-toggle').addEventListener('click', () => {
+            this._agendaView = !this._agendaView;
+            const button = document.getElementById('calendar-view-toggle');
+            button.setAttribute('aria-pressed', String(this._agendaView));
+            button.textContent = this._agendaView ? 'Weekly view' : 'List view';
+            button.dataset.help = this._agendaView ? 'Show meetings on the weekly calendar.' : 'Show meetings in a chronological list.';
+            document.getElementById('calendar-grid').hidden = this._agendaView;
+            document.getElementById('calendar-agenda').hidden = !this._agendaView;
+            document.getElementById('calendar-container').scrollTop = 0;
+            this.render();
+        });
         State.on('sections-changed', () => this.render());
         // Paint what is already selected. Subscribing alone was enough while
         // the schedule was always empty at startup; now that State restores a
@@ -122,6 +133,44 @@ const Calendar = {
         return MeetingTimes.hhmmToMinutes(t);
     },
 
+    meetingLabel(section, meeting) {
+        const time = minutes => `${Math.floor(minutes / 60) % 12 || 12}:${String(minutes % 60).padStart(2, '0')} ${minutes >= 720 ? 'PM' : 'AM'}`;
+        return `${section.code}, section ${section.section || 'unspecified'}. ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][meeting.day]}, ${time(this.timeToMinutes(meeting.start))} to ${time(this.timeToMinutes(meeting.end))}.`;
+    },
+
+    renderAgenda(sections) {
+        const signature = JSON.stringify(sections.map(section => [section.code, section.crn, section.section, section.meetingTimes, section.instructor || section.instr]));
+        if (signature === this._agendaSignature) return;
+        this._agendaSignature = signature;
+        const agenda = document.getElementById('calendar-agenda');
+        agenda.replaceChildren();
+        const events = sections.flatMap(section => this.parseMeetingTimes(section.meetingTimes).map(meeting => ({ section, meeting })))
+            .sort((a, b) => a.meeting.day - b.meeting.day || a.meeting.start - b.meeting.start);
+        let lastDay = null;
+        events.forEach(({ section, meeting }) => {
+            if (meeting.day !== lastDay) {
+                const heading = document.createElement('h4');
+                heading.textContent = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][meeting.day];
+                agenda.appendChild(heading);
+                lastDay = meeting.day;
+            }
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = this.meetingLabel(section, meeting);
+            const instructor = document.createElement('span');
+            instructor.textContent = section.instructor || section.instr || 'Instructor undecided';
+            button.appendChild(instructor);
+            button.addEventListener('click', () => this.showCourseDetail(section));
+            agenda.appendChild(button);
+        });
+        sections.filter(section => !this.parseMeetingTimes(section.meetingTimes).length).forEach(section => {
+            const text = document.createElement('p');
+            text.textContent = `${section.code}, section ${section.section || 'unspecified'}. No scheduled meeting times.`;
+            agenda.appendChild(text);
+        });
+        if (!sections.length) agenda.textContent = 'No classes selected.';
+    },
+
     visibleDayCount(sections) {
         const hasWeekendMeeting = sections.some(section =>
             this.parseMeetingTimes(section.meetingTimes).some(meeting => meeting.day === 5 || meeting.day === 6),
@@ -173,6 +222,7 @@ const Calendar = {
         this.PX_PER_MIN = scale;
         this._renderedSections = sections;
         this._preview = Boolean(options.preview);
+        if (!options.preview) this.renderAgenda(sections);
         const dayCount = this.visibleDayCount(sections);
         if (!this._dayColumns || this._dayCount !== dayCount || rangeChanged || scaleChanged) {
             this.buildGrid(dayCount);
@@ -221,7 +271,7 @@ const Calendar = {
                 block.type = 'button';
                 block.className = `cal-block${hasConflict ? ' conflict' : ''}${options.preview ? ' preview' : ''}`;
                 block.disabled = Boolean(options.preview);
-                block.setAttribute('aria-label', `${sec.code} ${sec.meets || ''}`.trim());
+                block.setAttribute('aria-label', this.meetingLabel(sec, mt));
                 block.style.top = top + 'px';
                 block.style.height = height + 'px';
                 block.style.background = color;

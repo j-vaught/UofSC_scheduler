@@ -677,7 +677,7 @@
                 const locationNumber = event.locationNumber
                     ? `<b class="section-calendar-location-number" aria-hidden="true">${event.locationNumber}</b>`
                     : '';
-                const focusable = event.locationNumber ? ' tabindex="0"' : '';
+                const focusable = ' tabindex="0" role="img"';
                 return `<span${focusable} class="section-calendar-event"${locationAttribute} title="${this.escapeText(title)}" aria-label="${this.escapeText(title)}" style="--event-color:${event.color};--event-foreground:${event.foreground};grid-column:${event.day + 2};grid-row:${row} / span ${span}">${locationNumber}<span>${this.escapeText(this.formatSectionTime(event.start).replace(' ', ''))}</span></span>`;
             }).join('');
             const label = `Weekly meeting calendar from ${this.formatSectionTime(range.start)} to ${this.formatSectionTime(range.end)}`;

@@ -105,6 +105,7 @@
                     <div>
                         <h3 id="walking-map-heading">Routes Between Classes</h3>
                     </div>
+                    <button type="button" class="walking-locations-button" title="List class buildings and show their map pins">Location list</button>
                 </div>
                 <div class="walking-map-layout">
                     <div class="walking-map-canvas-wrap">
@@ -120,6 +121,7 @@
         `;
 
         this.dayContainer = this.container.querySelector('.walking-map-days');
+        this.container.querySelector('.walking-locations-button').addEventListener('click', () => this.showLocationList());
         this.mapElement = this.container.querySelector('.walking-map-canvas');
         this.mapElement.addEventListener('wheel', event => {
             if (!event.ctrlKey && !event.metaKey && !event.shiftKey) return;
@@ -159,6 +161,16 @@
                 this.selectedDay = option.value === 'all' ? 'all' : Number(option.value);
                 this.updateDaySelection();
                 this.refresh();
+            });
+            button.addEventListener('keydown', event => {
+                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault();
+                const buttons = [...this.dayContainer.querySelectorAll('[role="tab"]')].filter(tab => !tab.hidden);
+                const index = buttons.indexOf(button);
+                const next = event.key === 'Home' ? 0 : event.key === 'End' ? buttons.length - 1
+                    : (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+                buttons[next].click();
+                buttons[next].focus();
             });
             this.dayContainer.appendChild(button);
         });
@@ -641,7 +653,7 @@
             `;
             if (transition.geometry) {
                 card.dataset.transitionIndex = String(index);
-                card.setAttribute('aria-label', `${this.DAYS[transition.from.day]}. Show route from ${transition.from.code} to ${transition.to.code}. ${status.label}`);
+                card.setAttribute('aria-label', `${this.DAYS[transition.from.day]}. ${transition.from.code} to ${transition.to.code}, ${this.formatTime(transition.from.end)} to ${this.formatTime(transition.to.start)}. ${transition.from.building.name} to ${transition.to.building.name}. ${distanceLabel}${walkLabel}. ${status.label}${transition.kind === 'estimated' ? '. Estimated route' : ''}`);
                 card.setAttribute('aria-pressed', 'false');
                 card.addEventListener('mouseenter', () => this.previewTransition(index));
                 card.addEventListener('focus', () => this.previewTransition(index));
@@ -657,6 +669,7 @@
     },
 
     async renderMap(events, transitions) {
+        this._currentLocations = [];
         const knownEvents = events.filter(event => event.building.kind === 'known');
         try {
             await this.loadLeaflet();
@@ -691,6 +704,7 @@
             const position = [location.building.lat, location.building.lon];
             bounds.push(position);
             const marker = L.marker(position, {
+                title: `${location.building.name}. ${[...new Set(location.events.map(event => event.code))].join(', ')}`,
                 icon: L.divIcon({
                     className: '',
                     html: `<span class="walking-map-marker">${index + 1}</span>`,
@@ -704,7 +718,10 @@
                 .join('<br>');
             marker.bindPopup(`<strong>${this.escapeHtml(location.building.name)}</strong><br>${classList}`);
             marker.addTo(this._layer);
+            marker.getElement()?.setAttribute('aria-label', `${location.building.name}. Classes ${[...new Set(location.events.map(event => event.code))].join(', ')}. Open location details.`);
+            location.marker = marker;
         });
+        this._currentLocations = [...locations.values()];
 
         transitions.forEach((transition, index) => {
             if (!transition.geometry) return;
@@ -723,6 +740,18 @@
         else if (bounds.length === 1) this._overviewView = { kind: 'point', value: [...bounds[0]] };
         else this._overviewView = { kind: 'default', value: [...this.DEFAULT_CENTER] };
         this.restoreOverview();
+    },
+
+    showLocationList() {
+        const locations = this._currentLocations || [];
+        window.AppModal.open(`<h2>Class locations</h2>${locations.length ? `<ul class="walking-location-list">${locations.map((location, index) => `<li><button type="button" data-location-index="${index}"><strong>${this.escapeHtml(location.building.name)}</strong><small>${location.events.map(event => `${this.DAYS[event.day]} · ${this.escapeHtml(event.code)} · ${this.formatTime(event.start)}`).join('<br>')}</small></button></li>`).join('')}</ul>` : '<p>No known campus locations are available for these classes.</p>'}`, { label: 'Class locations' });
+        document.querySelectorAll('[data-location-index]').forEach(button => button.addEventListener('click', () => {
+            const location = locations[Number(button.dataset.locationIndex)];
+            window.AppModal.close();
+            this._map.panTo([location.building.lat, location.building.lon]);
+            location.marker.openPopup();
+            Accessibility.announce(`${location.building.name} shown on the map.`);
+        }));
     },
 
     resetRouteStyles() {

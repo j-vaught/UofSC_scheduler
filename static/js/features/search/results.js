@@ -123,6 +123,7 @@
 
         renderResults(results, count, prereqData, eligibleOnly, searchTerms) {
             const container = document.getElementById('search-results');
+            container.setAttribute('aria-busy', 'false');
             this.setBrowseState('results');
             const fallbackNotice = this._semanticFallbackNotice;
             this._semanticFallbackNotice = '';
@@ -131,6 +132,7 @@
                 deps.state.courseGroups = [];
                 container.innerHTML = `${fallbackNotice ? `<p class="search-fallback-notice">${this.escapeText(fallbackNotice)}</p>` : ''}<p class="hint">No results found.</p>${this.generatedSearchesMarkup(searchTerms)}`;
                 this.bindGeneratedSearches(container, searchTerms || []);
+                Accessibility.announce('No courses found.', 'search');
                 return;
             }
 
@@ -166,6 +168,7 @@
             }
 
             deps.state.courseGroups = groupList;
+            Accessibility.announce(`${groupList.length} ${groupList.length === 1 ? 'course' : 'courses'} found.`, 'search');
 
             // Header with compact search information
             const courseLabel = groupList.length === 1 ? 'course' : 'courses';
@@ -391,7 +394,10 @@
         },
 
         showLoading(label = 'Searching courses') {
-            document.getElementById('search-results').innerHTML = `<p class="loading">${label}</p>`;
+            const container = document.getElementById('search-results');
+            container.setAttribute('aria-busy', 'true');
+            container.innerHTML = `<p class="loading">${label}</p>`;
+            Accessibility.announce(label, 'search');
         },
 
         clearSearchErrors() {
@@ -430,7 +436,10 @@
 
         showHint(msg) {
             this.setBrowseState('results');
-            document.getElementById('search-results').innerHTML = `<p class="hint">${msg}</p>`;
+            const container = document.getElementById('search-results');
+            container.setAttribute('aria-busy', 'false');
+            container.innerHTML = `<p class="hint">${msg}</p>`;
+            Accessibility.announce(msg, 'search');
         },
         };
     }

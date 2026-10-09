@@ -24,14 +24,20 @@
     <link rel="stylesheet" href="/static/css/print.css">
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
+    <link rel="stylesheet" href="/static/css/accessibility.css">
+    <script src="/static/js/accessibility.js"></script>
 </head>
 <body>
-    <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title">
+    <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title" hidden>
         <div class="desktop-only-gate-card">
-            <h2 id="desktop-only-title">Desktop browser required</h2>
-            <p>The course planning workspace currently needs a larger screen. Please open this site on a laptop or desktop computer.</p>
+            <h2 id="desktop-only-title" tabindex="-1">Desktop browser required</h2>
+            <p>Mobile devices are not supported yet. Please open this site on a laptop or desktop computer.</p>
         </div>
     </section>
+    <div class="skip-links"><a href="#search-results" data-skip="results">Skip to results</a><a href="#semester-content" data-skip="details">Skip to details</a></div>
+    <div id="a11y-status-search" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="a11y-status-schedule" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div id="a11y-status-general" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     <header>
         <h1>Course Scheduler</h1>
         <nav id="main-tabs" aria-label="Main navigation">
@@ -231,23 +237,23 @@
                                 <div class="filter-group">
                                     <label class="filter-label">Class Size</label>
                                     <div class="filter-row">
-                                        <select id="filter-size-mode" style="width:auto;flex:1">
+                                        <select id="filter-size-mode" aria-label="Class size comparison" style="width:auto;flex:1">
                                             <option value="">Any size</option>
                                             <option value="above">More than</option>
                                             <option value="below">Less than</option>
                                         </select>
-                                        <input type="number" id="filter-size-value" placeholder="total seats" min="1" style="width:80px">
+                                        <input type="number" id="filter-size-value" aria-label="Class size in total seats" placeholder="total seats" min="1" style="width:80px">
                                     </div>
                                 </div>
                                 <div class="filter-group">
                                     <label class="filter-label">Seats Available</label>
                                     <div class="filter-row">
-                                        <select id="filter-avail-mode" style="width:auto;flex:1">
+                                        <select id="filter-avail-mode" aria-label="Available seats comparison" style="width:auto;flex:1">
                                             <option value="">Any</option>
                                             <option value="above">At least</option>
                                             <option value="below">Fewer than</option>
                                         </select>
-                                        <input type="number" id="filter-avail-value" placeholder="seats left" min="0" style="width:80px">
+                                        <input type="number" id="filter-avail-value" aria-label="Number of available seats" placeholder="seats left" min="0" style="width:80px">
                                     </div>
                                 </div>
                             </div>
@@ -266,14 +272,14 @@
                 <aside id="semester-search">
                     <div class="resize-handle" id="search-resize-handle" role="separator" aria-label="Resize search results" aria-controls="semester-search" aria-orientation="vertical" aria-valuemin="200" aria-valuenow="350" tabindex="0"></div>
                     <div class="search-section" style="flex:1;display:flex;flex-direction:column;overflow:hidden">
-                        <div id="search-results" class="results-list">
+                        <div id="search-results" class="results-list" role="region" tabindex="-1" aria-label="Course results">
                             <p class="hint">Search a subject above to see available courses.</p>
                         </div>
                     </div>
                 </aside>
 
                 <!-- Right: Course Details + Mini Calendar -->
-                <section id="semester-content">
+                <section id="semester-content" tabindex="-1" aria-label="Course details">
                     <div id="course-detail-shell" class="course-detail-shell">
                         <div class="course-detail-header-sticky">
                             <button id="browse-close-details" class="browse-close-details" type="button" aria-label="Close course details">&times;</button>
@@ -356,13 +362,13 @@
                                 </button>
 
                             </div>
-                            <div id="solver-container">
+                            <div id="solver-container" role="region" tabindex="-1" aria-label="Schedule options">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
                             </div>
                         </section>
                     </div>
                     <div id="schedule-detail-divider" class="schedule-detail-divider" role="separator" aria-label="Resize schedule options and details" aria-orientation="vertical" aria-controls="solver-section schedule-detail-panel" aria-valuemin="260" aria-valuemax="700" aria-valuenow="330" tabindex="0" hidden></div>
-                    <section id="schedule-detail-panel" class="schedule-detail-panel" aria-labelledby="schedule-detail-title" hidden>
+                    <section id="schedule-detail-panel" class="schedule-detail-panel" aria-labelledby="schedule-detail-title" tabindex="-1" hidden>
                         <div class="course-detail-header-sticky schedule-view-header">
                             <button id="btn-minimize-schedule-detail" class="browse-close-details" type="button" title="Minimize schedule preview" aria-label="Minimize schedule preview"><span class="ui-icon icon-close" aria-hidden="true"></span></button>
                             <header class="course-detail-header">
@@ -392,6 +398,7 @@
                         <section id="schedule-weekly-panel" role="tabpanel" aria-labelledby="schedule-tab-weekly" class="schedule-preview-panel">
                             <div class="schedule-panel-heading">
                                 <h3>Course Schedule</h3>
+                                <button id="calendar-view-toggle" class="calendar-view-toggle" type="button" aria-pressed="false" aria-controls="calendar-grid calendar-agenda" title="Show meetings in a chronological list">List view</button>
                             </div>
                             <div id="calendar-container">
                                 <div id="calendar-grid">
@@ -405,6 +412,7 @@
                                     </div>
                                     <div id="cal-body"></div>
                                 </div>
+                                <div id="calendar-agenda" class="calendar-agenda" hidden></div>
                             </div>
                         </section>
                         <section id="schedule-walking-panel" role="tabpanel" aria-labelledby="schedule-tab-walking" hidden><div id="walking-map-container"></div></section>

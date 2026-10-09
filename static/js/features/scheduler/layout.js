@@ -66,7 +66,7 @@
             });
             window.addEventListener('resize', () => this.setScheduleDetailWidth(this._scheduleDetailWidth || 330));
             document.addEventListener('pointerdown', event => {
-                if (!event.target.closest('.schedule-mini-calendar')) this.hideScheduleCalendarPopup();
+                if (!event.target.closest('.schedule-mini-calendar, #schedule-calendar-popup')) this.hideScheduleCalendarPopup();
             });
             const detail = document.getElementById('schedule-detail-panel');
             new ResizeObserver(() => {
@@ -189,7 +189,44 @@
             const missing = historical.filter(item => item.reason);
             const label = document.getElementById('schedule-historical-gpa');
             const estimate = covered ? (matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2) : 'Unavailable';
-            label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate has missing historical data" aria-describedby="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" role="tooltip"><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
+            label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate issues" aria-expanded="false" aria-controls="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" hidden><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
+            const caution = label.querySelector('.schedule-gpa-caution');
+            const popup = label.querySelector('.schedule-gpa-popup');
+            const help = label.querySelector('.schedule-gpa-help');
+            if (caution) {
+                let pinned = false;
+                let closeTimer;
+                const setOpen = open => {
+                    clearTimeout(closeTimer);
+                    popup.hidden = !open;
+                    caution.setAttribute('aria-expanded', String(open));
+                    if (open) caution.setAttribute('aria-describedby', popup.id);
+                    else caution.removeAttribute('aria-describedby');
+                };
+                Accessibility.dismissGpa = restoreFocus => {
+                    if (!popup.isConnected || popup.hidden) return false;
+                    pinned = false;
+                    if (restoreFocus) caution.focus();
+                    setOpen(false);
+                    return true;
+                };
+                caution.addEventListener('focus', () => setOpen(true));
+                help.addEventListener('pointerenter', () => setOpen(true));
+                help.addEventListener('pointerleave', () => {
+                    if (!pinned && !help.contains(document.activeElement)) closeTimer = setTimeout(() => setOpen(false), 180);
+                });
+                help.addEventListener('focusout', event => { if (!pinned && !help.contains(event.relatedTarget) && !help.matches(':hover')) setOpen(false); });
+                caution.addEventListener('click', () => { pinned = !pinned; setOpen(pinned); });
+                const onEscape = event => {
+                    if (event.key !== 'Escape' || popup.hidden) return;
+                    event.preventDefault();
+                    event.stopPropagation();
+                    pinned = false;
+                    caution.focus();
+                    setOpen(false);
+                };
+                help.addEventListener('keydown', onEscape);
+            }
             label.title = missing.length ? '' : 'Credit-weighted past grades with the selected instructors.';
         },
 

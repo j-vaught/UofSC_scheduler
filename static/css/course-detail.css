@@ -689,13 +689,13 @@ select:disabled,
 /* The current planning workspace is intentionally desktop-only. */
 .desktop-only-gate { display: none; }
 
-@media screen and (max-width: 720px) {
-    body > header,
-    body > main,
-    body > #site-notices,
-    body > #modal-overlay { visibility: hidden; }
+@media screen {
+    .mobile-unsupported body > header,
+    .mobile-unsupported body > main,
+    .mobile-unsupported body > #site-notices,
+    .mobile-unsupported body > #modal-overlay { visibility: hidden; }
 
-    .desktop-only-gate {
+    .mobile-unsupported .desktop-only-gate:not([hidden]) {
         align-items: center;
         background: #FFFFFF;
         display: flex;

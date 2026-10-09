@@ -74,6 +74,7 @@ const Tabs = {
         // Deactivate all nav buttons
         document.querySelectorAll('#main-tabs [data-tab]').forEach(btn => {
             btn.classList.remove('active');
+            btn.removeAttribute('aria-current');
         });
 
         // Show target tab
@@ -86,6 +87,7 @@ const Tabs = {
         const btn = document.querySelector(`#main-tabs [data-tab="${tabName}"]`);
         if (btn) {
             btn.classList.add('active');
+            btn.setAttribute('aria-current', 'page');
         }
 
         this._current = tabName;

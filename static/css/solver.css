@@ -204,7 +204,7 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .schedule-details-selected .sched-courses { display: none; }
 .schedule-details-selected .schedule-card { padding: 5px; }
 .schedule-details-selected .schedule-mini-calendar .mini-grid { height: 128px; }
-.schedule-calendar-popup { pointer-events: none; }
+.schedule-calendar-popup { pointer-events: auto; }
 .schedule-card { display: grid; grid-template-columns: minmax(130px, .35fr) minmax(0, 1fr); gap: 8px 12px; }
 .schedule-card-header { grid-column: 1 / -1; }
 .schedule-card .sched-courses { flex-direction: column; align-items: flex-start; margin: 0; }
