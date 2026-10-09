@@ -24,7 +24,7 @@ scopes everything below it.
 Results list on the left, a persistent course detail panel on the right, separated by a divider you can drag
 or resize from the keyboard. Selecting a result opens it on the right without losing your place in the list.
 
-![Live Fall 2026 course search with availability, generated search sources, descriptions, and historical GPA](docs/screenshots/11-live-search.png)
+![Spring 2027 catalog search for Machine Learning with live availability and historical GPA](docs/screenshots/11-live-search.jpg)
 
 The search box accepts subject codes, exact courses, ranges (`CSCE 140-199`), level shorthand (`CSCE 500+`,
 `CSCE 5xx`), CRNs, and descriptive natural-language phrases. The semantic model warms in the background on
@@ -34,28 +34,28 @@ results each contributed, so a surprising result set is explainable rather than 
 The detail panel keeps a sticky header — course code, title, live section status, credits — above four tabs:
 **Overview**, **Grades**, **History**, and **Resources**.
 
-![CSCE 585 course detail with live section, seats, meeting pattern, and campus location](docs/screenshots/12-live-course-overview.png)
+![ELCT 101 course detail showing its Spring 2027 availability and catalog information](docs/screenshots/12-live-course-overview.jpg)
 
 Historical grades show the distribution, counted grades, available historical sections, and the current
 instructor's matched record.
 
-![Historical grades for a course with distribution, counted grades, and the matched current instructor](docs/screenshots/13-live-course-grades.png)
+![ELCT 101 historical grades with GPA, counted grades, and grade distribution](docs/screenshots/13-live-course-grades.jpg)
 
 Selecting an instructor opens a teaching profile: contact details, courses taught, semesters on record,
 typical annual load, GPA by year, and an external review search.
 
-![Professor history with contact information, courses taught, teaching experience, and GPA by year](docs/screenshots/14-professor-profile.png)
+![Professor history with contact information, courses taught, teaching experience, and GPA by year](docs/screenshots/14-professor-profile.jpg)
 
 Offering history uses a year-by-season matrix. Color separates offered, not offered, and unavailable terms,
 and each offered term expands to section, enrollment, and fill-rate detail.
 
-![Offering history with recent-term frequency, most recent offering, and a year-by-season matrix](docs/screenshots/15-live-offering-history.png)
+![Offering history with recent-term frequency, most recent offering, and a year-by-season matrix](docs/screenshots/15-live-offering-history.jpg)
 
 The Resources tab connects the selected course and section to official class details, bookstore materials,
 the academic bulletin, the two-step syllabus archive flow, the faculty directory, and independent course and
 professor review searches.
 
-![Course resources with class, bookstore, bulletin, syllabus, and faculty links](docs/screenshots/16-course-resources.png)
+![Course resources with class, bookstore, bulletin, syllabus, and faculty links](docs/screenshots/16-course-resources.jpg)
 
 ### SCHEDULE — sidebar, options, calendar, routes
 
@@ -69,6 +69,8 @@ Your Courses and the full option list. Select an option card to reopen details. 
 
 ![Full schedule option list after minimizing the inspector](docs/screenshots/18-schedule-options.jpg)
 
+![Tuesday campus route for EMCH 514 and CSCE 145](docs/screenshots/19-course-routes.jpg)
+
 All toolbar icons have hover descriptions. The Search icon includes a sparkle when assisted matching is
 enabled and a plain magnifying glass when it is disabled. Degree Planner is no longer part of the website;
 its earlier implementation remains in the source history and legacy modules.
@@ -76,7 +78,7 @@ its earlier implementation remains in the source history and legacy modules.
 Registration is a handoff, never an action taken on your behalf. The checklist surfaces per-section warnings,
 prerequisites, seat status, and individual CRN copy buttons for pasting into OneCarolina.
 
-![Registration checklist with per-section warnings, seat status, and CRN copy actions](docs/screenshots/06-registration-info.png)
+![Registration checklist with per-section warnings, seat status, and CRN copy actions](docs/screenshots/06-registration-info.jpg)
 
 ### Degrading without lying
 
@@ -84,32 +86,33 @@ When the live relay or the upstream University service is unavailable, the inter
 unknown and continues from verified static catalog, grade, and offering data. It never reports an unverified
 course as closed or not offered.
 
-![Search results labelled live availability unavailable, still showing catalog data and historical GPA](docs/screenshots/08-static-smart-search.png)
+![Search results labelled live availability unavailable, still showing catalog data and historical GPA](docs/screenshots/08-static-smart-search.jpg)
 
-![Course grades served from static release data while live sections are unavailable](docs/screenshots/09-static-course-grades.png)
+![Course grades served from static release data while live sections are unavailable](docs/screenshots/09-static-course-grades.jpg)
 
-![Offering history served from static release data while live sections are unavailable](docs/screenshots/10-static-offering-history.png)
+![Offering history served from static release data while live sections are unavailable](docs/screenshots/10-static-offering-history.jpg)
 
 <details>
-<summary><strong>Earlier interface</strong> — four screenshots from before the navigation was reduced</summary>
+<summary><strong>More course examples</strong></summary>
 
-These predate the current three-tab layout and show the retired
-`HOME | DEGREE PLAN | SEARCH | SCHEDULE | PROFILE | EXPORT` navigation. Kept as a visual record of how the
-interface narrowed.
+The original search and CSCE 145 examples now use the current interface and Spring 2027.
+The instructor example shows Jeremiah Shepherd, the current CSCE 145 instructor.
 
-![Course search in the earlier six-tab interface](docs/screenshots/01-course-search.png)
+![Machine Learning catalog search in the current interface](docs/screenshots/01-course-search.jpg)
 
-![Course details in the earlier six-tab interface](docs/screenshots/02-course-details.png)
+![CSCE 145 course details and section selection](docs/screenshots/02-course-details.jpg)
 
-![Grades and professor information in the earlier six-tab interface](docs/screenshots/03-grades-and-professors.png)
+![CSCE 145 instructor profile and historical grades](docs/screenshots/03-grades-and-professors.jpg)
 
-![Offering history in the earlier six-tab interface](docs/screenshots/04-offering-history.png)
+![CSCE 145 offering history](docs/screenshots/04-offering-history.jpg)
 
 </details>
 
-> Screenshots show Fall 2026 desktop sessions. Live sections, seats, instructors, and restrictions change
-> after capture. The two schedule captures and the three degrading-mode captures above also predate the
-> navigation change — the features they show are current, the tab bar is not.
+> Screenshots use Spring 2027 and a 1024 × 768 CSS-pixel laptop viewport. They retain the original
+> course examples and queries. Catalog search includes courses not offered this term, including ELCT 101
+> and CSCE 585. Live sections, seats, and instructor assignments change after capture.
+> The fallback captures use the current build with the live relay unavailable. Retired degree-planner
+> and ELCT 101 schedule images remain in Git history. See the [capture index](docs/screenshots/README.md).
 
 ---
 
@@ -134,7 +137,7 @@ static/         66M   THE DEPLOYED SITE. Name is load-bearing — every asset UR
                       is absolute `/static/...` and the release manifest bakes
                       that prefix into all 509 artifacts.
 
-docs/           3.1M  manual.html + screenshots/
+docs/           1.8M  manual.html + screenshots/
 tests/                12 Python + 17 JavaScript suites
 ```
 
