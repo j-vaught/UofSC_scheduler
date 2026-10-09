@@ -61,8 +61,9 @@ professor review searches.
 
 Find and add courses in Search, then use the selected-course sidebar and schedule options in Schedule.
 The Generate button uses the calendar-with-repeat icon. Applying a schedule opens its weekly preview and
-campus routes in a closable inspector. Minimize it to return to the full schedule option list, or use
-**View Schedule** to reopen it. On smaller laptop screens, the inspector overlays the option list.
+campus routes in the main right pane. Your Courses collapses, and Schedule Options becomes the left
+sidebar. Drag the divider, or use its arrow keys, to resize the two panes. Minimize details to restore
+Your Courses and the full option list. **View Schedule** reopens details.
 
 ![Selected schedule with weekly preview and campus routes](docs/screenshots/17-schedule-inspector.jpg)
 

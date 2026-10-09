@@ -28,7 +28,47 @@
                     this.hideScheduleDetail();
                 }
             });
+            const divider = document.getElementById('schedule-detail-divider');
+            divider?.addEventListener('pointerdown', event => {
+                if (event.button !== 0) return;
+                event.preventDefault();
+                divider.setPointerCapture(event.pointerId);
+                divider.classList.add('active');
+                document.body.classList.add('resizing-schedule-details');
+            });
+            divider?.addEventListener('pointermove', event => {
+                if (!divider.hasPointerCapture(event.pointerId)) return;
+                const workspace = document.querySelector('#schedule-content .schedule-workspace');
+                this.setScheduleDetailWidth(event.clientX - workspace.getBoundingClientRect().left);
+            });
+            const finishResize = () => {
+                divider?.classList.remove('active');
+                document.body.classList.remove('resizing-schedule-details');
+                deps.walkingMap?._map?.invalidateSize();
+            };
+            divider?.addEventListener('lostpointercapture', finishResize);
+            divider?.addEventListener('keydown', event => {
+                const current = Number(divider.getAttribute('aria-valuenow')) || 330;
+                const step = event.shiftKey ? 40 : 10;
+                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault();
+                this.setScheduleDetailWidth(event.key === 'Home' ? 260 : event.key === 'End' ? Infinity : current + (event.key === 'ArrowRight' ? step : -step));
+                deps.walkingMap?._map?.invalidateSize();
+            });
+            window.addEventListener('resize', () => this.setScheduleDetailWidth(this._scheduleDetailWidth || 330));
             this.updateScheduleDetail();
+        },
+
+        setScheduleDetailWidth(requested) {
+            const content = document.getElementById('schedule-content');
+            const divider = document.getElementById('schedule-detail-divider');
+            if (!content || !divider) return;
+            const max = Math.max(260, Math.min(700, content.clientWidth - 28 - 8 - 360));
+            const width = Math.round(Math.max(260, Math.min(max, requested)));
+            this._scheduleDetailWidth = width;
+            content.style.setProperty('--schedule-options-width', `${width}px`);
+            divider.setAttribute('aria-valuemax', String(Math.round(max)));
+            divider.setAttribute('aria-valuenow', String(width));
         },
 
         updateScheduleDetail() {
@@ -43,6 +83,10 @@
             const panel = document.getElementById('schedule-detail-panel');
             if (!panel) return;
             panel.hidden = false;
+            document.querySelector('#tab-schedule .schedule-layout')?.classList.add('schedule-details-selected');
+            const divider = document.getElementById('schedule-detail-divider');
+            if (divider) divider.hidden = false;
+            this.setScheduleDetailWidth(this._scheduleDetailWidth || 330);
             document.getElementById('schedule-content')?.classList.add('schedule-detail-open');
             document.getElementById('btn-show-schedule-detail')?.setAttribute('aria-expanded', 'true');
             deps.calendar?.render();
@@ -59,6 +103,9 @@
             const panel = document.getElementById('schedule-detail-panel');
             const wasOpen = panel && !panel.hidden;
             if (panel) panel.hidden = true;
+            document.querySelector('#tab-schedule .schedule-layout')?.classList.remove('schedule-details-selected');
+            const divider = document.getElementById('schedule-detail-divider');
+            if (divider) divider.hidden = true;
             document.getElementById('schedule-content')?.classList.remove('schedule-detail-open');
             const button = document.getElementById('btn-show-schedule-detail');
             button?.setAttribute('aria-expanded', 'false');

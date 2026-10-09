@@ -974,8 +974,13 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-detail-heading h2 { font-size: 0.85rem; text-transform: uppercase; }
 .schedule-detail-panel .schedule-preview-panel { flex: 0 0 350px; height: 350px; }
 .schedule-detail-panel #walking-map-container { flex: 0 0 300px; height: 300px; }
-#schedule-content.schedule-detail-open { grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr); }
-@media (max-width: 1200px) {
-    #schedule-content.schedule-detail-open { grid-template-columns: minmax(0, 1fr); }
-    .schedule-detail-panel { position: absolute; inset: 14px; z-index: 30; box-shadow: 0 0 0 14px rgba(0,0,0,0.18); }
-}
+
+/* Mirror the Search workspace when schedule details are selected. */
+.schedule-layout.schedule-details-selected > #schedule-sidebar,
+.schedule-layout.schedule-details-selected > .schedule-sidebar-toggle-rail { display: none; }
+#schedule-content.schedule-detail-open { grid-template-columns: var(--schedule-options-width, 330px) 8px minmax(0, 1fr); gap: 0; }
+.schedule-detail-panel { position: static; inset: auto; box-shadow: none; }
+.schedule-detail-divider[hidden] { display: none; }
+.schedule-detail-divider { background: #C7C7C7; cursor: col-resize; touch-action: none; min-height: 0; }
+.schedule-detail-divider:hover, .schedule-detail-divider:focus-visible, .schedule-detail-divider.active { background: #73000A; outline: 2px solid #73000A; outline-offset: -2px; }
+body.resizing-schedule-details { cursor: col-resize; user-select: none; }
