@@ -35,8 +35,8 @@
     <header>
         <h1>Course Scheduler</h1>
         <nav id="main-tabs" aria-label="Main navigation">
-            <button data-tab="semester" class="main-tab-btn active">SEARCH</button>
-            <button data-tab="schedule" class="main-tab-btn">SCHEDULE</button>
+            <button data-tab="semester" class="main-tab-btn active"><span class="ui-icon icon-search" aria-hidden="true"></span>SEARCH</button>
+            <button data-tab="schedule" class="main-tab-btn"><span class="ui-icon icon-calendar_month" aria-hidden="true"></span>SCHEDULE</button>
         </nav>
         <div class="header-controls">
             <label for="term-select">TERM:</label>
@@ -327,7 +327,7 @@
                 <aside id="schedule-sidebar">
                     <section class="schedule-selected-section" aria-labelledby="schedule-selected-heading">
                         <h2 id="schedule-selected-heading" class="schedule-selected-heading">Your Courses</h2>
-                        <button id="schedule-find-courses" type="button" class="btn-garnet schedule-find-courses">FIND COURSES IN SEARCH</button>
+                        <button id="schedule-find-courses" type="button" class="btn-garnet schedule-find-courses"><span class="ui-icon icon-search" aria-hidden="true"></span>FIND COURSE</button>
                         <div id="selected-courses-list" class="selected-courses-list">
                             <p class="hint">Add courses from the Search tab.</p>
                         </div>
@@ -468,6 +468,7 @@
     <script src="/static/js/carolina-core.js"></script>
     <script src="/static/js/schedule-sidebar.js"></script>
     <script src="/static/js/notices.js"></script>
+    <script src="/static/js/term-planning.js"></script>
     <script src="/static/js/boot.js"></script>
 </body>
 </html>

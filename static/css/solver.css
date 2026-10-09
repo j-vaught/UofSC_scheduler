@@ -212,3 +212,10 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .schedule-details-selected .schedule-card { grid-template-columns: minmax(0,1fr); gap: 0; }
 .schedule-details-selected .schedule-card-header { display: flex; padding: 4px 4px 7px; }
 .schedule-details-selected .schedule-card-header .btn-apply { display: none; }
+
+/* Equal-height calendar and course panes keep options compact regardless of course count. */
+.schedule-card { grid-template-columns: minmax(0,1fr) minmax(130px,.4fr); gap: 8px; }
+.schedule-card .schedule-mini-calendar { grid-column: 1; grid-row: 2; height: 140px; }
+.schedule-card .sched-courses { grid-column: 2; grid-row: 2; height: 140px; min-height: 0; overflow-y: auto; border: 1px solid #5C5C5C; padding: 7px; background: white; gap: 6px; }
+.schedule-details-selected .schedule-card .schedule-mini-calendar { height: 156px; }
+.schedule-details-selected .schedule-card .sched-courses { display: none; }

@@ -175,3 +175,13 @@ main {
 .assisted-search .search-assisted-icon { display: inline-flex; }
 
 button:has(> .ui-icon) { align-items: center; display: inline-flex; gap: 6px; justify-content: center; }
+
+.icon-calendar_month { --icon-url: url("../icons/calendar_month.svg"); }
+#main-tabs .main-tab-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+#main-tabs .main-tab-btn .ui-icon { width: 22px; height: 22px; flex-basis: 22px; }
+.term-planning-prompt h2 { color: black; font-size: 1.35rem; margin-bottom: 12px; }
+.term-planning-prompt p { font-size: .95rem; line-height: 1.5; }
+.term-planning-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 16px; }
+.term-planning-actions button { padding: 10px 14px; font-weight: 700; border: 2px solid black; cursor: pointer; }
+.term-planning-actions .btn-header-secondary { background: white; color: black; }
+.term-planning-prompt > a { color: #73000A; font-size: .8rem; }

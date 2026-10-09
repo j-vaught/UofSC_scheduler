@@ -82,6 +82,7 @@ const BOOT_SEQUENCE = [
 ];
 
 function boot() {
+    startFeature('Default term', () => TermPlanning.prepare());
     for (const [label, resolve] of BOOT_SEQUENCE) {
         startFeature(label, () => {
             const module = resolve();
@@ -242,6 +243,7 @@ function boot() {
         }
     });
 
+    startFeature('Term planning prompt', () => TermPlanning.init());
     reportBootFailures();
 }
 

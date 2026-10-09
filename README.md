@@ -213,3 +213,5 @@ Course information from `classes.sc.edu`, catalog and prerequisite information f
 from the University Registrar, and map data from OpenStreetMap services.
 
 Maintained by J.C. Vaught and distributed under the MIT license.
+
+The option calendar sits on the left of an equal-height scrollable course list. Search and Schedule navigation use matching search and calendar icons. New visits select the current main semester; once that semester is one-third complete, a remembered prompt offers the next Spring or Fall semester. Explicit term links and saved plans retain their term. Dates use the registrar's first and last class days in Eastern time, with verified calendars through Fall 2029.
