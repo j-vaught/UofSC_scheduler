@@ -169,7 +169,11 @@
             Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
 
             container.querySelectorAll('.schedule-option-summary').forEach(summary => {
-                summary.addEventListener('click', event => event.stopPropagation());
+                summary.addEventListener('click', event => {
+                    event.stopPropagation();
+                    this.hideScheduleCalendarPopup();
+                    this.applySchedule(Number(summary.dataset.summaryIndex));
+                });
             });
             this.hydrateScheduleSummaries(schedules, container);
             container.querySelectorAll('.btn-apply').forEach(button => {
