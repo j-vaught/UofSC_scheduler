@@ -143,8 +143,9 @@
                 return;
             }
 
-            let html = `<p class="solver-summary">Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.</p>`;
-            schedules.forEach((schedule, index) => {
+            let html = result.append ? '' : `<p class="solver-summary">Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.</p>`;
+            schedules.forEach((schedule, localIndex) => {
+                const index = (result.index_offset || 0) + localIndex;
                 const applied = this.isAppliedSchedule(schedule);
                 const courseList = Object.entries(schedule.sections).map(([code, section]) =>
                     `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${this.escapeHtml(code)} ${this.escapeHtml(section.section || '')}</strong></button>`,
@@ -164,11 +165,12 @@
             if (total_found > returned) {
                 html += `<button class="btn-show-more" type="button" data-next-limit="${returned + 10}">SHOW 10 MORE</button>`;
             }
-            this.hideScheduleCalendarPopup();
-            container.innerHTML = html;
+            if (!result.append) this.hideScheduleCalendarPopup();
+            const rendered = result.append ? document.createElement('div') : container;
+            rendered.innerHTML = html;
             if (!result.session_page) Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
 
-            container.querySelectorAll('.schedule-option-summary').forEach(summary => {
+            rendered.querySelectorAll('.schedule-option-summary').forEach(summary => {
                 summary.addEventListener('click', event => {
                     event.stopPropagation();
                     this.hideScheduleCalendarPopup();
@@ -176,13 +178,13 @@
                 });
             });
             if (!result.session_page) this.hydrateScheduleSummaries(schedules, container);
-            container.querySelectorAll('.btn-apply').forEach(button => {
+            rendered.querySelectorAll('.btn-apply').forEach(button => {
                 button.addEventListener('click', event => {
                     event.stopPropagation();
                     this.applySchedule(Number(button.dataset.idx));
                 });
             });
-            container.querySelectorAll('.sched-course').forEach(button => {
+            rendered.querySelectorAll('.sched-course').forEach(button => {
                 button.addEventListener('click', event => {
                     event.stopPropagation();
                     const schedule = deps.state.solverResults[Number(button.dataset.scheduleIndex)];
@@ -190,7 +192,7 @@
                     if (section) this.openSectionQuickView(section);
                 });
             });
-            container.querySelectorAll('.schedule-mini-calendar').forEach(button => {
+            rendered.querySelectorAll('.schedule-mini-calendar').forEach(button => {
                 button.addEventListener('click', event => { event.stopPropagation(); this.hideScheduleCalendarPopup(); this.applySchedule(Number(button.dataset.scheduleIndex)); });
                 button.addEventListener('mouseenter', () => this.showScheduleCalendarPopup(button));
                 button.addEventListener('mouseleave', () => this.deferScheduleCalendarPopupHide());
@@ -198,10 +200,14 @@
                 button.addEventListener('blur', () => this.deferScheduleCalendarPopupHide());
                 button.addEventListener('keydown', event => { if (event.key === 'Escape') this.hideScheduleCalendarPopup(); });
             });
-            container.querySelectorAll('.schedule-card').forEach(card => {
+            rendered.querySelectorAll('.schedule-card').forEach(card => {
                 this.bindScheduleCardPreview(card, container);
             });
-            const showMore = container.querySelector('.btn-show-more');
+            const showMore = rendered.querySelector('.btn-show-more');
+            if (result.append) {
+                const footer = container.querySelector('.solver-scroll-controls');
+                while (rendered.firstChild) container.insertBefore(rendered.firstChild, footer);
+            }
             if (showMore) {
                 showMore.addEventListener('click', () => {
                     this.solve(Number(showMore.dataset.nextLimit));

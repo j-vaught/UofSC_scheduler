@@ -238,30 +238,35 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 
 /* Generation controls remain outside the list so updates preserve keyboard focus. */
 .icon-sort { --icon-url: url("../icons/sort.svg"); }
-.schedule-sort-control { position: relative; display: flex; gap: 5px; align-items: center; min-width: 0; font-size: .75rem; font-weight: 700; }
-.schedule-sort-control select { font: inherit; border: 2px solid black; border-radius: 0; color: black; background: white; min-width: 0; max-width: 180px; height: 36px; }
+/* The native select covers one button-shaped control, including its icon. */
+.schedule-sort-control {
+    position: relative; display: inline-flex; gap: 6px; align-items: center;
+    justify-content: center; flex: 0 0 auto; margin-left: auto;
+    min-width: 36px; height: 36px; padding: 4px 8px; box-sizing: border-box;
+    border: 2px solid black; background: white; color: black;
+    font-size: .75rem; font-weight: 700; white-space: nowrap;
+}
+.schedule-sort-control select {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    min-width: 0; margin: 0; opacity: 0; cursor: pointer;
+    font: inherit; border-radius: 0;
+}
+.schedule-sort-control:has(select:focus-visible) {
+    outline: 3px solid black; outline-offset: 3px;
+    box-shadow: 0 0 0 3px white;
+}
+.schedule-sort-control:has(select:disabled) { background: #ECECEC; color: #5C5C5C; }
 .solver-session-controls { border-bottom: 1px solid #5C5C5C; padding: 7px 10px; font-size: .75rem; }
 .solver-session-controls[hidden], .solver-session-buttons button[hidden] { display: none; }
 #solver-session-status { margin: 0 0 5px; }
 .solver-session-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
-.solver-session-buttons button, .solver-pagination button { font: inherit; border: 2px solid black; padding: 5px 9px; color: black; background: white; cursor: pointer; }
-.solver-session-buttons button:disabled, .solver-pagination button:disabled { background: #ECECEC; color: #5C5C5C; cursor: default; }
-.solver-pagination { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .75rem; padding: 6px 0; }
-/* Keep the native picker and keyboard behavior when only its icon fits. */
+.solver-session-buttons button, .solver-scroll-controls button { font: inherit; border: 2px solid black; padding: 5px 9px; color: black; background: white; cursor: pointer; }
+.solver-session-buttons button:disabled, .solver-scroll-controls button[aria-disabled="true"] { background: #ECECEC; color: #5C5C5C; cursor: default; }
+.solver-scroll-controls { text-align: center; font-size: .75rem; padding: 8px 0; }
+.solver-scroll-controls button[hidden] { display: none; }
+.solver-scroll-controls .hint { margin: 6px 0; }
+/* Condense the control when the options panel has limited room. */
 @container schedule-options (max-width: 500px) {
-    .schedule-sort-control {
-        flex: 0 0 36px; width: 36px; height: 36px;
-        justify-content: center; border: 2px solid black; box-sizing: border-box;
-        background: white; color: black;
-    }
+    .schedule-sort-control { flex: 0 0 36px; width: 36px; padding: 4px; }
     .schedule-sort-label { display: none; }
-    .schedule-sort-control select {
-        position: absolute; inset: 0; width: 100%; height: 100%;
-        max-width: none; margin: 0; opacity: 0; cursor: pointer;
-    }
-    .schedule-sort-control:has(select:focus-visible) {
-        outline: 3px solid black; outline-offset: 3px;
-        box-shadow: 0 0 0 3px white;
-    }
-    .schedule-sort-control:has(select:disabled) { background: #ECECEC; color: #5C5C5C; }
 }

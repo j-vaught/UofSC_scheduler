@@ -27,7 +27,12 @@
 
             updateSolverSortHint() {
                 const select = document.getElementById('schedule-sort');
-                if (select) select.title = `Sort schedules. Current order: ${select.selectedOptions[0]?.textContent || 'Best match'}.`;
+                if (!select) return;
+                select.title = `Sort schedules. Current order: ${select.selectedOptions[0]?.textContent || 'Best match'}.`;
+                const labels = { best: 'Best match', days: 'Fewest days', walking: 'Least walking',
+                    gaps: 'Fewest gaps', later: 'Later starts', gpa: 'Best GPA', online: 'More online' };
+                const label = select.closest('.schedule-sort-control')?.querySelector('.schedule-sort-label');
+                if (label) label.textContent = labels[select.value] || labels.best;
             },
 
             invalidateSolverSession() {
@@ -42,6 +47,9 @@
                 this._solverPublishing = false;
                 this._solverHasPage = false;
                 this._solverError = '';
+                this._solverScrollObserver?.disconnect();
+                this._solverPageRequest = (this._solverPageRequest || 0) + 1;
+                this._solverLoadingMore = false;
                 const generate = document.getElementById('btn-solve');
                 if (generate) generate.disabled = false;
                 const controls = document.getElementById('solver-session-controls');
@@ -256,6 +264,8 @@
                 const generation = this._solverGeneration;
                 const focusId = document.activeElement?.id;
                 this._solverPublishing = true;
+                this._solverScrollObserver?.disconnect();
+                this._solverPageRequest = (this._solverPageRequest || 0) + 1;
                 this.refreshSolverStatus();
                 try {
                     await store.publish(this._solverSort);
@@ -267,42 +277,97 @@
                 finally { if (generation === this._solverGeneration) { this._solverPublishing = false; this.refreshSolverStatus(); } }
             },
 
-            async renderSolverPage(offset) {
+            async renderSolverPage(offset, append = false) {
                 const store = this._solverStore;
                 const generation = this._solverGeneration;
                 const request = this._solverPageRequest = (this._solverPageRequest || 0) + 1;
                 const page = await store.page(Math.max(0, offset), 10);
                 if (generation !== this._solverGeneration || request !== this._solverPageRequest) return;
-                this._solverPage = page;
-                this._solverPageOffset = page.offset;
+                const previous = append ? this._solverPage?.results || [] : [];
                 const schedules = page.results.map(record => this.expandSolverRecord(record));
-                deps.state.solverResults = schedules;
+                const firstIndex = previous.length;
+                this._solverPage = { ...page, offset: 0, results: previous.concat(page.results) };
+                this._solverPageOffset = 0;
+                deps.state.solverResults = append ? deps.state.solverResults.concat(schedules) : schedules;
                 const container = document.getElementById('solver-container');
-                this.renderResults({ total_found: schedules.length, returned: schedules.length, schedules, search_complete: store.meta.state === 'complete', session_page: true }, container);
+                this.renderResults({ total_found: schedules.length, returned: schedules.length, schedules,
+                    search_complete: store.meta.state === 'complete', session_page: true,
+                    append, index_offset: firstIndex }, container);
+                if (!append) container.scrollTop = 0;
                 const summary = container.querySelector('.solver-summary');
-                if (summary) summary.textContent = this.solverPageLabel(page);
+                if (summary) summary.textContent = this.solverPageLabel(this._solverPage);
                 schedules.forEach((schedule, index) => {
-                    const pane = container.querySelector(`[data-summary-index="${index}"]`);
+                    const pane = container.querySelector(`[data-summary-index="${firstIndex + index}"]`);
                     if (!pane) return;
                     pane.innerHTML = this.scheduleSummaryMarkup(this.scheduleSummarySections(schedule), schedule.metrics?.grade, schedule.metrics?.travel);
                     pane.removeAttribute('aria-busy');
                 });
-                if (page.total) {
-                    const navigation = document.createElement('nav');
-                    navigation.className = 'solver-pagination';
-                    navigation.setAttribute('aria-label', 'Schedule option pages');
-                    navigation.innerHTML = `<button type="button" data-page="previous"${offset <= 0 ? ' disabled' : ''}>Previous</button><span>Page ${Math.floor(page.offset / 10) + 1} of ${Math.ceil(page.total / 10)}</span><button type="button" data-page="next"${page.offset + 10 >= page.total ? ' disabled' : ''}>Next</button>`;
-                    navigation.querySelectorAll('button').forEach(button => button.addEventListener('click', async () => {
-                        const direction = button.dataset.page;
-                        await this.renderSolverPage(page.offset + (direction === 'next' ? 10 : -10));
-                        const next = container.querySelector(`[data-page="${direction}"]:not(:disabled)`) || container;
-                        next.focus();
-                        container.scrollTop = 0;
-                        Accessibility.announce(this.solverPageLabel(this._solverPage), 'schedule');
-                    }));
-                    container.append(navigation);
-                }
+                this.configureSolverScrolling();
                 this.refreshSolverStatus();
+                return true;
+            },
+
+            configureSolverScrolling() {
+                this._solverScrollObserver?.disconnect();
+                const container = document.getElementById('solver-container');
+                let footer = container.querySelector('.solver-scroll-controls');
+                if (!footer) {
+                    footer = document.createElement('div');
+                    footer.className = 'solver-scroll-controls';
+                    footer.innerHTML = '<button type="button" id="solver-load-more" title="Load the next schedules in this ordering">Load more schedules</button><p class="hint"></p>';
+                    footer.querySelector('button').addEventListener('click', () => this.loadMoreSolverResults(true));
+                    container.append(footer);
+                }
+                const more = this._solverPage.results.length < this._solverPage.total;
+                const button = footer.querySelector('button');
+                button.hidden = !more && document.activeElement !== button;
+                button.setAttribute('aria-disabled', String(!more));
+                button.textContent = more ? 'Load more schedules' : 'All schedules loaded';
+                footer.querySelector('p').textContent = more ? 'More schedules load as you scroll.'
+                    : this._solverPage.total ? 'All schedules in this view are loaded.' : '';
+                if (more && typeof IntersectionObserver !== 'undefined') {
+                    this._solverScrollObserver = new IntersectionObserver(entries => {
+                        if (entries.some(entry => entry.isIntersecting)) this.loadMoreSolverResults();
+                    }, { root: container, rootMargin: '0px 0px 200px 0px' });
+                    this._solverScrollObserver.observe(footer);
+                }
+            },
+
+            async loadMoreSolverResults(manual = false) {
+                if (this._solverLoadingMore || this._solverPublishing || !this._solverStore || !this._solverPage
+                    || this._solverPage.results.length >= this._solverPage.total) return;
+                const generation = this._solverGeneration;
+                const firstIndex = this._solverPage.results.length;
+                this._solverLoadingMore = true;
+                const button = document.getElementById('solver-load-more');
+                if (button) { button.textContent = 'Loading schedules…'; button.setAttribute('aria-busy', 'true'); }
+                try {
+                    const rendered = await this.renderSolverPage(firstIndex, true);
+                    if (!rendered || generation !== this._solverGeneration) return;
+                    if (this._solverError?.startsWith('More schedules could not be loaded.')) {
+                        this._solverError = '';
+                        this.refreshSolverStatus();
+                    }
+                    if (manual) {
+                        document.querySelector(`#solver-container .schedule-mini-calendar[data-schedule-index="${firstIndex}"]`)?.focus();
+                    }
+                    Accessibility.announce(`${this._solverPage.results.length} of ${this._solverPage.total} saved options loaded.`, 'schedule');
+                } catch (error) {
+                    if (generation === this._solverGeneration) {
+                        this._solverScrollObserver?.disconnect();
+                        this._solverError = `More schedules could not be loaded. ${error.message} Use Load more schedules to retry.`;
+                        this.refreshSolverStatus();
+                    }
+                } finally {
+                    if (generation === this._solverGeneration) {
+                        this._solverLoadingMore = false;
+                        const current = document.getElementById('solver-load-more');
+                        if (current) {
+                            current.removeAttribute('aria-busy');
+                            current.textContent = this._solverPage.results.length < this._solverPage.total ? 'Load more schedules' : 'All schedules loaded';
+                        }
+                    }
+                }
             },
 
             hydrateSolverMetrics() {
