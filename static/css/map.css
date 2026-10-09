@@ -104,11 +104,21 @@
 .walking-map-layout {
     display: grid;
     flex: 1 1 auto;
-    grid-template-columns: minmax(0, 1fr) clamp(190px, 25%, 220px);
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
     min-height: 0;
 }
 
 .walking-map-side {
+    grid-area: 1 / 1;
+    justify-self: end;
+    align-self: start;
+    width: clamp(190px, 25%, 220px);
+    max-height: 100%;
+    background: var(--map-white);
+    border-left: 1px solid var(--map-line);
+    border-bottom: 1px solid var(--map-line);
+    z-index: 600;
     display: flex;
     flex-direction: column;
     min-height: 0;
@@ -117,6 +127,7 @@
 }
 
 .walking-map-canvas-wrap {
+    grid-area: 1 / 1;
     min-height: 0;
     position: relative;
 }
@@ -124,7 +135,6 @@
 .walking-map-canvas {
     height: 100%;
     min-height: 0;
-    border-right: 1px solid var(--map-line);
     background: var(--map-surface);
 }
 
@@ -142,12 +152,15 @@
 }
 
 .walking-map-list {
-    flex: 1;
+    flex: 0 1 auto;
     max-height: none;
     min-height: 0;
     overflow: auto;
     padding: 8px;
 }
+
+.walking-map-days { flex-shrink: 0; }
+.walking-transition:last-child { margin-bottom: 0; }
 
 .walking-map-summary {
     margin-bottom: 10px;
@@ -261,6 +274,13 @@ button.walking-transition.is-previewed {
         grid-template-columns: 1fr;
         grid-template-rows: minmax(110px, 1.2fr) minmax(72px, 1fr);
         overflow: auto;
+    }
+
+    .walking-map-side {
+        grid-area: 2 / 1;
+        justify-self: stretch;
+        width: auto;
+        border-left: 0;
     }
 
     .walking-map-canvas {

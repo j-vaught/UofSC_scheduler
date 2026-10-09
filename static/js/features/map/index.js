@@ -731,10 +731,17 @@
         });
     },
 
+    routeViewPadding(padding) {
+        const canvas = this.mapElement.getBoundingClientRect();
+        const side = this.container.querySelector('.walking-map-side').getBoundingClientRect();
+        const overlayWidth = side.top < canvas.bottom && side.left > canvas.left ? side.width : 0;
+        return { paddingTopLeft: [padding, padding], paddingBottomRight: [padding + overlayWidth, padding] };
+    },
+
     restoreOverview() {
         if (!this._map || !this._overviewView) return;
         if (this._overviewView.kind === 'bounds') {
-            this._map.fitBounds(this._overviewView.value, { padding: [28, 28], maxZoom: 17 });
+            this._map.fitBounds(this._overviewView.value, { ...this.routeViewPadding(28), maxZoom: 17 });
         } else if (this._overviewView.kind === 'point') {
             this._map.setView(this._overviewView.value, 17);
         } else {
@@ -761,7 +768,7 @@
             });
             selectedRoute.layer.bringToFront();
         }
-        this._map.fitBounds(transition.geometry, { padding: [35, 35], maxZoom: 18 });
+        this._map.fitBounds(transition.geometry, { ...this.routeViewPadding(35), maxZoom: 18 });
     },
 
     previewTransition(index) {
