@@ -286,6 +286,12 @@
             const instructors = {};
             const historical = gradeData.instructors || [];
             const facultyKey = member => {
+                if (['faculty_id', 'faculty_session_id'].includes(member?.identity_source)) {
+                    const email = String(member.email || '').trim().toLowerCase();
+                    if (email) return `email:${email}`;
+                    const name = this.normalizeInstructorName(member.name);
+                    return name ? `name:${name}` : '';
+                }
                 const professorId = String(member?.professor_id || '').trim();
                 if (professorId) return `id:${professorId}`;
                 const name = this.normalizeInstructorName(member?.name);
@@ -343,6 +349,7 @@
                             displayName: name,
                             email: String(identity.email || '').trim().toLowerCase(),
                             professorId,
+                            identitySource: identity.identity_source || '',
                             sections: 0,
                             open: 0,
                             grade: null,
@@ -356,12 +363,23 @@
                 });
             });
             Object.values(instructors).forEach(summary => {
+                // Banner's faculty endpoint returns session-specific IDs. Do
+                // not join those to the historical snapshot, even if an ID
+                // happens to collide. Require a unique full name in this course
+                // and reject conflicting emails when history supplies one.
+                const sessionIdentity = ['faculty_id', 'faculty_session_id'].includes(summary.identitySource);
                 const idMatches = summary.professorId
                     ? historical.filter(record => String(record.id || '') === summary.professorId)
                     : [];
                 const nameMatches = summary.professorId ? [] : matchingNames(historical, summary.name);
-                const matches = summary.professorId ? idMatches : nameMatches;
+                const normalizedName = this.normalizeInstructorName(summary.name);
+                const fullNameMatches = normalizedName.split(' ').length < 2 ? [] : historical.filter(record => (
+                    this.normalizeInstructorName(record.name) === normalizedName
+                    && (!record.email || !summary.email || String(record.email).trim().toLowerCase() === summary.email)
+                ));
+                const matches = sessionIdentity ? fullNameMatches : summary.professorId ? idMatches : nameMatches;
                 summary.grade = matches.length === 1 ? matches[0] : null;
+                if (sessionIdentity) summary.professorId = summary.grade?.id || '';
                 summary.matchStatus = summary.grade ? 'matched' : matches.length > 1 ? 'ambiguous' : 'unmatched';
                 summary.displayName = summary.name.includes(',')
                     ? summary.name

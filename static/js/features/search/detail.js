@@ -992,7 +992,8 @@
                     group.code,
                     instructorName,
                     primaryFaculty?.email || '',
-                    primaryFaculty?.professor_id || '',
+                    ['faculty_id', 'faculty_session_id'].includes(primaryFaculty?.identity_source)
+                        ? '' : primaryFaculty?.professor_id || '',
                 );
             });
         },

@@ -373,7 +373,9 @@ async function relayFaculty(payload, route, pathname) {
                     email,
                     primary: facultyPrimary(member?.primaryIndicator ?? member?.primary),
                     professor_id: bannerId ? await publicInstructorId(bannerId) : '',
-                    identity_source: bannerId ? 'faculty_id' : '',
+                    // This endpoint's Banner ID changes between sessions.
+                    // It deduplicates live records but cannot join grade history.
+                    identity_source: bannerId ? 'faculty_session_id' : '',
                 });
             }
         }

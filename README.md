@@ -215,3 +215,7 @@ from the University Registrar, and map data from OpenStreetMap services.
 Maintained by J.C. Vaught and distributed under the MIT license.
 
 The option calendar sits on the left of an equal-height scrollable course list. Search and Schedule navigation use matching search and calendar icons. New visits select the current main semester; once that semester is one-third complete, a remembered prompt offers the next Spring or Fall semester. Explicit term links and saved plans retain their term. Dates use the registrar's first and last class days in Eastern time, with verified calendars through Fall 2029.
+
+Campus route cards use one font size, compact course codes, 24-hour transition times, green departure and red destination building names, and miles alongside walking minutes. The route sidebar stays between 190 and 220 pixels wide on desktop. Single-letter day filters and an All Days calendar icon keep space for the map. Hover, focus, and click highlighting remain available; only travel-time shortages receive a summary.
+
+Current Banner faculty identifiers are session-specific and must not join directly to the historical grade snapshot. Faculty records are deduplicated by email, then matched to a unique full name within the selected course, rejecting conflicting historical email addresses and ambiguous names. The historical record ID drives both GPA estimates and instructor profiles. IDs from other identity sources retain their existing strict matching behavior. Jeremiah Shepherd's CSCE 145 record contains 2,617 grades and a 3.017 historical GPA.

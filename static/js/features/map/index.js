@@ -136,8 +136,8 @@
             }
         });
         const dayOptions = [
-            { label: 'ALL', value: 'all' },
-            ...this.DAYS.map((day, index) => ({ label: day.slice(0, 3).toUpperCase(), value: String(index) })),
+            { label: 'All days', value: 'all', name: 'All days' },
+            ...this.DAYS.map((day, index) => ({ label: day[0], value: String(index), name: day })),
         ];
         dayOptions.forEach(option => {
             const button = document.createElement('button');
@@ -148,7 +148,13 @@
             button.setAttribute('role', 'tab');
             button.setAttribute('aria-controls', `${this.containerId}-day-panel`);
             button.setAttribute('aria-selected', String(option.value === String(this.selectedDay)));
-            button.textContent = option.label;
+            button.setAttribute('aria-label', option.name);
+            button.title = option.name;
+            if (option.value === 'all') {
+                button.innerHTML = '<span class="ui-icon icon-calendar_month" aria-hidden="true"></span>';
+            } else {
+                button.textContent = option.label;
+            }
             button.addEventListener('click', () => {
                 this.selectedDay = option.value === 'all' ? 'all' : Number(option.value);
                 this.updateDaySelection();
@@ -602,10 +608,9 @@
         }
 
         const risky = transitions.filter(transition => this.transitionStatus(transition).className === 'late').length;
-        const summary = risky > 0
-            ? `${risky} transition${risky === 1 ? '' : 's'} may not leave enough travel time.`
-            : `${transitions.length} transition${transitions.length === 1 ? '' : 's'} checked. No travel-time shortage found.`;
-        this.listElement.innerHTML = `<div class="walking-map-summary">${summary}</div>`;
+        this.listElement.innerHTML = risky > 0
+            ? `<div class="walking-map-summary">${risky} transition${risky === 1 ? '' : 's'} may not leave enough travel time.</div>`
+            : '';
 
         transitions.forEach((transition, index) => {
             const status = this.transitionStatus(transition);
@@ -614,29 +619,29 @@
             card.className = `walking-transition status-${status.className}`;
             if (transition.geometry) {
                 card.classList.add('has-route');
-                card.style.setProperty('--transition-color', this.routeColor(transition));
             }
             const noRouteNeeded = transition.kind === 'online' || transition.kind === 'same';
             if (noRouteNeeded) card.classList.add('no-route-needed');
             const walkLabel = transition.walkMinutes === null
                 ? (transition.kind === 'online' ? 'No route needed' : 'Route unavailable')
-                : (transition.kind === 'same' ? 'No route needed' : `${transition.walkMinutes} min route`);
-            const distanceLabel = transition.distance === null ? '' : ` · ${this.formatDistance(transition.distance)}`;
-            const dayLabel = showingWeek ? `${this.DAYS[transition.from.day].slice(0, 3).toUpperCase()} · ` : '';
+                : `${transition.walkMinutes} min`;
+            const distanceLabel = transition.distance === null ? '' : `${this.formatDistance(transition.distance)} | `;
+            const fromCode = transition.from.code.replace(/\s+/g, '');
+            const toCode = transition.to.code.replace(/\s+/g, '');
+            card.title = `${this.DAYS[transition.from.day]} · ${status.label}${transition.kind === 'estimated' ? ' · Estimated route' : ''}`;
             card.innerHTML = `
-                <div class="walking-transition-title">
-                    <span>${dayLabel}${this.escapeHtml(transition.from.code)} → ${this.escapeHtml(transition.to.code)}</span>
-                    <span class="walking-transition-time">${this.formatTime(transition.from.end)}–${this.formatTime(transition.to.start)}</span>
+                <div class="walking-transition-title">${this.escapeHtml(fromCode)} → ${this.escapeHtml(toCode)}</div>
+                <div class="walking-transition-time">${this.formatTime(transition.from.end)}–${this.formatTime(transition.to.start)}</div>
+                <div class="walking-transition-buildings">
+                    <span class="walking-transition-origin">${this.escapeHtml(transition.from.building.name)}</span>
+                    <span>to</span>
+                    <span class="walking-transition-destination">${this.escapeHtml(transition.to.building.name)}</span>
                 </div>
-                <div class="walking-transition-buildings">${this.escapeHtml(transition.from.building.name)} → ${this.escapeHtml(transition.to.building.name)}</div>
-                <div class="walking-transition-metrics">
-                    <span>${transition.available} min available · ${walkLabel}${distanceLabel}</span>
-                    <span class="walking-transition-status">${status.label}</span>
-                </div>
+                <div class="walking-transition-metrics">${distanceLabel}${walkLabel}</div>
             `;
             if (transition.geometry) {
                 card.dataset.transitionIndex = String(index);
-                card.setAttribute('aria-label', `Show route from ${transition.from.code} to ${transition.to.code}`);
+                card.setAttribute('aria-label', `${this.DAYS[transition.from.day]}. Show route from ${transition.from.code} to ${transition.to.code}. ${status.label}`);
                 card.setAttribute('aria-pressed', 'false');
                 card.addEventListener('mouseenter', () => this.previewTransition(index));
                 card.addEventListener('focus', () => this.previewTransition(index));
@@ -851,15 +856,13 @@
     },
 
     formatDistance(meters) {
-        const feet = Math.round(meters * 3.28084 / 10) * 10;
-        return feet >= 1000 ? `${(feet / 5280).toFixed(2)} mi` : `${feet} ft`;
+        return `${(meters / 1609.344).toFixed(2)} mi`;
     },
 
     formatTime(minutes) {
         const hour24 = Math.floor(minutes / 60);
         const minute = minutes % 60;
-        const hour12 = hour24 % 12 || 12;
-        return `${hour12}:${String(minute).padStart(2, '0')} ${hour24 >= 12 ? 'PM' : 'AM'}`;
+        return `${String(hour24).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
     },
 
     escapeHtml(value) {
