@@ -29,3 +29,8 @@
 }
 
 .schedule-gpa-caution { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; min-height: 28px; cursor: help; }
+
+.schedule-gpa-popup[hidden] { display: none !important; }
+.schedule-gpa-popup:not([hidden]) { display: block; }
+.schedule-view-header:has(.schedule-gpa-popup:not([hidden])) { z-index: 10; }
+.schedule-gpa-help .schedule-gpa-caution { min-width: 28px; min-height: 28px; cursor: pointer; }

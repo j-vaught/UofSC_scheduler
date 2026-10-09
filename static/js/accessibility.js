@@ -40,11 +40,14 @@ const Accessibility = {
         document.addEventListener('keydown', event => {
             if (event.key !== 'Escape'
                 || document.querySelector('#modal-overlay:not(.hidden), #filter-panel:not(.hidden)')) return;
-            if (this.dismissPreview?.()) {
+            if (this.dismissGpa?.(true) || this.dismissPreview?.()) {
                 event.preventDefault();
                 event.stopImmediatePropagation();
             }
         }, true);
+        document.addEventListener('pointerdown', event => {
+            if (!event.target.closest('.schedule-gpa-help')) this.dismissGpa?.(false);
+        });
         document.querySelectorAll('[data-skip]').forEach(link => link.addEventListener('click', event => {
             event.preventDefault();
             const schedule = document.getElementById('tab-schedule').classList.contains('active');
