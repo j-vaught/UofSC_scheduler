@@ -91,14 +91,6 @@
                             <button type="button" id="search-syntax-open" class="search-helper-link" aria-haspopup="dialog" aria-controls="filter-panel">Syntax examples</button>
                         </div>
                     </div>
-                    <div class="search-planning-paths" id="search-planning-paths" aria-label="Planning tools">
-                        <button type="button" class="search-planning-card" id="search-schedule-btn">
-                            <span class="search-planning-kicker">NEXT SEMESTER</span>
-                            <strong>BUILD A SEMESTER</strong>
-                            <span>Choose courses and generate schedules that fit your preferences.</span>
-                            <i aria-hidden="true">&rarr;</i>
-                        </button>
-                    </div>
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-backdrop hidden" id="filter-backdrop" aria-hidden="true"></div>
                         <div class="filter-panel hidden" id="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-panel-title">
@@ -356,15 +348,13 @@
                         <section id="solver-section">
                             <div class="schedule-panel-heading">
                                 <h3>Schedule Options</h3>
-                                <button id="btn-show-schedule-detail" type="button" title="View the selected schedule and campus routes" aria-controls="schedule-detail-panel" aria-expanded="false" disabled>VIEW SCHEDULE</button>
                             </div>
                             <div class="schedule-panel-actions">
                                 <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules"><span class="ui-icon icon-event_repeat" aria-hidden="true"></span></button>
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary schedule-preferences-button" type="button" aria-label="Schedule preferences" title="Schedule preferences" aria-haspopup="dialog" aria-controls="modal">
                                     <span class="ui-icon icon-tune" aria-hidden="true"></span>
                                 </button>
-                                <button id="btn-registration-info" class="btn-panel-registration" type="button" aria-label="View class registration information" title="View class registration information" disabled><span class="ui-icon icon-assignment" aria-hidden="true"></span></button>
-                                <button id="btn-export" class="btn-panel-secondary" type="button" aria-label="Export calendar" title="Export calendar"><span class="ui-icon icon-download" aria-hidden="true"></span></button>
+
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
@@ -373,11 +363,33 @@
                     </div>
                     <div id="schedule-detail-divider" class="schedule-detail-divider" role="separator" aria-label="Resize schedule options and details" aria-orientation="vertical" aria-controls="solver-section schedule-detail-panel" aria-valuemin="260" aria-valuemax="700" aria-valuenow="330" tabindex="0" hidden></div>
                     <section id="schedule-detail-panel" class="schedule-detail-panel" aria-labelledby="schedule-detail-title" hidden>
-                        <div class="schedule-detail-heading">
-                            <h2 id="schedule-detail-title">Selected schedule</h2>
-                            <button id="btn-minimize-schedule-detail" type="button" title="Minimize schedule preview" aria-label="Minimize schedule preview"><span class="ui-icon icon-close" aria-hidden="true"></span></button>
+                        <div class="course-detail-header-sticky schedule-view-header">
+                            <button id="btn-minimize-schedule-detail" class="browse-close-details" type="button" title="Minimize schedule preview" aria-label="Minimize schedule preview"><span class="ui-icon icon-close" aria-hidden="true"></span></button>
+                            <header class="course-detail-header">
+                                <div class="course-detail-header-topline">
+                                    <h2 id="schedule-detail-title" class="course-detail-kicker">Schedule details</h2>
+                                    <div class="course-detail-header-controls">
+                                        <div class="course-detail-primary-actions">
+                                            <button id="btn-registration-info" class="btn-green" type="button" title="View class registration information" disabled><span class="ui-icon icon-assignment" aria-hidden="true"></span>REGISTRATION</button>
+                                            <button id="btn-export" class="btn-header-secondary" type="button" title="Export calendar"><span class="ui-icon icon-download" aria-hidden="true"></span>EXPORT CALENDAR</button>
+                                        </div>
+                                        <div class="course-detail-credit"><strong id="schedule-view-credits">—</strong><span>credits</span></div>
+                                    </div>
+                                </div>
+                                <div class="course-detail-title-row"><h1><span id="schedule-view-name">Your semester</span>Selected schedule</h1></div>
+                                <div id="schedule-view-stats" class="course-detail-header-meta" aria-live="polite"></div>
+                            </header>
                         </div>
-                        <section class="schedule-preview-panel">
+                        <section class="course-section-picker-wrap schedule-course-inspector" aria-labelledby="schedule-course-label">
+                            <h3 id="schedule-course-label">View course info</h3>
+                            <div id="schedule-course-picker" class="course-section-picker schedule-course-picker"></div>
+                            <div id="schedule-course-info" class="course-section-summary" aria-live="polite"></div>
+                        </section>
+                        <div class="course-detail-tabs schedule-view-tabs" role="tablist" aria-label="Schedule details">
+                            <button id="schedule-tab-weekly" role="tab" aria-selected="true" aria-controls="schedule-weekly-panel" tabindex="0" data-schedule-view="weekly">Weekly schedule</button>
+                            <button id="schedule-tab-walking" role="tab" aria-selected="false" aria-controls="schedule-walking-panel" tabindex="-1" data-schedule-view="walking">Walking</button>
+                        </div>
+                        <section id="schedule-weekly-panel" role="tabpanel" aria-labelledby="schedule-tab-weekly" class="schedule-preview-panel">
                             <div class="schedule-panel-heading">
                                 <h3>Weekly Preview</h3>
                             </div>
@@ -395,7 +407,7 @@
                                 </div>
                             </div>
                         </section>
-                        <div id="walking-map-container"></div>
+                        <section id="schedule-walking-panel" role="tabpanel" aria-labelledby="schedule-tab-walking" hidden><div id="walking-map-container"></div></section>
                     </section>
                 </section>
             </div>

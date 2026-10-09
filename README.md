@@ -63,7 +63,7 @@ Find and add courses in Search, then use the selected-course sidebar and schedul
 The Generate button uses the calendar-with-repeat icon. Applying a schedule opens its weekly preview and
 campus routes in the main right pane. Your Courses collapses, and Schedule Options becomes the left
 sidebar. Drag the divider, or use its arrow keys, to resize the two panes. Minimize details to restore
-Your Courses and the full option list. **View Schedule** reopens details.
+Your Courses and the full option list. Select an option card to reopen details. Export and Registration are inside the viewer, with a credit summary, a credit-weighted historical instructor GPA when available, an inline course picker, and Weekly Schedule and Walking tabs.
 
 ![Selected schedule with weekly preview and campus routes](docs/screenshots/17-schedule-inspector.jpg)
 

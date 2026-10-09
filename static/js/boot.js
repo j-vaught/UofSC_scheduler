@@ -114,13 +114,6 @@ function boot() {
     });
     });
 
-    // Search landing: planning paths
-    startFeature('Landing shortcuts', () => {
-    document.getElementById('search-schedule-btn').addEventListener('click', () => {
-        Tabs.switchTo('schedule');
-    });
-    });
-
     // Resizable search sidebar
     const resizeHandle = document.getElementById('search-resize-handle');
     if (resizeHandle) {

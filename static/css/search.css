@@ -183,7 +183,7 @@
     gap: 12px;
     grid-template-columns: 1fr 1fr;
     margin: 18px auto 0;
-    max-width: 980px;
+    max-width: 1100px;
 }
 .browse-empty .search-planning-paths { display: grid; }
 .search-planning-card {
@@ -231,7 +231,7 @@
     gap: 8px;
     grid-template-columns: minmax(260px, 1fr) 44px 44px;
     margin: 0 auto;
-    max-width: 980px;
+    max-width: 1100px;
 }
 .browse-search-form .search-input-wrap { min-width: 0; position: relative; }
 .browse-search-form .search-input-wrap input {
@@ -323,7 +323,7 @@
     font-size: 0.7rem;
     gap: 7px;
     margin: 9px auto 0;
-    max-width: 980px;
+    max-width: 1100px;
 }
 .browse-results .browse-search-examples,
 .browse-detail .browse-search-examples { display: none; }
@@ -352,7 +352,7 @@
     color: #000000;
     font-size: 0.72rem;
     margin: 8px auto 0;
-    max-width: 980px;
+    max-width: 1100px;
     padding: 7px 9px;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -430,7 +430,7 @@
     flex-wrap: wrap;
     gap: 6px;
     margin: 7px auto 0;
-    max-width: 980px;
+    max-width: 1100px;
 }
 .active-filter-chips:empty { display: none; }
 .active-filter-chip {
@@ -803,3 +803,5 @@ body.filter-modal-open { overflow: hidden; }
 
 /* Heavier search glyph keeps the primary action distinct from filters. */
 #btn-search .icon-search { --icon-url: url("../icons/search_wght700.svg"); }
+
+.browse-search-form { width: 100%; }

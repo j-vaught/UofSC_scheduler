@@ -17,18 +17,7 @@
 }
 .schedule-card:hover { border-color: #73000A; background: #fef5f5; }
 .schedule-card.selected { border-color: #73000A; border-width: 3px; background: #fce4ec; }
-.schedule-card.applied,
-.schedule-card.applied:hover {
-    background: #ECECEC;
-    border-color: #A2A2A2;
-    color: #5C5C5C;
-    cursor: default;
-    opacity: 0.72;
-}
-.schedule-card.applied .score,
-.schedule-card.applied .sched-courses,
-.schedule-card.applied .sched-course span { color: #5C5C5C; }
-.schedule-card.applied .sched-course { background: transparent; }
+.schedule-card.applied { border-color: #73000A; }
 .schedule-card .score { font-size: 0.85rem; color: #73000A; font-weight: 700; }
 .schedule-card .sched-courses { font-size: 0.8rem; color: #333333; margin-top: 4px; }
 .solver-summary { color: #363636; font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }

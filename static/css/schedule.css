@@ -984,3 +984,28 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .schedule-detail-divider { background: #C7C7C7; cursor: col-resize; touch-action: none; min-height: 0; }
 .schedule-detail-divider:hover, .schedule-detail-divider:focus-visible, .schedule-detail-divider.active { background: #73000A; outline: 2px solid #73000A; outline-offset: -2px; }
 body.resizing-schedule-details { cursor: col-resize; user-select: none; }
+
+/* Share Search's header, section cards, facts, and tabs rather than a separate skin. */
+.schedule-detail-panel { padding: 0; gap: 0; }
+.schedule-view-header { flex: 0 0 auto; }
+.schedule-view-header #btn-minimize-schedule-detail { width: 44px; height: 44px; }
+.schedule-view-header .course-detail-kicker { font-size: .62rem; }
+.schedule-course-inspector { flex: 0 0 auto; }
+.schedule-course-inspector h3 { font-size: .76rem; text-transform: uppercase; margin-bottom: 8px; }
+.schedule-course-picker { --detail-section-width: 230px; }
+.schedule-course-picker .course-section-option { cursor: pointer; }
+#schedule-course-info { font-size: .78rem; line-height: 1.45; }
+#schedule-course-info .course-section-facts { grid-template-columns: repeat(4,minmax(0,1fr)); }
+#schedule-course-info p { margin-top: 12px; }
+.schedule-full-course { border: 2px solid black; background: black; color: white; padding: 7px 10px; font-size: .65rem; cursor: pointer; }
+.schedule-instructor-link { background: transparent; color: #73000A; border: 0; padding: 0; text-align: left; text-decoration: underline; cursor: pointer; }
+.schedule-view-tabs { flex: 0 0 auto; }
+.schedule-detail-panel .schedule-preview-panel { margin: 18px 20px; }
+#schedule-weekly-panel[hidden], #schedule-walking-panel[hidden] { display: none; }
+#schedule-walking-panel { flex: 0 0 350px; min-height: 350px; margin: 18px 20px; }
+.schedule-detail-panel #walking-map-container { height: 350px; }
+@media (max-width: 1100px) {
+    .schedule-view-header .course-detail-header-topline { flex-wrap: wrap; }
+    .schedule-view-header .course-detail-header-controls { flex: 1 1 100%; justify-content: flex-start; }
+    #schedule-course-info .course-section-facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}

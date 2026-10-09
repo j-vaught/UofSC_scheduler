@@ -20,7 +20,16 @@
     function createLayoutPart(deps) {
         return {
         initScheduleDetail() {
-            document.getElementById('btn-show-schedule-detail')?.addEventListener('click', () => this.showScheduleDetail());
+            document.querySelectorAll('[data-schedule-view]').forEach(button => {
+                button.addEventListener('click', () => this.selectScheduleView(button.dataset.scheduleView));
+                button.addEventListener('keydown', event => {
+                    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                    event.preventDefault();
+                    const next = event.key === 'Home' ? 'weekly' : event.key === 'End' ? 'walking' : button.dataset.scheduleView === 'weekly' ? 'walking' : 'weekly';
+                    this.selectScheduleView(next);
+                    document.getElementById(`schedule-tab-${next}`).focus();
+                });
+            });
             document.getElementById('btn-minimize-schedule-detail')?.addEventListener('click', () => this.hideScheduleDetail());
             document.getElementById('schedule-detail-panel')?.addEventListener('keydown', event => {
                 if (event.key === 'Escape') {
@@ -73,9 +82,8 @@
 
         updateScheduleDetail() {
             const available = Object.keys(deps.state.selectedSections || {}).length > 0;
-            const button = document.getElementById('btn-show-schedule-detail');
-            if (button) button.disabled = !available;
             if (!available) this.hideScheduleDetail(false);
+            else this.renderScheduleViewer();
         },
 
         showScheduleDetail() {
@@ -88,7 +96,7 @@
             if (divider) divider.hidden = false;
             this.setScheduleDetailWidth(this._scheduleDetailWidth || 330);
             document.getElementById('schedule-content')?.classList.add('schedule-detail-open');
-            document.getElementById('btn-show-schedule-detail')?.setAttribute('aria-expanded', 'true');
+            this.renderScheduleViewer();
             deps.calendar?.render();
             requestAnimationFrame(() => {
                 const calendar = document.getElementById('calendar-container');
@@ -107,9 +115,73 @@
             const divider = document.getElementById('schedule-detail-divider');
             if (divider) divider.hidden = true;
             document.getElementById('schedule-content')?.classList.remove('schedule-detail-open');
-            const button = document.getElementById('btn-show-schedule-detail');
-            button?.setAttribute('aria-expanded', 'false');
-            if (wasOpen && restoreFocus) button?.focus();
+            if (wasOpen && restoreFocus) document.querySelector('.schedule-card.applied .sched-course, #btn-solve')?.focus();
+        },
+
+        selectScheduleView(view) {
+            document.querySelectorAll('[data-schedule-view]').forEach(button => {
+                const selected = button.dataset.scheduleView === view;
+                button.setAttribute('aria-selected', String(selected));
+                button.tabIndex = selected ? 0 : -1;
+            });
+            document.getElementById('schedule-weekly-panel').hidden = view !== 'weekly';
+            document.getElementById('schedule-walking-panel').hidden = view !== 'walking';
+            if (view === 'walking') requestAnimationFrame(() => deps.walkingMap?._map?.invalidateSize());
+        },
+
+        async renderScheduleViewer() {
+            const sections = Object.entries(deps.state.selectedSections || {}).map(([code, section]) => ({ ...section, code }));
+            if (!sections.length) return;
+            const request = this._scheduleViewerRequest = (this._scheduleViewerRequest || 0) + 1;
+            const creditValues = sections.map(section => this.parseCreditHours(deps.state.selectedCourses[section.code]?.credits ?? section.hours));
+            const credits = creditValues.reduce((sum, value) => sum + (value || 0), 0);
+            document.getElementById('schedule-view-name').textContent = document.querySelector('#term-select option:checked')?.textContent || 'Your semester';
+            const stats = document.getElementById('schedule-view-stats');
+            const creditLabel = creditValues.some(value => value === null) ? `${credits} known credits` : `${credits} credits`;
+            document.getElementById('schedule-view-credits').textContent = creditValues.some(value => value === null) ? `${credits}+` : String(credits);
+            stats.innerHTML = `<span>${sections.length} course${sections.length === 1 ? '' : 's'}</span><span>${creditLabel}</span><span id="schedule-historical-gpa">Historical GPA · Loading</span>`;
+            if (!sections.some(section => section.code === this._scheduleInfoCourse)) this._scheduleInfoCourse = sections[0].code;
+            const picker = document.getElementById('schedule-course-picker');
+            picker.innerHTML = sections.map(section => `<button type="button" class="course-section-option ${section.code === this._scheduleInfoCourse ? 'selected' : ''} ${this.isOpenSection(section) ? 'open' : 'full'}" data-schedule-course="${this.escapeHtml(section.code)}" aria-pressed="${section.code === this._scheduleInfoCourse}" title="View ${this.escapeHtml(section.code)} information"><span><i aria-hidden="true"></i>${this.escapeHtml(section.code)}<b>${this.isOpenSection(section) ? 'Open' : 'Full'}</b></span><small>${this.escapeHtml(section.meets || 'Time TBA')}</small><em>${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')} · CRN ${this.escapeHtml(String(section.crn))}</em></button>`).join('');
+            picker.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
+                this._scheduleInfoCourse = button.dataset.scheduleCourse;
+                picker.querySelectorAll('button').forEach(item => { item.setAttribute('aria-pressed', String(item === button)); item.classList.toggle('selected', item === button); });
+                this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
+            }));
+            this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
+            const historical = await Promise.all(sections.map(async (section, index) => {
+                try {
+                    const [grades, faculty] = await Promise.all([deps.api.getCourseGrades(section.code), deps.api.getFaculty(deps.state.term, [section.crn])]);
+                    const instructors = this.currentInstructorSummaries({ sections: [section] }, grades || {}, faculty?.faculty || []);
+                    const records = instructors.map(item => item.grade).filter(grade => grade && grade.average_gpa !== null && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0);
+                    if (!instructors.length || records.length !== instructors.length || !creditValues[index]) return null;
+                    const students = records.reduce((sum, grade) => sum + Number(grade.graded_students), 0);
+                    return { credits: creditValues[index], gpa: records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students };
+                } catch { return null; }
+            }));
+            if (request !== this._scheduleViewerRequest) return;
+            const matched = historical.filter(Boolean);
+            const covered = matched.reduce((sum, item) => sum + item.credits, 0);
+            const label = document.getElementById('schedule-historical-gpa');
+            label.textContent = covered ? `Historical GPA · ${(matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2)} (${covered}/${credits} credits)` : 'Historical GPA · Unavailable';
+            label.title = 'Past grades for these courses with the selected instructors, weighted by credit hours. Coverage excludes courses without matched instructor grades.';
+        },
+
+        async renderScheduleCourseInfo(section) {
+            if (!section) return;
+            const request = this._scheduleCourseInfoRequest = (this._scheduleCourseInfoRequest || 0) + 1;
+            const info = document.getElementById('schedule-course-info');
+            const group = deps.state.selectedCourses[section.code] || section;
+            info.innerHTML = `<div class="course-section-summary-heading"><div><span>${this.escapeHtml(section.code)} · Section ${this.escapeHtml(section.section || '—')}</span><strong>${this.escapeHtml(group.title || section.code)}</strong></div><button type="button" class="schedule-full-course" title="Open full course details in Search">VIEW COURSE DETAILS</button></div><div class="course-section-facts"><div><span>Instructor</span><button type="button" class="schedule-instructor-link" title="View instructor profile in Search">${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')}</button></div><div><span>CRN</span><strong>${this.escapeHtml(String(section.crn))}</strong></div><div><span>Meetings</span><strong>${this.escapeHtml(section.meets || 'Time TBA')}</strong></div><div><span>Credits</span><strong>${this.parseCreditHours(group.credits ?? section.hours) ?? '—'}</strong></div></div><p data-schedule-description>Loading course description…</p>`;
+            info.querySelector('.schedule-full-course').addEventListener('click', () => this.openCourseInBrowse(this.courseGroupForSection(section), section.crn));
+            info.querySelector('.schedule-instructor-link').addEventListener('click', () => this.openProfessorInBrowse(this.courseGroupForSection(section), section.crn, { name: section.instructor || section.instr }));
+            try {
+                const details = await deps.search.fetchBulletinDetailsForCourse(section.code);
+                if (request !== this._scheduleCourseInfoRequest) return;
+                info.querySelector('[data-schedule-description]').textContent = this.stripHtml(details.description || '') || 'No course description is available.';
+            } catch {
+                if (request === this._scheduleCourseInfoRequest) info.querySelector('[data-schedule-description]').textContent = 'Course description unavailable.';
+            }
         },
 
         clearResults() {
