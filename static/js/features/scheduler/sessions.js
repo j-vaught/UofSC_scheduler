@@ -18,10 +18,16 @@
                 document.getElementById('solver-update')?.addEventListener('click', () => this.publishSolverResults());
                 document.getElementById('schedule-sort')?.addEventListener('change', event => {
                     this._solverSort = sorts.includes(event.target.value) ? event.target.value : 'best';
+                    this.updateSolverSortHint();
                     try { localStorage.setItem(`scheduler-sort:${deps.state.term}`, this._solverSort); } catch { /* Optional preference. */ }
                     this.publishSolverResults();
                 });
                 window.addEventListener('pagehide', () => this._solverClient?.dispose());
+            },
+
+            updateSolverSortHint() {
+                const select = document.getElementById('schedule-sort');
+                if (select) select.title = `Sort schedules. Current order: ${select.selectedOptions[0]?.textContent || 'Best match'}.`;
             },
 
             invalidateSolverSession() {
@@ -105,6 +111,7 @@
                 if (!sorts.includes(this._solverSort)) this._solverSort = 'best';
                 const select = document.getElementById('schedule-sort');
                 if (select) select.value = this._solverSort;
+                this.updateSolverSortHint();
                 const params = { ...store.meta.params, session_id: store.meta.session_id, input_revision: store.meta.input_revision };
                 this._solverClient = deps.api.createSolverSession(params, {
                     checkpoint: store.meta.checkpoint,

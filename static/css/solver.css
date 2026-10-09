@@ -237,7 +237,8 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 }
 
 /* Generation controls remain outside the list so updates preserve keyboard focus. */
-.schedule-sort-control { display: flex; gap: 5px; align-items: center; min-width: 0; font-size: .75rem; font-weight: 700; }
+.icon-sort { --icon-url: url("../icons/sort.svg"); }
+.schedule-sort-control { position: relative; display: flex; gap: 5px; align-items: center; min-width: 0; font-size: .75rem; font-weight: 700; }
 .schedule-sort-control select { font: inherit; border: 2px solid black; border-radius: 0; color: black; background: white; min-width: 0; max-width: 180px; height: 36px; }
 .solver-session-controls { border-bottom: 1px solid #5C5C5C; padding: 7px 10px; font-size: .75rem; }
 .solver-session-controls[hidden], .solver-session-buttons button[hidden] { display: none; }
@@ -246,8 +247,21 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
 .solver-session-buttons button, .solver-pagination button { font: inherit; border: 2px solid black; padding: 5px 9px; color: black; background: white; cursor: pointer; }
 .solver-session-buttons button:disabled, .solver-pagination button:disabled { background: #ECECEC; color: #5C5C5C; cursor: default; }
 .solver-pagination { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .75rem; padding: 6px 0; }
-@container schedule-options (max-width: 440px) {
-    .schedule-panel-actions { flex-wrap: wrap; }
-    .schedule-sort-control { flex: 1 1 100%; }
-    .schedule-sort-control select { flex: 1; max-width: none; }
+/* Keep the native picker and keyboard behavior when only its icon fits. */
+@container schedule-options (max-width: 500px) {
+    .schedule-sort-control {
+        flex: 0 0 36px; width: 36px; height: 36px;
+        justify-content: center; border: 2px solid black; box-sizing: border-box;
+        background: white; color: black;
+    }
+    .schedule-sort-label { display: none; }
+    .schedule-sort-control select {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        max-width: none; margin: 0; opacity: 0; cursor: pointer;
+    }
+    .schedule-sort-control:has(select:focus-visible) {
+        outline: 3px solid black; outline-offset: 3px;
+        box-shadow: 0 0 0 3px white;
+    }
+    .schedule-sort-control:has(select:disabled) { background: #ECECEC; color: #5C5C5C; }
 }
