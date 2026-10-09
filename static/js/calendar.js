@@ -28,14 +28,9 @@ const Calendar = {
         const container = document.getElementById('calendar-container');
         this._sizeObserver = new ResizeObserver(() => {
             if (!container.clientHeight) return;
-            const headerHeight = document.querySelector('#calendar-grid .cal-header')?.offsetHeight || 30;
-            const scale = Math.max(1, (container.clientHeight - headerHeight - 10) / ((this.END_HOUR - this.START_HOUR) * 60));
-            if (Math.abs(scale - this.PX_PER_MIN) < 0.005) return;
             const scrollMinutes = container.scrollTop / this.PX_PER_MIN;
-            this.PX_PER_MIN = scale;
-            this._dayColumns = null;
-            this.render();
-            container.scrollTop = scrollMinutes * scale;
+            this.render({ sections: this._renderedSections, preview: this._preview });
+            container.scrollTop = scrollMinutes * this.PX_PER_MIN;
         });
         this._sizeObserver.observe(container);
     },
@@ -76,7 +71,7 @@ const Calendar = {
             label.style.top = ((h - this.START_HOUR) * 60 * this.PX_PER_MIN) + 'px';
             label.style.left = '0';
             label.style.width = 'var(--calendar-time-width, 42px)';
-            const hour12 = h > 12 ? h - 12 : h;
+            const hour12 = h % 12 || 12;
             const ampm = h >= 12 ? 'p' : 'a';
             label.textContent = `${hour12}${ampm}`;
             body.appendChild(label);
@@ -134,11 +129,54 @@ const Calendar = {
         return hasWeekendMeeting ? 7 : 5;
     },
 
+    timedMeetings(sections) {
+        return sections.flatMap(section => this.parseMeetingTimes(section.meetingTimes))
+            .map(meeting => ({ ...meeting, start: this.timeToMinutes(meeting.start), end: this.timeToMinutes(meeting.end) }))
+            .filter(meeting => meeting.day >= 0 && meeting.day <= 6 && meeting.end > meeting.start);
+    },
+
+    timeRange(sections) {
+        const meetings = this.timedMeetings(sections);
+        if (!meetings.length) return { start: 8, end: 22 };
+        const start = Math.max(0, Math.floor((Math.min(...meetings.map(meeting => meeting.start)) - 30) / 60));
+        const end = Math.min(24, Math.ceil((Math.max(...meetings.map(meeting => meeting.end)) + 30) / 60));
+        return { start, end };
+    },
+
+    fittedScale(sections) {
+        const container = document.getElementById('calendar-container');
+        const meetings = this.timedMeetings(sections);
+        // Leave two readable lines in the shortest class. Long days scroll
+        // rather than compressing small meetings into unusable targets.
+        const minimumScale = meetings.length
+            ? Math.max(0.6, 40 / Math.min(...meetings.map(meeting => meeting.end - meeting.start)))
+            : 1;
+        if (!container.clientHeight) return minimumScale;
+        const headerHeight = document.querySelector('#calendar-grid .cal-header')?.offsetHeight || 30;
+        return Math.max(minimumScale, (container.clientHeight - headerHeight - 10) / ((this.END_HOUR - this.START_HOUR) * 60));
+    },
+
     render(options = {}) {
-        const sections = Object.values(State.selectedSections);
+        const sections = options.sections || Object.values(State.selectedSections);
+        const range = options.preview ? { start: this.START_HOUR, end: this.END_HOUR } : this.timeRange(sections);
+        // The thumbnail popup still previews every option. Keep the main
+        // calendar on the selected schedule when a hover needs another range.
+        if (options.preview && this.timedMeetings(sections).some(meeting => meeting.start < range.start * 60 || meeting.end > range.end * 60)) {
+            this.render();
+            return;
+        }
+        const rangeChanged = range.start !== this.START_HOUR || range.end !== this.END_HOUR;
+        this.START_HOUR = range.start;
+        this.END_HOUR = range.end;
+        const scale = this.fittedScale(options.preview ? Object.values(State.selectedSections) : sections);
+        const scaleChanged = Math.abs(scale - this.PX_PER_MIN) >= 0.005;
+        this.PX_PER_MIN = scale;
+        this._renderedSections = sections;
+        this._preview = Boolean(options.preview);
         const dayCount = this.visibleDayCount(sections);
-        if (!this._dayColumns || this._dayCount !== dayCount) {
+        if (!this._dayColumns || this._dayCount !== dayCount || rangeChanged || scaleChanged) {
             this.buildGrid(dayCount);
+            if (rangeChanged) document.getElementById('calendar-container').scrollTop = 0;
         } else {
             this._dayColumns.forEach(col => {
                 col.querySelectorAll('.cal-block').forEach(b => b.remove());
@@ -192,7 +230,7 @@ const Calendar = {
                 block.innerHTML = `
                     <span class="block-title">${sec.code}</span>
                     <span class="block-info">${((sec.instructor || sec.instr) && (sec.instructor || sec.instr) !== 'Staff' ? (sec.instructor || sec.instr) : 'Undecided')}</span>
-                    ${height > 40 ? `<span class="block-info">${sec.meets || ''}</span>` : ''}
+                    ${height > 55 ? `<span class="block-info">${sec.meets || ''}</span>` : ''}
                 `;
 
                 if (!options.preview) {
