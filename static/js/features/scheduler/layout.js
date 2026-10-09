@@ -218,7 +218,7 @@
             const key = `${term}:${section.crn}:${section.code}`;
             if (!this._scheduleSectionData.has(key)) {
                 this._scheduleSectionData.set(key, Promise.allSettled([
-                    deps.api.getCourseGrades(section.code), deps.api.getFaculty(term, [section.crn]),
+                    this.scheduleDataRequest(() => deps.api.getCourseGrades(section.code)), this.scheduleDataRequest(() => deps.api.getFaculty(term, [section.crn])),
                 ]).then(([grades, faculty]) => ({
                     grades: grades.status === 'fulfilled' && !grades.value?.error ? grades.value || {} : {},
                     faculty: faculty.status === 'fulfilled' ? faculty.value?.faculty || [] : [],
@@ -259,6 +259,7 @@
         },
 
         clearResults() {
+            this.invalidateSolverSession?.();
             deps.state.solverResults = [];
             const container = document.getElementById('solver-container');
             if (container) {

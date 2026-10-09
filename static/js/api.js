@@ -486,6 +486,10 @@ const API = {
         return result;
     },
 
+    createSolverSession(params, options = {}) {
+        return SolverClient.create(params, options);
+    },
+
     async solve(courses, preferences, maxResults = 10) {
         const params = { courses, preferences, max_results: maxResults };
         if (typeof Worker === 'undefined') {

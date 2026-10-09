@@ -235,3 +235,19 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     .schedule-card { grid-template-columns: minmax(0, 1fr) 132px max-content; }
     .schedule-details-selected .schedule-card { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Generation controls remain outside the list so updates preserve keyboard focus. */
+.schedule-sort-control { display: flex; gap: 5px; align-items: center; min-width: 0; font-size: .75rem; font-weight: 700; }
+.schedule-sort-control select { font: inherit; border: 2px solid black; border-radius: 0; color: black; background: white; min-width: 0; max-width: 180px; height: 36px; }
+.solver-session-controls { border-bottom: 1px solid #5C5C5C; padding: 7px 10px; font-size: .75rem; }
+.solver-session-controls[hidden], .solver-session-buttons button[hidden] { display: none; }
+#solver-session-status { margin: 0 0 5px; }
+.solver-session-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+.solver-session-buttons button, .solver-pagination button { font: inherit; border: 2px solid black; padding: 5px 9px; color: black; background: white; cursor: pointer; }
+.solver-session-buttons button:disabled, .solver-pagination button:disabled { background: #ECECEC; color: #5C5C5C; cursor: default; }
+.solver-pagination { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .75rem; padding: 6px 0; }
+@container schedule-options (max-width: 440px) {
+    .schedule-panel-actions { flex-wrap: wrap; }
+    .schedule-sort-control { flex: 1 1 100%; }
+    .schedule-sort-control select { flex: 1; max-width: none; }
+}

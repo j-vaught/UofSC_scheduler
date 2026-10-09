@@ -25,6 +25,7 @@
             document.getElementById('btn-registration-info').addEventListener('click', () => this.openRegistrationInfo());
             document.getElementById('schedule-find-courses')?.addEventListener('click', () => deps.tabs.switchTo('semester'));
             this.initScheduleDetail();
+            this.initSolverSessionControls?.();
             deps.state.on('courses-changed', () => {
                 this.clearResults();
                 this.renderCourseSearchResults();
@@ -47,8 +48,11 @@
                 Promise.resolve().then(() => {
                     this.scheduleLocationPrefetch();
                     if (deps.walkingMap) deps.walkingMap.refresh();
+                    this.invalidateSolverSession?.();
+                    this.restoreSolverSession?.();
                 });
             });
+            this.restoreSolverSession?.();
         },
 
         scheduleLocationPrefetch() {

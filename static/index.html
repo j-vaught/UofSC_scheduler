@@ -360,7 +360,12 @@
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary schedule-preferences-button" type="button" aria-label="Schedule preferences" title="Schedule preferences" aria-haspopup="dialog" aria-controls="modal">
                                     <span class="ui-icon icon-tune" aria-hidden="true"></span><span class="schedule-action-label">Preferences</span>
                                 </button>
-
+                                <label class="schedule-sort-control" for="schedule-sort"><span>Sort</span><select id="schedule-sort" title="Order all schedules found without changing your applied schedule"><option value="best">Best match</option><option value="days">Fewest campus days</option><option value="walking">Least walking</option><option value="gaps">Fewest gaps</option><option value="later">Later starts</option><option value="gpa">Historical GPA estimate</option><option value="online">More online classes</option></select></label>
+                            </div>
+                            <div id="solver-session-controls" class="solver-session-controls" hidden>
+                                <p id="solver-session-status" role="status" aria-live="polite" aria-atomic="true"></p>
+                                <div class="solver-session-buttons"><button id="solver-stop" type="button" title="Pause this search and keep its results">Stop</button><button id="solver-continue" type="button" title="Continue searching for another 30 seconds">Continue</button><button id="solver-update" type="button" title="Show the latest schedules and updated ranking" hidden>Update results</button></div>
+                                <p id="solver-storage-notice" class="hint" hidden></p>
                             </div>
                             <div id="solver-container" role="region" tabindex="-1" aria-label="Schedule options">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>
@@ -442,6 +447,9 @@
     <script src="/static/js/runtime/offering-analyzer.js"></script>
     <script src="/static/js/meeting-times.js"></script>
     <script src="/static/js/solver-core.js"></script>
+    <script src="/static/js/solver-runner.js"></script>
+    <script src="/static/js/solver-client.js"></script>
+    <script src="/static/js/solver-store.js"></script>
     <script src="/static/js/response-cache.js"></script>
     <script src="/static/js/live-university-client.js"></script>
     <script src="/static/js/api.js"></script>
@@ -468,6 +476,7 @@
     <script src="/static/js/features/scheduler/layout.js"></script>
     <script src="/static/js/features/scheduler/summary.js"></script>
     <script src="/static/js/features/scheduler/solve.js"></script>
+    <script src="/static/js/features/scheduler/sessions.js"></script>
     <script src="/static/js/features/scheduler/index.js"></script>
     <script src="/static/js/scheduler.js"></script>
     <script src="/static/js/features/map/index.js"></script>

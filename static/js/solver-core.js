@@ -306,85 +306,297 @@ const SolverCore = (() => {
         return Math.round(scaled) / scale;
     }
 
-    function solve(params = {}) {
-        const courses = Array.isArray(params.courses) ? params.courses : [];
-        const preferences = params.preferences || {};
-        const configuredMaxResults = integerValue(params.max_results);
-        const maxResults = configuredMaxResults === null ? 10 : Math.max(0, configuredMaxResults);
-        const blockedTimes = Array.isArray(preferences.blocked_times)
-            ? preferences.blocked_times : [];
-        const parsedMaxCredits = preferences.max_credits === null
-            || preferences.max_credits === undefined
-            ? null : Number(preferences.max_credits);
-        const maxCredits = Number.isFinite(parsedMaxCredits) ? parsedMaxCredits : null;
+    const VERSION = 'sessions-1';
+    const CACHE_LIMIT_BYTES = 32 * 1024 * 1024;
+    const now = () => typeof performance === 'object' && performance.now
+        ? performance.now() : Date.now();
 
-        const preparedCourses = courses.map((course, originalIndex) => ({
+    function onlineSection(section) {
+        return /^J/i.test(String(section.section || '').trim())
+            || /online|web|remote|distance|asynchronous|does not meet/i.test(
+                ['inst_mthd', 'instructionalMethod', 'instructional_method', 'meets']
+                    .map(field => String(section[field] || '')).join(' '),
+            );
+    }
+
+    function assignmentFor(session, chosen) {
+        const assignment = {};
+        chosen.forEach((sectionIndex, courseIndex) => {
+            if (sectionIndex !== null) assignment[session.courses[courseIndex].code]
+                = session.courses[courseIndex].sections[sectionIndex];
+        });
+        return assignment;
+    }
+
+    function identityFor(session, refs) {
+        // The encoding is reversible and does not introduce hash collisions.
+        return JSON.stringify([String(session.params.term || ''), refs.map(([courseIndex, sectionIndex]) => [
+            String(session.courses[courseIndex].code),
+            String(session.courses[courseIndex].sections[sectionIndex].crn ?? sectionIndex),
+        ]).sort((a, b) => a[0].localeCompare(b[0]) || a[1].localeCompare(b[1]))]);
+    }
+
+    function basicMetrics(assignment) {
+        const days = new Set();
+        const meetings = new Map();
+        let earliest = null;
+        let online = 0;
+        let knownCampusMeetings = 0;
+        let unknownCampusMeetings = 0;
+        for (const section of Object.values(assignment)) {
+            const isOnline = onlineSection(section);
+            if (isOnline) online++;
+            for (const meeting of section._parsed_times) {
+                if (!isOnline) {
+                    days.add(meeting.day);
+                    if (Number.isFinite(meeting.latitude) && Number.isFinite(meeting.longitude)) knownCampusMeetings++;
+                    else unknownCampusMeetings++;
+                }
+                const start = hhmmToMinutes(meeting.start);
+                if (earliest === null || start < earliest) earliest = start;
+                if (!meetings.has(meeting.day)) meetings.set(meeting.day, []);
+                meetings.get(meeting.day).push(meeting);
+            }
+        }
+        let gaps = 0;
+        for (const day of meetings.values()) {
+            day.sort((a, b) => a.start - b.start);
+            for (let index = 1; index < day.length; index++) {
+                gaps += Math.max(0, hhmmToMinutes(day[index].start) - hhmmToMinutes(day[index - 1].end));
+            }
+        }
+        return { campusDays: days.size,
+            campusDaysCompleteness: !unknownCampusMeetings ? 'complete' : knownCampusMeetings ? 'partial' : 'missing',
+            gaps, laterStart: earliest, online };
+    }
+
+    function makeFrame(domains, chosen, credits) {
+        return { domains, chosen, credits, course: null, next: 0, pending: null };
+    }
+
+    function createSession(params = {}, checkpoint = null) {
+        const preferences = params.preferences || {};
+        let sectionId = 0;
+        const courses = (Array.isArray(params.courses) ? params.courses : []).map(course => ({
             ...course,
-            _original_index: originalIndex,
             sections: (Array.isArray(course.sections) ? course.sections : []).map(section => {
-                const parsedTimes = attachWalkingLocations(
-                    parseMeetingTimes(section.meetingTimes || ''),
-                    section._walking_locations || [],
-                );
-                return {
-                    ...section,
-                    _parsed_times: parsedTimes,
-                    _is_async: parsedTimes.length === 0 && isAsynchronous(section),
-                    _credits: sectionCredits(section),
-                };
+                const parsed = attachWalkingLocations(parseMeetingTimes(section.meetingTimes || ''), section._walking_locations || []);
+                return { ...section, _id: sectionId++, _parsed_times: parsed,
+                    _is_async: !parsed.length && isAsynchronous(section), _credits: sectionCredits(section) };
             }),
         }));
-        const sortedCourses = [...preparedCourses].sort((first, second) => (
-            first.sections.length - second.sections.length
-            || first._original_index - second._original_index
-        ));
-
-        const solutions = [];
-        const target = maxResults * 3;
-        const deadline = Date.now() + DEFAULT_TIMEOUT_MS;
-
-        function backtrack(index, assignment, assignedCredits) {
-            if (Date.now() > deadline) return true;
-            if (index === sortedCourses.length) {
-                if (requiredPreferencesSatisfied(assignment, preferences)) {
-                    solutions.push({ ...assignment });
+        const maxCredits = finiteNumber(preferences.max_credits);
+        const domains = courses.map(course => {
+            const seen = new Set();
+            return course.sections.flatMap((section, index) => {
+            const lock = params.section_locks?.[course.code] || preferences.section_locks?.[course.code];
+            if (lock && String(section.crn) !== String(lock)) return [];
+            if (!section._parsed_times.length && !section._is_async) return [];
+            if (blockedConflict(section._parsed_times, preferences.blocked_times || [])) return [];
+            // Walking is higher order. It is checked only at a full assignment,
+            // because adding an intervening class can repair a previous transition.
+            const unaryPreferences = { ...preferences, walking_buffer_required: false };
+            if (!requiredPreferencesSatisfied({ [course.code]: section }, unaryPreferences)) return [];
+            if (maxCredits !== null && section._credits > maxCredits) return [];
+            const identity = String(section.crn ?? index);
+            if (seen.has(identity)) return [];
+            seen.add(identity);
+            return [index];
+            });
+        });
+        // Sharing a possible day/time envelope establishes a constraint edge.
+        // Conservative edges affect ordering only and never remove a section.
+        const envelopes = courses.map((course, index) => {
+            const result = new Map();
+            domains[index].forEach(sectionIndex => course.sections[sectionIndex]._parsed_times.forEach(meeting => {
+                const existing = result.get(meeting.day);
+                result.set(meeting.day, existing
+                    ? { start: Math.min(existing.start, meeting.start), end: Math.max(existing.end, meeting.end) }
+                    : { start: meeting.start, end: meeting.end });
+            }));
+            return result;
+        });
+        const neighbors = courses.map(() => []);
+        for (let left = 0; left < courses.length; left++) {
+            for (let right = left + 1; right < courses.length; right++) {
+                if ([...envelopes[left]].some(([day, range]) => {
+                    const other = envelopes[right].get(day);
+                    return other && range.start < other.end && other.start < range.end;
+                })) {
+                    neighbors[left].push(right);
+                    neighbors[right].push(left);
                 }
-                return solutions.length >= target;
             }
-
-            const course = sortedCourses[index];
-            for (const section of course.sections) {
-                if (section._parsed_times.length === 0 && !section._is_async) continue;
-                const nextCredits = assignedCredits + section._credits;
-                if (maxCredits !== null && nextCredits > maxCredits) continue;
-                if (!isConsistent(section, assignment, blockedTimes)) continue;
-                assignment[course.code] = section;
-                if (backtrack(index + 1, assignment, nextCredits)) return true;
-                delete assignment[course.code];
-            }
-            return false;
         }
+        const session = { params, courses, preferences, maxCredits, neighbors, sectionCount: sectionId,
+            cache: new Map(), cacheBytes: 0, total_found: 0, visited: 0, complete: domains.some(domain => !domain.length),
+            stack: [], session_id: params.session_id || 'local', input_revision: params.input_revision || '' };
+        if (checkpoint) {
+            if (checkpoint.version !== VERSION || checkpoint.session_id !== session.session_id
+                || checkpoint.input_revision !== session.input_revision) throw new Error('Saved solver session does not match these inputs');
+            if (!Array.isArray(checkpoint.stack) || !Number.isSafeInteger(checkpoint.total_found)
+                || checkpoint.total_found < 0 || !Number.isSafeInteger(checkpoint.visited)
+                || checkpoint.visited < 0) throw new Error('Invalid solver checkpoint');
+            session.stack = JSON.parse(JSON.stringify(checkpoint.stack));
+            session.total_found = checkpoint.total_found;
+            session.visited = checkpoint.visited;
+            session.complete = Boolean(checkpoint.complete);
+        } else if (!session.complete) {
+            session.stack.push(makeFrame(domains, courses.map(() => null), 0));
+        }
+        return session;
+    }
 
-        const searchStopped = backtrack(0, {}, 0);
-        const schedules = solutions.map((solution, originalIndex) => ({
-            sections: Object.fromEntries(Object.entries(solution)
-                .map(([code, section]) => [code, cloneWithoutInternalFields(section)])),
-            score: roundHalfEven(scoreSchedule(solution, preferences), 2),
-            _original_index: originalIndex,
-        }));
-        schedules.sort((first, second) => second.score - first.score
-            || first._original_index - second._original_index);
-        schedules.forEach(schedule => { delete schedule._original_index; });
+    function getCheckpoint(session) {
+        return { version: VERSION, session_id: session.session_id, input_revision: session.input_revision,
+            total_found: session.total_found, visited: session.visited, complete: session.complete,
+            stack: JSON.parse(JSON.stringify(session.stack)) };
+    }
 
-        return {
-            total_found: solutions.length,
-            search_complete: !searchStopped,
-            returned: Math.min(maxResults, schedules.length),
-            schedules: schedules.slice(0, maxResults),
-        };
+    function compatible(session, left, right) {
+        const first = Math.min(left._id, right._id);
+        const second = Math.max(left._id, right._id);
+        const key = first * session.sectionCount + second;
+        const chunkIndex = Math.floor(key / 4096);
+        const offset = key % 4096;
+        let chunk = Number.isSafeInteger(key) ? session.cache.get(chunkIndex) : null;
+        const stored = chunk ? (chunk[offset >> 2] >> ((offset & 3) * 2)) & 3 : 0;
+        if (stored) return stored === 1;
+        const result = !timesOverlap(left._parsed_times, right._parsed_times);
+        // The payload is compact (two bits per pair), with a conservative charge
+        // for each map entry. Once full, compatibility is computed on demand.
+        if (!chunk && Number.isSafeInteger(key) && session.cacheBytes + 1280 <= CACHE_LIMIT_BYTES) {
+            chunk = new Uint8Array(1024);
+            session.cache.set(chunkIndex, chunk);
+            session.cacheBytes += 1280;
+        }
+        if (chunk) chunk[offset >> 2] |= (result ? 1 : 2) << ((offset & 3) * 2);
+        return result;
+    }
+
+    function selectCourse(session, frame) {
+        let selected = null;
+        let degree = -1;
+        frame.domains.forEach((domain, index) => {
+            if (domain === null) return;
+            const currentDegree = session.neighbors[index].filter(neighbor => frame.domains[neighbor] !== null).length;
+            if (selected === null || domain.length < frame.domains[selected].length
+                || (domain.length === frame.domains[selected].length && (currentDegree > degree
+                    || (currentDegree === degree && String(session.courses[index].code)
+                        .localeCompare(String(session.courses[selected].code)) < 0)))) {
+                selected = index;
+                degree = currentDegree;
+            }
+        });
+        return selected;
+    }
+
+    function step(session, { budgetMs = 50, maxResults = 250 } = {}) {
+        const started = now();
+        const deadline = started + Math.min(50, Math.max(0.1, Number(budgetMs) || 50));
+        const limit = Math.max(1, Math.min(250, Math.trunc(maxResults) || 250));
+        const results = [];
+        while (!session.complete && results.length < limit && now() < deadline) {
+            const frame = session.stack[session.stack.length - 1];
+            if (!frame) { session.complete = true; break; }
+            if (frame.pending) {
+                const pending = frame.pending;
+                if (pending.course >= session.courses.length) {
+                    const child = makeFrame(pending.domains, [...frame.chosen], pending.credits);
+                    child.chosen[frame.course] = pending.section;
+                    frame.pending = null;
+                    session.stack.push(child);
+                    continue;
+                }
+                const domain = frame.domains[pending.course];
+                if (domain === null || pending.course === frame.course) {
+                    pending.domains[pending.course] = null;
+                    pending.course++;
+                    pending.sectionCursor = 0;
+                    continue;
+                }
+                if (pending.sectionCursor >= domain.length) {
+                    if (!pending.domains[pending.course].length) {
+                        frame.pending = null;
+                        continue;
+                    }
+                    pending.course++;
+                    pending.sectionCursor = 0;
+                    continue;
+                }
+                const candidate = domain[pending.sectionCursor++];
+                const first = session.courses[frame.course].sections[pending.section];
+                const second = session.courses[pending.course].sections[candidate];
+                if ((session.maxCredits === null || pending.credits + second._credits <= session.maxCredits)
+                    && compatible(session, first, second)) pending.domains[pending.course].push(candidate);
+                continue;
+            }
+            if (frame.course === null) {
+                frame.course = selectCourse(session, frame);
+                if (frame.course === null) {
+                    const assignment = assignmentFor(session, frame.chosen);
+                    session.stack.pop();
+                    if (requiredPreferencesSatisfied(assignment, session.preferences)) {
+                        const refs = frame.chosen.map((sectionIndex, courseIndex) => [courseIndex, sectionIndex]);
+                        session.total_found++;
+                        results.push({ id: identityFor(session, refs), ordinal: session.total_found, refs,
+                            score: scoreSchedule(assignment, session.preferences), metrics: basicMetrics(assignment) });
+                    }
+                    continue;
+                }
+            }
+            if (frame.next >= frame.domains[frame.course].length) {
+                session.stack.pop();
+                continue;
+            }
+            const sectionIndex = frame.domains[frame.course][frame.next++];
+            session.visited++;
+            const credits = frame.credits + session.courses[frame.course].sections[sectionIndex]._credits;
+            if (session.maxCredits !== null && credits > session.maxCredits) continue;
+            frame.pending = { section: sectionIndex, credits, course: 0, sectionCursor: 0,
+                domains: frame.domains.map(domain => domain === null ? null : []) };
+        }
+        if (!session.stack.length) session.complete = true;
+        return { results, checkpoint: getCheckpoint(session), complete: session.complete,
+            total_found: session.total_found, visited: session.visited, active_ms: now() - started };
+    }
+
+    function materializeResult(params, result) {
+        return { ...result, sections: Object.fromEntries(result.refs.map(([courseIndex, sectionIndex]) => [
+            params.courses[courseIndex].code, cloneWithoutInternalFields(params.courses[courseIndex].sections[sectionIndex]),
+        ])) };
+    }
+
+    function solve(params = {}) {
+        const session = createSession(params);
+        const maxResults = Math.max(0, integerValue(params.max_results) ?? 10);
+        const duration = Math.max(0, finiteNumber(params.timeout_ms) ?? DEFAULT_TIMEOUT_MS);
+        const deadline = now() + duration;
+        const retained = [];
+        while (!session.complete && now() < deadline) {
+            const batch = step(session, { budgetMs: Math.min(50, deadline - now()), maxResults: 250 });
+            for (const result of batch.results) {
+                retained.push(result);
+                retained.sort((a, b) => b.score - a.score || a.ordinal - b.ordinal);
+                if (retained.length > maxResults) retained.pop();
+            }
+        }
+        return { total_found: session.total_found, search_complete: session.complete,
+            returned: retained.length, schedules: retained.map(result => {
+                const schedule = materializeResult(params, result);
+                schedule.score = roundHalfEven(schedule.score, 2);
+                return schedule;
+            }) };
     }
 
     return {
+        VERSION,
+        CACHE_LIMIT_BYTES,
+        createSession,
+        getCheckpoint,
+        step,
+        materializeResult,
+        onlineSection,
         hhmmToMinutes,
         parseMeetingTimes,
         attachWalkingLocations,
@@ -398,3 +610,6 @@ const SolverCore = (() => {
         solve,
     };
 })();
+
+if (typeof module === 'object' && module.exports) module.exports = SolverCore;
+if (typeof globalThis === 'object') globalThis.SolverCore = SolverCore;

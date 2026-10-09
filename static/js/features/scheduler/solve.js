@@ -39,7 +39,7 @@
             if (!deps.walkingMap) return;
 
             const sections = courses.flatMap(course => course.sections || []);
-            await deps.walkingMap.hydrateSectionDetails(sections, { concurrency: 8, foreground: true });
+            await deps.walkingMap.hydrateSectionDetails(sections, { concurrency: 4, foreground: true });
             sections.forEach(section => {
                 const details = deps.walkingMap.sectionDetails.get(deps.walkingMap.sectionDetailKey(section)) || [];
                 section._walking_locations = deps.walkingMap.parseMeetingTimes(section.meetingTimes)
@@ -59,7 +59,7 @@
             });
         },
 
-        async solve(maxResults = 10) {
+        async solveLegacy(maxResults = 10) {
             const courseGroups = Object.values(deps.state.selectedCourses || {});
             if (courseGroups.length === 0) {
                 // Rendered in place rather than through alert(). A modal dialog for an
@@ -150,12 +150,12 @@
                     `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${this.escapeHtml(code)} ${this.escapeHtml(section.section || '')}</strong></button>`,
                 ).join('');
                 html += `
-                    <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}">
+                    <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}" data-schedule-id="${this.escapeHtml(schedule.id || '')}">
                         <div class="schedule-card-header">
-                            <span class="score">Option ${index + 1}</span>
+                            <span class="score">Option ${schedule.ordinal || index + 1}</span>
                             <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
                         </div>
-                        <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${index + 1} and open details">${this.scheduleCalendarMarkup(schedule)}</button>
+                        <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${schedule.ordinal || index + 1} and open details">${this.scheduleCalendarMarkup(schedule)}</button>
                         <div class="schedule-option-summary" data-summary-index="${index}" role="group" aria-label="Summary for schedule ${index + 1}" aria-busy="true">${this.scheduleSummaryMarkup(this.scheduleSummarySections(schedule))}</div>
                         <div class="sched-courses">${courseList}</div>
                     </article>
@@ -166,7 +166,7 @@
             }
             this.hideScheduleCalendarPopup();
             container.innerHTML = html;
-            Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
+            if (!result.session_page) Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
 
             container.querySelectorAll('.schedule-option-summary').forEach(summary => {
                 summary.addEventListener('click', event => {
@@ -175,7 +175,7 @@
                     this.applySchedule(Number(summary.dataset.summaryIndex));
                 });
             });
-            this.hydrateScheduleSummaries(schedules, container);
+            if (!result.session_page) this.hydrateScheduleSummaries(schedules, container);
             container.querySelectorAll('.btn-apply').forEach(button => {
                 button.addEventListener('click', event => {
                     event.stopPropagation();
@@ -350,10 +350,11 @@
         applySchedule(index) {
             const schedule = deps.state.solverResults[index];
             if (!schedule) return;
+            if (schedule.id) this._appliedSolverIdentity = schedule.id;
             deps.state.applySolverSchedule(schedule);
             this.refreshAppliedResultState();
             this.showScheduleDetail();
-            Accessibility.announce(`Schedule option ${index + 1} applied. Details are open.`, 'schedule');
+            Accessibility.announce(`Schedule option ${schedule.ordinal || index + 1} applied. Details are open.`, 'schedule');
         },
 
         isAppliedSchedule(schedule) {

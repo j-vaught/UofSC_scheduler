@@ -134,10 +134,13 @@
             createSolvePart(deps),
         );
 
+        const createSessionsPart = (typeof SchedulerParts !== 'undefined' && SchedulerParts.createSessionsPart)
+            || (typeof require === 'function' ? require('./sessions.js').createSessionsPart : null);
+        if (createSessionsPart) Object.assign(feature, createSessionsPart(deps));
+
 
         return feature;
     }
 
     return { createSchedulerFeature };
 }));
-

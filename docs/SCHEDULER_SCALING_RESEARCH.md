@@ -1,45 +1,31 @@
-# Schedule generation research
+# Resumable schedule generation
 
 J.C. Vaught. October 9, 2026.
 
-## Objective
+## Implemented design
 
-Analyze every selected course and every eligible section without introducing a course-count cap. Every selected course remains mandatory. A large candidate catalog is a separate future feature because choosing a subset of courses changes the problem and requires credit, requirement, and preference rules.
+Every selected course remains mandatory, and every eligible section remains in the search. Iterative backtracking uses forward checking and chooses the next course by its remaining choices, conflict degree, and course code. Compatibility caching stops growing at 32 MiB; uncached comparisons remain eligible. Required walking rules are evaluated on complete schedules because future meetings can change adjacent transitions.
 
-## Current behavior
+The first-result collection cutoff has been removed. Search executes in yielding slices of up to 50 milliseconds and pauses after 30 seconds of active computation. Stop requests are checked between slices. Continue reuses the serialized search stack, including interrupted forward checking. The same runner supports workers and the yielding fallback.
 
-Two independent research agents inspected the solver and reviewed each other's findings. They agreed on the following constraints. No solver changes were made during this investigation.
+## Durability and browsing
 
-| Finding | Source | Consequence |
-| --- | --- | --- |
-| No explicit course-count or section-count cap. | `static/js/solver-core.js`, `solve`. | Every selected course contributes one section to each complete assignment. |
-| Search stops after five seconds. | `static/js/solver-core.js`, `DEFAULT_TIMEOUT_MS`. | A feasible schedule can exist beyond the explored branches. |
-| Search also stops after finding three times the requested result count. | `static/js/solver-core.js`, `target` and `backtrack`. | Results are ranked within the collected prefix, not necessarily across all feasible schedules. |
-| Course order is fixed by initial section count. | `static/js/solver-core.js`, `sortedCourses`. | The order does not respond to sections ruled out later. |
-| Compatibility is checked against previously assigned sections. | `static/js/solver-core.js`, `isConsistent`. | Unassigned courses are not pruned immediately after each choice. |
-| Show More reruns generation with a larger requested count. | `static/js/features/scheduler/solve.js`. | Earlier work is repeated instead of resumed. |
-| The worker performs synchronous search and sends a final response. | `static/js/solver-worker.js`. | Progress and cooperative cancellation need a different execution loop. |
+Results contain stable section references rather than copies of the catalog. IndexedDB commits each result batch together with its continuation checkpoint before the worker receives acknowledgement. A refresh resumes from the latest committed batch. Session matching includes the term, courses and eligible sections, locks, preferences, catalog revision, and solver version. Changed inputs replace the session for that term without replacing an applied schedule.
 
-With section counts $m_1,\ldots,m_n$, the unfiltered search contains up to $\prod_i m_i$ combinations. Therefore removing the course-count cap alone cannot guarantee exhaustive search within a fixed browser time budget. The product requirement should be unlimited input with bounded working memory, responsive controls, and honest incomplete-result reporting.
+Immutable indexed ranking snapshots provide ten-result pages. New results and resolved summaries remain staged until Update results or a new Sort selection. Discovery ordinals remain stable across sorting and pagination. A completed search reports the exact number of feasible schedules; unfinished searches report only how many have been found.
 
-## Recommended sequence
+When IndexedDB is unavailable, temporary result storage is limited to 32 MiB and refresh recovery is explicitly unavailable. Storage failures pause the search at its last durable checkpoint. Results are never silently discarded to obtain a better ranking.
 
-The first change should separate schedules found, schedules displayed, completion state, and stop reason. Preserve exact counts only when enumeration finishes. When interrupted, report the feasible schedules found so far and explain whether time or cancellation stopped the search. A preference score is an ordering within the explored results unless optimality has been proved.
+## Sorting and metrics
 
-Next, precompute section compatibility and use forward checking to remove sections incompatible with each assignment. Choose the next course dynamically by its remaining eligible sections, with conflict degree as a tie breaker. This detects impossible branches earlier without removing any selected course. These are standard constraint-satisfaction techniques described in the [Carnegie Mellon course notes](https://www.cs.cmu.edu/~15281-f23/coursenotes/constraints/index.html).
+All seven orderings use shared summary calculations. Best match retains the existing preference score. Other orderings compare campus days, weekly walking, total gaps, earliest weekly start, credit-weighted historical GPA, or online course count. Data completeness precedes data-dependent comparisons; preference score and stable identity break ties. Metric values retain full precision for sorting and are rounded only for display.
 
-Once pruning is in place, replace the three-times-result early stop with an anytime search. Score each feasible assignment as it is found, retain the best requested results in a bounded structure, and keep exploring until the search completes or the user stops it. The results improve during the run, but they remain provisional until completion or a valid optimality bound. GPA and routing data should be prepared before the search or used to rerank candidates; network requests must not occur inside the combinatorial loop.
+Grade and credit records are reused by section, routes by ordered building pair, and scheduler data requests share a four-request ceiling. Network requests do not run inside backtracking. Missing data remains missing, and grade fallbacks and travel estimates retain their warnings.
 
-The worker should then emit progress and yield between bounded batches of search steps. Add cancellation, a job identifier, and stale-response rejection. Posting a cancellation message cannot interrupt the current synchronous loop. Immediate cancellation can terminate and recreate the worker, as specified by [Worker.terminate](https://developer.mozilla.org/en-US/docs/Web/API/Worker/terminate); resumable cancellation instead requires retaining the search stack and yielding cooperatively.
+## Acceptance evidence
 
-Because Show More currently repeats work, store a continuation session containing the search stack, remaining domains, retained candidates, and input revision. Resume only when courses and preferences still match. Invalidate the session when any input changes.
+The engine and store tests compare small searches against independent exhaustive enumeration and exercise incomplete checkpoints, no solutions, required preferences, section locks, missing credits, online and weekend meetings, storage exhaustion, stale messages, worker failure, stable snapshots, and every ordering.
 
-After those changes, investigate admissible score bounds for branch-and-bound and independent components. A time-conflict graph alone does not prove independence. Credit rules, preferences, and travel scoring can couple components. An external constraint solver should be considered only if profiling shows that the improved browser solver remains inadequate.
+Native browser acceptance completed a 512-result synthetic search, reached the final cursor page, restored the saved checkpoint and snapshot, rejected stale writes, and confirmed every sort retained every result. A difficult 12-course by 20-section search paused in approximately 2 milliseconds. The local Spring 2027 five-course example completed with 528 schedules, preserved the applied detail viewer while sorting, and restored its results after refresh.
 
-## Evaluation plan
-
-Compare small instances against exhaustive enumeration to establish feasibility and ranking correctness. Then measure time to first feasible result, best score over time, visited nodes, peak memory, cancellation latency, and continuation reuse across real course lists and deliberately difficult section combinations. Include online sections, variable credits, blocked periods, walking constraints, and instances with no feasible schedule. The desired outcome is faster useful results without silently dropping courses or claiming an exact total before completion. This evaluation is proposed work and has not been run.
-
-## Decision
-
-Implement compatibility pruning and dynamic course ordering first, followed by bounded best-result retention, progress, cancellation, and continuation. Keep course-count limits out of the interface. Larger input should increase search effort while the interface continues to explain what has and has not been explored.
+These checks describe tested examples rather than a universal completion-time guarantee. A very large combination space can require repeated Continue runs or reach browser storage capacity. No course-count cap or remote solver was introduced. Mobile access remains unsupported.

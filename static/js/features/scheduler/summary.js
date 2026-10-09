@@ -9,6 +9,54 @@
 
     function createSummaryPart(deps) {
         return {
+            scheduleDataRequest(task) {
+                this._scheduleDataQueue ||= [];
+                this._scheduleDataActive ||= 0;
+                return new Promise((resolve, reject) => {
+                    this._scheduleDataQueue.push({ task, resolve, reject });
+                    const pump = () => {
+                        while (this._scheduleDataActive < 4 && this._scheduleDataQueue.length) {
+                            const next = this._scheduleDataQueue.shift();
+                            this._scheduleDataActive++;
+                            Promise.resolve().then(next.task).then(next.resolve, next.reject).finally(() => {
+                                this._scheduleDataActive--;
+                                pump();
+                            });
+                        }
+                    };
+                    pump();
+                });
+            },
+
+            scheduleGradeRecord(section, term = deps.state.term) {
+                this._sectionGradeRecords ||= new Map();
+                const key = JSON.stringify([term, section.code, section.crn, this.knownScheduleSectionCredits(section, term)]);
+                if (!this._sectionGradeRecords.has(key)) {
+                    this._sectionGradeRecords.set(key, (async () => {
+                        const [{ grades, faculty }, credits] = await Promise.all([
+                            this.scheduleSectionData(section, term), this.resolveScheduleSectionCredits(section, term),
+                        ]);
+                        const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
+                        const valid = grade => grade && grade.average_gpa != null
+                            && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0;
+                        const records = instructors.map(item => item.grade).filter(valid);
+                        let gpa = null;
+                        let reason = '';
+                        if (instructors.length && records.length === instructors.length) {
+                            const students = records.reduce((sum, grade) => sum + Number(grade.graded_students), 0);
+                            gpa = records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students;
+                        } else if (valid(grades)) {
+                            gpa = Number(grades.average_gpa);
+                            reason = 'Instructor history missing. Using course-wide grades.';
+                        } else reason = 'No historical course grades. Excluded from estimate.';
+                        if (credits === null) reason = 'Credit hours unavailable. Excluded from estimate.';
+                        if (credits === null) this._sectionGradeRecords.delete(key);
+                        return { code: section.code, credits, gpa, reason };
+                    })());
+                }
+                return this._sectionGradeRecords.get(key);
+            },
+
             scheduleSummarySections(schedule) {
                 return Object.entries(schedule.sections || {}).map(([code, section]) => ({ ...section, code }));
             },
@@ -48,7 +96,7 @@
                 if (!this._scheduleCreditRequests.has(key)) {
                     const pending = (async () => {
                         try {
-                            const details = await deps.api.getDetails(section.crn, term);
+                            const details = await this.scheduleDataRequest(() => deps.api.getDetails(section.crn, term));
                             const credits = [details?.hours_html, details?.hours, details?.credits]
                                 .map(value => this.parseCreditHours(value)).find(value => value !== null) ?? null;
                             if (credits !== null) {
@@ -81,25 +129,9 @@
                             while (cursor < sections.length) {
                                 const index = cursor++;
                                 const section = sections[index];
-                                const [{ grades, faculty }, credits] = await Promise.all([
-                                    this.scheduleSectionData(section, term), this.resolveScheduleSectionCredits(section, term),
-                                ]);
-                                creditValues[index] = credits;
-                                const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
-                                const valid = grade => grade && grade.average_gpa != null
-                                    && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0;
-                                const records = instructors.map(item => item.grade).filter(valid);
-                                let gpa = null;
-                                let reason = '';
-                                if (instructors.length && records.length === instructors.length) {
-                                    const students = records.reduce((sum, grade) => sum + Number(grade.graded_students), 0);
-                                    gpa = records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students;
-                                } else if (valid(grades)) {
-                                    gpa = Number(grades.average_gpa);
-                                    reason = 'Instructor history missing. Using course-wide grades.';
-                                } else reason = 'No historical course grades. Excluded from estimate.';
-                                if (creditValues[index] === null) reason = 'Credit hours unavailable. Excluded from estimate.';
-                                historical[index] = { code: section.code, credits: creditValues[index] || 0, gpa, reason };
+                                const record = await this.scheduleGradeRecord(section, term);
+                                creditValues[index] = record.credits;
+                                historical[index] = record;
                             }
                         };
                         await Promise.all(Array.from({ length: Math.min(3, sections.length) }, worker));
@@ -107,6 +139,8 @@
                         const covered = matched.reduce((sum, item) => sum + item.credits, 0);
                         if (creditValues.some(value => value === null)) this._scheduleGradeEstimates.delete(key);
                         return {
+                            value: covered ? matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered : null,
+                            completeness: !covered ? 'missing' : matched.length === historical.filter(item => item.credits !== 0).length ? 'complete' : 'partial',
                             estimate: covered ? (matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2) : 'Unavailable',
                             missing: historical.filter(item => item.reason),
                             creditHours: creditValues,
@@ -160,7 +194,7 @@
                         const routeKey = map.routeCacheKey(from, to);
                         this._summaryRoutes ||= new Map();
                         if (!this._summaryRoutes.has(routeKey)) {
-                            const pending = map.routeBetween(from, to, { signal: AbortSignal.timeout(8000) });
+                            const pending = this.scheduleDataRequest(() => map.routeBetween(from, to, { signal: AbortSignal.timeout(8000) }));
                             this._summaryRoutes.set(routeKey, pending);
                             pending.then(() => this._summaryRoutes.delete(routeKey), () => this._summaryRoutes.delete(routeKey));
                         }
