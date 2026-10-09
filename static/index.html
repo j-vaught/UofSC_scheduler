@@ -350,9 +350,9 @@
                                 <h3>Schedule Options</h3>
                             </div>
                             <div class="schedule-panel-actions">
-                                <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules"><span class="ui-icon icon-event_repeat" aria-hidden="true"></span></button>
+                                <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules"><span class="ui-icon icon-event_repeat" aria-hidden="true"></span><span class="schedule-action-label">Generate</span></button>
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary schedule-preferences-button" type="button" aria-label="Schedule preferences" title="Schedule preferences" aria-haspopup="dialog" aria-controls="modal">
-                                    <span class="ui-icon icon-tune" aria-hidden="true"></span>
+                                    <span class="ui-icon icon-tune" aria-hidden="true"></span><span class="schedule-action-label">Preferences</span>
                                 </button>
 
                             </div>
@@ -386,12 +386,12 @@
                             <div id="schedule-course-info" class="course-section-summary" aria-live="polite"></div>
                         </section>
                         <div class="course-detail-tabs schedule-view-tabs" role="tablist" aria-label="Schedule details">
-                            <button id="schedule-tab-weekly" role="tab" aria-selected="true" aria-controls="schedule-weekly-panel" tabindex="0" data-schedule-view="weekly">Weekly schedule</button>
-                            <button id="schedule-tab-walking" role="tab" aria-selected="false" aria-controls="schedule-walking-panel" tabindex="-1" data-schedule-view="walking">Walking</button>
+                            <button id="schedule-tab-weekly" role="tab" aria-selected="true" aria-controls="schedule-weekly-panel" tabindex="0" data-schedule-view="weekly">Course Schedule</button>
+                            <button id="schedule-tab-walking" role="tab" aria-selected="false" aria-controls="schedule-walking-panel" tabindex="-1" data-schedule-view="walking">Course Locations</button>
                         </div>
                         <section id="schedule-weekly-panel" role="tabpanel" aria-labelledby="schedule-tab-weekly" class="schedule-preview-panel">
                             <div class="schedule-panel-heading">
-                                <h3>Weekly Preview</h3>
+                                <h3>Course Schedule</h3>
                             </div>
                             <div id="calendar-container">
                                 <div id="calendar-grid">

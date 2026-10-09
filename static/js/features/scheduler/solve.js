@@ -117,7 +117,7 @@
         },
 
         renderResults(result, container) {
-            const { total_found, returned, schedules } = result;
+            const { total_found, returned, schedules, search_complete } = result;
             if (!schedules || schedules.length === 0) {
                 const hasLocks = Object.keys(deps.state.sectionLocks || {}).length > 0;
                 const hasRequirements = deps.state.timePreferencesRequired
@@ -133,11 +133,11 @@
                 return;
             }
 
-            let html = `<p class="solver-summary">Ranked ${total_found} valid schedules. Showing the top ${returned}.</p>`;
+            let html = `<p class="solver-summary">Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.</p>`;
             schedules.forEach((schedule, index) => {
                 const applied = this.isAppliedSchedule(schedule);
                 const courseList = Object.entries(schedule.sections).map(([code, section]) =>
-                    `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${code} ${section.section || ''}</strong><span>${((section.instructor || section.instr) && (section.instructor || section.instr) !== 'Staff' ? (section.instructor || section.instr) : 'Undecided')}</span><span>${section.meets || 'TBA'}</span>${this.isOpenSection(section) ? '' : '<span class="sched-course-full">FULL — planning only</span>'}</button>`,
+                    `<button type="button" class="sched-course" data-schedule-index="${index}" data-course-code="${this.escapeHtml(code)}" title="View ${this.escapeHtml(code)} Section ${this.escapeHtml(section.section || '')} details"><strong>${this.escapeHtml(code)} ${this.escapeHtml(section.section || '')}</strong></button>`,
                 ).join('');
                 html += `
                     <article class="schedule-card${applied ? ' applied' : ''}" data-idx="${index}">
@@ -146,12 +146,14 @@
                             <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
                         </div>
                         <div class="sched-courses">${courseList}</div>
+                        <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${index + 1} and open details" aria-describedby="schedule-calendar-popup">${this.scheduleCalendarMarkup(schedule)}</button>
                     </article>
                 `;
             });
             if (total_found > returned) {
                 html += `<button class="btn-show-more" type="button" data-next-limit="${returned + 10}">SHOW 10 MORE</button>`;
             }
+            this.hideScheduleCalendarPopup();
             container.innerHTML = html;
 
             container.querySelectorAll('.btn-apply').forEach(button => {
@@ -168,6 +170,14 @@
                     if (section) this.openSectionQuickView(section);
                 });
             });
+            container.querySelectorAll('.schedule-mini-calendar').forEach(button => {
+                button.addEventListener('click', event => { event.stopPropagation(); this.hideScheduleCalendarPopup(); this.applySchedule(Number(button.dataset.scheduleIndex)); });
+                button.addEventListener('mouseenter', () => this.showScheduleCalendarPopup(button));
+                button.addEventListener('mouseleave', event => { if (!event.relatedTarget?.closest?.('#schedule-calendar-popup')) this.hideScheduleCalendarPopup(); });
+                button.addEventListener('focus', () => this.showScheduleCalendarPopup(button));
+                button.addEventListener('blur', () => this.hideScheduleCalendarPopup());
+                button.addEventListener('keydown', event => { if (event.key === 'Escape') this.hideScheduleCalendarPopup(); });
+            });
             container.querySelectorAll('.schedule-card').forEach(card => {
                 this.bindScheduleCardPreview(card, container);
             });
@@ -177,6 +187,45 @@
                     this.solve(Number(showMore.dataset.nextLimit));
                 });
             }
+        },
+
+        scheduleCalendarMarkup(schedule, expanded = false) {
+            const meetings = Object.entries(schedule.sections).flatMap(([code, section]) => deps.calendar.parseMeetingTimes(section.meetingTimes).map(meeting => ({
+                ...meeting, code, section: section.section, start: deps.calendar.timeToMinutes(meeting.start), end: deps.calendar.timeToMinutes(meeting.end),
+            }))).filter(meeting => meeting.day >= 0 && meeting.day <= 6 && meeting.end > meeting.start);
+            const days = meetings.some(meeting => meeting.day >= 5) ? 7 : 5;
+            const start = meetings.length ? Math.floor(Math.min(...meetings.map(meeting => meeting.start)) / 60) * 60 : 8 * 60;
+            const end = meetings.length ? Math.max(start + 120, Math.ceil(Math.max(...meetings.map(meeting => meeting.end)) / 60) * 60) : 18 * 60;
+            const timeLabel = minute => `${Math.floor(minute / 60) % 12 || 12}${minute % 60 ? ':' + String(minute % 60).padStart(2, '0') : ''}${minute >= 720 ? 'p' : 'a'}`;
+            const rows = [];
+            for (let minute = start; minute <= end; minute += 60) rows.push(`<span class="mini-hour" style="top:${(minute - start) / (end - start) * 100}%">${expanded ? timeLabel(minute) : ''}</span>`);
+            return `<span class="mini-days" style="grid-template-columns:repeat(${days},1fr)">${deps.calendar.DAY_LABELS.slice(0, days).map(day => `<span>${day[0]}</span>`).join('')}</span><span class="mini-grid" style="--mini-days:${days}">${rows.join('')}${meetings.map(meeting => `<span class="mini-event" style="left:${meeting.day / days * 100}%;width:${100 / days}%;top:${(meeting.start - start) / (end - start) * 100}%;height:${(meeting.end - meeting.start) / (end - start) * 100}%;background:${deps.calendar.getColor(meeting.code)}">${expanded ? `<b>${this.escapeHtml(meeting.code)} ${this.escapeHtml(meeting.section || '')}</b><span>${timeLabel(meeting.start)}–${timeLabel(meeting.end)}</span>` : ''}</span>`).join('')}${meetings.length ? '' : '<span class="mini-async">No timed meetings</span>'}</span>`;
+        },
+
+        showScheduleCalendarPopup(button) {
+            const schedule = deps.state.solverResults[Number(button.dataset.scheduleIndex)];
+            if (!schedule) return;
+            let popup = document.getElementById('schedule-calendar-popup');
+            if (!popup) {
+                popup = document.createElement('div');
+                popup.id = 'schedule-calendar-popup';
+                popup.className = 'schedule-calendar-popup';
+                popup.setAttribute('role', 'tooltip');
+                popup.addEventListener('mouseleave', () => this.hideScheduleCalendarPopup());
+                document.body.appendChild(popup);
+            }
+            popup.innerHTML = `<strong>Schedule preview</strong>${this.scheduleCalendarMarkup(schedule, true)}`;
+            popup.hidden = false;
+            const box = button.getBoundingClientRect();
+            const width = Math.min(460, window.innerWidth - 24);
+            popup.style.width = `${width}px`;
+            popup.style.left = `${Math.max(12, Math.min(window.innerWidth - width - 12, box.right + 8))}px`;
+            popup.style.top = `${Math.max(12, Math.min(window.innerHeight - popup.offsetHeight - 12, box.top))}px`;
+        },
+
+        hideScheduleCalendarPopup() {
+            const popup = document.getElementById('schedule-calendar-popup');
+            if (popup) popup.hidden = true;
         },
 
         bindScheduleCardPreview(card, container) {

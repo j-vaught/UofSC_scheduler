@@ -1009,3 +1009,23 @@ body.resizing-schedule-details { cursor: col-resize; user-select: none; }
     .schedule-view-header .course-detail-header-controls { flex: 1 1 100%; justify-content: flex-start; }
     #schedule-course-info .course-section-facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+
+/* Give the schedule or locations panel the full viewer once its header scrolls away. */
+.schedule-view-header { position: relative; top: auto; z-index: 2; }
+.schedule-view-tabs { position: sticky; top: 0; z-index: 4; min-height: 46px; background: white; }
+.schedule-detail-panel .schedule-preview-panel,
+#schedule-walking-panel { flex: 0 0 calc(var(--schedule-view-height, 650px) - 84px); height: calc(var(--schedule-view-height, 650px) - 84px); min-height: 300px; }
+.schedule-detail-panel #walking-map-container { height: 100%; }
+.schedule-instructor-email { display: block; color: #73000A; font-size: .7rem; overflow-wrap: anywhere; margin-top: 4px; }
+#solver-section .schedule-panel-actions > button { flex: 0 0 auto; width: auto; padding: 4px 8px; gap: 6px; }
+.schedule-action-label { font-size: .75rem; font-weight: 700; }
+@container schedule-options (max-width: 360px) { #btn-schedule-preferences .schedule-action-label { display: none; } }
+@container schedule-options (max-width: 300px) { #btn-solve .schedule-action-label { display: none; } }
+#schedule-historical-gpa { display: inline-flex; align-items: center; gap: 7px; position: relative; }
+.schedule-gpa-help { display: inline-flex; }
+.schedule-gpa-caution { color: #FFD166; font-size: 1rem; background: none; border: 0; padding: 0 4px; cursor: help; }
+.schedule-gpa-popup { display: none; position: absolute; left: 0; top: 100%; width: min(360px, 70vw); background: white; color: black; border: 2px solid black; padding: 12px; z-index: 6; box-shadow: 4px 4px 0 #5C5C5C; font-size: .75rem; line-height: 1.4; }
+.schedule-gpa-popup > span { display: block; margin-top: 8px; }
+.schedule-gpa-help:hover .schedule-gpa-popup, .schedule-gpa-help:focus-within .schedule-gpa-popup { display: block; }
+.schedule-detail-panel .schedule-view-header { position: relative; top: auto; z-index: 2; }
+.schedule-detail-panel .schedule-view-tabs { position: sticky; top: 0; z-index: 4; }

@@ -365,7 +365,7 @@ const SolverCore = (() => {
             return false;
         }
 
-        backtrack(0, {}, 0);
+        const searchStopped = backtrack(0, {}, 0);
         const schedules = solutions.map((solution, originalIndex) => ({
             sections: Object.fromEntries(Object.entries(solution)
                 .map(([code, section]) => [code, cloneWithoutInternalFields(section)])),
@@ -378,6 +378,7 @@ const SolverCore = (() => {
 
         return {
             total_found: solutions.length,
+            search_complete: !searchStopped,
             returned: Math.min(maxResults, schedules.length),
             schedules: schedules.slice(0, maxResults),
         };

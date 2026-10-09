@@ -65,6 +65,14 @@
                 deps.walkingMap?._map?.invalidateSize();
             });
             window.addEventListener('resize', () => this.setScheduleDetailWidth(this._scheduleDetailWidth || 330));
+            document.addEventListener('pointerdown', event => {
+                if (!event.target.closest('.schedule-mini-calendar')) this.hideScheduleCalendarPopup();
+            });
+            const detail = document.getElementById('schedule-detail-panel');
+            new ResizeObserver(() => {
+                detail.style.setProperty('--schedule-view-height', `${detail.clientHeight}px`);
+                deps.walkingMap?._map?.invalidateSize();
+            }).observe(detail);
             this.updateScheduleDetail();
         },
 
@@ -91,6 +99,7 @@
             const panel = document.getElementById('schedule-detail-panel');
             if (!panel) return;
             panel.hidden = false;
+            panel.scrollTop = 0;
             document.querySelector('#tab-schedule .schedule-layout')?.classList.add('schedule-details-selected');
             const divider = document.getElementById('schedule-detail-divider');
             if (divider) divider.hidden = false;
@@ -119,6 +128,7 @@
         },
 
         selectScheduleView(view) {
+            this.hideScheduleCalendarPopup();
             document.querySelectorAll('[data-schedule-view]').forEach(button => {
                 const selected = button.dataset.scheduleView === view;
                 button.setAttribute('aria-selected', String(selected));
@@ -126,7 +136,12 @@
             });
             document.getElementById('schedule-weekly-panel').hidden = view !== 'weekly';
             document.getElementById('schedule-walking-panel').hidden = view !== 'walking';
-            if (view === 'walking') requestAnimationFrame(() => deps.walkingMap?._map?.invalidateSize());
+            requestAnimationFrame(() => {
+                const panel = document.getElementById('schedule-detail-panel');
+                const tabs = panel.querySelector('.schedule-view-tabs');
+                panel.scrollTop += tabs.getBoundingClientRect().top - panel.getBoundingClientRect().top - panel.clientTop;
+                if (view === 'walking') deps.walkingMap?._map?.invalidateSize();
+            });
         },
 
         async renderScheduleViewer() {
@@ -150,21 +165,46 @@
             }));
             this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
             const historical = await Promise.all(sections.map(async (section, index) => {
-                try {
-                    const [grades, faculty] = await Promise.all([deps.api.getCourseGrades(section.code), deps.api.getFaculty(deps.state.term, [section.crn])]);
-                    const instructors = this.currentInstructorSummaries({ sections: [section] }, grades || {}, faculty?.faculty || []);
-                    const records = instructors.map(item => item.grade).filter(grade => grade && grade.average_gpa !== null && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0);
-                    if (!instructors.length || records.length !== instructors.length || !creditValues[index]) return null;
+                const { grades, faculty } = await this.scheduleSectionData(section);
+                const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
+                const validGrade = grade => grade && grade.average_gpa != null && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0;
+                const records = instructors.map(item => item.grade).filter(validGrade);
+                let gpa = null;
+                let reason = '';
+                if (instructors.length && records.length === instructors.length) {
                     const students = records.reduce((sum, grade) => sum + Number(grade.graded_students), 0);
-                    return { credits: creditValues[index], gpa: records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students };
-                } catch { return null; }
+                    gpa = records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students;
+                } else if (validGrade(grades)) {
+                    gpa = Number(grades.average_gpa);
+                    reason = 'Instructor history missing. Using course-wide grades.';
+                } else {
+                    reason = 'No historical course grades. Excluded from estimate.';
+                }
+                if (creditValues[index] === null) reason = 'Credit hours unavailable. Excluded from estimate.';
+                return { code: section.code, credits: creditValues[index] || 0, gpa, reason };
             }));
             if (request !== this._scheduleViewerRequest) return;
-            const matched = historical.filter(Boolean);
+            const matched = historical.filter(item => item.gpa !== null && item.credits > 0);
             const covered = matched.reduce((sum, item) => sum + item.credits, 0);
+            const missing = historical.filter(item => item.reason);
             const label = document.getElementById('schedule-historical-gpa');
-            label.textContent = covered ? `Historical GPA · ${(matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2)} (${covered}/${credits} credits)` : 'Historical GPA · Unavailable';
-            label.title = 'Past grades for these courses with the selected instructors, weighted by credit hours. Coverage excludes courses without matched instructor grades.';
+            const estimate = covered ? (matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2) : 'Unavailable';
+            label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate has missing historical data" aria-describedby="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" role="tooltip"><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
+            label.title = missing.length ? '' : 'Credit-weighted past grades with the selected instructors.';
+        },
+
+        scheduleSectionData(section) {
+            this._scheduleSectionData ||= new Map();
+            const key = `${deps.state.term}:${section.crn}:${section.code}`;
+            if (!this._scheduleSectionData.has(key)) {
+                this._scheduleSectionData.set(key, Promise.allSettled([
+                    deps.api.getCourseGrades(section.code), deps.api.getFaculty(deps.state.term, [section.crn]),
+                ]).then(([grades, faculty]) => ({
+                    grades: grades.status === 'fulfilled' && !grades.value?.error ? grades.value || {} : {},
+                    faculty: faculty.status === 'fulfilled' ? faculty.value?.faculty || [] : [],
+                })));
+            }
+            return this._scheduleSectionData.get(key);
         },
 
         async renderScheduleCourseInfo(section) {
@@ -175,6 +215,16 @@
             info.innerHTML = `<div class="course-section-summary-heading"><div><span>${this.escapeHtml(section.code)} · Section ${this.escapeHtml(section.section || '—')}</span><strong>${this.escapeHtml(group.title || section.code)}</strong></div><button type="button" class="schedule-full-course" title="Open full course details in Search">VIEW COURSE DETAILS</button></div><div class="course-section-facts"><div><span>Instructor</span><button type="button" class="schedule-instructor-link" title="View instructor profile in Search">${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')}</button></div><div><span>CRN</span><strong>${this.escapeHtml(String(section.crn))}</strong></div><div><span>Meetings</span><strong>${this.escapeHtml(section.meets || 'Time TBA')}</strong></div><div><span>Credits</span><strong>${this.parseCreditHours(group.credits ?? section.hours) ?? '—'}</strong></div></div><p data-schedule-description>Loading course description…</p>`;
             info.querySelector('.schedule-full-course').addEventListener('click', () => this.openCourseInBrowse(this.courseGroupForSection(section), section.crn));
             info.querySelector('.schedule-instructor-link').addEventListener('click', () => this.openProfessorInBrowse(this.courseGroupForSection(section), section.crn, { name: section.instructor || section.instr }));
+            this.scheduleSectionData(section).then(({ grades, faculty }) => {
+                if (request !== this._scheduleCourseInfoRequest) return;
+                const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
+                if (!instructors.length) return;
+                const container = info.querySelector('.schedule-instructor-link').parentElement;
+                container.innerHTML = `<span>Instructor</span>${instructors.map((instructor, index) => `<button type="button" class="schedule-instructor-link" data-instructor-index="${index}" title="View instructor profile in Search">${this.escapeHtml(instructor.displayName || instructor.name)}</button>${instructor.email ? `<a class="schedule-instructor-email" href="mailto:${this.escapeHtml(instructor.email)}">${this.escapeHtml(instructor.email)}</a>` : '<small>Email unavailable</small>'}`).join('')}`;
+                container.querySelectorAll('[data-instructor-index]').forEach(button => button.addEventListener('click', () => this.openProfessorInBrowse(this.courseGroupForSection(section), section.crn, instructors[Number(button.dataset.instructorIndex)])));
+                const courseButton = document.querySelector(`[data-schedule-course="${CSS.escape(section.code)}"] em`);
+                if (courseButton) courseButton.textContent = `${instructors.map(instructor => instructor.displayName || instructor.name).join('; ')} · CRN ${section.crn}`;
+            });
             try {
                 const details = await deps.search.fetchBulletinDetailsForCourse(section.code);
                 if (request !== this._scheduleCourseInfoRequest) return;

@@ -183,3 +183,32 @@ body.resizing-schedule { cursor: row-resize; user-select: none; }
     .schedule-time-options { grid-template-columns: 1fr; }
     .schedule-day-options { grid-template-columns: repeat(5, minmax(52px, 1fr)); overflow-x: auto; }
 }
+
+/* Compact course chips and an actual meeting-time thumbnail for every option. */
+.sched-courses { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.schedule-card .sched-course { flex: 0 0 auto; width: auto; padding: 4px 5px; border: 0; font-size: .75rem; }
+.schedule-mini-calendar { display: block; width: 100%; background: white; border: 1px solid #5C5C5C; padding: 5px; cursor: pointer; color: black; }
+.mini-days { display: grid; width: 100%; font-size: .6rem; font-weight: 700; text-align: center; }
+.mini-grid { display: block; height: 112px; position: relative; margin-top: 4px; background: repeating-linear-gradient(to right,transparent 0,transparent calc(100% / var(--mini-days) - 1px),#C7C7C7 calc(100% / var(--mini-days) - 1px),#C7C7C7 calc(100% / var(--mini-days))); }
+.mini-hour { position: absolute; left: 0; right: 0; border-top: 1px solid #ECECEC; font-size: .6rem; }
+.mini-event { display: block; position: absolute; border: 1px solid white; color: white; overflow: hidden; text-align: left; }
+.mini-event b, .mini-event > span { display: block; font-size: .65rem; padding: 2px 3px; }
+.mini-async { display: block; padding-top: 38px; text-align: center; font-size: .75rem; }
+.schedule-calendar-popup[hidden] { display: none; }
+.schedule-calendar-popup { position: fixed; z-index: 2000; background: white; border: 3px solid black; box-shadow: 5px 5px 0 #5C5C5C; padding: 12px 12px 12px 30px; color: black; }
+.schedule-calendar-popup > strong { display: block; margin-bottom: 10px; font-size: .8rem; }
+.schedule-calendar-popup .mini-grid { height: 260px; }
+.schedule-calendar-popup .mini-hour { padding-left: 0; }
+.schedule-calendar-popup .mini-days { font-size: .72rem; }
+.schedule-details-selected .schedule-card-header,
+.schedule-details-selected .sched-courses { display: none; }
+.schedule-details-selected .schedule-card { padding: 5px; }
+.schedule-details-selected .schedule-mini-calendar .mini-grid { height: 128px; }
+.schedule-calendar-popup { pointer-events: none; }
+.schedule-card { display: grid; grid-template-columns: minmax(130px, .35fr) minmax(0, 1fr); gap: 8px 12px; }
+.schedule-card-header { grid-column: 1 / -1; }
+.schedule-card .sched-courses { flex-direction: column; align-items: flex-start; margin: 0; }
+.schedule-card .sched-course { text-align: left; }
+.schedule-details-selected .schedule-card { grid-template-columns: minmax(0,1fr); gap: 0; }
+.schedule-details-selected .schedule-card-header { display: flex; padding: 4px 4px 7px; }
+.schedule-details-selected .schedule-card-header .btn-apply { display: none; }

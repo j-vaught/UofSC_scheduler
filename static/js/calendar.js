@@ -25,6 +25,19 @@ const Calendar = {
         // saved schedule before any module initialises, the first change event
         // may never come, and the calendar would sit empty over real data.
         this.render();
+        const container = document.getElementById('calendar-container');
+        this._sizeObserver = new ResizeObserver(() => {
+            if (!container.clientHeight) return;
+            const headerHeight = document.querySelector('#calendar-grid .cal-header')?.offsetHeight || 30;
+            const scale = Math.max(1, (container.clientHeight - headerHeight - 10) / ((this.END_HOUR - this.START_HOUR) * 60));
+            if (Math.abs(scale - this.PX_PER_MIN) < 0.005) return;
+            const scrollMinutes = container.scrollTop / this.PX_PER_MIN;
+            this.PX_PER_MIN = scale;
+            this._dayColumns = null;
+            this.render();
+            container.scrollTop = scrollMinutes * scale;
+        });
+        this._sizeObserver.observe(container);
     },
 
     getColor(code) {
