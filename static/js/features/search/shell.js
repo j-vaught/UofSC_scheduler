@@ -24,6 +24,7 @@
             // Load subject list for fuzzy matching
             this.loadSubjects();
 
+            document.getElementById('filter-ai-search')?.addEventListener('change', () => this.updateSearchIcon());
             document.getElementById('btn-search').addEventListener('click', () => this.submitSearch());
             const keywordInput = document.getElementById('keyword-input');
             keywordInput.addEventListener('keydown', (e) => {
@@ -733,7 +734,17 @@
             return entries;
         },
 
+        updateSearchIcon() {
+            const assisted = document.getElementById('filter-ai-search')?.checked !== false;
+            const button = document.getElementById('btn-search');
+            button?.classList.toggle('assisted-search', assisted);
+            const label = assisted ? 'Search courses with assisted matching' : 'Search courses with direct matching';
+            button?.setAttribute('title', label);
+            button?.setAttribute('aria-label', label);
+        },
+
         updateActiveFilterChips() {
+            this.updateSearchIcon();
             const container = document.getElementById('active-filter-chips');
             if (!container) return;
             const entries = this.activeFilterEntries();

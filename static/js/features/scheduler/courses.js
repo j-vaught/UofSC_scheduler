@@ -194,7 +194,7 @@
                         <span>${group.title}</span>
                         <small class="schedule-course-availability ${availability.kind}">${availability.text}</small>
                     </div>
-                    <button class="btn-course-add schedule-course-add ${selected ? 'btn-danger added' : 'btn-green'}" data-code="${group.code}">${selected ? 'REMOVE' : 'ADD'}</button>
+                    <button class="btn-course-add schedule-course-add ${selected ? 'btn-danger added' : 'btn-green'}" data-code="${group.code}" title="${selected ? 'Remove course' : 'Add course'}" aria-label="${selected ? 'Remove' : 'Add'} ${this.escapeHtml(group.code)}"><span class="ui-icon ${selected ? 'icon-close' : 'icon-add'}" aria-hidden="true"></span></button>
                 `;
                 const courseCopy = course.querySelector('.schedule-search-course-copy');
                 courseCopy.addEventListener('click', () => this.openCourseQuickView(group));
@@ -519,7 +519,7 @@
                     </section>
 
                     <footer class="course-quick-actions">
-                        <button id="btn-quick-course-toggle" class="${deps.state.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}">${deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
+                        <button id="btn-quick-course-toggle" title="${deps.state.isCourseSelected(group.code) ? 'Remove course' : 'Add course to schedule'}" class="${deps.state.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green'}"><span class="ui-icon ${deps.state.isCourseSelected(group.code) ? 'icon-close' : 'icon-add'}" aria-hidden="true"></span>${deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}</button>
                         <button id="btn-quick-view-browse" class="btn-secondary">${selectedSection ? `VIEW DETAILS FOR SECTION ${this.escapeHtml(selectedSection.section || '?')}` : 'VIEW FULL COURSE DETAILS'}</button>
                     </footer>
                 </section>
@@ -536,7 +536,8 @@
                 const button = event.currentTarget;
                 if (deps.state.isCourseSelected(group.code)) deps.state.removeCourse(group.code);
                 else await this.addCourseGroup(group);
-                button.textContent = deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE';
+                button.innerHTML = `<span class="ui-icon ${deps.state.isCourseSelected(group.code) ? 'icon-close' : 'icon-add'}" aria-hidden="true"></span>${deps.state.isCourseSelected(group.code) ? 'REMOVE' : 'ADD TO SCHEDULE'}`;
+                button.title = deps.state.isCourseSelected(group.code) ? 'Remove course' : 'Add course to schedule';
                 button.className = deps.state.isCourseSelected(group.code) ? 'btn-danger' : 'btn-green';
             });
             document.getElementById('btn-quick-view-browse')?.addEventListener('click', () => this.openCourseInBrowse(group, selectedSection?.crn || ''));

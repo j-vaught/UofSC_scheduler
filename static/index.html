@@ -278,12 +278,12 @@
                             <div id="smart-model-loading" class="smart-model-loading hidden" role="status" aria-live="polite">
                                 <span id="smart-model-loading-stage">Preparing AI-assisted search</span>
                             </div>
-                            <button class="search-clear" id="search-clear" type="button" aria-label="Clear search">&times;</button>
+                            <button class="search-clear" id="search-clear" type="button" aria-label="Clear search" title="Clear search"><span class="ui-icon icon-close" aria-hidden="true"></span></button>
                         </div>
                         <button class="browse-filter-button" id="filter-toggle" type="button" aria-label="Filters" title="Filters" aria-expanded="false" aria-controls="filter-panel">
-                            <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
+                            <span class="ui-icon icon-tune" aria-hidden="true"></span>
                         </button>
-                        <button id="btn-search" class="btn-garnet">SEARCH</button>
+                        <button id="btn-search" class="btn-garnet icon-button" type="button" aria-label="Search courses" title="Search courses"><span class="search-icon-wrap"><span class="ui-icon icon-search" aria-hidden="true"></span><span class="search-assisted-icon" aria-hidden="true"><span class="ui-icon icon-auto_awesome" aria-hidden="true"></span></span></span></button>
                     </div>
                     <p id="search-input-error" class="search-input-error hidden" role="alert"></p>
                     <div class="browse-search-examples" aria-label="Search examples">
@@ -315,7 +315,7 @@
                     <div id="active-filter-chips" class="active-filter-chips" aria-live="polite"></div>
                         <div class="filter-backdrop hidden" id="filter-backdrop" aria-hidden="true"></div>
                         <div class="filter-panel hidden" id="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-panel-title">
-                            <div class="filter-panel-heading"><strong id="filter-panel-title">Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters">&times;</button></div>
+                            <div class="filter-panel-heading"><strong id="filter-panel-title">Filters</strong><button id="btn-close-filters" type="button" aria-label="Close filters" title="Close filters"><span class="ui-icon icon-close" aria-hidden="true"></span></button></div>
                             <label class="filter-ai-control" for="filter-ai-search">
                                 <span>
                                     <strong>AI-assisted search</strong>
@@ -549,7 +549,7 @@
                     <div class="schedule-search-section">
                         <h2>Find Courses</h2>
                         <input id="schedule-course-input" type="text" placeholder="Course, CRN, or range (CSCE 140-199)" autocomplete="off" aria-label="Schedule course search">
-                        <button id="btn-search-schedule-courses" class="btn-garnet"><span class="schedule-search-button-wide">SEARCH COURSES</span><span class="schedule-search-button-compact">SEARCH</span></button>
+                        <button id="btn-search-schedule-courses" class="btn-garnet icon-button" aria-label="Search courses" title="Search courses"><span class="ui-icon icon-search" aria-hidden="true"></span></button>
                         <p id="schedule-course-status" class="schedule-course-status" aria-live="polite"></p>
                     </div>
                     <div id="schedule-search-results" class="schedule-search-results">
@@ -580,21 +580,12 @@
                                 <h3>Schedule Options</h3>
                             </div>
                             <div class="schedule-panel-actions">
-                                <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules">
-                                    <span class="schedule-action-label-wide" aria-hidden="true">GENERATE SCHEDULES</span>
-                                    <span class="schedule-action-label-compact" aria-hidden="true">GENERATE</span>
-                                </button>
+                                <button id="btn-solve" class="btn-panel-primary" type="button" aria-label="Generate schedules" title="Generate schedules"><span class="ui-icon icon-account_tree" aria-hidden="true"></span></button>
                                 <button id="btn-schedule-preferences" class="btn-panel-secondary schedule-preferences-button" type="button" aria-label="Schedule preferences" title="Schedule preferences" aria-haspopup="dialog" aria-controls="modal">
-                                    <span class="filter-sliders-icon" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></span>
+                                    <span class="ui-icon icon-tune" aria-hidden="true"></span>
                                 </button>
-                                <button id="btn-registration-info" class="btn-panel-registration" type="button" aria-label="Registration info" title="Registration info" disabled>
-                                    <span class="schedule-action-label-wide" aria-hidden="true">REGISTRATION INFO</span>
-                                    <span class="schedule-action-label-compact" aria-hidden="true">REGISTER</span>
-                                </button>
-                                <button id="btn-export" class="btn-panel-secondary" type="button" aria-label="Download the applied schedule as a calendar file" title="Download .ics calendar">
-                                    <span class="schedule-action-label-wide" aria-hidden="true">EXPORT CALENDAR</span>
-                                    <span class="schedule-action-label-compact" aria-hidden="true">EXPORT</span>
-                                </button>
+                                <button id="btn-registration-info" class="btn-panel-registration" type="button" aria-label="View class registration information" title="View class registration information" disabled><span class="ui-icon icon-assignment" aria-hidden="true"></span></button>
+                                <button id="btn-export" class="btn-panel-secondary" type="button" aria-label="Export calendar" title="Export calendar"><span class="ui-icon icon-download" aria-hidden="true"></span></button>
                             </div>
                             <div id="solver-container">
                                 <p class="hint">Add courses, then generate conflict-free schedule options.</p>

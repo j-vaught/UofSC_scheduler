@@ -156,3 +156,22 @@ main {
     overflow-y: auto;
 }
 .main-tab.active { display: flex; }
+
+/* Shared Material Symbols artwork. */
+.ui-icon { display: inline-block; width: 24px; height: 24px; flex: 0 0 24px; background: currentColor; vertical-align: middle; mask: var(--icon-url) center / contain no-repeat; -webkit-mask: var(--icon-url) center / contain no-repeat; pointer-events: none; }
+.icon-account_tree { --icon-url: url("../icons/account_tree.svg"); }
+.icon-download { --icon-url: url("../icons/download.svg"); }
+.icon-tune { --icon-url: url("../icons/tune.svg"); }
+.icon-assignment { --icon-url: url("../icons/assignment.svg"); }
+.icon-search { --icon-url: url("../icons/search.svg"); }
+.icon-add { --icon-url: url("../icons/add.svg"); }
+.icon-close { --icon-url: url("../icons/close.svg"); }
+.icon-auto_awesome { --icon-url: url("../icons/auto_awesome.svg"); }
+
+.icon-button { align-items: center; display: inline-flex; justify-content: center; min-width: 40px; min-height: 40px; padding: 6px; }
+.search-icon-wrap { position: relative; display: inline-flex; }
+.search-assisted-icon { display: none; position: absolute; right: -7px; top: -5px; background: inherit; }
+.search-assisted-icon .ui-icon { width: 13px; height: 13px; }
+.assisted-search .search-assisted-icon { display: inline-flex; }
+
+button:has(> .ui-icon) { align-items: center; display: inline-flex; gap: 6px; justify-content: center; }

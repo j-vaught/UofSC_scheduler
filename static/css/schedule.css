@@ -953,3 +953,8 @@ body.resizing-course-divider { cursor: row-resize; user-select: none; }
 .cal-block .block-title { display: block; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cal-block .block-info { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
 .cal-block.conflict { border: 3px solid #ff0000; }
+
+/* Fixed icon targets keep all four actions readable in narrow solver panels. */
+.schedule-panel-actions { flex-wrap: wrap; gap: 6px; }
+.schedule-panel-actions > button { align-items: center; display: inline-flex; justify-content: center; flex: 0 0 36px; width: 36px; min-width: 36px; height: 36px; min-height: 36px; padding: 4px; margin-left: 0; }
+.schedule-panel-actions > button .ui-icon { width: 24px; height: 24px; }

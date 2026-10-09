@@ -143,7 +143,7 @@ const ScheduleSidebar = {
                 <div class="selected-course-item">
                     <div class="selected-course-header">
                         <button type="button" class="selected-course-open" data-code="${code}" title="View details for ${code}"><strong>${code}</strong></button>
-                        <button type="button" class="btn-remove" data-code="${code}" title="Remove ${code} from your courses">REMOVE</button>
+                        <button type="button" class="btn-remove" data-code="${code}" title="Remove ${code} from your courses" aria-label="Remove ${code} from your courses"><span class="ui-icon icon-close" aria-hidden="true"></span></button>
                     </div>
                     <div class="selected-course-detail">${title}</div>
                     <label class="section-lock-label" for="section-lock-${code.replace(/\s+/g, '-')}">Section preference</label>

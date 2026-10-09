@@ -308,7 +308,7 @@
                     <div class="course-detail-kicker">Course details</div>
                     <div class="course-detail-header-controls">
                         <div class="course-detail-primary-actions">
-                            <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unschedulable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unschedulable ? unavailableTitle : 'Add this course so the scheduler can choose a section'}"${unschedulable ? ' disabled' : ''}>${selected ? 'REMOVE COURSE' : unschedulable ? unavailableLabel : 'ADD COURSE'}</button>
+                            <button id="btn-course-toggle" type="button" class="${selected ? 'btn-danger' : unschedulable ? 'btn-course-unavailable' : 'btn-green'}" title="${selected ? 'Remove this course from the semester scheduler' : unschedulable ? unavailableTitle : 'Add this course so the scheduler can choose a section'}"${unschedulable ? ' disabled' : ''}><span class="ui-icon ${selected ? 'icon-close' : 'icon-add'}" aria-hidden="true"></span>${selected ? 'REMOVE COURSE' : unschedulable ? unavailableLabel : 'ADD COURSE'}</button>
                             <button id="btn-course-view-schedule" type="button" class="btn-header-secondary" title="Open the semester schedule builder">VIEW SCHEDULE</button>
                         </div>
                         <div class="course-detail-credit"><strong>${credits ?? '—'}</strong><span>${credits === 1 ? 'credit' : 'credits'}</span></div>
@@ -957,7 +957,7 @@
                 </div>
                 ${fullNotice}
                 <div class="course-section-actions">
-                    <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}" title="${actionTitle}">${actionLabel}</button>
+                    <button id="btn-use-detail-section" type="button" class="${locked ? 'btn-secondary' : 'btn-garnet'}" title="${actionTitle}"><span class="ui-icon ${locked ? 'icon-tune' : 'icon-add'}" aria-hidden="true"></span>${actionLabel}</button>
                 </div>
                 ${this.sectionRegistrationNotes(details)}
                 <details class="course-time-location" data-time-location-toggle open>
