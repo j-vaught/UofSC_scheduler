@@ -148,13 +148,14 @@
             const sections = Object.entries(deps.state.selectedSections || {}).map(([code, section]) => ({ ...section, code }));
             if (!sections.length) return;
             const request = this._scheduleViewerRequest = (this._scheduleViewerRequest || 0) + 1;
-            const creditValues = sections.map(section => this.parseCreditHours(deps.state.selectedCourses[section.code]?.credits ?? section.hours));
+            const term = deps.state.term;
+            const creditValues = sections.map(section => this.knownScheduleSectionCredits(section, term));
             const credits = creditValues.reduce((sum, value) => sum + (value || 0), 0);
             document.getElementById('schedule-view-name').textContent = document.querySelector('#term-select option:checked')?.textContent || 'Your semester';
             const stats = document.getElementById('schedule-view-stats');
             const creditLabel = creditValues.some(value => value === null) ? `${credits} known credits` : `${credits} credits`;
             document.getElementById('schedule-view-credits').textContent = creditValues.some(value => value === null) ? `${credits}+` : String(credits);
-            stats.innerHTML = `<span>${sections.length} course${sections.length === 1 ? '' : 's'}</span><span>${creditLabel}</span><span id="schedule-historical-gpa">Historical GPA · Loading</span>`;
+            stats.innerHTML = `<span>${sections.length} course${sections.length === 1 ? '' : 's'}</span><span data-schedule-credit-total>${creditLabel}</span><span id="schedule-historical-gpa">Historical GPA · Loading</span>`;
             if (!sections.some(section => section.code === this._scheduleInfoCourse)) this._scheduleInfoCourse = sections[0].code;
             const picker = document.getElementById('schedule-course-picker');
             picker.innerHTML = sections.map(section => `<button type="button" class="course-section-option ${section.code === this._scheduleInfoCourse ? 'selected' : ''} ${this.isOpenSection(section) ? 'open' : 'full'}" data-schedule-course="${this.escapeHtml(section.code)}" aria-pressed="${section.code === this._scheduleInfoCourse}" title="View ${this.escapeHtml(section.code)} information"><span><i aria-hidden="true"></i>${this.escapeHtml(section.code)}<b>${this.isOpenSection(section) ? 'Open' : 'Full'}</b></span><small>${this.escapeHtml(section.meets || 'Time TBA')}</small><em>${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')} · CRN ${this.escapeHtml(String(section.crn))}</em></button>`).join('');
@@ -164,8 +165,12 @@
                 this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
             }));
             this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
-            const { estimate, missing } = await this.scheduleGradeEstimate(sections);
-            if (request !== this._scheduleViewerRequest) return;
+            const { estimate, missing, creditHours: resolvedCredits } = await this.scheduleGradeEstimate(sections);
+            if (request !== this._scheduleViewerRequest || term !== deps.state.term) return;
+            const resolvedTotal = resolvedCredits.reduce((sum, value) => sum + (value || 0), 0);
+            const partial = resolvedCredits.some(value => value === null);
+            document.getElementById('schedule-view-credits').textContent = partial ? `${resolvedTotal}+` : String(resolvedTotal);
+            stats.querySelector('[data-schedule-credit-total]').textContent = `${resolvedTotal}${partial ? ' known' : ''} credits`;
             const label = document.getElementById('schedule-historical-gpa');
             label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate issues" aria-expanded="false" aria-controls="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" hidden><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
             const caution = label.querySelector('.schedule-gpa-caution');
@@ -227,9 +232,13 @@
             const request = this._scheduleCourseInfoRequest = (this._scheduleCourseInfoRequest || 0) + 1;
             const info = document.getElementById('schedule-course-info');
             const group = deps.state.selectedCourses[section.code] || section;
-            info.innerHTML = `<div class="course-section-summary-heading"><div><span>${this.escapeHtml(section.code)} · Section ${this.escapeHtml(section.section || '—')}</span><strong>${this.escapeHtml(group.title || section.code)}</strong></div><button type="button" class="schedule-full-course" title="Open full course details in Search">VIEW COURSE DETAILS</button></div><div class="course-section-facts"><div><span>Instructor</span><button type="button" class="schedule-instructor-link" title="View instructor profile in Search">${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')}</button></div><div><span>CRN</span><strong>${this.escapeHtml(String(section.crn))}</strong></div><div><span>Meetings</span><strong>${this.escapeHtml(section.meets || 'Time TBA')}</strong></div><div><span>Credits</span><strong>${this.parseCreditHours(group.credits ?? section.hours) ?? '—'}</strong></div></div><p data-schedule-description>Loading course description…</p>`;
+            info.innerHTML = `<div class="course-section-summary-heading"><div><span>${this.escapeHtml(section.code)} · Section ${this.escapeHtml(section.section || '—')}</span><strong>${this.escapeHtml(group.title || section.code)}</strong></div><button type="button" class="schedule-full-course" title="Open full course details in Search">VIEW COURSE DETAILS</button></div><div class="course-section-facts"><div><span>Instructor</span><button type="button" class="schedule-instructor-link" title="View instructor profile in Search">${this.escapeHtml(section.instructor || section.instr || 'Instructor TBA')}</button></div><div><span>CRN</span><strong>${this.escapeHtml(String(section.crn))}</strong></div><div><span>Meetings</span><strong>${this.escapeHtml(section.meets || 'Time TBA')}</strong></div><div><span>Credits</span><strong data-schedule-course-credits>${this.knownScheduleSectionCredits(section) ?? '—'}</strong></div></div><p data-schedule-description>Loading course description…</p>`;
             info.querySelector('.schedule-full-course').addEventListener('click', () => this.openCourseInBrowse(this.courseGroupForSection(section), section.crn));
             info.querySelector('.schedule-instructor-link').addEventListener('click', () => this.openProfessorInBrowse(this.courseGroupForSection(section), section.crn, { name: section.instructor || section.instr }));
+            this.resolveScheduleSectionCredits(section).then(credits => {
+                if (request !== this._scheduleCourseInfoRequest) return;
+                info.querySelector('[data-schedule-course-credits]').textContent = credits ?? '—';
+            });
             this.scheduleSectionData(section).then(({ grades, faculty }) => {
                 if (request !== this._scheduleCourseInfoRequest) return;
                 const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);

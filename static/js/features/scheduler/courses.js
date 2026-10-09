@@ -54,7 +54,8 @@
             if (credits === null && firstCrn && deps.api.getDetails) {
                 try {
                     const details = await deps.api.getDetails(firstCrn, deps.state.term);
-                    credits = this.parseCreditHours(details.hours_html);
+                    credits = [details.hours_html, details.hours, details.credits]
+                        .map(value => this.parseCreditHours(value)).find(value => value !== null) ?? null;
                 } catch (error) {
                     credits = null;
                 }

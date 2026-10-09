@@ -17,7 +17,7 @@
                 return JSON.stringify([deps.state.term, sections.map(section => [
                     section.code, String(section.crn), section.section, section.meetingTimes,
                     section.instructionalMethod || section.inst_mthd,
-                    deps.state.selectedCourses[section.code]?.credits ?? section.hours,
+                    this.knownScheduleSectionCredits(section),
                     section.start_date || section.startDate, section.end_date || section.endDate,
                     section.location || section.building,
                     deps.walkingMap?.sectionDetails.get(deps.walkingMap.sectionDetailKey(section)),
@@ -30,11 +30,48 @@
                     || /online|web|remote|distance|asynchronous/i.test(String(section.instructional_method || ''));
             },
 
+            knownScheduleSectionCredits(section, term = deps.state.term) {
+                const group = term === deps.state.term ? deps.state.selectedCourses[section.code] : null;
+                const savedSection = group?.sections?.find(item => String(item.crn) === String(section.crn));
+                const values = [section.hours, section.credits, savedSection?.hours, savedSection?.credits,
+                    group?.credits, this._scheduleCreditHours?.get(`${term}:${section.crn}`)];
+                return values.map(value => this.parseCreditHours(value)).find(value => value !== null) ?? null;
+            },
+
+            resolveScheduleSectionCredits(section, term = deps.state.term) {
+                const known = this.knownScheduleSectionCredits(section, term);
+                if (known !== null) return Promise.resolve(known);
+                if (!section.crn || !deps.api.getDetails) return Promise.resolve(null);
+                this._scheduleCreditRequests ||= new Map();
+                this._scheduleCreditHours ||= new Map();
+                const key = `${term}:${section.crn}`;
+                if (!this._scheduleCreditRequests.has(key)) {
+                    const pending = (async () => {
+                        try {
+                            const details = await deps.api.getDetails(section.crn, term);
+                            const credits = [details?.hours_html, details?.hours, details?.credits]
+                                .map(value => this.parseCreditHours(value)).find(value => value !== null) ?? null;
+                            if (credits !== null) {
+                                this._scheduleCreditHours.set(key, credits);
+                                if (this._scheduleCreditHours.size > 120) this._scheduleCreditHours.delete(this._scheduleCreditHours.keys().next().value);
+                            }
+                            return credits;
+                        } catch {
+                            // A failed lookup remains retryable instead of becoming permanent missing data.
+                            return null;
+                        }
+                    })();
+                    this._scheduleCreditRequests.set(key, pending);
+                    pending.then(() => this._scheduleCreditRequests.delete(key), () => this._scheduleCreditRequests.delete(key));
+                }
+                return this._scheduleCreditRequests.get(key);
+            },
+
             scheduleGradeEstimate(sections) {
                 this._scheduleGradeEstimates ||= new Map();
                 const key = this.scheduleSummaryKey(sections);
                 if (!this._scheduleGradeEstimates.has(key)) {
-                    const creditValues = sections.map(section => this.parseCreditHours(deps.state.selectedCourses[section.code]?.credits ?? section.hours));
+                    const creditValues = [];
                     const term = deps.state.term;
                     this._scheduleGradeEstimates.set(key, (async () => {
                         const historical = [];
@@ -44,7 +81,10 @@
                             while (cursor < sections.length) {
                                 const index = cursor++;
                                 const section = sections[index];
-                                const { grades, faculty } = await this.scheduleSectionData(section, term);
+                                const [{ grades, faculty }, credits] = await Promise.all([
+                                    this.scheduleSectionData(section, term), this.resolveScheduleSectionCredits(section, term),
+                                ]);
+                                creditValues[index] = credits;
                                 const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
                                 const valid = grade => grade && grade.average_gpa != null
                                     && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0;
@@ -65,9 +105,11 @@
                         await Promise.all(Array.from({ length: Math.min(3, sections.length) }, worker));
                         const matched = historical.filter(item => item.gpa !== null && item.credits > 0);
                         const covered = matched.reduce((sum, item) => sum + item.credits, 0);
+                        if (creditValues.some(value => value === null)) this._scheduleGradeEstimates.delete(key);
                         return {
                             estimate: covered ? (matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2) : 'Unavailable',
                             missing: historical.filter(item => item.reason),
+                            creditHours: creditValues,
                         };
                     })());
                     if (this._scheduleGradeEstimates.size > 120) this._scheduleGradeEstimates.delete(this._scheduleGradeEstimates.keys().next().value);
