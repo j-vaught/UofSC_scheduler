@@ -155,8 +155,9 @@
                             <span class="score">Option ${index + 1}</span>
                             <button class="btn-apply" data-idx="${index}"${applied ? ' disabled' : ''}>${applied ? 'APPLIED' : 'APPLY'}</button>
                         </div>
-                        <div class="sched-courses">${courseList}</div>
                         <button type="button" class="schedule-mini-calendar" data-schedule-index="${index}" aria-label="Apply schedule ${index + 1} and open details">${this.scheduleCalendarMarkup(schedule)}</button>
+                        <div class="schedule-option-summary" data-summary-index="${index}" role="group" aria-label="Summary for schedule ${index + 1}" aria-busy="true">${this.scheduleSummaryMarkup(this.scheduleSummarySections(schedule))}</div>
+                        <div class="sched-courses">${courseList}</div>
                     </article>
                 `;
             });
@@ -167,6 +168,10 @@
             container.innerHTML = html;
             Accessibility.announce(`Showing ${returned} of ${search_complete ? '' : 'at least '}${total_found} possible schedules.`, 'schedule');
 
+            container.querySelectorAll('.schedule-option-summary').forEach(summary => {
+                summary.addEventListener('click', event => event.stopPropagation());
+            });
+            this.hydrateScheduleSummaries(schedules, container);
             container.querySelectorAll('.btn-apply').forEach(button => {
                 button.addEventListener('click', event => {
                     event.stopPropagation();

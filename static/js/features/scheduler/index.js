@@ -115,10 +115,12 @@
             || (typeof require === 'function' ? require('./courses.js').createCoursesPart : null);
         const createLayoutPart = (typeof SchedulerParts !== 'undefined' && SchedulerParts.createLayoutPart)
             || (typeof require === 'function' ? require('./layout.js').createLayoutPart : null);
+        const createSummaryPart = (typeof SchedulerParts !== 'undefined' && SchedulerParts.createSummaryPart)
+            || (typeof require === 'function' ? require('./summary.js').createSummaryPart : null);
         const createSolvePart = (typeof SchedulerParts !== 'undefined' && SchedulerParts.createSolvePart)
             || (typeof require === 'function' ? require('./solve.js').createSolvePart : null);
 
-        if (!createRegistrationPart || !createPreferencesPart || !createCoursesPart || !createLayoutPart || !createSolvePart) {
+        if (!createRegistrationPart || !createPreferencesPart || !createCoursesPart || !createLayoutPart || !createSummaryPart || !createSolvePart) {
             throw new Error('scheduler feature parts are not loaded');
         }
 
@@ -128,6 +130,7 @@
             createPreferencesPart(deps),
             createCoursesPart(deps),
             createLayoutPart(deps),
+            createSummaryPart(deps),
             createSolvePart(deps),
         );
 

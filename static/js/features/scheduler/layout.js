@@ -164,31 +164,9 @@
                 this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
             }));
             this.renderScheduleCourseInfo(sections.find(section => section.code === this._scheduleInfoCourse));
-            const historical = await Promise.all(sections.map(async (section, index) => {
-                const { grades, faculty } = await this.scheduleSectionData(section);
-                const instructors = this.currentInstructorSummaries({ sections: [section] }, grades, faculty);
-                const validGrade = grade => grade && grade.average_gpa != null && Number.isFinite(Number(grade.average_gpa)) && Number(grade.graded_students) > 0;
-                const records = instructors.map(item => item.grade).filter(validGrade);
-                let gpa = null;
-                let reason = '';
-                if (instructors.length && records.length === instructors.length) {
-                    const students = records.reduce((sum, grade) => sum + Number(grade.graded_students), 0);
-                    gpa = records.reduce((sum, grade) => sum + Number(grade.average_gpa) * Number(grade.graded_students), 0) / students;
-                } else if (validGrade(grades)) {
-                    gpa = Number(grades.average_gpa);
-                    reason = 'Instructor history missing. Using course-wide grades.';
-                } else {
-                    reason = 'No historical course grades. Excluded from estimate.';
-                }
-                if (creditValues[index] === null) reason = 'Credit hours unavailable. Excluded from estimate.';
-                return { code: section.code, credits: creditValues[index] || 0, gpa, reason };
-            }));
+            const { estimate, missing } = await this.scheduleGradeEstimate(sections);
             if (request !== this._scheduleViewerRequest) return;
-            const matched = historical.filter(item => item.gpa !== null && item.credits > 0);
-            const covered = matched.reduce((sum, item) => sum + item.credits, 0);
-            const missing = historical.filter(item => item.reason);
             const label = document.getElementById('schedule-historical-gpa');
-            const estimate = covered ? (matched.reduce((sum, item) => sum + item.gpa * item.credits, 0) / covered).toFixed(2) : 'Unavailable';
             label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate issues" aria-expanded="false" aria-controls="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" hidden><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
             const caution = label.querySelector('.schedule-gpa-caution');
             const popup = label.querySelector('.schedule-gpa-popup');
@@ -230,12 +208,12 @@
             label.title = missing.length ? '' : 'Credit-weighted past grades with the selected instructors.';
         },
 
-        scheduleSectionData(section) {
+        scheduleSectionData(section, term = deps.state.term) {
             this._scheduleSectionData ||= new Map();
-            const key = `${deps.state.term}:${section.crn}:${section.code}`;
+            const key = `${term}:${section.crn}:${section.code}`;
             if (!this._scheduleSectionData.has(key)) {
                 this._scheduleSectionData.set(key, Promise.allSettled([
-                    deps.api.getCourseGrades(section.code), deps.api.getFaculty(deps.state.term, [section.crn]),
+                    deps.api.getCourseGrades(section.code), deps.api.getFaculty(term, [section.crn]),
                 ]).then(([grades, faculty]) => ({
                     grades: grades.status === 'fulfilled' && !grades.value?.error ? grades.value || {} : {},
                     faculty: faculty.status === 'fulfilled' ? faculty.value?.faculty || [] : [],

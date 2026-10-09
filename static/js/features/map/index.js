@@ -500,7 +500,7 @@
         return transitions;
     },
 
-    async routeBetween(from, to) {
+    async routeBetween(from, to, { signal } = {}) {
         if (from.kind === 'online' || to.kind === 'online') {
             return { kind: 'online', distance: null, walkMinutes: null, geometry: null };
         }
@@ -517,7 +517,7 @@
         try {
             const coordinates = `${from.lon},${from.lat};${to.lon},${to.lat}`;
             const url = `${this.ROUTE_URL}/${coordinates}?overview=full&geometries=geojson&steps=false`;
-            const response = await deps.fetch(url);
+            const response = await deps.fetch(url, signal ? { signal } : undefined);
             if (!response.ok) throw new Error(`Route ${response.status}`);
             const data = await response.json();
             const first = data.routes?.[0];
