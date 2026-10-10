@@ -36,7 +36,7 @@
             const setCourseInfoOpen = open => {
                 inspector.classList.toggle('course-info-collapsed', !open);
                 infoToggle.setAttribute('aria-expanded', String(open));
-                infoToggle.textContent = open ? 'Hide course info' : 'View course info';
+                infoToggle.querySelector('.schedule-disclosure-label').textContent = open ? 'Hide course info' : 'View course info';
             };
             setCourseInfoOpen(!compact.matches);
             infoToggle.addEventListener('click', () => setCourseInfoOpen(infoToggle.getAttribute('aria-expanded') !== 'true'));

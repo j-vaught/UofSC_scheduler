@@ -376,8 +376,8 @@
                                     <h2 id="schedule-detail-title" class="course-detail-kicker">Schedule details</h2>
                                     <div class="course-detail-header-controls">
                                         <div class="course-detail-primary-actions">
-                                            <button id="btn-registration-info" class="btn-green" type="button" title="View class registration information" disabled><span class="ui-icon icon-assignment" aria-hidden="true"></span>REGISTRATION</button>
-                                            <button id="btn-export" class="btn-header-secondary" type="button" title="Export calendar"><span class="ui-icon icon-download" aria-hidden="true"></span>EXPORT CALENDAR</button>
+                                            <button id="btn-registration-info" class="btn-green" type="button" aria-label="Registration information" title="View class registration information" disabled><span class="ui-icon icon-assignment" aria-hidden="true"></span><span class="schedule-header-action-label">REGISTRATION</span></button>
+                                            <button id="btn-export" class="btn-header-secondary" type="button" aria-label="Export calendar" title="Export calendar"><span class="ui-icon icon-download" aria-hidden="true"></span><span class="schedule-header-action-label">EXPORT CALENDAR</span></button>
                                         </div>
                                         <div class="course-detail-credit"><strong id="schedule-view-credits">—</strong><span>credits</span></div>
                                     </div>
@@ -388,7 +388,7 @@
                         </div>
                         <section class="course-section-picker-wrap schedule-course-inspector" aria-labelledby="schedule-course-label">
                             <h3 id="schedule-course-label">View course info</h3>
-                            <button id="schedule-course-info-toggle" class="schedule-course-info-toggle" type="button" aria-expanded="true" aria-controls="schedule-course-picker schedule-course-info">View course info</button>
+                            <button id="schedule-course-info-toggle" class="schedule-course-info-toggle" type="button" aria-expanded="true" aria-controls="schedule-course-picker schedule-course-info"><span class="schedule-disclosure-label">View course info</span><span class="ui-icon icon-expand_more" aria-hidden="true"></span></button>
                             <div id="schedule-course-picker" class="course-section-picker schedule-course-picker"></div>
                             <div id="schedule-course-info" class="course-section-summary" aria-live="polite"></div>
                         </section>

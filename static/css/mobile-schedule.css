@@ -1,5 +1,7 @@
 /* Phone and compact-window Schedule layouts. Search keeps its existing layout. */
-.schedule-sidebar-toggle-label, .schedule-course-info-toggle { display: none; }
+.schedule-sidebar-toggle-label, #schedule-course-info-toggle { display: none; }
+.icon-expand_more { --icon-url: url("../icons/expand_more.svg"); }
+#schedule-course-info-toggle[aria-expanded="true"] .icon-expand_more { transform: rotate(180deg); }
 #schedule-mobile-back { display: none; }
 
 @media (max-width: 760px) {
@@ -64,8 +66,9 @@
     #tab-schedule .schedule-view-header .course-detail-primary-actions button { min-height: 44px; }
     #tab-schedule .schedule-course-inspector { padding: 12px; }
     #tab-schedule .schedule-course-inspector h3 { display: none; }
-    #tab-schedule .schedule-course-info-toggle {
-        display: block; width: 100%; min-height: 44px; padding: 8px 10px;
+    #tab-schedule #schedule-course-info-toggle {
+        display: flex; align-items: center; justify-content: space-between; gap: 8px;
+        width: 100%; min-height: 44px; padding: 8px 10px;
         border: 2px solid black; background: white; color: black;
         font: inherit; font-size: .8rem; font-weight: 700; text-align: left;
     }
@@ -105,4 +108,18 @@
 
 @media (max-width: 359px) {
     #tab-schedule .schedule-view-header .course-detail-credit { display: none; }
+}
+
+@media (max-width: 480px) {
+    #tab-schedule #btn-solve .schedule-action-label,
+    #tab-schedule .schedule-sort-label,
+    #tab-schedule .schedule-header-action-label { display: none; }
+    #tab-schedule #btn-solve,
+    #tab-schedule #btn-schedule-preferences,
+    #tab-schedule .schedule-sort-control,
+    #tab-schedule .schedule-view-header .course-detail-primary-actions button {
+        flex: 0 0 44px; width: 44px; height: 44px; padding: 8px;
+        justify-content: center;
+    }
+    #tab-schedule .schedule-view-header .course-detail-primary-actions { flex-wrap: nowrap; }
 }
