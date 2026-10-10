@@ -110,7 +110,7 @@
     #tab-schedule .schedule-view-header .course-detail-credit { display: none; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
     #tab-schedule #btn-solve .schedule-action-label,
     #tab-schedule .schedule-sort-label,
     #tab-schedule .schedule-header-action-label { display: none; }
