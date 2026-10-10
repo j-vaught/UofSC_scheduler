@@ -229,7 +229,7 @@
         },
 
         showScheduleCalendarPopup(button) {
-            if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+            if (window.matchMedia('(max-width: 760px), (hover: none), (pointer: coarse)').matches) return;
             clearTimeout(this._calendarPopupTimer);
             const schedule = deps.state.solverResults[Number(button.dataset.scheduleIndex)];
             if (!schedule) return;
