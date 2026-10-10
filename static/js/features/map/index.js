@@ -109,8 +109,8 @@
                 </div>
                 <div class="walking-map-layout">
                     <div class="walking-map-canvas-wrap">
-                        <div class="walking-map-canvas" role="region" aria-label="Campus route map"></div>
-                        <div class="walking-map-zoom-hint">Hold Ctrl, Command, or Shift while scrolling to zoom</div>
+                        <div class="walking-map-canvas" role="region" aria-label="Campus route map" aria-describedby="${this.containerId}-gesture-hint"></div>
+                        <div class="walking-map-zoom-hint" id="${this.containerId}-gesture-hint"></div>
                     </div>
                     <div class="walking-map-side">
                         <div class="walking-map-days" role="tablist" aria-label="Class day"></div>
@@ -123,6 +123,9 @@
         this.dayContainer = this.container.querySelector('.walking-map-days');
         this.container.querySelector('.walking-locations-button').addEventListener('click', () => this.showLocationList());
         this.mapElement = this.container.querySelector('.walking-map-canvas');
+        this._compactMap = window.matchMedia('(max-width: 760px), (pointer: coarse)');
+        this._compactMap.addEventListener('change', () => this.updateMapGestures());
+        this.updateMapGestures();
         this.mapElement.addEventListener('wheel', event => {
             if (!event.ctrlKey && !event.metaKey && !event.shiftKey) return;
             if (!this._map) return;
@@ -668,6 +671,28 @@
         this._currentTransitions = transitions;
     },
 
+    updateMapGestures() {
+        const compact = this._compactMap.matches;
+        this.container.querySelector('.walking-map-zoom-hint').textContent = compact
+            ? 'Use two fingers to move the map. Pinch to zoom.'
+            : 'Hold Ctrl, Command, or Shift while scrolling to zoom';
+        this.mapElement.classList.toggle('two-finger-map', compact);
+        if (!this._map) return;
+        // Leaflet's touchZoom handles two-finger movement and pinch zoom.
+        // Disabling dragging leaves one-finger swipes available for page scrolling.
+        if (compact) {
+            this._map.dragging.disable();
+            this._map.doubleClickZoom.disable();
+            this._map.zoomControl.remove();
+        } else {
+            this._map.dragging.enable();
+            this._map.doubleClickZoom.enable();
+            if (!this._map.zoomControl.getContainer()?.isConnected) {
+                this._map.zoomControl.addTo(this._map);
+            }
+        }
+    },
+
     async renderMap(events, transitions) {
         this._currentLocations = [];
         const knownEvents = events.filter(event => event.building.kind === 'known');
@@ -682,7 +707,9 @@
             this._map = L.map(this.mapElement, {
                 zoomControl: true,
                 scrollWheelZoom: false,
+                touchZoom: true,
             }).setView(this.DEFAULT_CENTER, 15);
+            this.updateMapGestures();
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; OpenStreetMap contributors',

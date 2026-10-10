@@ -19,7 +19,7 @@ const Calendar = {
 
     init() {
         this.buildGrid(5);
-        this.setAgendaView(window.matchMedia('(max-width: 480px)').matches);
+        this.setAgendaView(false);
         document.getElementById('calendar-view-toggle').addEventListener('click', () => {
             this.setAgendaView(!this._agendaView);
             this.render();

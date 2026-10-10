@@ -1,10 +1,12 @@
-/* Phone and compact-window Schedule layouts. Search keeps its existing layout. */
+/* Phone and compact-window layouts. */
 .schedule-sidebar-toggle-label, #schedule-course-info-toggle { display: none; }
 .icon-expand_more { --icon-url: url("../icons/expand_more.svg"); }
 #schedule-course-info-toggle[aria-expanded="true"] .icon-expand_more { transform: rotate(180deg); }
 #schedule-mobile-back { display: none; }
 
 @media (max-width: 760px) {
+    #tab-semester .browse-search-examples,
+    #search-syntax-guide { display: none; }
     body { min-height: 0; }
     #tab-schedule .schedule-layout {
         display: flex; flex-direction: column; min-height: 0; overflow: hidden;
