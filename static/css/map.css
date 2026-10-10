@@ -127,6 +127,7 @@
 }
 
 .walking-map-canvas-wrap {
+    isolation: isolate;
     grid-area: 1 / 1;
     min-height: 0;
     position: relative;

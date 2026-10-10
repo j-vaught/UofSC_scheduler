@@ -98,7 +98,7 @@
     #tab-schedule .walking-map-canvas { min-height: 230px; }
     #tab-schedule .walking-map-layout { overflow: hidden; }
     #tab-schedule .schedule-gpa-popup {
-        position: fixed; inset: auto 12px 16px; width: auto; max-width: none;
+        position: fixed; inset: auto 12px 76px; width: auto; max-width: none;
         max-height: 45dvh; overflow-y: auto;
     }
     #tab-schedule .schedule-gpa-caution { min-width: 44px; min-height: 44px; }

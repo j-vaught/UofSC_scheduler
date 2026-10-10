@@ -36,7 +36,7 @@
             const setCourseInfoOpen = open => {
                 inspector.classList.toggle('course-info-collapsed', !open);
                 infoToggle.setAttribute('aria-expanded', String(open));
-                infoToggle.querySelector('.schedule-disclosure-label').textContent = open ? 'Hide course info' : 'View course info';
+                infoToggle.querySelector('.schedule-disclosure-label').textContent = open ? 'Hide schedule info' : 'View schedule info';
             };
             setCourseInfoOpen(!compact.matches);
             infoToggle.addEventListener('click', () => setCourseInfoOpen(infoToggle.getAttribute('aria-expanded') !== 'true'));
@@ -185,7 +185,7 @@
             document.getElementById('schedule-view-credits').textContent = partial ? `${resolvedTotal}+` : String(resolvedTotal);
             stats.querySelector('[data-schedule-credit-total]').textContent = `${resolvedTotal}${partial ? ' known' : ''} credits`;
             const label = document.getElementById('schedule-historical-gpa');
-            label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate issues" aria-expanded="false" aria-controls="schedule-gpa-popup">⚠</button><span id="schedule-gpa-popup" class="schedule-gpa-popup" hidden><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
+            label.innerHTML = `<span>Estimated GPA · ${estimate}</span>${missing.length ? `<span class="schedule-gpa-help"><button type="button" class="schedule-gpa-caution" aria-label="GPA estimate issues" aria-expanded="false" aria-controls="schedule-gpa-popup"><span class="ui-icon icon-warning" aria-hidden="true"></span></button><span id="schedule-gpa-popup" class="schedule-gpa-popup" hidden><strong>GPA estimate issues</strong>${missing.map(item => `<span><b>${this.escapeHtml(item.code)}</b> ${this.escapeHtml(item.reason)}</span>`).join('')}</span></span>` : ''}`;
             const caution = label.querySelector('.schedule-gpa-caution');
             const popup = label.querySelector('.schedule-gpa-popup');
             const help = label.querySelector('.schedule-gpa-help');

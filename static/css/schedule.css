@@ -1022,7 +1022,10 @@ body.resizing-schedule-details { cursor: col-resize; user-select: none; }
 @container schedule-options (max-width: 360px) { #btn-schedule-preferences .schedule-action-label { display: none; } }
 @container schedule-options (max-width: 300px) { #btn-solve .schedule-action-label { display: none; } }
 #schedule-historical-gpa { display: inline-flex; align-items: center; gap: 7px; position: relative; }
-.schedule-gpa-caution { color: #FFD166; font-size: 1rem; background: none; border: 0; padding: 0 4px; cursor: help; }
+.icon-warning { --icon-url: url("../icons/warning.svg"); }
+.schedule-gpa-caution,
+.schedule-gpa-caution:hover,
+.schedule-gpa-caution:focus { color: #FFD166; background: #000000; border: 0; padding: 0 4px; cursor: help; }
 .schedule-detail-panel .schedule-view-header { position: relative; top: auto; z-index: 2; }
 .schedule-detail-panel .schedule-view-tabs { position: sticky; top: 0; z-index: 4; }
 
