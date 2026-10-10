@@ -83,7 +83,6 @@ const BOOT_SEQUENCE = [
 
 function boot() {
     Accessibility.init();
-    if (Accessibility.mobileBlocked) return;
     startFeature('Default term', () => TermPlanning.prepare());
     for (const [label, resolve] of BOOT_SEQUENCE) {
         startFeature(label, () => {

@@ -1,0 +1,108 @@
+/* Phone and compact-window Schedule layouts. Search keeps its existing layout. */
+.schedule-sidebar-toggle-label, .schedule-course-info-toggle { display: none; }
+#schedule-mobile-back { display: none; }
+
+@media (max-width: 760px) {
+    body { min-height: 0; }
+    #tab-schedule .schedule-layout {
+        display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+    }
+    #tab-schedule .schedule-sidebar-toggle-rail {
+        order: -1; flex: 0 0 44px; height: 44px; width: 100%;
+        border: 0; border-bottom: 2px solid black; background: white;
+    }
+    #tab-schedule .schedule-sidebar-toggle {
+        position: static; display: flex; align-items: center; justify-content: space-between;
+        width: 100%; height: 44px; padding: 8px 14px; background: white;
+        color: black; font: inherit; font-weight: 700;
+    }
+    #tab-schedule .schedule-sidebar-toggle::before { display: none; }
+    #tab-schedule .schedule-sidebar-toggle-icon { left: auto; right: 18px; width: 9px; height: 9px; }
+    #tab-schedule .schedule-sidebar-toggle-label { display: inline; }
+    #tab-schedule #schedule-sidebar {
+        flex: 0 0 auto; width: 100%; min-width: 0; max-width: none;
+        max-height: 36dvh; overflow-y: auto; overscroll-behavior-y: contain;
+    }
+    #tab-schedule .schedule-selected-section { margin: 0; min-height: 0; max-height: none; overflow: visible; }
+    #tab-schedule .selected-courses-list { flex: 0 0 auto; overflow: visible; }
+    #tab-schedule .selected-course-header .btn-remove { min-width: 44px; min-height: 44px; }
+    #tab-schedule #schedule-content {
+        flex: 1 1 auto; display: flex; flex-direction: column;
+        width: 100%; height: auto; min-height: 0; gap: 0; padding: 8px;
+        overflow: hidden;
+    }
+    #tab-schedule .schedule-workspace { display: flex; flex: 1 1 auto; width: 100%; height: 100%; min-height: 0; }
+    #tab-schedule #solver-section { flex: 1 1 auto; width: 100%; height: 100%; min-height: 0; }
+    #tab-schedule #solver-container { padding: 8px; overscroll-behavior-y: contain; overflow-x: hidden; }
+    #tab-schedule .schedule-panel-actions { flex-wrap: nowrap; padding: 8px; }
+    #tab-schedule .schedule-panel-actions > button { height: 44px; min-height: 44px; min-width: 44px; }
+    #tab-schedule #btn-schedule-preferences .schedule-action-label { display: none; }
+    #tab-schedule .schedule-sort-control { flex: 0 0 auto; width: auto; min-width: 44px; height: 44px; padding: 4px 8px; }
+    #tab-schedule .solver-session-buttons button, #tab-schedule .solver-scroll-controls button { min-height: 44px; }
+    #tab-schedule .schedule-card { grid-template-columns: minmax(0, 1fr) 122px; gap: 8px; }
+    #tab-schedule .schedule-card-header { grid-column: 1 / -1; grid-row: 1; }
+    #tab-schedule .schedule-card .schedule-mini-calendar { grid-column: 1 / -1; grid-row: 2; height: 140px; }
+    #tab-schedule .schedule-option-summary { grid-column: 1; grid-row: 3; height: 140px; }
+    #tab-schedule .schedule-card .sched-courses { grid-column: 2; grid-row: 3; height: 140px; }
+    #tab-schedule .schedule-card .sched-course { min-height: 32px; padding: 5px 0; }
+    #tab-schedule .schedule-card .btn-apply { min-height: 44px; padding-inline: 12px; }
+    #tab-schedule .schedule-detail-open .schedule-workspace { display: none; }
+    #tab-schedule .schedule-detail-open .schedule-detail-divider { display: none; }
+    #tab-schedule .schedule-detail-panel {
+        flex: 1 1 auto; width: 100%; min-width: 0; min-height: 0;
+        overflow-y: auto; overflow-x: hidden; overscroll-behavior-y: contain;
+    }
+    #tab-schedule .schedule-detail-panel[hidden] { display: none; }
+    #tab-schedule .schedule-detail-open > #schedule-mobile-back {
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        flex: 0 0 44px; min-height: 44px; margin-top: 6px;
+        border: 2px solid black; background: white; color: black;
+        font: inherit; font-size: .8rem; font-weight: 700;
+    }
+    #tab-schedule .schedule-view-header .course-detail-header { padding: 12px; }
+    #tab-schedule .schedule-view-header .course-detail-primary-actions { flex-wrap: wrap; }
+    #tab-schedule .schedule-view-header .course-detail-primary-actions button { min-height: 44px; }
+    #tab-schedule .schedule-course-inspector { padding: 12px; }
+    #tab-schedule .schedule-course-inspector h3 { display: none; }
+    #tab-schedule .schedule-course-info-toggle {
+        display: block; width: 100%; min-height: 44px; padding: 8px 10px;
+        border: 2px solid black; background: white; color: black;
+        font: inherit; font-size: .8rem; font-weight: 700; text-align: left;
+    }
+    #tab-schedule .course-info-collapsed #schedule-course-picker,
+    #tab-schedule .course-info-collapsed #schedule-course-info { display: none; }
+    #tab-schedule .schedule-course-picker { margin-top: 10px; --detail-section-width: 230px; }
+    #tab-schedule #schedule-course-info .course-section-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    #tab-schedule #schedule-course-info .course-section-summary-heading { flex-wrap: wrap; gap: 8px; }
+    #tab-schedule .schedule-full-course { min-height: 44px; }
+    #tab-schedule .schedule-view-tabs { position: sticky; top: 0; padding: 0; }
+    #tab-schedule .schedule-view-tabs button { flex: 1; min-height: 48px; padding: 10px 4px; font-size: .7rem; }
+    #tab-schedule .schedule-detail-panel .schedule-preview-panel,
+    #tab-schedule #schedule-walking-panel {
+        flex: 0 0 auto; height: max(360px, calc(var(--schedule-view-height, 650px) - 70px));
+        min-height: 360px; margin: 8px;
+    }
+    #tab-schedule #calendar-container { overflow: auto; overscroll-behavior: contain; }
+    #tab-schedule #calendar-grid { min-width: 560px; }
+    #tab-schedule #calendar-grid[hidden], #tab-schedule #calendar-agenda[hidden] { display: none; }
+    #tab-schedule .calendar-agenda { padding: 8px; }
+    #tab-schedule .calendar-view-toggle { min-height: 44px; }
+    #tab-schedule .walking-map-day, #tab-schedule .walking-locations-button { min-height: 44px; }
+    #tab-schedule .walking-map-layout { grid-template-rows: minmax(230px, 1fr) minmax(120px, .7fr); }
+    #tab-schedule .walking-map-side { grid-area: 2 / 1; width: 100%; }
+    #tab-schedule .walking-map-canvas { min-height: 230px; }
+    #tab-schedule .walking-map-layout { overflow: hidden; }
+    #tab-schedule .schedule-gpa-popup {
+        position: fixed; inset: auto 12px 16px; width: auto; max-width: none;
+        max-height: 45dvh; overflow-y: auto;
+    }
+    #tab-schedule .schedule-gpa-caution { min-width: 44px; min-height: 44px; }
+}
+
+@media (min-width: 360px) and (max-width: 760px) {
+    #tab-schedule .schedule-sort-label { display: inline; }
+}
+
+@media (max-width: 359px) {
+    #tab-schedule .schedule-view-header .course-detail-credit { display: none; }
+}

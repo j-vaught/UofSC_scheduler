@@ -12,20 +12,20 @@
 .walking-location-list button { display: block; width: 100%; background: white; color: black; border: 2px solid black; padding: 12px; margin: 8px 0; text-align: left; cursor: pointer; }
 .walking-location-list small { display: block; margin-top: 5px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
-/* Compact desktop windows and magnification stay accessible. Phones remain gated. */
+/* Compact windows and magnification stay accessible. */
 @media (max-width: 720px) {
-    html:not(.mobile-unsupported) body > header { grid-template-columns: 1fr auto; height: auto; flex-basis: auto; gap: 8px; padding: 8px; }
-    html:not(.mobile-unsupported) #main-tabs { grid-column: 1 / -1; grid-row: 2; min-height: 44px; }
-    html:not(.mobile-unsupported) .header-controls { gap: 5px; }
-    html:not(.mobile-unsupported) body > header h1 { font-size: 1rem; white-space: normal; }
-    html:not(.mobile-unsupported) #schedule-content.schedule-detail-open { grid-template-columns: minmax(0, 1fr); }
-    html:not(.mobile-unsupported) .schedule-detail-open .schedule-detail-divider { display: none; }
-    html:not(.mobile-unsupported) .schedule-detail-open .schedule-workspace { max-height: 200px; }
-    html:not(.mobile-unsupported) .schedule-detail-open { overflow-y: auto; }
-    html:not(.mobile-unsupported) .schedule-detail-panel { min-height: 65dvh; overflow: visible; }
-    html:not(.mobile-unsupported) .schedule-detail-open .schedule-view-tabs { position: static; }
-    html:not(.mobile-unsupported) .browse-search-form { grid-template-columns: minmax(0, 1fr) 44px 44px; }
-    html:not(.mobile-unsupported) #semester-search { min-width: 0; }
+    body > header { grid-template-columns: 1fr auto; height: auto; flex-basis: auto; gap: 8px; padding: 8px; }
+    #main-tabs { grid-column: 1 / -1; grid-row: 2; min-height: 44px; }
+    .header-controls { gap: 5px; }
+    body > header h1 { font-size: 1rem; white-space: normal; }
+    #schedule-content.schedule-detail-open { grid-template-columns: minmax(0, 1fr); }
+    .schedule-detail-open .schedule-detail-divider { display: none; }
+    .schedule-detail-open .schedule-workspace { max-height: 200px; }
+    .schedule-detail-open { overflow-y: auto; }
+    .schedule-detail-panel { min-height: 65dvh; overflow: visible; }
+    .schedule-detail-open .schedule-view-tabs { position: static; }
+    .browse-search-form { grid-template-columns: minmax(0, 1fr) 44px 44px; }
+    #semester-search { min-width: 0; }
 }
 
 .schedule-gpa-caution { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; min-height: 28px; cursor: help; }

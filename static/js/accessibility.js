@@ -1,8 +1,5 @@
-/* Shared desktop accessibility. Device policy is independent of viewport size. */
+/* Shared accessibility for desktop and mobile. */
 const Accessibility = {
-    mobileBlocked: navigator.userAgentData?.mobile === true
-        || /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)
-        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1),
     _timers: {},
 
     announce(message, channel = 'general') {
@@ -14,15 +11,6 @@ const Accessibility = {
     },
 
     init() {
-        const gate = document.querySelector('.desktop-only-gate');
-        gate.hidden = !this.mobileBlocked;
-        if (this.mobileBlocked) {
-            [...document.body.children].forEach(element => {
-                if (element !== gate && element.tagName !== 'SCRIPT') element.inert = true;
-            });
-            document.getElementById('desktop-only-title').focus();
-            return;
-        }
         const descriptions = {
             'btn-solve': 'Generate schedule options from your courses and preferences.',
             'btn-schedule-preferences': 'Choose preferred times, days, and walking time between classes.',
@@ -61,4 +49,4 @@ const Accessibility = {
         }));
     },
 };
-document.documentElement.classList.toggle('mobile-unsupported', Accessibility.mobileBlocked);
+

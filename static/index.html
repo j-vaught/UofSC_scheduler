@@ -25,15 +25,10 @@
     <link rel="stylesheet" href="/static/css/grades.css">
     <link rel="stylesheet" href="/static/css/map.css">
     <link rel="stylesheet" href="/static/css/accessibility.css">
+    <link rel="stylesheet" href="/static/css/mobile-schedule.css">
     <script src="/static/js/accessibility.js"></script>
 </head>
 <body>
-    <section class="desktop-only-gate" role="dialog" aria-modal="true" aria-labelledby="desktop-only-title" hidden>
-        <div class="desktop-only-gate-card">
-            <h2 id="desktop-only-title" tabindex="-1">Desktop browser required</h2>
-            <p>Mobile devices are not supported yet. Please open this site on a laptop or desktop computer.</p>
-        </div>
-    </section>
     <div class="skip-links"><a href="#search-results" data-skip="results">Skip to results</a><a href="#semester-content" data-skip="details">Skip to details</a></div>
     <div id="a11y-status-search" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     <div id="a11y-status-schedule" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -344,7 +339,7 @@
                 <div class="schedule-sidebar-toggle-rail">
                     <div id="schedule-sidebar-resize-handle" class="schedule-sidebar-resize-handle" role="separator" aria-label="Resize course tools" aria-controls="schedule-sidebar" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="560" aria-valuenow="340" tabindex="0"></div>
                     <button id="btn-toggle-schedule-sidebar" class="schedule-sidebar-toggle" type="button" aria-controls="schedule-sidebar" aria-expanded="true" aria-label="Hide course tools" title="Hide course tools">
-                        <span class="schedule-sidebar-toggle-icon" aria-hidden="true"></span>
+                        <span class="schedule-sidebar-toggle-icon" aria-hidden="true"></span><span class="schedule-sidebar-toggle-label">Your courses</span>
                     </button>
                 </div>
 
@@ -393,6 +388,7 @@
                         </div>
                         <section class="course-section-picker-wrap schedule-course-inspector" aria-labelledby="schedule-course-label">
                             <h3 id="schedule-course-label">View course info</h3>
+                            <button id="schedule-course-info-toggle" class="schedule-course-info-toggle" type="button" aria-expanded="true" aria-controls="schedule-course-picker schedule-course-info">View course info</button>
                             <div id="schedule-course-picker" class="course-section-picker schedule-course-picker"></div>
                             <div id="schedule-course-info" class="course-section-summary" aria-live="polite"></div>
                         </section>
@@ -422,6 +418,7 @@
                         </section>
                         <section id="schedule-walking-panel" role="tabpanel" aria-labelledby="schedule-tab-walking" hidden><div id="walking-map-container"></div></section>
                     </section>
+                    <button id="schedule-mobile-back" class="schedule-mobile-back" type="button" aria-controls="schedule-detail-panel solver-section"><span class="ui-icon icon-close" aria-hidden="true"></span>Back to schedules</button>
                 </section>
             </div>
         </div>

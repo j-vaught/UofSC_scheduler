@@ -30,7 +30,20 @@
                     document.getElementById(`schedule-tab-${next}`).focus();
                 });
             });
-            document.getElementById('btn-minimize-schedule-detail')?.addEventListener('click', () => this.hideScheduleDetail());
+            const compact = window.matchMedia('(max-width: 760px)');
+            const inspector = document.querySelector('.schedule-course-inspector');
+            const infoToggle = document.getElementById('schedule-course-info-toggle');
+            const setCourseInfoOpen = open => {
+                inspector.classList.toggle('course-info-collapsed', !open);
+                infoToggle.setAttribute('aria-expanded', String(open));
+                infoToggle.textContent = open ? 'Hide course info' : 'View course info';
+            };
+            setCourseInfoOpen(!compact.matches);
+            infoToggle.addEventListener('click', () => setCourseInfoOpen(infoToggle.getAttribute('aria-expanded') !== 'true'));
+            compact.addEventListener('change', event => setCourseInfoOpen(!event.matches));
+            ['btn-minimize-schedule-detail', 'schedule-mobile-back'].forEach(id => {
+                document.getElementById(id)?.addEventListener('click', () => this.hideScheduleDetail());
+            });
             document.getElementById('schedule-detail-panel')?.addEventListener('keydown', event => {
                 if (event.key === 'Escape') {
                     event.preventDefault();
@@ -421,11 +434,15 @@
             if (!layout || !sidebar || !button) return;
 
             const isCollapsed = Boolean(collapsed);
+            const compact = window.matchMedia('(max-width: 760px)').matches;
+            const count = Object.keys(deps.state.selectedCourses || {}).length;
+            const text = button.querySelector('.schedule-sidebar-toggle-label');
+            if (text) text.textContent = `Your courses (${count})`;
             layout.classList.toggle('schedule-sidebar-collapsed', isCollapsed);
             sidebar.setAttribute('aria-hidden', String(isCollapsed));
             button.setAttribute('aria-expanded', String(!isCollapsed));
-            button.setAttribute('aria-label', isCollapsed ? 'Show course tools' : 'Hide course tools');
-            button.title = isCollapsed ? 'Show course tools' : 'Hide course tools';
+            button.setAttribute('aria-label', compact ? `${isCollapsed ? 'Show' : 'Hide'} your courses (${count})` : isCollapsed ? 'Show course tools' : 'Hide course tools');
+            button.title = button.getAttribute('aria-label');
             if (!isCollapsed && this._scheduleSidebarPreferredWidth) {
                 this.setScheduleSidebarWidth(this._scheduleSidebarPreferredWidth, false);
             }
@@ -443,7 +460,7 @@
             if (persist && typeof localStorage !== 'undefined') {
                 try {
                     localStorage.setItem(
-                        'uofsc-schedule-sidebar-collapsed-v1',
+                        compact ? 'uofsc-schedule-sidebar-mobile-collapsed-v1' : 'uofsc-schedule-sidebar-collapsed-v1',
                         String(isCollapsed),
                     );
                 } catch (error) {
@@ -468,15 +485,18 @@
             const button = document.getElementById('btn-toggle-schedule-sidebar');
             if (!button) return;
 
-            let collapsed = false;
-            if (typeof localStorage !== 'undefined') {
+            const compact = window.matchMedia('(max-width: 760px)');
+            const restore = () => {
+                let collapsed = compact.matches && Object.keys(deps.state.selectedCourses || {}).length > 0;
                 try {
-                    collapsed = localStorage.getItem('uofsc-schedule-sidebar-collapsed-v1') === 'true';
-                } catch (error) {
-                    collapsed = false;
-                }
-            }
-            this.setScheduleSidebarCollapsed(collapsed, false);
+                    const saved = localStorage.getItem(compact.matches ? 'uofsc-schedule-sidebar-mobile-collapsed-v1' : 'uofsc-schedule-sidebar-collapsed-v1');
+                    if (saved !== null) collapsed = saved === 'true';
+                } catch { /* The course drawer works without storage. */ }
+                this.setScheduleSidebarCollapsed(collapsed, false);
+            };
+            restore();
+            compact.addEventListener('change', restore);
+            deps.state.on('courses-changed', () => this.setScheduleSidebarCollapsed(button.getAttribute('aria-expanded') !== 'true', false));
             button.addEventListener('click', () => {
                 if (button.dataset?.ignoreNextClick === 'true') {
                     delete button.dataset.ignoreNextClick;

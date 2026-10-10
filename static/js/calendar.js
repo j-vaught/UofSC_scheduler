@@ -19,15 +19,9 @@ const Calendar = {
 
     init() {
         this.buildGrid(5);
+        this.setAgendaView(window.matchMedia('(max-width: 480px)').matches);
         document.getElementById('calendar-view-toggle').addEventListener('click', () => {
-            this._agendaView = !this._agendaView;
-            const button = document.getElementById('calendar-view-toggle');
-            button.setAttribute('aria-pressed', String(this._agendaView));
-            button.textContent = this._agendaView ? 'Weekly view' : 'List view';
-            button.dataset.help = this._agendaView ? 'Show meetings on the weekly calendar.' : 'Show meetings in a chronological list.';
-            document.getElementById('calendar-grid').hidden = this._agendaView;
-            document.getElementById('calendar-agenda').hidden = !this._agendaView;
-            document.getElementById('calendar-container').scrollTop = 0;
+            this.setAgendaView(!this._agendaView);
             this.render();
         });
         State.on('sections-changed', () => this.render());
@@ -44,6 +38,17 @@ const Calendar = {
             container.scrollTop = scrollMinutes * this.PX_PER_MIN;
         });
         this._sizeObserver.observe(container);
+    },
+
+    setAgendaView(agenda) {
+        this._agendaView = agenda;
+        const button = document.getElementById('calendar-view-toggle');
+        button.setAttribute('aria-pressed', String(agenda));
+        button.textContent = agenda ? 'Weekly view' : 'List view';
+        button.title = agenda ? 'Show meetings on the weekly calendar.' : 'Show meetings in a chronological list.';
+        document.getElementById('calendar-grid').hidden = agenda;
+        document.getElementById('calendar-agenda').hidden = !agenda;
+        document.getElementById('calendar-container').scrollTop = 0;
     },
 
     getColor(code) {

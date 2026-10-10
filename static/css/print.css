@@ -7,7 +7,6 @@
  */
 /* === Print Styles === */
 @media print {
-    .desktop-only-gate { display: none !important; }
     header, #main-tabs, #schedule-sidebar, .schedule-sidebar-toggle-rail, #degree-sidebar, #semester-search { display: none; }
     main { height: auto; }
     .main-tab { display: block !important; height: auto; }
